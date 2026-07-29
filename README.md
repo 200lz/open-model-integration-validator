@@ -124,6 +124,20 @@ comparison. Install the pinned optional dependency separately:
 python -m pip install -e '.[gguf]'
 ```
 
+Run the optional GGUF integration tests by enabling them and configuring the local
+model paths:
+
+```bash
+OMIV_RUN_GGUF_INTEGRATION=1 \
+OMIV_QWEN_GGUF_DIR=/path/to/qwen-gguf-files \
+OMIV_KIMI_LINEAR_GGUF=/path/to/kimi-linear-moe.gguf \
+python -m pytest tests/test_gguf_integration.py -q
+```
+
+`OMIV_QWEN_GGUF_DIR` must contain the FP16, Q8_0, and Q4_K_M Qwen files named in
+`tests/test_gguf_integration.py`. `OMIV_KIMI_LINEAR_GGUF` is the full path to the
+Kimi Linear GGUF file. Tests whose configured files are absent skip cleanly.
+
 Create a canonical inventory:
 
 ```bash

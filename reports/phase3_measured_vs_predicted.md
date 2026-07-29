@@ -90,8 +90,8 @@ Commands:
 set -o pipefail
 .venv/bin/python tools/drop_day/fetch_headers.py \
   moonshotai/Kimi-K3 \
-  -o /home/chen1/projects/kimi-k3-upstream/reports/raw/kimi_k3_tensors.json \
-  2>&1 | tee /home/chen1/projects/kimi-k3-upstream/reports/raw/kimi_k3_fetch_headers.txt
+  -o <PROJECT_ROOT>/reports/raw/kimi_k3_tensors.json \
+  2>&1 | tee <PROJECT_ROOT>/reports/raw/kimi_k3_fetch_headers.txt
 # PIPESTATUS[0] = 0
 
 .venv/bin/python /tmp/analyze_k3_inventory.py
