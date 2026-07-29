@@ -33,6 +33,7 @@ from omiv.mapping.reporting import (
     render_mapping_markdown,
 )
 from omiv.mapping.validator import format_mapping_report, validate_semantic_mapping
+from omiv.model_packs.registry import get_model_pack, list_model_packs
 from omiv.models import ModelInventory
 from omiv.normalizer import normalize_inventory, write_inventory
 from omiv.reporters.console import format_report
@@ -41,6 +42,8 @@ from omiv.schema.loader import load_schema
 from omiv.validators.kimi_k3 import validate_inventory
 
 app = typer.Typer(no_args_is_help=True, pretty_exceptions_enable=False)
+model_packs_app = typer.Typer(no_args_is_help=True)
+app.add_typer(model_packs_app, name="model-packs")
 MAX_CANONICAL_INVENTORY_BYTES = 64 * 1024 * 1024
 
 
@@ -58,9 +61,7 @@ def _read_report_schema(path: Path) -> str | None:
 
 @app.command()
 def normalize(
-    input_path: Annotated[
-        Path, typer.Option("--input", exists=True, dir_okay=False)
-    ],
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
     output_path: Annotated[Path, typer.Option("--output", dir_okay=False)],
 ) -> None:
     """Compact a local Kimi K3 raw header inventory."""
@@ -74,12 +75,8 @@ def normalize(
 
 @app.command()
 def validate(
-    inventory_path: Annotated[
-        Path, typer.Option("--inventory", exists=True, dir_okay=False)
-    ],
-    schema_path: Annotated[
-        Path, typer.Option("--schema", exists=True, dir_okay=False)
-    ],
+    inventory_path: Annotated[Path, typer.Option("--inventory", exists=True, dir_okay=False)],
+    schema_path: Annotated[Path, typer.Option("--schema", exists=True, dir_okay=False)],
 ) -> None:
     """Validate a canonical inventory against the Kimi K3 Phase 1 schema."""
     try:
@@ -104,9 +101,7 @@ def validate(
 
 @app.command()
 def gguf_normalize(
-    input_path: Annotated[
-        Path, typer.Option("--input", exists=True, dir_okay=False)
-    ],
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
     output_path: Annotated[Path, typer.Option("--output", dir_okay=False)],
 ) -> None:
     """Create a deterministic GGUF descriptor inventory without reading tensor data."""
@@ -120,18 +115,10 @@ def gguf_normalize(
 
 @app.command()
 def gguf_diff(
-    source_path: Annotated[
-        Path, typer.Option("--source", exists=True, dir_okay=False)
-    ],
-    target_path: Annotated[
-        Path, typer.Option("--target", exists=True, dir_okay=False)
-    ],
-    policy_path: Annotated[
-        Path, typer.Option("--policy", exists=True, dir_okay=False)
-    ],
-    json_output: Annotated[
-        Path | None, typer.Option("--json-output", dir_okay=False)
-    ] = None,
+    source_path: Annotated[Path, typer.Option("--source", exists=True, dir_okay=False)],
+    target_path: Annotated[Path, typer.Option("--target", exists=True, dir_okay=False)],
+    policy_path: Annotated[Path, typer.Option("--policy", exists=True, dir_okay=False)],
+    json_output: Annotated[Path | None, typer.Option("--json-output", dir_okay=False)] = None,
     markdown_output: Annotated[
         Path | None, typer.Option("--markdown-output", dir_okay=False)
     ] = None,
@@ -149,12 +136,8 @@ def gguf_diff(
         comparison = compare_gguf_inventories(source, target, policy)
         if json_output is not None or markdown_output is not None:
             envelope = build_report_envelope(source, target, policy, comparison)
-            json_content = (
-                pretty_report_json(envelope) if json_output is not None else None
-            )
-            markdown_content = (
-                render_markdown(envelope) if markdown_output is not None else None
-            )
+            json_content = pretty_report_json(envelope) if json_output is not None else None
+            markdown_content = render_markdown(envelope) if markdown_output is not None else None
             if json_output is not None:
                 validate_output_path(json_output, forbidden_inputs=input_paths)
             if markdown_output is not None:
@@ -162,8 +145,7 @@ def gguf_diff(
             if (
                 json_output is not None
                 and markdown_output is not None
-                and json_output.resolve(strict=False)
-                == markdown_output.resolve(strict=False)
+                and json_output.resolve(strict=False) == markdown_output.resolve(strict=False)
             ):
                 raise OmivInputError("JSON and Markdown outputs must be different paths")
             if json_output is not None and json_content is not None:
@@ -193,21 +175,14 @@ def gguf_diff(
 
 @app.command("mapping-validate")
 def mapping_validate(
-    source_path: Annotated[
-        Path, typer.Option("--source", exists=True, dir_okay=False)
-    ],
-    target_path: Annotated[
-        Path, typer.Option("--target", exists=True, dir_okay=False)
-    ],
-    mapping_path: Annotated[
-        Path, typer.Option("--mapping", exists=True, dir_okay=False)
-    ],
-    json_output: Annotated[
-        Path | None, typer.Option("--json-output", dir_okay=False)
-    ] = None,
+    source_path: Annotated[Path, typer.Option("--source", exists=True, dir_okay=False)],
+    target_path: Annotated[Path, typer.Option("--target", exists=True, dir_okay=False)],
+    mapping_path: Annotated[Path, typer.Option("--mapping", exists=True, dir_okay=False)],
+    json_output: Annotated[Path | None, typer.Option("--json-output", dir_okay=False)] = None,
     markdown_output: Annotated[
         Path | None, typer.Option("--markdown-output", dir_okay=False)
     ] = None,
+    model_pack_id: Annotated[str | None, typer.Option("--model-pack")] = None,
 ) -> None:
     """Validate a static HF-to-GGUF semantic mapping manifest."""
     input_paths = (source_path, target_path, mapping_path)
@@ -224,12 +199,13 @@ def mapping_validate(
         )
         source = HFInventory.model_validate(source_raw)
         target = GGUFInventory.model_validate(target_raw)
-        manifest = load_mapping_manifest(mapping_path)
-        validation = validate_semantic_mapping(source, target, manifest)
+        manifest = load_mapping_manifest(
+            mapping_path, requested_pack_id=model_pack_id
+        )
+        model_pack = None if model_pack_id is None else get_model_pack(model_pack_id)
+        validation = validate_semantic_mapping(source, target, manifest, model_pack=model_pack)
         if json_output is not None or markdown_output is not None:
-            envelope = build_mapping_report_envelope(
-                source, target, manifest, validation
-            )
+            envelope = build_mapping_report_envelope(source, target, manifest, validation)
             if json_output is not None:
                 validate_output_path(json_output, forbidden_inputs=input_paths)
             if markdown_output is not None:
@@ -237,8 +213,7 @@ def mapping_validate(
             if (
                 json_output is not None
                 and markdown_output is not None
-                and json_output.resolve(strict=False)
-                == markdown_output.resolve(strict=False)
+                and json_output.resolve(strict=False) == markdown_output.resolve(strict=False)
             ):
                 raise OmivInputError("JSON and Markdown outputs must be different paths")
             if json_output is not None:
@@ -268,12 +243,8 @@ def mapping_validate(
 
 @app.command("report")
 def report_command(
-    input_path: Annotated[
-        Path, typer.Option("--input", exists=True, dir_okay=False)
-    ],
-    output_format: Annotated[
-        str, typer.Option("--format")
-    ],
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    output_format: Annotated[str, typer.Option("--format")],
     output_path: Annotated[Path, typer.Option("--output", dir_okay=False)],
 ) -> None:
     """Render a validated versioned report in another supported format."""
@@ -299,9 +270,7 @@ def report_command(
 
 @app.command("report-verify")
 def report_verify(
-    input_path: Annotated[
-        Path, typer.Option("--input", exists=True, dir_okay=False)
-    ],
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
 ) -> None:
     """Verify report schema and payload integrity without original artifacts."""
     try:
@@ -311,9 +280,7 @@ def report_verify(
             if not mapping_report_integrity_matches(mapping_envelope):
                 typer.echo("FAIL report integrity mismatch")
                 raise typer.Exit(code=1)
-            typer.echo(
-                f"PASS report integrity {mapping_envelope.integrity.sha256}"
-            )
+            typer.echo(f"PASS report integrity {mapping_envelope.integrity.sha256}")
             return
         envelope = load_report_envelope(input_path)
     except OmivInputError as exc:
@@ -327,15 +294,14 @@ def report_verify(
 
 @app.command()
 def hf_normalize(
-    model_dir: Annotated[
-        Path, typer.Option("--model-dir", exists=True, file_okay=False)
-    ],
+    model_dir: Annotated[Path, typer.Option("--model-dir", exists=True, file_okay=False)],
     output_path: Annotated[Path, typer.Option("--output", dir_okay=False)],
     provenance_path: Annotated[
         Path | None, typer.Option("--provenance", exists=True, dir_okay=False)
     ] = None,
+    model_pack_id: Annotated[str | None, typer.Option("--model-pack")] = None,
 ) -> None:
-    """Create a secure local Qwen2 Safetensors structural inventory."""
+    """Create a secure local Safetensors structural inventory."""
     try:
         inputs = [
             model_dir / "config.json",
@@ -349,6 +315,7 @@ def hf_normalize(
         inventory = read_hf_inventory(
             model_dir,
             provenance_path=provenance_path,
+            model_pack=(None if model_pack_id is None else get_model_pack(model_pack_id)),
         )
         atomic_write_text(
             output_path,
@@ -358,3 +325,38 @@ def hf_normalize(
     except (OSError, UnicodeError, ValidationError, OmivInputError) as exc:
         typer.echo(f"ERROR invalid input: {exc}", err=True)
         raise typer.Exit(code=2) from exc
+
+
+def _pack_line(metadata: object) -> str:
+    from omiv.model_packs.base import ModelPackMetadata
+
+    pack = ModelPackMetadata.model_validate(metadata)
+    capabilities = ",".join(capability.value for capability in pack.capabilities)
+    return (
+        f"{pack.pack_id}\t{pack.pack_version}\t{pack.model_family}\t"
+        f"{capabilities}\tproduction_supported={str(pack.production_supported).lower()}"
+    )
+
+
+@model_packs_app.command("list")
+def model_packs_list(
+    include_test_packs: Annotated[bool, typer.Option("--include-test-packs")] = False,
+) -> None:
+    """List statically registered built-in model packs."""
+    for metadata in list_model_packs(include_test_packs=include_test_packs):
+        typer.echo(_pack_line(metadata))
+
+
+@model_packs_app.command("show")
+def model_packs_show(
+    pack_id: Annotated[str, typer.Option("--pack")],
+) -> None:
+    """Show canonical metadata for one built-in model pack."""
+    try:
+        metadata = get_model_pack(pack_id).metadata
+    except OmivInputError as exc:
+        typer.echo(f"ERROR {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    payload = metadata.model_dump(mode="json")
+    payload["metadata_sha256"] = metadata.digest
+    typer.echo(json.dumps(payload, indent=2, sort_keys=True))

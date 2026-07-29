@@ -97,9 +97,7 @@ class IgnoredSource(StrictModel):
 
 
 class MappingRule(StrictModel):
-    rule_id: str = Field(
-        min_length=1, max_length=128, pattern=r"^[A-Za-z0-9][A-Za-z0-9._-]*$"
-    )
+    rule_id: str = Field(min_length=1, max_length=128, pattern=r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
     source: MappingSelector
     target: MappingSelector
     source_kind: SourceKind
@@ -118,16 +116,13 @@ class MappingRule(StrictModel):
         source_layer = "{layer}" in self.source.canonical_identity
         target_layer = "{layer}" in self.target.canonical_identity
         target_name_layer = (
-            self.target.tensor_name is not None
-            and "{layer}" in self.target.tensor_name
+            self.target.tensor_name is not None and "{layer}" in self.target.tensor_name
         )
         has_placeholder = source_layer or target_layer or target_name_layer
         if has_placeholder and self.layer_binding is None:
             raise ValueError("rule with {layer} requires layer_binding")
         if self.layer_binding is not None and (not source_layer or not target_layer):
-            raise ValueError(
-                "layer-bound rule requires {layer} in both canonical selectors"
-            )
+            raise ValueError("layer-bound rule requires {layer} in both canonical selectors")
         if self.source_kind == SourceKind.LOGICAL:
             if self.target_materialization is None:
                 raise ValueError("logical rule requires target_materialization")
@@ -149,12 +144,17 @@ class MappingRule(StrictModel):
         return self
 
 
+class MappingModelPack(StrictModel):
+    pack_id: str = Field(min_length=1, max_length=128, pattern=r"^[a-z0-9][a-z0-9._-]*$")
+    pack_schema_version: int = Field(ge=1)
+    minimum_pack_version: int = Field(ge=1)
+
+
 class MappingManifest(StrictModel):
     mapping_schema: Literal["omiv.semantic-mapping.v1"]
-    mapping_id: str = Field(
-        min_length=1, max_length=128, pattern=r"^[a-z0-9][a-z0-9._-]*$"
-    )
+    mapping_id: str = Field(min_length=1, max_length=128, pattern=r"^[a-z0-9][a-z0-9._-]*$")
     model_family: str = Field(min_length=1, max_length=64)
+    model_pack: MappingModelPack | None = None
     source_format: Literal["huggingface-safetensors"]
     target_format: Literal["gguf"]
     description: str | None = Field(default=None, max_length=2000)
@@ -186,9 +186,7 @@ class SemanticTensorDescriptor(StrictModel):
     source_kind: SourceKind
     materialized: bool
     shape: list[int]
-    shape_order: Literal[
-        "huggingface_safetensors", "gguf_on_disk_reader_tensor_shape", "logical"
-    ]
+    shape_order: Literal["huggingface_safetensors", "gguf_on_disk_reader_tensor_shape", "logical"]
     data_type: str | None
     physical_source_identity: str | None = None
 
@@ -266,6 +264,9 @@ class ManifestReportProvenance(StrictModel):
     mapping_id: str
     mapping_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     mapping_schema: Literal["omiv.semantic-mapping.v1"]
+    model_pack_id: str | None = None
+    model_pack_version: int | None = Field(default=None, ge=1)
+    model_pack_metadata_sha256: str | None = Field(default=None, pattern=r"^[0-9a-f]{64}$")
 
 
 class MappingReportSummary(StrictModel):

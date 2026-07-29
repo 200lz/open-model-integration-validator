@@ -17,6 +17,56 @@ python -m pip install -e '.[dev]'
 
 The runtime has no Hugging Face client and performs no network access.
 
+## Core, format adapters, and model packs
+
+Phase 4C separates OMIV into three layers:
+
+- **Core** owns canonical hashing, safe writes, report schemas and verification,
+  inventory base types, manifest parsing, mapping resolution and validation,
+  coverage/uniqueness rules, provenance-availability semantics, and CLI
+  orchestration.
+- **Format adapters** parse Safetensors or GGUF structure, metadata, dtype, shape,
+  and physical tensor descriptors. They do not interpret model-family tensor names.
+- **Model packs** contain model-family identity, format ontologies, config
+  interpretation, structural expectations, logical ties, mapping manifests, and
+  versioned capability metadata.
+
+A model pack contains model-family-specific interpretation rules. Format readers
+parse artifacts, while the core validation engine operates on canonical semantic
+entities. Adding a model family should not require changing the core resolver or
+validator.
+
+The built-in production packs are:
+
+| Pack | Capabilities | Formats |
+| --- | --- | --- |
+| `qwen2` | `hf_ontology`, `gguf_ontology`, `semantic_mapping` | HF Safetensors → GGUF |
+| `kimi-k3` | `checkpoint_ontology`, `checkpoint_schema` | Safetensors header inventory |
+
+`synthetic-dense` is a tiny two-layer, test-only pack used to prove that the same
+core classifier, resolver, coverage checks, shape checks, and report generator work
+for a second ontology. It is not production-supported and is hidden from normal
+listings.
+
+```bash
+omiv model-packs list
+omiv model-packs list --include-test-packs
+omiv model-packs show --pack qwen2
+```
+
+The registry is deliberately static: only packs explicitly imported by OMIV are
+available. Phase 4C performs no arbitrary runtime imports, user-supplied path loading,
+entry-point discovery, `eval`, or `exec`. This keeps untrusted CLI input from becoming
+Python code execution. A future built-in pack is added by implementing the typed
+capability-gated interface, registering its trusted import, and adding its ontology,
+constraints, manifests, and tests; the format readers and core resolver/validator do
+not change.
+
+Each pack has canonical `omiv.model-pack.v1` metadata containing its ID, schema
+version, pack version, family, capabilities, supported formats, and support status.
+Its deterministic SHA-256 covers only this declarative metadata. It does **not** prove
+that Python implementation source, bytecode, dependencies, or behavior are unchanged.
+
 ## Normalize
 
 The raw input must be a top-level JSON array of tensor header records. Normalization
@@ -273,6 +323,7 @@ measured physical tensors stable Qwen2 canonical identities:
 
 ```bash
 omiv hf-normalize \
+  --model-pack qwen2 \
   --model-dir /path/to/local/Qwen2.5-0.5B-Instruct \
   --provenance /path/to/local/Qwen2.5-0.5B-Instruct/omiv-source.json \
   --output fixtures/hf/qwen2_5_0_5b_instruct.inventory.json
@@ -327,9 +378,10 @@ values, compare tokenizers, run inference, or make numerical-fidelity claims.
 
 Phase 4B adds versioned, declarative mapping validation between a canonical Hugging
 Face Safetensors inventory and a canonical GGUF inventory. A mapping manifest names
-the model family and formats explicitly; its ID is part of the manifest and is never
-derived from a file name. Compact `{layer}` bindings connect every decoder layer
-without relying on inventory or tensor-file order.
+the model family, model-pack ID/schema/minimum version, and formats explicitly; its ID
+is part of the manifest and is never derived from a file name. Compact `{layer}`
+bindings connect every decoder layer without relying on inventory or tensor-file
+order.
 
 The first manifest is
 `mappings/qwen2_5_0_5b_hf_to_gguf.yaml`. It covers Qwen2 embeddings, output norm,
@@ -350,6 +402,7 @@ Run mapping validation and optionally persist both report formats:
 
 ```bash
 omiv mapping-validate \
+  --model-pack qwen2 \
   --source fixtures/hf/qwen2_5_0_5b_instruct.inventory.json \
   --target fixtures/gguf/qwen2_5_0_5b_fp16.inventory.json \
   --mapping mappings/qwen2_5_0_5b_hf_to_gguf.yaml \
@@ -363,6 +416,14 @@ MAP-001 through MAP-008 and warns at MAP-009 because the committed GGUF inventor
 do not record the source artifact hash, source repository/revision, converter commit,
 or conversion command.
 
+`--model-pack` is the explicit selection mechanism. For backward compatibility it
+may be omitted when trusted inventory/config metadata or the manifest identifies
+exactly one registered production pack. Detection is bounded to registered packs and
+model-family metadata; checkpoint or manifest filenames are never used. Missing,
+unsupported, or ambiguous identification exits 2, and ambiguity never selects a pack
+silently. The selected pack family, manifest family, supported formats, pack schema
+version, and minimum pack version must agree.
+
 `shape_relation` concerns descriptor conventions only. Qwen matrices declare
 `reverse_dimensions`, including square matrices, because GGUF descriptor dimensions
 are reversed relative to the HF/PyTorch shape display. `payload_transform: identity`
@@ -370,9 +431,10 @@ separately records the declared converter behavior; it is not a transpose claim 
 does not prove anything about tensor values. Vectors use `shape_relation: identical`.
 
 Mapping reports use the separate `omiv.semantic-mapping-report.v1` envelope and include
-source inventory, target inventory, target artifact, manifest, and report digests.
-They contain no timestamp or absolute path. Existing report tooling recognizes both
-GGUF comparison and semantic mapping report schemas:
+source inventory, target inventory, target artifact, manifest, model-pack ID/version,
+model-pack metadata, and report digests. The pack digest has the declarative limitation
+described above. Reports contain no timestamp or absolute path. Existing report tooling
+recognizes both GGUF comparison and semantic mapping report schemas:
 
 ```bash
 omiv report-verify \
@@ -395,7 +457,7 @@ tensor semantics are completely and uniquely connected under the mapping manifes
 It does not prove that target tensor payload values were copied, transformed,
 quantized, or generated correctly.
 
-Phase 4B performs no payload access, value hashing or sampling, dequantization,
+Phase 4C performs no payload access, value hashing or sampling, dequantization,
 converter execution, tokenizer validation, inference, numerical parity, packed MoE
 expert mapping, split/concatenate/reshape/fusion transform, or Kimi K3 production
 mapping.

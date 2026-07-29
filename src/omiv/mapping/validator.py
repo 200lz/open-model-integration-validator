@@ -9,6 +9,7 @@ from omiv.canonical import canonical_sha256
 from omiv.errors import OmivInputError
 from omiv.gguf.models import GGUFInventory
 from omiv.hf.models import HFInventory
+from omiv.mapping.manifest import resolve_manifest_model_pack
 from omiv.mapping.models import (
     MappingCoverage,
     MappingFinding,
@@ -21,8 +22,9 @@ from omiv.mapping.models import (
     ShapeRelation,
     SourceKind,
 )
-from omiv.mapping.ontology import hf_semantic_view, qwen2_gguf_semantic_view
+from omiv.mapping.ontology import gguf_semantic_view, hf_semantic_view
 from omiv.mapping.resolver import ResolutionDiagnostics, resolve_mapping_with_diagnostics
+from omiv.model_packs.base import ModelPack
 
 EXAMPLE_CAP = 10
 
@@ -57,12 +59,9 @@ def _ignored_source_keys(
     ignored: dict[str, str] = {}
     for entry in manifest.ignored_sources:
         for entity in source_entities:
-            if (
-                entity.canonical_identity == entry.selector.canonical_identity
-                and (
-                    entry.selector.tensor_name is None
-                    or entity.exact_name == entry.selector.tensor_name
-                )
+            if entity.canonical_identity == entry.selector.canonical_identity and (
+                entry.selector.tensor_name is None
+                or entity.exact_name == entry.selector.tensor_name
             ):
                 ignored[_entity_key(entity)] = entry.justification
     return ignored
@@ -76,29 +75,22 @@ def _coverage(
 ) -> tuple[MappingFinding, MappingFinding, MappingCoverage]:
     ignored = _ignored_source_keys(source_entities, manifest)
     source_mapped = set(diagnostics.source_match_counts)
-    physical = [
-        entity for entity in source_entities if entity.source_kind == SourceKind.PHYSICAL
-    ]
-    logical = [
-        entity for entity in source_entities if entity.source_kind == SourceKind.LOGICAL
-    ]
+    physical = [entity for entity in source_entities if entity.source_kind == SourceKind.PHYSICAL]
+    logical = [entity for entity in source_entities if entity.source_kind == SourceKind.LOGICAL]
     unmapped_physical = sorted(
         entity.canonical_identity or entity.exact_name
         for entity in physical
-        if _entity_key(entity) not in source_mapped
-        and _entity_key(entity) not in ignored
+        if _entity_key(entity) not in source_mapped and _entity_key(entity) not in ignored
     )
     unmapped_logical = sorted(
         entity.canonical_identity or entity.exact_name
         for entity in logical
-        if _entity_key(entity) not in source_mapped
-        and _entity_key(entity) not in ignored
+        if _entity_key(entity) not in source_mapped and _entity_key(entity) not in ignored
     )
     unclassified_source = sorted(
         entity.exact_name
         for entity in source_entities
-        if entity.classification == "unclassified"
-        and _entity_key(entity) not in ignored
+        if entity.classification == "unclassified" and _entity_key(entity) not in ignored
     )
     source_failed = manifest.require_complete_source_coverage and bool(
         unmapped_physical
@@ -138,9 +130,7 @@ def _coverage(
 
     target_mapped = set(diagnostics.target_name_match_counts)
     unclassified_target = sorted(
-        entity.exact_name
-        for entity in target_entities
-        if entity.classification == "unclassified"
+        entity.exact_name for entity in target_entities if entity.classification == "unclassified"
     )
     unexpected_target = sorted(
         entity.exact_name
@@ -148,9 +138,7 @@ def _coverage(
         if entity.exact_name not in target_mapped and entity.classification == "classified"
     )
     target_failed = manifest.require_complete_target_coverage and bool(
-        unexpected_target
-        or unclassified_target
-        or diagnostics.zero_target_matches
+        unexpected_target or unclassified_target or diagnostics.zero_target_matches
     )
     map002 = _finding(
         "MAP-002",
@@ -185,9 +173,7 @@ def _coverage(
         physical_source_total=len(physical),
         logical_source_mapped=len(logical) - len(unmapped_logical),
         logical_source_total=len(logical),
-        target_explained=len(target_entities)
-        - len(unexpected_target)
-        - len(unclassified_target),
+        target_explained=len(target_entities) - len(unexpected_target) - len(unclassified_target),
         target_total=len(target_entities),
         duplicate_source_count=duplicate_sources,
         duplicate_target_count=duplicate_targets,
@@ -198,13 +184,9 @@ def _coverage(
 
 
 def _source_uniqueness(diagnostics: ResolutionDiagnostics) -> MappingFinding:
-    duplicates = sorted(
-        key for key, count in diagnostics.source_match_counts.items() if count > 1
-    )
+    duplicates = sorted(key for key, count in diagnostics.source_match_counts.items() if count > 1)
     failed = bool(
-        duplicates
-        or diagnostics.multiple_source_matches
-        or diagnostics.source_kind_mismatches
+        duplicates or diagnostics.multiple_source_matches or diagnostics.source_kind_mismatches
     )
     return _finding(
         "MAP-003",
@@ -218,13 +200,9 @@ def _source_uniqueness(diagnostics: ResolutionDiagnostics) -> MappingFinding:
             "duplicate_source_count": len(duplicates),
             "duplicate_source_examples": duplicates[:EXAMPLE_CAP],
             "multi_match_binding_count": len(diagnostics.multiple_source_matches),
-            "multi_match_binding_examples": diagnostics.multiple_source_matches[
-                :EXAMPLE_CAP
-            ],
+            "multi_match_binding_examples": diagnostics.multiple_source_matches[:EXAMPLE_CAP],
             "source_kind_mismatch_count": len(diagnostics.source_kind_mismatches),
-            "source_kind_mismatch_examples": diagnostics.source_kind_mismatches[
-                :EXAMPLE_CAP
-            ],
+            "source_kind_mismatch_examples": diagnostics.source_kind_mismatches[:EXAMPLE_CAP],
             "example_cap": EXAMPLE_CAP,
         },
     )
@@ -235,13 +213,9 @@ def _target_uniqueness(diagnostics: ResolutionDiagnostics) -> MappingFinding:
         key for key, count in diagnostics.target_name_match_counts.items() if count > 1
     )
     duplicate_identities = sorted(
-        key
-        for key, count in diagnostics.target_identity_match_counts.items()
-        if count > 1
+        key for key, count in diagnostics.target_identity_match_counts.items() if count > 1
     )
-    failed = bool(
-        duplicate_names or duplicate_identities or diagnostics.multiple_target_matches
-    )
+    failed = bool(duplicate_names or duplicate_identities or diagnostics.multiple_target_matches)
     return _finding(
         "MAP-004",
         MappingStatus.FAIL if failed else MappingStatus.PASS,
@@ -256,9 +230,7 @@ def _target_uniqueness(diagnostics: ResolutionDiagnostics) -> MappingFinding:
             "duplicate_target_identity_count": len(duplicate_identities),
             "duplicate_target_identity_examples": duplicate_identities[:EXAMPLE_CAP],
             "multi_match_binding_count": len(diagnostics.multiple_target_matches),
-            "multi_match_binding_examples": diagnostics.multiple_target_matches[
-                :EXAMPLE_CAP
-            ],
+            "multi_match_binding_examples": diagnostics.multiple_target_matches[:EXAMPLE_CAP],
             "example_cap": EXAMPLE_CAP,
         },
     )
@@ -279,8 +251,7 @@ def _layers(diagnostics: ResolutionDiagnostics) -> MappingFinding:
                 }
             )
         elif resolution.layer_id is not None and (
-            source.layer_id != resolution.layer_id
-            or target.layer_id != resolution.layer_id
+            source.layer_id != resolution.layer_id or target.layer_id != resolution.layer_id
         ):
             mismatches.append(
                 {
@@ -314,9 +285,7 @@ def _layers(diagnostics: ResolutionDiagnostics) -> MappingFinding:
 
 
 def _shapes(diagnostics: ResolutionDiagnostics) -> MappingFinding:
-    mismatches: dict[tuple[str, tuple[int, ...], tuple[int, ...]], list[str]] = defaultdict(
-        list
-    )
+    mismatches: dict[tuple[str, tuple[int, ...], tuple[int, ...]], list[str]] = defaultdict(list)
     relation_counts: Counter[str] = Counter()
     for resolution in diagnostics.resolutions:
         relation_counts[resolution.shape_relation.value] += 1
@@ -411,40 +380,68 @@ def _logical_tie(
     source: HFInventory,
     diagnostics: ResolutionDiagnostics,
     manifest: MappingManifest,
+    pack: ModelPack,
 ) -> MappingFinding:
-    logical_identity = "qwen2.output_projection.weight"
-    ties = [tie for tie in source.logical_ties if tie.logical_identity == logical_identity]
+    logical_rules = [rule for rule in manifest.rules if rule.source_kind == SourceKind.LOGICAL]
+    required = pack.provide_model_constraints().logical_tie_required
+    if not source.logical_ties and not logical_rules and not required:
+        return _finding(
+            "MAP-008",
+            MappingStatus.PASS,
+            "No logical tied source is declared",
+            {
+                "logical_tied_source": None,
+                "physical_source_identity": None,
+                "source_materialized": None,
+                "materialized_target": None,
+                "payload_equality_status": "not applicable",
+                "payload_origin": None,
+                "failure_count": 0,
+                "failure_examples": [],
+                "physical_lm_head_required": False,
+            },
+        )
+    logical_identities = sorted(
+        {tie.logical_identity for tie in source.logical_ties}
+        | {rule.source.canonical_identity for rule in logical_rules}
+    )
+    logical_identity = logical_identities[0] if len(logical_identities) == 1 else None
+    ties = [
+        tie
+        for tie in source.logical_ties
+        if logical_identity is not None and tie.logical_identity == logical_identity
+    ]
     resolutions = [
         resolution
         for resolution in diagnostics.resolutions
-        if resolution.source.canonical_identity == logical_identity
+        if logical_identity is not None
+        and resolution.source.canonical_identity == logical_identity
         and resolution.source.source_kind == SourceKind.LOGICAL
     ]
     rules = {
         rule.rule_id: rule
         for rule in manifest.rules
-        if rule.source_kind == SourceKind.LOGICAL
+        if logical_identity is not None
+        and rule.source_kind == SourceKind.LOGICAL
         and rule.source.canonical_identity == logical_identity
     }
     failures: list[str] = []
+    if logical_identity is None:
+        failures.append("logical tie identity is missing or ambiguous")
     tie = ties[0] if len(ties) == 1 else None
     if tie is None:
         failures.append("logical tie is missing or duplicated")
-    elif tie.physical_source_identity != "qwen2.token_embedding.weight":
-        failures.append("logical tie has the wrong physical source identity")
     if len(resolutions) != 1:
         failures.append("logical tie does not resolve exactly once")
         resolution = None
     else:
         resolution = resolutions[0]
         rule = rules.get(resolution.rule_id)
-        if resolution.target.exact_name != "output.weight":
-            failures.append("materialized target output.weight is missing")
         if not resolution.target.materialized:
             failures.append("logical target is not physically materialized")
         if rule is None or rule.target_materialization != MaterializationPolicy.REQUIRED:
             failures.append("target materialization is not declared required")
-        if rule is None or rule.physical_source != "qwen2.token_embedding.weight":
+        if rule is None or tie is None or rule.physical_source != tie.physical_source_identity:
             failures.append("mapping rule has the wrong physical source identity")
         if rule is None or rule.payload_origin != "unverified":
             failures.append("payload origin must remain unverified")
@@ -458,13 +455,9 @@ def _logical_tie(
         ),
         {
             "logical_tied_source": logical_identity,
-            "physical_source_identity": (
-                None if tie is None else tie.physical_source_identity
-            ),
+            "physical_source_identity": (None if tie is None else tie.physical_source_identity),
             "source_materialized": None if tie is None else tie.materialized,
-            "materialized_target": (
-                None if resolution is None else resolution.target.exact_name
-            ),
+            "materialized_target": (None if resolution is None else resolution.target.exact_name),
             "payload_equality_status": "not checked",
             "payload_origin": "unverified",
             "failure_count": len(failures),
@@ -498,8 +491,7 @@ def _provenance(source: HFInventory, target: GGUFInventory) -> MappingFinding:
     mismatched: list[str] = []
     if (
         target_values.get(target_fields["source_repository"]) is not None
-        and target_values.get(target_fields["source_repository"])
-        != source.provenance.repository
+        and target_values.get(target_fields["source_repository"]) != source.provenance.repository
     ):
         mismatched.append("source_repository")
     if (
@@ -508,13 +500,10 @@ def _provenance(source: HFInventory, target: GGUFInventory) -> MappingFinding:
     ):
         mismatched.append("source_revision")
     source_artifact_hash = target_values.get(target_fields["source_artifact_hash"])
-    if (
-        source_artifact_hash is not None
-        and (
-            not isinstance(source_artifact_hash, str)
-            or len(source_artifact_hash) != 64
-            or any(character not in "0123456789abcdef" for character in source_artifact_hash)
-        )
+    if source_artifact_hash is not None and (
+        not isinstance(source_artifact_hash, str)
+        or len(source_artifact_hash) != 64
+        or any(character not in "0123456789abcdef" for character in source_artifact_hash)
     ):
         mismatched.append("source_artifact_hash")
     passed = not missing and not mismatched
@@ -548,20 +537,22 @@ def validate_semantic_mapping(
     source: HFInventory,
     target: GGUFInventory,
     manifest: MappingManifest,
+    model_pack: ModelPack | None = None,
 ) -> MappingValidationReport:
+    pack = (
+        resolve_manifest_model_pack(manifest)
+        if model_pack is None
+        else resolve_manifest_model_pack(manifest, requested_pack_id=model_pack.pack_id)
+    )
     source_payload = source.model_dump(mode="json", by_alias=True)
     observed_source_sha256 = source_payload.pop("canonical_sha256")
     if canonical_sha256(source_payload) != observed_source_sha256:
-        raise OmivInputError(
-            "HF inventory canonical SHA-256 does not match its contents"
-        )
+        raise OmivInputError("HF inventory canonical SHA-256 does not match its contents")
     if source.summary.physical_tensor_count != len(source.tensors):
         raise OmivInputError("HF inventory physical tensor count is inconsistent")
     if source.summary.logical_tie_count != len(source.logical_ties):
         raise OmivInputError("HF inventory logical tie count is inconsistent")
-    classified_count = sum(
-        tensor.classification == "classified" for tensor in source.tensors
-    )
+    classified_count = sum(tensor.classification == "classified" for tensor in source.tensors)
     if (
         source.summary.classified_tensor_count != classified_count
         or source.summary.unclassified_tensor_count != len(source.tensors) - classified_count
@@ -575,21 +566,13 @@ def validate_semantic_mapping(
     if len(target_names) != len(set(target_names)):
         raise OmivInputError("GGUF inventory contains duplicate tensor names")
     if manifest.model_family != source.config.model_type:
-        raise OmivInputError(
-            "mapping model_family does not match source inventory model type"
-        )
+        raise OmivInputError("mapping model_family does not match source inventory model type")
     if target.identity.architecture != manifest.model_family:
-        raise OmivInputError(
-            "mapping model_family does not match target inventory architecture"
-        )
+        raise OmivInputError("mapping model_family does not match target inventory architecture")
     source_entities = hf_semantic_view(source)
-    target_entities = qwen2_gguf_semantic_view(target)
-    diagnostics = resolve_mapping_with_diagnostics(
-        source_entities, target_entities, manifest
-    )
-    map001, map002, coverage = _coverage(
-        source_entities, target_entities, diagnostics, manifest
-    )
+    target_entities = gguf_semantic_view(target, pack)
+    diagnostics = resolve_mapping_with_diagnostics(source_entities, target_entities, manifest)
+    map001, map002, coverage = _coverage(source_entities, target_entities, diagnostics, manifest)
     findings = [
         map001,
         map002,
@@ -598,7 +581,7 @@ def validate_semantic_mapping(
         _layers(diagnostics),
         _shapes(diagnostics),
         _parameters(diagnostics),
-        _logical_tie(source, diagnostics, manifest),
+        _logical_tie(source, diagnostics, manifest, pack),
         _provenance(source, target),
     ]
     return MappingValidationReport(
@@ -616,7 +599,5 @@ def validate_semantic_mapping(
 def format_mapping_report(report: MappingValidationReport) -> str:
     lines: list[str] = []
     for finding in report.findings:
-        lines.append(
-            f"{finding.status.value.upper()} {finding.rule_id} {finding.message}"
-        )
+        lines.append(f"{finding.status.value.upper()} {finding.rule_id} {finding.message}")
     return "\n".join(lines)

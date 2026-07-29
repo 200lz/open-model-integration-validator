@@ -16,6 +16,7 @@ from omiv.gguf.models import GGUFInventory
 from omiv.gguf.reporting import inventory_sha256 as gguf_inventory_sha256
 from omiv.hf.json_loader import parse_bounded_json_bytes
 from omiv.hf.models import HFInventory
+from omiv.mapping.manifest import resolve_manifest_model_pack
 from omiv.mapping.models import (
     ManifestReportProvenance,
     MappingFinding,
@@ -33,9 +34,9 @@ from omiv.mapping.models import (
     TargetReportProvenance,
 )
 
-MAPPING_REPORT_SCHEMA_ID: Final[
-    Literal["omiv.semantic-mapping-report.v1"]
-] = "omiv.semantic-mapping-report.v1"
+MAPPING_REPORT_SCHEMA_ID: Final[Literal["omiv.semantic-mapping-report.v1"]] = (
+    "omiv.semantic-mapping-report.v1"
+)
 MAX_REPORT_BYTES = 16 * 1024 * 1024
 
 
@@ -51,8 +52,7 @@ class ValidatedMappingReportPayload(MappingReportPayload):
             MappingStatus.FAIL: "error",
         }
         if any(
-            finding.severity.value != expected_severity[finding.status]
-            for finding in self.findings
+            finding.severity.value != expected_severity[finding.status] for finding in self.findings
         ):
             raise ValueError("finding severity does not match status")
         expected_summary = _summary(
@@ -100,15 +100,9 @@ def _summary(
 ) -> MappingReportSummary:
     return coverage.model_copy(
         update={
-            "pass_count": sum(
-                finding.status == MappingStatus.PASS for finding in findings
-            ),
-            "warn_count": sum(
-                finding.status == MappingStatus.WARN for finding in findings
-            ),
-            "fail_count": sum(
-                finding.status == MappingStatus.FAIL for finding in findings
-            ),
+            "pass_count": sum(finding.status == MappingStatus.PASS for finding in findings),
+            "warn_count": sum(finding.status == MappingStatus.WARN for finding in findings),
+            "fail_count": sum(finding.status == MappingStatus.FAIL for finding in findings),
         }
     )
 
@@ -116,15 +110,9 @@ def _summary(
 def _report_summary(validation: MappingValidationReport) -> MappingReportSummary:
     coverage = validation.coverage
     return MappingReportSummary(
-        pass_count=sum(
-            finding.status == MappingStatus.PASS for finding in validation.findings
-        ),
-        warn_count=sum(
-            finding.status == MappingStatus.WARN for finding in validation.findings
-        ),
-        fail_count=sum(
-            finding.status == MappingStatus.FAIL for finding in validation.findings
-        ),
+        pass_count=sum(finding.status == MappingStatus.PASS for finding in validation.findings),
+        warn_count=sum(finding.status == MappingStatus.WARN for finding in validation.findings),
+        fail_count=sum(finding.status == MappingStatus.FAIL for finding in validation.findings),
         physical_source_mapped=coverage.physical_source_mapped,
         physical_source_total=coverage.physical_source_total,
         logical_source_mapped=coverage.logical_source_mapped,
@@ -146,6 +134,7 @@ def build_mapping_report_envelope(
     manifest: MappingManifest,
     validation: MappingValidationReport,
 ) -> ValidatedMappingReportEnvelope:
+    model_pack = resolve_manifest_model_pack(manifest)
     if source.summary.physical_tensor_count != len(source.tensors):
         raise OmivInputError("HF inventory physical tensor count is inconsistent")
     if source.summary.logical_tie_count != len(source.logical_ties):
@@ -157,9 +146,7 @@ def build_mapping_report_envelope(
     result = derive_mapping_result(validation.findings)
     payload = ValidatedMappingReportPayload(
         report_schema=MAPPING_REPORT_SCHEMA_ID,
-        tool=MappingReportTool(
-            name="open-model-integration-validator", version=__version__
-        ),
+        tool=MappingReportTool(name="open-model-integration-validator", version=__version__),
         execution=MappingReportExecution(
             result=result, exit_code=1 if result == MappingResult.FAIL else 0
         ),
@@ -182,6 +169,9 @@ def build_mapping_report_envelope(
             mapping_id=manifest.mapping_id,
             mapping_sha256=mapping_sha256(manifest),
             mapping_schema=manifest.mapping_schema,
+            model_pack_id=model_pack.pack_id,
+            model_pack_version=model_pack.pack_version,
+            model_pack_metadata_sha256=model_pack.metadata.digest,
         ),
         summary=_report_summary(validation),
         findings=validation.findings,
@@ -226,9 +216,17 @@ def load_mapping_report_envelope(path: Path) -> ValidatedMappingReportEnvelope:
 
 
 def mapping_report_integrity_matches(envelope: MappingReportEnvelope) -> bool:
-    return envelope.integrity.sha256 == canonical_sha256(
-        envelope.report.model_dump(mode="json")
-    )
+    payload = envelope.report.model_dump(mode="json")
+    mapping = payload["mapping"]
+    if isinstance(mapping, dict):
+        for field in (
+            "model_pack_id",
+            "model_pack_version",
+            "model_pack_metadata_sha256",
+        ):
+            if mapping.get(field) is None:
+                mapping.pop(field, None)
+    return envelope.integrity.sha256 == canonical_sha256(payload)
 
 
 def _safe_text(value: Any) -> str:
@@ -260,23 +258,18 @@ def _finding_lines(finding: MappingFinding) -> list[str]:
     elif finding.rule_id == "MAP-008":
         lines.extend(
             [
-                "- Logical tied source: "
-                + _safe_text(evidence.get("logical_tied_source")),
+                "- Logical tied source: " + _safe_text(evidence.get("logical_tied_source")),
                 "- Physical source identity: "
                 + _safe_text(evidence.get("physical_source_identity")),
-                "- Materialized target: "
-                + _safe_text(evidence.get("materialized_target")),
-                "- Payload equality status: "
-                + _safe_text(evidence.get("payload_equality_status")),
+                "- Materialized target: " + _safe_text(evidence.get("materialized_target")),
+                "- Payload equality status: " + _safe_text(evidence.get("payload_equality_status")),
             ]
         )
     elif finding.rule_id == "MAP-009":
         lines.extend(
             [
-                "- Known source repository: "
-                + _safe_text(evidence.get("source_repository")),
-                "- Known source revision: "
-                + _safe_text(evidence.get("source_revision")),
+                "- Known source repository: " + _safe_text(evidence.get("source_repository")),
+                "- Known source revision: " + _safe_text(evidence.get("source_revision")),
                 "- Missing provenance fields: "
                 + _safe_text(evidence.get("missing_provenance_fields")),
                 "- Limitation: " + _safe_text(evidence.get("limitation")),
@@ -329,22 +322,34 @@ def render_mapping_markdown(envelope: MappingReportEnvelope) -> str:
         f"- Mapping ID: {_safe_text(report.mapping.mapping_id)}",
         f"- Mapping digest: {report.mapping.mapping_sha256}",
         f"- Schema version: {_safe_text(report.mapping.mapping_schema)}",
-        "",
-        "## Coverage",
-        "",
-        "- Physical source mapped: "
-        f"{summary.physical_source_mapped}/{summary.physical_source_total}",
-        "- Logical source mapped: "
-        f"{summary.logical_source_mapped}/{summary.logical_source_total}",
-        f"- Target explained: {summary.target_explained}/{summary.target_total}",
-        f"- Resolved mappings: {summary.resolved_mapping_count}",
-        f"- Duplicate source mappings: {summary.duplicate_source_count}",
-        f"- Duplicate target mappings: {summary.duplicate_target_count}",
-        f"- Unmapped source entities: {summary.unmapped_source_count}",
-        f"- Unmapped target entities: {summary.unmapped_target_count}",
-        "",
-        "## Findings",
     ]
+    if report.mapping.model_pack_id is not None:
+        lines.extend(
+            [
+                f"- Model pack: {_safe_text(report.mapping.model_pack_id)}",
+                f"- Model pack version: {report.mapping.model_pack_version}",
+                f"- Model pack metadata digest: {report.mapping.model_pack_metadata_sha256}",
+            ]
+        )
+    lines.extend(
+        [
+            "",
+            "## Coverage",
+            "",
+            "- Physical source mapped: "
+            f"{summary.physical_source_mapped}/{summary.physical_source_total}",
+            "- Logical source mapped: "
+            f"{summary.logical_source_mapped}/{summary.logical_source_total}",
+            f"- Target explained: {summary.target_explained}/{summary.target_total}",
+            f"- Resolved mappings: {summary.resolved_mapping_count}",
+            f"- Duplicate source mappings: {summary.duplicate_source_count}",
+            f"- Duplicate target mappings: {summary.duplicate_target_count}",
+            f"- Unmapped source entities: {summary.unmapped_source_count}",
+            f"- Unmapped target entities: {summary.unmapped_target_count}",
+            "",
+            "## Findings",
+        ]
+    )
     for finding in report.findings:
         lines.extend(_finding_lines(finding))
     lines.extend(

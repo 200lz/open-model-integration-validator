@@ -10,6 +10,8 @@ from pydantic import ValidationError
 
 from omiv.errors import OmivInputError
 from omiv.mapping.models import MappingManifest, MappingSelector
+from omiv.model_packs.base import ModelPack, ModelPackCapability
+from omiv.model_packs.registry import detect_model_pack, get_model_pack
 
 MAX_MANIFEST_BYTES = 256 * 1024
 MAX_PATTERN_LENGTH = 256
@@ -37,9 +39,7 @@ def _validate_pattern(value: str, *, field: str) -> None:
     if len(value) > MAX_PATTERN_LENGTH:
         raise OmivInputError(f"invalid mapping manifest: {field} exceeds pattern limit")
     if any(character in value for character in ("\\", "/", "\0", "*", "?", "[", "]")):
-        raise OmivInputError(
-            f"invalid mapping manifest: {field} contains path or glob syntax"
-        )
+        raise OmivInputError(f"invalid mapping manifest: {field} contains path or glob syntax")
     cursor = 0
     while "{" in value[cursor:] or "}" in value[cursor:]:
         opening = value.find("{", cursor)
@@ -70,7 +70,11 @@ def _validate_selectors(manifest: MappingManifest) -> None:
             _validate_pattern(selector.tensor_name, field=f"{field}.tensor_name")
 
 
-def load_mapping_manifest(path: Path) -> MappingManifest:
+def load_mapping_manifest(
+    path: Path,
+    *,
+    requested_pack_id: str | None = None,
+) -> MappingManifest:
     try:
         size = path.stat().st_size
         if size > MAX_MANIFEST_BYTES:
@@ -82,9 +86,7 @@ def load_mapping_manifest(path: Path) -> MappingManifest:
             isinstance(token, (yaml.tokens.AnchorToken, yaml.tokens.AliasToken))
             for token in yaml.scan(text, Loader=yaml.SafeLoader)
         ):
-            raise OmivInputError(
-                "invalid mapping manifest: YAML aliases/anchors are forbidden"
-            )
+            raise OmivInputError("invalid mapping manifest: YAML aliases/anchors are forbidden")
         node = yaml.compose(text, Loader=yaml.SafeLoader)
         _inspect_yaml(node)
         raw: Any = yaml.safe_load(text)
@@ -92,8 +94,44 @@ def load_mapping_manifest(path: Path) -> MappingManifest:
             raise OmivInputError("mapping manifest must be a mapping")
         manifest = MappingManifest.model_validate(raw)
         _validate_selectors(manifest)
+        resolve_manifest_model_pack(
+            manifest, requested_pack_id=requested_pack_id
+        )
         return manifest
     except OmivInputError:
         raise
     except (OSError, UnicodeError, yaml.YAMLError, ValidationError) as exc:
         raise OmivInputError(f"invalid mapping manifest: {exc}") from exc
+
+
+def resolve_manifest_model_pack(
+    manifest: MappingManifest,
+    *,
+    requested_pack_id: str | None = None,
+) -> ModelPack:
+    """Resolve and verify explicit or metadata-bounded pack selection."""
+    reference = manifest.model_pack
+    if requested_pack_id is not None:
+        pack = get_model_pack(requested_pack_id)
+        if reference is not None and reference.pack_id != pack.pack_id:
+            raise OmivInputError("requested model pack does not match mapping manifest model_pack")
+    elif reference is not None:
+        pack = get_model_pack(reference.pack_id)
+    else:
+        pack = detect_model_pack(
+            model_family=manifest.model_family,
+            capability=ModelPackCapability.SEMANTIC_MAPPING,
+        )
+    pack.require(ModelPackCapability.SEMANTIC_MAPPING)
+    if pack.model_family != manifest.model_family:
+        raise OmivInputError("model pack family does not match mapping manifest model_family")
+    if reference is not None:
+        if reference.pack_schema_version != pack.pack_schema_version:
+            raise OmivInputError("unsupported model-pack schema version")
+        if pack.pack_version < reference.minimum_pack_version:
+            raise OmivInputError("installed model-pack version is too old")
+    if manifest.source_format not in pack.supported_source_formats:
+        raise OmivInputError("model pack does not support mapping source format")
+    if manifest.target_format not in pack.supported_target_formats:
+        raise OmivInputError("model pack does not support mapping target format")
+    return pack
