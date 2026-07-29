@@ -3,12 +3,21 @@
 from pathlib import Path
 
 import yaml
-from pydantic import BaseModel, ConfigDict, ValidationError, model_validator
+from pydantic import BaseModel, ConfigDict, StrictBool, ValidationError, model_validator
 
 from omiv.contracts import (
+    ATTENTION_RESIDUAL_COMPONENT_SET,
+    MODEL_ATTENTION_RESIDUAL_COMPONENT_SET,
     PHASE1_EXPERT_COMPONENT_SET,
+    SHARED_EXPERT_COMPONENT_SET,
+    AttentionResidualComponent,
+    DescriptorConsistencyPolicy,
+    DuplicateTensorPolicy,
     ExpertComponent,
     ExpertSetPolicy,
+    ModelAttentionResidualComponent,
+    SharedExpertComponent,
+    UnclassifiedTensorPolicy,
 )
 from omiv.errors import OmivInputError
 
@@ -24,6 +33,13 @@ class KimiK3Schema(BaseModel):
     required_mla_tail_layers: list[int]
     expert_set_policy: ExpertSetPolicy
     required_expert_components: list[ExpertComponent]
+    required_shared_expert_components: list[SharedExpertComponent]
+    require_g_proj: StrictBool
+    required_attention_residual_components: list[AttentionResidualComponent]
+    required_model_attention_residual_components: list[ModelAttentionResidualComponent]
+    unclassified_tensor_policy: UnclassifiedTensorPolicy
+    duplicate_tensor_policy: DuplicateTensorPolicy
+    descriptor_consistency_policy: DescriptorConsistencyPolicy
 
     @model_validator(mode="after")
     def validate_contract(self) -> "KimiK3Schema":
@@ -33,6 +49,9 @@ class KimiK3Schema(BaseModel):
             "expected_moe_layer_ids",
             "required_mla_tail_layers",
             "required_expert_components",
+            "required_shared_expert_components",
+            "required_attention_residual_components",
+            "required_model_attention_residual_components",
         ):
             values = getattr(self, field_name)
             if len(values) != len(set(values)):
@@ -42,6 +61,32 @@ class KimiK3Schema(BaseModel):
                 "required_expert_components must contain exactly the Phase 1 "
                 "expert-component vocabulary"
             )
+        if (
+            set(self.required_shared_expert_components)
+            != SHARED_EXPERT_COMPONENT_SET
+        ):
+            raise ValueError(
+                "required_shared_expert_components must contain exactly the "
+                "Phase 2 shared-expert vocabulary"
+            )
+        if (
+            set(self.required_attention_residual_components)
+            != ATTENTION_RESIDUAL_COMPONENT_SET
+        ):
+            raise ValueError(
+                "required_attention_residual_components must contain exactly the "
+                "Phase 2 per-layer Attention Residual vocabulary"
+            )
+        if (
+            set(self.required_model_attention_residual_components)
+            != MODEL_ATTENTION_RESIDUAL_COMPONENT_SET
+        ):
+            raise ValueError(
+                "required_model_attention_residual_components must contain exactly "
+                "the Phase 2 model Attention Residual vocabulary"
+            )
+        if self.require_g_proj is not True:
+            raise ValueError("require_g_proj must be true for the Phase 2 contract")
         return self
 
 

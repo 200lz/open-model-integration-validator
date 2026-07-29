@@ -22,3 +22,19 @@ required_expert_components:
   - w2.weight_scale
   - w3.weight_packed
   - w3.weight_scale
+required_shared_expert_components:
+  - gate_proj.weight
+  - up_proj.weight
+  - down_proj.weight
+require_g_proj: true
+required_attention_residual_components:
+  - self_attention_res_proj.weight
+  - self_attention_res_norm.weight
+  - mlp_res_proj.weight
+  - mlp_res_norm.weight
+required_model_attention_residual_components:
+  - output_attn_res_proj.weight
+  - output_attn_res_norm.weight
+unclassified_tensor_policy: warn
+duplicate_tensor_policy: reject
+descriptor_consistency_policy: require_unanimous

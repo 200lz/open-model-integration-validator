@@ -16,11 +16,17 @@ from omiv.normalizer import (
 from omiv.schema.loader import KimiK3Schema, load_schema
 
 
-def record(name: str, index: int = 0) -> dict[str, Any]:
+def record(
+    name: str,
+    index: int = 0,
+    *,
+    dtype: str = "BF16",
+    shape: list[int] | None = None,
+) -> dict[str, Any]:
     return {
         "name": name,
-        "dtype": "BF16",
-        "shape": [1],
+        "dtype": dtype,
+        "shape": [1] if shape is None else shape,
         "shard": f"model-{index % 2:05d}.safetensors",
         "header_len": 8,
         "offsets": [index, index + 1],

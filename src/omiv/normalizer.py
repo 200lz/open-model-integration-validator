@@ -16,14 +16,21 @@ from omiv.errors import OmivInputError
 from omiv.models import (
     AttentionInventory,
     AttentionKind,
+    CompactUnclassifiedGroups,
+    DescriptorGroup,
+    DescriptorSummary,
     Diagnostic,
     ExpertCoverage,
     FfnInventory,
     FfnKind,
+    LayerExpertPair,
     LayerInventory,
     ModelInventory,
+    SemanticDescriptorInventory,
     Severity,
     SourceSummary,
+    TensorClassificationSummary,
+    UnclassifiedGroup,
     json_compatible,
 )
 
@@ -37,15 +44,15 @@ DENSE_RE = re.compile(
 )
 SHARED_RE = re.compile(
     r"^language_model\.model\.layers\.(\d+)\.block_sparse_moe\.shared_experts\."
-    r"(gate_proj|up_proj|down_proj)\.weight$"
+    r"(.+)$"
 )
 SELF_ATTN_RE = re.compile(r"^language_model\.model\.layers\.(\d+)\.self_attn\.(.+)$")
 LAYER_RESIDUAL_RE = re.compile(
     r"^language_model\.model\.layers\.(\d+)\."
-    r"(self_attention_res_(?:norm|proj)\.weight|mlp_res_(?:norm|proj)\.weight)$"
+    r"((?:self_attention_res|mlp_res)_.+)$"
 )
 MODEL_RESIDUAL_RE = re.compile(
-    r"^language_model\.model\.(output_attn_res_(?:norm|proj)\.weight)$"
+    r"^language_model\.model\.(output_attn_res_.+)$"
 )
 MOE_NAMESPACE_RE = re.compile(
     r"^language_model\.model\.layers\.(\d+)\.block_sparse_moe\."
@@ -80,10 +87,102 @@ MLA_MARKERS = frozenset(
 DENSE_COMPONENTS = frozenset(
     {"gate_proj.weight", "up_proj.weight", "down_proj.weight"}
 )
+
+DESCRIPTOR_ENTITY_EXAMPLE_CAP = 12
+UNCLASSIFIED_GROUP_CAP = 100
+UNCLASSIFIED_EXAMPLES_PER_GROUP_CAP = 3
+
+
+@dataclass
+class _DescriptorGroupState:
+    observation_count: int = 0
+    layer_ids: set[int] = field(default_factory=set)
+    layer_expert_examples: set[tuple[int, int]] = field(default_factory=set)
+
+
+@dataclass
+class _DescriptorAccumulator:
+    groups: dict[tuple[str, tuple[int, ...]], _DescriptorGroupState] = field(
+        default_factory=dict
+    )
+
+    def observe(
+        self,
+        dtype: str,
+        shape: tuple[int, ...],
+        *,
+        layer_id: int | None = None,
+        expert_id: int | None = None,
+    ) -> None:
+        state = self.groups.setdefault((dtype, shape), _DescriptorGroupState())
+        state.observation_count += 1
+        if layer_id is not None:
+            state.layer_ids.add(layer_id)
+        if layer_id is not None and expert_id is not None:
+            state.layer_expert_examples.add((layer_id, expert_id))
+            if len(state.layer_expert_examples) > DESCRIPTOR_ENTITY_EXAMPLE_CAP:
+                state.layer_expert_examples.remove(max(state.layer_expert_examples))
+
+    def summary(self) -> DescriptorSummary:
+        groups = []
+        for (dtype, shape), state in sorted(self.groups.items()):
+            groups.append(
+                DescriptorGroup(
+                    dtype=dtype,
+                    shape=list(shape),
+                    observation_count=state.observation_count,
+                    layer_ids=sorted(state.layer_ids),
+                    layer_expert_pair_examples=[
+                        LayerExpertPair(layer_id=layer_id, expert_id=expert_id)
+                        for layer_id, expert_id in sorted(
+                            state.layer_expert_examples
+                        )
+                    ],
+                )
+            )
+        return DescriptorSummary(
+            observation_count=sum(group.observation_count for group in groups),
+            descriptor_groups=groups,
+        )
+
+
+@dataclass
+class _UnclassifiedAccumulator:
+    counts: Counter[str] = field(default_factory=Counter)
+    examples: dict[str, set[str]] = field(default_factory=lambda: defaultdict(set))
+
+    def observe(self, key: str, name: str) -> None:
+        self.counts[key] += 1
+        samples = self.examples[key]
+        samples.add(name)
+        if len(samples) > UNCLASSIFIED_EXAMPLES_PER_GROUP_CAP:
+            samples.remove(max(samples))
+
+    def compact(self) -> CompactUnclassifiedGroups:
+        selected = sorted(self.counts, key=lambda key: (-self.counts[key], key))[
+            :UNCLASSIFIED_GROUP_CAP
+        ]
+        groups = [
+            UnclassifiedGroup(
+                key=key,
+                record_count=self.counts[key],
+                examples=sorted(self.examples[key]),
+            )
+            for key in selected
+        ]
+        return CompactUnclassifiedGroups(
+            record_count=sum(self.counts.values()),
+            group_count=len(self.counts),
+            emitted_group_count=len(groups),
+            omitted_group_count=len(self.counts) - len(groups),
+            groups=groups,
+        )
+
+
 @dataclass
 class _LayerState:
     attention_markers: set[str] = field(default_factory=set)
-    g_proj_present: bool = False
+    g_proj_observation_count: int = 0
     dense_components: set[str] = field(default_factory=set)
     moe_namespace_present: bool = False
     experts: dict[int, set[str]] = field(default_factory=lambda: defaultdict(set))
@@ -334,20 +433,53 @@ def _classify_ffn(layer_id: int, state: _LayerState, diagnostics: list[Diagnosti
     return FfnKind.UNKNOWN
 
 
+def _model_namespace(name: str) -> str:
+    parts = name.split(".")
+    if parts[:2] == ["language_model", "model"] and len(parts) >= 3:
+        return ".".join(parts[:3])
+    if parts and parts[0] == "language_model" and len(parts) >= 2:
+        return ".".join(parts[:2])
+    return parts[0]
+
+
 def normalize_inventory(path: Path) -> ModelInventory:
     """Read and compact the top-level raw JSON array."""
     layers: dict[int, _LayerState] = defaultdict(_LayerState)
     dtypes: Counter[str] = Counter()
     shards: set[str] = set()
     model_residuals: set[str] = set()
+    exact_names: set[str] = set()
+    g_proj_descriptors = _DescriptorAccumulator()
+    shared_descriptors: dict[str, _DescriptorAccumulator] = defaultdict(
+        _DescriptorAccumulator
+    )
+    residual_descriptors: dict[str, _DescriptorAccumulator] = defaultdict(
+        _DescriptorAccumulator
+    )
+    expert_descriptors: dict[str, _DescriptorAccumulator] = defaultdict(
+        _DescriptorAccumulator
+    )
+    model_residual_descriptors: dict[str, _DescriptorAccumulator] = defaultdict(
+        _DescriptorAccumulator
+    )
+    unknown_layer_local = _UnclassifiedAccumulator()
+    unknown_model = _UnclassifiedAccumulator()
     record_count = 0
+    classified_count = 0
 
     for index, raw_record in enumerate(iter_raw_records(path)):
         record = _validate_record(raw_record, index)
         record_count += 1
         name = record["name"]
+        if name in exact_names:
+            raise OmivInputError(
+                f"duplicate exact tensor name at record {index}: {name}"
+            )
+        exact_names.add(name)
         dtypes[record["dtype"]] += 1
         shards.add(record["shard"])
+        dtype = record["dtype"]
+        shape = tuple(record["shape"])
 
         layer_match = LAYER_RE.match(name)
         if layer_match:
@@ -358,37 +490,70 @@ def normalize_inventory(path: Path) -> ModelInventory:
             layer_id, expert_id = int(match.group(1)), int(match.group(2))
             state = layers[layer_id]
             state.moe_namespace_present = True
-            state.experts[expert_id].add(f"{match.group(3)}.{match.group(4)}")
+            component = f"{match.group(3)}.{match.group(4)}"
+            state.experts[expert_id].add(component)
+            expert_descriptors[component].observe(
+                dtype, shape, layer_id=layer_id, expert_id=expert_id
+            )
+            classified_count += 1
             continue
         match = DENSE_RE.match(name)
         if match:
             layers[int(match.group(1))].dense_components.add(f"{match.group(2)}.weight")
+            classified_count += 1
             continue
         match = SHARED_RE.match(name)
         if match:
-            state = layers[int(match.group(1))]
+            layer_id = int(match.group(1))
+            state = layers[layer_id]
             state.moe_namespace_present = True
-            state.shared_components.add(f"{match.group(2)}.weight")
+            component = match.group(2)
+            state.shared_components.add(component)
+            shared_descriptors[component].observe(dtype, shape, layer_id=layer_id)
+            classified_count += 1
             continue
         match = MOE_NAMESPACE_RE.match(name)
         if match:
             layers[int(match.group(1))].moe_namespace_present = True
+            classified_count += 1
+            continue
         match = SELF_ATTN_RE.match(name)
         if match:
-            state = layers[int(match.group(1))]
+            layer_id = int(match.group(1))
+            state = layers[layer_id]
             suffix = match.group(2)
             if suffix == "g_proj.weight":
-                state.g_proj_present = True
+                state.g_proj_observation_count += 1
+                g_proj_descriptors.observe(dtype, shape, layer_id=layer_id)
+                classified_count += 1
+                continue
             if suffix in KDA_MARKERS or suffix in MLA_MARKERS:
                 state.attention_markers.add(suffix)
-            continue
+                classified_count += 1
+                continue
         match = LAYER_RESIDUAL_RE.match(name)
         if match:
-            layers[int(match.group(1))].residual_components.add(match.group(2))
+            layer_id = int(match.group(1))
+            component = match.group(2)
+            layers[layer_id].residual_components.add(component)
+            residual_descriptors[component].observe(
+                dtype, shape, layer_id=layer_id
+            )
+            classified_count += 1
             continue
         match = MODEL_RESIDUAL_RE.match(name)
         if match:
-            model_residuals.add(match.group(1))
+            component = match.group(1)
+            model_residuals.add(component)
+            model_residual_descriptors[component].observe(dtype, shape)
+            classified_count += 1
+            continue
+
+        if layer_match:
+            prefix = layer_match.group(0)
+            unknown_layer_local.observe(name[len(prefix) :], name)
+        else:
+            unknown_model.observe(_model_namespace(name), name)
 
     diagnostics: list[Diagnostic] = []
     canonical_layers: list[LayerInventory] = []
@@ -409,7 +574,8 @@ def normalize_inventory(path: Path) -> ModelInventory:
                 attention=AttentionInventory(
                     kind=_classify_attention(layer_id, state, diagnostics),
                     observed_markers=sorted(state.attention_markers),
-                    g_proj_present=state.g_proj_present,
+                    g_proj_present=state.g_proj_observation_count > 0,
+                    g_proj_observation_count=state.g_proj_observation_count,
                 ),
                 ffn=FfnInventory(
                     kind=_classify_ffn(layer_id, state, diagnostics),
@@ -441,7 +607,7 @@ def normalize_inventory(path: Path) -> ModelInventory:
             )
 
     return ModelInventory(
-        schema_version=1,
+        schema_version=2,
         source=SourceSummary(
             format="safetensors-header-inventory",
             record_count=record_count,
@@ -453,6 +619,38 @@ def normalize_inventory(path: Path) -> ModelInventory:
         observed_layer_ids=sorted(layers),
         layers=canonical_layers,
         model_attention_residual_components=sorted(model_residuals),
+        semantic_descriptors=SemanticDescriptorInventory(
+            g_proj=g_proj_descriptors.summary(),
+            shared_expert_components={
+                component: accumulator.summary()
+                for component, accumulator in sorted(shared_descriptors.items())
+            },
+            attention_residual_components={
+                component: accumulator.summary()
+                for component, accumulator in sorted(residual_descriptors.items())
+            },
+            routed_expert_components={
+                component: accumulator.summary()
+                for component, accumulator in sorted(expert_descriptors.items())
+            },
+            model_attention_residual_components={
+                component: accumulator.summary()
+                for component, accumulator in sorted(
+                    model_residual_descriptors.items()
+                )
+            },
+        ),
+        tensor_classification=TensorClassificationSummary(
+            total_tensor_records=record_count,
+            semantically_classified_records=classified_count,
+            unclassified_records=record_count - classified_count,
+            duplicate_exact_tensor_names=0,
+            duplicate_examples=[],
+            group_cap=UNCLASSIFIED_GROUP_CAP,
+            examples_per_group_cap=UNCLASSIFIED_EXAMPLES_PER_GROUP_CAP,
+            unknown_layer_local=unknown_layer_local.compact(),
+            unknown_model_namespaces=unknown_model.compact(),
+        ),
         diagnostics=diagnostics,
     )
 

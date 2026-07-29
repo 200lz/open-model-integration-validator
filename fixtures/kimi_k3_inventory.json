@@ -3,6 +3,7 @@
   "layers": [
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -44,6 +45,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -982,6 +984,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -1920,6 +1923,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "mla",
         "observed_markers": [
@@ -2852,6 +2856,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -3790,6 +3795,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -4728,6 +4734,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -5666,6 +5673,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "mla",
         "observed_markers": [
@@ -6598,6 +6606,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -7536,6 +7545,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -8474,6 +8484,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -9412,6 +9423,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "mla",
         "observed_markers": [
@@ -10344,6 +10356,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -11282,6 +11295,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -12220,6 +12234,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -13158,6 +13173,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "mla",
         "observed_markers": [
@@ -14090,6 +14106,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -15028,6 +15045,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -15966,6 +15984,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -16904,6 +16923,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "mla",
         "observed_markers": [
@@ -17836,6 +17856,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -18774,6 +18795,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -19712,6 +19734,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -20650,6 +20673,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "mla",
         "observed_markers": [
@@ -21582,6 +21606,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -22520,6 +22545,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -23458,6 +23484,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -24396,6 +24423,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "mla",
         "observed_markers": [
@@ -25328,6 +25356,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -26266,6 +26295,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -27204,6 +27234,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -28142,6 +28173,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "mla",
         "observed_markers": [
@@ -29074,6 +29106,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -30012,6 +30045,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -30950,6 +30984,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -31888,6 +31923,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "mla",
         "observed_markers": [
@@ -32820,6 +32856,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -33758,6 +33795,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -34696,6 +34734,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -35634,6 +35673,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "mla",
         "observed_markers": [
@@ -36566,6 +36606,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -37504,6 +37545,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -38442,6 +38484,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -39380,6 +39423,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "mla",
         "observed_markers": [
@@ -40312,6 +40356,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -41250,6 +41295,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -42188,6 +42234,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -43126,6 +43173,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "mla",
         "observed_markers": [
@@ -44058,6 +44106,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -44996,6 +45045,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -45934,6 +45984,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -46872,6 +46923,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "mla",
         "observed_markers": [
@@ -47804,6 +47856,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -48742,6 +48795,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -49680,6 +49734,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -50618,6 +50673,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "mla",
         "observed_markers": [
@@ -51550,6 +51606,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -52488,6 +52545,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -53426,6 +53484,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -54364,6 +54423,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "mla",
         "observed_markers": [
@@ -55296,6 +55356,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -56234,6 +56295,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -57172,6 +57234,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -58110,6 +58173,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "mla",
         "observed_markers": [
@@ -59042,6 +59106,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -59980,6 +60045,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -60918,6 +60984,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -61856,6 +61923,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "mla",
         "observed_markers": [
@@ -62788,6 +62856,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -63726,6 +63795,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -64664,6 +64734,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -65602,6 +65673,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "mla",
         "observed_markers": [
@@ -66534,6 +66606,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -67472,6 +67545,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -68410,6 +68484,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -69348,6 +69423,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "mla",
         "observed_markers": [
@@ -70280,6 +70356,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -71218,6 +71295,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -72156,6 +72234,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -73094,6 +73173,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "mla",
         "observed_markers": [
@@ -74026,6 +74106,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -74964,6 +75045,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -75902,6 +75984,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -76840,6 +76923,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "mla",
         "observed_markers": [
@@ -77772,6 +77856,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -78710,6 +78795,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -79648,6 +79734,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -80586,6 +80673,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "mla",
         "observed_markers": [
@@ -81518,6 +81606,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -82456,6 +82545,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -83394,6 +83484,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "kda",
         "observed_markers": [
@@ -84332,6 +84423,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "mla",
         "observed_markers": [
@@ -85264,6 +85356,7 @@
     },
     {
       "attention": {
+        "g_proj_observation_count": 1,
         "g_proj_present": true,
         "kind": "mla",
         "observed_markers": [
@@ -86294,7 +86387,1855 @@
     91,
     92
   ],
-  "schema_version": 1,
+  "schema_version": 2,
+  "semantic_descriptors": {
+    "attention_residual_components": {
+      "mlp_res_norm.weight": {
+        "descriptor_groups": [
+          {
+            "dtype": "BF16",
+            "layer_expert_pair_examples": [],
+            "layer_ids": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58,
+              59,
+              60,
+              61,
+              62,
+              63,
+              64,
+              65,
+              66,
+              67,
+              68,
+              69,
+              70,
+              71,
+              72,
+              73,
+              74,
+              75,
+              76,
+              77,
+              78,
+              79,
+              80,
+              81,
+              82,
+              83,
+              84,
+              85,
+              86,
+              87,
+              88,
+              89,
+              90,
+              91,
+              92
+            ],
+            "observation_count": 93,
+            "shape": [
+              7168
+            ]
+          }
+        ],
+        "observation_count": 93
+      },
+      "mlp_res_proj.weight": {
+        "descriptor_groups": [
+          {
+            "dtype": "BF16",
+            "layer_expert_pair_examples": [],
+            "layer_ids": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58,
+              59,
+              60,
+              61,
+              62,
+              63,
+              64,
+              65,
+              66,
+              67,
+              68,
+              69,
+              70,
+              71,
+              72,
+              73,
+              74,
+              75,
+              76,
+              77,
+              78,
+              79,
+              80,
+              81,
+              82,
+              83,
+              84,
+              85,
+              86,
+              87,
+              88,
+              89,
+              90,
+              91,
+              92
+            ],
+            "observation_count": 93,
+            "shape": [
+              1,
+              7168
+            ]
+          }
+        ],
+        "observation_count": 93
+      },
+      "self_attention_res_norm.weight": {
+        "descriptor_groups": [
+          {
+            "dtype": "BF16",
+            "layer_expert_pair_examples": [],
+            "layer_ids": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58,
+              59,
+              60,
+              61,
+              62,
+              63,
+              64,
+              65,
+              66,
+              67,
+              68,
+              69,
+              70,
+              71,
+              72,
+              73,
+              74,
+              75,
+              76,
+              77,
+              78,
+              79,
+              80,
+              81,
+              82,
+              83,
+              84,
+              85,
+              86,
+              87,
+              88,
+              89,
+              90,
+              91,
+              92
+            ],
+            "observation_count": 93,
+            "shape": [
+              7168
+            ]
+          }
+        ],
+        "observation_count": 93
+      },
+      "self_attention_res_proj.weight": {
+        "descriptor_groups": [
+          {
+            "dtype": "BF16",
+            "layer_expert_pair_examples": [],
+            "layer_ids": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58,
+              59,
+              60,
+              61,
+              62,
+              63,
+              64,
+              65,
+              66,
+              67,
+              68,
+              69,
+              70,
+              71,
+              72,
+              73,
+              74,
+              75,
+              76,
+              77,
+              78,
+              79,
+              80,
+              81,
+              82,
+              83,
+              84,
+              85,
+              86,
+              87,
+              88,
+              89,
+              90,
+              91,
+              92
+            ],
+            "observation_count": 93,
+            "shape": [
+              1,
+              7168
+            ]
+          }
+        ],
+        "observation_count": 93
+      }
+    },
+    "g_proj": {
+      "descriptor_groups": [
+        {
+          "dtype": "BF16",
+          "layer_expert_pair_examples": [],
+          "layer_ids": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73,
+            74,
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            82,
+            83,
+            84,
+            85,
+            86,
+            87,
+            88,
+            89,
+            90,
+            91,
+            92
+          ],
+          "observation_count": 93,
+          "shape": [
+            12288,
+            7168
+          ]
+        }
+      ],
+      "observation_count": 93
+    },
+    "model_attention_residual_components": {
+      "output_attn_res_norm.weight": {
+        "descriptor_groups": [
+          {
+            "dtype": "BF16",
+            "layer_expert_pair_examples": [],
+            "layer_ids": [],
+            "observation_count": 1,
+            "shape": [
+              7168
+            ]
+          }
+        ],
+        "observation_count": 1
+      },
+      "output_attn_res_proj.weight": {
+        "descriptor_groups": [
+          {
+            "dtype": "BF16",
+            "layer_expert_pair_examples": [],
+            "layer_ids": [],
+            "observation_count": 1,
+            "shape": [
+              1,
+              7168
+            ]
+          }
+        ],
+        "observation_count": 1
+      }
+    },
+    "routed_expert_components": {
+      "w1.weight_packed": {
+        "descriptor_groups": [
+          {
+            "dtype": "U8",
+            "layer_expert_pair_examples": [
+              {
+                "expert_id": 0,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 1,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 2,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 3,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 4,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 5,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 6,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 7,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 8,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 9,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 10,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 11,
+                "layer_id": 1
+              }
+            ],
+            "layer_ids": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58,
+              59,
+              60,
+              61,
+              62,
+              63,
+              64,
+              65,
+              66,
+              67,
+              68,
+              69,
+              70,
+              71,
+              72,
+              73,
+              74,
+              75,
+              76,
+              77,
+              78,
+              79,
+              80,
+              81,
+              82,
+              83,
+              84,
+              85,
+              86,
+              87,
+              88,
+              89,
+              90,
+              91,
+              92
+            ],
+            "observation_count": 82432,
+            "shape": [
+              3072,
+              1792
+            ]
+          }
+        ],
+        "observation_count": 82432
+      },
+      "w1.weight_scale": {
+        "descriptor_groups": [
+          {
+            "dtype": "U8",
+            "layer_expert_pair_examples": [
+              {
+                "expert_id": 0,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 1,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 2,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 3,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 4,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 5,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 6,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 7,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 8,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 9,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 10,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 11,
+                "layer_id": 1
+              }
+            ],
+            "layer_ids": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58,
+              59,
+              60,
+              61,
+              62,
+              63,
+              64,
+              65,
+              66,
+              67,
+              68,
+              69,
+              70,
+              71,
+              72,
+              73,
+              74,
+              75,
+              76,
+              77,
+              78,
+              79,
+              80,
+              81,
+              82,
+              83,
+              84,
+              85,
+              86,
+              87,
+              88,
+              89,
+              90,
+              91,
+              92
+            ],
+            "observation_count": 82432,
+            "shape": [
+              3072,
+              112
+            ]
+          }
+        ],
+        "observation_count": 82432
+      },
+      "w2.weight_packed": {
+        "descriptor_groups": [
+          {
+            "dtype": "U8",
+            "layer_expert_pair_examples": [
+              {
+                "expert_id": 0,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 1,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 2,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 3,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 4,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 5,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 6,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 7,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 8,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 9,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 10,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 11,
+                "layer_id": 1
+              }
+            ],
+            "layer_ids": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58,
+              59,
+              60,
+              61,
+              62,
+              63,
+              64,
+              65,
+              66,
+              67,
+              68,
+              69,
+              70,
+              71,
+              72,
+              73,
+              74,
+              75,
+              76,
+              77,
+              78,
+              79,
+              80,
+              81,
+              82,
+              83,
+              84,
+              85,
+              86,
+              87,
+              88,
+              89,
+              90,
+              91,
+              92
+            ],
+            "observation_count": 82432,
+            "shape": [
+              3584,
+              1536
+            ]
+          }
+        ],
+        "observation_count": 82432
+      },
+      "w2.weight_scale": {
+        "descriptor_groups": [
+          {
+            "dtype": "U8",
+            "layer_expert_pair_examples": [
+              {
+                "expert_id": 0,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 1,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 2,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 3,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 4,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 5,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 6,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 7,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 8,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 9,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 10,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 11,
+                "layer_id": 1
+              }
+            ],
+            "layer_ids": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58,
+              59,
+              60,
+              61,
+              62,
+              63,
+              64,
+              65,
+              66,
+              67,
+              68,
+              69,
+              70,
+              71,
+              72,
+              73,
+              74,
+              75,
+              76,
+              77,
+              78,
+              79,
+              80,
+              81,
+              82,
+              83,
+              84,
+              85,
+              86,
+              87,
+              88,
+              89,
+              90,
+              91,
+              92
+            ],
+            "observation_count": 82432,
+            "shape": [
+              3584,
+              96
+            ]
+          }
+        ],
+        "observation_count": 82432
+      },
+      "w3.weight_packed": {
+        "descriptor_groups": [
+          {
+            "dtype": "U8",
+            "layer_expert_pair_examples": [
+              {
+                "expert_id": 0,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 1,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 2,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 3,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 4,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 5,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 6,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 7,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 8,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 9,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 10,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 11,
+                "layer_id": 1
+              }
+            ],
+            "layer_ids": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58,
+              59,
+              60,
+              61,
+              62,
+              63,
+              64,
+              65,
+              66,
+              67,
+              68,
+              69,
+              70,
+              71,
+              72,
+              73,
+              74,
+              75,
+              76,
+              77,
+              78,
+              79,
+              80,
+              81,
+              82,
+              83,
+              84,
+              85,
+              86,
+              87,
+              88,
+              89,
+              90,
+              91,
+              92
+            ],
+            "observation_count": 82432,
+            "shape": [
+              3072,
+              1792
+            ]
+          }
+        ],
+        "observation_count": 82432
+      },
+      "w3.weight_scale": {
+        "descriptor_groups": [
+          {
+            "dtype": "U8",
+            "layer_expert_pair_examples": [
+              {
+                "expert_id": 0,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 1,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 2,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 3,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 4,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 5,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 6,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 7,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 8,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 9,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 10,
+                "layer_id": 1
+              },
+              {
+                "expert_id": 11,
+                "layer_id": 1
+              }
+            ],
+            "layer_ids": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58,
+              59,
+              60,
+              61,
+              62,
+              63,
+              64,
+              65,
+              66,
+              67,
+              68,
+              69,
+              70,
+              71,
+              72,
+              73,
+              74,
+              75,
+              76,
+              77,
+              78,
+              79,
+              80,
+              81,
+              82,
+              83,
+              84,
+              85,
+              86,
+              87,
+              88,
+              89,
+              90,
+              91,
+              92
+            ],
+            "observation_count": 82432,
+            "shape": [
+              3072,
+              112
+            ]
+          }
+        ],
+        "observation_count": 82432
+      }
+    },
+    "shared_expert_components": {
+      "down_proj.weight": {
+        "descriptor_groups": [
+          {
+            "dtype": "BF16",
+            "layer_expert_pair_examples": [],
+            "layer_ids": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58,
+              59,
+              60,
+              61,
+              62,
+              63,
+              64,
+              65,
+              66,
+              67,
+              68,
+              69,
+              70,
+              71,
+              72,
+              73,
+              74,
+              75,
+              76,
+              77,
+              78,
+              79,
+              80,
+              81,
+              82,
+              83,
+              84,
+              85,
+              86,
+              87,
+              88,
+              89,
+              90,
+              91,
+              92
+            ],
+            "observation_count": 92,
+            "shape": [
+              7168,
+              6144
+            ]
+          }
+        ],
+        "observation_count": 92
+      },
+      "gate_proj.weight": {
+        "descriptor_groups": [
+          {
+            "dtype": "BF16",
+            "layer_expert_pair_examples": [],
+            "layer_ids": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58,
+              59,
+              60,
+              61,
+              62,
+              63,
+              64,
+              65,
+              66,
+              67,
+              68,
+              69,
+              70,
+              71,
+              72,
+              73,
+              74,
+              75,
+              76,
+              77,
+              78,
+              79,
+              80,
+              81,
+              82,
+              83,
+              84,
+              85,
+              86,
+              87,
+              88,
+              89,
+              90,
+              91,
+              92
+            ],
+            "observation_count": 92,
+            "shape": [
+              6144,
+              7168
+            ]
+          }
+        ],
+        "observation_count": 92
+      },
+      "up_proj.weight": {
+        "descriptor_groups": [
+          {
+            "dtype": "BF16",
+            "layer_expert_pair_examples": [],
+            "layer_ids": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58,
+              59,
+              60,
+              61,
+              62,
+              63,
+              64,
+              65,
+              66,
+              67,
+              68,
+              69,
+              70,
+              71,
+              72,
+              73,
+              74,
+              75,
+              76,
+              77,
+              78,
+              79,
+              80,
+              81,
+              82,
+              83,
+              84,
+              85,
+              86,
+              87,
+              88,
+              89,
+              90,
+              91,
+              92
+            ],
+            "observation_count": 92,
+            "shape": [
+              6144,
+              7168
+            ]
+          }
+        ],
+        "observation_count": 92
+      }
+    }
+  },
   "source": {
     "dtype_counts": {
       "BF16": 2122,
@@ -86403,5 +88344,96 @@
       "model-00096-of-000096.safetensors"
     ],
     "source_sha256": "15a6757becb69c56492fdb630d6853696082a9ec6109bcea05f387a5052ea469"
+  },
+  "tensor_classification": {
+    "duplicate_exact_tensor_names": 0,
+    "duplicate_examples": [],
+    "examples_per_group_cap": 3,
+    "group_cap": 100,
+    "semantically_classified_records": 496770,
+    "total_tensor_records": 497220,
+    "unclassified_records": 450,
+    "unknown_layer_local": {
+      "emitted_group_count": 3,
+      "group_count": 3,
+      "groups": [
+        {
+          "examples": [
+            "language_model.model.layers.0.input_layernorm.weight",
+            "language_model.model.layers.1.input_layernorm.weight",
+            "language_model.model.layers.10.input_layernorm.weight"
+          ],
+          "key": "input_layernorm.weight",
+          "record_count": 93
+        },
+        {
+          "examples": [
+            "language_model.model.layers.0.post_attention_layernorm.weight",
+            "language_model.model.layers.1.post_attention_layernorm.weight",
+            "language_model.model.layers.10.post_attention_layernorm.weight"
+          ],
+          "key": "post_attention_layernorm.weight",
+          "record_count": 93
+        },
+        {
+          "examples": [
+            "language_model.model.layers.0.self_attn.o_proj.weight",
+            "language_model.model.layers.1.self_attn.o_proj.weight",
+            "language_model.model.layers.10.self_attn.o_proj.weight"
+          ],
+          "key": "self_attn.o_proj.weight",
+          "record_count": 93
+        }
+      ],
+      "omitted_group_count": 0,
+      "record_count": 279
+    },
+    "unknown_model_namespaces": {
+      "emitted_group_count": 5,
+      "group_count": 5,
+      "groups": [
+        {
+          "examples": [
+            "vision_tower.encoder.blocks.0.mlp.fc0.weight",
+            "vision_tower.encoder.blocks.0.mlp.fc1.weight",
+            "vision_tower.encoder.blocks.0.norm0.weight"
+          ],
+          "key": "vision_tower",
+          "record_count": 165
+        },
+        {
+          "examples": [
+            "mm_projector.post_norm.weight",
+            "mm_projector.proj.0.weight",
+            "mm_projector.proj.2.weight"
+          ],
+          "key": "mm_projector",
+          "record_count": 3
+        },
+        {
+          "examples": [
+            "language_model.lm_head.weight"
+          ],
+          "key": "language_model.lm_head",
+          "record_count": 1
+        },
+        {
+          "examples": [
+            "language_model.model.embed_tokens.weight"
+          ],
+          "key": "language_model.model.embed_tokens",
+          "record_count": 1
+        },
+        {
+          "examples": [
+            "language_model.model.norm.weight"
+          ],
+          "key": "language_model.model.norm",
+          "record_count": 1
+        }
+      ],
+      "omitted_group_count": 0,
+      "record_count": 171
+    }
   }
 }

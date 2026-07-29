@@ -6,6 +6,7 @@ from collections import defaultdict
 
 from omiv.models import (
     AttentionKind,
+    DescriptorSummary,
     FfnKind,
     FindingStatus,
     ModelInventory,
@@ -209,6 +210,280 @@ def validate_moe_001(
     )
 
 
+def validate_moe_002(
+    inventory: ModelInventory, schema: KimiK3Schema
+) -> ValidationFinding:
+    by_id = {layer.id: layer for layer in inventory.layers}
+    expected_moe = set(schema.expected_moe_layer_ids)
+    required = set(schema.required_shared_expert_components)
+    missing: dict[str, list[str]] = {}
+    unexpected: dict[str, list[str]] = {}
+    non_moe_evidence: dict[str, list[str]] = {}
+
+    for layer_id in sorted(expected_moe):
+        layer = by_id.get(layer_id)
+        observed = set(layer.ffn.shared_expert_components) if layer else set()
+        if required - observed:
+            missing[str(layer_id)] = sorted(required - observed)
+        if observed - required:
+            unexpected[str(layer_id)] = sorted(observed - required)
+    for layer in inventory.layers:
+        observed = set(layer.ffn.shared_expert_components)
+        if layer.id not in expected_moe and observed:
+            non_moe_evidence[str(layer.id)] = sorted(observed)
+
+    passed = not missing and not unexpected and not non_moe_evidence
+    return _finding(
+        "K3-MOE-002",
+        passed,
+        "Shared expert projection coverage is complete",
+        "Shared expert coverage is missing, unexpected, or present on non-MoE layers",
+        {
+            "required_components": schema.required_shared_expert_components,
+            "missing_components_by_layer": missing,
+            "unexpected_components_by_layer": unexpected,
+            "non_moe_layer_evidence": non_moe_evidence,
+        },
+    )
+
+
+def _descriptor_is_unanimous(summary: DescriptorSummary | None) -> bool:
+    return (
+        summary is not None
+        and summary.observation_count > 0
+        and len(summary.descriptor_groups) == 1
+    )
+
+
+def _descriptor_evidence(summary: DescriptorSummary | None) -> object:
+    if summary is None:
+        return {"observation_count": 0, "descriptor_groups": []}
+    return summary.model_dump(mode="json")
+
+
+def validate_attn_002(
+    inventory: ModelInventory, schema: KimiK3Schema
+) -> ValidationFinding:
+    by_id = {layer.id: layer for layer in inventory.layers}
+    expected = set(schema.expected_layer_ids)
+    missing: list[int] = []
+    duplicate: dict[str, int] = {}
+    classifications: dict[str, str] = {}
+    for layer_id in sorted(expected):
+        layer = by_id.get(layer_id)
+        count = layer.attention.g_proj_observation_count if layer else 0
+        if count == 0:
+            missing.append(layer_id)
+        elif count != 1:
+            duplicate[str(layer_id)] = count
+        if layer:
+            classifications[str(layer_id)] = layer.attention.kind.value
+    unexpected_layers = sorted(
+        layer.id
+        for layer in inventory.layers
+        if layer.id not in expected and layer.attention.g_proj_observation_count
+    )
+    descriptors = inventory.semantic_descriptors.g_proj
+    unanimous = _descriptor_is_unanimous(descriptors)
+    passed = (
+        schema.require_g_proj
+        and not missing
+        and not duplicate
+        and not unexpected_layers
+        and unanimous
+    )
+    return _finding(
+        "K3-ATTN-002",
+        passed,
+        "Contextual g_proj coverage and descriptors are complete",
+        "g_proj coverage, uniqueness, or descriptor unanimity failed",
+        {
+            "missing_layer_ids": missing,
+            "duplicate_observation_counts": duplicate,
+            "unexpected_layer_ids": unexpected_layers,
+            "attention_classifications": classifications,
+            "descriptor_unanimous": unanimous,
+            "descriptors": _descriptor_evidence(descriptors),
+        },
+    )
+
+
+def validate_attnres_001(
+    inventory: ModelInventory, schema: KimiK3Schema
+) -> ValidationFinding:
+    by_id = {layer.id: layer for layer in inventory.layers}
+    expected_layers = set(schema.expected_layer_ids)
+    required = set(schema.required_attention_residual_components)
+    missing: dict[str, list[str]] = {}
+    unexpected: dict[str, list[str]] = {}
+    unexpected_layers: dict[str, list[str]] = {}
+    for layer_id in sorted(expected_layers):
+        layer = by_id.get(layer_id)
+        observed = set(layer.attention_residual_components) if layer else set()
+        if required - observed:
+            missing[str(layer_id)] = sorted(required - observed)
+        if observed - required:
+            unexpected[str(layer_id)] = sorted(observed - required)
+    for layer in inventory.layers:
+        if layer.id not in expected_layers and layer.attention_residual_components:
+            unexpected_layers[str(layer.id)] = layer.attention_residual_components
+
+    descriptor_results: dict[str, object] = {}
+    descriptors_ok = True
+    for component in schema.required_attention_residual_components:
+        summary = inventory.semantic_descriptors.attention_residual_components.get(
+            component
+        )
+        unanimous = _descriptor_is_unanimous(summary)
+        descriptors_ok = descriptors_ok and unanimous
+        descriptor_results[component] = {
+            "unanimous": unanimous,
+            "summary": _descriptor_evidence(summary),
+        }
+    passed = (
+        not missing
+        and not unexpected
+        and not unexpected_layers
+        and descriptors_ok
+    )
+    return _finding(
+        "K3-ATTNRES-001",
+        passed,
+        "Per-layer Attention Residual coverage and descriptors are complete",
+        "Per-layer Attention Residual coverage or descriptor unanimity failed",
+        {
+            "missing_components_by_layer": missing,
+            "unexpected_components_by_layer": unexpected,
+            "unexpected_layer_evidence": unexpected_layers,
+            "descriptor_results": descriptor_results,
+        },
+    )
+
+
+def validate_attnres_002(
+    inventory: ModelInventory, schema: KimiK3Schema
+) -> ValidationFinding:
+    required = set(schema.required_model_attention_residual_components)
+    observed = set(inventory.model_attention_residual_components)
+    missing = sorted(required - observed)
+    unexpected = sorted(observed - required)
+    descriptor_results: dict[str, object] = {}
+    descriptors_ok = True
+    for component in schema.required_model_attention_residual_components:
+        summary = inventory.semantic_descriptors.model_attention_residual_components.get(
+            component
+        )
+        unanimous = _descriptor_is_unanimous(summary)
+        descriptors_ok = descriptors_ok and unanimous
+        descriptor_results[component] = {
+            "unanimous": unanimous,
+            "summary": _descriptor_evidence(summary),
+        }
+    passed = not missing and not unexpected and descriptors_ok
+    return _finding(
+        "K3-ATTNRES-002",
+        passed,
+        "Model-level Attention Residual coverage is complete",
+        "Model-level Attention Residual coverage or descriptors failed",
+        {
+            "missing_components": missing,
+            "unexpected_components": unexpected,
+            "descriptor_results": descriptor_results,
+        },
+    )
+
+
+def validate_tensor_001(
+    inventory: ModelInventory, schema: KimiK3Schema
+) -> ValidationFinding:
+    semantic = inventory.semantic_descriptors
+    groups: dict[str, DescriptorSummary | None] = {
+        "self_attn.g_proj": semantic.g_proj,
+    }
+    groups.update(
+        {
+            f"shared_expert.{component}": semantic.shared_expert_components.get(
+                component
+            )
+            for component in schema.required_shared_expert_components
+        }
+    )
+    groups.update(
+        {
+            f"attention_residual.{component}": (
+                semantic.attention_residual_components.get(component)
+            )
+            for component in schema.required_attention_residual_components
+        }
+    )
+    groups.update(
+        {
+            f"routed_expert.{component}": semantic.routed_expert_components.get(
+                component
+            )
+            for component in schema.required_expert_components
+        }
+    )
+    groups.update(
+        {
+            f"model_attention_residual.{component}": (
+                semantic.model_attention_residual_components.get(component)
+            )
+            for component in schema.required_model_attention_residual_components
+        }
+    )
+    inconsistent = {
+        name: _descriptor_evidence(summary)
+        for name, summary in sorted(groups.items())
+        if not _descriptor_is_unanimous(summary)
+    }
+    summaries = {
+        name: _descriptor_evidence(summary)
+        for name, summary in sorted(groups.items())
+    }
+    return _finding(
+        "K3-TENSOR-001",
+        not inconsistent,
+        "Supported semantic descriptor groups are unanimous",
+        "One or more supported semantic descriptor groups are missing or disagree",
+        {
+            "policy": schema.descriptor_consistency_policy,
+            "inconsistent_groups": inconsistent,
+            "semantic_groups": summaries,
+        },
+    )
+
+
+def validate_tensor_002(
+    inventory: ModelInventory, schema: KimiK3Schema
+) -> ValidationFinding:
+    summary = inventory.tensor_classification
+    evidence = summary.model_dump(mode="json")
+    if summary.duplicate_exact_tensor_names:
+        return ValidationFinding(
+            rule_id="K3-TENSOR-002",
+            severity=Severity.ERROR,
+            status=FindingStatus.FAIL,
+            message="Canonical inventory reports duplicate exact tensor names",
+            evidence=evidence,
+        )
+    if summary.unclassified_records:
+        return ValidationFinding(
+            rule_id="K3-TENSOR-002",
+            severity=Severity.WARNING,
+            status=FindingStatus.WARN,
+            message="Unclassified tensors are present; review the compact summary",
+            evidence=evidence,
+        )
+    return ValidationFinding(
+        rule_id="K3-TENSOR-002",
+        severity=Severity.INFO,
+        status=FindingStatus.PASS,
+        message="All tensor records are semantically classified",
+        evidence=evidence,
+    )
+
+
 def validate_inventory(
     inventory: ModelInventory, schema: KimiK3Schema
 ) -> ValidationReport:
@@ -219,5 +494,11 @@ def validate_inventory(
             validate_layer_002(inventory, schema),
             validate_attn_001(inventory, schema),
             validate_moe_001(inventory, schema),
+            validate_moe_002(inventory, schema),
+            validate_attn_002(inventory, schema),
+            validate_attnres_001(inventory, schema),
+            validate_attnres_002(inventory, schema),
+            validate_tensor_001(inventory, schema),
+            validate_tensor_002(inventory, schema),
         ]
     )

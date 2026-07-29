@@ -49,6 +49,7 @@ class AttentionInventory(StrictModel):
     kind: AttentionKind
     observed_markers: list[str]
     g_proj_present: bool
+    g_proj_observation_count: int = Field(ge=0)
 
 
 class ExpertCoverage(StrictModel):
@@ -78,12 +79,66 @@ class Diagnostic(StrictModel):
     evidence: dict[str, JsonValue] = Field(default_factory=dict)
 
 
+class LayerExpertPair(StrictModel):
+    layer_id: int = Field(ge=0)
+    expert_id: int = Field(ge=0)
+
+
+class DescriptorGroup(StrictModel):
+    dtype: str
+    shape: list[int]
+    observation_count: int = Field(ge=1)
+    layer_ids: list[int] = Field(default_factory=list)
+    layer_expert_pair_examples: list[LayerExpertPair] = Field(default_factory=list)
+
+
+class DescriptorSummary(StrictModel):
+    observation_count: int = Field(ge=0)
+    descriptor_groups: list[DescriptorGroup]
+
+
+class SemanticDescriptorInventory(StrictModel):
+    g_proj: DescriptorSummary
+    shared_expert_components: dict[str, DescriptorSummary]
+    attention_residual_components: dict[str, DescriptorSummary]
+    routed_expert_components: dict[str, DescriptorSummary]
+    model_attention_residual_components: dict[str, DescriptorSummary]
+
+
+class UnclassifiedGroup(StrictModel):
+    key: str
+    record_count: int = Field(ge=1)
+    examples: list[str]
+
+
+class CompactUnclassifiedGroups(StrictModel):
+    record_count: int = Field(ge=0)
+    group_count: int = Field(ge=0)
+    emitted_group_count: int = Field(ge=0)
+    omitted_group_count: int = Field(ge=0)
+    groups: list[UnclassifiedGroup]
+
+
+class TensorClassificationSummary(StrictModel):
+    total_tensor_records: int = Field(ge=0)
+    semantically_classified_records: int = Field(ge=0)
+    unclassified_records: int = Field(ge=0)
+    duplicate_exact_tensor_names: int = Field(ge=0)
+    duplicate_examples: list[str]
+    group_cap: int = Field(ge=1)
+    examples_per_group_cap: int = Field(ge=1)
+    unknown_layer_local: CompactUnclassifiedGroups
+    unknown_model_namespaces: CompactUnclassifiedGroups
+
+
 class ModelInventory(StrictModel):
     schema_version: int
     source: SourceSummary
     observed_layer_ids: list[int]
     layers: list[LayerInventory]
     model_attention_residual_components: list[str]
+    semantic_descriptors: SemanticDescriptorInventory
+    tensor_classification: TensorClassificationSummary
     diagnostics: list[Diagnostic]
 
 
