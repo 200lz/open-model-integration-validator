@@ -9,3 +9,7 @@ build/
 *.egg-info/
 reports/raw/kimi_k3_tensors.json
 *.gguf
+
+# External model artifacts
+*.safetensors
+*.safetensors.index.json

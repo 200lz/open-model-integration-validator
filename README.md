@@ -265,3 +265,60 @@ complex GGUF inventory. It is not official Kimi K3 evidence and supports no Kimi
 production claim. Phase 3A does not perform HF-to-GGUF semantic mapping, split-GGUF
 aggregation, llama.cpp source parsing, payload decoding, inference, tokenizer parity,
 or numerical comparison.
+
+## Local Hugging Face Safetensors inventories
+
+Phase 4A securely inventories a local Qwen2 Safetensors checkpoint and assigns its
+measured physical tensors stable Qwen2 canonical identities:
+
+```bash
+omiv hf-normalize \
+  --model-dir /path/to/local/Qwen2.5-0.5B-Instruct \
+  --provenance /path/to/local/Qwen2.5-0.5B-Instruct/omiv-source.json \
+  --output fixtures/hf/qwen2_5_0_5b_instruct.inventory.json
+```
+
+Provenance is optional. When absent, the inventory records that it is unavailable
+rather than guessing a repository or revision. Supported provenance fields are
+`repository`, `revision`, `source`, and `purpose`; absolute paths and unknown keys are
+rejected.
+
+Exactly two checkpoint layouts are supported:
+
+- a monolithic `model.safetensors` with no index;
+- an indexed sharded checkpoint whose `model.safetensors.index.json` declares every
+  safe shard basename and tensor assignment.
+
+The reader rejects ambiguous layouts, missing or undeclared shards, traversal and
+absolute shard names, shard symlink escapes, non-regular shards, duplicate tensor
+names, index/header disagreements, and `total_size` contradictions. It never treats a
+recursive search for arbitrary Safetensors files as checkpoint truth.
+
+OMIV reads only the 8-byte Safetensors prefix and the declared JSON header. It never
+reads, decodes, maps, hashes, or materializes tensor payload bytes. Config and index
+digests use the shared canonical JSON encoding, so inconsequential JSON key order does
+not change the inventory. Full shard SHA-256 is deliberately omitted.
+
+Defensive limits are centralized in `omiv.hf.limits`: config 1 MiB, index 16 MiB,
+provenance 64 KiB, Safetensors header 64 MiB, one million tensors, 10,000 shards,
+4,096-byte tensor names, rank 16, dimensions at most 2^40, and element counts below
+2^63. JSON must be UTF-8, object-key duplicates are rejected, and nesting is capped at
+128.
+
+The Qwen2 ontology covers embeddings, output norm, Q/K/V/O projections and biases,
+per-layer norms, and gate/up/down FFN projections. Static checks compare config layer
+coverage, attention-derived K/V width, embedding/normalization dimensions, FFN shapes,
+and safely mapped declared dtype. Unknown names remain visible as unclassified
+physical tensors.
+
+A logical tied tensor is not an additional physical tensor. OMIV records the declared
+relationship without inventing payload data or claiming that two materialized tensors
+contain identical values.
+
+For tied Qwen2 embeddings with no physical `lm_head.weight`, the logical output
+projection points to the token embedding and is marked `materialized: false`. If both
+physical tensors exist, both remain in the inventory and payload equality is explicitly
+unverified.
+
+Phase 4A does not validate HF-to-GGUF mappings, execute converters, inspect tensor
+values, compare tokenizers, run inference, or make numerical-fidelity claims.

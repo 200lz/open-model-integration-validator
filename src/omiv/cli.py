@@ -20,6 +20,7 @@ from omiv.gguf.reporting import (
     render_markdown,
     report_integrity_matches,
 )
+from omiv.hf.reader import pretty_hf_inventory, read_hf_inventory
 from omiv.models import ModelInventory
 from omiv.normalizer import normalize_inventory, write_inventory
 from omiv.reporters.console import format_report
@@ -205,3 +206,38 @@ def report_verify(
         typer.echo("FAIL report integrity mismatch")
         raise typer.Exit(code=1)
     typer.echo(f"PASS report integrity {envelope.integrity.sha256}")
+
+
+@app.command()
+def hf_normalize(
+    model_dir: Annotated[
+        Path, typer.Option("--model-dir", exists=True, file_okay=False)
+    ],
+    output_path: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    provenance_path: Annotated[
+        Path | None, typer.Option("--provenance", exists=True, dir_okay=False)
+    ] = None,
+) -> None:
+    """Create a secure local Qwen2 Safetensors structural inventory."""
+    try:
+        inputs = [
+            model_dir / "config.json",
+            model_dir / "model.safetensors",
+            model_dir / "model.safetensors.index.json",
+            *model_dir.glob("*.safetensors"),
+        ]
+        if provenance_path is not None:
+            inputs.append(provenance_path)
+        validate_output_path(output_path, forbidden_inputs=inputs)
+        inventory = read_hf_inventory(
+            model_dir,
+            provenance_path=provenance_path,
+        )
+        atomic_write_text(
+            output_path,
+            pretty_hf_inventory(inventory),
+            forbidden_inputs=inputs,
+        )
+    except (OSError, UnicodeError, ValidationError, OmivInputError) as exc:
+        typer.echo(f"ERROR invalid input: {exc}", err=True)
+        raise typer.Exit(code=2) from exc

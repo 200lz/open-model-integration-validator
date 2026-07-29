@@ -1,0 +1,6936 @@
+{
+  "artifact": {
+    "config_file": {
+      "byte_size": 659,
+      "file_name": "config.json",
+      "sha256": "ee6f9831a4c4729cf094af9a76a53dfe1dde8e34a8251889f527d2179c7d918d"
+    },
+    "index_file": null,
+    "kind": "monolithic",
+    "shards": [
+      {
+        "byte_size": 988097824,
+        "count": 1,
+        "file_name": "model.safetensors",
+        "header_length": 32280,
+        "index": 0,
+        "payload_length": 988065536
+      }
+    ]
+  },
+  "canonical_sha256": "85fa02ce8134d58db8af70189b5b3ee9f839a8933e142133442536226e96a302",
+  "canonicalization": "omiv-json-v1",
+  "config": {
+    "architectures": [
+      "Qwen2ForCausalLM"
+    ],
+    "attention_head_count": 14,
+    "hidden_size": 896,
+    "intermediate_size": 4864,
+    "key_value_head_count": 2,
+    "layer_count": 24,
+    "model_type": "qwen2",
+    "tie_word_embeddings": true,
+    "torch_dtype": "bfloat16",
+    "vocabulary_size": 151936
+  },
+  "diagnostics": [],
+  "logical_ties": [
+    {
+      "evidence": {
+        "config_tie_word_embeddings": true,
+        "physical_lm_head_present": false,
+        "token_embedding_present": true
+      },
+      "logical_identity": "qwen2.output_projection.weight",
+      "materialized": false,
+      "physical_source_identity": "qwen2.token_embedding.weight"
+    }
+  ],
+  "provenance": {
+    "available": true,
+    "purpose": "OMIV Phase 4A HF inventory and ontology development",
+    "repository": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "source": "huggingface-hub"
+  },
+  "schema": "omiv.hf-inventory.v1",
+  "summary": {
+    "classified_tensor_count": 290,
+    "dtype_counts": {
+      "BF16": 290
+    },
+    "gap_count": 0,
+    "logical_tie_count": 1,
+    "observed_layer_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ],
+    "overlap_count": 0,
+    "physical_tensor_count": 290,
+    "unclassified_tensor_count": 0
+  },
+  "tensors": [
+    {
+      "canonical": {
+        "component": "token_embedding",
+        "identity": "qwen2.token_embedding.weight",
+        "layer_id": null,
+        "module": "embedding",
+        "parameter": "weight",
+        "scope": "model"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        0,
+        272269312
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 272269312,
+      "shape": [
+        151936,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.embed_tokens.weight"
+    },
+    {
+      "canonical": {
+        "component": "input_norm",
+        "identity": "qwen2.layer.0.attention.input_norm.weight",
+        "layer_id": 0,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        272269312,
+        272271104
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.0.input_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "down",
+        "identity": "qwen2.layer.0.ffn.down.weight",
+        "layer_id": 0,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        272271104,
+        280987392
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        896,
+        4864
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.0.mlp.down_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "gate",
+        "identity": "qwen2.layer.0.ffn.gate.weight",
+        "layer_id": 0,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        280987392,
+        289703680
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.0.mlp.gate_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "up",
+        "identity": "qwen2.layer.0.ffn.up.weight",
+        "layer_id": 0,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        289703680,
+        298419968
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.0.mlp.up_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "post_attention_norm",
+        "identity": "qwen2.layer.0.ffn.post_attention_norm.weight",
+        "layer_id": 0,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        298419968,
+        298421760
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.0.post_attention_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.0.attention.key.bias",
+        "layer_id": 0,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        298421760,
+        298422016
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.0.self_attn.k_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.0.attention.key.weight",
+        "layer_id": 0,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        298422016,
+        298651392
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.0.self_attn.k_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "output",
+        "identity": "qwen2.layer.0.attention.output.weight",
+        "layer_id": 0,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        298651392,
+        300257024
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.0.self_attn.o_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.0.attention.query.bias",
+        "layer_id": 0,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        300257024,
+        300258816
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.0.self_attn.q_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.0.attention.query.weight",
+        "layer_id": 0,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        300258816,
+        301864448
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.0.self_attn.q_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.0.attention.value.bias",
+        "layer_id": 0,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        301864448,
+        301864704
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.0.self_attn.v_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.0.attention.value.weight",
+        "layer_id": 0,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        301864704,
+        302094080
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.0.self_attn.v_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "input_norm",
+        "identity": "qwen2.layer.1.attention.input_norm.weight",
+        "layer_id": 1,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        302094080,
+        302095872
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.1.input_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "down",
+        "identity": "qwen2.layer.1.ffn.down.weight",
+        "layer_id": 1,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        302095872,
+        310812160
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        896,
+        4864
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.1.mlp.down_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "gate",
+        "identity": "qwen2.layer.1.ffn.gate.weight",
+        "layer_id": 1,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        310812160,
+        319528448
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.1.mlp.gate_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "up",
+        "identity": "qwen2.layer.1.ffn.up.weight",
+        "layer_id": 1,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        319528448,
+        328244736
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.1.mlp.up_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "post_attention_norm",
+        "identity": "qwen2.layer.1.ffn.post_attention_norm.weight",
+        "layer_id": 1,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        328244736,
+        328246528
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.1.post_attention_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.1.attention.key.bias",
+        "layer_id": 1,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        328246528,
+        328246784
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.1.self_attn.k_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.1.attention.key.weight",
+        "layer_id": 1,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        328246784,
+        328476160
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.1.self_attn.k_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "output",
+        "identity": "qwen2.layer.1.attention.output.weight",
+        "layer_id": 1,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        328476160,
+        330081792
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.1.self_attn.o_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.1.attention.query.bias",
+        "layer_id": 1,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        330081792,
+        330083584
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.1.self_attn.q_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.1.attention.query.weight",
+        "layer_id": 1,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        330083584,
+        331689216
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.1.self_attn.q_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.1.attention.value.bias",
+        "layer_id": 1,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        331689216,
+        331689472
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.1.self_attn.v_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.1.attention.value.weight",
+        "layer_id": 1,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        331689472,
+        331918848
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.1.self_attn.v_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "input_norm",
+        "identity": "qwen2.layer.10.attention.input_norm.weight",
+        "layer_id": 10,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        331918848,
+        331920640
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.10.input_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "down",
+        "identity": "qwen2.layer.10.ffn.down.weight",
+        "layer_id": 10,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        331920640,
+        340636928
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        896,
+        4864
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.10.mlp.down_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "gate",
+        "identity": "qwen2.layer.10.ffn.gate.weight",
+        "layer_id": 10,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        340636928,
+        349353216
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.10.mlp.gate_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "up",
+        "identity": "qwen2.layer.10.ffn.up.weight",
+        "layer_id": 10,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        349353216,
+        358069504
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.10.mlp.up_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "post_attention_norm",
+        "identity": "qwen2.layer.10.ffn.post_attention_norm.weight",
+        "layer_id": 10,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        358069504,
+        358071296
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.10.post_attention_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.10.attention.key.bias",
+        "layer_id": 10,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        358071296,
+        358071552
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.10.self_attn.k_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.10.attention.key.weight",
+        "layer_id": 10,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        358071552,
+        358300928
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.10.self_attn.k_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "output",
+        "identity": "qwen2.layer.10.attention.output.weight",
+        "layer_id": 10,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        358300928,
+        359906560
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.10.self_attn.o_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.10.attention.query.bias",
+        "layer_id": 10,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        359906560,
+        359908352
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.10.self_attn.q_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.10.attention.query.weight",
+        "layer_id": 10,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        359908352,
+        361513984
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.10.self_attn.q_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.10.attention.value.bias",
+        "layer_id": 10,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        361513984,
+        361514240
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.10.self_attn.v_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.10.attention.value.weight",
+        "layer_id": 10,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        361514240,
+        361743616
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.10.self_attn.v_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "input_norm",
+        "identity": "qwen2.layer.11.attention.input_norm.weight",
+        "layer_id": 11,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        361743616,
+        361745408
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.11.input_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "down",
+        "identity": "qwen2.layer.11.ffn.down.weight",
+        "layer_id": 11,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        361745408,
+        370461696
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        896,
+        4864
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.11.mlp.down_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "gate",
+        "identity": "qwen2.layer.11.ffn.gate.weight",
+        "layer_id": 11,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        370461696,
+        379177984
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.11.mlp.gate_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "up",
+        "identity": "qwen2.layer.11.ffn.up.weight",
+        "layer_id": 11,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        379177984,
+        387894272
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.11.mlp.up_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "post_attention_norm",
+        "identity": "qwen2.layer.11.ffn.post_attention_norm.weight",
+        "layer_id": 11,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        387894272,
+        387896064
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.11.post_attention_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.11.attention.key.bias",
+        "layer_id": 11,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        387896064,
+        387896320
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.11.self_attn.k_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.11.attention.key.weight",
+        "layer_id": 11,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        387896320,
+        388125696
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.11.self_attn.k_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "output",
+        "identity": "qwen2.layer.11.attention.output.weight",
+        "layer_id": 11,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        388125696,
+        389731328
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.11.self_attn.o_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.11.attention.query.bias",
+        "layer_id": 11,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        389731328,
+        389733120
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.11.self_attn.q_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.11.attention.query.weight",
+        "layer_id": 11,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        389733120,
+        391338752
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.11.self_attn.q_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.11.attention.value.bias",
+        "layer_id": 11,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        391338752,
+        391339008
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.11.self_attn.v_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.11.attention.value.weight",
+        "layer_id": 11,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        391339008,
+        391568384
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.11.self_attn.v_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "input_norm",
+        "identity": "qwen2.layer.12.attention.input_norm.weight",
+        "layer_id": 12,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        391568384,
+        391570176
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.12.input_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "down",
+        "identity": "qwen2.layer.12.ffn.down.weight",
+        "layer_id": 12,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        391570176,
+        400286464
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        896,
+        4864
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.12.mlp.down_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "gate",
+        "identity": "qwen2.layer.12.ffn.gate.weight",
+        "layer_id": 12,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        400286464,
+        409002752
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.12.mlp.gate_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "up",
+        "identity": "qwen2.layer.12.ffn.up.weight",
+        "layer_id": 12,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        409002752,
+        417719040
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.12.mlp.up_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "post_attention_norm",
+        "identity": "qwen2.layer.12.ffn.post_attention_norm.weight",
+        "layer_id": 12,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        417719040,
+        417720832
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.12.post_attention_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.12.attention.key.bias",
+        "layer_id": 12,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        417720832,
+        417721088
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.12.self_attn.k_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.12.attention.key.weight",
+        "layer_id": 12,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        417721088,
+        417950464
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.12.self_attn.k_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "output",
+        "identity": "qwen2.layer.12.attention.output.weight",
+        "layer_id": 12,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        417950464,
+        419556096
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.12.self_attn.o_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.12.attention.query.bias",
+        "layer_id": 12,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        419556096,
+        419557888
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.12.self_attn.q_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.12.attention.query.weight",
+        "layer_id": 12,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        419557888,
+        421163520
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.12.self_attn.q_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.12.attention.value.bias",
+        "layer_id": 12,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        421163520,
+        421163776
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.12.self_attn.v_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.12.attention.value.weight",
+        "layer_id": 12,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        421163776,
+        421393152
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.12.self_attn.v_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "input_norm",
+        "identity": "qwen2.layer.13.attention.input_norm.weight",
+        "layer_id": 13,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        421393152,
+        421394944
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.13.input_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "down",
+        "identity": "qwen2.layer.13.ffn.down.weight",
+        "layer_id": 13,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        421394944,
+        430111232
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        896,
+        4864
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.13.mlp.down_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "gate",
+        "identity": "qwen2.layer.13.ffn.gate.weight",
+        "layer_id": 13,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        430111232,
+        438827520
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.13.mlp.gate_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "up",
+        "identity": "qwen2.layer.13.ffn.up.weight",
+        "layer_id": 13,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        438827520,
+        447543808
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.13.mlp.up_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "post_attention_norm",
+        "identity": "qwen2.layer.13.ffn.post_attention_norm.weight",
+        "layer_id": 13,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        447543808,
+        447545600
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.13.post_attention_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.13.attention.key.bias",
+        "layer_id": 13,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        447545600,
+        447545856
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.13.self_attn.k_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.13.attention.key.weight",
+        "layer_id": 13,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        447545856,
+        447775232
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.13.self_attn.k_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "output",
+        "identity": "qwen2.layer.13.attention.output.weight",
+        "layer_id": 13,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        447775232,
+        449380864
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.13.self_attn.o_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.13.attention.query.bias",
+        "layer_id": 13,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        449380864,
+        449382656
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.13.self_attn.q_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.13.attention.query.weight",
+        "layer_id": 13,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        449382656,
+        450988288
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.13.self_attn.q_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.13.attention.value.bias",
+        "layer_id": 13,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        450988288,
+        450988544
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.13.self_attn.v_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.13.attention.value.weight",
+        "layer_id": 13,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        450988544,
+        451217920
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.13.self_attn.v_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "input_norm",
+        "identity": "qwen2.layer.14.attention.input_norm.weight",
+        "layer_id": 14,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        451217920,
+        451219712
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.14.input_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "down",
+        "identity": "qwen2.layer.14.ffn.down.weight",
+        "layer_id": 14,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        451219712,
+        459936000
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        896,
+        4864
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.14.mlp.down_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "gate",
+        "identity": "qwen2.layer.14.ffn.gate.weight",
+        "layer_id": 14,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        459936000,
+        468652288
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.14.mlp.gate_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "up",
+        "identity": "qwen2.layer.14.ffn.up.weight",
+        "layer_id": 14,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        468652288,
+        477368576
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.14.mlp.up_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "post_attention_norm",
+        "identity": "qwen2.layer.14.ffn.post_attention_norm.weight",
+        "layer_id": 14,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        477368576,
+        477370368
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.14.post_attention_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.14.attention.key.bias",
+        "layer_id": 14,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        477370368,
+        477370624
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.14.self_attn.k_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.14.attention.key.weight",
+        "layer_id": 14,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        477370624,
+        477600000
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.14.self_attn.k_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "output",
+        "identity": "qwen2.layer.14.attention.output.weight",
+        "layer_id": 14,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        477600000,
+        479205632
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.14.self_attn.o_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.14.attention.query.bias",
+        "layer_id": 14,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        479205632,
+        479207424
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.14.self_attn.q_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.14.attention.query.weight",
+        "layer_id": 14,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        479207424,
+        480813056
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.14.self_attn.q_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.14.attention.value.bias",
+        "layer_id": 14,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        480813056,
+        480813312
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.14.self_attn.v_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.14.attention.value.weight",
+        "layer_id": 14,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        480813312,
+        481042688
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.14.self_attn.v_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "input_norm",
+        "identity": "qwen2.layer.15.attention.input_norm.weight",
+        "layer_id": 15,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        481042688,
+        481044480
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.15.input_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "down",
+        "identity": "qwen2.layer.15.ffn.down.weight",
+        "layer_id": 15,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        481044480,
+        489760768
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        896,
+        4864
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.15.mlp.down_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "gate",
+        "identity": "qwen2.layer.15.ffn.gate.weight",
+        "layer_id": 15,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        489760768,
+        498477056
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.15.mlp.gate_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "up",
+        "identity": "qwen2.layer.15.ffn.up.weight",
+        "layer_id": 15,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        498477056,
+        507193344
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.15.mlp.up_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "post_attention_norm",
+        "identity": "qwen2.layer.15.ffn.post_attention_norm.weight",
+        "layer_id": 15,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        507193344,
+        507195136
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.15.post_attention_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.15.attention.key.bias",
+        "layer_id": 15,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        507195136,
+        507195392
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.15.self_attn.k_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.15.attention.key.weight",
+        "layer_id": 15,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        507195392,
+        507424768
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.15.self_attn.k_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "output",
+        "identity": "qwen2.layer.15.attention.output.weight",
+        "layer_id": 15,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        507424768,
+        509030400
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.15.self_attn.o_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.15.attention.query.bias",
+        "layer_id": 15,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        509030400,
+        509032192
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.15.self_attn.q_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.15.attention.query.weight",
+        "layer_id": 15,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        509032192,
+        510637824
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.15.self_attn.q_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.15.attention.value.bias",
+        "layer_id": 15,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        510637824,
+        510638080
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.15.self_attn.v_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.15.attention.value.weight",
+        "layer_id": 15,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        510638080,
+        510867456
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.15.self_attn.v_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "input_norm",
+        "identity": "qwen2.layer.16.attention.input_norm.weight",
+        "layer_id": 16,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        510867456,
+        510869248
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.16.input_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "down",
+        "identity": "qwen2.layer.16.ffn.down.weight",
+        "layer_id": 16,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        510869248,
+        519585536
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        896,
+        4864
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.16.mlp.down_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "gate",
+        "identity": "qwen2.layer.16.ffn.gate.weight",
+        "layer_id": 16,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        519585536,
+        528301824
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.16.mlp.gate_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "up",
+        "identity": "qwen2.layer.16.ffn.up.weight",
+        "layer_id": 16,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        528301824,
+        537018112
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.16.mlp.up_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "post_attention_norm",
+        "identity": "qwen2.layer.16.ffn.post_attention_norm.weight",
+        "layer_id": 16,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        537018112,
+        537019904
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.16.post_attention_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.16.attention.key.bias",
+        "layer_id": 16,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        537019904,
+        537020160
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.16.self_attn.k_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.16.attention.key.weight",
+        "layer_id": 16,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        537020160,
+        537249536
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.16.self_attn.k_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "output",
+        "identity": "qwen2.layer.16.attention.output.weight",
+        "layer_id": 16,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        537249536,
+        538855168
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.16.self_attn.o_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.16.attention.query.bias",
+        "layer_id": 16,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        538855168,
+        538856960
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.16.self_attn.q_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.16.attention.query.weight",
+        "layer_id": 16,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        538856960,
+        540462592
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.16.self_attn.q_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.16.attention.value.bias",
+        "layer_id": 16,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        540462592,
+        540462848
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.16.self_attn.v_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.16.attention.value.weight",
+        "layer_id": 16,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        540462848,
+        540692224
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.16.self_attn.v_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "input_norm",
+        "identity": "qwen2.layer.17.attention.input_norm.weight",
+        "layer_id": 17,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        540692224,
+        540694016
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.17.input_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "down",
+        "identity": "qwen2.layer.17.ffn.down.weight",
+        "layer_id": 17,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        540694016,
+        549410304
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        896,
+        4864
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.17.mlp.down_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "gate",
+        "identity": "qwen2.layer.17.ffn.gate.weight",
+        "layer_id": 17,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        549410304,
+        558126592
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.17.mlp.gate_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "up",
+        "identity": "qwen2.layer.17.ffn.up.weight",
+        "layer_id": 17,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        558126592,
+        566842880
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.17.mlp.up_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "post_attention_norm",
+        "identity": "qwen2.layer.17.ffn.post_attention_norm.weight",
+        "layer_id": 17,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        566842880,
+        566844672
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.17.post_attention_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.17.attention.key.bias",
+        "layer_id": 17,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        566844672,
+        566844928
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.17.self_attn.k_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.17.attention.key.weight",
+        "layer_id": 17,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        566844928,
+        567074304
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.17.self_attn.k_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "output",
+        "identity": "qwen2.layer.17.attention.output.weight",
+        "layer_id": 17,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        567074304,
+        568679936
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.17.self_attn.o_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.17.attention.query.bias",
+        "layer_id": 17,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        568679936,
+        568681728
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.17.self_attn.q_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.17.attention.query.weight",
+        "layer_id": 17,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        568681728,
+        570287360
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.17.self_attn.q_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.17.attention.value.bias",
+        "layer_id": 17,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        570287360,
+        570287616
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.17.self_attn.v_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.17.attention.value.weight",
+        "layer_id": 17,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        570287616,
+        570516992
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.17.self_attn.v_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "input_norm",
+        "identity": "qwen2.layer.18.attention.input_norm.weight",
+        "layer_id": 18,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        570516992,
+        570518784
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.18.input_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "down",
+        "identity": "qwen2.layer.18.ffn.down.weight",
+        "layer_id": 18,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        570518784,
+        579235072
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        896,
+        4864
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.18.mlp.down_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "gate",
+        "identity": "qwen2.layer.18.ffn.gate.weight",
+        "layer_id": 18,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        579235072,
+        587951360
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.18.mlp.gate_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "up",
+        "identity": "qwen2.layer.18.ffn.up.weight",
+        "layer_id": 18,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        587951360,
+        596667648
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.18.mlp.up_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "post_attention_norm",
+        "identity": "qwen2.layer.18.ffn.post_attention_norm.weight",
+        "layer_id": 18,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        596667648,
+        596669440
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.18.post_attention_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.18.attention.key.bias",
+        "layer_id": 18,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        596669440,
+        596669696
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.18.self_attn.k_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.18.attention.key.weight",
+        "layer_id": 18,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        596669696,
+        596899072
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.18.self_attn.k_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "output",
+        "identity": "qwen2.layer.18.attention.output.weight",
+        "layer_id": 18,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        596899072,
+        598504704
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.18.self_attn.o_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.18.attention.query.bias",
+        "layer_id": 18,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        598504704,
+        598506496
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.18.self_attn.q_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.18.attention.query.weight",
+        "layer_id": 18,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        598506496,
+        600112128
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.18.self_attn.q_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.18.attention.value.bias",
+        "layer_id": 18,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        600112128,
+        600112384
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.18.self_attn.v_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.18.attention.value.weight",
+        "layer_id": 18,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        600112384,
+        600341760
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.18.self_attn.v_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "input_norm",
+        "identity": "qwen2.layer.19.attention.input_norm.weight",
+        "layer_id": 19,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        600341760,
+        600343552
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.19.input_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "down",
+        "identity": "qwen2.layer.19.ffn.down.weight",
+        "layer_id": 19,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        600343552,
+        609059840
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        896,
+        4864
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.19.mlp.down_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "gate",
+        "identity": "qwen2.layer.19.ffn.gate.weight",
+        "layer_id": 19,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        609059840,
+        617776128
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.19.mlp.gate_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "up",
+        "identity": "qwen2.layer.19.ffn.up.weight",
+        "layer_id": 19,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        617776128,
+        626492416
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.19.mlp.up_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "post_attention_norm",
+        "identity": "qwen2.layer.19.ffn.post_attention_norm.weight",
+        "layer_id": 19,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        626492416,
+        626494208
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.19.post_attention_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.19.attention.key.bias",
+        "layer_id": 19,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        626494208,
+        626494464
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.19.self_attn.k_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.19.attention.key.weight",
+        "layer_id": 19,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        626494464,
+        626723840
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.19.self_attn.k_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "output",
+        "identity": "qwen2.layer.19.attention.output.weight",
+        "layer_id": 19,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        626723840,
+        628329472
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.19.self_attn.o_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.19.attention.query.bias",
+        "layer_id": 19,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        628329472,
+        628331264
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.19.self_attn.q_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.19.attention.query.weight",
+        "layer_id": 19,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        628331264,
+        629936896
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.19.self_attn.q_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.19.attention.value.bias",
+        "layer_id": 19,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        629936896,
+        629937152
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.19.self_attn.v_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.19.attention.value.weight",
+        "layer_id": 19,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        629937152,
+        630166528
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.19.self_attn.v_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "input_norm",
+        "identity": "qwen2.layer.2.attention.input_norm.weight",
+        "layer_id": 2,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        630166528,
+        630168320
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.2.input_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "down",
+        "identity": "qwen2.layer.2.ffn.down.weight",
+        "layer_id": 2,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        630168320,
+        638884608
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        896,
+        4864
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.2.mlp.down_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "gate",
+        "identity": "qwen2.layer.2.ffn.gate.weight",
+        "layer_id": 2,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        638884608,
+        647600896
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.2.mlp.gate_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "up",
+        "identity": "qwen2.layer.2.ffn.up.weight",
+        "layer_id": 2,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        647600896,
+        656317184
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.2.mlp.up_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "post_attention_norm",
+        "identity": "qwen2.layer.2.ffn.post_attention_norm.weight",
+        "layer_id": 2,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        656317184,
+        656318976
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.2.post_attention_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.2.attention.key.bias",
+        "layer_id": 2,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        656318976,
+        656319232
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.2.self_attn.k_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.2.attention.key.weight",
+        "layer_id": 2,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        656319232,
+        656548608
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.2.self_attn.k_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "output",
+        "identity": "qwen2.layer.2.attention.output.weight",
+        "layer_id": 2,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        656548608,
+        658154240
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.2.self_attn.o_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.2.attention.query.bias",
+        "layer_id": 2,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        658154240,
+        658156032
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.2.self_attn.q_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.2.attention.query.weight",
+        "layer_id": 2,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        658156032,
+        659761664
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.2.self_attn.q_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.2.attention.value.bias",
+        "layer_id": 2,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        659761664,
+        659761920
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.2.self_attn.v_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.2.attention.value.weight",
+        "layer_id": 2,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        659761920,
+        659991296
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.2.self_attn.v_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "input_norm",
+        "identity": "qwen2.layer.20.attention.input_norm.weight",
+        "layer_id": 20,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        659991296,
+        659993088
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.20.input_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "down",
+        "identity": "qwen2.layer.20.ffn.down.weight",
+        "layer_id": 20,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        659993088,
+        668709376
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        896,
+        4864
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.20.mlp.down_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "gate",
+        "identity": "qwen2.layer.20.ffn.gate.weight",
+        "layer_id": 20,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        668709376,
+        677425664
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.20.mlp.gate_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "up",
+        "identity": "qwen2.layer.20.ffn.up.weight",
+        "layer_id": 20,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        677425664,
+        686141952
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.20.mlp.up_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "post_attention_norm",
+        "identity": "qwen2.layer.20.ffn.post_attention_norm.weight",
+        "layer_id": 20,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        686141952,
+        686143744
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.20.post_attention_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.20.attention.key.bias",
+        "layer_id": 20,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        686143744,
+        686144000
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.20.self_attn.k_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.20.attention.key.weight",
+        "layer_id": 20,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        686144000,
+        686373376
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.20.self_attn.k_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "output",
+        "identity": "qwen2.layer.20.attention.output.weight",
+        "layer_id": 20,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        686373376,
+        687979008
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.20.self_attn.o_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.20.attention.query.bias",
+        "layer_id": 20,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        687979008,
+        687980800
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.20.self_attn.q_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.20.attention.query.weight",
+        "layer_id": 20,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        687980800,
+        689586432
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.20.self_attn.q_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.20.attention.value.bias",
+        "layer_id": 20,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        689586432,
+        689586688
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.20.self_attn.v_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.20.attention.value.weight",
+        "layer_id": 20,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        689586688,
+        689816064
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.20.self_attn.v_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "input_norm",
+        "identity": "qwen2.layer.21.attention.input_norm.weight",
+        "layer_id": 21,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        689816064,
+        689817856
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.21.input_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "down",
+        "identity": "qwen2.layer.21.ffn.down.weight",
+        "layer_id": 21,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        689817856,
+        698534144
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        896,
+        4864
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.21.mlp.down_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "gate",
+        "identity": "qwen2.layer.21.ffn.gate.weight",
+        "layer_id": 21,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        698534144,
+        707250432
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.21.mlp.gate_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "up",
+        "identity": "qwen2.layer.21.ffn.up.weight",
+        "layer_id": 21,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        707250432,
+        715966720
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.21.mlp.up_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "post_attention_norm",
+        "identity": "qwen2.layer.21.ffn.post_attention_norm.weight",
+        "layer_id": 21,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        715966720,
+        715968512
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.21.post_attention_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.21.attention.key.bias",
+        "layer_id": 21,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        715968512,
+        715968768
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.21.self_attn.k_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.21.attention.key.weight",
+        "layer_id": 21,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        715968768,
+        716198144
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.21.self_attn.k_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "output",
+        "identity": "qwen2.layer.21.attention.output.weight",
+        "layer_id": 21,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        716198144,
+        717803776
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.21.self_attn.o_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.21.attention.query.bias",
+        "layer_id": 21,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        717803776,
+        717805568
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.21.self_attn.q_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.21.attention.query.weight",
+        "layer_id": 21,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        717805568,
+        719411200
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.21.self_attn.q_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.21.attention.value.bias",
+        "layer_id": 21,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        719411200,
+        719411456
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.21.self_attn.v_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.21.attention.value.weight",
+        "layer_id": 21,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        719411456,
+        719640832
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.21.self_attn.v_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "input_norm",
+        "identity": "qwen2.layer.22.attention.input_norm.weight",
+        "layer_id": 22,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        719640832,
+        719642624
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.22.input_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "down",
+        "identity": "qwen2.layer.22.ffn.down.weight",
+        "layer_id": 22,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        719642624,
+        728358912
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        896,
+        4864
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.22.mlp.down_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "gate",
+        "identity": "qwen2.layer.22.ffn.gate.weight",
+        "layer_id": 22,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        728358912,
+        737075200
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.22.mlp.gate_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "up",
+        "identity": "qwen2.layer.22.ffn.up.weight",
+        "layer_id": 22,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        737075200,
+        745791488
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.22.mlp.up_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "post_attention_norm",
+        "identity": "qwen2.layer.22.ffn.post_attention_norm.weight",
+        "layer_id": 22,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        745791488,
+        745793280
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.22.post_attention_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.22.attention.key.bias",
+        "layer_id": 22,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        745793280,
+        745793536
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.22.self_attn.k_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.22.attention.key.weight",
+        "layer_id": 22,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        745793536,
+        746022912
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.22.self_attn.k_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "output",
+        "identity": "qwen2.layer.22.attention.output.weight",
+        "layer_id": 22,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        746022912,
+        747628544
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.22.self_attn.o_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.22.attention.query.bias",
+        "layer_id": 22,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        747628544,
+        747630336
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.22.self_attn.q_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.22.attention.query.weight",
+        "layer_id": 22,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        747630336,
+        749235968
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.22.self_attn.q_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.22.attention.value.bias",
+        "layer_id": 22,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        749235968,
+        749236224
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.22.self_attn.v_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.22.attention.value.weight",
+        "layer_id": 22,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        749236224,
+        749465600
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.22.self_attn.v_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "input_norm",
+        "identity": "qwen2.layer.23.attention.input_norm.weight",
+        "layer_id": 23,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        749465600,
+        749467392
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.23.input_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "down",
+        "identity": "qwen2.layer.23.ffn.down.weight",
+        "layer_id": 23,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        749467392,
+        758183680
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        896,
+        4864
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.23.mlp.down_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "gate",
+        "identity": "qwen2.layer.23.ffn.gate.weight",
+        "layer_id": 23,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        758183680,
+        766899968
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.23.mlp.gate_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "up",
+        "identity": "qwen2.layer.23.ffn.up.weight",
+        "layer_id": 23,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        766899968,
+        775616256
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.23.mlp.up_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "post_attention_norm",
+        "identity": "qwen2.layer.23.ffn.post_attention_norm.weight",
+        "layer_id": 23,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        775616256,
+        775618048
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.23.post_attention_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.23.attention.key.bias",
+        "layer_id": 23,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        775618048,
+        775618304
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.23.self_attn.k_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.23.attention.key.weight",
+        "layer_id": 23,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        775618304,
+        775847680
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.23.self_attn.k_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "output",
+        "identity": "qwen2.layer.23.attention.output.weight",
+        "layer_id": 23,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        775847680,
+        777453312
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.23.self_attn.o_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.23.attention.query.bias",
+        "layer_id": 23,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        777453312,
+        777455104
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.23.self_attn.q_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.23.attention.query.weight",
+        "layer_id": 23,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        777455104,
+        779060736
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.23.self_attn.q_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.23.attention.value.bias",
+        "layer_id": 23,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        779060736,
+        779060992
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.23.self_attn.v_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.23.attention.value.weight",
+        "layer_id": 23,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        779060992,
+        779290368
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.23.self_attn.v_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "input_norm",
+        "identity": "qwen2.layer.3.attention.input_norm.weight",
+        "layer_id": 3,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        779290368,
+        779292160
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.3.input_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "down",
+        "identity": "qwen2.layer.3.ffn.down.weight",
+        "layer_id": 3,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        779292160,
+        788008448
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        896,
+        4864
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.3.mlp.down_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "gate",
+        "identity": "qwen2.layer.3.ffn.gate.weight",
+        "layer_id": 3,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        788008448,
+        796724736
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.3.mlp.gate_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "up",
+        "identity": "qwen2.layer.3.ffn.up.weight",
+        "layer_id": 3,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        796724736,
+        805441024
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.3.mlp.up_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "post_attention_norm",
+        "identity": "qwen2.layer.3.ffn.post_attention_norm.weight",
+        "layer_id": 3,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        805441024,
+        805442816
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.3.post_attention_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.3.attention.key.bias",
+        "layer_id": 3,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        805442816,
+        805443072
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.3.self_attn.k_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.3.attention.key.weight",
+        "layer_id": 3,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        805443072,
+        805672448
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.3.self_attn.k_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "output",
+        "identity": "qwen2.layer.3.attention.output.weight",
+        "layer_id": 3,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        805672448,
+        807278080
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.3.self_attn.o_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.3.attention.query.bias",
+        "layer_id": 3,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        807278080,
+        807279872
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.3.self_attn.q_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.3.attention.query.weight",
+        "layer_id": 3,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        807279872,
+        808885504
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.3.self_attn.q_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.3.attention.value.bias",
+        "layer_id": 3,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        808885504,
+        808885760
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.3.self_attn.v_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.3.attention.value.weight",
+        "layer_id": 3,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        808885760,
+        809115136
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.3.self_attn.v_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "input_norm",
+        "identity": "qwen2.layer.4.attention.input_norm.weight",
+        "layer_id": 4,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        809115136,
+        809116928
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.4.input_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "down",
+        "identity": "qwen2.layer.4.ffn.down.weight",
+        "layer_id": 4,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        809116928,
+        817833216
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        896,
+        4864
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.4.mlp.down_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "gate",
+        "identity": "qwen2.layer.4.ffn.gate.weight",
+        "layer_id": 4,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        817833216,
+        826549504
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.4.mlp.gate_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "up",
+        "identity": "qwen2.layer.4.ffn.up.weight",
+        "layer_id": 4,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        826549504,
+        835265792
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.4.mlp.up_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "post_attention_norm",
+        "identity": "qwen2.layer.4.ffn.post_attention_norm.weight",
+        "layer_id": 4,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        835265792,
+        835267584
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.4.post_attention_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.4.attention.key.bias",
+        "layer_id": 4,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        835267584,
+        835267840
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.4.self_attn.k_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.4.attention.key.weight",
+        "layer_id": 4,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        835267840,
+        835497216
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.4.self_attn.k_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "output",
+        "identity": "qwen2.layer.4.attention.output.weight",
+        "layer_id": 4,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        835497216,
+        837102848
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.4.self_attn.o_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.4.attention.query.bias",
+        "layer_id": 4,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        837102848,
+        837104640
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.4.self_attn.q_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.4.attention.query.weight",
+        "layer_id": 4,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        837104640,
+        838710272
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.4.self_attn.q_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.4.attention.value.bias",
+        "layer_id": 4,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        838710272,
+        838710528
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.4.self_attn.v_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.4.attention.value.weight",
+        "layer_id": 4,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        838710528,
+        838939904
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.4.self_attn.v_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "input_norm",
+        "identity": "qwen2.layer.5.attention.input_norm.weight",
+        "layer_id": 5,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        838939904,
+        838941696
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.5.input_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "down",
+        "identity": "qwen2.layer.5.ffn.down.weight",
+        "layer_id": 5,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        838941696,
+        847657984
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        896,
+        4864
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.5.mlp.down_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "gate",
+        "identity": "qwen2.layer.5.ffn.gate.weight",
+        "layer_id": 5,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        847657984,
+        856374272
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.5.mlp.gate_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "up",
+        "identity": "qwen2.layer.5.ffn.up.weight",
+        "layer_id": 5,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        856374272,
+        865090560
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.5.mlp.up_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "post_attention_norm",
+        "identity": "qwen2.layer.5.ffn.post_attention_norm.weight",
+        "layer_id": 5,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        865090560,
+        865092352
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.5.post_attention_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.5.attention.key.bias",
+        "layer_id": 5,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        865092352,
+        865092608
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.5.self_attn.k_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.5.attention.key.weight",
+        "layer_id": 5,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        865092608,
+        865321984
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.5.self_attn.k_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "output",
+        "identity": "qwen2.layer.5.attention.output.weight",
+        "layer_id": 5,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        865321984,
+        866927616
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.5.self_attn.o_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.5.attention.query.bias",
+        "layer_id": 5,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        866927616,
+        866929408
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.5.self_attn.q_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.5.attention.query.weight",
+        "layer_id": 5,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        866929408,
+        868535040
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.5.self_attn.q_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.5.attention.value.bias",
+        "layer_id": 5,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        868535040,
+        868535296
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.5.self_attn.v_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.5.attention.value.weight",
+        "layer_id": 5,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        868535296,
+        868764672
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.5.self_attn.v_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "input_norm",
+        "identity": "qwen2.layer.6.attention.input_norm.weight",
+        "layer_id": 6,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        868764672,
+        868766464
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.6.input_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "down",
+        "identity": "qwen2.layer.6.ffn.down.weight",
+        "layer_id": 6,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        868766464,
+        877482752
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        896,
+        4864
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.6.mlp.down_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "gate",
+        "identity": "qwen2.layer.6.ffn.gate.weight",
+        "layer_id": 6,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        877482752,
+        886199040
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.6.mlp.gate_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "up",
+        "identity": "qwen2.layer.6.ffn.up.weight",
+        "layer_id": 6,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        886199040,
+        894915328
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.6.mlp.up_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "post_attention_norm",
+        "identity": "qwen2.layer.6.ffn.post_attention_norm.weight",
+        "layer_id": 6,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        894915328,
+        894917120
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.6.post_attention_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.6.attention.key.bias",
+        "layer_id": 6,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        894917120,
+        894917376
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.6.self_attn.k_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.6.attention.key.weight",
+        "layer_id": 6,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        894917376,
+        895146752
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.6.self_attn.k_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "output",
+        "identity": "qwen2.layer.6.attention.output.weight",
+        "layer_id": 6,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        895146752,
+        896752384
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.6.self_attn.o_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.6.attention.query.bias",
+        "layer_id": 6,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        896752384,
+        896754176
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.6.self_attn.q_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.6.attention.query.weight",
+        "layer_id": 6,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        896754176,
+        898359808
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.6.self_attn.q_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.6.attention.value.bias",
+        "layer_id": 6,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        898359808,
+        898360064
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.6.self_attn.v_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.6.attention.value.weight",
+        "layer_id": 6,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        898360064,
+        898589440
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.6.self_attn.v_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "input_norm",
+        "identity": "qwen2.layer.7.attention.input_norm.weight",
+        "layer_id": 7,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        898589440,
+        898591232
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.7.input_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "down",
+        "identity": "qwen2.layer.7.ffn.down.weight",
+        "layer_id": 7,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        898591232,
+        907307520
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        896,
+        4864
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.7.mlp.down_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "gate",
+        "identity": "qwen2.layer.7.ffn.gate.weight",
+        "layer_id": 7,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        907307520,
+        916023808
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.7.mlp.gate_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "up",
+        "identity": "qwen2.layer.7.ffn.up.weight",
+        "layer_id": 7,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        916023808,
+        924740096
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.7.mlp.up_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "post_attention_norm",
+        "identity": "qwen2.layer.7.ffn.post_attention_norm.weight",
+        "layer_id": 7,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        924740096,
+        924741888
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.7.post_attention_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.7.attention.key.bias",
+        "layer_id": 7,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        924741888,
+        924742144
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.7.self_attn.k_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.7.attention.key.weight",
+        "layer_id": 7,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        924742144,
+        924971520
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.7.self_attn.k_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "output",
+        "identity": "qwen2.layer.7.attention.output.weight",
+        "layer_id": 7,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        924971520,
+        926577152
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.7.self_attn.o_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.7.attention.query.bias",
+        "layer_id": 7,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        926577152,
+        926578944
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.7.self_attn.q_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.7.attention.query.weight",
+        "layer_id": 7,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        926578944,
+        928184576
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.7.self_attn.q_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.7.attention.value.bias",
+        "layer_id": 7,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        928184576,
+        928184832
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.7.self_attn.v_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.7.attention.value.weight",
+        "layer_id": 7,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        928184832,
+        928414208
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.7.self_attn.v_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "input_norm",
+        "identity": "qwen2.layer.8.attention.input_norm.weight",
+        "layer_id": 8,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        928414208,
+        928416000
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.8.input_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "down",
+        "identity": "qwen2.layer.8.ffn.down.weight",
+        "layer_id": 8,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        928416000,
+        937132288
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        896,
+        4864
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.8.mlp.down_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "gate",
+        "identity": "qwen2.layer.8.ffn.gate.weight",
+        "layer_id": 8,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        937132288,
+        945848576
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.8.mlp.gate_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "up",
+        "identity": "qwen2.layer.8.ffn.up.weight",
+        "layer_id": 8,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        945848576,
+        954564864
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.8.mlp.up_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "post_attention_norm",
+        "identity": "qwen2.layer.8.ffn.post_attention_norm.weight",
+        "layer_id": 8,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        954564864,
+        954566656
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.8.post_attention_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.8.attention.key.bias",
+        "layer_id": 8,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        954566656,
+        954566912
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.8.self_attn.k_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.8.attention.key.weight",
+        "layer_id": 8,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        954566912,
+        954796288
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.8.self_attn.k_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "output",
+        "identity": "qwen2.layer.8.attention.output.weight",
+        "layer_id": 8,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        954796288,
+        956401920
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.8.self_attn.o_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.8.attention.query.bias",
+        "layer_id": 8,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        956401920,
+        956403712
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.8.self_attn.q_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.8.attention.query.weight",
+        "layer_id": 8,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        956403712,
+        958009344
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.8.self_attn.q_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.8.attention.value.bias",
+        "layer_id": 8,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        958009344,
+        958009600
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.8.self_attn.v_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.8.attention.value.weight",
+        "layer_id": 8,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        958009600,
+        958238976
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.8.self_attn.v_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "input_norm",
+        "identity": "qwen2.layer.9.attention.input_norm.weight",
+        "layer_id": 9,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        958238976,
+        958240768
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.9.input_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "down",
+        "identity": "qwen2.layer.9.ffn.down.weight",
+        "layer_id": 9,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        958240768,
+        966957056
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        896,
+        4864
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.9.mlp.down_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "gate",
+        "identity": "qwen2.layer.9.ffn.gate.weight",
+        "layer_id": 9,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        966957056,
+        975673344
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.9.mlp.gate_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "up",
+        "identity": "qwen2.layer.9.ffn.up.weight",
+        "layer_id": 9,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        975673344,
+        984389632
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 8716288,
+      "shape": [
+        4864,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.9.mlp.up_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "post_attention_norm",
+        "identity": "qwen2.layer.9.ffn.post_attention_norm.weight",
+        "layer_id": 9,
+        "module": "ffn",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        984389632,
+        984391424
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.9.post_attention_layernorm.weight"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.9.attention.key.bias",
+        "layer_id": 9,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        984391424,
+        984391680
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.9.self_attn.k_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "key",
+        "identity": "qwen2.layer.9.attention.key.weight",
+        "layer_id": 9,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        984391680,
+        984621056
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.9.self_attn.k_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "output",
+        "identity": "qwen2.layer.9.attention.output.weight",
+        "layer_id": 9,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        984621056,
+        986226688
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.9.self_attn.o_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.9.attention.query.bias",
+        "layer_id": 9,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        986226688,
+        986228480
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.9.self_attn.q_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "query",
+        "identity": "qwen2.layer.9.attention.query.weight",
+        "layer_id": 9,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        986228480,
+        987834112
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1605632,
+      "shape": [
+        896,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.9.self_attn.q_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.9.attention.value.bias",
+        "layer_id": 9,
+        "module": "attention",
+        "parameter": "bias",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        987834112,
+        987834368
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 256,
+      "shape": [
+        128
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.9.self_attn.v_proj.bias"
+    },
+    {
+      "canonical": {
+        "component": "value",
+        "identity": "qwen2.layer.9.attention.value.weight",
+        "layer_id": 9,
+        "module": "attention",
+        "parameter": "weight",
+        "scope": "layer"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        987834368,
+        988063744
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 229376,
+      "shape": [
+        128,
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.layers.9.self_attn.v_proj.weight"
+    },
+    {
+      "canonical": {
+        "component": "output_norm",
+        "identity": "qwen2.output_norm.weight",
+        "layer_id": null,
+        "module": "normalization",
+        "parameter": "weight",
+        "scope": "model"
+      },
+      "classification": "classified",
+      "data_offsets": [
+        988063744,
+        988065536
+      ],
+      "dtype": "BF16",
+      "payload_byte_length": 1792,
+      "shape": [
+        896
+      ],
+      "shape_order": "huggingface_safetensors",
+      "shard_file": "model.safetensors",
+      "source_name": "model.norm.weight"
+    }
+  ]
+}
