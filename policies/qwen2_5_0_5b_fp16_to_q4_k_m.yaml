@@ -1,5 +1,6 @@
-schema_version: 1
-name: qwen2.5-0.5b-fp16-to-q4_k_m
+policy_schema_version: 1
+policy_id: qwen2.5-0.5b-fp16-to-q4_k_m
+description: Qwen2.5 0.5B FP16 to Q4_K_M structural conversion policy
 require_same_architecture: true
 require_same_tensor_names: true
 require_same_tensor_shapes: true

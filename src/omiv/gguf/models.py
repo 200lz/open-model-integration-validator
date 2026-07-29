@@ -5,7 +5,7 @@ from __future__ import annotations
 from enum import StrEnum
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field, JsonValue
+from pydantic import AliasChoices, BaseModel, ConfigDict, Field, JsonValue
 
 
 class StrictModel(BaseModel):
@@ -102,8 +102,17 @@ class MetadataDifferenceRule(StrictModel):
 
 
 class GGUFComparisonPolicy(StrictModel):
-    schema_version: Literal[1]
-    name: str
+    model_config = ConfigDict(extra="forbid", populate_by_name=True)
+
+    policy_schema_version: Literal[1] = Field(
+        validation_alias=AliasChoices("policy_schema_version", "schema_version")
+    )
+    policy_id: str = Field(
+        min_length=1,
+        pattern=r"^[a-z0-9][a-z0-9._-]*$",
+        validation_alias=AliasChoices("policy_id", "name"),
+    )
+    description: str | None = None
     require_same_architecture: bool
     require_same_tensor_names: bool
     require_same_tensor_shapes: bool
@@ -111,6 +120,16 @@ class GGUFComparisonPolicy(StrictModel):
     metadata_rules: list[MetadataDifferenceRule]
     unknown_metadata_drift: Literal["warn", "fail", "ignore"]
     evidence_example_cap: int = Field(default=10, ge=1, le=100)
+
+    @property
+    def schema_version(self) -> int:
+        """Phase 3A compatibility alias."""
+        return self.policy_schema_version
+
+    @property
+    def name(self) -> str:
+        """Phase 3A compatibility alias."""
+        return self.policy_id
 
 
 class GGUFComparisonFinding(StrictModel):

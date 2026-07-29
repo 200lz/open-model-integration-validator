@@ -141,6 +141,85 @@ omiv gguf-diff \
   --policy policies/qwen2_5_0_5b_fp16_to_q8_0.yaml
 ```
 
+Phase 3B can persist the same comparison as deterministic JSON and Markdown:
+
+```bash
+omiv gguf-diff \
+  --source fixtures/gguf/qwen2_5_0_5b_fp16.inventory.json \
+  --target fixtures/gguf/qwen2_5_0_5b_q8_0.inventory.json \
+  --policy policies/qwen2_5_0_5b_fp16_to_q8_0.yaml \
+  --json-output reports/gguf/qwen2_5_0_5b_fp16_to_q8_0.report.json \
+  --markdown-output reports/gguf/qwen2_5_0_5b_fp16_to_q8_0.report.md
+```
+
+Markdown can also be rendered later from a valid JSON report:
+
+```bash
+omiv report \
+  --input reports/gguf/qwen2_5_0_5b_fp16_to_q8_0.report.json \
+  --format markdown \
+  --output reports/gguf/qwen2_5_0_5b_fp16_to_q8_0.report.md
+```
+
+Verify the JSON report without the original inventory or artifact:
+
+```bash
+omiv report-verify \
+  --input reports/gguf/qwen2_5_0_5b_fp16_to_q8_0.report.json
+```
+
+`report-verify` exits 0 for a valid report, 1 when a structurally valid report's
+integrity digest does not match, and 2 for malformed input or an unsupported report
+schema. This verifies the report payload's integrity only; it does not revalidate
+the artifact or establish authenticity.
+
+### Deterministic reports and hashes
+
+The versioned `omiv.gguf-comparison-report.v1` JSON envelope contains no timestamp,
+absolute path, host name, user name, environment dump, or other machine identity.
+Objects use sorted keys, compact UTF-8 JSON is used for hashing, list order remains
+significant, and NaN and Infinity are rejected. The persisted JSON is pretty-printed
+for inspection, but its integrity digest covers only the canonical compact value of
+the envelope's `report` member. It never covers or refers to the `integrity` member
+itself. Re-running the same tool version with semantically identical validated inputs
+and policy produces identical report content.
+
+Four SHA-256 values have deliberately different meanings:
+
+- The **artifact hash** covers the underlying GGUF file bytes, including payload
+  bytes, without interpreting tensor values.
+- The **inventory hash** covers the canonical JSON value of the complete validated
+  GGUF inventory. Reformatting that inventory file does not change this hash.
+- The **policy hash** covers the complete validated semantic policy, including its
+  explicit ID, schema version, selectors, metadata rules, and defaults.
+- The **report hash** covers the canonical report payload, excluding the integrity
+  envelope to avoid self-reference.
+
+A valid report SHA-256 proves that the report payload has not changed since the digest
+was computed. It does not prove who generated the report, that the source artifacts
+were trustworthy, or that the underlying model is numerically correct.
+
+### Output safety
+
+JSON and Markdown output parent directories are created when needed. An absent output
+or an existing regular output file is replaced only after the entire report has been
+validated and serialized. OMIV creates a restrictive-permission temporary file in the
+destination directory, writes and flushes it, calls `fsync` where the platform
+supports it, and then uses `os.replace` for same-directory atomic replacement.
+Temporary files are removed after success and handled write failures. Existing output
+symlinks and non-regular destinations are rejected, as are output paths resolving to
+the source inventory, target inventory, or policy. Ordinary existing report files are
+overwritten by design.
+
+These checks reduce accidental partial writes and straightforward symlink misuse; they
+do not claim to eliminate every time-of-check/time-of-use race available to a hostile
+process with concurrent access to the destination directory. Directory durability
+after a power loss is platform- and filesystem-dependent because the directory itself
+is not fsynced. File permissions and replacement semantics also remain subject to the
+operating system, filesystem, parent-directory permissions, and process umask.
+SHA-256 integrity is not a signature and provides no authorship, non-repudiation, or
+trust in the original artifact.
+
 GGUF support is isolated behind an adapter and uses `GGUFReader(path, mode="r")`.
 `GGUFReader` uses `numpy.memmap`; metadata and tensor descriptors are parsed eagerly.
 OMIV never accesses or materializes `ReaderTensor.data`, although payload address
