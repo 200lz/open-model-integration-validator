@@ -1,0 +1,19 @@
+schema_version: 1
+name: qwen2.5-0.5b-fp16-to-q8_0
+require_same_architecture: true
+require_same_tensor_names: true
+require_same_tensor_shapes: true
+evidence_example_cap: 10
+type_transition_rules:
+  - source_type: F32
+    target_type: F32
+    selector: "*"
+  - source_type: F16
+    target_type: Q8_0
+    selector: "*"
+metadata_rules:
+  - key: general.file_type
+    action: allow
+  - key: qwen2.context_length
+    action: warn
+unknown_metadata_drift: warn

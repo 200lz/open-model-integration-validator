@@ -114,3 +114,61 @@ assert routing behavior, quantization nibble semantics, Attention Residual formu
 Attention Residual boundary behavior, KDA recurrence semantics, MLA gate formulas, or
 runtime execution order. It does not validate tokenizers, payload values, runtime
 execution, or numerical parity.
+
+## Optional GGUF structural inventories
+
+Phase 3A adds generic, local GGUF descriptor reading and policy-driven structural
+comparison. Install the pinned optional dependency separately:
+
+```bash
+python -m pip install -e '.[gguf]'
+```
+
+Create a canonical inventory:
+
+```bash
+omiv gguf-normalize \
+  --input model.gguf \
+  --output fixtures/gguf/model.inventory.json
+```
+
+Compare a source inventory with a converted inventory:
+
+```bash
+omiv gguf-diff \
+  --source fixtures/gguf/source.inventory.json \
+  --target fixtures/gguf/target.inventory.json \
+  --policy policies/qwen2_5_0_5b_fp16_to_q8_0.yaml
+```
+
+GGUF support is isolated behind an adapter and uses `GGUFReader(path, mode="r")`.
+`GGUFReader` uses `numpy.memmap`; metadata and tensor descriptors are parsed eagerly.
+OMIV never accesses or materializes `ReaderTensor.data`, although payload address
+ranges may remain mmap-backed by the reader.
+
+The artifact SHA-256 reads every file byte, including payload bytes, but does not
+interpret tensor values. Canonical tensor shapes are the GGUF on-disk dimension order
+reported by `ReaderTensor.shape`, never `tensor.data.shape`.
+
+Metadata scalars retain their explicit GGUF type and value. Arrays of at most 16
+elements are stored inline. Larger arrays retain element type, length, and a
+deterministic SHA-256 produced from typed binary serialization; `repr()` is not used.
+The serialization preserves each declared GGUF scalar width. Inventory digests may
+therefore change from pre-release Phase 3A output because this canonical scalar
+encoding was corrected before the first Phase 3A release. This keeps tokenizer arrays
+from expanding canonical inventories.
+
+The included Qwen policies validate exact architecture identity, tensor names, shape
+mappings, selected metadata behavior, and name-sensitive GGML type transitions.
+`general.file_type` is allowed to differ, while `qwen2.context_length` drift is
+reported as WARN rather than assumed to be caused by quantization.
+
+Matching names, shapes, and allowed GGML-type transitions proves structural conversion
+fidelity only. It does not prove tensor payload correctness, dequantization
+correctness, runtime use, or numerical parity.
+
+The synthetic `kimi-linear-moe.gguf` fixture is only a regression case for reading a
+complex GGUF inventory. It is not official Kimi K3 evidence and supports no Kimi K3
+production claim. Phase 3A does not perform HF-to-GGUF semantic mapping, split-GGUF
+aggregation, llama.cpp source parsing, payload decoding, inference, tokenizer parity,
+or numerical comparison.

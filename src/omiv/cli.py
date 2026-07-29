@@ -8,6 +8,10 @@ import typer
 from pydantic import ValidationError
 
 from omiv.errors import OmivInputError
+from omiv.gguf.compare import compare_gguf_inventories, format_gguf_report
+from omiv.gguf.models import GGUFInventory
+from omiv.gguf.policy import load_gguf_policy
+from omiv.gguf.reader import read_gguf_inventory, write_gguf_inventory
 from omiv.models import ModelInventory
 from omiv.normalizer import normalize_inventory, write_inventory
 from omiv.reporters.console import format_report
@@ -59,5 +63,51 @@ def validate(
 
     report = validate_inventory(inventory, schema)
     typer.echo(format_report(report))
+    if not report.passed:
+        raise typer.Exit(code=1)
+
+
+@app.command()
+def gguf_normalize(
+    input_path: Annotated[
+        Path, typer.Option("--input", exists=True, dir_okay=False)
+    ],
+    output_path: Annotated[Path, typer.Option("--output", dir_okay=False)],
+) -> None:
+    """Create a deterministic GGUF descriptor inventory without reading tensor data."""
+    try:
+        inventory = read_gguf_inventory(input_path)
+        write_gguf_inventory(inventory, output_path)
+    except (OSError, UnicodeError, OmivInputError) as exc:
+        typer.echo(f"ERROR {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+
+
+@app.command()
+def gguf_diff(
+    source_path: Annotated[
+        Path, typer.Option("--source", exists=True, dir_okay=False)
+    ],
+    target_path: Annotated[
+        Path, typer.Option("--target", exists=True, dir_okay=False)
+    ],
+    policy_path: Annotated[
+        Path, typer.Option("--policy", exists=True, dir_okay=False)
+    ],
+) -> None:
+    """Compare two canonical GGUF inventories under an explicit policy."""
+    try:
+        source = GGUFInventory.model_validate_json(
+            source_path.read_text(encoding="utf-8")
+        )
+        target = GGUFInventory.model_validate_json(
+            target_path.read_text(encoding="utf-8")
+        )
+        policy = load_gguf_policy(policy_path)
+    except (OSError, UnicodeError, ValidationError, OmivInputError) as exc:
+        typer.echo(f"ERROR invalid input: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    report = compare_gguf_inventories(source, target, policy)
+    typer.echo(format_gguf_report(report))
     if not report.passed:
         raise typer.Exit(code=1)
