@@ -1,0 +1,224 @@
+mapping_schema: omiv.semantic-mapping.v1
+mapping_id: qwen2.5-0.5b-hf-to-gguf
+model_family: qwen2
+source_format: huggingface-safetensors
+target_format: gguf
+description: Static Qwen2.5 0.5B Hugging Face to GGUF semantic descriptor mapping.
+evidence:
+  descriptor_shape_convention: GGUF descriptor dimensions are reversed for matrices.
+  converter_payload_behavior: Local llama.cpp Qwen2 converter evidence shows no payload transpose.
+  payload_values_checked: false
+source_assumptions:
+  - The HF inventory is a complete canonical Qwen2 Safetensors inventory.
+  - The output projection is tied to the token embedding as recorded by the inventory.
+target_assumptions:
+  - GGUF tensor descriptors use the Qwen2 llama.cpp naming ontology.
+  - Exact conversion lineage is not established by the current GGUF inventory.
+require_complete_source_coverage: true
+require_complete_target_coverage: true
+rules:
+  - rule_id: token-embedding
+    source:
+      canonical_identity: qwen2.token_embedding.weight
+    target:
+      canonical_identity: qwen2.token_embedding.weight
+      tensor_name: token_embd.weight
+    source_kind: physical
+    cardinality: one_to_one
+    shape_relation: reverse_dimensions
+    payload_transform: identity
+    parameter: weight
+  - rule_id: output-norm
+    source:
+      canonical_identity: qwen2.output_norm.weight
+    target:
+      canonical_identity: qwen2.output_norm.weight
+      tensor_name: output_norm.weight
+    source_kind: physical
+    cardinality: one_to_one
+    shape_relation: identical
+    payload_transform: identity
+    parameter: weight
+  - rule_id: logical-output-projection
+    source:
+      canonical_identity: qwen2.output_projection.weight
+    target:
+      canonical_identity: qwen2.output_projection.weight
+      tensor_name: output.weight
+    source_kind: logical
+    cardinality: one_to_one
+    shape_relation: reverse_dimensions
+    payload_transform: identity
+    parameter: weight
+    target_materialization: required
+    physical_source: qwen2.token_embedding.weight
+    payload_origin: unverified
+    evidence_reference: tied-output-structural-only
+  - rule_id: layer-input-norm
+    source:
+      canonical_identity: qwen2.layer.{layer}.attention.input_norm.weight
+    target:
+      canonical_identity: qwen2.layer.{layer}.attention.input_norm.weight
+      tensor_name: blk.{layer}.attn_norm.weight
+    source_kind: physical
+    cardinality: one_to_one
+    layer_binding:
+      variable: layer
+      range: [0, 23]
+    shape_relation: identical
+    payload_transform: identity
+    parameter: weight
+  - rule_id: layer-query-weight
+    source:
+      canonical_identity: qwen2.layer.{layer}.attention.query.weight
+    target:
+      canonical_identity: qwen2.layer.{layer}.attention.query.weight
+      tensor_name: blk.{layer}.attn_q.weight
+    source_kind: physical
+    cardinality: one_to_one
+    layer_binding:
+      variable: layer
+      range: [0, 23]
+    shape_relation: reverse_dimensions
+    payload_transform: identity
+    parameter: weight
+  - rule_id: layer-query-bias
+    source:
+      canonical_identity: qwen2.layer.{layer}.attention.query.bias
+    target:
+      canonical_identity: qwen2.layer.{layer}.attention.query.bias
+      tensor_name: blk.{layer}.attn_q.bias
+    source_kind: physical
+    cardinality: one_to_one
+    layer_binding:
+      variable: layer
+      range: [0, 23]
+    shape_relation: identical
+    payload_transform: identity
+    parameter: bias
+  - rule_id: layer-key-weight
+    source:
+      canonical_identity: qwen2.layer.{layer}.attention.key.weight
+    target:
+      canonical_identity: qwen2.layer.{layer}.attention.key.weight
+      tensor_name: blk.{layer}.attn_k.weight
+    source_kind: physical
+    cardinality: one_to_one
+    layer_binding:
+      variable: layer
+      range: [0, 23]
+    shape_relation: reverse_dimensions
+    payload_transform: identity
+    parameter: weight
+  - rule_id: layer-key-bias
+    source:
+      canonical_identity: qwen2.layer.{layer}.attention.key.bias
+    target:
+      canonical_identity: qwen2.layer.{layer}.attention.key.bias
+      tensor_name: blk.{layer}.attn_k.bias
+    source_kind: physical
+    cardinality: one_to_one
+    layer_binding:
+      variable: layer
+      range: [0, 23]
+    shape_relation: identical
+    payload_transform: identity
+    parameter: bias
+  - rule_id: layer-value-weight
+    source:
+      canonical_identity: qwen2.layer.{layer}.attention.value.weight
+    target:
+      canonical_identity: qwen2.layer.{layer}.attention.value.weight
+      tensor_name: blk.{layer}.attn_v.weight
+    source_kind: physical
+    cardinality: one_to_one
+    layer_binding:
+      variable: layer
+      range: [0, 23]
+    shape_relation: reverse_dimensions
+    payload_transform: identity
+    parameter: weight
+  - rule_id: layer-value-bias
+    source:
+      canonical_identity: qwen2.layer.{layer}.attention.value.bias
+    target:
+      canonical_identity: qwen2.layer.{layer}.attention.value.bias
+      tensor_name: blk.{layer}.attn_v.bias
+    source_kind: physical
+    cardinality: one_to_one
+    layer_binding:
+      variable: layer
+      range: [0, 23]
+    shape_relation: identical
+    payload_transform: identity
+    parameter: bias
+  - rule_id: layer-attention-output
+    source:
+      canonical_identity: qwen2.layer.{layer}.attention.output.weight
+    target:
+      canonical_identity: qwen2.layer.{layer}.attention.output.weight
+      tensor_name: blk.{layer}.attn_output.weight
+    source_kind: physical
+    cardinality: one_to_one
+    layer_binding:
+      variable: layer
+      range: [0, 23]
+    shape_relation: reverse_dimensions
+    payload_transform: identity
+    parameter: weight
+  - rule_id: layer-post-attention-norm
+    source:
+      canonical_identity: qwen2.layer.{layer}.ffn.post_attention_norm.weight
+    target:
+      canonical_identity: qwen2.layer.{layer}.ffn.post_attention_norm.weight
+      tensor_name: blk.{layer}.ffn_norm.weight
+    source_kind: physical
+    cardinality: one_to_one
+    layer_binding:
+      variable: layer
+      range: [0, 23]
+    shape_relation: identical
+    payload_transform: identity
+    parameter: weight
+  - rule_id: layer-ffn-gate
+    source:
+      canonical_identity: qwen2.layer.{layer}.ffn.gate.weight
+    target:
+      canonical_identity: qwen2.layer.{layer}.ffn.gate.weight
+      tensor_name: blk.{layer}.ffn_gate.weight
+    source_kind: physical
+    cardinality: one_to_one
+    layer_binding:
+      variable: layer
+      range: [0, 23]
+    shape_relation: reverse_dimensions
+    payload_transform: identity
+    parameter: weight
+  - rule_id: layer-ffn-up
+    source:
+      canonical_identity: qwen2.layer.{layer}.ffn.up.weight
+    target:
+      canonical_identity: qwen2.layer.{layer}.ffn.up.weight
+      tensor_name: blk.{layer}.ffn_up.weight
+    source_kind: physical
+    cardinality: one_to_one
+    layer_binding:
+      variable: layer
+      range: [0, 23]
+    shape_relation: reverse_dimensions
+    payload_transform: identity
+    parameter: weight
+  - rule_id: layer-ffn-down
+    source:
+      canonical_identity: qwen2.layer.{layer}.ffn.down.weight
+    target:
+      canonical_identity: qwen2.layer.{layer}.ffn.down.weight
+      tensor_name: blk.{layer}.ffn_down.weight
+    source_kind: physical
+    cardinality: one_to_one
+    layer_binding:
+      variable: layer
+      range: [0, 23]
+    shape_relation: reverse_dimensions
+    payload_transform: identity
+    parameter: weight

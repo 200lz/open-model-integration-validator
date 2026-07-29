@@ -20,7 +20,19 @@ from omiv.gguf.reporting import (
     render_markdown,
     report_integrity_matches,
 )
+from omiv.hf.json_loader import parse_bounded_json_bytes
+from omiv.hf.models import HFInventory
 from omiv.hf.reader import pretty_hf_inventory, read_hf_inventory
+from omiv.mapping.manifest import load_mapping_manifest
+from omiv.mapping.reporting import (
+    MAPPING_REPORT_SCHEMA_ID,
+    build_mapping_report_envelope,
+    load_mapping_report_envelope,
+    mapping_report_integrity_matches,
+    pretty_mapping_report_json,
+    render_mapping_markdown,
+)
+from omiv.mapping.validator import format_mapping_report, validate_semantic_mapping
 from omiv.models import ModelInventory
 from omiv.normalizer import normalize_inventory, write_inventory
 from omiv.reporters.console import format_report
@@ -29,6 +41,19 @@ from omiv.schema.loader import load_schema
 from omiv.validators.kimi_k3 import validate_inventory
 
 app = typer.Typer(no_args_is_help=True, pretty_exceptions_enable=False)
+MAX_CANONICAL_INVENTORY_BYTES = 64 * 1024 * 1024
+
+
+def _read_report_schema(path: Path) -> str | None:
+    raw = parse_bounded_json_bytes(
+        path.read_bytes(),
+        source_name=path.name,
+        max_bytes=16 * 1024 * 1024,
+    )
+    if not isinstance(raw, dict) or not isinstance(raw.get("report"), dict):
+        return None
+    schema = raw["report"].get("report_schema")
+    return schema if isinstance(schema, str) else None
 
 
 @app.command()
@@ -166,6 +191,81 @@ def gguf_diff(
         raise typer.Exit(code=1)
 
 
+@app.command("mapping-validate")
+def mapping_validate(
+    source_path: Annotated[
+        Path, typer.Option("--source", exists=True, dir_okay=False)
+    ],
+    target_path: Annotated[
+        Path, typer.Option("--target", exists=True, dir_okay=False)
+    ],
+    mapping_path: Annotated[
+        Path, typer.Option("--mapping", exists=True, dir_okay=False)
+    ],
+    json_output: Annotated[
+        Path | None, typer.Option("--json-output", dir_okay=False)
+    ] = None,
+    markdown_output: Annotated[
+        Path | None, typer.Option("--markdown-output", dir_okay=False)
+    ] = None,
+) -> None:
+    """Validate a static HF-to-GGUF semantic mapping manifest."""
+    input_paths = (source_path, target_path, mapping_path)
+    try:
+        source_raw = parse_bounded_json_bytes(
+            source_path.read_bytes(),
+            source_name=source_path.name,
+            max_bytes=MAX_CANONICAL_INVENTORY_BYTES,
+        )
+        target_raw = parse_bounded_json_bytes(
+            target_path.read_bytes(),
+            source_name=target_path.name,
+            max_bytes=MAX_CANONICAL_INVENTORY_BYTES,
+        )
+        source = HFInventory.model_validate(source_raw)
+        target = GGUFInventory.model_validate(target_raw)
+        manifest = load_mapping_manifest(mapping_path)
+        validation = validate_semantic_mapping(source, target, manifest)
+        if json_output is not None or markdown_output is not None:
+            envelope = build_mapping_report_envelope(
+                source, target, manifest, validation
+            )
+            if json_output is not None:
+                validate_output_path(json_output, forbidden_inputs=input_paths)
+            if markdown_output is not None:
+                validate_output_path(markdown_output, forbidden_inputs=input_paths)
+            if (
+                json_output is not None
+                and markdown_output is not None
+                and json_output.resolve(strict=False)
+                == markdown_output.resolve(strict=False)
+            ):
+                raise OmivInputError("JSON and Markdown outputs must be different paths")
+            if json_output is not None:
+                atomic_write_text(
+                    json_output,
+                    pretty_mapping_report_json(envelope),
+                    forbidden_inputs=input_paths,
+                )
+            if markdown_output is not None:
+                atomic_write_text(
+                    markdown_output,
+                    render_mapping_markdown(envelope),
+                    forbidden_inputs=input_paths,
+                )
+    except (
+        OSError,
+        UnicodeError,
+        ValidationError,
+        OmivInputError,
+    ) as exc:
+        typer.echo(f"ERROR invalid input: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(format_mapping_report(validation))
+    if not validation.passed:
+        raise typer.Exit(code=1)
+
+
 @app.command("report")
 def report_command(
     input_path: Annotated[
@@ -180,10 +280,17 @@ def report_command(
     try:
         if output_format != "markdown":
             raise OmivInputError("unsupported report format; expected markdown")
-        envelope = load_report_envelope(input_path)
-        if not report_integrity_matches(envelope):
-            raise OmivInputError("report integrity mismatch")
-        content = render_markdown(envelope)
+        schema = _read_report_schema(input_path)
+        if schema == MAPPING_REPORT_SCHEMA_ID:
+            mapping_envelope = load_mapping_report_envelope(input_path)
+            if not mapping_report_integrity_matches(mapping_envelope):
+                raise OmivInputError("report integrity mismatch")
+            content = render_mapping_markdown(mapping_envelope)
+        else:
+            envelope = load_report_envelope(input_path)
+            if not report_integrity_matches(envelope):
+                raise OmivInputError("report integrity mismatch")
+            content = render_markdown(envelope)
         atomic_write_text(output_path, content, forbidden_inputs=(input_path,))
     except OmivInputError as exc:
         typer.echo(f"ERROR {exc}", err=True)
@@ -198,6 +305,16 @@ def report_verify(
 ) -> None:
     """Verify report schema and payload integrity without original artifacts."""
     try:
+        schema = _read_report_schema(input_path)
+        if schema == MAPPING_REPORT_SCHEMA_ID:
+            mapping_envelope = load_mapping_report_envelope(input_path)
+            if not mapping_report_integrity_matches(mapping_envelope):
+                typer.echo("FAIL report integrity mismatch")
+                raise typer.Exit(code=1)
+            typer.echo(
+                f"PASS report integrity {mapping_envelope.integrity.sha256}"
+            )
+            return
         envelope = load_report_envelope(input_path)
     except OmivInputError as exc:
         typer.echo(f"ERROR {exc}", err=True)

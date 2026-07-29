@@ -322,3 +322,80 @@ unverified.
 
 Phase 4A does not validate HF-to-GGUF mappings, execute converters, inspect tensor
 values, compare tokenizers, run inference, or make numerical-fidelity claims.
+
+## Semantic mapping manifests
+
+Phase 4B adds versioned, declarative mapping validation between a canonical Hugging
+Face Safetensors inventory and a canonical GGUF inventory. A mapping manifest names
+the model family and formats explicitly; its ID is part of the manifest and is never
+derived from a file name. Compact `{layer}` bindings connect every decoder layer
+without relying on inventory or tensor-file order.
+
+The first manifest is
+`mappings/qwen2_5_0_5b_hf_to_gguf.yaml`. It covers Qwen2 embeddings, output norm,
+Q/K/V/O projections and biases, layer norms, FFN gate/up/down projections, and the
+logical tied output projection. The derived Qwen2 GGUF ontology preserves each exact
+GGUF tensor name, GGML type, and GGUF descriptor shape while assigning the same stable
+canonical identities used by the HF inventory. Unknown GGUF names remain
+unclassified and cause complete target coverage to fail.
+
+Physical and logical source tensors are intentionally distinct. A physical source is
+present in the Safetensors header. A logical source records a semantic relationship,
+such as the tied `qwen2.output_projection.weight`, without synthesizing a physical
+`lm_head.weight`. The output mapping requires the physical GGUF `output.weight` and
+records `qwen2.token_embedding.weight` as the logical tie's physical source, while
+leaving payload origin and equality unverified.
+
+Run mapping validation and optionally persist both report formats:
+
+```bash
+omiv mapping-validate \
+  --source fixtures/hf/qwen2_5_0_5b_instruct.inventory.json \
+  --target fixtures/gguf/qwen2_5_0_5b_fp16.inventory.json \
+  --mapping mappings/qwen2_5_0_5b_hf_to_gguf.yaml \
+  --json-output reports/mapping/qwen2_5_0_5b_hf_to_gguf_fp16.report.json \
+  --markdown-output reports/mapping/qwen2_5_0_5b_hf_to_gguf_fp16.report.md
+```
+
+The command exits 0 for `pass` or `pass_with_warnings`, 1 for a structural mapping
+failure, and 2 for a malformed inventory or manifest. The current Qwen case passes
+MAP-001 through MAP-008 and warns at MAP-009 because the committed GGUF inventories
+do not record the source artifact hash, source repository/revision, converter commit,
+or conversion command.
+
+`shape_relation` concerns descriptor conventions only. Qwen matrices declare
+`reverse_dimensions`, including square matrices, because GGUF descriptor dimensions
+are reversed relative to the HF/PyTorch shape display. `payload_transform: identity`
+separately records the declared converter behavior; it is not a transpose claim and
+does not prove anything about tensor values. Vectors use `shape_relation: identical`.
+
+Mapping reports use the separate `omiv.semantic-mapping-report.v1` envelope and include
+source inventory, target inventory, target artifact, manifest, and report digests.
+They contain no timestamp or absolute path. Existing report tooling recognizes both
+GGUF comparison and semantic mapping report schemas:
+
+```bash
+omiv report-verify \
+  --input reports/mapping/qwen2_5_0_5b_hf_to_gguf_fp16.report.json
+
+omiv report \
+  --input reports/mapping/qwen2_5_0_5b_hf_to_gguf_fp16.report.json \
+  --format markdown \
+  --output reports/mapping/qwen2_5_0_5b_hf_to_gguf_fp16.report.md
+```
+
+Report integrity detects changes to the persisted report payload; it is not a
+signature and does not revalidate the original inventories. Matching names, canonical
+identities, layers, parameters, and shapes cannot establish conversion lineage.
+Exact provenance must be recorded by the target artifact rather than inferred from
+structural similarity.
+
+A successful semantic mapping report proves that the declared source and target
+tensor semantics are completely and uniquely connected under the mapping manifest.
+It does not prove that target tensor payload values were copied, transformed,
+quantized, or generated correctly.
+
+Phase 4B performs no payload access, value hashing or sampling, dequantization,
+converter execution, tokenizer validation, inference, numerical parity, packed MoE
+expert mapping, split/concatenate/reshape/fusion transform, or Kimi K3 production
+mapping.

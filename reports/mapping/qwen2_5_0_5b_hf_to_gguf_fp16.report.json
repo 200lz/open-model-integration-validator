@@ -1,0 +1,215 @@
+{
+  "integrity": {
+    "canonicalization": "omiv-json-v1",
+    "sha256": "52de5d4663bb7403c82b868c7af230588cccdafe01b4b49f4d7b8e89bfdbab20"
+  },
+  "report": {
+    "execution": {
+      "exit_code": 0,
+      "result": "pass_with_warnings"
+    },
+    "findings": [
+      {
+        "evidence": {
+          "example_cap": 10,
+          "ignored_source_count": 0,
+          "ignored_sources": [],
+          "logical_mapped": 1,
+          "logical_total": 1,
+          "physical_mapped": 290,
+          "physical_total": 290,
+          "unclassified_source_count": 0,
+          "unclassified_source_examples": [],
+          "unmapped_logical_count": 0,
+          "unmapped_logical_examples": [],
+          "unmapped_physical_count": 0,
+          "unmapped_physical_examples": [],
+          "zero_source_binding_count": 0,
+          "zero_source_binding_examples": []
+        },
+        "message": "Source semantic coverage is complete",
+        "rule_id": "MAP-001",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "example_cap": 10,
+          "target_explained": 291,
+          "target_total": 291,
+          "unclassified_target_count": 0,
+          "unclassified_target_examples": [],
+          "unexpected_target_count": 0,
+          "unexpected_target_examples": [],
+          "zero_target_binding_count": 0,
+          "zero_target_binding_examples": []
+        },
+        "message": "Target semantic coverage is complete",
+        "rule_id": "MAP-002",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "duplicate_source_count": 0,
+          "duplicate_source_examples": [],
+          "example_cap": 10,
+          "multi_match_binding_count": 0,
+          "multi_match_binding_examples": [],
+          "source_kind_mismatch_count": 0,
+          "source_kind_mismatch_examples": []
+        },
+        "message": "Every mapped source semantic entity is unique",
+        "rule_id": "MAP-003",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "duplicate_target_identity_count": 0,
+          "duplicate_target_identity_examples": [],
+          "duplicate_target_name_count": 0,
+          "duplicate_target_name_examples": [],
+          "example_cap": 10,
+          "multi_match_binding_count": 0,
+          "multi_match_binding_examples": []
+        },
+        "message": "Every target tensor and semantic identity is produced once",
+        "rule_id": "MAP-004",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "example_cap": 10,
+          "layer_mismatch_count": 0,
+          "layer_mismatch_examples": [],
+          "missing_binding_count": 0,
+          "missing_binding_examples": [],
+          "resolved_count": 291
+        },
+        "message": "Model scope and layer identities are preserved",
+        "rule_id": "MAP-005",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "descriptor_relation_only": true,
+          "example_cap": 10,
+          "mismatch_group_count": 0,
+          "mismatch_groups": [],
+          "payload_transpose_claimed": false,
+          "relation_counts": {
+            "identical": 121,
+            "reverse_dimensions": 170
+          },
+          "resolved_count": 291
+        },
+        "message": "Every resolved descriptor shape satisfies its declared relation",
+        "rule_id": "MAP-006",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "checked_count": 291,
+          "example_cap": 10,
+          "mismatch_count": 0,
+          "mismatch_examples": []
+        },
+        "message": "Semantic parameters, modules, and projections are compatible",
+        "rule_id": "MAP-007",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "failure_count": 0,
+          "failure_examples": [],
+          "logical_tied_source": "qwen2.output_projection.weight",
+          "materialized_target": "output.weight",
+          "payload_equality_status": "not checked",
+          "payload_origin": "unverified",
+          "physical_lm_head_required": false,
+          "physical_source_identity": "qwen2.token_embedding.weight",
+          "source_materialized": false
+        },
+        "message": "Logical tied output projection is structurally materialized",
+        "rule_id": "MAP-008",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "exact_lineage_established": false,
+          "limitation": "Semantic and structural compatibility does not prove that the target was generated from this exact source artifact",
+          "mismatched_provenance_fields": [],
+          "missing_provenance_fields": [
+            "conversion_command",
+            "converter_commit",
+            "source_artifact_hash",
+            "source_repository",
+            "source_revision"
+          ],
+          "names_and_shapes_are_not_lineage_evidence": true,
+          "source_repository": "Qwen/Qwen2.5-0.5B-Instruct",
+          "source_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+          "target_lineage_metadata": {
+            "conversion_command": null,
+            "converter_commit": null,
+            "source_artifact_hash": null,
+            "source_repository": null,
+            "source_revision": null
+          }
+        },
+        "message": "Exact source-to-target provenance is unavailable",
+        "rule_id": "MAP-009",
+        "severity": "warning",
+        "status": "warn"
+      }
+    ],
+    "mapping": {
+      "mapping_id": "qwen2.5-0.5b-hf-to-gguf",
+      "mapping_schema": "omiv.semantic-mapping.v1",
+      "mapping_sha256": "4c30d57752da1ed516a32e9a11f023bb6cbbb5e74e950006fa96d0869cd94068"
+    },
+    "report_schema": "omiv.semantic-mapping-report.v1",
+    "source": {
+      "inventory_sha256": "85fa02ce8134d58db8af70189b5b3ee9f839a8933e142133442536226e96a302",
+      "logical_tie_count": 1,
+      "model_family": "qwen2",
+      "physical_tensor_count": 290,
+      "repository": "Qwen/Qwen2.5-0.5B-Instruct",
+      "revision": "7ae557604adf67be50417f59c2c2f167def9a775"
+    },
+    "summary": {
+      "duplicate_source_count": 0,
+      "duplicate_target_count": 0,
+      "fail_count": 0,
+      "logical_source_mapped": 1,
+      "logical_source_total": 1,
+      "pass_count": 8,
+      "physical_source_mapped": 290,
+      "physical_source_total": 290,
+      "resolved_mapping_count": 291,
+      "target_explained": 291,
+      "target_total": 291,
+      "unmapped_source_count": 0,
+      "unmapped_target_count": 0,
+      "unverified_payload_relation_count": 1,
+      "warn_count": 1
+    },
+    "target": {
+      "architecture": "qwen2",
+      "artifact_sha256": "8e0ae26000627ed62de0e78e41860af70094558b9d2913385c842a6aa06cf3fc",
+      "inventory_sha256": "c4aab57a9016bc928d5151a1e47c2980e63a591acd19ab40b1812998535f5592",
+      "model_name": "qwen2.5-0.5b-instruct",
+      "tensor_count": 291
+    },
+    "tool": {
+      "name": "open-model-integration-validator",
+      "version": "0.1.0"
+    }
+  }
+}
