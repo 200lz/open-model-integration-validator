@@ -1,11 +1,16 @@
 from __future__ import annotations
 
 import os
+from pathlib import Path
 
 import pytest
 
 from omiv.remote.gguf_header import RemoteGGUFHeaderParser
 from omiv.remote.header_models import HeaderParserPolicy
+from omiv.remote.header_reporting import (
+    build_header_inventory_envelope,
+    load_header_inventory,
+)
 from omiv.remote.huggingface import HuggingFaceRepositoryAdapter
 from omiv.remote.probe import (
     gguf_prefix_probe,
@@ -15,6 +20,10 @@ from omiv.remote.probe import (
 from omiv.remote.range_client import BoundedRangeClient
 from omiv.remote.range_source import RangeBackedByteSource
 from omiv.remote.reporting import snapshot_envelope
+from omiv.remote.split_aggregation import (
+    aggregate_split_inventories,
+    validate_reusable_inventory,
+)
 
 
 @pytest.mark.remote_integration
@@ -33,7 +42,8 @@ def test_real_huggingface_snapshot_and_prefix_range() -> None:
     assert snapshot.repository.resolved_revision != "main"
     complete = [item for item in snapshot.summary.candidate_split_sets if item.complete]
     assert complete
-    first_path = complete[0].files[0]
+    candidate = complete[0]
+    first_path = candidate.files[0]
     report = gguf_prefix_probe(
         snapshot_envelope(snapshot),
         path=first_path,
@@ -43,22 +53,57 @@ def test_real_huggingface_snapshot_and_prefix_range() -> None:
     assert report.report.bounded_range_evidence.response_byte_count == 8
 
     envelope = snapshot_envelope(snapshot)
-    file = selected_snapshot_file(envelope, first_path)
     policy = HeaderParserPolicy()
-    source = RangeBackedByteSource(
-        url=resolved_file_url(envelope, first_path),
-        file_size=file.byte_size,
-        client=BoundedRangeClient(max_response_bytes=policy.max_request_bytes),
-        policy=policy,
+    inventory_directory = Path(
+        "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards"
     )
-    inventory = RemoteGGUFHeaderParser(policy).parse(
-        source,
-        repository=snapshot.repository,
-        snapshot_sha256=envelope.integrity.sha256,
-        file=file,
+    reusable_paths = {
+        item.inventory.file.path: item
+        for item in (
+            load_header_inventory(path)
+            for path in sorted(inventory_directory.glob("*.header.inventory.json"))
+        )
+    }
+    if first_path not in reusable_paths:
+        canonical = load_header_inventory(
+            Path(
+                "inventories/remote/"
+                "unsloth_Kimi-K3-GGUF_UD-IQ1_M_shard1.header.inventory.json"
+            )
+        )
+        reusable_paths[first_path] = canonical
+    inventories = []
+    reused_count = 0
+    for path in candidate.files:
+        reusable = reusable_paths.get(path)
+        if reusable is not None:
+            validate_reusable_inventory(
+                reusable,
+                snapshot=envelope,
+                expected_path=path,
+                expected_policy_sha256=policy.digest,
+            )
+            inventories.append(reusable)
+            reused_count += 1
+            continue
+        selected = selected_snapshot_file(envelope, path)
+        shard_source = RangeBackedByteSource(
+            url=resolved_file_url(envelope, path),
+            file_size=selected.byte_size,
+            client=BoundedRangeClient(max_response_bytes=policy.max_request_bytes),
+            policy=policy,
+        )
+        parsed = RemoteGGUFHeaderParser(policy).parse(
+            shard_source,
+            repository=snapshot.repository,
+            snapshot_sha256=envelope.integrity.sha256,
+            file=selected,
+        )
+        assert parsed.highest_accepted_offset < parsed.payload_start_offset
+        inventories.append(build_header_inventory_envelope(parsed))
+    combined = aggregate_split_inventories(
+        envelope, inventories, reused_inventory_count=reused_count
     )
-    assert inventory.metadata_count == len(inventory.metadata)
-    assert inventory.tensor_count == len(inventory.tensors)
-    assert inventory.total_remote_bytes_accepted <= policy.max_total_header_bytes
-    assert inventory.request_count <= policy.max_request_count
-    assert inventory.highest_accepted_offset < inventory.payload_start_offset
+    assert combined.shard_count == len(candidate.files)
+    assert combined.aggregated_tensor_count == combined.global_tensor_count_metadata
+    assert combined.payload_span_summary.invalid_count == 0

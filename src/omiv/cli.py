@@ -54,11 +54,16 @@ from omiv.provenance.validator import (
     validate_provenance,
 )
 from omiv.remote.gguf_header import RemoteGGUFHeaderParser
-from omiv.remote.header_models import HEADER_REPORT_SCHEMA, HeaderParserPolicy
+from omiv.remote.header_models import (
+    HEADER_REPORT_SCHEMA,
+    HeaderInventoryEnvelope,
+    HeaderParserPolicy,
+)
 from omiv.remote.header_reporting import (
     build_header_inventory_envelope,
     build_header_report,
     header_report_integrity_matches,
+    load_header_inventory,
     load_header_report,
     pretty_header_json,
     render_header_markdown,
@@ -87,6 +92,24 @@ from omiv.remote.reporting import (
 from omiv.remote.reporting import (
     report_integrity_matches as remote_report_integrity_matches,
 )
+from omiv.remote.split_aggregation import (
+    aggregate_split_inventories,
+    validate_reusable_inventory,
+)
+from omiv.remote.split_models import (
+    SPLIT_REPORT_SCHEMA,
+    SplitAggregationLimits,
+)
+from omiv.remote.split_reporting import (
+    build_split_inventory_envelope,
+    build_split_report,
+    load_split_inventory,
+    load_split_report,
+    pretty_split_json,
+    render_split_markdown,
+    split_inventory_integrity_matches,
+    split_report_integrity_matches,
+)
 from omiv.reporters.console import format_report
 from omiv.safe_write import atomic_write_text, validate_output_path
 from omiv.schema.loader import load_schema
@@ -101,7 +124,7 @@ REMOTE_REPORT_SCHEMAS = {
     "omiv.remote-range-probe-report.v1",
     "omiv.remote-gguf-prefix-report.v1",
 }
-MAX_REPORT_DISPATCH_BYTES = 128 * 1024 * 1024
+MAX_REPORT_DISPATCH_BYTES = 1024 * 1024 * 1024
 
 
 def _read_report_schema(path: Path) -> str | None:
@@ -718,6 +741,184 @@ def remote_gguf_header(
     )
 
 
+@app.command("remote-split-gguf")
+def remote_split_gguf(
+    snapshot_path: Annotated[
+        Path, typer.Option("--snapshot", exists=True, dir_okay=False)
+    ],
+    inventory_dir: Annotated[Path, typer.Option("--inventory-dir", file_okay=False)],
+    output_path: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    report_output: Annotated[
+        Path, typer.Option("--report-output", dir_okay=False)
+    ],
+    markdown_output: Annotated[
+        Path, typer.Option("--markdown-output", dir_okay=False)
+    ],
+    regenerate: Annotated[bool, typer.Option("--regenerate")] = False,
+    max_shards: Annotated[int, typer.Option("--max-shards", min=1)] = 256,
+    max_total_header_bytes: Annotated[
+        int, typer.Option("--max-total-header-bytes", min=24)
+    ] = 1024 * 1024 * 1024,
+    max_total_requests: Annotated[
+        int, typer.Option("--max-total-requests", min=1)
+    ] = 65536,
+    max_total_metadata: Annotated[
+        int, typer.Option("--max-total-metadata", min=1)
+    ] = 2_000_000,
+    max_total_tensors: Annotated[
+        int, typer.Option("--max-total-tensors", min=1)
+    ] = 5_000_000,
+    max_inventory_bytes: Annotated[
+        int, typer.Option("--max-inventory-bytes", min=1024)
+    ] = 1024 * 1024 * 1024,
+    offline: Annotated[bool, typer.Option("--offline")] = False,
+) -> None:
+    """Aggregate a pinned split GGUF without reading tensor payload bytes."""
+    inputs = (snapshot_path,)
+    try:
+        _require_online(offline)
+        outputs = (output_path, report_output, markdown_output)
+        if len({item.resolve(strict=False) for item in outputs}) != len(outputs):
+            raise OmivInputError("split inventory and report outputs must be distinct")
+        for item in outputs:
+            validate_output_path(item, forbidden_inputs=inputs)
+        snapshot = load_snapshot(snapshot_path)
+        candidates = snapshot.snapshot.summary.candidate_split_sets
+        if len(candidates) != 1 or not candidates[0].complete:
+            raise OmivInputError("snapshot must have exactly one complete split candidate")
+        paths = candidates[0].files
+        if len(paths) > max_shards:
+            raise OmivInputError("split shard count exceeds aggregation policy")
+        policy = HeaderParserPolicy()
+        limits = SplitAggregationLimits(
+            max_shard_count=max_shards,
+            max_total_header_bytes=max_total_header_bytes,
+            max_total_request_count=max_total_requests,
+            max_total_metadata_records=max_total_metadata,
+            max_total_tensor_descriptors=max_total_tensors,
+            max_serialized_inventory_bytes=max_inventory_bytes,
+        )
+        reusable: dict[str, HeaderInventoryEnvelope] = {}
+        if not regenerate:
+            search_paths = sorted(
+                inventory_dir.glob("*.header.inventory.json")
+            ) + sorted(output_path.parent.glob("*.header.inventory.json"))
+            for inventory_path in search_paths:
+                envelope = load_header_inventory(inventory_path)
+                remote_path = envelope.inventory.file.path
+                if remote_path not in paths:
+                    continue
+                if remote_path in reusable:
+                    if reusable[remote_path].integrity != envelope.integrity:
+                        raise OmivInputError(
+                            f"conflicting reusable inventories found for {remote_path}"
+                        )
+                    continue
+                validate_reusable_inventory(
+                    envelope,
+                    snapshot=snapshot,
+                    expected_path=remote_path,
+                    expected_policy_sha256=policy.digest,
+                )
+                reusable[remote_path] = envelope
+
+        inventory_dir.mkdir(parents=True, exist_ok=True)
+        inventories = []
+        reused_count = 0
+        client = BoundedRangeClient(max_response_bytes=policy.max_request_bytes)
+        for candidate_path in paths:
+            shard_output = inventory_dir / (
+                candidate_path.rsplit("/", 1)[-1][:-5]
+                + ".header.inventory.json"
+            )
+            existing = reusable.get(candidate_path)
+            if existing is not None:
+                if not shard_output.is_file():
+                    atomic_write_text(
+                        shard_output,
+                        pretty_header_json(existing),
+                        forbidden_inputs=inputs,
+                    )
+                inventories.append(existing)
+                reused_count += 1
+                continue
+            file = selected_snapshot_file(snapshot, candidate_path)
+            source = RangeBackedByteSource(
+                url=resolved_file_url(snapshot, candidate_path),
+                file_size=file.byte_size,
+                client=client,
+                policy=policy,
+            )
+            parsed = RemoteGGUFHeaderParser(policy).parse(
+                source,
+                repository=snapshot.snapshot.repository,
+                snapshot_sha256=snapshot.integrity.sha256,
+                file=file,
+            )
+            envelope = build_header_inventory_envelope(parsed)
+            atomic_write_text(
+                shard_output,
+                pretty_header_json(envelope),
+                forbidden_inputs=inputs,
+            )
+            inventories.append(envelope)
+        combined = aggregate_split_inventories(
+            snapshot,
+            inventories,
+            reused_inventory_count=reused_count,
+            limits=limits,
+        )
+        inventory_envelope = build_split_inventory_envelope(combined)
+        report_envelope = build_split_report(inventory_envelope)
+        atomic_write_text(
+            output_path,
+            pretty_split_json(inventory_envelope),
+            forbidden_inputs=inputs,
+        )
+        atomic_write_text(
+            report_output,
+            pretty_split_json(report_envelope),
+            forbidden_inputs=inputs,
+        )
+        atomic_write_text(
+            markdown_output,
+            render_split_markdown(report_envelope),
+            forbidden_inputs=inputs,
+        )
+    except (
+        OSError,
+        UnicodeError,
+        ValidationError,
+        OmivInputError,
+        RangeValidationError,
+    ) as exc:
+        typer.echo(f"ERROR remote split GGUF aggregation failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"{report_envelope.report.execution.result.value.upper()} remote split GGUF "
+        f"{inventory_envelope.integrity.sha256} shards={combined.shard_count} "
+        f"tensors={combined.aggregated_tensor_count}"
+    )
+    if report_envelope.report.execution.exit_code:
+        raise typer.Exit(code=1)
+
+
+@app.command("remote-split-inventory-verify")
+def remote_split_inventory_verify(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+) -> None:
+    """Verify a combined split GGUF inventory and all recorded policy linkages."""
+    try:
+        envelope = load_split_inventory(input_path)
+    except OmivInputError as exc:
+        typer.echo(f"ERROR {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    if not split_inventory_integrity_matches(envelope):
+        typer.echo("FAIL split inventory integrity mismatch")
+        raise typer.Exit(code=1)
+    typer.echo(f"PASS split inventory integrity {envelope.integrity.sha256}")
+
+
 @app.command("report")
 def report_command(
     input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
@@ -729,7 +930,12 @@ def report_command(
         if output_format != "markdown":
             raise OmivInputError("unsupported report format; expected markdown")
         schema = _read_report_schema(input_path)
-        if schema == HEADER_REPORT_SCHEMA:
+        if schema == SPLIT_REPORT_SCHEMA:
+            split_envelope = load_split_report(input_path)
+            if not split_report_integrity_matches(split_envelope):
+                raise OmivInputError("report integrity mismatch")
+            content = render_split_markdown(split_envelope)
+        elif schema == HEADER_REPORT_SCHEMA:
             header_envelope = load_header_report(input_path)
             if not header_report_integrity_matches(header_envelope):
                 raise OmivInputError("report integrity mismatch")
@@ -767,6 +973,13 @@ def report_verify(
     """Verify report schema and payload integrity without original artifacts."""
     try:
         schema = _read_report_schema(input_path)
+        if schema == SPLIT_REPORT_SCHEMA:
+            split_envelope = load_split_report(input_path)
+            if not split_report_integrity_matches(split_envelope):
+                typer.echo("FAIL report integrity mismatch")
+                raise typer.Exit(code=1)
+            typer.echo(f"PASS report integrity {split_envelope.integrity.sha256}")
+            return
         if schema == HEADER_REPORT_SCHEMA:
             header_envelope = load_header_report(input_path)
             if not header_report_integrity_matches(header_envelope):

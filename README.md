@@ -854,3 +854,60 @@ detection, not signatures.
 Phase 4F-3 may aggregate independent shard inventories and define explicit
 cross-shard consistency rules. Phase 4F-2 does not aggregate the 15 files, validate
 split metadata across files, or describe them as a semantically valid model.
+
+## Deterministic split GGUF aggregation
+
+Phase 4F-3 consumes the immutable snapshot and one integrity-verified Phase 4F-2
+header inventory per selected file. It requires exactly one complete filename
+candidate, processes its files in filename ordinal order, and rejects inventories
+whose snapshot digest, repository, resolved revision, path, size, or parser-policy
+identity does not match. Missing inventories may be generated with the same bounded
+Range parser; `--regenerate` explicitly replaces reuse with parsing.
+
+```bash
+omiv remote-split-gguf \
+  --snapshot snapshots/huggingface/unsloth_Kimi-K3-GGUF_UD-IQ1_M.snapshot.json \
+  --inventory-dir inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards \
+  --output inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.split.inventory.json \
+  --report-output reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.split.report.json \
+  --markdown-output reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.split.report.md
+```
+
+The split keys are the llama.cpp GGUF keys `split.no`, `split.count`, and
+`split.tensors.count`. `split.no` is zero-based; the human-facing five-digit filename
+ordinal is one-based. OMIV records both and compares `split.no + 1` to the filename
+ordinal instead of conflating the conventions.
+
+The recorded metadata policy treats split keys as derived identity and permits the
+broad metadata set—including tokenizer arrays, chat templates, general identity,
+quantization/imatrix fields, and URL-shaped repository fields—to occur only in the
+structurally broadest shard. Replicated values are compared by their encoded-byte
+digests; complete tokenizer arrays are never restored into aggregate reports.
+Effective alignment is compared across every shard. These conservative structural
+classes are policy evidence, not an assertion that metadata values are semantically
+correct.
+
+Tensor descriptors are globally ordered by name, filename shard ordinal, and
+descriptor index. Exact duplicate names and conflicting shapes, types, offsets, or
+descriptor identities are retained as separate bounded evidence and are never
+silently deduplicated. The type-size policy is pinned to llama.cpp GGML type traits
+and uses block element counts and encoded block sizes—not nominal bits per
+element—to calculate row-major tensor spans. Unsupported layouts remain WARN
+evidence. Computable spans are checked against repository file size and against
+other spans in the same shard without requesting a payload byte.
+
+Aggregate defaults bound the run to 256 shards, 1 GiB of accepted remote header
+bytes, 65,536 Range requests, 2,000,000 metadata records, 5,000,000 tensor
+descriptors, and a 1 GiB serialized inventory. Duplicate details, metadata summaries,
+and representative tensors are independently capped. The effective aggregation,
+metadata, GGML type-size, and per-shard parser policies are embedded and hashed.
+
+> A successful Phase 4F-3 result proves that a pinned collection of GGUF files
+> forms a structurally consistent split container under the recorded filename,
+> header metadata, inventory, tensor identity, and payload-span policies. It does
+> not prove that the tensors implement Kimi K3 correctly, that HF-to-GGUF mapping
+> is correct, that tensor payload bytes are intact, that quantization is faithful,
+> or that runtime outputs are equivalent.
+
+Phase 4F-4 may define the Kimi K3 GGUF ontology. Phase 4F-3 deliberately makes no
+KDA/MLA, dense/MoE schedule, packed-expert, shared-expert, or HF mapping claim.
