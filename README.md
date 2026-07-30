@@ -1038,3 +1038,67 @@ omiv kimi-k3-semantic-mapping \
 > and realization policies. It does not prove that source payloads were packed in
 > the correct numerical order, that target payload bytes match source values, that
 > quantization is numerically faithful, or that runtime outputs are equivalent.
+
+### Phase 4F-6 independent validation bundles
+
+Phase 4F-6 composes the canonical Phase 4F-1 through 4F-5 artifacts into an
+independent, offline-verifiable validation bundle. It does not rerun remote
+inspection or reimplement the underlying validators. Instead, a typed dependency
+graph records each artifact schema and digest, every parent linkage, the applicable
+model-pack and policy identities, its evidence scope, and its limitations. The graph
+and its repository-relative artifact index have separate deterministic digests.
+
+Evidence is reported as stages rather than a misleading global correctness Boolean.
+Repository identity and layout, bounded Range behavior, GGUF prefix and complete
+headers, split consistency, payload-span bounds, target ontology, and structural
+semantic mapping can pass while converter-rule support is merely available,
+artifact-specific provenance is unavailable, and payload integrity, numerical
+quantization fidelity, tokenizer parity, and runtime parity remain not checked.
+
+Static trusted acceptance profiles translate those stages into product decisions:
+`community_structural`, `vendor_release_structural`,
+`enterprise_offline_structural`, and `regulated_deployment_full`. A structural
+profile can be satisfied with explicit limitations; the regulated full profile
+cannot pass when provenance, payload, quantization, tokenizer, or runtime evidence
+is absent. The JSON report carries both a neutral executive summary and detailed
+engineering evidence, while its Markdown rendering includes a commercial
+control-by-control acceptance table.
+
+```bash
+omiv independent-validation \
+  --subject kimi-k3 \
+  --variant UD-IQ1_M \
+  --snapshot snapshots/huggingface/unsloth_Kimi-K3-GGUF_UD-IQ1_M.snapshot.json \
+  --split-inventory inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.split.inventory.json \
+  --ontology-inventory inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.kimi-k3-ontology.inventory.json \
+  --mapping-inventory inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.semantic-mapping.inventory.json \
+  --profile community_structural \
+  --output validations/unsloth_Kimi-K3-GGUF_UD-IQ1_M.validation.inventory.json \
+  --report-output reports/validation/unsloth_Kimi-K3-GGUF_UD-IQ1_M.validation.report.json \
+  --markdown-output reports/validation/unsloth_Kimi-K3-GGUF_UD-IQ1_M.validation.report.md
+
+omiv independent-validation-inventory-verify \
+  --input validations/unsloth_Kimi-K3-GGUF_UD-IQ1_M.validation.inventory.json
+
+omiv report-verify \
+  --input reports/validation/unsloth_Kimi-K3-GGUF_UD-IQ1_M.validation.report.json
+```
+
+The inventory schema is `omiv.independent-model-validation.v1`; the report schema
+is `omiv.independent-model-validation-report.v1`; and the static profile-policy
+schema is `omiv.validation-acceptance-profile-policy.v1`. Verification reconstructs
+the evidence graph, stages, profile decisions, findings, summaries, artifact index,
+and all canonical digests from the checked-in dependencies. No network or model
+payload is required.
+
+> A successful Phase 4F-6 structural validation bundle proves that all required
+> repository, bounded remote-inspection, GGUF header, split-container, target
+> ontology, and descriptor-level semantic-mapping evidence is present,
+> integrity-linked, and valid under the selected structural acceptance profile.
+>
+> It does not prove tensor payload integrity, numerical quantization fidelity,
+> tokenizer parity, runtime equivalence, or artifact-specific conversion provenance
+> when those stages are unavailable or not checked.
+
+Phase 4F-7 will compare the UD-Q4_K_XL structure. That comparison is intentionally
+outside Phase 4F-6.

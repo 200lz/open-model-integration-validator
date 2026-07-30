@@ -82,6 +82,7 @@ from omiv.remote.header_models import (
 from omiv.remote.header_reporting import (
     build_header_inventory_envelope,
     build_header_report,
+    header_inventory_integrity_matches,
     header_report_integrity_matches,
     load_header_inventory,
     load_header_report,
@@ -102,6 +103,7 @@ from omiv.remote.reporting import (
     load_remote_report,
     load_snapshot,
     snapshot_envelope,
+    snapshot_integrity_matches,
 )
 from omiv.remote.reporting import (
     pretty_json as pretty_remote_json,
@@ -133,6 +135,14 @@ from omiv.remote.split_reporting import (
 from omiv.reporters.console import format_report
 from omiv.safe_write import atomic_write_text, validate_output_path
 from omiv.schema.loader import load_schema
+from omiv.validation.builder import build_independent_validation
+from omiv.validation.models import VALIDATION_REPORT_SCHEMA
+from omiv.validation.reporting import (
+    render_validation_markdown,
+    verify_validation_inventory,
+    verify_validation_report,
+    write_validation_bundle,
+)
 from omiv.validators.kimi_k3 import validate_inventory
 
 app = typer.Typer(no_args_is_help=True, pretty_exceptions_enable=False)
@@ -545,6 +555,22 @@ def remote_snapshot(
         raise typer.Exit(code=1)
 
 
+@app.command("remote-snapshot-verify")
+def remote_snapshot_verify(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+) -> None:
+    """Verify a canonical repository snapshot envelope offline."""
+    try:
+        envelope = load_snapshot(input_path)
+    except OmivInputError as exc:
+        typer.echo(f"ERROR {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    if not snapshot_integrity_matches(envelope):
+        typer.echo("FAIL snapshot integrity mismatch")
+        raise typer.Exit(code=1)
+    typer.echo(f"PASS snapshot integrity {envelope.integrity.sha256}")
+
+
 @app.command("remote-range-probe")
 def remote_range_probe(
     snapshot_path: Annotated[
@@ -759,6 +785,22 @@ def remote_gguf_header(
         f"bytes={inventory.total_remote_bytes_accepted} "
         f"requests={inventory.request_count}"
     )
+
+
+@app.command("remote-gguf-header-inventory-verify")
+def remote_gguf_header_inventory_verify(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+) -> None:
+    """Verify one canonical remote GGUF complete-header inventory offline."""
+    try:
+        envelope = load_header_inventory(input_path)
+    except OmivInputError as exc:
+        typer.echo(f"ERROR {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    if not header_inventory_integrity_matches(envelope):
+        typer.echo("FAIL header inventory integrity mismatch")
+        raise typer.Exit(code=1)
+    typer.echo(f"PASS header inventory integrity {envelope.integrity.sha256}")
 
 
 @app.command("remote-split-gguf")
@@ -1109,6 +1151,74 @@ def kimi_k3_semantic_mapping_inventory_verify(
         raise typer.Exit(code=2) from exc
 
 
+@app.command("independent-validation")
+def independent_validation(
+    subject: Annotated[str, typer.Option("--subject")],
+    variant: Annotated[str, typer.Option("--variant")],
+    snapshot_path: Annotated[Path, typer.Option("--snapshot", exists=True, dir_okay=False)],
+    split_inventory: Annotated[
+        Path, typer.Option("--split-inventory", exists=True, dir_okay=False)
+    ],
+    ontology_inventory: Annotated[
+        Path, typer.Option("--ontology-inventory", exists=True, dir_okay=False)
+    ],
+    mapping_inventory: Annotated[
+        Path, typer.Option("--mapping-inventory", exists=True, dir_okay=False)
+    ],
+    profile: Annotated[str, typer.Option("--profile")],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    report_output: Annotated[Path, typer.Option("--report-output", dir_okay=False)],
+    markdown_output: Annotated[Path, typer.Option("--markdown-output", dir_okay=False)],
+) -> None:
+    """Compose a deterministic independent validation bundle entirely offline."""
+    try:
+        inventory = build_independent_validation(
+            root=Path.cwd(),
+            subject=subject,
+            variant=variant,
+            snapshot_path=snapshot_path,
+            split_path=split_inventory,
+            ontology_path=ontology_inventory,
+            mapping_path=mapping_inventory,
+            selected_profile=profile,
+        )
+        report = write_validation_bundle(
+            inventory,
+            output,
+            report_output,
+            markdown_output,
+            forbidden_inputs=tuple(
+                Path.cwd() / entry.relative_path
+                for entry in inventory.artifact_index.entries
+            ),
+        )
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR independent validation failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    selected = next(item for item in inventory.profile_results if item.profile_name == profile)
+    typer.echo(
+        f"{selected.outcome.value} independent validation "
+        f"inventory={inventory.inventory_digest} "
+        f"report={report.report.report_digest}"
+    )
+    if not selected.satisfied:
+        raise typer.Exit(code=1)
+
+
+@app.command("independent-validation-inventory-verify")
+def independent_validation_inventory_verify(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    artifact_root: Annotated[Path, typer.Option("--artifact-root", file_okay=False)] = Path("."),
+) -> None:
+    """Reconstruct a validation inventory from all canonical dependencies offline."""
+    try:
+        inventory = verify_validation_inventory(input_path, artifact_root)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(f"PASS independent validation inventory {inventory.inventory_digest}")
+
+
 @app.command("report")
 def report_command(
     input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
@@ -1120,7 +1230,10 @@ def report_command(
         if output_format != "markdown":
             raise OmivInputError("unsupported report format; expected markdown")
         schema = _read_report_schema(input_path)
-        if schema == ONTOLOGY_REPORT_SCHEMA:
+        if schema == VALIDATION_REPORT_SCHEMA:
+            validation_envelope = verify_validation_report(input_path, Path.cwd())
+            content = render_validation_markdown(validation_envelope)
+        elif schema == ONTOLOGY_REPORT_SCHEMA:
             ontology_envelope = load_ontology_report(input_path)
             if not ontology_report_integrity_matches(ontology_envelope):
                 raise OmivInputError("report integrity mismatch")
@@ -1168,6 +1281,10 @@ def report_verify(
     """Verify report schema and payload integrity without original artifacts."""
     try:
         schema = _read_report_schema(input_path)
+        if schema == VALIDATION_REPORT_SCHEMA:
+            validation_envelope = verify_validation_report(input_path, Path.cwd())
+            typer.echo(f"PASS report integrity {validation_envelope.integrity['sha256']}")
+            return
         if schema in {
             "omiv.semantic-mapping-report.v2",
             "omiv.semantic-mapping-report.v3",

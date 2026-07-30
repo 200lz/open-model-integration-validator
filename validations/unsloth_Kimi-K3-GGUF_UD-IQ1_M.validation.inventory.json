@@ -1,0 +1,3194 @@
+{
+  "architecture_summary": {
+    "architecture": "kimi-k3",
+    "attention_residual_block_size": 12,
+    "dense_layers": [
+      0
+    ],
+    "experts_used": 16,
+    "ggml_types": [
+      "F32",
+      "IQ1_S",
+      "IQ2_XXS",
+      "IQ3_XXS",
+      "Q8_0"
+    ],
+    "kda_layers": 69,
+    "layers": 93,
+    "mla_layers": 24,
+    "moe_layer_range": [
+      1,
+      92
+    ],
+    "routed_experts": 896,
+    "shared_experts": 2,
+    "target_tensors": 2573
+  },
+  "artifact_index": {
+    "entries": [
+      {
+        "canonical_digest": "c5ca33b43e208fc37c5ac2016f530aabc05642c24dcc915df61f96aff161a1b4",
+        "producer_phase": "4F-1",
+        "relative_path": "reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M_shard1.prefix.report.json",
+        "required": true,
+        "role": "prefix_report",
+        "schema_id": "omiv.remote-gguf-prefix-report.v1",
+        "size_bytes": 2721,
+        "verification_command": "omiv report-verify --input reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M_shard1.prefix.report.json"
+      },
+      {
+        "canonical_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+        "producer_phase": "4F-1",
+        "relative_path": "snapshots/huggingface/unsloth_Kimi-K3-GGUF_UD-IQ1_M.snapshot.json",
+        "required": true,
+        "role": "repository_snapshot",
+        "schema_id": "omiv.remote-repository-snapshot.v1",
+        "size_bytes": 7486,
+        "verification_command": "omiv remote-snapshot-verify --input snapshots/huggingface/unsloth_Kimi-K3-GGUF_UD-IQ1_M.snapshot.json"
+      },
+      {
+        "canonical_digest": "ea7be6d02ddbf17ab0eb04ff9775bfcd6f21f0f9456947d158a973b8bb7f5cc4",
+        "producer_phase": "4F-1",
+        "relative_path": "reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.snapshot.report.json",
+        "required": true,
+        "role": "snapshot_report",
+        "schema_id": "omiv.remote-snapshot-report.v1",
+        "size_bytes": 4341,
+        "verification_command": "omiv report-verify --input reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.snapshot.report.json"
+      },
+      {
+        "canonical_digest": "ad657eab768dc46fb07054eb1fdfaa5e1fac48f389c78523b38bef63c2bd7a8d",
+        "producer_phase": "4F-2",
+        "relative_path": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00001-of-00015.header.inventory.json",
+        "required": true,
+        "role": "shard_01_header_inventory",
+        "schema_id": "omiv.remote-gguf-header-inventory.v1",
+        "size_bytes": 46706,
+        "verification_command": "omiv remote-gguf-header-inventory-verify --input inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00001-of-00015.header.inventory.json"
+      },
+      {
+        "canonical_digest": "5934de5d8ecb9ed921e7766651929eec1d7173912633bb9c8cfd442eb2b49e6c",
+        "producer_phase": "4F-2",
+        "relative_path": "reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M_shard1.header.report.json",
+        "required": true,
+        "role": "shard_1_header_report",
+        "schema_id": "omiv.remote-gguf-header-report.v1",
+        "size_bytes": 53623,
+        "verification_command": "omiv report-verify --input reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M_shard1.header.report.json"
+      },
+      {
+        "canonical_digest": "573f7b53c497a91d030dc2e993f3e1c7348a4252a99a211a81d622363274e121",
+        "producer_phase": "4F-3",
+        "relative_path": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00002-of-00015.header.inventory.json",
+        "required": true,
+        "role": "shard_02_header_inventory",
+        "schema_id": "omiv.remote-gguf-header-inventory.v1",
+        "size_bytes": 99370,
+        "verification_command": "omiv remote-gguf-header-inventory-verify --input inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00002-of-00015.header.inventory.json"
+      },
+      {
+        "canonical_digest": "92ec5e106b1c6db7ce0645efc8fa3aefcabb7f1f132a34206150ee2784a1462c",
+        "producer_phase": "4F-3",
+        "relative_path": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00003-of-00015.header.inventory.json",
+        "required": true,
+        "role": "shard_03_header_inventory",
+        "schema_id": "omiv.remote-gguf-header-inventory.v1",
+        "size_bytes": 90628,
+        "verification_command": "omiv remote-gguf-header-inventory-verify --input inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00003-of-00015.header.inventory.json"
+      },
+      {
+        "canonical_digest": "00bb305d6673b26631fb3f7aaa388464f5ed3e6e83eeb19a46084daeffff990c",
+        "producer_phase": "4F-3",
+        "relative_path": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00004-of-00015.header.inventory.json",
+        "required": true,
+        "role": "shard_04_header_inventory",
+        "schema_id": "omiv.remote-gguf-header-inventory.v1",
+        "size_bytes": 105098,
+        "verification_command": "omiv remote-gguf-header-inventory-verify --input inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00004-of-00015.header.inventory.json"
+      },
+      {
+        "canonical_digest": "37f94765e7236b51d036699a1ced1d6f05ba1c17152126f30f2b64e3fdc7008c",
+        "producer_phase": "4F-3",
+        "relative_path": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00005-of-00015.header.inventory.json",
+        "required": true,
+        "role": "shard_05_header_inventory",
+        "schema_id": "omiv.remote-gguf-header-inventory.v1",
+        "size_bytes": 80679,
+        "verification_command": "omiv remote-gguf-header-inventory-verify --input inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00005-of-00015.header.inventory.json"
+      },
+      {
+        "canonical_digest": "f523a3a58cefed8872b988aa8c1429937a03a35d3abaad3578befa64250d86b9",
+        "producer_phase": "4F-3",
+        "relative_path": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00006-of-00015.header.inventory.json",
+        "required": true,
+        "role": "shard_06_header_inventory",
+        "schema_id": "omiv.remote-gguf-header-inventory.v1",
+        "size_bytes": 105102,
+        "verification_command": "omiv remote-gguf-header-inventory-verify --input inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00006-of-00015.header.inventory.json"
+      },
+      {
+        "canonical_digest": "903b73aa5bc85db3b48a5649fa49c7c777825ca72d0ac6419b3c4cc2930a5c2e",
+        "producer_phase": "4F-3",
+        "relative_path": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00007-of-00015.header.inventory.json",
+        "required": true,
+        "role": "shard_07_header_inventory",
+        "schema_id": "omiv.remote-gguf-header-inventory.v1",
+        "size_bytes": 85195,
+        "verification_command": "omiv remote-gguf-header-inventory-verify --input inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00007-of-00015.header.inventory.json"
+      },
+      {
+        "canonical_digest": "c327c2637cc8063ba8191c6ba87d1fb39d414518df4feec70d8a2499a71e501b",
+        "producer_phase": "4F-3",
+        "relative_path": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00008-of-00015.header.inventory.json",
+        "required": true,
+        "role": "shard_08_header_inventory",
+        "schema_id": "omiv.remote-gguf-header-inventory.v1",
+        "size_bytes": 94338,
+        "verification_command": "omiv remote-gguf-header-inventory-verify --input inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00008-of-00015.header.inventory.json"
+      },
+      {
+        "canonical_digest": "12e17207cc5600363b56edb6caeb15fb5fb9c2b3f1c736fa671a92c1f934fd0c",
+        "producer_phase": "4F-3",
+        "relative_path": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00009-of-00015.header.inventory.json",
+        "required": true,
+        "role": "shard_09_header_inventory",
+        "schema_id": "omiv.remote-gguf-header-inventory.v1",
+        "size_bytes": 89299,
+        "verification_command": "omiv remote-gguf-header-inventory-verify --input inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00009-of-00015.header.inventory.json"
+      },
+      {
+        "canonical_digest": "777c196329918092550868f4a22131536372b4370a31cc06734c5557572b1fd0",
+        "producer_phase": "4F-3",
+        "relative_path": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00010-of-00015.header.inventory.json",
+        "required": true,
+        "role": "shard_10_header_inventory",
+        "schema_id": "omiv.remote-gguf-header-inventory.v1",
+        "size_bytes": 97509,
+        "verification_command": "omiv remote-gguf-header-inventory-verify --input inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00010-of-00015.header.inventory.json"
+      },
+      {
+        "canonical_digest": "061a95b34670c69e4c223b81684de0dddc4cfab3b93c81b5b6c46adfb819def9",
+        "producer_phase": "4F-3",
+        "relative_path": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00011-of-00015.header.inventory.json",
+        "required": true,
+        "role": "shard_11_header_inventory",
+        "schema_id": "omiv.remote-gguf-header-inventory.v1",
+        "size_bytes": 105112,
+        "verification_command": "omiv remote-gguf-header-inventory-verify --input inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00011-of-00015.header.inventory.json"
+      },
+      {
+        "canonical_digest": "0dd5d96abf86e8a290e767cdada786716b4558623bcfcc353783725f5ab62b65",
+        "producer_phase": "4F-3",
+        "relative_path": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00012-of-00015.header.inventory.json",
+        "required": true,
+        "role": "shard_12_header_inventory",
+        "schema_id": "omiv.remote-gguf-header-inventory.v1",
+        "size_bytes": 82154,
+        "verification_command": "omiv remote-gguf-header-inventory-verify --input inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00012-of-00015.header.inventory.json"
+      },
+      {
+        "canonical_digest": "daf377ad7624e8c0a8a5bf8aa4fc7159e9a3e2089d7b2c988edbe51bd5801bdb",
+        "producer_phase": "4F-3",
+        "relative_path": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00013-of-00015.header.inventory.json",
+        "required": true,
+        "role": "shard_13_header_inventory",
+        "schema_id": "omiv.remote-gguf-header-inventory.v1",
+        "size_bytes": 92935,
+        "verification_command": "omiv remote-gguf-header-inventory-verify --input inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00013-of-00015.header.inventory.json"
+      },
+      {
+        "canonical_digest": "30b69a64b113f7f4d3f5a236e8b21ebb321c7d6f915478b2a663d61cb24ce771",
+        "producer_phase": "4F-3",
+        "relative_path": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00014-of-00015.header.inventory.json",
+        "required": true,
+        "role": "shard_14_header_inventory",
+        "schema_id": "omiv.remote-gguf-header-inventory.v1",
+        "size_bytes": 93805,
+        "verification_command": "omiv remote-gguf-header-inventory-verify --input inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00014-of-00015.header.inventory.json"
+      },
+      {
+        "canonical_digest": "cad7812fd44048000b91f36ae1cac417d697b8ef3ab6475760ebc6f769537e1b",
+        "producer_phase": "4F-3",
+        "relative_path": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00015-of-00015.header.inventory.json",
+        "required": true,
+        "role": "shard_15_header_inventory",
+        "schema_id": "omiv.remote-gguf-header-inventory.v1",
+        "size_bytes": 20730,
+        "verification_command": "omiv remote-gguf-header-inventory-verify --input inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00015-of-00015.header.inventory.json"
+      },
+      {
+        "canonical_digest": "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7",
+        "producer_phase": "4F-3",
+        "relative_path": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.split.inventory.json",
+        "required": true,
+        "role": "split_inventory",
+        "schema_id": "omiv.remote-split-gguf-inventory.v1",
+        "size_bytes": 1927690,
+        "verification_command": "omiv remote-split-inventory-verify --input inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.split.inventory.json"
+      },
+      {
+        "canonical_digest": "42d8d90ea9872527deceb1620fda8bdd73baf8fd4bfc5cde2d886cb78a771b29",
+        "producer_phase": "4F-3",
+        "relative_path": "reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.split.report.json",
+        "required": true,
+        "role": "split_report",
+        "schema_id": "omiv.remote-split-gguf-report.v1",
+        "size_bytes": 2050414,
+        "verification_command": "omiv report-verify --input reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.split.report.json"
+      },
+      {
+        "canonical_digest": "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3",
+        "producer_phase": "4F-4",
+        "relative_path": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.kimi-k3-ontology.inventory.json",
+        "required": true,
+        "role": "target_ontology_inventory",
+        "schema_id": "omiv.kimi-k3-gguf-ontology-inventory.v1",
+        "size_bytes": 323640,
+        "verification_command": "omiv kimi-k3-gguf-ontology-inventory-verify --input inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.kimi-k3-ontology.inventory.json"
+      },
+      {
+        "canonical_digest": "ea5a7660fe5ed98eb6b30f7d92fca5f4220f0bd19dd3d1fc5af8531856e0e577",
+        "producer_phase": "4F-4",
+        "relative_path": "reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.kimi-k3-ontology.report.json",
+        "required": true,
+        "role": "target_ontology_report",
+        "schema_id": "omiv.kimi-k3-gguf-ontology-report.v1",
+        "size_bytes": 360661,
+        "verification_command": "omiv report-verify --input reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.kimi-k3-ontology.report.json"
+      },
+      {
+        "canonical_digest": "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16",
+        "producer_phase": "4F-5",
+        "relative_path": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.semantic-mapping.inventory.json",
+        "required": true,
+        "role": "semantic_mapping_inventory",
+        "schema_id": "omiv.semantic-mapping-inventory.v3",
+        "size_bytes": 3373037,
+        "verification_command": "omiv kimi-k3-semantic-mapping-inventory-verify --input inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.semantic-mapping.inventory.json"
+      },
+      {
+        "canonical_digest": "d1c31b67cf59e2c019d12dd37ab3b1ed6549842be2b3ffb6461b378d98ac1519",
+        "producer_phase": "4F-5",
+        "relative_path": "reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.semantic-mapping.report.json",
+        "required": true,
+        "role": "semantic_mapping_report",
+        "schema_id": "omiv.semantic-mapping-report.v3",
+        "size_bytes": 19510,
+        "verification_command": "omiv report-verify --input reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.semantic-mapping.report.json"
+      },
+      {
+        "canonical_digest": "15a6757becb69c56492fdb630d6853696082a9ec6109bcea05f387a5052ea469",
+        "producer_phase": "source-evidence",
+        "relative_path": "reports/raw/kimi_k3_tensors.json",
+        "required": true,
+        "role": "source_checkpoint_inventory",
+        "schema_id": "omiv.kimi-k3-source-tensor-header-list.v1",
+        "size_bytes": 115542096,
+        "verification_command": "sha256sum reports/raw/kimi_k3_tensors.json"
+      }
+    ],
+    "index_digest": "1760af1e55d11c22415283ec4da3e341944aec598bf5a8021a16f0a798b62170"
+  },
+  "evidence_edges": [
+    {
+      "child_node_id": "repository-snapshot-report",
+      "dependency_relation": "reports_on",
+      "expected_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "parent_node_id": "repository-snapshot"
+    },
+    {
+      "child_node_id": "shard-1-prefix-report",
+      "dependency_relation": "bounded_prefix_of",
+      "expected_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "parent_node_id": "repository-snapshot"
+    },
+    {
+      "child_node_id": "shard-header-01",
+      "dependency_relation": "header_of_snapshot",
+      "expected_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "parent_node_id": "repository-snapshot"
+    },
+    {
+      "child_node_id": "shard-header-02",
+      "dependency_relation": "header_of_snapshot",
+      "expected_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "parent_node_id": "repository-snapshot"
+    },
+    {
+      "child_node_id": "shard-header-03",
+      "dependency_relation": "header_of_snapshot",
+      "expected_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "parent_node_id": "repository-snapshot"
+    },
+    {
+      "child_node_id": "shard-header-04",
+      "dependency_relation": "header_of_snapshot",
+      "expected_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "parent_node_id": "repository-snapshot"
+    },
+    {
+      "child_node_id": "shard-header-05",
+      "dependency_relation": "header_of_snapshot",
+      "expected_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "parent_node_id": "repository-snapshot"
+    },
+    {
+      "child_node_id": "shard-header-06",
+      "dependency_relation": "header_of_snapshot",
+      "expected_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "parent_node_id": "repository-snapshot"
+    },
+    {
+      "child_node_id": "shard-header-07",
+      "dependency_relation": "header_of_snapshot",
+      "expected_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "parent_node_id": "repository-snapshot"
+    },
+    {
+      "child_node_id": "shard-header-08",
+      "dependency_relation": "header_of_snapshot",
+      "expected_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "parent_node_id": "repository-snapshot"
+    },
+    {
+      "child_node_id": "shard-header-09",
+      "dependency_relation": "header_of_snapshot",
+      "expected_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "parent_node_id": "repository-snapshot"
+    },
+    {
+      "child_node_id": "shard-header-10",
+      "dependency_relation": "header_of_snapshot",
+      "expected_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "parent_node_id": "repository-snapshot"
+    },
+    {
+      "child_node_id": "shard-header-11",
+      "dependency_relation": "header_of_snapshot",
+      "expected_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "parent_node_id": "repository-snapshot"
+    },
+    {
+      "child_node_id": "shard-header-12",
+      "dependency_relation": "header_of_snapshot",
+      "expected_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "parent_node_id": "repository-snapshot"
+    },
+    {
+      "child_node_id": "shard-header-13",
+      "dependency_relation": "header_of_snapshot",
+      "expected_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "parent_node_id": "repository-snapshot"
+    },
+    {
+      "child_node_id": "shard-header-14",
+      "dependency_relation": "header_of_snapshot",
+      "expected_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "parent_node_id": "repository-snapshot"
+    },
+    {
+      "child_node_id": "shard-header-15",
+      "dependency_relation": "header_of_snapshot",
+      "expected_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "parent_node_id": "repository-snapshot"
+    },
+    {
+      "child_node_id": "split-inventory",
+      "dependency_relation": "aggregates_snapshot",
+      "expected_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "parent_node_id": "repository-snapshot"
+    },
+    {
+      "child_node_id": "semantic-mapping-report",
+      "dependency_relation": "reports_on",
+      "expected_digest": "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16",
+      "parent_node_id": "semantic-mapping-inventory"
+    },
+    {
+      "child_node_id": "shard-1-header-report",
+      "dependency_relation": "reports_on",
+      "expected_digest": "ad657eab768dc46fb07054eb1fdfaa5e1fac48f389c78523b38bef63c2bd7a8d",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "ad657eab768dc46fb07054eb1fdfaa5e1fac48f389c78523b38bef63c2bd7a8d",
+      "parent_node_id": "shard-header-01"
+    },
+    {
+      "child_node_id": "split-inventory",
+      "dependency_relation": "aggregated_shard_header",
+      "expected_digest": "ad657eab768dc46fb07054eb1fdfaa5e1fac48f389c78523b38bef63c2bd7a8d",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "ad657eab768dc46fb07054eb1fdfaa5e1fac48f389c78523b38bef63c2bd7a8d",
+      "parent_node_id": "shard-header-01"
+    },
+    {
+      "child_node_id": "split-inventory",
+      "dependency_relation": "aggregated_shard_header",
+      "expected_digest": "573f7b53c497a91d030dc2e993f3e1c7348a4252a99a211a81d622363274e121",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "573f7b53c497a91d030dc2e993f3e1c7348a4252a99a211a81d622363274e121",
+      "parent_node_id": "shard-header-02"
+    },
+    {
+      "child_node_id": "split-inventory",
+      "dependency_relation": "aggregated_shard_header",
+      "expected_digest": "92ec5e106b1c6db7ce0645efc8fa3aefcabb7f1f132a34206150ee2784a1462c",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "92ec5e106b1c6db7ce0645efc8fa3aefcabb7f1f132a34206150ee2784a1462c",
+      "parent_node_id": "shard-header-03"
+    },
+    {
+      "child_node_id": "split-inventory",
+      "dependency_relation": "aggregated_shard_header",
+      "expected_digest": "00bb305d6673b26631fb3f7aaa388464f5ed3e6e83eeb19a46084daeffff990c",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "00bb305d6673b26631fb3f7aaa388464f5ed3e6e83eeb19a46084daeffff990c",
+      "parent_node_id": "shard-header-04"
+    },
+    {
+      "child_node_id": "split-inventory",
+      "dependency_relation": "aggregated_shard_header",
+      "expected_digest": "37f94765e7236b51d036699a1ced1d6f05ba1c17152126f30f2b64e3fdc7008c",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "37f94765e7236b51d036699a1ced1d6f05ba1c17152126f30f2b64e3fdc7008c",
+      "parent_node_id": "shard-header-05"
+    },
+    {
+      "child_node_id": "split-inventory",
+      "dependency_relation": "aggregated_shard_header",
+      "expected_digest": "f523a3a58cefed8872b988aa8c1429937a03a35d3abaad3578befa64250d86b9",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "f523a3a58cefed8872b988aa8c1429937a03a35d3abaad3578befa64250d86b9",
+      "parent_node_id": "shard-header-06"
+    },
+    {
+      "child_node_id": "split-inventory",
+      "dependency_relation": "aggregated_shard_header",
+      "expected_digest": "903b73aa5bc85db3b48a5649fa49c7c777825ca72d0ac6419b3c4cc2930a5c2e",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "903b73aa5bc85db3b48a5649fa49c7c777825ca72d0ac6419b3c4cc2930a5c2e",
+      "parent_node_id": "shard-header-07"
+    },
+    {
+      "child_node_id": "split-inventory",
+      "dependency_relation": "aggregated_shard_header",
+      "expected_digest": "c327c2637cc8063ba8191c6ba87d1fb39d414518df4feec70d8a2499a71e501b",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "c327c2637cc8063ba8191c6ba87d1fb39d414518df4feec70d8a2499a71e501b",
+      "parent_node_id": "shard-header-08"
+    },
+    {
+      "child_node_id": "split-inventory",
+      "dependency_relation": "aggregated_shard_header",
+      "expected_digest": "12e17207cc5600363b56edb6caeb15fb5fb9c2b3f1c736fa671a92c1f934fd0c",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "12e17207cc5600363b56edb6caeb15fb5fb9c2b3f1c736fa671a92c1f934fd0c",
+      "parent_node_id": "shard-header-09"
+    },
+    {
+      "child_node_id": "split-inventory",
+      "dependency_relation": "aggregated_shard_header",
+      "expected_digest": "777c196329918092550868f4a22131536372b4370a31cc06734c5557572b1fd0",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "777c196329918092550868f4a22131536372b4370a31cc06734c5557572b1fd0",
+      "parent_node_id": "shard-header-10"
+    },
+    {
+      "child_node_id": "split-inventory",
+      "dependency_relation": "aggregated_shard_header",
+      "expected_digest": "061a95b34670c69e4c223b81684de0dddc4cfab3b93c81b5b6c46adfb819def9",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "061a95b34670c69e4c223b81684de0dddc4cfab3b93c81b5b6c46adfb819def9",
+      "parent_node_id": "shard-header-11"
+    },
+    {
+      "child_node_id": "split-inventory",
+      "dependency_relation": "aggregated_shard_header",
+      "expected_digest": "0dd5d96abf86e8a290e767cdada786716b4558623bcfcc353783725f5ab62b65",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "0dd5d96abf86e8a290e767cdada786716b4558623bcfcc353783725f5ab62b65",
+      "parent_node_id": "shard-header-12"
+    },
+    {
+      "child_node_id": "split-inventory",
+      "dependency_relation": "aggregated_shard_header",
+      "expected_digest": "daf377ad7624e8c0a8a5bf8aa4fc7159e9a3e2089d7b2c988edbe51bd5801bdb",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "daf377ad7624e8c0a8a5bf8aa4fc7159e9a3e2089d7b2c988edbe51bd5801bdb",
+      "parent_node_id": "shard-header-13"
+    },
+    {
+      "child_node_id": "split-inventory",
+      "dependency_relation": "aggregated_shard_header",
+      "expected_digest": "30b69a64b113f7f4d3f5a236e8b21ebb321c7d6f915478b2a663d61cb24ce771",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "30b69a64b113f7f4d3f5a236e8b21ebb321c7d6f915478b2a663d61cb24ce771",
+      "parent_node_id": "shard-header-14"
+    },
+    {
+      "child_node_id": "split-inventory",
+      "dependency_relation": "aggregated_shard_header",
+      "expected_digest": "cad7812fd44048000b91f36ae1cac417d697b8ef3ab6475760ebc6f769537e1b",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "cad7812fd44048000b91f36ae1cac417d697b8ef3ab6475760ebc6f769537e1b",
+      "parent_node_id": "shard-header-15"
+    },
+    {
+      "child_node_id": "semantic-mapping-inventory",
+      "dependency_relation": "mapping_source",
+      "expected_digest": "15a6757becb69c56492fdb630d6853696082a9ec6109bcea05f387a5052ea469",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "15a6757becb69c56492fdb630d6853696082a9ec6109bcea05f387a5052ea469",
+      "parent_node_id": "source-checkpoint-inventory"
+    },
+    {
+      "child_node_id": "semantic-mapping-inventory",
+      "dependency_relation": "mapping_target_split",
+      "expected_digest": "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7",
+      "parent_node_id": "split-inventory"
+    },
+    {
+      "child_node_id": "split-report",
+      "dependency_relation": "reports_on",
+      "expected_digest": "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7",
+      "parent_node_id": "split-inventory"
+    },
+    {
+      "child_node_id": "target-ontology-inventory",
+      "dependency_relation": "classified_by_ontology",
+      "expected_digest": "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7",
+      "parent_node_id": "split-inventory"
+    },
+    {
+      "child_node_id": "semantic-mapping-inventory",
+      "dependency_relation": "mapping_target_ontology",
+      "expected_digest": "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3",
+      "parent_node_id": "target-ontology-inventory"
+    },
+    {
+      "child_node_id": "target-ontology-report",
+      "dependency_relation": "reports_on",
+      "expected_digest": "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3",
+      "linkage_status": "PASS",
+      "mismatch_reason": null,
+      "observed_digest": "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3",
+      "parent_node_id": "target-ontology-inventory"
+    }
+  ],
+  "evidence_graph_digest": "25967beebe9edbe79874eeda88516680c08cc820b34905fb6c174ac8bd42bc36",
+  "evidence_nodes": [
+    {
+      "artifact_identifier": "snapshots/huggingface/unsloth_Kimi-K3-GGUF_UD-IQ1_M.snapshot.json",
+      "artifact_kind": "repository_snapshot",
+      "canonical_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "evidence_limitations": [
+        "repository metadata does not inspect GGUF contents"
+      ],
+      "evidence_scope": [
+        "immutable repository identity",
+        "selected remote file set"
+      ],
+      "model_identity": "kimi-k3",
+      "model_pack_digest": null,
+      "node_id": "repository-snapshot",
+      "parent_dependency_digests": [],
+      "policy_digests": [],
+      "provider": "huggingface",
+      "schema_id": "omiv.remote-repository-snapshot.v1",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_identifier": "reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.snapshot.report.json",
+      "artifact_kind": "repository_snapshot_report",
+      "canonical_digest": "ea7be6d02ddbf17ab0eb04ff9775bfcd6f21f0f9456947d158a973b8bb7f5cc4",
+      "evidence_limitations": [
+        "Filename completeness is repository-layout evidence, not GGUF-header validation.",
+        "No tensor payload bytes were requested by repository enumeration."
+      ],
+      "evidence_scope": [
+        "repository layout and completeness findings"
+      ],
+      "model_identity": "kimi-k3",
+      "model_pack_digest": null,
+      "node_id": "repository-snapshot-report",
+      "parent_dependency_digests": [
+        "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520"
+      ],
+      "policy_digests": [],
+      "provider": "huggingface",
+      "schema_id": "omiv.remote-snapshot-report.v1",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_identifier": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.semantic-mapping.inventory.json",
+      "artifact_kind": "semantic_mapping_inventory",
+      "canonical_digest": "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16",
+      "evidence_limitations": [
+        "payload transforms and artifact-specific provenance are not verified"
+      ],
+      "evidence_scope": [
+        "source-to-target descriptor mapping and complete accounting"
+      ],
+      "model_identity": "kimi-k3",
+      "model_pack_digest": "6f151e70f2b28e367b84c59db6e7ad4184271b1cc7f518320043e3456c3ef288",
+      "node_id": "semantic-mapping-inventory",
+      "parent_dependency_digests": [
+        "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3",
+        "15a6757becb69c56492fdb630d6853696082a9ec6109bcea05f387a5052ea469",
+        "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7"
+      ],
+      "policy_digests": [
+        "bcfe1dbcbe2bd4724e385c5598fc7182bd630a0e090913fcf8c94e491573d0a9"
+      ],
+      "provider": "huggingface",
+      "schema_id": "omiv.semantic-mapping-inventory.v3",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_identifier": "reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.semantic-mapping.report.json",
+      "artifact_kind": "semantic_mapping_report",
+      "canonical_digest": "d1c31b67cf59e2c019d12dd37ab3b1ed6549842be2b3ffb6461b378d98ac1519",
+      "evidence_limitations": [
+        "artifact-specific conversion provenance unavailable",
+        "payload verification not checked"
+      ],
+      "evidence_scope": [
+        "semantic mapping findings and denominators"
+      ],
+      "model_identity": "kimi-k3",
+      "model_pack_digest": "6f151e70f2b28e367b84c59db6e7ad4184271b1cc7f518320043e3456c3ef288",
+      "node_id": "semantic-mapping-report",
+      "parent_dependency_digests": [
+        "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16"
+      ],
+      "policy_digests": [
+        "bcfe1dbcbe2bd4724e385c5598fc7182bd630a0e090913fcf8c94e491573d0a9"
+      ],
+      "provider": "huggingface",
+      "schema_id": "omiv.semantic-mapping-report.v3",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_identifier": "reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M_shard1.header.report.json",
+      "artifact_kind": "gguf_header_report",
+      "canonical_digest": "5934de5d8ecb9ed921e7766651929eec1d7173912633bb9c8cfd442eb2b49e6c",
+      "evidence_limitations": [
+        "Metadata PASS validates binary encoding, not semantic correctness.",
+        "Tensor descriptor PASS is per-file syntax, not Kimi K3 architecture evidence.",
+        "No tensor payload byte, payload digest, or payload value was accessed.",
+        "No cross-shard consistency or split-model claim is made."
+      ],
+      "evidence_scope": [
+        "metadata-only shard-1 complete header findings"
+      ],
+      "model_identity": "kimi-k3",
+      "model_pack_digest": null,
+      "node_id": "shard-1-header-report",
+      "parent_dependency_digests": [
+        "ad657eab768dc46fb07054eb1fdfaa5e1fac48f389c78523b38bef63c2bd7a8d"
+      ],
+      "policy_digests": [
+        "f77b269ec6f7b3ca18d52201528473ad15f752c8fd58e10b7162033e670131a3"
+      ],
+      "provider": "huggingface",
+      "schema_id": "omiv.remote-gguf-header-report.v1",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_identifier": "reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M_shard1.prefix.report.json",
+      "artifact_kind": "gguf_prefix_report",
+      "canonical_digest": "c5ca33b43e208fc37c5ac2016f530aabc05642c24dcc915df61f96aff161a1b4",
+      "evidence_limitations": [
+        "Only bytes 0 through 7 were requested.",
+        "Complete metadata, tensors, split headers, and payloads were not inspected."
+      ],
+      "evidence_scope": [
+        "bounded HTTP Range semantics",
+        "GGUF magic and version prefix"
+      ],
+      "model_identity": "kimi-k3",
+      "model_pack_digest": null,
+      "node_id": "shard-1-prefix-report",
+      "parent_dependency_digests": [
+        "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520"
+      ],
+      "policy_digests": [],
+      "provider": "huggingface",
+      "schema_id": "omiv.remote-gguf-prefix-report.v1",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_identifier": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00001-of-00015.header.inventory.json",
+      "artifact_kind": "gguf_header_inventory",
+      "canonical_digest": "ad657eab768dc46fb07054eb1fdfaa5e1fac48f389c78523b38bef63c2bd7a8d",
+      "evidence_limitations": [
+        "no tensor payload bytes were read"
+      ],
+      "evidence_scope": [
+        "complete GGUF metadata and tensor descriptor header"
+      ],
+      "model_identity": "kimi-k3",
+      "model_pack_digest": null,
+      "node_id": "shard-header-01",
+      "parent_dependency_digests": [
+        "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520"
+      ],
+      "policy_digests": [
+        "f77b269ec6f7b3ca18d52201528473ad15f752c8fd58e10b7162033e670131a3"
+      ],
+      "provider": "huggingface",
+      "schema_id": "omiv.remote-gguf-header-inventory.v1",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_identifier": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00002-of-00015.header.inventory.json",
+      "artifact_kind": "gguf_header_inventory",
+      "canonical_digest": "573f7b53c497a91d030dc2e993f3e1c7348a4252a99a211a81d622363274e121",
+      "evidence_limitations": [
+        "no tensor payload bytes were read"
+      ],
+      "evidence_scope": [
+        "complete GGUF metadata and tensor descriptor header"
+      ],
+      "model_identity": "kimi-k3",
+      "model_pack_digest": null,
+      "node_id": "shard-header-02",
+      "parent_dependency_digests": [
+        "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520"
+      ],
+      "policy_digests": [
+        "f77b269ec6f7b3ca18d52201528473ad15f752c8fd58e10b7162033e670131a3"
+      ],
+      "provider": "huggingface",
+      "schema_id": "omiv.remote-gguf-header-inventory.v1",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_identifier": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00003-of-00015.header.inventory.json",
+      "artifact_kind": "gguf_header_inventory",
+      "canonical_digest": "92ec5e106b1c6db7ce0645efc8fa3aefcabb7f1f132a34206150ee2784a1462c",
+      "evidence_limitations": [
+        "no tensor payload bytes were read"
+      ],
+      "evidence_scope": [
+        "complete GGUF metadata and tensor descriptor header"
+      ],
+      "model_identity": "kimi-k3",
+      "model_pack_digest": null,
+      "node_id": "shard-header-03",
+      "parent_dependency_digests": [
+        "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520"
+      ],
+      "policy_digests": [
+        "f77b269ec6f7b3ca18d52201528473ad15f752c8fd58e10b7162033e670131a3"
+      ],
+      "provider": "huggingface",
+      "schema_id": "omiv.remote-gguf-header-inventory.v1",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_identifier": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00004-of-00015.header.inventory.json",
+      "artifact_kind": "gguf_header_inventory",
+      "canonical_digest": "00bb305d6673b26631fb3f7aaa388464f5ed3e6e83eeb19a46084daeffff990c",
+      "evidence_limitations": [
+        "no tensor payload bytes were read"
+      ],
+      "evidence_scope": [
+        "complete GGUF metadata and tensor descriptor header"
+      ],
+      "model_identity": "kimi-k3",
+      "model_pack_digest": null,
+      "node_id": "shard-header-04",
+      "parent_dependency_digests": [
+        "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520"
+      ],
+      "policy_digests": [
+        "f77b269ec6f7b3ca18d52201528473ad15f752c8fd58e10b7162033e670131a3"
+      ],
+      "provider": "huggingface",
+      "schema_id": "omiv.remote-gguf-header-inventory.v1",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_identifier": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00005-of-00015.header.inventory.json",
+      "artifact_kind": "gguf_header_inventory",
+      "canonical_digest": "37f94765e7236b51d036699a1ced1d6f05ba1c17152126f30f2b64e3fdc7008c",
+      "evidence_limitations": [
+        "no tensor payload bytes were read"
+      ],
+      "evidence_scope": [
+        "complete GGUF metadata and tensor descriptor header"
+      ],
+      "model_identity": "kimi-k3",
+      "model_pack_digest": null,
+      "node_id": "shard-header-05",
+      "parent_dependency_digests": [
+        "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520"
+      ],
+      "policy_digests": [
+        "f77b269ec6f7b3ca18d52201528473ad15f752c8fd58e10b7162033e670131a3"
+      ],
+      "provider": "huggingface",
+      "schema_id": "omiv.remote-gguf-header-inventory.v1",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_identifier": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00006-of-00015.header.inventory.json",
+      "artifact_kind": "gguf_header_inventory",
+      "canonical_digest": "f523a3a58cefed8872b988aa8c1429937a03a35d3abaad3578befa64250d86b9",
+      "evidence_limitations": [
+        "no tensor payload bytes were read"
+      ],
+      "evidence_scope": [
+        "complete GGUF metadata and tensor descriptor header"
+      ],
+      "model_identity": "kimi-k3",
+      "model_pack_digest": null,
+      "node_id": "shard-header-06",
+      "parent_dependency_digests": [
+        "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520"
+      ],
+      "policy_digests": [
+        "f77b269ec6f7b3ca18d52201528473ad15f752c8fd58e10b7162033e670131a3"
+      ],
+      "provider": "huggingface",
+      "schema_id": "omiv.remote-gguf-header-inventory.v1",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_identifier": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00007-of-00015.header.inventory.json",
+      "artifact_kind": "gguf_header_inventory",
+      "canonical_digest": "903b73aa5bc85db3b48a5649fa49c7c777825ca72d0ac6419b3c4cc2930a5c2e",
+      "evidence_limitations": [
+        "no tensor payload bytes were read"
+      ],
+      "evidence_scope": [
+        "complete GGUF metadata and tensor descriptor header"
+      ],
+      "model_identity": "kimi-k3",
+      "model_pack_digest": null,
+      "node_id": "shard-header-07",
+      "parent_dependency_digests": [
+        "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520"
+      ],
+      "policy_digests": [
+        "f77b269ec6f7b3ca18d52201528473ad15f752c8fd58e10b7162033e670131a3"
+      ],
+      "provider": "huggingface",
+      "schema_id": "omiv.remote-gguf-header-inventory.v1",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_identifier": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00008-of-00015.header.inventory.json",
+      "artifact_kind": "gguf_header_inventory",
+      "canonical_digest": "c327c2637cc8063ba8191c6ba87d1fb39d414518df4feec70d8a2499a71e501b",
+      "evidence_limitations": [
+        "no tensor payload bytes were read"
+      ],
+      "evidence_scope": [
+        "complete GGUF metadata and tensor descriptor header"
+      ],
+      "model_identity": "kimi-k3",
+      "model_pack_digest": null,
+      "node_id": "shard-header-08",
+      "parent_dependency_digests": [
+        "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520"
+      ],
+      "policy_digests": [
+        "f77b269ec6f7b3ca18d52201528473ad15f752c8fd58e10b7162033e670131a3"
+      ],
+      "provider": "huggingface",
+      "schema_id": "omiv.remote-gguf-header-inventory.v1",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_identifier": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00009-of-00015.header.inventory.json",
+      "artifact_kind": "gguf_header_inventory",
+      "canonical_digest": "12e17207cc5600363b56edb6caeb15fb5fb9c2b3f1c736fa671a92c1f934fd0c",
+      "evidence_limitations": [
+        "no tensor payload bytes were read"
+      ],
+      "evidence_scope": [
+        "complete GGUF metadata and tensor descriptor header"
+      ],
+      "model_identity": "kimi-k3",
+      "model_pack_digest": null,
+      "node_id": "shard-header-09",
+      "parent_dependency_digests": [
+        "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520"
+      ],
+      "policy_digests": [
+        "f77b269ec6f7b3ca18d52201528473ad15f752c8fd58e10b7162033e670131a3"
+      ],
+      "provider": "huggingface",
+      "schema_id": "omiv.remote-gguf-header-inventory.v1",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_identifier": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00010-of-00015.header.inventory.json",
+      "artifact_kind": "gguf_header_inventory",
+      "canonical_digest": "777c196329918092550868f4a22131536372b4370a31cc06734c5557572b1fd0",
+      "evidence_limitations": [
+        "no tensor payload bytes were read"
+      ],
+      "evidence_scope": [
+        "complete GGUF metadata and tensor descriptor header"
+      ],
+      "model_identity": "kimi-k3",
+      "model_pack_digest": null,
+      "node_id": "shard-header-10",
+      "parent_dependency_digests": [
+        "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520"
+      ],
+      "policy_digests": [
+        "f77b269ec6f7b3ca18d52201528473ad15f752c8fd58e10b7162033e670131a3"
+      ],
+      "provider": "huggingface",
+      "schema_id": "omiv.remote-gguf-header-inventory.v1",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_identifier": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00011-of-00015.header.inventory.json",
+      "artifact_kind": "gguf_header_inventory",
+      "canonical_digest": "061a95b34670c69e4c223b81684de0dddc4cfab3b93c81b5b6c46adfb819def9",
+      "evidence_limitations": [
+        "no tensor payload bytes were read"
+      ],
+      "evidence_scope": [
+        "complete GGUF metadata and tensor descriptor header"
+      ],
+      "model_identity": "kimi-k3",
+      "model_pack_digest": null,
+      "node_id": "shard-header-11",
+      "parent_dependency_digests": [
+        "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520"
+      ],
+      "policy_digests": [
+        "f77b269ec6f7b3ca18d52201528473ad15f752c8fd58e10b7162033e670131a3"
+      ],
+      "provider": "huggingface",
+      "schema_id": "omiv.remote-gguf-header-inventory.v1",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_identifier": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00012-of-00015.header.inventory.json",
+      "artifact_kind": "gguf_header_inventory",
+      "canonical_digest": "0dd5d96abf86e8a290e767cdada786716b4558623bcfcc353783725f5ab62b65",
+      "evidence_limitations": [
+        "no tensor payload bytes were read"
+      ],
+      "evidence_scope": [
+        "complete GGUF metadata and tensor descriptor header"
+      ],
+      "model_identity": "kimi-k3",
+      "model_pack_digest": null,
+      "node_id": "shard-header-12",
+      "parent_dependency_digests": [
+        "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520"
+      ],
+      "policy_digests": [
+        "f77b269ec6f7b3ca18d52201528473ad15f752c8fd58e10b7162033e670131a3"
+      ],
+      "provider": "huggingface",
+      "schema_id": "omiv.remote-gguf-header-inventory.v1",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_identifier": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00013-of-00015.header.inventory.json",
+      "artifact_kind": "gguf_header_inventory",
+      "canonical_digest": "daf377ad7624e8c0a8a5bf8aa4fc7159e9a3e2089d7b2c988edbe51bd5801bdb",
+      "evidence_limitations": [
+        "no tensor payload bytes were read"
+      ],
+      "evidence_scope": [
+        "complete GGUF metadata and tensor descriptor header"
+      ],
+      "model_identity": "kimi-k3",
+      "model_pack_digest": null,
+      "node_id": "shard-header-13",
+      "parent_dependency_digests": [
+        "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520"
+      ],
+      "policy_digests": [
+        "f77b269ec6f7b3ca18d52201528473ad15f752c8fd58e10b7162033e670131a3"
+      ],
+      "provider": "huggingface",
+      "schema_id": "omiv.remote-gguf-header-inventory.v1",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_identifier": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00014-of-00015.header.inventory.json",
+      "artifact_kind": "gguf_header_inventory",
+      "canonical_digest": "30b69a64b113f7f4d3f5a236e8b21ebb321c7d6f915478b2a663d61cb24ce771",
+      "evidence_limitations": [
+        "no tensor payload bytes were read"
+      ],
+      "evidence_scope": [
+        "complete GGUF metadata and tensor descriptor header"
+      ],
+      "model_identity": "kimi-k3",
+      "model_pack_digest": null,
+      "node_id": "shard-header-14",
+      "parent_dependency_digests": [
+        "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520"
+      ],
+      "policy_digests": [
+        "f77b269ec6f7b3ca18d52201528473ad15f752c8fd58e10b7162033e670131a3"
+      ],
+      "provider": "huggingface",
+      "schema_id": "omiv.remote-gguf-header-inventory.v1",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_identifier": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00015-of-00015.header.inventory.json",
+      "artifact_kind": "gguf_header_inventory",
+      "canonical_digest": "cad7812fd44048000b91f36ae1cac417d697b8ef3ab6475760ebc6f769537e1b",
+      "evidence_limitations": [
+        "no tensor payload bytes were read"
+      ],
+      "evidence_scope": [
+        "complete GGUF metadata and tensor descriptor header"
+      ],
+      "model_identity": "kimi-k3",
+      "model_pack_digest": null,
+      "node_id": "shard-header-15",
+      "parent_dependency_digests": [
+        "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520"
+      ],
+      "policy_digests": [
+        "f77b269ec6f7b3ca18d52201528473ad15f752c8fd58e10b7162033e670131a3"
+      ],
+      "provider": "huggingface",
+      "schema_id": "omiv.remote-gguf-header-inventory.v1",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_identifier": "reports/raw/kimi_k3_tensors.json",
+      "artifact_kind": "source_checkpoint_tensor_inventory",
+      "canonical_digest": "15a6757becb69c56492fdb630d6853696082a9ec6109bcea05f387a5052ea469",
+      "evidence_limitations": [
+        "header inventory contains no tensor payload"
+      ],
+      "evidence_scope": [
+        "source physical tensor names, shapes, and dtypes"
+      ],
+      "model_identity": "kimi-k3",
+      "model_pack_digest": null,
+      "node_id": "source-checkpoint-inventory",
+      "parent_dependency_digests": [],
+      "policy_digests": [],
+      "provider": null,
+      "schema_id": "omiv.kimi-k3-source-tensor-header-list.v1",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_identifier": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.split.inventory.json",
+      "artifact_kind": "split_gguf_inventory",
+      "canonical_digest": "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7",
+      "evidence_limitations": [
+        "bounded spans do not prove payload presence or integrity"
+      ],
+      "evidence_scope": [
+        "split identity",
+        "global descriptors",
+        "payload-span structural bounds"
+      ],
+      "model_identity": "kimi-k3",
+      "model_pack_digest": null,
+      "node_id": "split-inventory",
+      "parent_dependency_digests": [
+        "00bb305d6673b26631fb3f7aaa388464f5ed3e6e83eeb19a46084daeffff990c",
+        "061a95b34670c69e4c223b81684de0dddc4cfab3b93c81b5b6c46adfb819def9",
+        "0dd5d96abf86e8a290e767cdada786716b4558623bcfcc353783725f5ab62b65",
+        "12e17207cc5600363b56edb6caeb15fb5fb9c2b3f1c736fa671a92c1f934fd0c",
+        "30b69a64b113f7f4d3f5a236e8b21ebb321c7d6f915478b2a663d61cb24ce771",
+        "37f94765e7236b51d036699a1ced1d6f05ba1c17152126f30f2b64e3fdc7008c",
+        "573f7b53c497a91d030dc2e993f3e1c7348a4252a99a211a81d622363274e121",
+        "777c196329918092550868f4a22131536372b4370a31cc06734c5557572b1fd0",
+        "903b73aa5bc85db3b48a5649fa49c7c777825ca72d0ac6419b3c4cc2930a5c2e",
+        "92ec5e106b1c6db7ce0645efc8fa3aefcabb7f1f132a34206150ee2784a1462c",
+        "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+        "ad657eab768dc46fb07054eb1fdfaa5e1fac48f389c78523b38bef63c2bd7a8d",
+        "c327c2637cc8063ba8191c6ba87d1fb39d414518df4feec70d8a2499a71e501b",
+        "cad7812fd44048000b91f36ae1cac417d697b8ef3ab6475760ebc6f769537e1b",
+        "daf377ad7624e8c0a8a5bf8aa4fc7159e9a3e2089d7b2c988edbe51bd5801bdb",
+        "f523a3a58cefed8872b988aa8c1429937a03a35d3abaad3578befa64250d86b9"
+      ],
+      "policy_digests": [
+        "708003ae726ba55dc740fef3b68219db5c860c7855e3412efe0afa489a78ed40",
+        "7375ba88935de55244fc7085f1ac469b64ddea0bab19236bd8154f5ea2a9f473",
+        "bde5adafbeee1c9426a8a8c15eb50b3ecabde389bce46cf5395841e48edf7e95",
+        "f77b269ec6f7b3ca18d52201528473ad15f752c8fd58e10b7162033e670131a3"
+      ],
+      "provider": "huggingface",
+      "schema_id": "omiv.remote-split-gguf-inventory.v1",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_identifier": "reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.split.report.json",
+      "artifact_kind": "split_gguf_report",
+      "canonical_digest": "42d8d90ea9872527deceb1620fda8bdd73baf8fd4bfc5cde2d886cb78a771b29",
+      "evidence_limitations": [
+        "Metadata consistency applies only the recorded structural policy.",
+        "Tensor names and shapes are not interpreted as Kimi K3 semantics.",
+        "Payload spans use recorded GGML block layouts without reading payload bytes.",
+        "Bounded spans do not prove payload presence, integrity, or quantization fidelity.",
+        "No HF-to-GGUF mapping or runtime parity claim is made."
+      ],
+      "evidence_scope": [
+        "split-container validation findings"
+      ],
+      "model_identity": "kimi-k3",
+      "model_pack_digest": null,
+      "node_id": "split-report",
+      "parent_dependency_digests": [
+        "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7"
+      ],
+      "policy_digests": [],
+      "provider": "huggingface",
+      "schema_id": "omiv.remote-split-gguf-report.v1",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_identifier": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.kimi-k3-ontology.inventory.json",
+      "artifact_kind": "kimi_k3_target_ontology",
+      "canonical_digest": "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3",
+      "evidence_limitations": [
+        "descriptor shape/type validation does not prove tensor values"
+      ],
+      "evidence_scope": [
+        "Kimi K3 target descriptor ontology and architecture schedule"
+      ],
+      "model_identity": "kimi-k3",
+      "model_pack_digest": "6f151e70f2b28e367b84c59db6e7ad4184271b1cc7f518320043e3456c3ef288",
+      "node_id": "target-ontology-inventory",
+      "parent_dependency_digests": [
+        "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7"
+      ],
+      "policy_digests": [
+        "dcd1ab32ba30153b2aa0c614136a35b090688e60fb2c7beb339421132badbbca"
+      ],
+      "provider": "huggingface",
+      "schema_id": "omiv.kimi-k3-gguf-ontology-inventory.v1",
+      "verification_status": "PASS"
+    },
+    {
+      "artifact_identifier": "reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.kimi-k3-ontology.report.json",
+      "artifact_kind": "kimi_k3_target_ontology_report",
+      "canonical_digest": "ea5a7660fe5ed98eb6b30f7d92fca5f4220f0bd19dd3d1fc5af8531856e0e577",
+      "evidence_limitations": [
+        "The ontology classifies target-side physical GGUF descriptors only.",
+        "Packed expert PASS does not prove source expert ordering or source-to-target mapping.",
+        "Shape PASS does not prove tensor values or conversion transforms.",
+        "GGML type placement PASS does not prove quantization fidelity.",
+        "No tensor payload byte, tokenizer parity, logit parity, or runtime output was checked."
+      ],
+      "evidence_scope": [
+        "target ontology findings"
+      ],
+      "model_identity": "kimi-k3",
+      "model_pack_digest": "6f151e70f2b28e367b84c59db6e7ad4184271b1cc7f518320043e3456c3ef288",
+      "node_id": "target-ontology-report",
+      "parent_dependency_digests": [
+        "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3"
+      ],
+      "policy_digests": [
+        "dcd1ab32ba30153b2aa0c614136a35b090688e60fb2c7beb339421132badbbca"
+      ],
+      "provider": "huggingface",
+      "schema_id": "omiv.kimi-k3-gguf-ontology-report.v1",
+      "verification_status": "PASS"
+    }
+  ],
+  "evidence_stages": [
+    {
+      "artifact_digests": [
+        "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16",
+        "d1c31b67cf59e2c019d12dd37ab3b1ed6549842be2b3ffb6461b378d98ac1519"
+      ],
+      "evidence_node_ids": [
+        "semantic-mapping-inventory",
+        "semantic-mapping-report"
+      ],
+      "finding_ids": [
+        "VALIDATE-014"
+      ],
+      "limitations": [
+        "no artifact-specific conversion-run provenance exists"
+      ],
+      "next_required_evidence": [
+        "signed conversion-run provenance"
+      ],
+      "policy_digests": [],
+      "scope": [],
+      "stage": "artifact_specific_provenance",
+      "status": "UNAVAILABLE"
+    },
+    {
+      "artifact_digests": [
+        "00bb305d6673b26631fb3f7aaa388464f5ed3e6e83eeb19a46084daeffff990c",
+        "061a95b34670c69e4c223b81684de0dddc4cfab3b93c81b5b6c46adfb819def9",
+        "0dd5d96abf86e8a290e767cdada786716b4558623bcfcc353783725f5ab62b65",
+        "12e17207cc5600363b56edb6caeb15fb5fb9c2b3f1c736fa671a92c1f934fd0c",
+        "30b69a64b113f7f4d3f5a236e8b21ebb321c7d6f915478b2a663d61cb24ce771",
+        "37f94765e7236b51d036699a1ced1d6f05ba1c17152126f30f2b64e3fdc7008c",
+        "573f7b53c497a91d030dc2e993f3e1c7348a4252a99a211a81d622363274e121",
+        "5934de5d8ecb9ed921e7766651929eec1d7173912633bb9c8cfd442eb2b49e6c",
+        "777c196329918092550868f4a22131536372b4370a31cc06734c5557572b1fd0",
+        "903b73aa5bc85db3b48a5649fa49c7c777825ca72d0ac6419b3c4cc2930a5c2e",
+        "92ec5e106b1c6db7ce0645efc8fa3aefcabb7f1f132a34206150ee2784a1462c",
+        "ad657eab768dc46fb07054eb1fdfaa5e1fac48f389c78523b38bef63c2bd7a8d",
+        "c327c2637cc8063ba8191c6ba87d1fb39d414518df4feec70d8a2499a71e501b",
+        "cad7812fd44048000b91f36ae1cac417d697b8ef3ab6475760ebc6f769537e1b",
+        "daf377ad7624e8c0a8a5bf8aa4fc7159e9a3e2089d7b2c988edbe51bd5801bdb",
+        "f523a3a58cefed8872b988aa8c1429937a03a35d3abaad3578befa64250d86b9"
+      ],
+      "evidence_node_ids": [
+        "shard-1-header-report",
+        "shard-header-01",
+        "shard-header-02",
+        "shard-header-03",
+        "shard-header-04",
+        "shard-header-05",
+        "shard-header-06",
+        "shard-header-07",
+        "shard-header-08",
+        "shard-header-09",
+        "shard-header-10",
+        "shard-header-11",
+        "shard-header-12",
+        "shard-header-13",
+        "shard-header-14",
+        "shard-header-15"
+      ],
+      "finding_ids": [
+        "VALIDATE-006"
+      ],
+      "limitations": [
+        "does not establish tensor payload or numerical correctness"
+      ],
+      "next_required_evidence": [],
+      "policy_digests": [
+        "f77b269ec6f7b3ca18d52201528473ad15f752c8fd58e10b7162033e670131a3"
+      ],
+      "scope": [
+        "complete GGUF headers for all shards"
+      ],
+      "stage": "complete_header",
+      "status": "PASS"
+    },
+    {
+      "artifact_digests": [
+        "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16"
+      ],
+      "evidence_node_ids": [
+        "semantic-mapping-inventory"
+      ],
+      "finding_ids": [
+        "VALIDATE-013"
+      ],
+      "limitations": [
+        "does not identify the converter run that produced this artifact"
+      ],
+      "next_required_evidence": [
+        "artifact-specific conversion provenance"
+      ],
+      "policy_digests": [
+        "bcfe1dbcbe2bd4724e385c5598fc7182bd630a0e090913fcf8c94e491573d0a9"
+      ],
+      "scope": [
+        "pinned converter code supports recorded relations"
+      ],
+      "stage": "converter_rule_support",
+      "status": "AVAILABLE"
+    },
+    {
+      "artifact_digests": [
+        "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3",
+        "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7",
+        "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16",
+        "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520"
+      ],
+      "evidence_node_ids": [
+        "repository-snapshot",
+        "semantic-mapping-inventory",
+        "split-inventory",
+        "target-ontology-inventory"
+      ],
+      "finding_ids": [
+        "VALIDATE-020"
+      ],
+      "limitations": [
+        "determinism applies to evidence artifacts, not model execution"
+      ],
+      "next_required_evidence": [],
+      "policy_digests": [
+        "bcfe1dbcbe2bd4724e385c5598fc7182bd630a0e090913fcf8c94e491573d0a9",
+        "dcd1ab32ba30153b2aa0c614136a35b090688e60fb2c7beb339421132badbbca"
+      ],
+      "scope": [
+        "canonical digests and dependency reconstruction"
+      ],
+      "stage": "deterministic_verification",
+      "status": "PASS"
+    },
+    {
+      "artifact_digests": [
+        "c5ca33b43e208fc37c5ac2016f530aabc05642c24dcc915df61f96aff161a1b4"
+      ],
+      "evidence_node_ids": [
+        "shard-1-prefix-report"
+      ],
+      "finding_ids": [
+        "VALIDATE-005"
+      ],
+      "limitations": [],
+      "next_required_evidence": [],
+      "policy_digests": [],
+      "scope": [
+        "GGUF magic and version prefix"
+      ],
+      "stage": "file_prefix",
+      "status": "PASS"
+    },
+    {
+      "artifact_digests": [
+        "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16"
+      ],
+      "evidence_node_ids": [
+        "semantic-mapping-inventory"
+      ],
+      "finding_ids": [
+        "VALIDATE-015"
+      ],
+      "limitations": [
+        "no tensor payload bytes or hashes were accessed"
+      ],
+      "next_required_evidence": [
+        "payload digest evidence"
+      ],
+      "policy_digests": [],
+      "scope": [],
+      "stage": "payload_integrity",
+      "status": "NOT_CHECKED"
+    },
+    {
+      "artifact_digests": [
+        "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7"
+      ],
+      "evidence_node_ids": [
+        "split-inventory"
+      ],
+      "finding_ids": [
+        "VALIDATE-007"
+      ],
+      "limitations": [
+        "bounds do not prove payload bytes"
+      ],
+      "next_required_evidence": [
+        "payload integrity evidence"
+      ],
+      "policy_digests": [
+        "7375ba88935de55244fc7085f1ac469b64ddea0bab19236bd8154f5ea2a9f473"
+      ],
+      "scope": [
+        "computed descriptor payload spans fit shard bounds"
+      ],
+      "stage": "payload_span_bounds",
+      "status": "PASS"
+    },
+    {
+      "artifact_digests": [
+        "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16"
+      ],
+      "evidence_node_ids": [
+        "semantic-mapping-inventory"
+      ],
+      "finding_ids": [
+        "VALIDATE-016"
+      ],
+      "limitations": [
+        "allowed type transitions are not numerical fidelity"
+      ],
+      "next_required_evidence": [
+        "numerical quantization comparison"
+      ],
+      "policy_digests": [],
+      "scope": [],
+      "stage": "quantization_fidelity",
+      "status": "NOT_CHECKED"
+    },
+    {
+      "artifact_digests": [
+        "00bb305d6673b26631fb3f7aaa388464f5ed3e6e83eeb19a46084daeffff990c",
+        "061a95b34670c69e4c223b81684de0dddc4cfab3b93c81b5b6c46adfb819def9",
+        "0dd5d96abf86e8a290e767cdada786716b4558623bcfcc353783725f5ab62b65",
+        "12e17207cc5600363b56edb6caeb15fb5fb9c2b3f1c736fa671a92c1f934fd0c",
+        "30b69a64b113f7f4d3f5a236e8b21ebb321c7d6f915478b2a663d61cb24ce771",
+        "37f94765e7236b51d036699a1ced1d6f05ba1c17152126f30f2b64e3fdc7008c",
+        "573f7b53c497a91d030dc2e993f3e1c7348a4252a99a211a81d622363274e121",
+        "777c196329918092550868f4a22131536372b4370a31cc06734c5557572b1fd0",
+        "903b73aa5bc85db3b48a5649fa49c7c777825ca72d0ac6419b3c4cc2930a5c2e",
+        "92ec5e106b1c6db7ce0645efc8fa3aefcabb7f1f132a34206150ee2784a1462c",
+        "ad657eab768dc46fb07054eb1fdfaa5e1fac48f389c78523b38bef63c2bd7a8d",
+        "c327c2637cc8063ba8191c6ba87d1fb39d414518df4feec70d8a2499a71e501b",
+        "c5ca33b43e208fc37c5ac2016f530aabc05642c24dcc915df61f96aff161a1b4",
+        "cad7812fd44048000b91f36ae1cac417d697b8ef3ab6475760ebc6f769537e1b",
+        "daf377ad7624e8c0a8a5bf8aa4fc7159e9a3e2089d7b2c988edbe51bd5801bdb",
+        "f523a3a58cefed8872b988aa8c1429937a03a35d3abaad3578befa64250d86b9"
+      ],
+      "evidence_node_ids": [
+        "shard-1-prefix-report",
+        "shard-header-01",
+        "shard-header-02",
+        "shard-header-03",
+        "shard-header-04",
+        "shard-header-05",
+        "shard-header-06",
+        "shard-header-07",
+        "shard-header-08",
+        "shard-header-09",
+        "shard-header-10",
+        "shard-header-11",
+        "shard-header-12",
+        "shard-header-13",
+        "shard-header-14",
+        "shard-header-15"
+      ],
+      "finding_ids": [
+        "VALIDATE-005"
+      ],
+      "limitations": [
+        "remote evidence was generated previously"
+      ],
+      "next_required_evidence": [],
+      "policy_digests": [
+        "f77b269ec6f7b3ca18d52201528473ad15f752c8fd58e10b7162033e670131a3"
+      ],
+      "scope": [
+        "bounded byte ranges"
+      ],
+      "stage": "range_semantics",
+      "status": "PASS"
+    },
+    {
+      "artifact_digests": [
+        "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520"
+      ],
+      "evidence_node_ids": [
+        "repository-snapshot"
+      ],
+      "finding_ids": [
+        "VALIDATE-004"
+      ],
+      "limitations": [],
+      "next_required_evidence": [],
+      "policy_digests": [],
+      "scope": [
+        "fixed repository and immutable revision"
+      ],
+      "stage": "repository_identity",
+      "status": "PASS"
+    },
+    {
+      "artifact_digests": [
+        "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+        "ea7be6d02ddbf17ab0eb04ff9775bfcd6f21f0f9456947d158a973b8bb7f5cc4"
+      ],
+      "evidence_node_ids": [
+        "repository-snapshot",
+        "repository-snapshot-report"
+      ],
+      "finding_ids": [
+        "VALIDATE-004"
+      ],
+      "limitations": [],
+      "next_required_evidence": [],
+      "policy_digests": [],
+      "scope": [
+        "15-file selected split layout"
+      ],
+      "stage": "repository_layout",
+      "status": "PASS"
+    },
+    {
+      "artifact_digests": [
+        "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16"
+      ],
+      "evidence_node_ids": [
+        "semantic-mapping-inventory"
+      ],
+      "finding_ids": [
+        "VALIDATE-018"
+      ],
+      "limitations": [
+        "no backend execution, logits, or runtime output"
+      ],
+      "next_required_evidence": [
+        "runtime parity evidence"
+      ],
+      "policy_digests": [],
+      "scope": [],
+      "stage": "runtime_parity",
+      "status": "NOT_CHECKED"
+    },
+    {
+      "artifact_digests": [
+        "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7",
+        "42d8d90ea9872527deceb1620fda8bdd73baf8fd4bfc5cde2d886cb78a771b29"
+      ],
+      "evidence_node_ids": [
+        "split-inventory",
+        "split-report"
+      ],
+      "finding_ids": [
+        "VALIDATE-007"
+      ],
+      "limitations": [
+        "does not establish tensor payload or numerical correctness"
+      ],
+      "next_required_evidence": [],
+      "policy_digests": [
+        "bde5adafbeee1c9426a8a8c15eb50b3ecabde389bce46cf5395841e48edf7e95"
+      ],
+      "scope": [
+        "split identity and descriptor aggregation"
+      ],
+      "stage": "split_container",
+      "status": "PASS"
+    },
+    {
+      "artifact_digests": [
+        "15a6757becb69c56492fdb630d6853696082a9ec6109bcea05f387a5052ea469",
+        "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16",
+        "d1c31b67cf59e2c019d12dd37ab3b1ed6549842be2b3ffb6461b378d98ac1519"
+      ],
+      "evidence_node_ids": [
+        "semantic-mapping-inventory",
+        "semantic-mapping-report",
+        "source-checkpoint-inventory"
+      ],
+      "finding_ids": [
+        "VALIDATE-009"
+      ],
+      "limitations": [
+        "does not establish tensor payload or numerical correctness"
+      ],
+      "next_required_evidence": [
+        "payload relation verification"
+      ],
+      "policy_digests": [
+        "bcfe1dbcbe2bd4724e385c5598fc7182bd630a0e090913fcf8c94e491573d0a9"
+      ],
+      "scope": [
+        "descriptor-level source-to-target assignments"
+      ],
+      "stage": "structural_semantic_mapping",
+      "status": "PASS"
+    },
+    {
+      "artifact_digests": [
+        "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3",
+        "ea5a7660fe5ed98eb6b30f7d92fca5f4220f0bd19dd3d1fc5af8531856e0e577"
+      ],
+      "evidence_node_ids": [
+        "target-ontology-inventory",
+        "target-ontology-report"
+      ],
+      "finding_ids": [
+        "VALIDATE-008"
+      ],
+      "limitations": [
+        "does not establish tensor payload or numerical correctness"
+      ],
+      "next_required_evidence": [],
+      "policy_digests": [
+        "dcd1ab32ba30153b2aa0c614136a35b090688e60fb2c7beb339421132badbbca"
+      ],
+      "scope": [
+        "Kimi K3 target ontology"
+      ],
+      "stage": "target_ontology",
+      "status": "PASS"
+    },
+    {
+      "artifact_digests": [
+        "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7"
+      ],
+      "evidence_node_ids": [
+        "split-inventory"
+      ],
+      "finding_ids": [
+        "VALIDATE-017"
+      ],
+      "limitations": [
+        "tokenizer arrays were not compared"
+      ],
+      "next_required_evidence": [
+        "tokenizer parity evidence"
+      ],
+      "policy_digests": [],
+      "scope": [],
+      "stage": "tokenizer_parity",
+      "status": "NOT_CHECKED"
+    }
+  ],
+  "failed_stage_count": 0,
+  "findings": [
+    {
+      "evidence": {
+        "repository": "unsloth/Kimi-K3-GGUF",
+        "revision": "3d4b61ab4b6789d401191c476cbb4567246db8f5"
+      },
+      "finding_id": "VALIDATE-001",
+      "limitation": null,
+      "status": "PASS",
+      "summary": "Subject identity is pinned."
+    },
+    {
+      "evidence": {
+        "edge_count": 41,
+        "node_count": 26
+      },
+      "finding_id": "VALIDATE-002",
+      "limitation": null,
+      "status": "PASS",
+      "summary": "Evidence graph is complete and acyclic."
+    },
+    {
+      "evidence": {
+        "artifact_count": 26
+      },
+      "finding_id": "VALIDATE-003",
+      "limitation": null,
+      "status": "PASS",
+      "summary": "All required artifact digests verify."
+    },
+    {
+      "evidence": {
+        "file_count": 15
+      },
+      "finding_id": "VALIDATE-004",
+      "limitation": null,
+      "status": "PASS",
+      "summary": "Immutable repository evidence is valid."
+    },
+    {
+      "evidence": {
+        "tensor_payload_bytes": 0
+      },
+      "finding_id": "VALIDATE-005",
+      "limitation": null,
+      "status": "PASS",
+      "summary": "Bounded remote inspection evidence is valid."
+    },
+    {
+      "evidence": {
+        "shard_count": 15
+      },
+      "finding_id": "VALIDATE-006",
+      "limitation": null,
+      "status": "PASS",
+      "summary": "Complete GGUF header evidence is valid."
+    },
+    {
+      "evidence": {
+        "tensor_count": 2573
+      },
+      "finding_id": "VALIDATE-007",
+      "limitation": null,
+      "status": "PASS",
+      "summary": "Split-container evidence is valid."
+    },
+    {
+      "evidence": {
+        "ontology_digest": "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3"
+      },
+      "finding_id": "VALIDATE-008",
+      "limitation": null,
+      "status": "PASS",
+      "summary": "Target ontology evidence is valid."
+    },
+    {
+      "evidence": {
+        "mapping_digest": "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16"
+      },
+      "finding_id": "VALIDATE-009",
+      "limitation": null,
+      "status": "PASS",
+      "summary": "Structural semantic-mapping evidence is valid."
+    },
+    {
+      "evidence": {
+        "model_pack_digest": "6f151e70f2b28e367b84c59db6e7ad4184271b1cc7f518320043e3456c3ef288"
+      },
+      "finding_id": "VALIDATE-010",
+      "limitation": null,
+      "status": "PASS",
+      "summary": "Model-pack and policy identities are valid."
+    },
+    {
+      "evidence": {
+        "records": 497220
+      },
+      "finding_id": "VALIDATE-011",
+      "limitation": null,
+      "status": "PASS",
+      "summary": "Source accounting is complete."
+    },
+    {
+      "evidence": {
+        "descriptors": 2573
+      },
+      "finding_id": "VALIDATE-012",
+      "limitation": null,
+      "status": "PASS",
+      "summary": "Target accounting is complete."
+    },
+    {
+      "evidence": {
+        "revision": "cf67f0d24511864d2d3da0769108fd6fc16d00d1"
+      },
+      "finding_id": "VALIDATE-013",
+      "limitation": null,
+      "status": "AVAILABLE",
+      "summary": "Pinned converter-rule evidence is available."
+    },
+    {
+      "evidence": {},
+      "finding_id": "VALIDATE-014",
+      "limitation": null,
+      "status": "UNAVAILABLE",
+      "summary": "Artifact-specific conversion provenance is unavailable."
+    },
+    {
+      "evidence": {},
+      "finding_id": "VALIDATE-015",
+      "limitation": null,
+      "status": "NOT_CHECKED",
+      "summary": "Tensor payload integrity was not checked."
+    },
+    {
+      "evidence": {},
+      "finding_id": "VALIDATE-016",
+      "limitation": null,
+      "status": "NOT_CHECKED",
+      "summary": "Numerical quantization fidelity was not checked."
+    },
+    {
+      "evidence": {},
+      "finding_id": "VALIDATE-017",
+      "limitation": null,
+      "status": "NOT_CHECKED",
+      "summary": "Tokenizer parity was not checked."
+    },
+    {
+      "evidence": {},
+      "finding_id": "VALIDATE-018",
+      "limitation": null,
+      "status": "NOT_CHECKED",
+      "summary": "Runtime parity was not checked."
+    },
+    {
+      "evidence": {
+        "limitation_count": 13
+      },
+      "finding_id": "VALIDATE-019",
+      "limitation": null,
+      "status": "PASS",
+      "summary": "Evidence limitations are explicit and non-empty."
+    },
+    {
+      "evidence": {
+        "evidence_graph_digest": "25967beebe9edbe79874eeda88516680c08cc820b34905fb6c174ac8bd42bc36"
+      },
+      "finding_id": "VALIDATE-020",
+      "limitation": null,
+      "status": "PASS",
+      "summary": "The final bundle uses deterministic canonical serialization."
+    }
+  ],
+  "inventory_digest": "168c41d1002ac23acd5ed8d1fd411b41de290e840e96b23c75d368ee892db11b",
+  "limitations": [
+    "Structural descriptor validation does not establish tensor payload integrity.",
+    "Converter-code support does not establish which converter produced the published artifact.",
+    "Allowed GGML type transitions do not establish numerical quantization fidelity.",
+    "Tokenizer arrays, logits, backend execution, and runtime behavior were not compared.",
+    "The result supports structural integration acceptance only under profiles that permit these limitations."
+  ],
+  "mapping_domain_summary": [
+    {
+      "domain": "routed_experts",
+      "evidence_level": "converter_rule_support",
+      "payload_status": "NOT_CHECKED",
+      "relation": "many_to_one_packed",
+      "source_denominator": 494592,
+      "source_numerator": 494592,
+      "target_denominator": 276,
+      "target_numerator": 276
+    },
+    {
+      "domain": "shared_experts",
+      "evidence_level": "converter_rule_support",
+      "payload_status": "NOT_CHECKED",
+      "relation": "one_to_one",
+      "source_denominator": 276,
+      "source_numerator": 276,
+      "target_denominator": 276,
+      "target_numerator": 276
+    },
+    {
+      "domain": "router_and_bias",
+      "evidence_level": "converter_rule_support",
+      "payload_status": "NOT_CHECKED",
+      "relation": "one_to_one",
+      "source_denominator": 184,
+      "source_numerator": 184,
+      "target_denominator": 184,
+      "target_numerator": 184
+    },
+    {
+      "domain": "latent_moe",
+      "evidence_level": "converter_rule_support",
+      "payload_status": "NOT_CHECKED",
+      "relation": "one_to_one",
+      "source_denominator": 276,
+      "source_numerator": 276,
+      "target_denominator": 276,
+      "target_numerator": 276
+    },
+    {
+      "domain": "dense_layer_0",
+      "evidence_level": "converter_rule_support",
+      "payload_status": "NOT_CHECKED",
+      "relation": "one_to_one",
+      "source_denominator": 3,
+      "source_numerator": 3,
+      "target_denominator": 3,
+      "target_numerator": 3
+    },
+    {
+      "domain": "per_layer_norms",
+      "evidence_level": "converter_rule_support",
+      "payload_status": "NOT_CHECKED",
+      "relation": "one_to_one",
+      "source_denominator": 186,
+      "source_numerator": 186,
+      "target_denominator": 186,
+      "target_numerator": 186
+    },
+    {
+      "domain": "attention_output",
+      "evidence_level": "converter_rule_support",
+      "payload_status": "NOT_CHECKED",
+      "relation": "one_to_one",
+      "source_denominator": 93,
+      "source_numerator": 93,
+      "target_denominator": 93,
+      "target_numerator": 93
+    },
+    {
+      "domain": "kda",
+      "evidence_level": "converter_rule_support",
+      "payload_status": "NOT_CHECKED",
+      "relation": "one_to_one_and_logical_realization",
+      "source_denominator": 828,
+      "source_numerator": 828,
+      "target_denominator": 828,
+      "target_numerator": 828
+    },
+    {
+      "domain": "mla",
+      "evidence_level": "converter_rule_support",
+      "payload_status": "NOT_CHECKED",
+      "relation": "one_to_one_and_one_to_many_split",
+      "source_denominator": 144,
+      "source_numerator": 144,
+      "target_denominator": 168,
+      "target_numerator": 168
+    },
+    {
+      "domain": "attention_residual",
+      "evidence_level": "converter_rule_support",
+      "payload_status": "NOT_CHECKED",
+      "relation": "fused_target",
+      "source_denominator": 374,
+      "source_numerator": 374,
+      "target_denominator": 187,
+      "target_numerator": 187
+    },
+    {
+      "domain": "g_proj",
+      "evidence_level": "converter_rule_support",
+      "payload_status": "NOT_CHECKED",
+      "relation": "logical_realization",
+      "source_denominator": 93,
+      "source_numerator": 93,
+      "target_denominator": 93,
+      "target_numerator": 93
+    },
+    {
+      "domain": "model_level",
+      "evidence_level": "converter_rule_support",
+      "payload_status": "NOT_CHECKED",
+      "relation": "one_to_one",
+      "source_denominator": 3,
+      "source_numerator": 3,
+      "target_denominator": 3,
+      "target_numerator": 3
+    }
+  ],
+  "model_pack_identity": {
+    "capabilities": [
+      "checkpoint_ontology",
+      "checkpoint_schema",
+      "gguf_ontology",
+      "semantic_mapping"
+    ],
+    "converter_evidence_revision": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+    "digest": "6f151e70f2b28e367b84c59db6e7ad4184271b1cc7f518320043e3456c3ef288",
+    "mapping_policy_digest": "bcfe1dbcbe2bd4724e385c5598fc7182bd630a0e090913fcf8c94e491573d0a9",
+    "model_family": "kimi-k3",
+    "ontology_policy_digest": "dcd1ab32ba30153b2aa0c614136a35b090688e60fb2c7beb339421132badbbca",
+    "version": 3
+  },
+  "not_verified_scope": [
+    "actual source-to-target payload equality",
+    "routed expert numerical packing order and scale numerical association",
+    "A_log numerical transform result",
+    "convolution reshape payload correctness",
+    "MLA split and transpose payload correctness",
+    "Attention Residual fusion payload correctness",
+    "tensor payload integrity",
+    "quantization error or quality",
+    "tokenizer equivalence",
+    "logits, backend execution, and runtime parity",
+    "artifact-specific conversion-run provenance"
+  ],
+  "profile_policy": {
+    "policy_digest": "ec745ebc9c7a7f1b51b115ab049a6507e76d5902aa98d8d7a27c70497886bdc7",
+    "profiles": [
+      {
+        "description": "Structural integration acceptance with explicit downstream limitations.",
+        "name": "community_structural",
+        "requirements": {
+          "artifact_specific_provenance": "not_required",
+          "complete_header": "required_pass",
+          "converter_rule_support": "required_checked",
+          "deterministic_verification": "required_pass",
+          "file_prefix": "required_pass",
+          "payload_integrity": "not_required",
+          "payload_span_bounds": "required_pass",
+          "quantization_fidelity": "not_required",
+          "range_semantics": "required_pass",
+          "repository_identity": "required_pass",
+          "repository_layout": "required_pass",
+          "runtime_parity": "not_required",
+          "split_container": "required_pass",
+          "structural_semantic_mapping": "required_pass",
+          "target_ontology": "required_pass",
+          "tokenizer_parity": "not_required"
+        }
+      },
+      {
+        "description": "Vendor structural release review; missing provenance and payload evidence warn.",
+        "name": "vendor_release_structural",
+        "requirements": {
+          "artifact_specific_provenance": "allowed_unavailable",
+          "complete_header": "required_pass",
+          "converter_rule_support": "required_checked",
+          "deterministic_verification": "required_pass",
+          "file_prefix": "required_pass",
+          "payload_integrity": "allowed_warn",
+          "payload_span_bounds": "required_pass",
+          "quantization_fidelity": "not_required",
+          "range_semantics": "required_pass",
+          "repository_identity": "required_pass",
+          "repository_layout": "required_pass",
+          "runtime_parity": "not_required",
+          "split_container": "required_pass",
+          "structural_semantic_mapping": "required_pass",
+          "target_ontology": "required_pass",
+          "tokenizer_parity": "not_required"
+        }
+      },
+      {
+        "description": "Deterministic offline structural review; full deployment equivalence is excluded.",
+        "name": "enterprise_offline_structural",
+        "requirements": {
+          "artifact_specific_provenance": "allowed_unavailable",
+          "complete_header": "required_pass",
+          "converter_rule_support": "required_checked",
+          "deterministic_verification": "required_pass",
+          "file_prefix": "required_pass",
+          "payload_integrity": "allowed_warn",
+          "payload_span_bounds": "required_pass",
+          "quantization_fidelity": "allowed_warn",
+          "range_semantics": "required_pass",
+          "repository_identity": "required_pass",
+          "repository_layout": "required_pass",
+          "runtime_parity": "allowed_warn",
+          "split_container": "required_pass",
+          "structural_semantic_mapping": "required_pass",
+          "target_ontology": "required_pass",
+          "tokenizer_parity": "allowed_warn"
+        }
+      },
+      {
+        "description": "Full deployment evidence including provenance, payload, numerical, and runtime checks.",
+        "name": "regulated_deployment_full",
+        "requirements": {
+          "artifact_specific_provenance": "required_checked",
+          "complete_header": "required_pass",
+          "converter_rule_support": "required_checked",
+          "deterministic_verification": "required_pass",
+          "file_prefix": "required_pass",
+          "payload_integrity": "required_checked",
+          "payload_span_bounds": "required_pass",
+          "quantization_fidelity": "required_checked",
+          "range_semantics": "required_pass",
+          "repository_identity": "required_pass",
+          "repository_layout": "required_pass",
+          "runtime_parity": "required_checked",
+          "split_container": "required_pass",
+          "structural_semantic_mapping": "required_pass",
+          "target_ontology": "required_pass",
+          "tokenizer_parity": "required_checked"
+        }
+      }
+    ],
+    "schema_id": "omiv.validation-acceptance-profile-policy.v1"
+  },
+  "profile_results": [
+    {
+      "decisions": [
+        {
+          "observed_status": "UNAVAILABLE",
+          "reason": "artifact_specific_provenance observed UNAVAILABLE under not_required",
+          "requirement": "not_required",
+          "satisfied": true,
+          "stage": "artifact_specific_provenance",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "complete_header observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "complete_header",
+          "warning": false
+        },
+        {
+          "observed_status": "AVAILABLE",
+          "reason": "converter_rule_support observed AVAILABLE under required_checked",
+          "requirement": "required_checked",
+          "satisfied": true,
+          "stage": "converter_rule_support",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "deterministic_verification observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "deterministic_verification",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "file_prefix observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "file_prefix",
+          "warning": false
+        },
+        {
+          "observed_status": "NOT_CHECKED",
+          "reason": "payload_integrity observed NOT_CHECKED under not_required",
+          "requirement": "not_required",
+          "satisfied": true,
+          "stage": "payload_integrity",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "payload_span_bounds observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "payload_span_bounds",
+          "warning": false
+        },
+        {
+          "observed_status": "NOT_CHECKED",
+          "reason": "quantization_fidelity observed NOT_CHECKED under not_required",
+          "requirement": "not_required",
+          "satisfied": true,
+          "stage": "quantization_fidelity",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "range_semantics observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "range_semantics",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "repository_identity observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "repository_identity",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "repository_layout observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "repository_layout",
+          "warning": false
+        },
+        {
+          "observed_status": "NOT_CHECKED",
+          "reason": "runtime_parity observed NOT_CHECKED under not_required",
+          "requirement": "not_required",
+          "satisfied": true,
+          "stage": "runtime_parity",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "split_container observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "split_container",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "structural_semantic_mapping observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "structural_semantic_mapping",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "target_ontology observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "target_ontology",
+          "warning": false
+        },
+        {
+          "observed_status": "NOT_CHECKED",
+          "reason": "tokenizer_parity observed NOT_CHECKED under not_required",
+          "requirement": "not_required",
+          "satisfied": true,
+          "stage": "tokenizer_parity",
+          "warning": false
+        }
+      ],
+      "failed_requirement_count": 0,
+      "outcome": "SATISFIED",
+      "profile_name": "community_structural",
+      "satisfied": true,
+      "warning_count": 0
+    },
+    {
+      "decisions": [
+        {
+          "observed_status": "UNAVAILABLE",
+          "reason": "artifact_specific_provenance observed UNAVAILABLE under allowed_unavailable",
+          "requirement": "allowed_unavailable",
+          "satisfied": true,
+          "stage": "artifact_specific_provenance",
+          "warning": true
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "complete_header observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "complete_header",
+          "warning": false
+        },
+        {
+          "observed_status": "AVAILABLE",
+          "reason": "converter_rule_support observed AVAILABLE under required_checked",
+          "requirement": "required_checked",
+          "satisfied": true,
+          "stage": "converter_rule_support",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "deterministic_verification observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "deterministic_verification",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "file_prefix observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "file_prefix",
+          "warning": false
+        },
+        {
+          "observed_status": "NOT_CHECKED",
+          "reason": "payload_integrity observed NOT_CHECKED under allowed_warn",
+          "requirement": "allowed_warn",
+          "satisfied": true,
+          "stage": "payload_integrity",
+          "warning": true
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "payload_span_bounds observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "payload_span_bounds",
+          "warning": false
+        },
+        {
+          "observed_status": "NOT_CHECKED",
+          "reason": "quantization_fidelity observed NOT_CHECKED under not_required",
+          "requirement": "not_required",
+          "satisfied": true,
+          "stage": "quantization_fidelity",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "range_semantics observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "range_semantics",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "repository_identity observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "repository_identity",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "repository_layout observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "repository_layout",
+          "warning": false
+        },
+        {
+          "observed_status": "NOT_CHECKED",
+          "reason": "runtime_parity observed NOT_CHECKED under not_required",
+          "requirement": "not_required",
+          "satisfied": true,
+          "stage": "runtime_parity",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "split_container observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "split_container",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "structural_semantic_mapping observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "structural_semantic_mapping",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "target_ontology observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "target_ontology",
+          "warning": false
+        },
+        {
+          "observed_status": "NOT_CHECKED",
+          "reason": "tokenizer_parity observed NOT_CHECKED under not_required",
+          "requirement": "not_required",
+          "satisfied": true,
+          "stage": "tokenizer_parity",
+          "warning": false
+        }
+      ],
+      "failed_requirement_count": 0,
+      "outcome": "SATISFIED_WITH_WARNINGS",
+      "profile_name": "vendor_release_structural",
+      "satisfied": true,
+      "warning_count": 2
+    },
+    {
+      "decisions": [
+        {
+          "observed_status": "UNAVAILABLE",
+          "reason": "artifact_specific_provenance observed UNAVAILABLE under allowed_unavailable",
+          "requirement": "allowed_unavailable",
+          "satisfied": true,
+          "stage": "artifact_specific_provenance",
+          "warning": true
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "complete_header observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "complete_header",
+          "warning": false
+        },
+        {
+          "observed_status": "AVAILABLE",
+          "reason": "converter_rule_support observed AVAILABLE under required_checked",
+          "requirement": "required_checked",
+          "satisfied": true,
+          "stage": "converter_rule_support",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "deterministic_verification observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "deterministic_verification",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "file_prefix observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "file_prefix",
+          "warning": false
+        },
+        {
+          "observed_status": "NOT_CHECKED",
+          "reason": "payload_integrity observed NOT_CHECKED under allowed_warn",
+          "requirement": "allowed_warn",
+          "satisfied": true,
+          "stage": "payload_integrity",
+          "warning": true
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "payload_span_bounds observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "payload_span_bounds",
+          "warning": false
+        },
+        {
+          "observed_status": "NOT_CHECKED",
+          "reason": "quantization_fidelity observed NOT_CHECKED under allowed_warn",
+          "requirement": "allowed_warn",
+          "satisfied": true,
+          "stage": "quantization_fidelity",
+          "warning": true
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "range_semantics observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "range_semantics",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "repository_identity observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "repository_identity",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "repository_layout observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "repository_layout",
+          "warning": false
+        },
+        {
+          "observed_status": "NOT_CHECKED",
+          "reason": "runtime_parity observed NOT_CHECKED under allowed_warn",
+          "requirement": "allowed_warn",
+          "satisfied": true,
+          "stage": "runtime_parity",
+          "warning": true
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "split_container observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "split_container",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "structural_semantic_mapping observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "structural_semantic_mapping",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "target_ontology observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "target_ontology",
+          "warning": false
+        },
+        {
+          "observed_status": "NOT_CHECKED",
+          "reason": "tokenizer_parity observed NOT_CHECKED under allowed_warn",
+          "requirement": "allowed_warn",
+          "satisfied": true,
+          "stage": "tokenizer_parity",
+          "warning": true
+        }
+      ],
+      "failed_requirement_count": 0,
+      "outcome": "SATISFIED_WITH_WARNINGS",
+      "profile_name": "enterprise_offline_structural",
+      "satisfied": true,
+      "warning_count": 5
+    },
+    {
+      "decisions": [
+        {
+          "observed_status": "UNAVAILABLE",
+          "reason": "artifact_specific_provenance observed UNAVAILABLE under required_checked",
+          "requirement": "required_checked",
+          "satisfied": false,
+          "stage": "artifact_specific_provenance",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "complete_header observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "complete_header",
+          "warning": false
+        },
+        {
+          "observed_status": "AVAILABLE",
+          "reason": "converter_rule_support observed AVAILABLE under required_checked",
+          "requirement": "required_checked",
+          "satisfied": true,
+          "stage": "converter_rule_support",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "deterministic_verification observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "deterministic_verification",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "file_prefix observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "file_prefix",
+          "warning": false
+        },
+        {
+          "observed_status": "NOT_CHECKED",
+          "reason": "payload_integrity observed NOT_CHECKED under required_checked",
+          "requirement": "required_checked",
+          "satisfied": false,
+          "stage": "payload_integrity",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "payload_span_bounds observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "payload_span_bounds",
+          "warning": false
+        },
+        {
+          "observed_status": "NOT_CHECKED",
+          "reason": "quantization_fidelity observed NOT_CHECKED under required_checked",
+          "requirement": "required_checked",
+          "satisfied": false,
+          "stage": "quantization_fidelity",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "range_semantics observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "range_semantics",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "repository_identity observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "repository_identity",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "repository_layout observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "repository_layout",
+          "warning": false
+        },
+        {
+          "observed_status": "NOT_CHECKED",
+          "reason": "runtime_parity observed NOT_CHECKED under required_checked",
+          "requirement": "required_checked",
+          "satisfied": false,
+          "stage": "runtime_parity",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "split_container observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "split_container",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "structural_semantic_mapping observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "structural_semantic_mapping",
+          "warning": false
+        },
+        {
+          "observed_status": "PASS",
+          "reason": "target_ontology observed PASS under required_pass",
+          "requirement": "required_pass",
+          "satisfied": true,
+          "stage": "target_ontology",
+          "warning": false
+        },
+        {
+          "observed_status": "NOT_CHECKED",
+          "reason": "tokenizer_parity observed NOT_CHECKED under required_checked",
+          "requirement": "required_checked",
+          "satisfied": false,
+          "stage": "tokenizer_parity",
+          "warning": false
+        }
+      ],
+      "failed_requirement_count": 5,
+      "outcome": "NOT_SATISFIED",
+      "profile_name": "regulated_deployment_full",
+      "satisfied": false,
+      "warning_count": 0
+    }
+  ],
+  "repository_identity": {
+    "provider": "huggingface",
+    "repository": "unsloth/Kimi-K3-GGUF",
+    "requested_revision": "main",
+    "resolved_revision": "3d4b61ab4b6789d401191c476cbb4567246db8f5",
+    "selection": "UD-IQ1_M/*.gguf"
+  },
+  "repository_summary": {
+    "aggregated_tensor_count": 2573,
+    "conflict_count": 0,
+    "duplicate_count": 0,
+    "filename_split_result": "PASS",
+    "global_declared_tensor_count": 2573,
+    "header_bytes_accepted": 7098363,
+    "header_split_result": "PASS",
+    "metadata_only_shards": [
+      "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00001-of-00015.gguf"
+    ],
+    "payload_span_bounded_count": 2573,
+    "payload_span_computable_count": 2573,
+    "payload_span_overlap_count": 0,
+    "per_shard_declared_sizes": [
+      6934144,
+      48284490176,
+      49314306624,
+      49372224480,
+      48384572352,
+      49372224480,
+      49994559904,
+      49857848480,
+      48365900224,
+      49286304192,
+      49372224480,
+      49332978816,
+      48570117056,
+      47848961952,
+      11508365088
+    ],
+    "range_request_count": 219,
+    "selected_shard_count": 15,
+    "storage_metadata_available_count": 15,
+    "target_type_counts": {
+      "F32": 1181,
+      "IQ1_S": 209,
+      "IQ2_XXS": 56,
+      "IQ3_XXS": 11,
+      "Q8_0": 1116
+    },
+    "tensor_bearing_shard_count": 14,
+    "tensor_payload_bytes_accepted": 0,
+    "total_repository_bytes": 648872012448
+  },
+  "reproduction": {
+    "expected_input_digests": {
+      "prefix_report": "c5ca33b43e208fc37c5ac2016f530aabc05642c24dcc915df61f96aff161a1b4",
+      "repository_snapshot": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "semantic_mapping_inventory": "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16",
+      "semantic_mapping_report": "d1c31b67cf59e2c019d12dd37ab3b1ed6549842be2b3ffb6461b378d98ac1519",
+      "shard_01_header_inventory": "ad657eab768dc46fb07054eb1fdfaa5e1fac48f389c78523b38bef63c2bd7a8d",
+      "shard_02_header_inventory": "573f7b53c497a91d030dc2e993f3e1c7348a4252a99a211a81d622363274e121",
+      "shard_03_header_inventory": "92ec5e106b1c6db7ce0645efc8fa3aefcabb7f1f132a34206150ee2784a1462c",
+      "shard_04_header_inventory": "00bb305d6673b26631fb3f7aaa388464f5ed3e6e83eeb19a46084daeffff990c",
+      "shard_05_header_inventory": "37f94765e7236b51d036699a1ced1d6f05ba1c17152126f30f2b64e3fdc7008c",
+      "shard_06_header_inventory": "f523a3a58cefed8872b988aa8c1429937a03a35d3abaad3578befa64250d86b9",
+      "shard_07_header_inventory": "903b73aa5bc85db3b48a5649fa49c7c777825ca72d0ac6419b3c4cc2930a5c2e",
+      "shard_08_header_inventory": "c327c2637cc8063ba8191c6ba87d1fb39d414518df4feec70d8a2499a71e501b",
+      "shard_09_header_inventory": "12e17207cc5600363b56edb6caeb15fb5fb9c2b3f1c736fa671a92c1f934fd0c",
+      "shard_10_header_inventory": "777c196329918092550868f4a22131536372b4370a31cc06734c5557572b1fd0",
+      "shard_11_header_inventory": "061a95b34670c69e4c223b81684de0dddc4cfab3b93c81b5b6c46adfb819def9",
+      "shard_12_header_inventory": "0dd5d96abf86e8a290e767cdada786716b4558623bcfcc353783725f5ab62b65",
+      "shard_13_header_inventory": "daf377ad7624e8c0a8a5bf8aa4fc7159e9a3e2089d7b2c988edbe51bd5801bdb",
+      "shard_14_header_inventory": "30b69a64b113f7f4d3f5a236e8b21ebb321c7d6f915478b2a663d61cb24ce771",
+      "shard_15_header_inventory": "cad7812fd44048000b91f36ae1cac417d697b8ef3ab6475760ebc6f769537e1b",
+      "shard_1_header_report": "5934de5d8ecb9ed921e7766651929eec1d7173912633bb9c8cfd442eb2b49e6c",
+      "snapshot_report": "ea7be6d02ddbf17ab0eb04ff9775bfcd6f21f0f9456947d158a973b8bb7f5cc4",
+      "source_checkpoint_inventory": "15a6757becb69c56492fdb630d6853696082a9ec6109bcea05f387a5052ea469",
+      "split_inventory": "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7",
+      "split_report": "42d8d90ea9872527deceb1620fda8bdd73baf8fd4bfc5cde2d886cb78a771b29",
+      "target_ontology_inventory": "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3",
+      "target_ontology_report": "ea5a7660fe5ed98eb6b30f7d92fca5f4220f0bd19dd3d1fc5af8531856e0e577"
+    },
+    "no_payload_download": true,
+    "offline_verification_commands": [
+      {
+        "command": "omiv independent-validation-inventory-verify --input validations/unsloth_Kimi-K3-GGUF_UD-IQ1_M.validation.inventory.json",
+        "network_requirement": "offline",
+        "purpose": "Verify the final inventory and every dependency."
+      },
+      {
+        "command": "omiv report-verify --input reports/validation/unsloth_Kimi-K3-GGUF_UD-IQ1_M.validation.report.json",
+        "network_requirement": "offline",
+        "purpose": "Verify the final report and reconstruct its results."
+      }
+    ],
+    "omiv_repository_revision": "9773b83e3c2ee2d47df3ed9324063bb7697af19f",
+    "original_evidence_commands": [
+      {
+        "command": "omiv remote-snapshot --provider huggingface --repo unsloth/Kimi-K3-GGUF --revision main --path-prefix UD-IQ1_M --pattern '*.gguf'",
+        "network_requirement": "online",
+        "purpose": "Generate immutable repository-layout evidence."
+      },
+      {
+        "command": "omiv remote-split-gguf --snapshot snapshots/huggingface/unsloth_Kimi-K3-GGUF_UD-IQ1_M.snapshot.json --output inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.split.inventory.json",
+        "network_requirement": "online",
+        "purpose": "Generate bounded complete-header and split evidence without payload download."
+      }
+    ],
+    "original_range_request_count": 219,
+    "original_remote_header_bytes_accepted": 7098371,
+    "required_input_paths": [
+      "reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M_shard1.prefix.report.json",
+      "snapshots/huggingface/unsloth_Kimi-K3-GGUF_UD-IQ1_M.snapshot.json",
+      "reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.snapshot.report.json",
+      "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00001-of-00015.header.inventory.json",
+      "reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M_shard1.header.report.json",
+      "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00002-of-00015.header.inventory.json",
+      "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00003-of-00015.header.inventory.json",
+      "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00004-of-00015.header.inventory.json",
+      "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00005-of-00015.header.inventory.json",
+      "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00006-of-00015.header.inventory.json",
+      "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00007-of-00015.header.inventory.json",
+      "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00008-of-00015.header.inventory.json",
+      "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00009-of-00015.header.inventory.json",
+      "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00010-of-00015.header.inventory.json",
+      "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00011-of-00015.header.inventory.json",
+      "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00012-of-00015.header.inventory.json",
+      "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00013-of-00015.header.inventory.json",
+      "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00014-of-00015.header.inventory.json",
+      "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards/Kimi-K3-UD-IQ1_M-00015-of-00015.header.inventory.json",
+      "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.split.inventory.json",
+      "reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.split.report.json",
+      "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.kimi-k3-ontology.inventory.json",
+      "reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.kimi-k3-ontology.report.json",
+      "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.semantic-mapping.inventory.json",
+      "reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.semantic-mapping.report.json",
+      "reports/raw/kimi_k3_tensors.json"
+    ],
+    "tensor_payload_bytes_accepted": 0
+  },
+  "schema_id": "omiv.independent-model-validation.v1",
+  "selected_profile": "community_structural",
+  "source_accounting": {
+    "accounted": 497220,
+    "auxiliary_family_breakdown": [
+      {
+        "accounting_state": "source_only_auxiliary",
+        "converter_operation": "skip_mm_projector",
+        "converter_revision": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+        "count": 1,
+        "examples": [
+          "mm_projector.post_norm.weight"
+        ],
+        "family": "mm_projector.post_norm.weight",
+        "reason": "text-only converter intentionally excludes multimodal auxiliary",
+        "shape_signatures": [
+          {
+            "count": 1,
+            "shape": [
+              7168
+            ]
+          }
+        ],
+        "type_counts": {
+          "BF16": 1
+        }
+      },
+      {
+        "accounting_state": "source_only_auxiliary",
+        "converter_operation": "skip_mm_projector",
+        "converter_revision": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+        "count": 1,
+        "examples": [
+          "mm_projector.proj.0.weight"
+        ],
+        "family": "mm_projector.proj.0.weight",
+        "reason": "text-only converter intentionally excludes multimodal auxiliary",
+        "shape_signatures": [
+          {
+            "count": 1,
+            "shape": [
+              4096,
+              4096
+            ]
+          }
+        ],
+        "type_counts": {
+          "BF16": 1
+        }
+      },
+      {
+        "accounting_state": "source_only_auxiliary",
+        "converter_operation": "skip_mm_projector",
+        "converter_revision": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+        "count": 1,
+        "examples": [
+          "mm_projector.proj.2.weight"
+        ],
+        "family": "mm_projector.proj.2.weight",
+        "reason": "text-only converter intentionally excludes multimodal auxiliary",
+        "shape_signatures": [
+          {
+            "count": 1,
+            "shape": [
+              7168,
+              4096
+            ]
+          }
+        ],
+        "type_counts": {
+          "BF16": 1
+        }
+      },
+      {
+        "accounting_state": "source_only_auxiliary",
+        "converter_operation": "skip_vision_tower",
+        "converter_revision": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+        "count": 27,
+        "examples": [
+          "vision_tower.encoder.blocks.0.mlp.fc0.weight",
+          "vision_tower.encoder.blocks.1.mlp.fc0.weight",
+          "vision_tower.encoder.blocks.10.mlp.fc0.weight"
+        ],
+        "family": "vision_tower.encoder.blocks.{block}.mlp.fc0.weight",
+        "reason": "text-only converter intentionally excludes multimodal auxiliary",
+        "shape_signatures": [
+          {
+            "count": 27,
+            "shape": [
+              4096,
+              1024
+            ]
+          }
+        ],
+        "type_counts": {
+          "BF16": 27
+        }
+      },
+      {
+        "accounting_state": "source_only_auxiliary",
+        "converter_operation": "skip_vision_tower",
+        "converter_revision": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+        "count": 27,
+        "examples": [
+          "vision_tower.encoder.blocks.0.mlp.fc1.weight",
+          "vision_tower.encoder.blocks.1.mlp.fc1.weight",
+          "vision_tower.encoder.blocks.10.mlp.fc1.weight"
+        ],
+        "family": "vision_tower.encoder.blocks.{block}.mlp.fc1.weight",
+        "reason": "text-only converter intentionally excludes multimodal auxiliary",
+        "shape_signatures": [
+          {
+            "count": 27,
+            "shape": [
+              1024,
+              4096
+            ]
+          }
+        ],
+        "type_counts": {
+          "BF16": 27
+        }
+      },
+      {
+        "accounting_state": "source_only_auxiliary",
+        "converter_operation": "skip_vision_tower",
+        "converter_revision": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+        "count": 27,
+        "examples": [
+          "vision_tower.encoder.blocks.0.norm0.weight",
+          "vision_tower.encoder.blocks.1.norm0.weight",
+          "vision_tower.encoder.blocks.10.norm0.weight"
+        ],
+        "family": "vision_tower.encoder.blocks.{block}.norm0.weight",
+        "reason": "text-only converter intentionally excludes multimodal auxiliary",
+        "shape_signatures": [
+          {
+            "count": 27,
+            "shape": [
+              1024
+            ]
+          }
+        ],
+        "type_counts": {
+          "BF16": 27
+        }
+      },
+      {
+        "accounting_state": "source_only_auxiliary",
+        "converter_operation": "skip_vision_tower",
+        "converter_revision": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+        "count": 27,
+        "examples": [
+          "vision_tower.encoder.blocks.0.norm1.weight",
+          "vision_tower.encoder.blocks.1.norm1.weight",
+          "vision_tower.encoder.blocks.10.norm1.weight"
+        ],
+        "family": "vision_tower.encoder.blocks.{block}.norm1.weight",
+        "reason": "text-only converter intentionally excludes multimodal auxiliary",
+        "shape_signatures": [
+          {
+            "count": 27,
+            "shape": [
+              1024
+            ]
+          }
+        ],
+        "type_counts": {
+          "BF16": 27
+        }
+      },
+      {
+        "accounting_state": "source_only_auxiliary",
+        "converter_operation": "skip_vision_tower",
+        "converter_revision": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+        "count": 27,
+        "examples": [
+          "vision_tower.encoder.blocks.0.wo.weight",
+          "vision_tower.encoder.blocks.1.wo.weight",
+          "vision_tower.encoder.blocks.10.wo.weight"
+        ],
+        "family": "vision_tower.encoder.blocks.{block}.wo.weight",
+        "reason": "text-only converter intentionally excludes multimodal auxiliary",
+        "shape_signatures": [
+          {
+            "count": 27,
+            "shape": [
+              1024,
+              1536
+            ]
+          }
+        ],
+        "type_counts": {
+          "BF16": 27
+        }
+      },
+      {
+        "accounting_state": "source_only_auxiliary",
+        "converter_operation": "skip_vision_tower",
+        "converter_revision": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+        "count": 27,
+        "examples": [
+          "vision_tower.encoder.blocks.0.wqkv.weight",
+          "vision_tower.encoder.blocks.1.wqkv.weight",
+          "vision_tower.encoder.blocks.10.wqkv.weight"
+        ],
+        "family": "vision_tower.encoder.blocks.{block}.wqkv.weight",
+        "reason": "text-only converter intentionally excludes multimodal auxiliary",
+        "shape_signatures": [
+          {
+            "count": 27,
+            "shape": [
+              4608,
+              1024
+            ]
+          }
+        ],
+        "type_counts": {
+          "BF16": 27
+        }
+      },
+      {
+        "accounting_state": "source_only_auxiliary",
+        "converter_operation": "skip_vision_tower",
+        "converter_revision": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+        "count": 1,
+        "examples": [
+          "vision_tower.encoder.final_layernorm.weight"
+        ],
+        "family": "vision_tower.encoder.final_layernorm.weight",
+        "reason": "text-only converter intentionally excludes multimodal auxiliary",
+        "shape_signatures": [
+          {
+            "count": 1,
+            "shape": [
+              1024
+            ]
+          }
+        ],
+        "type_counts": {
+          "BF16": 1
+        }
+      },
+      {
+        "accounting_state": "source_only_auxiliary",
+        "converter_operation": "skip_vision_tower",
+        "converter_revision": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+        "count": 1,
+        "examples": [
+          "vision_tower.patch_embed.pos_emb.weight"
+        ],
+        "family": "vision_tower.patch_embed.pos_emb.weight",
+        "reason": "text-only converter intentionally excludes multimodal auxiliary",
+        "shape_signatures": [
+          {
+            "count": 1,
+            "shape": [
+              64,
+              64,
+              1024
+            ]
+          }
+        ],
+        "type_counts": {
+          "BF16": 1
+        }
+      },
+      {
+        "accounting_state": "source_only_auxiliary",
+        "converter_operation": "skip_vision_tower",
+        "converter_revision": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+        "count": 1,
+        "examples": [
+          "vision_tower.patch_embed.proj.weight"
+        ],
+        "family": "vision_tower.patch_embed.proj.weight",
+        "reason": "text-only converter intentionally excludes multimodal auxiliary",
+        "shape_signatures": [
+          {
+            "count": 1,
+            "shape": [
+              1024,
+              3,
+              14,
+              14
+            ]
+          }
+        ],
+        "type_counts": {
+          "BF16": 1
+        }
+      }
+    ],
+    "historical_unclassified_records": 450,
+    "newly_classified_text_records": 282,
+    "physical_records": 497220,
+    "source_only_auxiliary_records": 168,
+    "states": {
+      "directly_mapped": 1693,
+      "fused_mapping_member": 374,
+      "intentionally_excluded": 0,
+      "invalid": 0,
+      "logical_realization_source": 393,
+      "packed_group_member": 494592,
+      "source_only_auxiliary": 168,
+      "unclassified": 0,
+      "unsupported": 0
+    },
+    "unresolved_family_breakdown": [],
+    "unresolved_records": 0
+  },
+  "source_artifact_identity": {
+    "inventory_digest": "15a6757becb69c56492fdb630d6853696082a9ec6109bcea05f387a5052ea469",
+    "physical_records": 497220
+  },
+  "structural_validation_result": "STRUCTURALLY_VALIDATED_WITH_LIMITATIONS",
+  "subject": {
+    "artifact_variant": "UD-IQ1_M",
+    "model_family": "kimi-k3",
+    "repository": "unsloth/Kimi-K3-GGUF"
+  },
+  "target_accounting": {
+    "accounted": 2573,
+    "physical_records": 2573,
+    "states": {
+      "directly_realized": 1693,
+      "fused_target": 187,
+      "invalid": 0,
+      "logical_realization_target": 417,
+      "packed_group_target": 276,
+      "target_only_auxiliary": 0,
+      "unclassified": 0,
+      "unsupported": 0
+    },
+    "unresolved_family_breakdown": [],
+    "unresolved_records": 0
+  },
+  "target_artifact_identity": {
+    "ontology_inventory_digest": "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3",
+    "physical_descriptors": 2573,
+    "split_inventory_digest": "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7"
+  },
+  "unavailable_stage_count": 1,
+  "unverified_stage_count": 4,
+  "verified_scope": [
+    "fixed repository identity and immutable revision",
+    "selected remote file set, sizes, and stable identities where available",
+    "filename split layout and bounded HTTP Range semantics",
+    "GGUF version and complete headers",
+    "split metadata, shard identity, and global descriptor aggregation",
+    "payload-span structural bounds without payload access",
+    "Kimi K3 target ontology and architecture schedule",
+    "source and target identity accounting",
+    "descriptor-level structural semantic mapping",
+    "pinned converter-code relation evidence",
+    "deterministic artifact verification and regeneration"
+  ],
+  "warning_count": 0
+}
