@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import hashlib
+import importlib.metadata
 import json
+import platform
 import subprocess
 from pathlib import Path
 from typing import Any
@@ -217,6 +219,26 @@ def test_capture_uses_argument_array_and_redacts_secret(
     assert (tmp_path / "report.md").exists()
 
 
+def test_capture_records_only_explicit_python_runtime_packages(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    repository, revision = _repository(tmp_path)
+    spec = _spec(tmp_path, repository, revision)
+    spec["runtime"] = {"python": True, "packages": ["pydantic"]}
+    spec_path = tmp_path / "conversion.json"
+    spec_path.write_text(json.dumps(spec))
+    _patch_evidence(monkeypatch, tmp_path)
+
+    provenance = run_conversion(spec_path)
+
+    assert provenance.process.runtime is not None
+    assert provenance.process.runtime.python_version == platform.python_version()
+    assert provenance.process.runtime.package_versions == {
+        "pydantic": importlib.metadata.version("pydantic")
+    }
+
+
 def test_process_failure_emits_no_success_provenance(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
@@ -255,6 +277,14 @@ def test_capture_rejects_unknown_placeholder_output_collision_and_symlink(
     raw = _spec(tmp_path, repository, revision)
     raw["tool"]["entrypoint"] = "../convert.py"
     with pytest.raises(ValueError, match="relative"):
+        ConversionRunSpec.model_validate(raw)
+    raw = _spec(tmp_path, repository, revision)
+    raw["runtime"] = {"python": True, "packages": ["unsafe package"]}
+    with pytest.raises(ValueError, match="package name"):
+        ConversionRunSpec.model_validate(raw)
+    raw = _spec(tmp_path, repository, revision)
+    raw["runtime"] = {"python": True, "packages": ["torch", "torch"]}
+    with pytest.raises(ValueError, match="unique"):
         ConversionRunSpec.model_validate(raw)
 
     raw = _spec(tmp_path, repository, revision)

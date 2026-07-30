@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import shutil
 import subprocess
 from pathlib import Path, PurePosixPath
@@ -37,6 +38,7 @@ from omiv.provenance.models import (
     ProcessProvenance,
     ProcessResult,
     RevisionKind,
+    RuntimeIdentity,
     SourceProvenance,
     StrictModel,
     TargetArtifact,
@@ -105,6 +107,20 @@ class ConversionToolSpec(StrictModel):
         return value
 
 
+class ConversionRuntimeSpec(StrictModel):
+    python: Literal[True]
+    packages: list[str] = Field(default_factory=list, max_length=100)
+
+    @field_validator("packages")
+    @classmethod
+    def package_names_are_safe_and_unique(cls, values: list[str]) -> list[str]:
+        if len(values) != len(set(values)):
+            raise ValueError("runtime package names must be unique")
+        if any(not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}", value) for value in values):
+            raise ValueError("runtime package name is invalid")
+        return values
+
+
 class ConversionInvocationSpec(StrictModel):
     arguments: list[str] = Field(max_length=10000)
 
@@ -150,6 +166,7 @@ class ConversionRunSpec(StrictModel):
     source: ConversionSourceSpec
     interpretation: ConversionInterpretationSpec
     tool: ConversionToolSpec
+    runtime: ConversionRuntimeSpec | None = None
     invocation: ConversionInvocationSpec
     target: ConversionTargetSpec
     outputs: ConversionOutputSpec
@@ -195,6 +212,41 @@ def _hash_file(path: Path) -> tuple[int, str]:
     except OSError as exc:
         raise OmivInputError(f"cannot hash artifact {path.name}: {exc}") from exc
     return size, digest.hexdigest()
+
+
+def _capture_python_runtime(
+    executable: str,
+    runtime: ConversionRuntimeSpec | None,
+) -> RuntimeIdentity | None:
+    if runtime is None:
+        return None
+    probe = (
+        "import importlib.metadata,json,platform,sys;"
+        "print(json.dumps({'python_version':platform.python_version(),"
+        "'package_versions':{name:importlib.metadata.version(name)"
+        " for name in sys.argv[1:]}},sort_keys=True))"
+    )
+    try:
+        result = subprocess.run(
+            [executable, "-c", probe, *runtime.packages],
+            check=False,
+            shell=False,
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.DEVNULL,
+            text=True,
+        )
+    except OSError as exc:
+        raise OmivInputError(f"cannot inspect conversion runtime: {exc}") from exc
+    if result.returncode != 0:
+        raise OmivInputError("conversion runtime inspection failed")
+    if len(result.stdout) > 64 * 1024:
+        raise OmivInputError("conversion runtime inspection output is too large")
+    try:
+        value = json.loads(result.stdout)
+        return RuntimeIdentity.model_validate(value)
+    except (json.JSONDecodeError, ValueError) as exc:
+        raise OmivInputError("conversion runtime inspection returned invalid data") from exc
 
 
 def _reject_existing_output(path: Path) -> None:
@@ -280,6 +332,7 @@ def run_conversion(spec_path: Path) -> ConversionProvenance:
     executable = shutil.which(spec.tool.executable)
     if executable is None:
         raise OmivInputError(f"conversion executable not found: {spec.tool.executable}")
+    runtime = _capture_python_runtime(executable, spec.runtime)
 
     source_inventory = load_inventory_evidence(spec.source.inventory)
     pack = get_model_pack(spec.interpretation.model_pack)
@@ -392,6 +445,7 @@ def run_conversion(spec_path: Path) -> ConversionProvenance:
             ),
             result=ProcessResult(exit_code=0, success=True),
             declared_outputs=[spec.target.role],
+            runtime=runtime,
             tool_source=ToolSourceIdentity(
                 clean_worktree=not dirty,
                 repository_head=head,
