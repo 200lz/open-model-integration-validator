@@ -14,7 +14,7 @@ from omiv.models import ModelInventory, ValidationReport
 
 class KimiK3ModelPack(ModelPack):
     pack_id = "kimi-k3"
-    pack_version = 2
+    pack_version = 3
     model_family = "kimi-k3"
     description = "Production Kimi K3 checkpoint and target GGUF tensor ontologies."
     capabilities = frozenset(
@@ -22,6 +22,7 @@ class KimiK3ModelPack(ModelPack):
             ModelPackCapability.CHECKPOINT_SCHEMA,
             ModelPackCapability.CHECKPOINT_ONTOLOGY,
             ModelPackCapability.GGUF_ONTOLOGY,
+            ModelPackCapability.SEMANTIC_MAPPING,
         }
     )
     supported_source_formats = frozenset({"safetensors-header-inventory"})
@@ -37,3 +38,8 @@ class KimiK3ModelPack(ModelPack):
 
     def classify_gguf_tensor(self, name: str) -> TensorClassification:
         return classify_gguf_tensor(name)
+
+    def semantic_mapping_policy(self) -> object:
+        from omiv.model_packs.kimi_k3.mapping_policy import kimi_mapping_policy
+
+        return kimi_mapping_policy()

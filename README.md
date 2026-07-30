@@ -992,6 +992,49 @@ omiv report-verify \
 > expert ordering is correct, that tensor payload values are intact, that
 > quantization is numerically faithful, or that runtime outputs are equivalent.
 
-Phase 4F-5 may define explicit packed MoE and shared-expert source-to-target mapping.
+Phase 4F-5 defines the source-to-target mapping; Phase 4F-4 remains target-only.
 Phase 4F-4 does not reconstruct the 497,220 source identities, inspect payloads, or
 make conversion, quantization-fidelity, tokenizer, logit, or runtime-parity claims.
+
+### Phase 4F-5 grouped semantic mapping
+
+Phase 4F-5 adds a generic, deterministic grouped mapping engine for one-to-one,
+many-to-one packed, one-to-many split, fused-target, logical-realization, and
+source-only auxiliary relations. The Kimi K3 adapter groups the verified
+checkpoint's routed-expert `w1/w2/w3` identities by `(layer, component)` and checks
+the converter-supported 896-member descriptor relation against one target
+`ffn_*_exps` descriptor. Explicit non-overlapping rules also cover shared experts,
+routers, latent MoE projections, dense layer 0, per-layer norms, attention output,
+model-level tensors, KDA, MLA, Attention Residual fusion, and g_proj logical
+realizations.
+
+The inventory reconstructs every source and target claim. The 450 historical
+source records are reclassified as 282 mapped text tensors and 168 intentionally
+excluded vision/mm-projector auxiliary tensors. It records exact physical-member,
+group, fused-member, logical-source, direct-target, packed-target, fused-target,
+and logical-target denominators, with duplicate and ambiguity detection. Shape,
+axis, and machine-readable dtype-to-GGML-type policies are descriptor checks only.
+
+Mapping is descriptor-level only: payload packing correctness, quantization
+fidelity, artifact-specific conversion provenance, and runtime parity are not
+checked. The pinned llama.cpp revision `cf67f0d24511864d2d3da0769108fd6fc16d00d1`
+is retained as converter-rule evidence and is not evidence that the Unsloth
+artifact was produced by that converter. Artifact-specific provenance therefore
+remains `unavailable`, and payload verification remains `not_checked`.
+
+```bash
+omiv kimi-k3-semantic-mapping \
+  --source-inventory reports/raw/kimi_k3_tensors.json \
+  --target-split-inventory inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.split.inventory.json \
+  --target-ontology-inventory inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.kimi-k3-ontology.inventory.json \
+  --output inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.semantic-mapping.inventory.json \
+  --report-output reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.semantic-mapping.report.json \
+  --markdown-output reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.semantic-mapping.report.md
+```
+
+> A successful Phase 4F-5 result proves that verified source checkpoint tensor
+> identities can be deterministically grouped and associated with verified target
+> GGUF descriptors under the recorded mapping, packing, shape, axis, type-transition,
+> and realization policies. It does not prove that source payloads were packed in
+> the correct numerical order, that target payload bytes match source values, that
+> quantization is numerically faithful, or that runtime outputs are equivalent.

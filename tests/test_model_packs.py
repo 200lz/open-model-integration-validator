@@ -192,7 +192,9 @@ def test_pack_capabilities_are_explicit() -> None:
         ModelPackCapability.CHECKPOINT_SCHEMA,
         ModelPackCapability.CHECKPOINT_ONTOLOGY,
         ModelPackCapability.GGUF_ONTOLOGY,
+        ModelPackCapability.SEMANTIC_MAPPING,
     }
+    kimi.require(ModelPackCapability.SEMANTIC_MAPPING)
     assert (
         kimi.classify_gguf_tensor("output.weight").canonical.identity
         == "kimi-k3.model.output_projection"

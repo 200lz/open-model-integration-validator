@@ -111,8 +111,9 @@ def test_policy_schedule_and_digest_are_deterministic() -> None:
 
 def test_model_pack_exposes_target_gguf_capability() -> None:
     pack = get_model_pack("kimi-k3")
-    assert pack.pack_version == 2
+    assert pack.pack_version == 3
     assert ModelPackCapability.GGUF_ONTOLOGY in pack.capabilities
+    assert ModelPackCapability.SEMANTIC_MAPPING in pack.capabilities
     assert pack.supported_target_formats == {"gguf"}
     classified = pack.classify_gguf_tensor("blk.7.attn_gate.weight")
     assert classified.canonical is not None

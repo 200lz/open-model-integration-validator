@@ -1,7 +1,7 @@
 {
   "integrity": {
     "canonicalization": "omiv-json-v1",
-    "sha256": "0447410a5c6138b2c4a06a98fd9ff52f4db44637b099af82032d3b230013d0d9"
+    "sha256": "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3"
   },
   "inventory": {
     "architecture_metadata": {
@@ -13185,7 +13185,7 @@
       }
     ],
     "model_pack": "kimi-k3",
-    "model_pack_digest": "2939affbf3ce86f0be1b7ebc48ef61291e1268ea06d4cf38f5ce6bc60bdd35ff",
+    "model_pack_digest": "6f151e70f2b28e367b84c59db6e7ad4184271b1cc7f518320043e3456c3ef288",
     "ontology_policy": {
       "evidence_sources": [
         "omiv.kimi-k3.checkpoint-ontology.v2",

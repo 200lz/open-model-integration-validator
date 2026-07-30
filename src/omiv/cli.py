@@ -7,7 +7,7 @@ from typing import Annotated
 import typer
 from pydantic import ValidationError
 
-from omiv.canonical import load_json_value
+from omiv.canonical import canonical_sha256, load_json_value
 from omiv.errors import OmivInputError
 from omiv.gguf.compare import compare_gguf_inventories, format_gguf_report
 from omiv.gguf.models import GGUFInventory
@@ -23,6 +23,10 @@ from omiv.gguf.reporting import (
 from omiv.hf.json_loader import parse_bounded_json_bytes
 from omiv.hf.models import HFInventory
 from omiv.hf.reader import pretty_hf_inventory, read_hf_inventory
+from omiv.mapping.grouped_reporting import load_mapping_report, write_mapping_artifacts
+from omiv.mapping.grouped_reporting import (
+    mapping_report_integrity_matches as grouped_mapping_report_integrity_matches,
+)
 from omiv.mapping.manifest import load_mapping_manifest
 from omiv.mapping.reporting import (
     MAPPING_REPORT_SCHEMA_ID,
@@ -48,6 +52,7 @@ from omiv.model_packs.kimi_k3.gguf_reporting import (
 from omiv.model_packs.kimi_k3.gguf_validator import (
     build_kimi_k3_gguf_ontology,
 )
+from omiv.model_packs.kimi_k3.semantic_mapping import run_kimi_mapping
 from omiv.model_packs.registry import get_model_pack, list_model_packs
 from omiv.models import ModelInventory
 from omiv.normalizer import normalize_inventory, write_inventory
@@ -1033,6 +1038,77 @@ def kimi_k3_gguf_ontology_inventory_verify(
     )
 
 
+@app.command("kimi-k3-semantic-mapping")
+def kimi_k3_semantic_mapping(
+    source_inventory: Annotated[
+        Path, typer.Option("--source-inventory", exists=True, dir_okay=False)
+    ],
+    target_split_inventory: Annotated[
+        Path, typer.Option("--target-split-inventory", exists=True, dir_okay=False)
+    ],
+    target_ontology_inventory: Annotated[
+        Path, typer.Option("--target-ontology-inventory", exists=True, dir_okay=False)
+    ],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    report_output: Annotated[Path, typer.Option("--report-output", dir_okay=False)],
+    markdown_output: Annotated[Path, typer.Option("--markdown-output", dir_okay=False)],
+) -> None:
+    """Map verified Kimi checkpoint identities to target GGUF descriptors offline."""
+    try:
+        inv = run_kimi_mapping(source_inventory, target_split_inventory, target_ontology_inventory)
+        inv, env = write_mapping_artifacts(inv, output, report_output, markdown_output)
+        typer.echo(f"mapping inventory {inv.inventory_digest}")
+        if any(f.status == "FAIL" for f in inv.findings):
+            raise typer.Exit(code=1)
+    except (OmivInputError, ValidationError, ValueError, OSError) as exc:
+        typer.echo(f"ERROR {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+
+
+@app.command("kimi-k3-semantic-mapping-inventory-verify")
+def kimi_k3_semantic_mapping_inventory_verify(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+) -> None:
+    """Verify a compact grouped mapping inventory digest."""
+    try:
+        from omiv.mapping.grouped_engine import validate_results_against_policy
+        from omiv.mapping.grouped_reporting import load_mapping_inventory
+        from omiv.model_packs.kimi_k3.mapping_policy import kimi_mapping_policy
+        from omiv.model_packs.kimi_k3.pack import KimiK3ModelPack
+
+        inv = load_mapping_inventory(input_path)
+        policy = kimi_mapping_policy()
+        pack = KimiK3ModelPack()
+        expected_pack = {
+            "pack_id": pack.pack_id,
+            "pack_version": pack.pack_version,
+            "capabilities": sorted(capability.value for capability in pack.capabilities),
+            "digest": pack.metadata.digest,
+        }
+        if inv.model_pack != expected_pack:
+            raise ValueError("mapping inventory model-pack identity is not canonical")
+        if inv.mapping_policy_digest != policy.digest:
+            raise ValueError("mapping inventory policy digest is not canonical")
+        if inv.converter_evidence_revision != policy.converter_revision:
+            raise ValueError("mapping inventory converter revision is not canonical")
+        validate_results_against_policy(policy, inv.mapping_results)
+        expected = inv.inventory_digest
+        actual = canonical_sha256(
+            {
+                k: v
+                for k, v in inv.model_dump(mode="json", by_alias=True).items()
+                if k != "inventory_digest"
+            }
+        )
+        if expected != actual:
+            typer.echo("FAIL mapping inventory integrity mismatch")
+            raise typer.Exit(code=1)
+        typer.echo(f"PASS mapping inventory integrity {actual}")
+    except (OmivInputError, ValidationError, ValueError, OSError) as exc:
+        typer.echo(f"ERROR {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+
+
 @app.command("report")
 def report_command(
     input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
@@ -1092,6 +1168,31 @@ def report_verify(
     """Verify report schema and payload integrity without original artifacts."""
     try:
         schema = _read_report_schema(input_path)
+        if schema in {
+            "omiv.semantic-mapping-report.v2",
+            "omiv.semantic-mapping-report.v3",
+        }:
+            grouped_envelope = load_mapping_report(input_path)
+            if not grouped_mapping_report_integrity_matches(grouped_envelope):
+                typer.echo("FAIL report integrity mismatch")
+                raise typer.Exit(code=1)
+            if schema == "omiv.semantic-mapping-report.v3":
+                from omiv.model_packs.kimi_k3.mapping_policy import kimi_mapping_policy
+                from omiv.model_packs.kimi_k3.pack import KimiK3ModelPack
+
+                pack = KimiK3ModelPack()
+                expected_pack = {
+                    "pack_id": pack.pack_id,
+                    "pack_version": pack.pack_version,
+                    "capabilities": sorted(capability.value for capability in pack.capabilities),
+                    "digest": pack.metadata.digest,
+                }
+                if grouped_envelope.report.model_pack != expected_pack:
+                    raise ValueError("mapping report model-pack identity is not canonical")
+                if grouped_envelope.report.mapping_policy_digest != kimi_mapping_policy().digest:
+                    raise ValueError("mapping report policy digest is not canonical")
+            typer.echo(f"PASS report integrity {grouped_envelope.integrity['sha256']}")
+            return
         if schema == ONTOLOGY_REPORT_SCHEMA:
             ontology_envelope = load_ontology_report(input_path)
             if not ontology_report_integrity_matches(ontology_envelope):
