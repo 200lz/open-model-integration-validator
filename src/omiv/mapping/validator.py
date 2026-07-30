@@ -25,6 +25,10 @@ from omiv.mapping.models import (
 from omiv.mapping.ontology import gguf_semantic_view, hf_semantic_view
 from omiv.mapping.resolver import ResolutionDiagnostics, resolve_mapping_with_diagnostics
 from omiv.model_packs.base import ModelPack
+from omiv.provenance.models import (
+    ProvenanceStatus,
+    ProvenanceValidationReport,
+)
 
 EXAMPLE_CAP = 10
 
@@ -471,7 +475,46 @@ def _metadata_values(target: GGUFInventory) -> dict[str, Any]:
     return {entry.key: entry.value for entry in target.metadata}
 
 
-def _provenance(source: HFInventory, target: GGUFInventory) -> MappingFinding:
+def _provenance(
+    source: HFInventory,
+    target: GGUFInventory,
+    provenance_validation: ProvenanceValidationReport | None,
+) -> MappingFinding:
+    if provenance_validation is not None:
+        lineage = provenance_validation.exact_lineage_status
+        linked_failures = [
+            item.rule_id
+            for item in provenance_validation.findings
+            if item.status == ProvenanceStatus.FAIL
+        ]
+        linked_warnings = [
+            item.rule_id
+            for item in provenance_validation.findings
+            if item.status == ProvenanceStatus.WARN
+        ]
+        status = {
+            ProvenanceStatus.PASS: MappingStatus.PASS,
+            ProvenanceStatus.WARN: MappingStatus.WARN,
+            ProvenanceStatus.FAIL: MappingStatus.FAIL,
+        }[lineage]
+        return _finding(
+            "MAP-009",
+            status,
+            (
+                "Validated conversion provenance establishes exact lineage"
+                if status == MappingStatus.PASS
+                else "Validated conversion provenance is contradictory"
+                if status == MappingStatus.FAIL
+                else "Validated conversion provenance is incomplete"
+            ),
+            {
+                "provenance_supplied": True,
+                "exact_lineage_status": lineage.value,
+                "linked_failure_rules": linked_failures,
+                "linked_warning_rules": linked_warnings,
+                "limitation": ("Lineage does not prove converter correctness or numerical parity"),
+            },
+        )
     target_values = _metadata_values(target)
     target_fields = {
         "source_artifact_hash": "omiv.source.artifact_sha256",
@@ -506,16 +549,12 @@ def _provenance(source: HFInventory, target: GGUFInventory) -> MappingFinding:
         or any(character not in "0123456789abcdef" for character in source_artifact_hash)
     ):
         mismatched.append("source_artifact_hash")
-    passed = not missing and not mismatched
     return _finding(
         "MAP-009",
-        MappingStatus.PASS if passed else MappingStatus.WARN,
-        (
-            "Exact source-to-target provenance is established"
-            if passed
-            else "Exact source-to-target provenance is unavailable"
-        ),
+        MappingStatus.WARN,
+        "Exact source-to-target provenance is unavailable",
         {
+            "provenance_supplied": False,
             "source_repository": source.provenance.repository,
             "source_revision": source.provenance.revision,
             "target_lineage_metadata": {
@@ -523,7 +562,7 @@ def _provenance(source: HFInventory, target: GGUFInventory) -> MappingFinding:
             },
             "missing_provenance_fields": sorted(missing),
             "mismatched_provenance_fields": sorted(mismatched),
-            "exact_lineage_established": passed,
+            "exact_lineage_established": False,
             "limitation": (
                 "Semantic and structural compatibility does not prove that the target "
                 "was generated from this exact source artifact"
@@ -538,6 +577,7 @@ def validate_semantic_mapping(
     target: GGUFInventory,
     manifest: MappingManifest,
     model_pack: ModelPack | None = None,
+    provenance_validation: ProvenanceValidationReport | None = None,
 ) -> MappingValidationReport:
     pack = (
         resolve_manifest_model_pack(manifest)
@@ -582,7 +622,7 @@ def validate_semantic_mapping(
         _shapes(diagnostics),
         _parameters(diagnostics),
         _logical_tie(source, diagnostics, manifest, pack),
-        _provenance(source, target),
+        _provenance(source, target, provenance_validation),
     ]
     return MappingValidationReport(
         findings=findings,

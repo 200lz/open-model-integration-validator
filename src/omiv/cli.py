@@ -36,6 +36,23 @@ from omiv.mapping.validator import format_mapping_report, validate_semantic_mapp
 from omiv.model_packs.registry import get_model_pack, list_model_packs
 from omiv.models import ModelInventory
 from omiv.normalizer import normalize_inventory, write_inventory
+from omiv.provenance.adapters import load_inventory_evidence
+from omiv.provenance.capture import ConversionRunFailed, run_conversion
+from omiv.provenance.loading import load_provenance_envelope
+from omiv.provenance.reporting import (
+    PROVENANCE_REPORT_SCHEMA_ID,
+    build_provenance_report_envelope,
+    load_provenance_report_envelope,
+    pretty_provenance_report_json,
+    provenance_integrity_matches,
+    provenance_report_integrity_matches,
+    render_provenance_markdown,
+)
+from omiv.provenance.validator import (
+    ProvenanceValidationContext,
+    format_provenance_report,
+    validate_provenance,
+)
 from omiv.reporters.console import format_report
 from omiv.safe_write import atomic_write_text, validate_output_path
 from omiv.schema.loader import load_schema
@@ -183,9 +200,16 @@ def mapping_validate(
         Path | None, typer.Option("--markdown-output", dir_okay=False)
     ] = None,
     model_pack_id: Annotated[str | None, typer.Option("--model-pack")] = None,
+    provenance_report_path: Annotated[
+        Path | None, typer.Option("--provenance-report", exists=True, dir_okay=False)
+    ] = None,
 ) -> None:
     """Validate a static HF-to-GGUF semantic mapping manifest."""
-    input_paths = (source_path, target_path, mapping_path)
+    input_paths = tuple(
+        item
+        for item in (source_path, target_path, mapping_path, provenance_report_path)
+        if item is not None
+    )
     try:
         source_raw = parse_bounded_json_bytes(
             source_path.read_bytes(),
@@ -199,11 +223,36 @@ def mapping_validate(
         )
         source = HFInventory.model_validate(source_raw)
         target = GGUFInventory.model_validate(target_raw)
-        manifest = load_mapping_manifest(
-            mapping_path, requested_pack_id=model_pack_id
-        )
+        manifest = load_mapping_manifest(mapping_path, requested_pack_id=model_pack_id)
         model_pack = None if model_pack_id is None else get_model_pack(model_pack_id)
-        validation = validate_semantic_mapping(source, target, manifest, model_pack=model_pack)
+        provenance_validation = None
+        if provenance_report_path is not None:
+            provenance_report = load_provenance_report_envelope(provenance_report_path)
+            if not provenance_report_integrity_matches(provenance_report):
+                raise OmivInputError("provenance report integrity mismatch")
+            selected_pack = (
+                model_pack
+                if model_pack is not None
+                else get_model_pack(
+                    provenance_report.report.provenance.interpretation.model_pack.pack_id
+                )
+            )
+            provenance_validation = validate_provenance(
+                provenance_report.report.provenance,
+                ProvenanceValidationContext(
+                    source_inventory=load_inventory_evidence(source_path),
+                    target_inventory=load_inventory_evidence(target_path),
+                    mapping=manifest,
+                    model_pack=selected_pack,
+                ),
+            )
+        validation = validate_semantic_mapping(
+            source,
+            target,
+            manifest,
+            model_pack=model_pack,
+            provenance_validation=provenance_validation,
+        )
         if json_output is not None or markdown_output is not None:
             envelope = build_mapping_report_envelope(source, target, manifest, validation)
             if json_output is not None:
@@ -241,6 +290,120 @@ def mapping_validate(
         raise typer.Exit(code=1)
 
 
+def _role_paths(values: list[str] | None, *, option: str) -> dict[str, Path]:
+    result: dict[str, Path] = {}
+    for value in values or []:
+        role, separator, raw_path = value.partition("=")
+        if not separator or not role or not raw_path:
+            raise OmivInputError(f"{option} must use ROLE=PATH")
+        if role in result:
+            raise OmivInputError(f"duplicate {option} role: {role}")
+        path = Path(raw_path)
+        if not path.exists() or not path.is_file() or path.is_symlink():
+            raise OmivInputError(f"{option} path must be a regular non-symlink file")
+        result[role] = path
+    return result
+
+
+@app.command("provenance-validate")
+def provenance_validate(
+    provenance_path: Annotated[Path, typer.Option("--provenance", exists=True, dir_okay=False)],
+    source_inventory_path: Annotated[
+        Path, typer.Option("--source-inventory", exists=True, dir_okay=False)
+    ],
+    target_inventory_path: Annotated[
+        Path, typer.Option("--target-inventory", exists=True, dir_okay=False)
+    ],
+    mapping_path: Annotated[Path, typer.Option("--mapping", exists=True, dir_okay=False)],
+    model_pack_id: Annotated[str, typer.Option("--model-pack")],
+    source_artifact: Annotated[list[str] | None, typer.Option("--source-artifact")] = None,
+    target_artifact: Annotated[list[str] | None, typer.Option("--target-artifact")] = None,
+    json_output: Annotated[Path | None, typer.Option("--json-output", dir_okay=False)] = None,
+    markdown_output: Annotated[
+        Path | None, typer.Option("--markdown-output", dir_okay=False)
+    ] = None,
+) -> None:
+    """Validate a deterministic conversion provenance chain."""
+    try:
+        envelope = load_provenance_envelope(provenance_path)
+        if not provenance_integrity_matches(envelope):
+            raise OmivInputError("provenance integrity mismatch")
+        source_paths = _role_paths(source_artifact, option="--source-artifact")
+        target_paths = _role_paths(target_artifact, option="--target-artifact")
+        pack = get_model_pack(model_pack_id)
+        manifest = load_mapping_manifest(
+            mapping_path,
+            requested_pack_id=model_pack_id,
+        )
+        validation = validate_provenance(
+            envelope.provenance,
+            ProvenanceValidationContext(
+                source_inventory=load_inventory_evidence(source_inventory_path),
+                target_inventory=load_inventory_evidence(target_inventory_path),
+                mapping=manifest,
+                model_pack=pack,
+                source_artifacts=source_paths,
+                target_artifacts=target_paths,
+            ),
+        )
+        report_envelope = build_provenance_report_envelope(
+            envelope.provenance,
+            validation,
+        )
+        inputs = (
+            provenance_path,
+            source_inventory_path,
+            target_inventory_path,
+            mapping_path,
+            *source_paths.values(),
+            *target_paths.values(),
+        )
+        if json_output is not None:
+            validate_output_path(json_output, forbidden_inputs=inputs)
+        if markdown_output is not None:
+            validate_output_path(markdown_output, forbidden_inputs=inputs)
+        if (
+            json_output is not None
+            and markdown_output is not None
+            and json_output.resolve(strict=False) == markdown_output.resolve(strict=False)
+        ):
+            raise OmivInputError("JSON and Markdown outputs must be different paths")
+        if json_output is not None:
+            atomic_write_text(
+                json_output,
+                pretty_provenance_report_json(report_envelope),
+                forbidden_inputs=inputs,
+            )
+        if markdown_output is not None:
+            atomic_write_text(
+                markdown_output,
+                render_provenance_markdown(report_envelope),
+                forbidden_inputs=inputs,
+            )
+    except (OSError, UnicodeError, ValidationError, OmivInputError) as exc:
+        typer.echo(f"ERROR invalid input: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(format_provenance_report(validation))
+    if not validation.passed:
+        raise typer.Exit(code=1)
+
+
+@app.command("conversion-run")
+def conversion_run(
+    spec_path: Annotated[Path, typer.Option("--spec", exists=True, dir_okay=False)],
+) -> None:
+    """Run a strict shell-free conversion spec and capture validated lineage."""
+    try:
+        provenance = run_conversion(spec_path)
+    except ConversionRunFailed as exc:
+        typer.echo(f"FAIL conversion process exit code {exc.exit_code}", err=True)
+        raise typer.Exit(code=1) from exc
+    except (OSError, UnicodeError, ValidationError, OmivInputError) as exc:
+        typer.echo(f"ERROR invalid conversion configuration: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(f"PASS conversion provenance {provenance.provenance_id}")
+
+
 @app.command("report")
 def report_command(
     input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
@@ -257,6 +420,11 @@ def report_command(
             if not mapping_report_integrity_matches(mapping_envelope):
                 raise OmivInputError("report integrity mismatch")
             content = render_mapping_markdown(mapping_envelope)
+        elif schema == PROVENANCE_REPORT_SCHEMA_ID:
+            provenance_envelope = load_provenance_report_envelope(input_path)
+            if not provenance_report_integrity_matches(provenance_envelope):
+                raise OmivInputError("report integrity mismatch")
+            content = render_provenance_markdown(provenance_envelope)
         else:
             envelope = load_report_envelope(input_path)
             if not report_integrity_matches(envelope):
@@ -281,6 +449,13 @@ def report_verify(
                 typer.echo("FAIL report integrity mismatch")
                 raise typer.Exit(code=1)
             typer.echo(f"PASS report integrity {mapping_envelope.integrity.sha256}")
+            return
+        if schema == PROVENANCE_REPORT_SCHEMA_ID:
+            provenance_envelope = load_provenance_report_envelope(input_path)
+            if not provenance_report_integrity_matches(provenance_envelope):
+                typer.echo("FAIL report integrity mismatch")
+                raise typer.Exit(code=1)
+            typer.echo(f"PASS report integrity {provenance_envelope.integrity.sha256}")
             return
         envelope = load_report_envelope(input_path)
     except OmivInputError as exc:

@@ -461,3 +461,135 @@ Phase 4C performs no payload access, value hashing or sampling, dequantization,
 converter execution, tokenizer validation, inference, numerical parity, packed MoE
 expert mapping, split/concatenate/reshape/fusion transform, or Kimi K3 production
 mapping.
+
+## Conversion provenance and lineage
+
+Phase 4D adds the model- and format-independent
+`omiv.conversion-provenance.v1` schema. It cryptographically links the complete
+declared chain:
+
+```text
+source artifacts → source inventory → model pack → mapping manifest
+→ process/tool/invocation → target artifacts → target inventory
+```
+
+The provenance ID is explicit and is never derived from a filename. The canonical
+payload records an operation (`convert`, `quantize`, `export`, `compile`, `pack`,
+`merge`, `shard`), one or more source and target artifacts, exact inventory
+identities, model-pack and mapping identities, an immutable tool identity, an ordered
+argument-array invocation, and process completion state. Qwen2.5 HF-to-GGUF is the
+first reference workflow, but the core PROV rules contain no Qwen, Kimi, llama.cpp,
+or GGUF-specific tensor logic.
+
+Canonical provenance never contains timestamps, durations, absolute paths, hostnames,
+usernames, process IDs, temporary names, environment dumps, stdout, or stderr.
+Sensitive arguments such as `--token`, `--password`, `--api-key`, `--secret`,
+`--credential`, and `--auth` retain their argument name but replace the value with
+the canonical `[REDACTED]` marker. Invocation is always an argument array; OMIV never
+uses `shell=True`, command interpolation, `eval`, or `exec`.
+
+Validate an existing envelope using inventory-level evidence alone:
+
+```bash
+omiv provenance-validate \
+  --provenance conversion.provenance.json \
+  --source-inventory source.inventory.json \
+  --target-inventory target.inventory.json \
+  --mapping mappings/qwen2_5_0_5b_hf_to_gguf.yaml \
+  --model-pack qwen2 \
+  --json-output conversion.provenance.report.json \
+  --markdown-output conversion.provenance.report.md
+```
+
+Optional `--source-artifact ROLE=PATH` and `--target-artifact ROLE=PATH` arguments
+request current full-file SHA-256 verification. Without them, OMIV uses only
+full-artifact digests explicitly available in trusted inventories and emits WARN for
+anything not checked. Descriptor inventory hashes are never mislabeled as complete
+artifact hashes.
+
+The hash meanings are distinct:
+
+- Source and target inventory SHA-256 values identify canonical descriptor inventory
+  payloads.
+- Artifact SHA-256 values cover every byte of a physical artifact.
+- Model-pack metadata SHA-256 covers declarative `omiv.model-pack.v1` metadata.
+- Mapping SHA-256 covers the canonical validated manifest.
+- Provenance SHA-256 covers only the canonical `provenance` value.
+- Report SHA-256 covers only the canonical report payload.
+
+All use the shared `omiv-json-v1` canonicalization where the hashed value is JSON.
+These integrity digests are deterministic tamper detection, not signatures or PKI.
+`report-verify` and `report --format markdown` support
+`omiv.conversion-provenance-report.v1` alongside all earlier report schemas.
+
+### Conservative conversion capture
+
+`conversion-run` accepts only a strict `omiv.conversion-run.v1` YAML or JSON spec:
+
+```yaml
+conversion_schema: omiv.conversion-run.v1
+conversion_id: qwen2.5-0.5b-instruct-f16
+offline: true
+source:
+  model_dir: /runtime/source
+  inventory: /runtime/source.inventory.json
+  artifact_roles:
+    - role: config
+      path: /runtime/source/config.json
+      required: true
+interpretation:
+  model_pack: qwen2
+  mapping: mappings/qwen2_5_0_5b_hf_to_gguf.yaml
+tool:
+  name: llama.cpp
+  repository: ggml-org/llama.cpp
+  repository_dir: /runtime/clean-llama-cpp
+  expected_revision: 0123456789012345678901234567890123456789
+  require_clean_worktree: true
+  executable: python
+  entrypoint: convert_hf_to_gguf.py
+invocation:
+  arguments:
+    - "{source_model_dir}"
+    - --outfile
+    - "{target_output}"
+    - --outtype
+    - f16
+target:
+  output: /runtime/output.gguf
+  format: gguf
+  inventory_output: /runtime/output.inventory.json
+  role: model
+outputs:
+  provenance: /runtime/output.provenance.json
+  report_json: /runtime/output.provenance.report.json
+  report_markdown: /runtime/output.provenance.report.md
+```
+
+Runtime paths exist only in the spec and process argument list used at execution;
+they are replaced by explicit placeholders in canonical provenance. The entrypoint
+must resolve inside the configured repository, repository HEAD must equal the full
+expected commit, and a required-clean checkout must be clean. Inputs and outputs
+cannot collide, outputs must be distinct and absent, and output symlinks are rejected.
+The process uses `subprocess` with an argument list and `shell=False`. A failed process
+does not emit successful provenance or reports and partial targets are not
+automatically deleted. These checks are conservative best-effort protections and do
+not claim perfect protection against concurrent filesystem changes or TOCTOU races.
+
+Use a clean detached converter worktree pinned to a reviewed full commit. Do not use a
+development checkout containing unrelated model-support changes. Capture is offline:
+there are no cloud APIs, telemetry, network fetches, arbitrary plugins, or GitHub API
+calls.
+
+When a validated provenance report is supplied to `mapping-validate` through
+`--provenance-report`, MAP-009 consumes its exact-lineage summary instead of
+reimplementing PROV validation. Exact lineage PASS makes MAP-009 PASS, incomplete
+lineage remains WARN, and contradictory lineage makes MAP-009 FAIL. Without
+provenance, MAP-009 remains WARN. Earlier persisted mapping reports remain readable
+and verifiable.
+
+A complete conversion provenance chain establishes which source artifacts, semantic
+interpretation, tool revision, invocation, and target artifacts were declared and
+cryptographically linked. It does not prove that the converter was bug-free, that
+target payload values are numerically correct, or that inference outputs match the
+reference implementation.

@@ -373,9 +373,9 @@ def test_complete_resolution_shapes_logical_tie_and_provenance() -> None:
     assert tie.evidence["physical_lm_head_required"] is False
 
 
-def test_complete_synthetic_lineage_passes_map009() -> None:
+def test_target_metadata_without_validated_provenance_warns_map009() -> None:
     report = validate_semantic_mapping(_source(), _target(lineage=True), _manifest())
-    assert report.findings[-1].status == MappingStatus.PASS
+    assert report.findings[-1].status == MappingStatus.WARN
 
 
 def test_zero_target_unclassified_shape_and_duplicate_destination_failures() -> None:
