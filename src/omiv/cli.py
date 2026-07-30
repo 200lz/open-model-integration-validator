@@ -8,6 +8,15 @@ import typer
 from pydantic import ValidationError
 
 from omiv.canonical import canonical_sha256, load_json_value
+from omiv.comparison.engine import build_structural_comparison
+from omiv.comparison.models import COMPARISON_REPORT_SCHEMA
+from omiv.comparison.reporting import (
+    render_comparison_markdown,
+    selected_profile_exit_code,
+    verify_comparison_inventory,
+    verify_comparison_report,
+    write_comparison_bundle,
+)
 from omiv.errors import OmivInputError
 from omiv.gguf.compare import compare_gguf_inventories, format_gguf_report
 from omiv.gguf.models import GGUFInventory
@@ -1219,6 +1228,86 @@ def independent_validation_inventory_verify(
     typer.echo(f"PASS independent validation inventory {inventory.inventory_digest}")
 
 
+@app.command("structural-compare")
+def structural_compare(
+    baseline_validation: Annotated[
+        Path, typer.Option("--baseline-validation", exists=True, dir_okay=False)
+    ],
+    candidate_validation: Annotated[
+        Path, typer.Option("--candidate-validation", exists=True, dir_okay=False)
+    ],
+    baseline_split: Annotated[
+        Path, typer.Option("--baseline-split", exists=True, dir_okay=False)
+    ],
+    candidate_split: Annotated[
+        Path, typer.Option("--candidate-split", exists=True, dir_okay=False)
+    ],
+    baseline_ontology: Annotated[
+        Path, typer.Option("--baseline-ontology", exists=True, dir_okay=False)
+    ],
+    candidate_ontology: Annotated[
+        Path, typer.Option("--candidate-ontology", exists=True, dir_okay=False)
+    ],
+    baseline_mapping: Annotated[
+        Path, typer.Option("--baseline-mapping", exists=True, dir_okay=False)
+    ],
+    candidate_mapping: Annotated[
+        Path, typer.Option("--candidate-mapping", exists=True, dir_okay=False)
+    ],
+    profile: Annotated[str, typer.Option("--profile")],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    report_output: Annotated[Path, typer.Option("--report-output", dir_okay=False)],
+    markdown_output: Annotated[Path, typer.Option("--markdown-output", dir_okay=False)],
+) -> None:
+    """Compare two independently verified model artifacts entirely offline."""
+    try:
+        inventory = build_structural_comparison(
+            root=Path.cwd(),
+            baseline_validation_path=baseline_validation,
+            candidate_validation_path=candidate_validation,
+            baseline_split_path=baseline_split,
+            candidate_split_path=candidate_split,
+            baseline_ontology_path=baseline_ontology,
+            candidate_ontology_path=candidate_ontology,
+            baseline_mapping_path=baseline_mapping,
+            candidate_mapping_path=candidate_mapping,
+            selected_profile=profile,
+        )
+        report = write_comparison_bundle(
+            inventory, output, report_output, markdown_output
+        )
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR structural comparison failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    selected = next(
+        item for item in inventory.profile_results if item.profile_name == profile
+    )
+    typer.echo(
+        f"{selected.outcome.value} structural comparison "
+        f"inventory={inventory.comparison_digest} "
+        f"report={report.report.report_digest}"
+    )
+    exit_code = selected_profile_exit_code(inventory)
+    if exit_code:
+        raise typer.Exit(code=exit_code)
+
+
+@app.command("structural-comparison-inventory-verify")
+def structural_comparison_inventory_verify(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    artifact_root: Annotated[
+        Path, typer.Option("--artifact-root", file_okay=False)
+    ] = Path("."),
+) -> None:
+    """Reconstruct a structural comparison from all verified dependencies."""
+    try:
+        inventory = verify_comparison_inventory(input_path, artifact_root)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(f"PASS structural comparison inventory {inventory.comparison_digest}")
+
+
 @app.command("report")
 def report_command(
     input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
@@ -1230,7 +1319,10 @@ def report_command(
         if output_format != "markdown":
             raise OmivInputError("unsupported report format; expected markdown")
         schema = _read_report_schema(input_path)
-        if schema == VALIDATION_REPORT_SCHEMA:
+        if schema == COMPARISON_REPORT_SCHEMA:
+            comparison_envelope = verify_comparison_report(input_path, Path.cwd())
+            content = render_comparison_markdown(comparison_envelope)
+        elif schema == VALIDATION_REPORT_SCHEMA:
             validation_envelope = verify_validation_report(input_path, Path.cwd())
             content = render_validation_markdown(validation_envelope)
         elif schema == ONTOLOGY_REPORT_SCHEMA:
@@ -1281,6 +1373,10 @@ def report_verify(
     """Verify report schema and payload integrity without original artifacts."""
     try:
         schema = _read_report_schema(input_path)
+        if schema == COMPARISON_REPORT_SCHEMA:
+            comparison_envelope = verify_comparison_report(input_path, Path.cwd())
+            typer.echo(f"PASS report integrity {comparison_envelope.integrity['sha256']}")
+            return
         if schema == VALIDATION_REPORT_SCHEMA:
             validation_envelope = verify_validation_report(input_path, Path.cwd())
             typer.echo(f"PASS report integrity {validation_envelope.integrity['sha256']}")

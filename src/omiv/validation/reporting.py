@@ -203,13 +203,17 @@ def _commercial_matrix(inventory: ValidationInventory) -> list[dict[str, Any]]:
 
 def build_validation_report(inventory: ValidationInventory) -> ValidationReportEnvelope:
     _verify_internal(inventory)
+    model_display = (
+        "Kimi K3" if inventory.subject.model_family == "kimi-k3" else inventory.subject.model_family
+    )
     executive = {
         "result": inventory.structural_validation_result.value,
-        "subject": "Kimi K3 UD-IQ1_M",
+        "subject": f"{model_display} {inventory.subject.artifact_variant}",
         "repository": inventory.repository_identity.repository,
         "resolved_revision": inventory.repository_identity.resolved_revision,
         "conclusion": (
-            "The pinned UD-IQ1_M split GGUF set is structurally validated under "
+            f"The pinned {inventory.subject.artifact_variant} split GGUF set is "
+            "structurally validated under "
             "the recorded repository, HTTP Range, GGUF header, split-container, "
             "Kimi K3 ontology, and semantic-mapping policies."
         ),
@@ -348,8 +352,15 @@ def render_validation_markdown(envelope: ValidationReportEnvelope) -> str:
     report = envelope.report
     inventory = report.inventory
     executive = report.executive_summary
+    model_display = (
+        "Kimi K3" if inventory.subject.model_family == "kimi-k3" else inventory.subject.model_family
+    )
     lines = [
-        "# Independent Model Validation — Kimi K3 UD\\-IQ1\\_M",
+        (
+            "# Independent Model Validation — "
+            f"{_safe(model_display)} "
+            f"{_safe(inventory.subject.artifact_variant)}"
+        ),
         "",
         "## Executive Summary",
         "",

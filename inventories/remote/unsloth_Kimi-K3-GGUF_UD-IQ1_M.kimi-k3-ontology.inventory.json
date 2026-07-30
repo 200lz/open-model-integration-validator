@@ -1,7 +1,7 @@
 {
   "integrity": {
     "canonicalization": "omiv-json-v1",
-    "sha256": "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3"
+    "sha256": "13a81e3f75b71266473bd1ab7588c6be3d47033245a2b96a80fb102d1ca1081f"
   },
   "inventory": {
     "architecture_metadata": {
@@ -7204,7 +7204,8 @@
       {
         "allowed_ggml_types": [
           "IQ1_S",
-          "IQ3_XXS"
+          "IQ3_XXS",
+          "MXFP4"
         ],
         "coverage_valid": true,
         "duplicate_layer_ids": [],
@@ -7436,7 +7437,8 @@
       {
         "allowed_ggml_types": [
           "IQ1_S",
-          "IQ2_XXS"
+          "IQ2_XXS",
+          "MXFP4"
         ],
         "coverage_valid": true,
         "duplicate_layer_ids": [],
@@ -7668,7 +7670,8 @@
       {
         "allowed_ggml_types": [
           "IQ1_S",
-          "IQ2_XXS"
+          "IQ2_XXS",
+          "MXFP4"
         ],
         "coverage_valid": true,
         "duplicate_layer_ids": [],
@@ -9286,7 +9289,7 @@
       {
         "evidence": {
           "classification_digest": "9a7716d40b89a14105fd1cb597fa73437361d7fe93f22517d50efc3cef84b510",
-          "ontology_policy_digest": "dcd1ab32ba30153b2aa0c614136a35b090688e60fb2c7beb339421132badbbca"
+          "ontology_policy_digest": "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0"
         },
         "message": "The ontology inventory uses canonical ordering and policies.",
         "rule_id": "KIMIGGUF-015",
@@ -13190,7 +13193,8 @@
       "evidence_sources": [
         "omiv.kimi-k3.checkpoint-ontology.v2",
         "llama.cpp@cf67f0d24511864d2d3da0769108fd6fc16d00d1:kimi-k3-loader-and-tensor-names",
-        "unsloth/Kimi-K3-GGUF@3d4b61ab4b6789d401191c476cbb4567246db8f5:UD-IQ1_M-header-descriptors"
+        "unsloth/Kimi-K3-GGUF@3d4b61ab4b6789d401191c476cbb4567246db8f5:UD-IQ1_M-header-descriptors",
+        "unsloth/Kimi-K3-GGUF@3d4b61ab4b6789d401191c476cbb4567246db8f5:UD-Q4_K_XL-MXFP4-packed-expert-header-descriptors"
       ],
       "expected_architecture": "kimi-k3",
       "expected_attention_residual_block_size": 12,
@@ -14194,7 +14198,8 @@
         {
           "allowed_ggml_types": [
             "IQ1_S",
-            "IQ3_XXS"
+            "IQ3_XXS",
+            "MXFP4"
           ],
           "component": "ffn_down_exps",
           "dimension_roles": [
@@ -14217,7 +14222,8 @@
         {
           "allowed_ggml_types": [
             "IQ1_S",
-            "IQ2_XXS"
+            "IQ2_XXS",
+            "MXFP4"
           ],
           "component": "ffn_gate_exps",
           "dimension_roles": [
@@ -14240,7 +14246,8 @@
         {
           "allowed_ggml_types": [
             "IQ1_S",
-            "IQ2_XXS"
+            "IQ2_XXS",
+            "MXFP4"
           ],
           "component": "ffn_up_exps",
           "dimension_roles": [
@@ -14363,7 +14370,7 @@
       "policy_id": "omiv.kimi-k3.gguf-target-ontology.v1",
       "policy_schema": "omiv.kimi-k3-gguf-ontology-policy.v1"
     },
-    "ontology_policy_digest": "dcd1ab32ba30153b2aa0c614136a35b090688e60fb2c7beb339421132badbbca",
+    "ontology_policy_digest": "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0",
     "packed_experts": {
       "duplicate_components": [],
       "family_ids": [

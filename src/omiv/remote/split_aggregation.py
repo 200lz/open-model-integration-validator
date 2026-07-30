@@ -26,8 +26,9 @@ from omiv.remote.models import (
 )
 from omiv.remote.split_models import (
     DuplicateSummary,
-    GGMLTypePolicy,
-    GGMLTypeTrait,
+    GGMLTypePolicyAny,
+    GGMLTypePolicyV2,
+    GGMLTypeTraitV2,
     GlobalTensorDescriptor,
     MetadataConsistencyClass,
     MetadataConsistencySummary,
@@ -50,7 +51,7 @@ SPLIT_COUNT = "split.count"
 SPLIT_TENSOR_COUNT = "split.tensors.count"
 
 
-def default_ggml_type_policy() -> GGMLTypePolicy:
+def default_ggml_type_policy() -> GGMLTypePolicyV2:
     # Block sizes and encoded sizes are transcribed from ggml type_traits and
     # static assertions at the recorded llama.cpp source identity.
     values = {
@@ -86,16 +87,39 @@ def default_ggml_type_policy() -> GGMLTypePolicy:
         34: ("TQ1_0", 256, 54),
         35: ("TQ2_0", 256, 66),
     }
-    return GGMLTypePolicy(
-        traits=[
-            GGMLTypeTrait(
-                type_code=code,
-                type_name=name,
-                block_elements=block,
-                block_bytes=size,
-            )
-            for code, (name, block, size) in sorted(values.items())
-        ]
+    traits = [
+        GGMLTypeTraitV2(
+            type_code=code,
+            type_name=name,
+            block_elements=block,
+            block_bytes=size,
+        )
+        for code, (name, block, size) in sorted(values.items())
+    ]
+    traits.append(
+        GGMLTypeTraitV2(
+            type_code=39,
+            type_name="MXFP4",
+            block_elements=32,
+            block_bytes=17,
+            layout_rule="GGUF row dimension ne[0] must be divisible by QK_MXFP4=32",
+            encoded_size_formula=(
+                "(ne[0] / 32) * 17 * product(ne[1:]); checked unsigned-64 arithmetic"
+            ),
+            evidence_role=(
+                "ggml/include/ggml.h enum; ggml/src/ggml-common.h block_mxfp4; "
+                "ggml/src/ggml.c type_traits and ggml_row_size"
+            ),
+        )
+    )
+    return GGMLTypePolicyV2(
+        policy_schema="omiv.ggml-type-size-policy.v2",
+        source_identity="llama.cpp@cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+        evidence_revision="cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+        evidence_role=(
+            "GGML enum, canonical block traits, static layout assertions, row-size formula"
+        ),
+        traits=sorted(traits, key=lambda item: item.type_code),
     )
 
 
@@ -163,8 +187,14 @@ def compute_payload_span(
     *,
     payload_start: int,
     file_size: int,
-    type_policy: GGMLTypePolicy,
+    type_policy: GGMLTypePolicyAny,
 ) -> PayloadSpan:
+    if not tensor.dimensions or any(dimension <= 0 for dimension in tensor.dimensions):
+        return PayloadSpan(
+            status="invalid",
+            absolute_start=payload_start,
+            reason="logical tensor dimensions must be nonzero",
+        )
     absolute_start = _checked_add(
         payload_start, tensor.data_offset, f"tensor {tensor.name!r} absolute offset"
     )
@@ -187,7 +217,7 @@ def compute_payload_span(
         return PayloadSpan(
             status="invalid",
             absolute_start=absolute_start,
-            reason="dimension zero is not divisible by the GGML block size",
+            reason="GGUF row dimension is not divisible by the GGML block size",
         )
     row_blocks = row_elements // trait.block_elements
     row_bytes = _checked_multiply(row_blocks, trait.block_bytes, "GGML row byte size")
@@ -240,7 +270,7 @@ def aggregate_split_inventories(
     reused_inventory_count: int,
     limits: SplitAggregationLimits | None = None,
     metadata_policy: SplitMetadataPolicy | None = None,
-    type_policy: GGMLTypePolicy | None = None,
+    type_policy: GGMLTypePolicyAny | None = None,
 ) -> SplitGGUFInventory:
     selected_limits = limits or SplitAggregationLimits()
     selected_metadata_policy = metadata_policy or SplitMetadataPolicy()

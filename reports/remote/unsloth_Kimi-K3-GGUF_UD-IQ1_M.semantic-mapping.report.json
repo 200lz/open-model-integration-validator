@@ -1,7 +1,7 @@
 {
   "integrity": {
     "canonicalization": "omiv-json-v1",
-    "sha256": "d1c31b67cf59e2c019d12dd37ab3b1ed6549842be2b3ffb6461b378d98ac1519"
+    "sha256": "a82b347f69fab5731a31e71a888e0b4acde4dfb4bb94ce34f0880f1cb292ded3"
   },
   "report": {
     "artifact_specific_provenance": "unavailable",
@@ -19,7 +19,7 @@
       },
       {
         "code": "MAPGROUP-003",
-        "message": "mapping policy digest bcfe1dbcbe2bd4724e385c5598fc7182bd630a0e090913fcf8c94e491573d0a9",
+        "message": "mapping policy digest 0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c",
         "status": "PASS"
       },
       {
@@ -78,8 +78,8 @@
         "status": "NOT_CHECKED"
       }
     ],
-    "inventory_digest": "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16",
-    "mapping_policy_digest": "bcfe1dbcbe2bd4724e385c5598fc7182bd630a0e090913fcf8c94e491573d0a9",
+    "inventory_digest": "f380d9b9ee8060cf205eef4c69e58353608f148f2ea59ba680e7af522e034afb",
+    "mapping_policy_digest": "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c",
     "model_pack": {
       "capabilities": [
         "checkpoint_ontology",
@@ -612,7 +612,7 @@
       }
     },
     "target": {
-      "ontology_inventory_sha256": "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3",
+      "ontology_inventory_sha256": "13a81e3f75b71266473bd1ab7588c6be3d47033245a2b96a80fb102d1ca1081f",
       "physical_count": 2573,
       "resolved_revision": "3d4b61ab4b6789d401191c476cbb4567246db8f5",
       "split_inventory_sha256": "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7"

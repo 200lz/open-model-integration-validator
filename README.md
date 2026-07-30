@@ -1100,5 +1100,75 @@ payload is required.
 > tokenizer parity, runtime equivalence, or artifact-specific conversion provenance
 > when those stages are unavailable or not checked.
 
-Phase 4F-7 will compare the UD-Q4_K_XL structure. That comparison is intentionally
-outside Phase 4F-6.
+### Phase 4F-7 cross-quantization structural comparison
+
+Phase 4F-7 adds a generic directional comparison engine for two independently
+verified artifact variants. Baseline and candidate are neutral roles: neither is
+treated as numerically superior. The strict schemas
+`omiv.model-artifact-structural-comparison.v1`,
+`omiv.model-artifact-structural-comparison-report.v1`,
+`omiv.structural-comparison-policy.v1`, and
+`omiv.structural-comparison-profile-policy.v1` cover repository/revision identity,
+metadata categories, normalized target identities and shapes, family-aware GGML
+type transitions, exact encoded-size ratios, ontology structure, semantic-mapping
+structure, validation evidence, findings, and deterministic verification.
+
+The static profiles are `structural_equivalence`,
+`quantization_layout_comparison`, `release_variant_consistency`, and
+`full_numerical_equivalence`. The full profile cannot pass without payload,
+quantization, tokenizer, runtime, and provenance evidence. Allowed GGML type or
+shard-layout differences describe structural policy only; they are not quality
+rankings.
+
+```bash
+omiv structural-compare \
+  --baseline-validation validations/unsloth_Kimi-K3-GGUF_UD-IQ1_M.validation.inventory.json \
+  --candidate-validation validations/unsloth_Kimi-K3-GGUF_UD-Q4_K_XL.validation.inventory.json \
+  --baseline-split inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.split.inventory.json \
+  --candidate-split inventories/remote/unsloth_Kimi-K3-GGUF_UD-Q4_K_XL.split.inventory.json \
+  --baseline-ontology inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.kimi-k3-ontology.inventory.json \
+  --candidate-ontology inventories/remote/unsloth_Kimi-K3-GGUF_UD-Q4_K_XL.kimi-k3-ontology.inventory.json \
+  --baseline-mapping inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.semantic-mapping.inventory.json \
+  --candidate-mapping inventories/remote/unsloth_Kimi-K3-GGUF_UD-Q4_K_XL.semantic-mapping.inventory.json \
+  --profile structural_equivalence \
+  --output comparisons/unsloth_Kimi-K3-GGUF_UD-IQ1_M_vs_UD-Q4_K_XL.comparison.inventory.json \
+  --report-output reports/comparison/unsloth_Kimi-K3-GGUF_UD-IQ1_M_vs_UD-Q4_K_XL.comparison.report.json \
+  --markdown-output reports/comparison/unsloth_Kimi-K3-GGUF_UD-IQ1_M_vs_UD-Q4_K_XL.comparison.report.md
+```
+
+The command verifies and reconstructs every supplied validation, split, ontology,
+and mapping dependency before comparing it. Invalid or incomplete upstream
+evidence fails closed with exit 2; an unsatisfied comparison profile returns exit
+1; satisfied structural profiles (including their explicitly permitted warnings)
+return exit 0. `structural-comparison-inventory-verify` and `report-verify`
+reconstruct the canonical results offline.
+
+The pinned real UD-Q4_K_XL inspection at revision
+`3d4b61ab4b6789d401191c476cbb4567246db8f5` contains 32 shards and 2,573
+descriptors. Its 276 packed expert targets use `MXFP4`. Narrow structural support
+is based on the pinned llama.cpp revision
+`cf67f0d24511864d2d3da0769108fd6fc16d00d1`: GGML type code 39 uses
+`QK_MXFP4=32` elements and a 17-byte block consisting of one E8M0 scale byte and
+16 packed-data bytes. The checked row-size rule requires the first logical
+dimension to be divisible by 32. This evidence permits deterministic encoded-span
+calculation without reading payload bytes.
+
+MXFP4 remains restricted to the Kimi packed routed-expert gate, up, and down
+families in the ontology, mapping, and comparison policies. The completed Q4
+chain verifies 2,573 bounded non-overlapping spans, classifies all 2,573 target
+descriptors, accounts for all source and target mapping identities, and produces
+an independent validation bundle before comparison. These checks establish only
+descriptor layout and policy-supported structural transitions; MXFP4 payload
+integrity, expert/scale ordering, numerical quantization fidelity, and runtime
+behavior remain not checked.
+
+> A successful Phase 4F-7 structural comparison proves that the two verified
+> artifact variants preserve the same model-level target identities, normalized
+> tensor structures, architecture ontology, and semantic-mapping relationships
+> under the recorded comparison policies, while explicitly reporting physical
+> layout and GGML type differences.
+>
+> It does not prove tensor payload equality, numerical quantization fidelity,
+> tokenizer equivalence, runtime equivalence, or comparative model quality.
+
+Phase 4F-8 technical article and community-release work remains out of scope.

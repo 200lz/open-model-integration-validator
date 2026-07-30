@@ -1,0 +1,1342 @@
+{
+  "integrity": {
+    "canonicalization": "omiv-json-v1",
+    "sha256": "bb27a08bc1412f51fc870165d99d15b889bff7ff1327b26042a7e259c2580e12"
+  },
+  "inventory": {
+    "alignment": 32,
+    "file": {
+      "byte_size": 49151700096,
+      "etag": null,
+      "lfs_sha256": "a1c323be89cdd205db0a394d1ed13d4c9a39b3942db1597aabef261e0d57cc31",
+      "oid": "678d2a96d617b163462e99487799de7785939bcf",
+      "path": "UD-Q4_K_XL/Kimi-K3-UD-Q4_K_XL-00007-of-00032.gguf",
+      "storage": "lfs",
+      "xet_hash": null
+    },
+    "gguf_version": 3,
+    "header_encoded_byte_length": 4992,
+    "header_end_offset": 4992,
+    "highest_accepted_offset": 4979,
+    "highest_requested_offset": 4979,
+    "inventory_schema": "omiv.remote-gguf-header-inventory.v1",
+    "metadata": [
+      {
+        "array_element_type": null,
+        "element_count": null,
+        "encoded_byte_length": 25,
+        "encoded_end": 106,
+        "encoded_sha256": "f726152cd9477bf3e7ec55c9a5f66d7dfef5065ce288eedc2fb6d620b53ed1e5",
+        "encoded_start": 81,
+        "key": "split.count",
+        "preview": [],
+        "preview_truncated": false,
+        "string_preview": null,
+        "summary_value": 32,
+        "value_type": "UINT16"
+      },
+      {
+        "array_element_type": null,
+        "element_count": null,
+        "encoded_byte_length": 22,
+        "encoded_end": 46,
+        "encoded_sha256": "35ef7d8f83a5fc3cb0f7874abd96a52109b5c23e013fab8543e41812e61a918a",
+        "encoded_start": 24,
+        "key": "split.no",
+        "preview": [],
+        "preview_truncated": false,
+        "string_preview": null,
+        "summary_value": 6,
+        "value_type": "UINT16"
+      },
+      {
+        "array_element_type": null,
+        "element_count": null,
+        "encoded_byte_length": 35,
+        "encoded_end": 81,
+        "encoded_sha256": "1be34e1db7b06c54fa2542d76e442dd6b8b66cbe27f34bf2e728581fc03e6593",
+        "encoded_start": 46,
+        "key": "split.tensors.count",
+        "preview": [],
+        "preview_truncated": false,
+        "string_preview": null,
+        "summary_value": 2573,
+        "value_type": "INT32"
+      }
+    ],
+    "metadata_and_descriptor_end": 4980,
+    "metadata_count": 3,
+    "padding_length": 12,
+    "parser_policy": {
+      "max_alignment": 4096,
+      "max_array_elements": 10000000,
+      "max_metadata_count": 1000000,
+      "max_metadata_key_bytes": 1024,
+      "max_preview_bytes": 256,
+      "max_request_bytes": 262144,
+      "max_request_count": 4096,
+      "max_string_bytes": 16777216,
+      "max_tensor_count": 1000000,
+      "max_tensor_dimensions": 4,
+      "max_tensor_name_bytes": 4096,
+      "max_total_header_bytes": 67108864,
+      "policy_id": "omiv.gguf-v3.bounded-header.v1",
+      "policy_schema": "omiv.remote-gguf-header-policy.v1",
+      "read_ahead_bytes": 262144
+    },
+    "parser_policy_sha256": "f77b269ec6f7b3ca18d52201528473ad15f752c8fd58e10b7162033e670131a3",
+    "payload_start_offset": 4992,
+    "provider": "huggingface",
+    "repository": {
+      "repo_id": "unsloth/Kimi-K3-GGUF",
+      "repo_type": "model",
+      "requested_revision": "main",
+      "resolved_revision": "3d4b61ab4b6789d401191c476cbb4567246db8f5"
+    },
+    "request_count": 10,
+    "requested_intervals": [
+      {
+        "byte_count": 24,
+        "end": 24,
+        "start": 0
+      },
+      {
+        "byte_count": 2503,
+        "end": 2527,
+        "start": 24
+      },
+      {
+        "byte_count": 1237,
+        "end": 3764,
+        "start": 2527
+      },
+      {
+        "byte_count": 634,
+        "end": 4398,
+        "start": 3764
+      },
+      {
+        "byte_count": 283,
+        "end": 4681,
+        "start": 4398
+      },
+      {
+        "byte_count": 171,
+        "end": 4852,
+        "start": 4681
+      },
+      {
+        "byte_count": 64,
+        "end": 4916,
+        "start": 4852
+      },
+      {
+        "byte_count": 29,
+        "end": 4945,
+        "start": 4916
+      },
+      {
+        "byte_count": 27,
+        "end": 4972,
+        "start": 4945
+      },
+      {
+        "byte_count": 8,
+        "end": 4980,
+        "start": 4972
+      }
+    ],
+    "snapshot_sha256": "845df5f9ddfd88c6abe4778ac9924fb68bc0c247380dfa580a0683b07d9547c0",
+    "summary": {
+      "largest_metadata_entries": [
+        {
+          "encoded_byte_length": 35,
+          "key": "split.tensors.count",
+          "value_type": "INT32"
+        },
+        {
+          "encoded_byte_length": 25,
+          "key": "split.count",
+          "value_type": "UINT16"
+        },
+        {
+          "encoded_byte_length": 22,
+          "key": "split.no",
+          "value_type": "UINT16"
+        }
+      ],
+      "metadata_type_counts": {
+        "INT32": 1,
+        "UINT16": 2
+      },
+      "payload_relation": "payload_before_eof",
+      "representative_tensor_names": [
+        "blk.15.ffn_up_exps.weight",
+        "blk.15.ffn_up_shexp.weight",
+        "blk.16.attn_k.weight",
+        "blk.16.attn_norm.weight",
+        "blk.16.attn_output.weight",
+        "blk.16.attn_q.weight",
+        "blk.16.attn_res_score.weight",
+        "blk.16.attn_v.weight",
+        "blk.16.exp_probs_b.bias",
+        "blk.16.ffn_down_exps.weight"
+      ],
+      "tensor_type_counts": {
+        "F32": 35,
+        "MXFP4": 9,
+        "Q8_0": 33
+      }
+    },
+    "tensor_count": 77,
+    "tensors": [
+      {
+        "data_offset": 0,
+        "dimensions": [
+          3584,
+          3072,
+          896
+        ],
+        "encoded_byte_length": 73,
+        "encoded_end": 179,
+        "encoded_sha256": "9947012b38e795fd9dd8311ffb239d42c1342965a284b0945c598486c1271b5f",
+        "encoded_start": 106,
+        "ggml_type_code": 39,
+        "ggml_type_name": "MXFP4",
+        "logical_element_count": 9865003008,
+        "name": "blk.15.ffn_up_exps.weight"
+      },
+      {
+        "data_offset": 5240782848,
+        "dimensions": [
+          7168,
+          6144
+        ],
+        "encoded_byte_length": 66,
+        "encoded_end": 245,
+        "encoded_sha256": "01df9c62b464727ab473542ef3fb81c662bd10ee7fec80cefabdfc8c067d6848",
+        "encoded_start": 179,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 44040192,
+        "name": "blk.15.ffn_up_shexp.weight"
+      },
+      {
+        "data_offset": 5287575552,
+        "dimensions": [
+          7168,
+          12288
+        ],
+        "encoded_byte_length": 60,
+        "encoded_end": 305,
+        "encoded_sha256": "695fc1c8a9ce8b04db50345664aa93af7526ce0ecff29f7b24ed49144765305e",
+        "encoded_start": 245,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 88080384,
+        "name": "blk.16.attn_k.weight"
+      },
+      {
+        "data_offset": 5381160960,
+        "dimensions": [
+          7168
+        ],
+        "encoded_byte_length": 55,
+        "encoded_end": 360,
+        "encoded_sha256": "df92107b060bcb7721d8415631f8a9d4b8ae25712926eee3d37f20d8f836c04c",
+        "encoded_start": 305,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 7168,
+        "name": "blk.16.attn_norm.weight"
+      },
+      {
+        "data_offset": 5381189632,
+        "dimensions": [
+          12288,
+          7168
+        ],
+        "encoded_byte_length": 65,
+        "encoded_end": 425,
+        "encoded_sha256": "5c7cd66dfbf223250b00813e8e90d2c908bc6857f4d1eb4b93bb5f122d443077",
+        "encoded_start": 360,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 88080384,
+        "name": "blk.16.attn_output.weight"
+      },
+      {
+        "data_offset": 5474775040,
+        "dimensions": [
+          7168,
+          12288
+        ],
+        "encoded_byte_length": 60,
+        "encoded_end": 485,
+        "encoded_sha256": "0359a59cbb3ff2ceff39fb4600b45e60c4f720376eb47224c3ff17bd52d84db4",
+        "encoded_start": 425,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 88080384,
+        "name": "blk.16.attn_q.weight"
+      },
+      {
+        "data_offset": 5568360448,
+        "dimensions": [
+          7168
+        ],
+        "encoded_byte_length": 60,
+        "encoded_end": 545,
+        "encoded_sha256": "22e5dbef974d79a1a1da02c837d5492b7eb9a55a2debf9671791016a86cce50e",
+        "encoded_start": 485,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 7168,
+        "name": "blk.16.attn_res_score.weight"
+      },
+      {
+        "data_offset": 5568389120,
+        "dimensions": [
+          7168,
+          12288
+        ],
+        "encoded_byte_length": 60,
+        "encoded_end": 605,
+        "encoded_sha256": "6e67166df1b052631bbdfef2d158bc0466b2fb5b1fb6e72194a0c38fec927abf",
+        "encoded_start": 545,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 88080384,
+        "name": "blk.16.attn_v.weight"
+      },
+      {
+        "data_offset": 5661974528,
+        "dimensions": [
+          896
+        ],
+        "encoded_byte_length": 55,
+        "encoded_end": 660,
+        "encoded_sha256": "8299b361a161014c3567884d6543c09a59d99c38ea660482bc8d6228d622744a",
+        "encoded_start": 605,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 896,
+        "name": "blk.16.exp_probs_b.bias"
+      },
+      {
+        "data_offset": 5661978112,
+        "dimensions": [
+          3072,
+          3584,
+          896
+        ],
+        "encoded_byte_length": 75,
+        "encoded_end": 735,
+        "encoded_sha256": "dc8d5b827c8c52cc05691fa6c8cdb35f363076e84d8c42946f288201ba29ae6e",
+        "encoded_start": 660,
+        "ggml_type_code": 39,
+        "ggml_type_name": "MXFP4",
+        "logical_element_count": 9865003008,
+        "name": "blk.16.ffn_down_exps.weight"
+      },
+      {
+        "data_offset": 10902760960,
+        "dimensions": [
+          6144,
+          7168
+        ],
+        "encoded_byte_length": 68,
+        "encoded_end": 803,
+        "encoded_sha256": "c8e40312c19fafa0687b1153814d052e1a255ea145ec423a96816f80c2e5da28",
+        "encoded_start": 735,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 44040192,
+        "name": "blk.16.ffn_down_shexp.weight"
+      },
+      {
+        "data_offset": 10949553664,
+        "dimensions": [
+          3584,
+          3072,
+          896
+        ],
+        "encoded_byte_length": 75,
+        "encoded_end": 878,
+        "encoded_sha256": "b4218d516c4da7ad6dc751d5eef515a1a90ae9cf21026cc47cf5b3cd14e3698c",
+        "encoded_start": 803,
+        "ggml_type_code": 39,
+        "ggml_type_name": "MXFP4",
+        "logical_element_count": 9865003008,
+        "name": "blk.16.ffn_gate_exps.weight"
+      },
+      {
+        "data_offset": 16190336512,
+        "dimensions": [
+          7168,
+          896
+        ],
+        "encoded_byte_length": 66,
+        "encoded_end": 944,
+        "encoded_sha256": "451b529856f499543dff49820491e635b83562906bdb116cc5a75010aa268622",
+        "encoded_start": 878,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 6422528,
+        "name": "blk.16.ffn_gate_inp.weight"
+      },
+      {
+        "data_offset": 16216026624,
+        "dimensions": [
+          7168,
+          6144
+        ],
+        "encoded_byte_length": 68,
+        "encoded_end": 1012,
+        "encoded_sha256": "1fb6f2bd27360c2ded9dde7c0cecdf4227a4a81d946ed6dca55b531a67b0ef13",
+        "encoded_start": 944,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 44040192,
+        "name": "blk.16.ffn_gate_shexp.weight"
+      },
+      {
+        "data_offset": 16262819328,
+        "dimensions": [
+          7168
+        ],
+        "encoded_byte_length": 54,
+        "encoded_end": 1066,
+        "encoded_sha256": "8d079755823d927bfa9a8c3dbe85e2fc9692f57e5134e862c58b03f0ca52622e",
+        "encoded_start": 1012,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 7168,
+        "name": "blk.16.ffn_norm.weight"
+      },
+      {
+        "data_offset": 16262848000,
+        "dimensions": [
+          7168
+        ],
+        "encoded_byte_length": 59,
+        "encoded_end": 1125,
+        "encoded_sha256": "6cd238cbbe41b00808e94b3d189c5589ae527ace0a64e18f776f61c54ab5a7bc",
+        "encoded_start": 1066,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 7168,
+        "name": "blk.16.ffn_res_score.weight"
+      },
+      {
+        "data_offset": 16262876672,
+        "dimensions": [
+          7168,
+          3584
+        ],
+        "encoded_byte_length": 69,
+        "encoded_end": 1194,
+        "encoded_sha256": "bba4eb33b809d0a5ed87c85ded3735b80163ca27e4ac573ac253df92beb5acd0",
+        "encoded_start": 1125,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 25690112,
+        "name": "blk.16.ffn_routed_down.weight"
+      },
+      {
+        "data_offset": 16290172416,
+        "dimensions": [
+          3584
+        ],
+        "encoded_byte_length": 61,
+        "encoded_end": 1255,
+        "encoded_sha256": "15fabab62a38ee4b25b5e450027806241adf4ddda5b03229a64dcd459904bb87",
+        "encoded_start": 1194,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 3584,
+        "name": "blk.16.ffn_routed_norm.weight"
+      },
+      {
+        "data_offset": 16290186752,
+        "dimensions": [
+          3584,
+          7168
+        ],
+        "encoded_byte_length": 67,
+        "encoded_end": 1322,
+        "encoded_sha256": "ff159b66b3ea0b290533ab5b2d69b3db0eb797a052853f027bb49bbf25f77ff1",
+        "encoded_start": 1255,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 25690112,
+        "name": "blk.16.ffn_routed_up.weight"
+      },
+      {
+        "data_offset": 16317482496,
+        "dimensions": [
+          3584,
+          3072,
+          896
+        ],
+        "encoded_byte_length": 73,
+        "encoded_end": 1395,
+        "encoded_sha256": "6c62b3a1c48fdccf2183e482a50484e65897f6e27d10f27395b8289bae05f99f",
+        "encoded_start": 1322,
+        "ggml_type_code": 39,
+        "ggml_type_name": "MXFP4",
+        "logical_element_count": 9865003008,
+        "name": "blk.16.ffn_up_exps.weight"
+      },
+      {
+        "data_offset": 21558265344,
+        "dimensions": [
+          7168,
+          6144
+        ],
+        "encoded_byte_length": 66,
+        "encoded_end": 1461,
+        "encoded_sha256": "50dc71f2a68757b0a9db74573af2012a0f146b793b9e2c53647c11b4c13633a2",
+        "encoded_start": 1395,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 44040192,
+        "name": "blk.16.ffn_up_shexp.weight"
+      },
+      {
+        "data_offset": 21605058048,
+        "dimensions": [
+          96
+        ],
+        "encoded_byte_length": 44,
+        "encoded_end": 1505,
+        "encoded_sha256": "f02a0873a77dd2cb34548a39b95eb4eaac57736a834ee7e3e21acc4301b58a4e",
+        "encoded_start": 1461,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 96,
+        "name": "blk.16.ssm_a"
+      },
+      {
+        "data_offset": 21605058432,
+        "dimensions": [
+          7168,
+          96
+        ],
+        "encoded_byte_length": 62,
+        "encoded_end": 1567,
+        "encoded_sha256": "24d82d386c270fcc5c692bb0af5cdbc4fa39a87035d83d3ae02e6d1884228ff3",
+        "encoded_start": 1505,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 688128,
+        "name": "blk.16.ssm_beta.weight"
+      },
+      {
+        "data_offset": 21607810944,
+        "dimensions": [
+          4,
+          1,
+          12288
+        ],
+        "encoded_byte_length": 74,
+        "encoded_end": 1641,
+        "encoded_sha256": "98bf551fc7a90a7188693c4bb00d9d227f92d23c6c97a3d508715adcf7178cee",
+        "encoded_start": 1567,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 49152,
+        "name": "blk.16.ssm_conv1d_k.weight"
+      },
+      {
+        "data_offset": 21608007552,
+        "dimensions": [
+          4,
+          1,
+          12288
+        ],
+        "encoded_byte_length": 74,
+        "encoded_end": 1715,
+        "encoded_sha256": "16fd1e3870500c86840d3344b0138a9a86dd7c94001b7e82ddbaff752a66f175",
+        "encoded_start": 1641,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 49152,
+        "name": "blk.16.ssm_conv1d_q.weight"
+      },
+      {
+        "data_offset": 21608204160,
+        "dimensions": [
+          4,
+          1,
+          12288
+        ],
+        "encoded_byte_length": 74,
+        "encoded_end": 1789,
+        "encoded_sha256": "68ebc2830bcfd37b440659668a593a9e25dca097e9fe6189bc0e7ef38cce2632",
+        "encoded_start": 1715,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 49152,
+        "name": "blk.16.ssm_conv1d_v.weight"
+      },
+      {
+        "data_offset": 21608400768,
+        "dimensions": [
+          12288
+        ],
+        "encoded_byte_length": 50,
+        "encoded_end": 1839,
+        "encoded_sha256": "b5ff2dc59da916235f4b497bfc16eb8f331d1e92b52c76cfdc5320fb2669dbef",
+        "encoded_start": 1789,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 12288,
+        "name": "blk.16.ssm_dt.bias"
+      },
+      {
+        "data_offset": 21608449920,
+        "dimensions": [
+          7168,
+          128
+        ],
+        "encoded_byte_length": 61,
+        "encoded_end": 1900,
+        "encoded_sha256": "449ad2d824e828101379738e3e5bc41b8ecc5d05eb0c2083f5139d2c1b7f168f",
+        "encoded_start": 1839,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 917504,
+        "name": "blk.16.ssm_f_a.weight"
+      },
+      {
+        "data_offset": 21609424768,
+        "dimensions": [
+          128,
+          12288
+        ],
+        "encoded_byte_length": 61,
+        "encoded_end": 1961,
+        "encoded_sha256": "612a11d0f8f6980716282abc4dd50341339060152b1a5d8298a46f40ef6dccfe",
+        "encoded_start": 1900,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 1572864,
+        "name": "blk.16.ssm_f_b.weight"
+      },
+      {
+        "data_offset": 21611095936,
+        "dimensions": [
+          7168,
+          12288
+        ],
+        "encoded_byte_length": 59,
+        "encoded_end": 2020,
+        "encoded_sha256": "e94ccf5e1429e001e752928c9a82da37f5c95a88500f4581f2a55d44b4f5f0fe",
+        "encoded_start": 1961,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 88080384,
+        "name": "blk.16.ssm_g.weight"
+      },
+      {
+        "data_offset": 21704681344,
+        "dimensions": [
+          128
+        ],
+        "encoded_byte_length": 54,
+        "encoded_end": 2074,
+        "encoded_sha256": "d9bb324735cdeed88925620ba5fb9b34bd082edcd5ec712b379cfe77be85f547",
+        "encoded_start": 2020,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 128,
+        "name": "blk.16.ssm_norm.weight"
+      },
+      {
+        "data_offset": 21704681856,
+        "dimensions": [
+          7168,
+          12288
+        ],
+        "encoded_byte_length": 60,
+        "encoded_end": 2134,
+        "encoded_sha256": "e3c45ce860f7204894ed478807544faada9187545f5aecb83f38ec8255a73f02",
+        "encoded_start": 2074,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 88080384,
+        "name": "blk.17.attn_k.weight"
+      },
+      {
+        "data_offset": 21798267264,
+        "dimensions": [
+          7168
+        ],
+        "encoded_byte_length": 55,
+        "encoded_end": 2189,
+        "encoded_sha256": "6f0ea5f5752644493524dcdbca650252e0d60a140c2871e35dcd670a8ebd75d5",
+        "encoded_start": 2134,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 7168,
+        "name": "blk.17.attn_norm.weight"
+      },
+      {
+        "data_offset": 21798295936,
+        "dimensions": [
+          12288,
+          7168
+        ],
+        "encoded_byte_length": 65,
+        "encoded_end": 2254,
+        "encoded_sha256": "ca346c8d87e3582a1729fba7e84c43af41cd23e9a4062ab006f37e39a1ca9926",
+        "encoded_start": 2189,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 88080384,
+        "name": "blk.17.attn_output.weight"
+      },
+      {
+        "data_offset": 21891881344,
+        "dimensions": [
+          7168,
+          12288
+        ],
+        "encoded_byte_length": 60,
+        "encoded_end": 2314,
+        "encoded_sha256": "073cf2349436c4316d32f6c3b4c782d2ebfeab5424154cd6171d797e43bde4ef",
+        "encoded_start": 2254,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 88080384,
+        "name": "blk.17.attn_q.weight"
+      },
+      {
+        "data_offset": 21985466752,
+        "dimensions": [
+          7168
+        ],
+        "encoded_byte_length": 60,
+        "encoded_end": 2374,
+        "encoded_sha256": "4cc9c13e729a283f16c1691fe160e65aa08066c90ef3fde2c93e0197ed31343e",
+        "encoded_start": 2314,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 7168,
+        "name": "blk.17.attn_res_score.weight"
+      },
+      {
+        "data_offset": 21985495424,
+        "dimensions": [
+          7168,
+          12288
+        ],
+        "encoded_byte_length": 60,
+        "encoded_end": 2434,
+        "encoded_sha256": "46420e6560b758818d39e576ca5109848b90cd844c3be2fa809c18636489934d",
+        "encoded_start": 2374,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 88080384,
+        "name": "blk.17.attn_v.weight"
+      },
+      {
+        "data_offset": 22079080832,
+        "dimensions": [
+          896
+        ],
+        "encoded_byte_length": 55,
+        "encoded_end": 2489,
+        "encoded_sha256": "0fff4b91add9e254c0f0d83f84c77224bafc495cebd1f0fd7f5b7e23670256f8",
+        "encoded_start": 2434,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 896,
+        "name": "blk.17.exp_probs_b.bias"
+      },
+      {
+        "data_offset": 22079084416,
+        "dimensions": [
+          3072,
+          3584,
+          896
+        ],
+        "encoded_byte_length": 75,
+        "encoded_end": 2564,
+        "encoded_sha256": "7358ed7d16adc926d43d568fb1c968bae25b6f508ace2ebb0411455191e7bc2d",
+        "encoded_start": 2489,
+        "ggml_type_code": 39,
+        "ggml_type_name": "MXFP4",
+        "logical_element_count": 9865003008,
+        "name": "blk.17.ffn_down_exps.weight"
+      },
+      {
+        "data_offset": 27319867264,
+        "dimensions": [
+          6144,
+          7168
+        ],
+        "encoded_byte_length": 68,
+        "encoded_end": 2632,
+        "encoded_sha256": "dcf82ee0050992375c57cf61e5d53bf467fe2530c2c163e54ccd7e0abff0c6eb",
+        "encoded_start": 2564,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 44040192,
+        "name": "blk.17.ffn_down_shexp.weight"
+      },
+      {
+        "data_offset": 27366659968,
+        "dimensions": [
+          3584,
+          3072,
+          896
+        ],
+        "encoded_byte_length": 75,
+        "encoded_end": 2707,
+        "encoded_sha256": "38bdda65c0065669c8511f113bba7762ec968bc615dd86c1a2c3556451e7958e",
+        "encoded_start": 2632,
+        "ggml_type_code": 39,
+        "ggml_type_name": "MXFP4",
+        "logical_element_count": 9865003008,
+        "name": "blk.17.ffn_gate_exps.weight"
+      },
+      {
+        "data_offset": 32607442816,
+        "dimensions": [
+          7168,
+          896
+        ],
+        "encoded_byte_length": 66,
+        "encoded_end": 2773,
+        "encoded_sha256": "b515fd0dadc0da37c1e20ce3080e88204e7e7e0ad55a7e87778fc9fb5e3f0d16",
+        "encoded_start": 2707,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 6422528,
+        "name": "blk.17.ffn_gate_inp.weight"
+      },
+      {
+        "data_offset": 32633132928,
+        "dimensions": [
+          7168,
+          6144
+        ],
+        "encoded_byte_length": 68,
+        "encoded_end": 2841,
+        "encoded_sha256": "5062b2192102fb72dfb01f3efafd2fe851915d233a1492560cfbcf12e1881ab6",
+        "encoded_start": 2773,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 44040192,
+        "name": "blk.17.ffn_gate_shexp.weight"
+      },
+      {
+        "data_offset": 32679925632,
+        "dimensions": [
+          7168
+        ],
+        "encoded_byte_length": 54,
+        "encoded_end": 2895,
+        "encoded_sha256": "49a88ebd4182f190dc10fdf655b5c443f4a9ba3da03720a498fb4b5e3556cbea",
+        "encoded_start": 2841,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 7168,
+        "name": "blk.17.ffn_norm.weight"
+      },
+      {
+        "data_offset": 32679954304,
+        "dimensions": [
+          7168
+        ],
+        "encoded_byte_length": 59,
+        "encoded_end": 2954,
+        "encoded_sha256": "ce26b545fca672a87443ae1e2356f39add4f5279e31d0db7677e5ccb290b1fba",
+        "encoded_start": 2895,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 7168,
+        "name": "blk.17.ffn_res_score.weight"
+      },
+      {
+        "data_offset": 32679982976,
+        "dimensions": [
+          7168,
+          3584
+        ],
+        "encoded_byte_length": 69,
+        "encoded_end": 3023,
+        "encoded_sha256": "f84f71a4483b7a997856b3ba28e84efe739b27097901d24441554eec15299752",
+        "encoded_start": 2954,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 25690112,
+        "name": "blk.17.ffn_routed_down.weight"
+      },
+      {
+        "data_offset": 32707278720,
+        "dimensions": [
+          3584
+        ],
+        "encoded_byte_length": 61,
+        "encoded_end": 3084,
+        "encoded_sha256": "3330f8e1c77cc8460d1121f93dfc8f098825f1bf642fcd794235a442d250613e",
+        "encoded_start": 3023,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 3584,
+        "name": "blk.17.ffn_routed_norm.weight"
+      },
+      {
+        "data_offset": 32707293056,
+        "dimensions": [
+          3584,
+          7168
+        ],
+        "encoded_byte_length": 67,
+        "encoded_end": 3151,
+        "encoded_sha256": "7e54f57f2689f0ebac893588a383fbf6e3277572d5d86c7fdf2fed527229a7b0",
+        "encoded_start": 3084,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 25690112,
+        "name": "blk.17.ffn_routed_up.weight"
+      },
+      {
+        "data_offset": 32734588800,
+        "dimensions": [
+          3584,
+          3072,
+          896
+        ],
+        "encoded_byte_length": 73,
+        "encoded_end": 3224,
+        "encoded_sha256": "4140731e4109063009d532609dc3fe93ea7152ed25f873f9e2701ec2cebb35cf",
+        "encoded_start": 3151,
+        "ggml_type_code": 39,
+        "ggml_type_name": "MXFP4",
+        "logical_element_count": 9865003008,
+        "name": "blk.17.ffn_up_exps.weight"
+      },
+      {
+        "data_offset": 37975371648,
+        "dimensions": [
+          7168,
+          6144
+        ],
+        "encoded_byte_length": 66,
+        "encoded_end": 3290,
+        "encoded_sha256": "ec3bdc0d7f07cf1a1af066789dd30843cc74208f803d3f5f1c37462440337ec4",
+        "encoded_start": 3224,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 44040192,
+        "name": "blk.17.ffn_up_shexp.weight"
+      },
+      {
+        "data_offset": 38022164352,
+        "dimensions": [
+          96
+        ],
+        "encoded_byte_length": 44,
+        "encoded_end": 3334,
+        "encoded_sha256": "6ccc8d20eb12305cc68aa74823a39814f7581b7631ef8370ff91a8e38c80dd4c",
+        "encoded_start": 3290,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 96,
+        "name": "blk.17.ssm_a"
+      },
+      {
+        "data_offset": 38022164736,
+        "dimensions": [
+          7168,
+          96
+        ],
+        "encoded_byte_length": 62,
+        "encoded_end": 3396,
+        "encoded_sha256": "7f07bea3954d997d0e1c2e2f9edf4a81f15e7ca56f65dc4c87860b513d99b070",
+        "encoded_start": 3334,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 688128,
+        "name": "blk.17.ssm_beta.weight"
+      },
+      {
+        "data_offset": 38024917248,
+        "dimensions": [
+          4,
+          1,
+          12288
+        ],
+        "encoded_byte_length": 74,
+        "encoded_end": 3470,
+        "encoded_sha256": "e6feefb68bc2438ebcecaa9d0ce31994c2cd15f5a25eac26cdc04c4649f3ee3e",
+        "encoded_start": 3396,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 49152,
+        "name": "blk.17.ssm_conv1d_k.weight"
+      },
+      {
+        "data_offset": 38025113856,
+        "dimensions": [
+          4,
+          1,
+          12288
+        ],
+        "encoded_byte_length": 74,
+        "encoded_end": 3544,
+        "encoded_sha256": "151e662d1f5dfe759f3f1576f40f1c1484e8d93fa6edd1148dae2cc64d802f05",
+        "encoded_start": 3470,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 49152,
+        "name": "blk.17.ssm_conv1d_q.weight"
+      },
+      {
+        "data_offset": 38025310464,
+        "dimensions": [
+          4,
+          1,
+          12288
+        ],
+        "encoded_byte_length": 74,
+        "encoded_end": 3618,
+        "encoded_sha256": "f0151b19bf4e7dcfb01195b8e01e39412ce4d78a4bc70066948f342d406e1852",
+        "encoded_start": 3544,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 49152,
+        "name": "blk.17.ssm_conv1d_v.weight"
+      },
+      {
+        "data_offset": 38025507072,
+        "dimensions": [
+          12288
+        ],
+        "encoded_byte_length": 50,
+        "encoded_end": 3668,
+        "encoded_sha256": "c6c5779e86f839c44e4b34ee70ddb9c57e689c9a60e2e1da95f1a046ccc993e0",
+        "encoded_start": 3618,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 12288,
+        "name": "blk.17.ssm_dt.bias"
+      },
+      {
+        "data_offset": 38025556224,
+        "dimensions": [
+          7168,
+          128
+        ],
+        "encoded_byte_length": 61,
+        "encoded_end": 3729,
+        "encoded_sha256": "d5d118f0301f224d9078ad0cf774016ee6fc2bdfde1d52cb3e8f778024cfd44c",
+        "encoded_start": 3668,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 917504,
+        "name": "blk.17.ssm_f_a.weight"
+      },
+      {
+        "data_offset": 38026531072,
+        "dimensions": [
+          128,
+          12288
+        ],
+        "encoded_byte_length": 61,
+        "encoded_end": 3790,
+        "encoded_sha256": "ce9673f7013e0629c18aa1b83b09a8ffb2e2ec875a6bab814af5bdf487bf3a96",
+        "encoded_start": 3729,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 1572864,
+        "name": "blk.17.ssm_f_b.weight"
+      },
+      {
+        "data_offset": 38028202240,
+        "dimensions": [
+          7168,
+          12288
+        ],
+        "encoded_byte_length": 59,
+        "encoded_end": 3849,
+        "encoded_sha256": "8ae060e1f5ec5d736f818af3e33b0f2f3f831f52ff7c4e18c0c9714c458d6a5f",
+        "encoded_start": 3790,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 88080384,
+        "name": "blk.17.ssm_g.weight"
+      },
+      {
+        "data_offset": 38121787648,
+        "dimensions": [
+          128
+        ],
+        "encoded_byte_length": 54,
+        "encoded_end": 3903,
+        "encoded_sha256": "9a60c636fb42b1ac42cfdb9c8918299931bdc56bb08b74f71090cb9924c044dc",
+        "encoded_start": 3849,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 128,
+        "name": "blk.17.ssm_norm.weight"
+      },
+      {
+        "data_offset": 38121788160,
+        "dimensions": [
+          7168,
+          12288
+        ],
+        "encoded_byte_length": 60,
+        "encoded_end": 3963,
+        "encoded_sha256": "1a29db2c54c5348ca9376815f6e34a629f022b4fe2d54a428cb8bdcfbada3e40",
+        "encoded_start": 3903,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 88080384,
+        "name": "blk.18.attn_k.weight"
+      },
+      {
+        "data_offset": 38215373568,
+        "dimensions": [
+          7168
+        ],
+        "encoded_byte_length": 55,
+        "encoded_end": 4018,
+        "encoded_sha256": "ccfcb1c320c922be883af854e9407412420c9480be7a7d44e15bb14845ce612e",
+        "encoded_start": 3963,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 7168,
+        "name": "blk.18.attn_norm.weight"
+      },
+      {
+        "data_offset": 38215402240,
+        "dimensions": [
+          12288,
+          7168
+        ],
+        "encoded_byte_length": 65,
+        "encoded_end": 4083,
+        "encoded_sha256": "479c928a35353cf996ffaa640a32d9934fb099bd8c6882b26726b202e79c42d5",
+        "encoded_start": 4018,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 88080384,
+        "name": "blk.18.attn_output.weight"
+      },
+      {
+        "data_offset": 38308987648,
+        "dimensions": [
+          7168,
+          12288
+        ],
+        "encoded_byte_length": 60,
+        "encoded_end": 4143,
+        "encoded_sha256": "5c2802e7f4bd555d3415378f5562ec9d5963d64060db4b4c8f7712caf0fbc066",
+        "encoded_start": 4083,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 88080384,
+        "name": "blk.18.attn_q.weight"
+      },
+      {
+        "data_offset": 38402573056,
+        "dimensions": [
+          7168
+        ],
+        "encoded_byte_length": 60,
+        "encoded_end": 4203,
+        "encoded_sha256": "4489180f28076b5faeb7c2afc96261566b785fab4f3bcaa01887e8145061cb13",
+        "encoded_start": 4143,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 7168,
+        "name": "blk.18.attn_res_score.weight"
+      },
+      {
+        "data_offset": 38402601728,
+        "dimensions": [
+          7168,
+          12288
+        ],
+        "encoded_byte_length": 60,
+        "encoded_end": 4263,
+        "encoded_sha256": "8d0b660507a665a881a48c14cf50c31ece507bfd3fd56b0c403ffcc048f9058d",
+        "encoded_start": 4203,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 88080384,
+        "name": "blk.18.attn_v.weight"
+      },
+      {
+        "data_offset": 38496187136,
+        "dimensions": [
+          896
+        ],
+        "encoded_byte_length": 55,
+        "encoded_end": 4318,
+        "encoded_sha256": "732bd1755df8230464515a7d144fd65f593a7e247d4eac171808e9fe3f0d7980",
+        "encoded_start": 4263,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 896,
+        "name": "blk.18.exp_probs_b.bias"
+      },
+      {
+        "data_offset": 38496190720,
+        "dimensions": [
+          3072,
+          3584,
+          896
+        ],
+        "encoded_byte_length": 75,
+        "encoded_end": 4393,
+        "encoded_sha256": "1c5458a6d86324b36328389e2919bc8dede4c413665be31fb6558148f6159053",
+        "encoded_start": 4318,
+        "ggml_type_code": 39,
+        "ggml_type_name": "MXFP4",
+        "logical_element_count": 9865003008,
+        "name": "blk.18.ffn_down_exps.weight"
+      },
+      {
+        "data_offset": 43736973568,
+        "dimensions": [
+          6144,
+          7168
+        ],
+        "encoded_byte_length": 68,
+        "encoded_end": 4461,
+        "encoded_sha256": "c8a0b4218876f9f5702bcdc978ad0a96afbeef97d505ca5c2cb3da8c658e90d7",
+        "encoded_start": 4393,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 44040192,
+        "name": "blk.18.ffn_down_shexp.weight"
+      },
+      {
+        "data_offset": 43783766272,
+        "dimensions": [
+          3584,
+          3072,
+          896
+        ],
+        "encoded_byte_length": 75,
+        "encoded_end": 4536,
+        "encoded_sha256": "05d10dd49261fa54965b74938eadc84c601303779783eb97009b1cd0edd120d2",
+        "encoded_start": 4461,
+        "ggml_type_code": 39,
+        "ggml_type_name": "MXFP4",
+        "logical_element_count": 9865003008,
+        "name": "blk.18.ffn_gate_exps.weight"
+      },
+      {
+        "data_offset": 49024549120,
+        "dimensions": [
+          7168,
+          896
+        ],
+        "encoded_byte_length": 66,
+        "encoded_end": 4602,
+        "encoded_sha256": "8fd896968ab5ca51585271b671fd6e4cdc3b2143aa2536e546c0cf25f5095339",
+        "encoded_start": 4536,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 6422528,
+        "name": "blk.18.ffn_gate_inp.weight"
+      },
+      {
+        "data_offset": 49050239232,
+        "dimensions": [
+          7168,
+          6144
+        ],
+        "encoded_byte_length": 68,
+        "encoded_end": 4670,
+        "encoded_sha256": "98bee48db8323f65ceed7180b0d4d53dec7be1facb39d447033285d562d55c19",
+        "encoded_start": 4602,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 44040192,
+        "name": "blk.18.ffn_gate_shexp.weight"
+      },
+      {
+        "data_offset": 49097031936,
+        "dimensions": [
+          7168
+        ],
+        "encoded_byte_length": 54,
+        "encoded_end": 4724,
+        "encoded_sha256": "604e14e7a088d0c1774259b1fb11efd2d2bee861576d942a082ee656ebfbe1c3",
+        "encoded_start": 4670,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 7168,
+        "name": "blk.18.ffn_norm.weight"
+      },
+      {
+        "data_offset": 49097060608,
+        "dimensions": [
+          7168
+        ],
+        "encoded_byte_length": 59,
+        "encoded_end": 4783,
+        "encoded_sha256": "d9c02b1b4ecae5488c09a5a77e7a7f9ce67439d9446ecde17f8fd8d50241bfc8",
+        "encoded_start": 4724,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 7168,
+        "name": "blk.18.ffn_res_score.weight"
+      },
+      {
+        "data_offset": 49097089280,
+        "dimensions": [
+          7168,
+          3584
+        ],
+        "encoded_byte_length": 69,
+        "encoded_end": 4852,
+        "encoded_sha256": "3ae56e59b3fed90762a14f72e7bb43f5aeb83f4dc5682cb1f07c9ea5e7052781",
+        "encoded_start": 4783,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 25690112,
+        "name": "blk.18.ffn_routed_down.weight"
+      },
+      {
+        "data_offset": 49124385024,
+        "dimensions": [
+          3584
+        ],
+        "encoded_byte_length": 61,
+        "encoded_end": 4913,
+        "encoded_sha256": "74929e2ba74a882f94e3ece3022044e4b56153dfa1d7246eddaf566c046d264e",
+        "encoded_start": 4852,
+        "ggml_type_code": 0,
+        "ggml_type_name": "F32",
+        "logical_element_count": 3584,
+        "name": "blk.18.ffn_routed_norm.weight"
+      },
+      {
+        "data_offset": 49124399360,
+        "dimensions": [
+          3584,
+          7168
+        ],
+        "encoded_byte_length": 67,
+        "encoded_end": 4980,
+        "encoded_sha256": "ece876f26e60c604281c85f0527e9b68996f2d0f6d316a6fbb97e0d795015812",
+        "encoded_start": 4913,
+        "ggml_type_code": 8,
+        "ggml_type_name": "Q8_0",
+        "logical_element_count": 25690112,
+        "name": "blk.18.ffn_routed_up.weight"
+      }
+    ],
+    "total_remote_bytes_accepted": 4980
+  }
+}

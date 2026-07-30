@@ -214,7 +214,7 @@ def test_family_shape_normalization_and_type_placement(ontology) -> None:
     assert packed.shape_summaries[0].physical_dimensions == [3584, 3072, 896]
     assert packed.shape_summaries[0].normalized_dimensions == [3584, 3072, 896]
     assert packed.ggml_type_counts == {"IQ1_S": 64, "IQ2_XXS": 28}
-    assert packed.allowed_ggml_types == ["IQ1_S", "IQ2_XXS"]
+    assert packed.allowed_ggml_types == ["IQ1_S", "IQ2_XXS", "MXFP4"]
     assert packed.shape_valid and packed.type_valid and packed.coverage_valid
     norm = families["attention.input_norm"]
     assert norm.ggml_type_counts == {"F32": 93}
@@ -250,6 +250,56 @@ def _changed_split(
         )
     changed = type(split.inventory).model_validate(raw)
     return build_split_inventory_envelope(changed)
+
+
+@pytest.mark.parametrize(
+    "tensor_name",
+    [
+        "blk.1.ffn_gate_exps.weight",
+        "blk.1.ffn_up_exps.weight",
+        "blk.1.ffn_down_exps.weight",
+    ],
+)
+def test_mxfp4_is_narrowly_allowed_for_packed_experts(
+    split: SplitInventoryEnvelope,
+    metadata: HeaderInventoryEnvelope,
+    tensor_name: str,
+) -> None:
+    changed = _changed_split(
+        split,
+        tensor_name=tensor_name,
+        ggml_type_name="MXFP4",
+    )
+    result = build_kimi_k3_gguf_ontology(
+        changed, metadata, get_model_pack("kimi-k3")
+    )
+    assert result.classification.invalid_count == 0
+
+
+@pytest.mark.parametrize(
+    "tensor_name",
+    [
+        "blk.1.attn_norm.weight",
+        "blk.1.ffn_gate_inp.weight",
+        "blk.1.attn_res_score.weight",
+        "blk.0.ffn_gate.weight",
+    ],
+)
+def test_mxfp4_is_rejected_outside_packed_experts(
+    split: SplitInventoryEnvelope,
+    metadata: HeaderInventoryEnvelope,
+    tensor_name: str,
+) -> None:
+    changed = _changed_split(
+        split,
+        tensor_name=tensor_name,
+        ggml_type_name="MXFP4",
+    )
+    result = build_kimi_k3_gguf_ontology(
+        changed, metadata, get_model_pack("kimi-k3")
+    )
+    assert result.classification.invalid_count == 1
+    assert result.classification.invalid_details[0].name == tensor_name
 
 
 @pytest.mark.parametrize(

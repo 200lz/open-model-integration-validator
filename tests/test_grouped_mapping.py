@@ -228,6 +228,15 @@ def test_kimi_mapping_policy_is_complete_and_non_ambiguous() -> None:
     assert all(rule.target_name_patterns for rule in policy.rules)
     assert all(rule.source_dtype in {"BF16", "F32", "U8"} for rule in policy.rules)
     assert all(rule.allowed_target_types for rule in policy.rules)
+    assert {
+        rule.rule_id
+        for rule in policy.rules
+        if "MXFP4" in rule.allowed_target_types
+    } == {
+        "K3-EXP-DOWN",
+        "K3-EXP-GATE",
+        "K3-EXP-UP",
+    }
     assert all(rule.converter_operation for rule in policy.rules)
     assert all(rule.payload_status.value == "not_checked" for rule in policy.rules)
     relations = {rule.relation for rule in policy.rules}

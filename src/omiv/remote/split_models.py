@@ -164,6 +164,33 @@ class GGMLTypePolicy(StrictModel):
         return canonical_sha256(self.model_dump(mode="json"))
 
 
+class GGMLTypeTraitV2(StrictModel):
+    type_code: int = Field(ge=0)
+    type_name: str
+    block_elements: int = Field(ge=1)
+    block_bytes: int = Field(ge=1)
+    layout_rule: str | None = None
+    encoded_size_formula: str | None = None
+    evidence_role: str | None = None
+
+
+class GGMLTypePolicyV2(StrictModel):
+    policy_schema: Literal["omiv.ggml-type-size-policy.v2"] = (
+        "omiv.ggml-type-size-policy.v2"
+    )
+    source_identity: str
+    evidence_revision: str
+    evidence_role: str
+    traits: list[GGMLTypeTraitV2]
+
+    @property
+    def digest(self) -> str:
+        return canonical_sha256(self.model_dump(mode="json"))
+
+
+GGMLTypePolicyAny = GGMLTypePolicy | GGMLTypePolicyV2
+
+
 class SplitIdentity(StrictModel):
     filename_ordinal: int = Field(ge=1)
     filename_declared_count: int = Field(ge=1)
@@ -255,7 +282,7 @@ class SplitGGUFInventory(StrictModel):
     aggregation_policy_sha256: str = Field(pattern=SHA256_PATTERN)
     metadata_policy: SplitMetadataPolicy
     metadata_policy_sha256: str = Field(pattern=SHA256_PATTERN)
-    ggml_type_policy: GGMLTypePolicy
+    ggml_type_policy: GGMLTypePolicyAny
     ggml_type_policy_sha256: str = Field(pattern=SHA256_PATTERN)
     shard_count: int = Field(ge=1)
     declared_split_count: int = Field(ge=1)

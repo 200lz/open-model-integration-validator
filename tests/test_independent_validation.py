@@ -205,11 +205,11 @@ def test_real_graph_and_artifact_index_digests_are_stable(
 ) -> None:
     assert (
         validation_inventory.evidence_graph_digest
-        == "25967beebe9edbe79874eeda88516680c08cc820b34905fb6c174ac8bd42bc36"
+        == "ea08a66295a72ebb1331196e9cd3c94845fc21208b08240447828ae77b7db2eb"
     )
     assert (
         validation_inventory.artifact_index.index_digest
-        == "1760af1e55d11c22415283ec4da3e341944aec598bf5a8021a16f0a798b62170"
+        == "6059d6a460f5d417173c4346f0c4e5d6c26a4887e488ea7c24d5e473ca6094a6"
     )
 
 

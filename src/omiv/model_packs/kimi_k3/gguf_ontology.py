@@ -507,7 +507,7 @@ def _default_rules() -> list[TensorFamilyRule]:
             "routed_experts",
             (3072, 3584, 896),
             ("expert_intermediate", "expert_latent", "expert"),
-            ("IQ1_S", "IQ3_XXS"),
+            ("IQ1_S", "IQ3_XXS", "MXFP4"),
             ShapeRelation.IDENTITY,
         ),
         _r(
@@ -519,7 +519,7 @@ def _default_rules() -> list[TensorFamilyRule]:
             "routed_experts",
             (3584, 3072, 896),
             ("expert_latent", "expert_intermediate", "expert"),
-            ("IQ1_S", "IQ2_XXS"),
+            ("IQ1_S", "IQ2_XXS", "MXFP4"),
             ShapeRelation.IDENTITY,
         ),
         _r(
@@ -531,7 +531,7 @@ def _default_rules() -> list[TensorFamilyRule]:
             "routed_experts",
             (3584, 3072, 896),
             ("expert_latent", "expert_intermediate", "expert"),
-            ("IQ1_S", "IQ2_XXS"),
+            ("IQ1_S", "IQ2_XXS", "MXFP4"),
             ShapeRelation.IDENTITY,
         ),
         _r(
@@ -617,6 +617,8 @@ class KimiK3GGUFOntologyPolicy(StrictModel):
             f"llama.cpp@{PINNED_LLAMA_CPP_REVISION}:kimi-k3-loader-and-tensor-names",
             "unsloth/Kimi-K3-GGUF@3d4b61ab4b6789d401191c476cbb4567246db8f5:"
             "UD-IQ1_M-header-descriptors",
+            "unsloth/Kimi-K3-GGUF@3d4b61ab4b6789d401191c476cbb4567246db8f5:"
+            "UD-Q4_K_XL-MXFP4-packed-expert-header-descriptors",
         ]
     )
     expected_architecture: Literal["kimi-k3"] = "kimi-k3"

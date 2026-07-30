@@ -60,19 +60,25 @@ from omiv.validation.profiles import STRUCTURAL_STAGES, evaluate_profiles, profi
 EXPECTED_REPOSITORY = "unsloth/Kimi-K3-GGUF"
 EXPECTED_REVISION = "3d4b61ab4b6789d401191c476cbb4567246db8f5"
 EXPECTED_PACK_DIGEST = "6f151e70f2b28e367b84c59db6e7ad4184271b1cc7f518320043e3456c3ef288"
-EXPECTED_MAPPING_POLICY = "bcfe1dbcbe2bd4724e385c5598fc7182bd630a0e090913fcf8c94e491573d0a9"
-EXPECTED_ONTOLOGY_POLICY = "dcd1ab32ba30153b2aa0c614136a35b090688e60fb2c7beb339421132badbbca"
+EXPECTED_MAPPING_POLICY = "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c"
+EXPECTED_ONTOLOGY_POLICY = "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0"
 EXPECTED_CONVERTER = "cf67f0d24511864d2d3da0769108fd6fc16d00d1"
 OMIV_EVIDENCE_REVISION = "9773b83e3c2ee2d47df3ed9324063bb7697af19f"
 
-SNAPSHOT_REPORT = "reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.snapshot.report.json"
-PREFIX_REPORT = "reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M_shard1.prefix.report.json"
-HEADER_REPORT = "reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M_shard1.header.report.json"
-SPLIT_REPORT = "reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.split.report.json"
-ONTOLOGY_REPORT = "reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.kimi-k3-ontology.report.json"
-MAPPING_REPORT = "reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.semantic-mapping.report.json"
 SOURCE_INVENTORY = "reports/raw/kimi_k3_tensors.json"
-SHARD_DIRECTORY = "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M/shards"
+
+
+def _variant_paths(root: Path, variant: str) -> dict[str, Path]:
+    stem = f"unsloth_Kimi-K3-GGUF_{variant}"
+    return {
+        "snapshot_report": root / f"reports/remote/{stem}.snapshot.report.json",
+        "prefix_report": root / f"reports/remote/{stem}_shard1.prefix.report.json",
+        "header_report": root / f"reports/remote/{stem}_shard1.header.report.json",
+        "split_report": root / f"reports/remote/{stem}.split.report.json",
+        "ontology_report": root / f"reports/remote/{stem}.kimi-k3-ontology.report.json",
+        "mapping_report": root / f"reports/remote/{stem}.semantic-mapping.report.json",
+        "shard_directory": root / f"inventories/remote/{stem}/shards",
+    }
 
 
 def _sha256_file(path: Path) -> str:
@@ -351,19 +357,20 @@ def build_independent_validation(
 ) -> ValidationInventory:
     """Verify Phase 4F-1 through 4F-5 and compose an offline validation inventory."""
     _require(subject == "kimi-k3", f"unsupported independent-validation subject: {subject}")
-    _require(variant == "UD-IQ1_M", f"unsupported artifact variant: {variant}")
+    _require(bool(variant) and "/" not in variant, f"invalid artifact variant: {variant}")
     root = root.resolve()
+    companion_paths = _variant_paths(root, variant)
     paths = {
         "snapshot": snapshot_path.resolve(),
-        "snapshot_report": root / SNAPSHOT_REPORT,
-        "prefix_report": root / PREFIX_REPORT,
-        "header_report": root / HEADER_REPORT,
+        "snapshot_report": companion_paths["snapshot_report"],
+        "prefix_report": companion_paths["prefix_report"],
+        "header_report": companion_paths["header_report"],
         "split": split_path.resolve(),
-        "split_report": root / SPLIT_REPORT,
+        "split_report": companion_paths["split_report"],
         "ontology": ontology_path.resolve(),
-        "ontology_report": root / ONTOLOGY_REPORT,
+        "ontology_report": companion_paths["ontology_report"],
         "mapping": mapping_path.resolve(),
-        "mapping_report": root / MAPPING_REPORT,
+        "mapping_report": companion_paths["mapping_report"],
         "source": root / SOURCE_INVENTORY,
     }
     for label, path in paths.items():
@@ -385,8 +392,11 @@ def build_independent_validation(
         "prefix report linkage mismatch",
     )
 
-    header_paths = sorted((root / SHARD_DIRECTORY).glob("*.header.inventory.json"))
-    _require(len(header_paths) == 15, "expected exactly 15 per-shard header inventories")
+    header_paths = sorted(companion_paths["shard_directory"].glob("*.header.inventory.json"))
+    _require(
+        len(header_paths) == snapshot.snapshot.summary.file_count,
+        "per-shard header inventory count does not match snapshot selection",
+    )
     headers = [load_header_inventory(path) for path in header_paths]
     header_report = load_header_report(paths["header_report"])
     _require(header_report_integrity_matches(header_report), "header report integrity mismatch")
@@ -1018,8 +1028,14 @@ def build_independent_validation(
     source_accounting = dict(mapping.source_accounting)
     target_accounting = dict(mapping.target_accounting)
     coverage = dict(mapping.coverage)
-    _require(source_accounting["physical_records"] == 497220, "source total mismatch")
-    _require(target_accounting["physical_records"] == 2573, "target total mismatch")
+    _require(
+        source_accounting["physical_records"] == mapping.source["physical_count"],
+        "source accounting total mismatch",
+    )
+    _require(
+        target_accounting["physical_records"] == split.inventory.aggregated_tensor_count,
+        "target accounting total mismatch",
+    )
     _require(source_accounting["unresolved_records"] == 0, "source records unresolved")
     _require(target_accounting["unresolved_records"] == 0, "target descriptors unresolved")
     _require(
@@ -1038,7 +1054,7 @@ def build_independent_validation(
             EvidenceStatus.PASS,
             "Subject identity is pinned.",
             repository=EXPECTED_REPOSITORY,
-            revision=EXPECTED_REVISION,
+            revision=snapshot.snapshot.repository.resolved_revision,
         ),
         _finding(
             "VALIDATE-002",
@@ -1231,7 +1247,7 @@ def build_independent_validation(
             ReproductionCommand(
                 command=(
                     "omiv remote-snapshot --provider huggingface --repo "
-                    "unsloth/Kimi-K3-GGUF --revision main --path-prefix UD-IQ1_M "
+                    f"unsloth/Kimi-K3-GGUF --revision main --path-prefix {variant} "
                     "--pattern '*.gguf'"
                 ),
                 network_requirement="online",
@@ -1240,8 +1256,8 @@ def build_independent_validation(
             ReproductionCommand(
                 command=(
                     "omiv remote-split-gguf --snapshot snapshots/huggingface/"
-                    "unsloth_Kimi-K3-GGUF_UD-IQ1_M.snapshot.json --output "
-                    "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M."
+                    f"unsloth_Kimi-K3-GGUF_{variant}.snapshot.json --output "
+                    f"inventories/remote/unsloth_Kimi-K3-GGUF_{variant}."
                     "split.inventory.json"
                 ),
                 network_requirement="online",
@@ -1254,7 +1270,7 @@ def build_independent_validation(
             ReproductionCommand(
                 command=(
                     "omiv independent-validation-inventory-verify --input "
-                    "validations/unsloth_Kimi-K3-GGUF_UD-IQ1_M."
+                    f"validations/unsloth_Kimi-K3-GGUF_{variant}."
                     "validation.inventory.json"
                 ),
                 network_requirement="offline",
@@ -1263,7 +1279,7 @@ def build_independent_validation(
             ReproductionCommand(
                 command=(
                     "omiv report-verify --input reports/validation/"
-                    "unsloth_Kimi-K3-GGUF_UD-IQ1_M.validation.report.json"
+                    f"unsloth_Kimi-K3-GGUF_{variant}.validation.report.json"
                 ),
                 network_requirement="offline",
                 purpose="Verify the final report and reconstruct its results.",
@@ -1286,7 +1302,7 @@ def build_independent_validation(
             repository=snapshot.snapshot.repository.repo_id,
             requested_revision=snapshot.snapshot.repository.requested_revision,
             resolved_revision=snapshot.snapshot.repository.resolved_revision,
-            selection="UD-IQ1_M/*.gguf",
+            selection=f"{variant}/*.gguf",
         ),
         "source_artifact_identity": {
             "inventory_digest": source_digest,

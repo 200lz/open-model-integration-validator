@@ -1,0 +1,90 @@
+{
+  "integrity": {
+    "canonicalization": "omiv-json-v1",
+    "sha256": "8b1294201d1c24074778949e9a334b16df7d9f0a06ed2a797532b128cd9dbbe0"
+  },
+  "report": {
+    "bounded_range_evidence": {
+      "content_range": "bytes 0-7/6934144",
+      "etag": "\"d3f3612cc17c019b3d45f8f1244ff8f2eac8b82fc683dcf2928e6d8452c14123\"",
+      "http_status": 206,
+      "path": "UD-Q4_K_XL/Kimi-K3-UD-Q4_K_XL-00001-of-00032.gguf",
+      "provider": "huggingface",
+      "redirect_count": 1,
+      "requested_range": {
+        "end": 7,
+        "length": 8,
+        "offset": 0
+      },
+      "response_byte_count": 8,
+      "response_sha256": "527ee9a8eac07fc69af277c264ea5bf5c0f037c442b5c3336c18aa10d2096bd6",
+      "result": "pass",
+      "storage": "lfs",
+      "total_artifact_size": 6934144
+    },
+    "claim": "bounded GGUF prefix identity only; no payload claim",
+    "execution": {
+      "exit_code": 0,
+      "result": "pass"
+    },
+    "findings": [
+      {
+        "evidence": {},
+        "message": "HTTPS and provider host policy validated.",
+        "rule_id": "RANGE-001",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {},
+        "message": "Exactly eight response bytes were accepted.",
+        "rule_id": "RANGE-002",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {},
+        "message": "Content-Range matched bytes 0 through 7.",
+        "rule_id": "RANGE-003",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {},
+        "message": "Response body length was eight bytes.",
+        "rule_id": "RANGE-004",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {},
+        "message": "Artifact size matched snapshot metadata.",
+        "rule_id": "RANGE-005",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {},
+        "message": "GGUF magic and little-endian version prefix are present.",
+        "rule_id": "RANGE-006",
+        "severity": "info",
+        "status": "pass"
+      }
+    ],
+    "gguf_magic_valid": true,
+    "limitations": [
+      "Only bytes 0 through 7 were requested.",
+      "Complete metadata, tensors, split headers, and payloads were not inspected."
+    ],
+    "path": "UD-Q4_K_XL/Kimi-K3-UD-Q4_K_XL-00001-of-00032.gguf",
+    "report_schema": "omiv.remote-gguf-prefix-report.v1",
+    "repository": {
+      "repo_id": "unsloth/Kimi-K3-GGUF",
+      "repo_type": "model",
+      "requested_revision": "main",
+      "resolved_revision": "3d4b61ab4b6789d401191c476cbb4567246db8f5"
+    },
+    "snapshot_sha256": "845df5f9ddfd88c6abe4778ac9924fb68bc0c247380dfa580a0683b07d9547c0",
+    "version": 3
+  }
+}

@@ -134,7 +134,7 @@
     },
     {
       "code": "MAPGROUP-003",
-      "message": "mapping policy digest bcfe1dbcbe2bd4724e385c5598fc7182bd630a0e090913fcf8c94e491573d0a9",
+      "message": "mapping policy digest 0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c",
       "status": "PASS"
     },
     {
@@ -193,7 +193,7 @@
       "status": "NOT_CHECKED"
     }
   ],
-  "inventory_digest": "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16",
+  "inventory_digest": "f380d9b9ee8060cf205eef4c69e58353608f148f2ea59ba680e7af522e034afb",
   "kimi_summary": {
     "attention_residual": {
       "source_members": 374,
@@ -259,7 +259,7 @@
       "shared_routing_mixing_gate": "absent_not_applicable"
     }
   },
-  "mapping_policy_digest": "bcfe1dbcbe2bd4724e385c5598fc7182bd630a0e090913fcf8c94e491573d0a9",
+  "mapping_policy_digest": "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c",
   "mapping_results": [
     {
       "allowed_target_types": [
@@ -14553,7 +14553,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -14614,7 +14615,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -14675,7 +14677,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -14736,7 +14739,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -14797,7 +14801,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -14858,7 +14863,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -14919,7 +14925,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -14980,7 +14987,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -15041,7 +15049,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -15102,7 +15111,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -15163,7 +15173,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -15224,7 +15235,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -15285,7 +15297,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -15346,7 +15359,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -15407,7 +15421,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -15468,7 +15483,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -15529,7 +15545,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -15590,7 +15607,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -15651,7 +15669,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -15712,7 +15731,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -15773,7 +15793,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -15834,7 +15855,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -15895,7 +15917,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -15956,7 +15979,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -16017,7 +16041,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -16078,7 +16103,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -16139,7 +16165,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -16200,7 +16227,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -16261,7 +16289,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -16322,7 +16351,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -16383,7 +16413,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -16444,7 +16475,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -16505,7 +16537,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -16566,7 +16599,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -16627,7 +16661,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -16688,7 +16723,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -16749,7 +16785,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -16810,7 +16847,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -16871,7 +16909,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -16932,7 +16971,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -16993,7 +17033,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -17054,7 +17095,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -17115,7 +17157,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -17176,7 +17219,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -17237,7 +17281,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -17298,7 +17343,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -17359,7 +17405,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -17420,7 +17467,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -17481,7 +17529,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -17542,7 +17591,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -17603,7 +17653,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -17664,7 +17715,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -17725,7 +17777,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -17786,7 +17839,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -17847,7 +17901,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -17908,7 +17963,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -17969,7 +18025,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -18030,7 +18087,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -18091,7 +18149,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -18152,7 +18211,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -18213,7 +18273,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -18274,7 +18335,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -18335,7 +18397,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -18396,7 +18459,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -18457,7 +18521,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -18518,7 +18583,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -18579,7 +18645,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -18640,7 +18707,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -18701,7 +18769,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -18762,7 +18831,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -18823,7 +18893,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -18884,7 +18955,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -18945,7 +19017,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -19006,7 +19079,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -19067,7 +19141,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -19128,7 +19203,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -19189,7 +19265,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -19250,7 +19327,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -19311,7 +19389,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -19372,7 +19451,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -19433,7 +19513,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -19494,7 +19575,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -19555,7 +19637,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -19616,7 +19699,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -19677,7 +19761,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -19738,7 +19823,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -19799,7 +19885,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -19860,7 +19947,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -19921,7 +20009,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -19982,7 +20071,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -20043,7 +20133,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -20104,7 +20195,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ3_XXS"
+        "IQ3_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -20165,7 +20257,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -20226,7 +20319,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -20287,7 +20381,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -20348,7 +20443,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -20409,7 +20505,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -20470,7 +20567,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -20531,7 +20629,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -20592,7 +20691,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -20653,7 +20753,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -20714,7 +20815,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -20775,7 +20877,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -20836,7 +20939,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -20897,7 +21001,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -20958,7 +21063,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -21019,7 +21125,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -21080,7 +21187,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -21141,7 +21249,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -21202,7 +21311,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -21263,7 +21373,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -21324,7 +21435,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -21385,7 +21497,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -21446,7 +21559,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -21507,7 +21621,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -21568,7 +21683,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -21629,7 +21745,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -21690,7 +21807,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -21751,7 +21869,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -21812,7 +21931,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -21873,7 +21993,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -21934,7 +22055,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -21995,7 +22117,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -22056,7 +22179,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -22117,7 +22241,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -22178,7 +22303,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -22239,7 +22365,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -22300,7 +22427,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -22361,7 +22489,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -22422,7 +22551,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -22483,7 +22613,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -22544,7 +22675,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -22605,7 +22737,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -22666,7 +22799,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -22727,7 +22861,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -22788,7 +22923,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -22849,7 +22985,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -22910,7 +23047,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -22971,7 +23109,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -23032,7 +23171,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -23093,7 +23233,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -23154,7 +23295,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -23215,7 +23357,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -23276,7 +23419,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -23337,7 +23481,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -23398,7 +23543,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -23459,7 +23605,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -23520,7 +23667,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -23581,7 +23729,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -23642,7 +23791,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -23703,7 +23853,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -23764,7 +23915,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -23825,7 +23977,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -23886,7 +24039,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -23947,7 +24101,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -24008,7 +24163,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -24069,7 +24225,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -24130,7 +24287,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -24191,7 +24349,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -24252,7 +24411,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -24313,7 +24473,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -24374,7 +24535,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -24435,7 +24597,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -24496,7 +24659,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -24557,7 +24721,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -24618,7 +24783,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -24679,7 +24845,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -24740,7 +24907,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -24801,7 +24969,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -24862,7 +25031,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -24923,7 +25093,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -24984,7 +25155,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -25045,7 +25217,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -25106,7 +25279,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -25167,7 +25341,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -25228,7 +25403,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -25289,7 +25465,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -25350,7 +25527,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -25411,7 +25589,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -25472,7 +25651,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -25533,7 +25713,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -25594,7 +25775,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -25655,7 +25837,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -25716,7 +25899,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -25777,7 +25961,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -25838,7 +26023,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -25899,7 +26085,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -25960,7 +26147,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -26021,7 +26209,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -26082,7 +26271,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -26143,7 +26333,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -26204,7 +26395,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -26265,7 +26457,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -26326,7 +26519,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -26387,7 +26581,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -26448,7 +26643,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -26509,7 +26705,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -26570,7 +26767,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -26631,7 +26829,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -26692,7 +26891,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -26753,7 +26953,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -26814,7 +27015,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -26875,7 +27077,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -26936,7 +27139,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -26997,7 +27201,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -27058,7 +27263,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -27119,7 +27325,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -27180,7 +27387,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -27241,7 +27449,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -27302,7 +27511,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -27363,7 +27573,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -27424,7 +27635,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -27485,7 +27697,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -27546,7 +27759,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -27607,7 +27821,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -27668,7 +27883,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -27729,7 +27945,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -27790,7 +28007,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -27851,7 +28069,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -27912,7 +28131,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -27973,7 +28193,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -28034,7 +28255,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -28095,7 +28317,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -28156,7 +28379,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -28217,7 +28441,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -28278,7 +28503,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -28339,7 +28565,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -28400,7 +28627,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -28461,7 +28689,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -28522,7 +28751,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -28583,7 +28813,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -28644,7 +28875,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -28705,7 +28937,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -28766,7 +28999,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -28827,7 +29061,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -28888,7 +29123,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -28949,7 +29185,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -29010,7 +29247,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -29071,7 +29309,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -29132,7 +29371,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -29193,7 +29433,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -29254,7 +29495,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -29315,7 +29557,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -29376,7 +29619,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -29437,7 +29681,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -29498,7 +29743,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -29559,7 +29805,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -29620,7 +29867,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -29681,7 +29929,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -29742,7 +29991,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -29803,7 +30053,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -29864,7 +30115,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -29925,7 +30177,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -29986,7 +30239,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -30047,7 +30301,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -30108,7 +30363,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -30169,7 +30425,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -30230,7 +30487,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -30291,7 +30549,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -30352,7 +30611,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -30413,7 +30673,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -30474,7 +30735,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -30535,7 +30797,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -30596,7 +30859,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -30657,7 +30921,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -30718,7 +30983,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -30779,7 +31045,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -30840,7 +31107,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -30901,7 +31169,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -30962,7 +31231,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -31023,7 +31293,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -31084,7 +31355,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -31145,7 +31417,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -31206,7 +31479,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -31267,7 +31541,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -31328,7 +31603,8 @@
     {
       "allowed_target_types": [
         "IQ1_S",
-        "IQ2_XXS"
+        "IQ2_XXS",
+        "MXFP4"
       ],
       "axis_relation": "expert_axis=2_in_gguf_descriptor",
       "converter_operation": "repack_each_weight_scale_pair_then_stack_experts_in_ordinal_order",
@@ -132561,7 +132837,7 @@
     "unresolved_records": 0
   },
   "target": {
-    "ontology_inventory_sha256": "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3",
+    "ontology_inventory_sha256": "13a81e3f75b71266473bd1ab7588c6be3d47033245a2b96a80fb102d1ca1081f",
     "physical_count": 2573,
     "resolved_revision": "3d4b61ab4b6789d401191c476cbb4567246db8f5",
     "split_inventory_sha256": "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7"

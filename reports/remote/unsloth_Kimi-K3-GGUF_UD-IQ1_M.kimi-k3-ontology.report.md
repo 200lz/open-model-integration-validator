@@ -221,7 +221,7 @@ PASS
 - Message: The ontology inventory uses canonical ordering and policies\.
 - Evidence:
 
-    {"classification_digest":"9a7716d40b89a14105fd1cb597fa73437361d7fe93f22517d50efc3cef84b510","ontology_policy_digest":"dcd1ab32ba30153b2aa0c614136a35b090688e60fb2c7beb339421132badbbca"}
+    {"classification_digest":"9a7716d40b89a14105fd1cb597fa73437361d7fe93f22517d50efc3cef84b510","ontology_policy_digest":"67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0"}
 
 ## Limitations
 
@@ -233,8 +233,8 @@ PASS
 
 ## Integrity
 
-- Inventory SHA-256: 131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3
+- Inventory SHA-256: 13a81e3f75b71266473bd1ab7588c6be3d47033245a2b96a80fb102d1ca1081f
 - Model-pack SHA-256: 6f151e70f2b28e367b84c59db6e7ad4184271b1cc7f518320043e3456c3ef288
-- Ontology policy SHA-256: dcd1ab32ba30153b2aa0c614136a35b090688e60fb2c7beb339421132badbbca
+- Ontology policy SHA-256: 67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0
 - Classification SHA-256: 9a7716d40b89a14105fd1cb597fa73437361d7fe93f22517d50efc3cef84b510
-- Report SHA-256: ea5a7660fe5ed98eb6b30f7d92fca5f4220f0bd19dd3d1fc5af8531856e0e577
+- Report SHA-256: 679ed30f030237868a832615252b03601c7f3deb09f025a2251d1ab73d9559a0

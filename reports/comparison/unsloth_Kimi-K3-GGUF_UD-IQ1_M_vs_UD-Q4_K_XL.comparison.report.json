@@ -1,0 +1,2203 @@
+{
+  "integrity": {
+    "canonicalization": "omiv-json-v1",
+    "sha256": "6d0c6ff5e723552445b07acd0f49e43df0180f268d19324559f82b08d42fc1ca"
+  },
+  "report": {
+    "acceptance_profile_matrix": [
+      {
+        "failed_controls": [],
+        "outcome": "SATISFIED_WITH_WARNINGS",
+        "profile_name": "structural_equivalence",
+        "satisfied": true,
+        "warning_controls": [
+          "artifact_specific_provenance_available"
+        ]
+      },
+      {
+        "failed_controls": [],
+        "outcome": "SATISFIED",
+        "profile_name": "quantization_layout_comparison",
+        "satisfied": true,
+        "warning_controls": []
+      },
+      {
+        "failed_controls": [],
+        "outcome": "SATISFIED_WITH_WARNINGS",
+        "profile_name": "release_variant_consistency",
+        "satisfied": true,
+        "warning_controls": [
+          "artifact_specific_provenance_available"
+        ]
+      },
+      {
+        "failed_controls": [
+          "artifact_specific_provenance_available",
+          "payload_equality",
+          "payload_equality_checked",
+          "quantization_fidelity_checked",
+          "quantization_numerical_fidelity",
+          "runtime_parity",
+          "runtime_parity_checked",
+          "tokenizer_parity",
+          "tokenizer_parity_checked"
+        ],
+        "outcome": "NOT_SATISFIED",
+        "profile_name": "full_numerical_equivalence",
+        "satisfied": false,
+        "warning_controls": []
+      }
+    ],
+    "executive_summary": {
+      "baseline": "UD-IQ1_M",
+      "candidate": "UD-Q4_K_XL",
+      "conclusion": "The verified artifact variants preserve the recorded target identities, normalized tensor structures, ontology, and semantic-mapping relations when all structural controls pass.",
+      "limitation": "This comparison does not establish payload equality, numerical quantization fidelity, tokenizer equivalence, runtime equivalence, or comparative model quality.",
+      "result": "STRUCTURALLY_EQUIVALENT_WITH_QUANTIZATION_DIFFERENCES"
+    },
+    "inventory": {
+      "artifact_index": [
+        {
+          "digest": "f380d9b9ee8060cf205eef4c69e58353608f148f2ea59ba680e7af522e034afb",
+          "relative_path": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.semantic-mapping.inventory.json",
+          "required": true,
+          "role": "baseline_mapping",
+          "schema_id": "omiv.semantic-mapping-inventory.v3",
+          "size_bytes": 3377729,
+          "verification_command": "omiv kimi-k3-semantic-mapping-inventory-verify --input inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.semantic-mapping.inventory.json"
+        },
+        {
+          "digest": "13a81e3f75b71266473bd1ab7588c6be3d47033245a2b96a80fb102d1ca1081f",
+          "relative_path": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.kimi-k3-ontology.inventory.json",
+          "required": true,
+          "role": "baseline_ontology",
+          "schema_id": "omiv.kimi-k3-gguf-ontology-inventory.v1",
+          "size_bytes": 323883,
+          "verification_command": "omiv kimi-k3-gguf-ontology-inventory-verify --input inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.kimi-k3-ontology.inventory.json"
+        },
+        {
+          "digest": "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7",
+          "relative_path": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.split.inventory.json",
+          "required": true,
+          "role": "baseline_split",
+          "schema_id": "omiv.remote-split-gguf-inventory.v1",
+          "size_bytes": 1927690,
+          "verification_command": "omiv remote-split-inventory-verify --input inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.split.inventory.json"
+        },
+        {
+          "digest": "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+          "relative_path": "validations/unsloth_Kimi-K3-GGUF_UD-IQ1_M.validation.inventory.json",
+          "required": true,
+          "role": "baseline_validation",
+          "schema_id": "omiv.independent-model-validation.v1",
+          "size_bytes": 125305,
+          "verification_command": "omiv independent-validation-inventory-verify --input validations/unsloth_Kimi-K3-GGUF_UD-IQ1_M.validation.inventory.json"
+        },
+        {
+          "digest": "6578d6a2d12a3f3950d6c937a1d17f240105e74e783b5e16dcdc13861ed51dda",
+          "relative_path": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-Q4_K_XL.semantic-mapping.inventory.json",
+          "required": true,
+          "role": "candidate_mapping",
+          "schema_id": "omiv.semantic-mapping-inventory.v3",
+          "size_bytes": 3377549,
+          "verification_command": "omiv kimi-k3-semantic-mapping-inventory-verify --input inventories/remote/unsloth_Kimi-K3-GGUF_UD-Q4_K_XL.semantic-mapping.inventory.json"
+        },
+        {
+          "digest": "a7dccbc370338778871bee07e2079b225e57e8fe0102f09587837b95e994ac6a",
+          "relative_path": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-Q4_K_XL.kimi-k3-ontology.inventory.json",
+          "required": true,
+          "role": "candidate_ontology",
+          "schema_id": "omiv.kimi-k3-gguf-ontology-inventory.v1",
+          "size_bytes": 324844,
+          "verification_command": "omiv kimi-k3-gguf-ontology-inventory-verify --input inventories/remote/unsloth_Kimi-K3-GGUF_UD-Q4_K_XL.kimi-k3-ontology.inventory.json"
+        },
+        {
+          "digest": "e30a2b8019258213d893d10caff79860bd07a3262ad6e5cc2352884b7cc4f51c",
+          "relative_path": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-Q4_K_XL.split.inventory.json",
+          "required": true,
+          "role": "candidate_split",
+          "schema_id": "omiv.remote-split-gguf-inventory.v1",
+          "size_bytes": 1956449,
+          "verification_command": "omiv remote-split-inventory-verify --input inventories/remote/unsloth_Kimi-K3-GGUF_UD-Q4_K_XL.split.inventory.json"
+        },
+        {
+          "digest": "3b7bbfc865c235544574113dd93ab91d05d72aebafaf226f3b3c25a56fb02a34",
+          "relative_path": "validations/unsloth_Kimi-K3-GGUF_UD-Q4_K_XL.validation.inventory.json",
+          "required": true,
+          "role": "candidate_validation",
+          "schema_id": "omiv.independent-model-validation.v1",
+          "size_bytes": 175257,
+          "verification_command": "omiv independent-validation-inventory-verify --input validations/unsloth_Kimi-K3-GGUF_UD-Q4_K_XL.validation.inventory.json"
+        }
+      ],
+      "artifact_index_digest": "4ac587ffe787634119cf1f3c466aab2c3a4688db3dde27ef171b0b1bda54699c",
+      "baseline": {
+        "mapping_inventory_digest": "f380d9b9ee8060cf205eef4c69e58353608f148f2ea59ba680e7af522e034afb",
+        "model_family": "kimi-k3",
+        "ontology_inventory_digest": "13a81e3f75b71266473bd1ab7588c6be3d47033245a2b96a80fb102d1ca1081f",
+        "provider": "huggingface",
+        "repository": "unsloth/Kimi-K3-GGUF",
+        "requested_revision": "main",
+        "resolved_revision": "3d4b61ab4b6789d401191c476cbb4567246db8f5",
+        "role": "baseline",
+        "split_inventory_digest": "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7",
+        "validation_inventory_digest": "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+        "variant": "UD-IQ1_M"
+      },
+      "candidate": {
+        "mapping_inventory_digest": "6578d6a2d12a3f3950d6c937a1d17f240105e74e783b5e16dcdc13861ed51dda",
+        "model_family": "kimi-k3",
+        "ontology_inventory_digest": "a7dccbc370338778871bee07e2079b225e57e8fe0102f09587837b95e994ac6a",
+        "provider": "huggingface",
+        "repository": "unsloth/Kimi-K3-GGUF",
+        "requested_revision": "main",
+        "resolved_revision": "3d4b61ab4b6789d401191c476cbb4567246db8f5",
+        "role": "candidate",
+        "split_inventory_digest": "e30a2b8019258213d893d10caff79860bd07a3262ad6e5cc2352884b7cc4f51c",
+        "validation_inventory_digest": "3b7bbfc865c235544574113dd93ab91d05d72aebafaf226f3b3c25a56fb02a34",
+        "variant": "UD-Q4_K_XL"
+      },
+      "comparison_digest": "a2dc47c278642446813f6f1434cca0cebfe3639c7b89c4e6d22da8f25679e490",
+      "comparison_direction": "baseline_to_candidate",
+      "controls": {
+        "artifact_specific_provenance_available": false,
+        "identity_compatible": true,
+        "mapping_structure_equivalent": true,
+        "normalized_shapes_equal": true,
+        "ontology_structure_equivalent": true,
+        "payload_equality_checked": false,
+        "quantization_fidelity_checked": false,
+        "runtime_parity_checked": false,
+        "same_immutable_revision": true,
+        "source_accounting_equal": true,
+        "spans_valid": true,
+        "target_accounting_equal": true,
+        "tensor_identities_equal": true,
+        "tokenizer_parity_checked": false,
+        "type_transitions_allowed": true
+      },
+      "cross_quantization_structural_comparison": "checked",
+      "encoded_span_comparison": {
+        "baseline_bounded_count": 2573,
+        "baseline_overlap_count": 0,
+        "baseline_total_encoded_bytes": 648864913792,
+        "candidate_bounded_count": 2573,
+        "candidate_overlap_count": 0,
+        "candidate_total_encoded_bytes": 1508661582208,
+        "family_totals": [
+          {
+            "baseline_encoded_bytes": 2666496,
+            "candidate_encoded_bytes": 2666496,
+            "family_id": "attention.input_norm"
+          },
+          {
+            "baseline_encoded_bytes": 8703442944,
+            "candidate_encoded_bytes": 8703442944,
+            "family_id": "attention.output"
+          },
+          {
+            "baseline_encoded_bytes": 2666496,
+            "candidate_encoded_bytes": 2666496,
+            "family_id": "attn_res.attention_score"
+          },
+          {
+            "baseline_encoded_bytes": 2666496,
+            "candidate_encoded_bytes": 2666496,
+            "family_id": "attn_res.ffn_score"
+          },
+          {
+            "baseline_encoded_bytes": 28672,
+            "candidate_encoded_bytes": 28672,
+            "family_id": "attn_res.output_score"
+          },
+          {
+            "baseline_encoded_bytes": 257359872,
+            "candidate_encoded_bytes": 257359872,
+            "family_id": "dense.down"
+          },
+          {
+            "baseline_encoded_bytes": 257359872,
+            "candidate_encoded_bytes": 257359872,
+            "family_id": "dense.gate"
+          },
+          {
+            "baseline_encoded_bytes": 257359872,
+            "candidate_encoded_bytes": 257359872,
+            "family_id": "dense.up"
+          },
+          {
+            "baseline_encoded_bytes": 2666496,
+            "candidate_encoded_bytes": 2666496,
+            "family_id": "ffn.input_norm"
+          },
+          {
+            "baseline_encoded_bytes": 6457393152,
+            "candidate_encoded_bytes": 6457393152,
+            "family_id": "g_proj.kda"
+          },
+          {
+            "baseline_encoded_bytes": 2246049792,
+            "candidate_encoded_bytes": 2246049792,
+            "family_id": "g_proj.mla"
+          },
+          {
+            "baseline_encoded_bytes": 26496,
+            "candidate_encoded_bytes": 26496,
+            "family_id": "kda.a"
+          },
+          {
+            "baseline_encoded_bytes": 189923328,
+            "candidate_encoded_bytes": 189923328,
+            "family_id": "kda.beta"
+          },
+          {
+            "baseline_encoded_bytes": 3391488,
+            "candidate_encoded_bytes": 3391488,
+            "family_id": "kda.dt_bias"
+          },
+          {
+            "baseline_encoded_bytes": 67264512,
+            "candidate_encoded_bytes": 67264512,
+            "family_id": "kda.forget_a"
+          },
+          {
+            "baseline_encoded_bytes": 115310592,
+            "candidate_encoded_bytes": 115310592,
+            "family_id": "kda.forget_b"
+          },
+          {
+            "baseline_encoded_bytes": 6457393152,
+            "candidate_encoded_bytes": 6457393152,
+            "family_id": "kda.key"
+          },
+          {
+            "baseline_encoded_bytes": 13565952,
+            "candidate_encoded_bytes": 13565952,
+            "family_id": "kda.key_conv"
+          },
+          {
+            "baseline_encoded_bytes": 35328,
+            "candidate_encoded_bytes": 35328,
+            "family_id": "kda.output_norm"
+          },
+          {
+            "baseline_encoded_bytes": 6457393152,
+            "candidate_encoded_bytes": 6457393152,
+            "family_id": "kda.query"
+          },
+          {
+            "baseline_encoded_bytes": 13565952,
+            "candidate_encoded_bytes": 13565952,
+            "family_id": "kda.query_conv"
+          },
+          {
+            "baseline_encoded_bytes": 6457393152,
+            "candidate_encoded_bytes": 6457393152,
+            "family_id": "kda.value"
+          },
+          {
+            "baseline_encoded_bytes": 13565952,
+            "candidate_encoded_bytes": 13565952,
+            "family_id": "kda.value_conv"
+          },
+          {
+            "baseline_encoded_bytes": 160432128,
+            "candidate_encoded_bytes": 160432128,
+            "family_id": "mla.key_b"
+          },
+          {
+            "baseline_encoded_bytes": 105283584,
+            "candidate_encoded_bytes": 105283584,
+            "family_id": "mla.kv_a_mqa"
+          },
+          {
+            "baseline_encoded_bytes": 49152,
+            "candidate_encoded_bytes": 49152,
+            "family_id": "mla.kv_a_norm"
+          },
+          {
+            "baseline_encoded_bytes": 280756224,
+            "candidate_encoded_bytes": 280756224,
+            "family_id": "mla.query_a"
+          },
+          {
+            "baseline_encoded_bytes": 147456,
+            "candidate_encoded_bytes": 147456,
+            "family_id": "mla.query_a_norm"
+          },
+          {
+            "baseline_encoded_bytes": 721944576,
+            "candidate_encoded_bytes": 721944576,
+            "family_id": "mla.query_b"
+          },
+          {
+            "baseline_encoded_bytes": 160432128,
+            "candidate_encoded_bytes": 160432128,
+            "family_id": "mla.value_b"
+          },
+          {
+            "baseline_encoded_bytes": 28672,
+            "candidate_encoded_bytes": 28672,
+            "family_id": "model.output_norm"
+          },
+          {
+            "baseline_encoded_bytes": 1247805440,
+            "candidate_encoded_bytes": 1247805440,
+            "family_id": "model.output_projection"
+          },
+          {
+            "baseline_encoded_bytes": 1247805440,
+            "candidate_encoded_bytes": 1247805440,
+            "family_id": "model.token_embedding"
+          },
+          {
+            "baseline_encoded_bytes": 2511208448,
+            "candidate_encoded_bytes": 2511208448,
+            "family_id": "moe.latent_down"
+          },
+          {
+            "baseline_encoded_bytes": 1318912,
+            "candidate_encoded_bytes": 1318912,
+            "family_id": "moe.latent_norm"
+          },
+          {
+            "baseline_encoded_bytes": 2511208448,
+            "candidate_encoded_bytes": 2511208448,
+            "family_id": "moe.latent_up"
+          },
+          {
+            "baseline_encoded_bytes": 197608341504,
+            "candidate_encoded_bytes": 482152022016,
+            "family_id": "moe.packed_down"
+          },
+          {
+            "baseline_encoded_bytes": 194525528064,
+            "candidate_encoded_bytes": 482152022016,
+            "family_id": "moe.packed_gate"
+          },
+          {
+            "baseline_encoded_bytes": 194525528064,
+            "candidate_encoded_bytes": 482152022016,
+            "family_id": "moe.packed_up"
+          },
+          {
+            "baseline_encoded_bytes": 2363490304,
+            "candidate_encoded_bytes": 2363490304,
+            "family_id": "moe.router"
+          },
+          {
+            "baseline_encoded_bytes": 329728,
+            "candidate_encoded_bytes": 329728,
+            "family_id": "moe.router_bias"
+          },
+          {
+            "baseline_encoded_bytes": 4304928768,
+            "candidate_encoded_bytes": 4304928768,
+            "family_id": "moe.shared_down"
+          },
+          {
+            "baseline_encoded_bytes": 4304928768,
+            "candidate_encoded_bytes": 4304928768,
+            "family_id": "moe.shared_gate"
+          },
+          {
+            "baseline_encoded_bytes": 4304928768,
+            "candidate_encoded_bytes": 4304928768,
+            "family_id": "moe.shared_up"
+          }
+        ],
+        "family_totals_digest": "67047a931f10b9befbef8467aa132829c76e57020d73029b48a1c3ce32186cdf",
+        "ratio_denominator": 5069257139,
+        "ratio_numerator": 11786418611
+      },
+      "findings": [
+        {
+          "evidence": {},
+          "finding_id": "COMPARE-001",
+          "status": "PASS",
+          "summary": "Baseline evidence verifies."
+        },
+        {
+          "evidence": {},
+          "finding_id": "COMPARE-002",
+          "status": "PASS",
+          "summary": "Candidate evidence verifies."
+        },
+        {
+          "evidence": {},
+          "finding_id": "COMPARE-003",
+          "status": "PASS",
+          "summary": "Repository identities are compatible."
+        },
+        {
+          "evidence": {},
+          "finding_id": "COMPARE-004",
+          "status": "PASS",
+          "summary": "Immutable revisions are compatible."
+        },
+        {
+          "evidence": {},
+          "finding_id": "COMPARE-005",
+          "status": "PASS",
+          "summary": "Architecture metadata is equivalent."
+        },
+        {
+          "evidence": {},
+          "finding_id": "COMPARE-006",
+          "status": "PASS",
+          "summary": "Tensor identity sets are equivalent."
+        },
+        {
+          "evidence": {},
+          "finding_id": "COMPARE-007",
+          "status": "PASS",
+          "summary": "Normalized shapes are equivalent."
+        },
+        {
+          "evidence": {},
+          "finding_id": "COMPARE-008",
+          "status": "PASS",
+          "summary": "Layer and family coverage is equivalent."
+        },
+        {
+          "evidence": {},
+          "finding_id": "COMPARE-009",
+          "status": "PASS",
+          "summary": "Both split layouts are structurally valid."
+        },
+        {
+          "evidence": {},
+          "finding_id": "COMPARE-010",
+          "status": "PASS",
+          "summary": "GGML transitions are classified."
+        },
+        {
+          "evidence": {},
+          "finding_id": "COMPARE-011",
+          "status": "PASS",
+          "summary": "Type transitions are allowed by structural policy."
+        },
+        {
+          "evidence": {},
+          "finding_id": "COMPARE-012",
+          "status": "PASS",
+          "summary": "Ontology structures are equivalent."
+        },
+        {
+          "evidence": {},
+          "finding_id": "COMPARE-013",
+          "status": "PASS",
+          "summary": "Semantic-mapping structures are equivalent."
+        },
+        {
+          "evidence": {},
+          "finding_id": "COMPARE-014",
+          "status": "PASS",
+          "summary": "Source accounting is equivalent."
+        },
+        {
+          "evidence": {},
+          "finding_id": "COMPARE-015",
+          "status": "PASS",
+          "summary": "Target logical accounting is equivalent."
+        },
+        {
+          "evidence": {},
+          "finding_id": "COMPARE-016",
+          "status": "PASS",
+          "summary": "Encoded spans are structurally valid."
+        },
+        {
+          "evidence": {},
+          "finding_id": "COMPARE-017",
+          "status": "PASS",
+          "summary": "Acceptance profiles were reconstructed."
+        },
+        {
+          "evidence": {},
+          "finding_id": "COMPARE-018",
+          "status": "NOT_CHECKED",
+          "summary": "Payload equality was not checked."
+        },
+        {
+          "evidence": {},
+          "finding_id": "COMPARE-019",
+          "status": "NOT_CHECKED",
+          "summary": "Quantization numerical fidelity was not checked."
+        },
+        {
+          "evidence": {},
+          "finding_id": "COMPARE-020",
+          "status": "NOT_CHECKED",
+          "summary": "Runtime parity was not checked."
+        },
+        {
+          "evidence": {},
+          "finding_id": "COMPARE-021",
+          "status": "PASS",
+          "summary": "Comparison uses deterministic canonical serialization."
+        }
+      ],
+      "identity_comparison": [
+        {
+          "baseline_value": "kimi-k3",
+          "candidate_value": "kimi-k3",
+          "field": "architecture",
+          "policy_class": "required_equal",
+          "status": "equal"
+        },
+        {
+          "baseline_value": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+          "candidate_value": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+          "field": "converter_evidence_revision",
+          "policy_class": "required_equal",
+          "status": "equal"
+        },
+        {
+          "baseline_value": "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c",
+          "candidate_value": "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c",
+          "field": "mapping_policy_digest",
+          "policy_class": "required_equal",
+          "status": "equal"
+        },
+        {
+          "baseline_value": "kimi-k3",
+          "candidate_value": "kimi-k3",
+          "field": "model_family",
+          "policy_class": "required_equal",
+          "status": "equal"
+        },
+        {
+          "baseline_value": "6f151e70f2b28e367b84c59db6e7ad4184271b1cc7f518320043e3456c3ef288",
+          "candidate_value": "6f151e70f2b28e367b84c59db6e7ad4184271b1cc7f518320043e3456c3ef288",
+          "field": "model_pack_digest",
+          "policy_class": "required_equal",
+          "status": "equal"
+        },
+        {
+          "baseline_value": 3,
+          "candidate_value": 3,
+          "field": "model_pack_version",
+          "policy_class": "required_equal",
+          "status": "equal"
+        },
+        {
+          "baseline_value": "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0",
+          "candidate_value": "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0",
+          "field": "ontology_policy_digest",
+          "policy_class": "required_equal",
+          "status": "equal"
+        },
+        {
+          "baseline_value": "huggingface",
+          "candidate_value": "huggingface",
+          "field": "provider",
+          "policy_class": "required_equal",
+          "status": "equal"
+        },
+        {
+          "baseline_value": "unsloth/Kimi-K3-GGUF",
+          "candidate_value": "unsloth/Kimi-K3-GGUF",
+          "field": "repository",
+          "policy_class": "required_equal",
+          "status": "equal"
+        },
+        {
+          "baseline_value": "model",
+          "candidate_value": "model",
+          "field": "repository_type",
+          "policy_class": "required_equal",
+          "status": "equal"
+        },
+        {
+          "baseline_value": "main",
+          "candidate_value": "main",
+          "field": "requested_revision",
+          "policy_class": "informational",
+          "status": "equal"
+        },
+        {
+          "baseline_value": "3d4b61ab4b6789d401191c476cbb4567246db8f5",
+          "candidate_value": "3d4b61ab4b6789d401191c476cbb4567246db8f5",
+          "field": "resolved_revision",
+          "policy_class": "required_equal",
+          "status": "equal"
+        },
+        {
+          "baseline_value": "UD-IQ1_M/*.gguf",
+          "candidate_value": "UD-Q4_K_XL/*.gguf",
+          "field": "selection",
+          "policy_class": "allowed_different",
+          "status": "different_allowed"
+        }
+      ],
+      "limitations": [
+        "The comparison is descriptor-level and evidence-level only.",
+        "Allowed GGML type transitions do not establish numerical quality.",
+        "Encoded size ratios describe physical storage, not compression quality.",
+        "Payload equality, tokenizer parity, and runtime parity were not checked.",
+        "Artifact-specific conversion provenance remains unavailable unless independently supplied."
+      ],
+      "mapping_comparison": {
+        "converter_revision_equal": true,
+        "difference_digest": "d4ff59664be67ffffa182a5a75ba0bebd17d20627aad5be2134d0aabeb198821",
+        "direct_mapping_equal": true,
+        "duplicate_and_ambiguity_counts_equal": true,
+        "fused_mapping_equal": true,
+        "logical_realization_equal": true,
+        "mapping_rule_identities_equal": true,
+        "routed_cardinality_equal": true,
+        "same_source_inventory": true,
+        "shared_mapping_equal": true,
+        "source_accounting_equal": true,
+        "structure_equivalent": true,
+        "target_accounting_structure_equal": true
+      },
+      "metadata_comparison": {
+        "compared_key_count": 64,
+        "difference_digest": "38e4f6e864c9a652a808abf4ec956c58d0be3571979098d4fa24e4dc13ddba38",
+        "differences": [
+          {
+            "baseline_digest": "a3236c62a0a6b26e2bb6d05a6f85f53487ee61667e3e5111fad35c503e879714",
+            "candidate_digest": "8e8162c2a92ff8fec97277a659b877a901df6d5df47917692c2f4a157f4cdbc2",
+            "category": "allowed_quantization_specific",
+            "key": "general.file_type",
+            "status": "different_allowed"
+          },
+          {
+            "baseline_digest": "3eaf56ee89b3b1fefe7b33223e7ca8421e85a2d4dc2b4ee72d1bfb4bfe144e29",
+            "candidate_digest": "f726152cd9477bf3e7ec55c9a5f66d7dfef5065ce288eedc2fb6d620b53ed1e5",
+            "category": "allowed_repository_specific",
+            "key": "split.count",
+            "status": "different_allowed"
+          }
+        ],
+        "different_allowed_count": 2,
+        "different_unexpected_count": 0,
+        "equal_count": 62,
+        "missing_baseline_count": 0,
+        "missing_candidate_count": 0
+      },
+      "ontology_comparison": {
+        "architecture_equal": true,
+        "baseline_type_valid": true,
+        "candidate_type_valid_under_native_policy": true,
+        "classification_accounting_equal": true,
+        "difference_digest": "9a6d188b46ce8deeb50a3a2dd312f934b1de151bca44871a344b17c23df8faf7",
+        "family_coverage_equal": true,
+        "family_set_equal": true,
+        "layer_schedule_equal": true,
+        "normalized_shape_signatures_equal": true,
+        "structure_equivalent": true
+      },
+      "overall_result": "STRUCTURALLY_EQUIVALENT_WITH_QUANTIZATION_DIFFERENCES",
+      "payload_equality": "not_checked",
+      "policy": {
+        "allow_quantized_matrix_type_change": true,
+        "allow_shard_layout_change": true,
+        "allowed_quantized_target_types": [
+          "IQ1_S",
+          "IQ2_XXS",
+          "IQ3_XXS",
+          "Q4_K",
+          "Q8_0"
+        ],
+        "family_allowed_target_types": {
+          "moe.packed_down": [
+            "MXFP4"
+          ],
+          "moe.packed_gate": [
+            "MXFP4"
+          ],
+          "moe.packed_up": [
+            "MXFP4"
+          ]
+        },
+        "identity_classes": {
+          "architecture": "required_equal",
+          "converter_evidence_revision": "required_equal",
+          "mapping_policy_digest": "required_equal",
+          "model_family": "required_equal",
+          "model_pack_digest": "required_equal",
+          "model_pack_version": "required_equal",
+          "ontology_policy_digest": "required_equal",
+          "provider": "required_equal",
+          "repository": "required_equal",
+          "repository_type": "required_equal",
+          "requested_revision": "informational",
+          "resolved_revision": "required_equal",
+          "selection": "allowed_different"
+        },
+        "maximum_difference_examples": 20,
+        "policy_digest": "ccd616c38828ac3397485195fbb17ae3edeeb3aca12affab188241e78154068e",
+        "policy_id": "cross-quantization-structural-v1",
+        "policy_version": 1,
+        "require_sensitive_f32_unchanged": true,
+        "required_normalized_shape_equality": true,
+        "schema_id": "omiv.structural-comparison-policy.v1"
+      },
+      "profile_policy": {
+        "policy_digest": "a1eb5d64f3e6ef67c2870590a101b326d00e0c1e1ef40e9ddbf2ad39fe4cad69",
+        "profiles": [
+          {
+            "name": "structural_equivalence",
+            "required_controls": [
+              "identity_compatible",
+              "same_immutable_revision",
+              "tensor_identities_equal",
+              "normalized_shapes_equal",
+              "type_transitions_allowed",
+              "ontology_structure_equivalent",
+              "mapping_structure_equivalent",
+              "spans_valid"
+            ],
+            "required_evidence_checked": [
+              "cross_quantization_structural_comparison"
+            ],
+            "warning_controls": [
+              "artifact_specific_provenance_available"
+            ]
+          },
+          {
+            "name": "quantization_layout_comparison",
+            "required_controls": [
+              "identity_compatible",
+              "tensor_identities_equal",
+              "normalized_shapes_equal",
+              "type_transitions_allowed",
+              "spans_valid"
+            ],
+            "required_evidence_checked": [
+              "cross_quantization_structural_comparison"
+            ],
+            "warning_controls": []
+          },
+          {
+            "name": "release_variant_consistency",
+            "required_controls": [
+              "identity_compatible",
+              "same_immutable_revision",
+              "tensor_identities_equal",
+              "ontology_structure_equivalent",
+              "mapping_structure_equivalent",
+              "source_accounting_equal",
+              "target_accounting_equal"
+            ],
+            "required_evidence_checked": [
+              "cross_quantization_structural_comparison"
+            ],
+            "warning_controls": [
+              "artifact_specific_provenance_available"
+            ]
+          },
+          {
+            "name": "full_numerical_equivalence",
+            "required_controls": [
+              "identity_compatible",
+              "same_immutable_revision",
+              "tensor_identities_equal",
+              "normalized_shapes_equal",
+              "ontology_structure_equivalent",
+              "mapping_structure_equivalent",
+              "payload_equality_checked",
+              "quantization_fidelity_checked",
+              "tokenizer_parity_checked",
+              "runtime_parity_checked",
+              "artifact_specific_provenance_available"
+            ],
+            "required_evidence_checked": [
+              "cross_quantization_structural_comparison",
+              "payload_equality",
+              "quantization_numerical_fidelity",
+              "tokenizer_parity",
+              "runtime_parity"
+            ],
+            "warning_controls": []
+          }
+        ],
+        "schema_id": "omiv.structural-comparison-profile-policy.v1"
+      },
+      "profile_results": [
+        {
+          "failed_controls": [],
+          "outcome": "SATISFIED_WITH_WARNINGS",
+          "profile_name": "structural_equivalence",
+          "satisfied": true,
+          "warning_controls": [
+            "artifact_specific_provenance_available"
+          ]
+        },
+        {
+          "failed_controls": [],
+          "outcome": "SATISFIED",
+          "profile_name": "quantization_layout_comparison",
+          "satisfied": true,
+          "warning_controls": []
+        },
+        {
+          "failed_controls": [],
+          "outcome": "SATISFIED_WITH_WARNINGS",
+          "profile_name": "release_variant_consistency",
+          "satisfied": true,
+          "warning_controls": [
+            "artifact_specific_provenance_available"
+          ]
+        },
+        {
+          "failed_controls": [
+            "artifact_specific_provenance_available",
+            "payload_equality",
+            "payload_equality_checked",
+            "quantization_fidelity_checked",
+            "quantization_numerical_fidelity",
+            "runtime_parity",
+            "runtime_parity_checked",
+            "tokenizer_parity",
+            "tokenizer_parity_checked"
+          ],
+          "outcome": "NOT_SATISFIED",
+          "profile_name": "full_numerical_equivalence",
+          "satisfied": false,
+          "warning_controls": []
+        }
+      ],
+      "quantization_numerical_fidelity": "not_checked",
+      "repository_comparison": {
+        "baseline_header_bytes": 7098363,
+        "baseline_metadata_only_shards": 1,
+        "baseline_payload_bytes_accepted": 0,
+        "baseline_range_requests": 219,
+        "baseline_shards": 15,
+        "baseline_tensor_bearing_shards": 14,
+        "baseline_total_bytes": 648872012448,
+        "candidate_header_bytes": 7100165,
+        "candidate_metadata_only_shards": 1,
+        "candidate_payload_bytes_accepted": 0,
+        "candidate_range_requests": 381,
+        "candidate_shards": 32,
+        "candidate_tensor_bearing_shards": 31,
+        "candidate_total_bytes": 1508668683104,
+        "deterministic_decimal": "2.325063578274",
+        "ratio_denominator_reduced": 1843386399,
+        "ratio_numerator_reduced": 4285990577,
+        "revision_status": "equal",
+        "same_immutable_revision": true,
+        "same_provider": true,
+        "same_repository": true,
+        "shard_layout_status": "different_allowed"
+      },
+      "runtime_parity": "not_checked",
+      "schema_id": "omiv.model-artifact-structural-comparison.v1",
+      "selected_profile": "structural_equivalence",
+      "shape_comparison": {
+        "difference_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "incompatible_count": 0,
+        "incompatible_examples": [],
+        "matched_count": 2573,
+        "normalized_shape_equal_count": 2573,
+        "physical_different_logically_equal_count": 0,
+        "physical_shape_equal_count": 2573,
+        "unavailable_count": 0
+      },
+      "tensor_identity_comparison": {
+        "baseline_count": 2573,
+        "baseline_only_count": 0,
+        "baseline_only_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "baseline_only_examples": [],
+        "candidate_count": 2573,
+        "candidate_only_count": 0,
+        "candidate_only_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "candidate_only_examples": [],
+        "component_coverage_equal": true,
+        "duplicate_baseline_count": 0,
+        "duplicate_candidate_count": 0,
+        "family_counts_equal": true,
+        "layer_coverage_equal": true,
+        "matched_count": 2573
+      },
+      "tokenizer_parity": "not_checked",
+      "type_transition_comparison": {
+        "allowed_count": 2573,
+        "disallowed_count": 0,
+        "family_transitions": [
+          {
+            "allowed": true,
+            "baseline_type": "F32",
+            "candidate_type": "F32",
+            "count": 93,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "attention.input_norm",
+            "policy_rule": "sensitive_f32_unchanged",
+            "state": "kept_unquantized"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "Q8_0",
+            "candidate_type": "Q8_0",
+            "count": 93,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "attention.output",
+            "policy_rule": "quantized_matrix_unchanged",
+            "state": "unchanged"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "F32",
+            "candidate_type": "F32",
+            "count": 93,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "attn_res.attention_score",
+            "policy_rule": "sensitive_f32_unchanged",
+            "state": "kept_unquantized"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "F32",
+            "candidate_type": "F32",
+            "count": 93,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "attn_res.ffn_score",
+            "policy_rule": "sensitive_f32_unchanged",
+            "state": "kept_unquantized"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "F32",
+            "candidate_type": "F32",
+            "count": 1,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "attn_res.output_score",
+            "policy_rule": "sensitive_f32_unchanged",
+            "state": "kept_unquantized"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "Q8_0",
+            "candidate_type": "Q8_0",
+            "count": 1,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "dense.down",
+            "policy_rule": "quantized_matrix_unchanged",
+            "state": "unchanged"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "Q8_0",
+            "candidate_type": "Q8_0",
+            "count": 1,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "dense.gate",
+            "policy_rule": "quantized_matrix_unchanged",
+            "state": "unchanged"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "Q8_0",
+            "candidate_type": "Q8_0",
+            "count": 1,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "dense.up",
+            "policy_rule": "quantized_matrix_unchanged",
+            "state": "unchanged"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "F32",
+            "candidate_type": "F32",
+            "count": 93,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "ffn.input_norm",
+            "policy_rule": "sensitive_f32_unchanged",
+            "state": "kept_unquantized"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "Q8_0",
+            "candidate_type": "Q8_0",
+            "count": 69,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "g_proj.kda",
+            "policy_rule": "quantized_matrix_unchanged",
+            "state": "unchanged"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "Q8_0",
+            "candidate_type": "Q8_0",
+            "count": 24,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "g_proj.mla",
+            "policy_rule": "quantized_matrix_unchanged",
+            "state": "unchanged"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "F32",
+            "candidate_type": "F32",
+            "count": 69,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "kda.a",
+            "policy_rule": "sensitive_f32_unchanged",
+            "state": "kept_unquantized"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "F32",
+            "candidate_type": "F32",
+            "count": 69,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "kda.beta",
+            "policy_rule": "sensitive_f32_unchanged",
+            "state": "kept_unquantized"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "F32",
+            "candidate_type": "F32",
+            "count": 69,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "kda.dt_bias",
+            "policy_rule": "sensitive_f32_unchanged",
+            "state": "kept_unquantized"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "Q8_0",
+            "candidate_type": "Q8_0",
+            "count": 69,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "kda.forget_a",
+            "policy_rule": "quantized_matrix_unchanged",
+            "state": "unchanged"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "Q8_0",
+            "candidate_type": "Q8_0",
+            "count": 69,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "kda.forget_b",
+            "policy_rule": "quantized_matrix_unchanged",
+            "state": "unchanged"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "Q8_0",
+            "candidate_type": "Q8_0",
+            "count": 69,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "kda.key",
+            "policy_rule": "quantized_matrix_unchanged",
+            "state": "unchanged"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "F32",
+            "candidate_type": "F32",
+            "count": 69,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "kda.key_conv",
+            "policy_rule": "sensitive_f32_unchanged",
+            "state": "kept_unquantized"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "F32",
+            "candidate_type": "F32",
+            "count": 69,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "kda.output_norm",
+            "policy_rule": "sensitive_f32_unchanged",
+            "state": "kept_unquantized"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "Q8_0",
+            "candidate_type": "Q8_0",
+            "count": 69,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "kda.query",
+            "policy_rule": "quantized_matrix_unchanged",
+            "state": "unchanged"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "F32",
+            "candidate_type": "F32",
+            "count": 69,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "kda.query_conv",
+            "policy_rule": "sensitive_f32_unchanged",
+            "state": "kept_unquantized"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "Q8_0",
+            "candidate_type": "Q8_0",
+            "count": 69,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "kda.value",
+            "policy_rule": "quantized_matrix_unchanged",
+            "state": "unchanged"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "F32",
+            "candidate_type": "F32",
+            "count": 69,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "kda.value_conv",
+            "policy_rule": "sensitive_f32_unchanged",
+            "state": "kept_unquantized"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "Q8_0",
+            "candidate_type": "Q8_0",
+            "count": 24,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "mla.key_b",
+            "policy_rule": "quantized_matrix_unchanged",
+            "state": "unchanged"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "Q8_0",
+            "candidate_type": "Q8_0",
+            "count": 24,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "mla.kv_a_mqa",
+            "policy_rule": "quantized_matrix_unchanged",
+            "state": "unchanged"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "F32",
+            "candidate_type": "F32",
+            "count": 24,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "mla.kv_a_norm",
+            "policy_rule": "sensitive_f32_unchanged",
+            "state": "kept_unquantized"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "Q8_0",
+            "candidate_type": "Q8_0",
+            "count": 24,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "mla.query_a",
+            "policy_rule": "quantized_matrix_unchanged",
+            "state": "unchanged"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "F32",
+            "candidate_type": "F32",
+            "count": 24,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "mla.query_a_norm",
+            "policy_rule": "sensitive_f32_unchanged",
+            "state": "kept_unquantized"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "Q8_0",
+            "candidate_type": "Q8_0",
+            "count": 24,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "mla.query_b",
+            "policy_rule": "quantized_matrix_unchanged",
+            "state": "unchanged"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "Q8_0",
+            "candidate_type": "Q8_0",
+            "count": 24,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "mla.value_b",
+            "policy_rule": "quantized_matrix_unchanged",
+            "state": "unchanged"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "F32",
+            "candidate_type": "F32",
+            "count": 1,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "model.output_norm",
+            "policy_rule": "sensitive_f32_unchanged",
+            "state": "kept_unquantized"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "Q8_0",
+            "candidate_type": "Q8_0",
+            "count": 1,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "model.output_projection",
+            "policy_rule": "quantized_matrix_unchanged",
+            "state": "unchanged"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "Q8_0",
+            "candidate_type": "Q8_0",
+            "count": 1,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "model.token_embedding",
+            "policy_rule": "quantized_matrix_unchanged",
+            "state": "unchanged"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "Q8_0",
+            "candidate_type": "Q8_0",
+            "count": 92,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "moe.latent_down",
+            "policy_rule": "quantized_matrix_unchanged",
+            "state": "unchanged"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "F32",
+            "candidate_type": "F32",
+            "count": 92,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "moe.latent_norm",
+            "policy_rule": "sensitive_f32_unchanged",
+            "state": "kept_unquantized"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "Q8_0",
+            "candidate_type": "Q8_0",
+            "count": 92,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "moe.latent_up",
+            "policy_rule": "quantized_matrix_unchanged",
+            "state": "unchanged"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "IQ1_S",
+            "candidate_type": "MXFP4",
+            "count": 81,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "moe.packed_down",
+            "policy_rule": "family_target_type_allowlist:moe.packed_down",
+            "state": "quantization_family_changed"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "IQ3_XXS",
+            "candidate_type": "MXFP4",
+            "count": 11,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "moe.packed_down",
+            "policy_rule": "family_target_type_allowlist:moe.packed_down",
+            "state": "quantization_family_changed"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "IQ1_S",
+            "candidate_type": "MXFP4",
+            "count": 64,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "moe.packed_gate",
+            "policy_rule": "family_target_type_allowlist:moe.packed_gate",
+            "state": "quantization_family_changed"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "IQ2_XXS",
+            "candidate_type": "MXFP4",
+            "count": 28,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "moe.packed_gate",
+            "policy_rule": "family_target_type_allowlist:moe.packed_gate",
+            "state": "quantization_family_changed"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "IQ1_S",
+            "candidate_type": "MXFP4",
+            "count": 64,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "moe.packed_up",
+            "policy_rule": "family_target_type_allowlist:moe.packed_up",
+            "state": "quantization_family_changed"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "IQ2_XXS",
+            "candidate_type": "MXFP4",
+            "count": 28,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "moe.packed_up",
+            "policy_rule": "family_target_type_allowlist:moe.packed_up",
+            "state": "quantization_family_changed"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "F32",
+            "candidate_type": "F32",
+            "count": 92,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "moe.router",
+            "policy_rule": "sensitive_f32_unchanged",
+            "state": "kept_unquantized"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "F32",
+            "candidate_type": "F32",
+            "count": 92,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "moe.router_bias",
+            "policy_rule": "sensitive_f32_unchanged",
+            "state": "kept_unquantized"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "Q8_0",
+            "candidate_type": "Q8_0",
+            "count": 92,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "moe.shared_down",
+            "policy_rule": "quantized_matrix_unchanged",
+            "state": "unchanged"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "Q8_0",
+            "candidate_type": "Q8_0",
+            "count": 92,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "moe.shared_gate",
+            "policy_rule": "quantized_matrix_unchanged",
+            "state": "unchanged"
+          },
+          {
+            "allowed": true,
+            "baseline_type": "Q8_0",
+            "candidate_type": "Q8_0",
+            "count": 92,
+            "evidence_limitation": "structural type allowance is not numerical quality evidence",
+            "family_id": "moe.shared_up",
+            "policy_rule": "quantized_matrix_unchanged",
+            "state": "unchanged"
+          }
+        ],
+        "matched_count": 2573,
+        "state_counts": {
+          "incomparable": 0,
+          "kept_unquantized": 1181,
+          "precision_decreased": 0,
+          "precision_increased": 0,
+          "quantization_family_changed": 276,
+          "unchanged": 1116,
+          "unexpected_unquantized": 0,
+          "unsupported": 0
+        },
+        "transition_digest": "7e72e9f388e56d8c36d4c7135839da27058b3c0f1a08e26c6ad38e8bccd09ef9"
+      },
+      "validation_comparison": {
+        "acceptance_profile_outcomes_equal": true,
+        "baseline_artifact_count": 26,
+        "candidate_artifact_count": 43,
+        "evidence_graphs_independently_valid": true,
+        "evidence_stage_statuses_equal": true,
+        "model_pack_identity_equal": true,
+        "not_checked_stages_equal": true,
+        "unavailable_stages_equal": true
+      }
+    },
+    "metadata_summary": {
+      "compared_key_count": 64,
+      "difference_digest": "38e4f6e864c9a652a808abf4ec956c58d0be3571979098d4fa24e4dc13ddba38",
+      "differences": [
+        {
+          "baseline_digest": "a3236c62a0a6b26e2bb6d05a6f85f53487ee61667e3e5111fad35c503e879714",
+          "candidate_digest": "8e8162c2a92ff8fec97277a659b877a901df6d5df47917692c2f4a157f4cdbc2",
+          "category": "allowed_quantization_specific",
+          "key": "general.file_type",
+          "status": "different_allowed"
+        },
+        {
+          "baseline_digest": "3eaf56ee89b3b1fefe7b33223e7ca8421e85a2d4dc2b4ee72d1bfb4bfe144e29",
+          "candidate_digest": "f726152cd9477bf3e7ec55c9a5f66d7dfef5065ce288eedc2fb6d620b53ed1e5",
+          "category": "allowed_repository_specific",
+          "key": "split.count",
+          "status": "different_allowed"
+        }
+      ],
+      "different_allowed_count": 2,
+      "different_unexpected_count": 0,
+      "equal_count": 62,
+      "missing_baseline_count": 0,
+      "missing_candidate_count": 0
+    },
+    "report_digest": "7c712c673ed8fbf0a88006599497e97d1307fb496948418c3c990a47bd6d0a49",
+    "report_schema": "omiv.model-artifact-structural-comparison-report.v1",
+    "repository_summary": {
+      "baseline_header_bytes": 7098363,
+      "baseline_metadata_only_shards": 1,
+      "baseline_payload_bytes_accepted": 0,
+      "baseline_range_requests": 219,
+      "baseline_shards": 15,
+      "baseline_tensor_bearing_shards": 14,
+      "baseline_total_bytes": 648872012448,
+      "candidate_header_bytes": 7100165,
+      "candidate_metadata_only_shards": 1,
+      "candidate_payload_bytes_accepted": 0,
+      "candidate_range_requests": 381,
+      "candidate_shards": 32,
+      "candidate_tensor_bearing_shards": 31,
+      "candidate_total_bytes": 1508668683104,
+      "deterministic_decimal": "2.325063578274",
+      "ratio_denominator_reduced": 1843386399,
+      "ratio_numerator_reduced": 4285990577,
+      "revision_status": "equal",
+      "same_immutable_revision": true,
+      "same_provider": true,
+      "same_repository": true,
+      "shard_layout_status": "different_allowed"
+    },
+    "tensor_summary": {
+      "encoded_spans": {
+        "baseline_bounded_count": 2573,
+        "baseline_overlap_count": 0,
+        "baseline_total_encoded_bytes": 648864913792,
+        "candidate_bounded_count": 2573,
+        "candidate_overlap_count": 0,
+        "candidate_total_encoded_bytes": 1508661582208,
+        "family_totals": [
+          {
+            "baseline_encoded_bytes": 2666496,
+            "candidate_encoded_bytes": 2666496,
+            "family_id": "attention.input_norm"
+          },
+          {
+            "baseline_encoded_bytes": 8703442944,
+            "candidate_encoded_bytes": 8703442944,
+            "family_id": "attention.output"
+          },
+          {
+            "baseline_encoded_bytes": 2666496,
+            "candidate_encoded_bytes": 2666496,
+            "family_id": "attn_res.attention_score"
+          },
+          {
+            "baseline_encoded_bytes": 2666496,
+            "candidate_encoded_bytes": 2666496,
+            "family_id": "attn_res.ffn_score"
+          },
+          {
+            "baseline_encoded_bytes": 28672,
+            "candidate_encoded_bytes": 28672,
+            "family_id": "attn_res.output_score"
+          },
+          {
+            "baseline_encoded_bytes": 257359872,
+            "candidate_encoded_bytes": 257359872,
+            "family_id": "dense.down"
+          },
+          {
+            "baseline_encoded_bytes": 257359872,
+            "candidate_encoded_bytes": 257359872,
+            "family_id": "dense.gate"
+          },
+          {
+            "baseline_encoded_bytes": 257359872,
+            "candidate_encoded_bytes": 257359872,
+            "family_id": "dense.up"
+          },
+          {
+            "baseline_encoded_bytes": 2666496,
+            "candidate_encoded_bytes": 2666496,
+            "family_id": "ffn.input_norm"
+          },
+          {
+            "baseline_encoded_bytes": 6457393152,
+            "candidate_encoded_bytes": 6457393152,
+            "family_id": "g_proj.kda"
+          },
+          {
+            "baseline_encoded_bytes": 2246049792,
+            "candidate_encoded_bytes": 2246049792,
+            "family_id": "g_proj.mla"
+          },
+          {
+            "baseline_encoded_bytes": 26496,
+            "candidate_encoded_bytes": 26496,
+            "family_id": "kda.a"
+          },
+          {
+            "baseline_encoded_bytes": 189923328,
+            "candidate_encoded_bytes": 189923328,
+            "family_id": "kda.beta"
+          },
+          {
+            "baseline_encoded_bytes": 3391488,
+            "candidate_encoded_bytes": 3391488,
+            "family_id": "kda.dt_bias"
+          },
+          {
+            "baseline_encoded_bytes": 67264512,
+            "candidate_encoded_bytes": 67264512,
+            "family_id": "kda.forget_a"
+          },
+          {
+            "baseline_encoded_bytes": 115310592,
+            "candidate_encoded_bytes": 115310592,
+            "family_id": "kda.forget_b"
+          },
+          {
+            "baseline_encoded_bytes": 6457393152,
+            "candidate_encoded_bytes": 6457393152,
+            "family_id": "kda.key"
+          },
+          {
+            "baseline_encoded_bytes": 13565952,
+            "candidate_encoded_bytes": 13565952,
+            "family_id": "kda.key_conv"
+          },
+          {
+            "baseline_encoded_bytes": 35328,
+            "candidate_encoded_bytes": 35328,
+            "family_id": "kda.output_norm"
+          },
+          {
+            "baseline_encoded_bytes": 6457393152,
+            "candidate_encoded_bytes": 6457393152,
+            "family_id": "kda.query"
+          },
+          {
+            "baseline_encoded_bytes": 13565952,
+            "candidate_encoded_bytes": 13565952,
+            "family_id": "kda.query_conv"
+          },
+          {
+            "baseline_encoded_bytes": 6457393152,
+            "candidate_encoded_bytes": 6457393152,
+            "family_id": "kda.value"
+          },
+          {
+            "baseline_encoded_bytes": 13565952,
+            "candidate_encoded_bytes": 13565952,
+            "family_id": "kda.value_conv"
+          },
+          {
+            "baseline_encoded_bytes": 160432128,
+            "candidate_encoded_bytes": 160432128,
+            "family_id": "mla.key_b"
+          },
+          {
+            "baseline_encoded_bytes": 105283584,
+            "candidate_encoded_bytes": 105283584,
+            "family_id": "mla.kv_a_mqa"
+          },
+          {
+            "baseline_encoded_bytes": 49152,
+            "candidate_encoded_bytes": 49152,
+            "family_id": "mla.kv_a_norm"
+          },
+          {
+            "baseline_encoded_bytes": 280756224,
+            "candidate_encoded_bytes": 280756224,
+            "family_id": "mla.query_a"
+          },
+          {
+            "baseline_encoded_bytes": 147456,
+            "candidate_encoded_bytes": 147456,
+            "family_id": "mla.query_a_norm"
+          },
+          {
+            "baseline_encoded_bytes": 721944576,
+            "candidate_encoded_bytes": 721944576,
+            "family_id": "mla.query_b"
+          },
+          {
+            "baseline_encoded_bytes": 160432128,
+            "candidate_encoded_bytes": 160432128,
+            "family_id": "mla.value_b"
+          },
+          {
+            "baseline_encoded_bytes": 28672,
+            "candidate_encoded_bytes": 28672,
+            "family_id": "model.output_norm"
+          },
+          {
+            "baseline_encoded_bytes": 1247805440,
+            "candidate_encoded_bytes": 1247805440,
+            "family_id": "model.output_projection"
+          },
+          {
+            "baseline_encoded_bytes": 1247805440,
+            "candidate_encoded_bytes": 1247805440,
+            "family_id": "model.token_embedding"
+          },
+          {
+            "baseline_encoded_bytes": 2511208448,
+            "candidate_encoded_bytes": 2511208448,
+            "family_id": "moe.latent_down"
+          },
+          {
+            "baseline_encoded_bytes": 1318912,
+            "candidate_encoded_bytes": 1318912,
+            "family_id": "moe.latent_norm"
+          },
+          {
+            "baseline_encoded_bytes": 2511208448,
+            "candidate_encoded_bytes": 2511208448,
+            "family_id": "moe.latent_up"
+          },
+          {
+            "baseline_encoded_bytes": 197608341504,
+            "candidate_encoded_bytes": 482152022016,
+            "family_id": "moe.packed_down"
+          },
+          {
+            "baseline_encoded_bytes": 194525528064,
+            "candidate_encoded_bytes": 482152022016,
+            "family_id": "moe.packed_gate"
+          },
+          {
+            "baseline_encoded_bytes": 194525528064,
+            "candidate_encoded_bytes": 482152022016,
+            "family_id": "moe.packed_up"
+          },
+          {
+            "baseline_encoded_bytes": 2363490304,
+            "candidate_encoded_bytes": 2363490304,
+            "family_id": "moe.router"
+          },
+          {
+            "baseline_encoded_bytes": 329728,
+            "candidate_encoded_bytes": 329728,
+            "family_id": "moe.router_bias"
+          },
+          {
+            "baseline_encoded_bytes": 4304928768,
+            "candidate_encoded_bytes": 4304928768,
+            "family_id": "moe.shared_down"
+          },
+          {
+            "baseline_encoded_bytes": 4304928768,
+            "candidate_encoded_bytes": 4304928768,
+            "family_id": "moe.shared_gate"
+          },
+          {
+            "baseline_encoded_bytes": 4304928768,
+            "candidate_encoded_bytes": 4304928768,
+            "family_id": "moe.shared_up"
+          }
+        ],
+        "family_totals_digest": "67047a931f10b9befbef8467aa132829c76e57020d73029b48a1c3ce32186cdf",
+        "ratio_denominator": 5069257139,
+        "ratio_numerator": 11786418611
+      },
+      "identities": {
+        "baseline_count": 2573,
+        "baseline_only_count": 0,
+        "baseline_only_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "baseline_only_examples": [],
+        "candidate_count": 2573,
+        "candidate_only_count": 0,
+        "candidate_only_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "candidate_only_examples": [],
+        "component_coverage_equal": true,
+        "duplicate_baseline_count": 0,
+        "duplicate_candidate_count": 0,
+        "family_counts_equal": true,
+        "layer_coverage_equal": true,
+        "matched_count": 2573
+      },
+      "shapes": {
+        "difference_digest": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "incompatible_count": 0,
+        "incompatible_examples": [],
+        "matched_count": 2573,
+        "normalized_shape_equal_count": 2573,
+        "physical_different_logically_equal_count": 0,
+        "physical_shape_equal_count": 2573,
+        "unavailable_count": 0
+      }
+    },
+    "type_transition_matrix": [
+      {
+        "allowed": true,
+        "baseline_type": "F32",
+        "candidate_type": "F32",
+        "count": 93,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "attention.input_norm",
+        "policy_rule": "sensitive_f32_unchanged",
+        "state": "kept_unquantized"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "Q8_0",
+        "candidate_type": "Q8_0",
+        "count": 93,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "attention.output",
+        "policy_rule": "quantized_matrix_unchanged",
+        "state": "unchanged"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "F32",
+        "candidate_type": "F32",
+        "count": 93,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "attn_res.attention_score",
+        "policy_rule": "sensitive_f32_unchanged",
+        "state": "kept_unquantized"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "F32",
+        "candidate_type": "F32",
+        "count": 93,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "attn_res.ffn_score",
+        "policy_rule": "sensitive_f32_unchanged",
+        "state": "kept_unquantized"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "F32",
+        "candidate_type": "F32",
+        "count": 1,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "attn_res.output_score",
+        "policy_rule": "sensitive_f32_unchanged",
+        "state": "kept_unquantized"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "Q8_0",
+        "candidate_type": "Q8_0",
+        "count": 1,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "dense.down",
+        "policy_rule": "quantized_matrix_unchanged",
+        "state": "unchanged"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "Q8_0",
+        "candidate_type": "Q8_0",
+        "count": 1,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "dense.gate",
+        "policy_rule": "quantized_matrix_unchanged",
+        "state": "unchanged"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "Q8_0",
+        "candidate_type": "Q8_0",
+        "count": 1,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "dense.up",
+        "policy_rule": "quantized_matrix_unchanged",
+        "state": "unchanged"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "F32",
+        "candidate_type": "F32",
+        "count": 93,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "ffn.input_norm",
+        "policy_rule": "sensitive_f32_unchanged",
+        "state": "kept_unquantized"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "Q8_0",
+        "candidate_type": "Q8_0",
+        "count": 69,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "g_proj.kda",
+        "policy_rule": "quantized_matrix_unchanged",
+        "state": "unchanged"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "Q8_0",
+        "candidate_type": "Q8_0",
+        "count": 24,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "g_proj.mla",
+        "policy_rule": "quantized_matrix_unchanged",
+        "state": "unchanged"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "F32",
+        "candidate_type": "F32",
+        "count": 69,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "kda.a",
+        "policy_rule": "sensitive_f32_unchanged",
+        "state": "kept_unquantized"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "F32",
+        "candidate_type": "F32",
+        "count": 69,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "kda.beta",
+        "policy_rule": "sensitive_f32_unchanged",
+        "state": "kept_unquantized"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "F32",
+        "candidate_type": "F32",
+        "count": 69,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "kda.dt_bias",
+        "policy_rule": "sensitive_f32_unchanged",
+        "state": "kept_unquantized"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "Q8_0",
+        "candidate_type": "Q8_0",
+        "count": 69,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "kda.forget_a",
+        "policy_rule": "quantized_matrix_unchanged",
+        "state": "unchanged"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "Q8_0",
+        "candidate_type": "Q8_0",
+        "count": 69,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "kda.forget_b",
+        "policy_rule": "quantized_matrix_unchanged",
+        "state": "unchanged"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "Q8_0",
+        "candidate_type": "Q8_0",
+        "count": 69,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "kda.key",
+        "policy_rule": "quantized_matrix_unchanged",
+        "state": "unchanged"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "F32",
+        "candidate_type": "F32",
+        "count": 69,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "kda.key_conv",
+        "policy_rule": "sensitive_f32_unchanged",
+        "state": "kept_unquantized"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "F32",
+        "candidate_type": "F32",
+        "count": 69,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "kda.output_norm",
+        "policy_rule": "sensitive_f32_unchanged",
+        "state": "kept_unquantized"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "Q8_0",
+        "candidate_type": "Q8_0",
+        "count": 69,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "kda.query",
+        "policy_rule": "quantized_matrix_unchanged",
+        "state": "unchanged"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "F32",
+        "candidate_type": "F32",
+        "count": 69,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "kda.query_conv",
+        "policy_rule": "sensitive_f32_unchanged",
+        "state": "kept_unquantized"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "Q8_0",
+        "candidate_type": "Q8_0",
+        "count": 69,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "kda.value",
+        "policy_rule": "quantized_matrix_unchanged",
+        "state": "unchanged"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "F32",
+        "candidate_type": "F32",
+        "count": 69,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "kda.value_conv",
+        "policy_rule": "sensitive_f32_unchanged",
+        "state": "kept_unquantized"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "Q8_0",
+        "candidate_type": "Q8_0",
+        "count": 24,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "mla.key_b",
+        "policy_rule": "quantized_matrix_unchanged",
+        "state": "unchanged"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "Q8_0",
+        "candidate_type": "Q8_0",
+        "count": 24,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "mla.kv_a_mqa",
+        "policy_rule": "quantized_matrix_unchanged",
+        "state": "unchanged"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "F32",
+        "candidate_type": "F32",
+        "count": 24,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "mla.kv_a_norm",
+        "policy_rule": "sensitive_f32_unchanged",
+        "state": "kept_unquantized"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "Q8_0",
+        "candidate_type": "Q8_0",
+        "count": 24,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "mla.query_a",
+        "policy_rule": "quantized_matrix_unchanged",
+        "state": "unchanged"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "F32",
+        "candidate_type": "F32",
+        "count": 24,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "mla.query_a_norm",
+        "policy_rule": "sensitive_f32_unchanged",
+        "state": "kept_unquantized"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "Q8_0",
+        "candidate_type": "Q8_0",
+        "count": 24,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "mla.query_b",
+        "policy_rule": "quantized_matrix_unchanged",
+        "state": "unchanged"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "Q8_0",
+        "candidate_type": "Q8_0",
+        "count": 24,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "mla.value_b",
+        "policy_rule": "quantized_matrix_unchanged",
+        "state": "unchanged"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "F32",
+        "candidate_type": "F32",
+        "count": 1,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "model.output_norm",
+        "policy_rule": "sensitive_f32_unchanged",
+        "state": "kept_unquantized"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "Q8_0",
+        "candidate_type": "Q8_0",
+        "count": 1,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "model.output_projection",
+        "policy_rule": "quantized_matrix_unchanged",
+        "state": "unchanged"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "Q8_0",
+        "candidate_type": "Q8_0",
+        "count": 1,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "model.token_embedding",
+        "policy_rule": "quantized_matrix_unchanged",
+        "state": "unchanged"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "Q8_0",
+        "candidate_type": "Q8_0",
+        "count": 92,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "moe.latent_down",
+        "policy_rule": "quantized_matrix_unchanged",
+        "state": "unchanged"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "F32",
+        "candidate_type": "F32",
+        "count": 92,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "moe.latent_norm",
+        "policy_rule": "sensitive_f32_unchanged",
+        "state": "kept_unquantized"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "Q8_0",
+        "candidate_type": "Q8_0",
+        "count": 92,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "moe.latent_up",
+        "policy_rule": "quantized_matrix_unchanged",
+        "state": "unchanged"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "IQ1_S",
+        "candidate_type": "MXFP4",
+        "count": 81,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "moe.packed_down",
+        "policy_rule": "family_target_type_allowlist:moe.packed_down",
+        "state": "quantization_family_changed"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "IQ3_XXS",
+        "candidate_type": "MXFP4",
+        "count": 11,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "moe.packed_down",
+        "policy_rule": "family_target_type_allowlist:moe.packed_down",
+        "state": "quantization_family_changed"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "IQ1_S",
+        "candidate_type": "MXFP4",
+        "count": 64,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "moe.packed_gate",
+        "policy_rule": "family_target_type_allowlist:moe.packed_gate",
+        "state": "quantization_family_changed"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "IQ2_XXS",
+        "candidate_type": "MXFP4",
+        "count": 28,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "moe.packed_gate",
+        "policy_rule": "family_target_type_allowlist:moe.packed_gate",
+        "state": "quantization_family_changed"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "IQ1_S",
+        "candidate_type": "MXFP4",
+        "count": 64,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "moe.packed_up",
+        "policy_rule": "family_target_type_allowlist:moe.packed_up",
+        "state": "quantization_family_changed"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "IQ2_XXS",
+        "candidate_type": "MXFP4",
+        "count": 28,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "moe.packed_up",
+        "policy_rule": "family_target_type_allowlist:moe.packed_up",
+        "state": "quantization_family_changed"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "F32",
+        "candidate_type": "F32",
+        "count": 92,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "moe.router",
+        "policy_rule": "sensitive_f32_unchanged",
+        "state": "kept_unquantized"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "F32",
+        "candidate_type": "F32",
+        "count": 92,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "moe.router_bias",
+        "policy_rule": "sensitive_f32_unchanged",
+        "state": "kept_unquantized"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "Q8_0",
+        "candidate_type": "Q8_0",
+        "count": 92,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "moe.shared_down",
+        "policy_rule": "quantized_matrix_unchanged",
+        "state": "unchanged"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "Q8_0",
+        "candidate_type": "Q8_0",
+        "count": 92,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "moe.shared_gate",
+        "policy_rule": "quantized_matrix_unchanged",
+        "state": "unchanged"
+      },
+      {
+        "allowed": true,
+        "baseline_type": "Q8_0",
+        "candidate_type": "Q8_0",
+        "count": 92,
+        "evidence_limitation": "structural type allowance is not numerical quality evidence",
+        "family_id": "moe.shared_up",
+        "policy_rule": "quantized_matrix_unchanged",
+        "state": "unchanged"
+      }
+    ]
+  }
+}

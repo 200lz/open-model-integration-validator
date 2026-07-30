@@ -1,0 +1,619 @@
+{
+  "integrity": {
+    "canonicalization": "omiv-json-v1",
+    "sha256": "0a8c39846e5681147aa1c034a1797c148f080e479c18d5d9135e08b274421755"
+  },
+  "report": {
+    "artifact_specific_provenance": "unavailable",
+    "converter_evidence_revision": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+    "findings": [
+      {
+        "code": "MAPGROUP-001",
+        "message": "source accounting reconstructs 497220/497220",
+        "status": "PASS"
+      },
+      {
+        "code": "MAPGROUP-002",
+        "message": "target accounting reconstructs 2573/2573",
+        "status": "PASS"
+      },
+      {
+        "code": "MAPGROUP-003",
+        "message": "mapping policy digest 0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c",
+        "status": "PASS"
+      },
+      {
+        "code": "MAPGROUP-006",
+        "message": "duplicate assignments 0; ambiguous lookups 0",
+        "status": "PASS"
+      },
+      {
+        "code": "MAPGROUP-011",
+        "message": "routed groups 276/276",
+        "status": "PASS"
+      },
+      {
+        "code": "MAPGROUP-012",
+        "message": "packed targets 276/276",
+        "status": "PASS"
+      },
+      {
+        "code": "MAPGROUP-013",
+        "message": "shared mappings 276/276",
+        "status": "PASS"
+      },
+      {
+        "code": "MAPGROUP-014",
+        "message": "g_proj logical realizations 93/93",
+        "status": "PASS"
+      },
+      {
+        "code": "MAPGROUP-015",
+        "message": "unresolved target descriptors 0",
+        "status": "PASS"
+      },
+      {
+        "code": "MAPGROUP-016",
+        "message": "direct source mappings 1693/1693",
+        "status": "PASS"
+      },
+      {
+        "code": "MAPGROUP-017",
+        "message": "historical source census reclassified 282 text and intentionally excluded 168",
+        "status": "PASS"
+      },
+      {
+        "code": "MAPGROUP-018",
+        "message": "shape=0,axis=0,type=0,missing_source=0,missing_target=0",
+        "status": "PASS"
+      },
+      {
+        "code": "MAPGROUP-019",
+        "message": "artifact-specific conversion provenance is unavailable",
+        "status": "UNAVAILABLE"
+      },
+      {
+        "code": "MAPGROUP-020",
+        "message": "payload packing, transforms, values, and shared partition were not checked",
+        "status": "NOT_CHECKED"
+      }
+    ],
+    "inventory_digest": "6578d6a2d12a3f3950d6c937a1d17f240105e74e783b5e16dcdc13861ed51dda",
+    "mapping_policy_digest": "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c",
+    "model_pack": {
+      "capabilities": [
+        "checkpoint_ontology",
+        "checkpoint_schema",
+        "gguf_ontology",
+        "semantic_mapping"
+      ],
+      "digest": "6f151e70f2b28e367b84c59db6e7ad4184271b1cc7f518320043e3456c3ef288",
+      "pack_id": "kimi-k3",
+      "pack_version": 3
+    },
+    "payload_status": "not_checked",
+    "report_schema": "omiv.semantic-mapping-report.v3",
+    "source": {
+      "inventory_sha256": "15a6757becb69c56492fdb630d6853696082a9ec6109bcea05f387a5052ea469",
+      "path_role": "canonical Kimi K3 checkpoint tensor inventory",
+      "physical_count": 497220
+    },
+    "summary": {
+      "coverage": {
+        "ambiguities": {
+          "count": 0,
+          "source_examples": [],
+          "target_examples": []
+        },
+        "artifact_specific_provenance": "unavailable",
+        "attention_output": 93,
+        "dense": {
+          "down": 1,
+          "gate": 1,
+          "up": 1
+        },
+        "direct": {
+          "source_records": 1693,
+          "target_records": 1693
+        },
+        "duplicates": {
+          "duplicate_mapping_result": {
+            "count": 0,
+            "examples": []
+          },
+          "duplicate_source_group": {
+            "count": 0,
+            "examples": []
+          },
+          "duplicate_source_logical": {
+            "count": 0,
+            "examples": []
+          },
+          "duplicate_source_physical": {
+            "count": 0,
+            "examples": []
+          },
+          "duplicate_target_physical": {
+            "count": 0,
+            "examples": []
+          }
+        },
+        "failures": {
+          "axis": 0,
+          "shape": 0,
+          "type_transition": 0
+        },
+        "fused": {
+          "source_members": 374,
+          "targets": 187
+        },
+        "g_proj": {
+          "kda": 69,
+          "mla": 24,
+          "total": 93
+        },
+        "kda": {
+          "direct": 552,
+          "logical": 276
+        },
+        "latent_moe": {
+          "down": 92,
+          "norm": 92,
+          "up": 92
+        },
+        "logical": {
+          "source_records": 393,
+          "target_records": 417
+        },
+        "mla": {
+          "direct": 120,
+          "split_sources": 24,
+          "split_targets": 48
+        },
+        "model_level_direct": 3,
+        "norms": {
+          "attention": 93,
+          "ffn": 93,
+          "output": 1
+        },
+        "payload_status": "not_checked",
+        "routed": {
+          "complete_groups": 276,
+          "duplicate_expert_ordinals": 0,
+          "incomplete_groups": 0,
+          "missing_expert_ordinals": 0,
+          "packed_targets": 276,
+          "source_expert_members": 247296,
+          "source_groups": 276,
+          "source_physical_members": 494592,
+          "source_scale_records": 247296
+        },
+        "router": {
+          "router": 92,
+          "router_bias": 92
+        },
+        "shared_experts": {
+          "components": 3,
+          "expected_physical_mappings": 276,
+          "layers": 92,
+          "metadata_evidence": "direct",
+          "metadata_shared_expert_count": 2,
+          "payload_partition_order": "not_checked",
+          "physical_relation": "one_to_one_combined_projection",
+          "physical_source_mappings": 276,
+          "physical_target_mappings": 276,
+          "shared_routing_mixing_gate": "absent_not_applicable"
+        },
+        "type_transition_summary": {
+          "failures": 0,
+          "source_dtype_counts": {
+            "BF16": 2122,
+            "F32": 506,
+            "U8": 494592
+          },
+          "target_ggml_type_counts": {
+            "F32": 1181,
+            "MXFP4": 276,
+            "Q8_0": 1116
+          }
+        }
+      },
+      "kimi": {
+        "attention_residual": {
+          "source_members": 374,
+          "targets": 187
+        },
+        "direct_family_counts": {
+          "attn-norm": 93,
+          "attn-output": 93,
+          "dense-down": 1,
+          "dense-gate": 1,
+          "dense-up": 1,
+          "ffn-norm": 93,
+          "latent-down": 92,
+          "latent-norm": 92,
+          "latent-up": 92,
+          "model_level": 3,
+          "router": 92,
+          "router-bias": 92,
+          "shared-down": 92,
+          "shared-gate": 92,
+          "shared-up": 92
+        },
+        "g_proj": {
+          "kda": 69,
+          "mla": 24,
+          "total": 93
+        },
+        "historical_reclassification": {
+          "newly_classified_text": 282,
+          "source_only_auxiliary": 168,
+          "total": 450
+        },
+        "kda": {
+          "direct": 552,
+          "logical": 276
+        },
+        "mla": {
+          "direct": 120,
+          "split_sources": 24,
+          "split_targets": 48
+        },
+        "routed": {
+          "complete_groups": 276,
+          "duplicate_expert_ordinals": 0,
+          "incomplete_groups": 0,
+          "missing_expert_ordinals": 0,
+          "packed_targets": 276,
+          "source_expert_members": 247296,
+          "source_groups": 276,
+          "source_physical_members": 494592,
+          "source_scale_records": 247296
+        },
+        "shared_experts": {
+          "components": 3,
+          "expected_physical_mappings": 276,
+          "layers": 92,
+          "metadata_evidence": "direct",
+          "metadata_shared_expert_count": 2,
+          "payload_partition_order": "not_checked",
+          "physical_relation": "one_to_one_combined_projection",
+          "physical_source_mappings": 276,
+          "physical_target_mappings": 276,
+          "shared_routing_mixing_gate": "absent_not_applicable"
+        }
+      },
+      "source": {
+        "accounted": 497220,
+        "auxiliary_family_breakdown": [
+          {
+            "accounting_state": "source_only_auxiliary",
+            "converter_operation": "skip_mm_projector",
+            "converter_revision": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+            "count": 1,
+            "examples": [
+              "mm_projector.post_norm.weight"
+            ],
+            "family": "mm_projector.post_norm.weight",
+            "reason": "text-only converter intentionally excludes multimodal auxiliary",
+            "shape_signatures": [
+              {
+                "count": 1,
+                "shape": [
+                  7168
+                ]
+              }
+            ],
+            "type_counts": {
+              "BF16": 1
+            }
+          },
+          {
+            "accounting_state": "source_only_auxiliary",
+            "converter_operation": "skip_mm_projector",
+            "converter_revision": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+            "count": 1,
+            "examples": [
+              "mm_projector.proj.0.weight"
+            ],
+            "family": "mm_projector.proj.0.weight",
+            "reason": "text-only converter intentionally excludes multimodal auxiliary",
+            "shape_signatures": [
+              {
+                "count": 1,
+                "shape": [
+                  4096,
+                  4096
+                ]
+              }
+            ],
+            "type_counts": {
+              "BF16": 1
+            }
+          },
+          {
+            "accounting_state": "source_only_auxiliary",
+            "converter_operation": "skip_mm_projector",
+            "converter_revision": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+            "count": 1,
+            "examples": [
+              "mm_projector.proj.2.weight"
+            ],
+            "family": "mm_projector.proj.2.weight",
+            "reason": "text-only converter intentionally excludes multimodal auxiliary",
+            "shape_signatures": [
+              {
+                "count": 1,
+                "shape": [
+                  7168,
+                  4096
+                ]
+              }
+            ],
+            "type_counts": {
+              "BF16": 1
+            }
+          },
+          {
+            "accounting_state": "source_only_auxiliary",
+            "converter_operation": "skip_vision_tower",
+            "converter_revision": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+            "count": 27,
+            "examples": [
+              "vision_tower.encoder.blocks.0.mlp.fc0.weight",
+              "vision_tower.encoder.blocks.1.mlp.fc0.weight",
+              "vision_tower.encoder.blocks.10.mlp.fc0.weight"
+            ],
+            "family": "vision_tower.encoder.blocks.{block}.mlp.fc0.weight",
+            "reason": "text-only converter intentionally excludes multimodal auxiliary",
+            "shape_signatures": [
+              {
+                "count": 27,
+                "shape": [
+                  4096,
+                  1024
+                ]
+              }
+            ],
+            "type_counts": {
+              "BF16": 27
+            }
+          },
+          {
+            "accounting_state": "source_only_auxiliary",
+            "converter_operation": "skip_vision_tower",
+            "converter_revision": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+            "count": 27,
+            "examples": [
+              "vision_tower.encoder.blocks.0.mlp.fc1.weight",
+              "vision_tower.encoder.blocks.1.mlp.fc1.weight",
+              "vision_tower.encoder.blocks.10.mlp.fc1.weight"
+            ],
+            "family": "vision_tower.encoder.blocks.{block}.mlp.fc1.weight",
+            "reason": "text-only converter intentionally excludes multimodal auxiliary",
+            "shape_signatures": [
+              {
+                "count": 27,
+                "shape": [
+                  1024,
+                  4096
+                ]
+              }
+            ],
+            "type_counts": {
+              "BF16": 27
+            }
+          },
+          {
+            "accounting_state": "source_only_auxiliary",
+            "converter_operation": "skip_vision_tower",
+            "converter_revision": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+            "count": 27,
+            "examples": [
+              "vision_tower.encoder.blocks.0.norm0.weight",
+              "vision_tower.encoder.blocks.1.norm0.weight",
+              "vision_tower.encoder.blocks.10.norm0.weight"
+            ],
+            "family": "vision_tower.encoder.blocks.{block}.norm0.weight",
+            "reason": "text-only converter intentionally excludes multimodal auxiliary",
+            "shape_signatures": [
+              {
+                "count": 27,
+                "shape": [
+                  1024
+                ]
+              }
+            ],
+            "type_counts": {
+              "BF16": 27
+            }
+          },
+          {
+            "accounting_state": "source_only_auxiliary",
+            "converter_operation": "skip_vision_tower",
+            "converter_revision": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+            "count": 27,
+            "examples": [
+              "vision_tower.encoder.blocks.0.norm1.weight",
+              "vision_tower.encoder.blocks.1.norm1.weight",
+              "vision_tower.encoder.blocks.10.norm1.weight"
+            ],
+            "family": "vision_tower.encoder.blocks.{block}.norm1.weight",
+            "reason": "text-only converter intentionally excludes multimodal auxiliary",
+            "shape_signatures": [
+              {
+                "count": 27,
+                "shape": [
+                  1024
+                ]
+              }
+            ],
+            "type_counts": {
+              "BF16": 27
+            }
+          },
+          {
+            "accounting_state": "source_only_auxiliary",
+            "converter_operation": "skip_vision_tower",
+            "converter_revision": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+            "count": 27,
+            "examples": [
+              "vision_tower.encoder.blocks.0.wo.weight",
+              "vision_tower.encoder.blocks.1.wo.weight",
+              "vision_tower.encoder.blocks.10.wo.weight"
+            ],
+            "family": "vision_tower.encoder.blocks.{block}.wo.weight",
+            "reason": "text-only converter intentionally excludes multimodal auxiliary",
+            "shape_signatures": [
+              {
+                "count": 27,
+                "shape": [
+                  1024,
+                  1536
+                ]
+              }
+            ],
+            "type_counts": {
+              "BF16": 27
+            }
+          },
+          {
+            "accounting_state": "source_only_auxiliary",
+            "converter_operation": "skip_vision_tower",
+            "converter_revision": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+            "count": 27,
+            "examples": [
+              "vision_tower.encoder.blocks.0.wqkv.weight",
+              "vision_tower.encoder.blocks.1.wqkv.weight",
+              "vision_tower.encoder.blocks.10.wqkv.weight"
+            ],
+            "family": "vision_tower.encoder.blocks.{block}.wqkv.weight",
+            "reason": "text-only converter intentionally excludes multimodal auxiliary",
+            "shape_signatures": [
+              {
+                "count": 27,
+                "shape": [
+                  4608,
+                  1024
+                ]
+              }
+            ],
+            "type_counts": {
+              "BF16": 27
+            }
+          },
+          {
+            "accounting_state": "source_only_auxiliary",
+            "converter_operation": "skip_vision_tower",
+            "converter_revision": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+            "count": 1,
+            "examples": [
+              "vision_tower.encoder.final_layernorm.weight"
+            ],
+            "family": "vision_tower.encoder.final_layernorm.weight",
+            "reason": "text-only converter intentionally excludes multimodal auxiliary",
+            "shape_signatures": [
+              {
+                "count": 1,
+                "shape": [
+                  1024
+                ]
+              }
+            ],
+            "type_counts": {
+              "BF16": 1
+            }
+          },
+          {
+            "accounting_state": "source_only_auxiliary",
+            "converter_operation": "skip_vision_tower",
+            "converter_revision": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+            "count": 1,
+            "examples": [
+              "vision_tower.patch_embed.pos_emb.weight"
+            ],
+            "family": "vision_tower.patch_embed.pos_emb.weight",
+            "reason": "text-only converter intentionally excludes multimodal auxiliary",
+            "shape_signatures": [
+              {
+                "count": 1,
+                "shape": [
+                  64,
+                  64,
+                  1024
+                ]
+              }
+            ],
+            "type_counts": {
+              "BF16": 1
+            }
+          },
+          {
+            "accounting_state": "source_only_auxiliary",
+            "converter_operation": "skip_vision_tower",
+            "converter_revision": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
+            "count": 1,
+            "examples": [
+              "vision_tower.patch_embed.proj.weight"
+            ],
+            "family": "vision_tower.patch_embed.proj.weight",
+            "reason": "text-only converter intentionally excludes multimodal auxiliary",
+            "shape_signatures": [
+              {
+                "count": 1,
+                "shape": [
+                  1024,
+                  3,
+                  14,
+                  14
+                ]
+              }
+            ],
+            "type_counts": {
+              "BF16": 1
+            }
+          }
+        ],
+        "historical_unclassified_records": 450,
+        "newly_classified_text_records": 282,
+        "physical_records": 497220,
+        "source_only_auxiliary_records": 168,
+        "states": {
+          "directly_mapped": 1693,
+          "fused_mapping_member": 374,
+          "intentionally_excluded": 0,
+          "invalid": 0,
+          "logical_realization_source": 393,
+          "packed_group_member": 494592,
+          "source_only_auxiliary": 168,
+          "unclassified": 0,
+          "unsupported": 0
+        },
+        "unresolved_family_breakdown": [],
+        "unresolved_records": 0
+      },
+      "target": {
+        "accounted": 2573,
+        "physical_records": 2573,
+        "states": {
+          "directly_realized": 1693,
+          "fused_target": 187,
+          "invalid": 0,
+          "logical_realization_target": 417,
+          "packed_group_target": 276,
+          "target_only_auxiliary": 0,
+          "unclassified": 0,
+          "unsupported": 0
+        },
+        "unresolved_family_breakdown": [],
+        "unresolved_records": 0
+      }
+    },
+    "target": {
+      "ontology_inventory_sha256": "a7dccbc370338778871bee07e2079b225e57e8fe0102f09587837b95e994ac6a",
+      "physical_count": 2573,
+      "resolved_revision": "3d4b61ab4b6789d401191c476cbb4567246db8f5",
+      "split_inventory_sha256": "e30a2b8019258213d893d10caff79860bd07a3262ad6e5cc2352884b7cc4f51c"
+    }
+  }
+}

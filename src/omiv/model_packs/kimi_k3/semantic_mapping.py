@@ -356,21 +356,21 @@ def _add_packed(builder: _Builder) -> dict[str, Any]:
             "ffn_gate_exps.weight",
             {(3072, 1792), (3072, 112)},
             {(3584, 3072, 896)},
-            ["IQ1_S", "IQ2_XXS"],
+            ["IQ1_S", "IQ2_XXS", "MXFP4"],
         ),
         "w2": (
             "DOWN",
             "ffn_down_exps.weight",
             {(3584, 1536), (3584, 96)},
             {(3072, 3584, 896)},
-            ["IQ1_S", "IQ3_XXS"],
+            ["IQ1_S", "IQ3_XXS", "MXFP4"],
         ),
         "w3": (
             "UP",
             "ffn_up_exps.weight",
             {(3072, 1792), (3072, 112)},
             {(3584, 3072, 896)},
-            ["IQ1_S", "IQ2_XXS"],
+            ["IQ1_S", "IQ2_XXS", "MXFP4"],
         ),
     }
     for layer in MOE_LAYERS:

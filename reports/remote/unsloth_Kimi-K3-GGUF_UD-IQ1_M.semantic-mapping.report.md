@@ -1,12 +1,12 @@
 # Kimi K3 semantic mapping report
 
-- Inventory digest: `5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16`
+- Inventory digest: `f380d9b9ee8060cf205eef4c69e58353608f148f2ea59ba680e7af522e034afb`
 - Source inventory digest: `15a6757becb69c56492fdb630d6853696082a9ec6109bcea05f387a5052ea469`
 - Target split inventory digest: `1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7`
-- Target ontology inventory digest: `131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3`
+- Target ontology inventory digest: `13a81e3f75b71266473bd1ab7588c6be3d47033245a2b96a80fb102d1ca1081f`
 - Model pack: `kimi-k3` v3 `6f151e70f2b28e367b84c59db6e7ad4184271b1cc7f518320043e3456c3ef288`
 - Model-pack capabilities: `checkpoint_ontology, checkpoint_schema, gguf_ontology, semantic_mapping`
-- Mapping policy digest: `bcfe1dbcbe2bd4724e385c5598fc7182bd630a0e090913fcf8c94e491573d0a9`
+- Mapping policy digest: `0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c`
 - Converter evidence revision: `cf67f0d24511864d2d3da0769108fd6fc16d00d1`
 - Artifact-specific provenance: `unavailable`
 - Payload verification: `not_checked`
@@ -128,7 +128,7 @@ Transition failures: 0; shape failures: 0; axis failures: 0.
 ## Findings
 - **PASS** MAPGROUP-001: source accounting reconstructs 497220/497220
 - **PASS** MAPGROUP-002: target accounting reconstructs 2573/2573
-- **PASS** MAPGROUP-003: mapping policy digest bcfe1dbcbe2bd4724e385c5598fc7182bd630a0e090913fcf8c94e491573d0a9
+- **PASS** MAPGROUP-003: mapping policy digest 0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c
 - **PASS** MAPGROUP-006: duplicate assignments 0; ambiguous lookups 0
 - **PASS** MAPGROUP-011: routed groups 276/276
 - **PASS** MAPGROUP-012: packed targets 276/276

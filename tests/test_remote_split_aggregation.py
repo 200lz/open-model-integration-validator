@@ -240,6 +240,14 @@ def test_duplicate_tensor_and_metadata_conflict_are_failures() -> None:
 
 def test_type_traits_spans_boundaries_unsupported_and_overflow() -> None:
     policy = default_ggml_type_policy()
+    mxfp4_trait = next(item for item in policy.traits if item.type_code == 39)
+    assert (
+        mxfp4_trait.type_name,
+        mxfp4_trait.block_elements,
+        mxfp4_trait.block_bytes,
+    ) == ("MXFP4", 32, 17)
+    assert policy.evidence_revision == "cf67f0d24511864d2d3da0769108fd6fc16d00d1"
+    assert policy.digest == default_ggml_type_policy().digest
     f32 = RemoteTensorDescriptor(
         name="f32",
         dimensions=[4, 2],
@@ -278,6 +286,58 @@ def test_type_traits_spans_boundaries_unsupported_and_overflow() -> None:
         compute_payload_span(
             iq1.model_copy(update={"data_offset": (1 << 64) - 1}),
             payload_start=1,
+            file_size=(1 << 64) - 1,
+            type_policy=policy,
+        )
+
+
+def test_mxfp4_exact_structural_spans_and_failures() -> None:
+    policy = default_ggml_type_policy()
+    tensor = RemoteTensorDescriptor(
+        name="packed",
+        dimensions=[32],
+        ggml_type_code=39,
+        ggml_type_name="MXFP4",
+        data_offset=0,
+        logical_element_count=32,
+        encoded_start=24,
+        encoded_end=64,
+        encoded_byte_length=40,
+        encoded_sha256="a" * 64,
+    )
+    span = compute_payload_span(
+        tensor, payload_start=15, file_size=32, type_policy=policy
+    )
+    assert span.status == "bounded"
+    assert span.encoded_byte_length == 17
+    assert span.absolute_end == 32
+
+    rows = tensor.model_copy(update={"dimensions": [64, 3]})
+    span = compute_payload_span(
+        rows, payload_start=10, file_size=112, type_policy=policy
+    )
+    assert span.status == "bounded"
+    assert span.encoded_byte_length == 102
+
+    invalid_block = tensor.model_copy(update={"dimensions": [31]})
+    assert compute_payload_span(
+        invalid_block, payload_start=0, file_size=100, type_policy=policy
+    ).status == "invalid"
+    zero = tensor.model_copy(update={"dimensions": [0]})
+    assert compute_payload_span(
+        zero, payload_start=0, file_size=100, type_policy=policy
+    ).reason == "logical tensor dimensions must be nonzero"
+    beyond = tensor.model_copy(update={"data_offset": 16})
+    assert compute_payload_span(
+        beyond, payload_start=0, file_size=32, type_policy=policy
+    ).status == "invalid"
+    overflow_rows = tensor.model_copy(
+        update={"dimensions": [32, (1 << 64) - 1]}
+    )
+    with pytest.raises(OmivInputError, match="overflows"):
+        compute_payload_span(
+            overflow_rows,
+            payload_start=0,
             file_size=(1 << 64) - 1,
             type_policy=policy,
         )

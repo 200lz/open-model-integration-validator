@@ -1,7 +1,7 @@
 {
   "integrity": {
     "canonicalization": "omiv-json-v1",
-    "sha256": "d4ccea5f4bf1fa4690d610e6746112ef8cad82333bc426e7f3f209c404a96ef2"
+    "sha256": "60ac2aeaa331e82c1f3c2b4d7e1f4ff28eeb2dd3d3a962e72989481898e1a8c7"
   },
   "report": {
     "acceptance_profile_matrix": [
@@ -259,8 +259,8 @@
         "shared_experts": 2,
         "target_tensors": 2573
       },
-      "artifact_index_digest": "1760af1e55d11c22415283ec4da3e341944aec598bf5a8021a16f0a798b62170",
-      "evidence_graph_digest": "25967beebe9edbe79874eeda88516680c08cc820b34905fb6c174ac8bd42bc36",
+      "artifact_index_digest": "6059d6a460f5d417173c4346f0c4e5d6c26a4887e488ea7c24d5e473ca6094a6",
+      "evidence_graph_digest": "ea08a66295a72ebb1331196e9cd3c94845fc21208b08240447828ae77b7db2eb",
       "limitations": [
         "Structural descriptor validation does not establish tensor payload integrity.",
         "Converter-code support does not establish which converter produced the published artifact.",
@@ -399,9 +399,9 @@
         ],
         "converter_evidence_revision": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
         "digest": "6f151e70f2b28e367b84c59db6e7ad4184271b1cc7f518320043e3456c3ef288",
-        "mapping_policy_digest": "bcfe1dbcbe2bd4724e385c5598fc7182bd630a0e090913fcf8c94e491573d0a9",
+        "mapping_policy_digest": "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c",
         "model_family": "kimi-k3",
-        "ontology_policy_digest": "dcd1ab32ba30153b2aa0c614136a35b090688e60fb2c7beb339421132badbbca",
+        "ontology_policy_digest": "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0",
         "version": 3
       },
       "not_verified_scope": [
@@ -1050,37 +1050,37 @@
             "verification_command": "omiv report-verify --input reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.split.report.json"
           },
           {
-            "canonical_digest": "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3",
+            "canonical_digest": "13a81e3f75b71266473bd1ab7588c6be3d47033245a2b96a80fb102d1ca1081f",
             "producer_phase": "4F-4",
             "relative_path": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.kimi-k3-ontology.inventory.json",
             "required": true,
             "role": "target_ontology_inventory",
             "schema_id": "omiv.kimi-k3-gguf-ontology-inventory.v1",
-            "size_bytes": 323640,
+            "size_bytes": 323883,
             "verification_command": "omiv kimi-k3-gguf-ontology-inventory-verify --input inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.kimi-k3-ontology.inventory.json"
           },
           {
-            "canonical_digest": "ea5a7660fe5ed98eb6b30f7d92fca5f4220f0bd19dd3d1fc5af8531856e0e577",
+            "canonical_digest": "679ed30f030237868a832615252b03601c7f3deb09f025a2251d1ab73d9559a0",
             "producer_phase": "4F-4",
             "relative_path": "reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.kimi-k3-ontology.report.json",
             "required": true,
             "role": "target_ontology_report",
             "schema_id": "omiv.kimi-k3-gguf-ontology-report.v1",
-            "size_bytes": 360661,
+            "size_bytes": 360918,
             "verification_command": "omiv report-verify --input reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.kimi-k3-ontology.report.json"
           },
           {
-            "canonical_digest": "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16",
+            "canonical_digest": "f380d9b9ee8060cf205eef4c69e58353608f148f2ea59ba680e7af522e034afb",
             "producer_phase": "4F-5",
             "relative_path": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.semantic-mapping.inventory.json",
             "required": true,
             "role": "semantic_mapping_inventory",
             "schema_id": "omiv.semantic-mapping-inventory.v3",
-            "size_bytes": 3373037,
+            "size_bytes": 3377729,
             "verification_command": "omiv kimi-k3-semantic-mapping-inventory-verify --input inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.semantic-mapping.inventory.json"
           },
           {
-            "canonical_digest": "d1c31b67cf59e2c019d12dd37ab3b1ed6549842be2b3ffb6461b378d98ac1519",
+            "canonical_digest": "a82b347f69fab5731a31e71a888e0b4acde4dfb4bb94ce34f0880f1cb292ded3",
             "producer_phase": "4F-5",
             "relative_path": "reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.semantic-mapping.report.json",
             "required": true,
@@ -1100,7 +1100,7 @@
             "verification_command": "sha256sum reports/raw/kimi_k3_tensors.json"
           }
         ],
-        "index_digest": "1760af1e55d11c22415283ec4da3e341944aec598bf5a8021a16f0a798b62170"
+        "index_digest": "6059d6a460f5d417173c4346f0c4e5d6c26a4887e488ea7c24d5e473ca6094a6"
       },
       "evidence_edges": [
         {
@@ -1268,10 +1268,10 @@
         {
           "child_node_id": "semantic-mapping-report",
           "dependency_relation": "reports_on",
-          "expected_digest": "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16",
+          "expected_digest": "f380d9b9ee8060cf205eef4c69e58353608f148f2ea59ba680e7af522e034afb",
           "linkage_status": "PASS",
           "mismatch_reason": null,
-          "observed_digest": "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16",
+          "observed_digest": "f380d9b9ee8060cf205eef4c69e58353608f148f2ea59ba680e7af522e034afb",
           "parent_node_id": "semantic-mapping-inventory"
         },
         {
@@ -1457,23 +1457,23 @@
         {
           "child_node_id": "semantic-mapping-inventory",
           "dependency_relation": "mapping_target_ontology",
-          "expected_digest": "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3",
+          "expected_digest": "13a81e3f75b71266473bd1ab7588c6be3d47033245a2b96a80fb102d1ca1081f",
           "linkage_status": "PASS",
           "mismatch_reason": null,
-          "observed_digest": "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3",
+          "observed_digest": "13a81e3f75b71266473bd1ab7588c6be3d47033245a2b96a80fb102d1ca1081f",
           "parent_node_id": "target-ontology-inventory"
         },
         {
           "child_node_id": "target-ontology-report",
           "dependency_relation": "reports_on",
-          "expected_digest": "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3",
+          "expected_digest": "13a81e3f75b71266473bd1ab7588c6be3d47033245a2b96a80fb102d1ca1081f",
           "linkage_status": "PASS",
           "mismatch_reason": null,
-          "observed_digest": "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3",
+          "observed_digest": "13a81e3f75b71266473bd1ab7588c6be3d47033245a2b96a80fb102d1ca1081f",
           "parent_node_id": "target-ontology-inventory"
         }
       ],
-      "evidence_graph_digest": "25967beebe9edbe79874eeda88516680c08cc820b34905fb6c174ac8bd42bc36",
+      "evidence_graph_digest": "ea08a66295a72ebb1331196e9cd3c94845fc21208b08240447828ae77b7db2eb",
       "evidence_nodes": [
         {
           "artifact_identifier": "snapshots/huggingface/unsloth_Kimi-K3-GGUF_UD-IQ1_M.snapshot.json",
@@ -1520,7 +1520,7 @@
         {
           "artifact_identifier": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.semantic-mapping.inventory.json",
           "artifact_kind": "semantic_mapping_inventory",
-          "canonical_digest": "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16",
+          "canonical_digest": "f380d9b9ee8060cf205eef4c69e58353608f148f2ea59ba680e7af522e034afb",
           "evidence_limitations": [
             "payload transforms and artifact-specific provenance are not verified"
           ],
@@ -1531,12 +1531,12 @@
           "model_pack_digest": "6f151e70f2b28e367b84c59db6e7ad4184271b1cc7f518320043e3456c3ef288",
           "node_id": "semantic-mapping-inventory",
           "parent_dependency_digests": [
-            "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3",
+            "13a81e3f75b71266473bd1ab7588c6be3d47033245a2b96a80fb102d1ca1081f",
             "15a6757becb69c56492fdb630d6853696082a9ec6109bcea05f387a5052ea469",
             "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7"
           ],
           "policy_digests": [
-            "bcfe1dbcbe2bd4724e385c5598fc7182bd630a0e090913fcf8c94e491573d0a9"
+            "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c"
           ],
           "provider": "huggingface",
           "schema_id": "omiv.semantic-mapping-inventory.v3",
@@ -1545,7 +1545,7 @@
         {
           "artifact_identifier": "reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.semantic-mapping.report.json",
           "artifact_kind": "semantic_mapping_report",
-          "canonical_digest": "d1c31b67cf59e2c019d12dd37ab3b1ed6549842be2b3ffb6461b378d98ac1519",
+          "canonical_digest": "a82b347f69fab5731a31e71a888e0b4acde4dfb4bb94ce34f0880f1cb292ded3",
           "evidence_limitations": [
             "artifact-specific conversion provenance unavailable",
             "payload verification not checked"
@@ -1557,10 +1557,10 @@
           "model_pack_digest": "6f151e70f2b28e367b84c59db6e7ad4184271b1cc7f518320043e3456c3ef288",
           "node_id": "semantic-mapping-report",
           "parent_dependency_digests": [
-            "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16"
+            "f380d9b9ee8060cf205eef4c69e58353608f148f2ea59ba680e7af522e034afb"
           ],
           "policy_digests": [
-            "bcfe1dbcbe2bd4724e385c5598fc7182bd630a0e090913fcf8c94e491573d0a9"
+            "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c"
           ],
           "provider": "huggingface",
           "schema_id": "omiv.semantic-mapping-report.v3",
@@ -2050,7 +2050,7 @@
         {
           "artifact_identifier": "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.kimi-k3-ontology.inventory.json",
           "artifact_kind": "kimi_k3_target_ontology",
-          "canonical_digest": "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3",
+          "canonical_digest": "13a81e3f75b71266473bd1ab7588c6be3d47033245a2b96a80fb102d1ca1081f",
           "evidence_limitations": [
             "descriptor shape/type validation does not prove tensor values"
           ],
@@ -2064,7 +2064,7 @@
             "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7"
           ],
           "policy_digests": [
-            "dcd1ab32ba30153b2aa0c614136a35b090688e60fb2c7beb339421132badbbca"
+            "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0"
           ],
           "provider": "huggingface",
           "schema_id": "omiv.kimi-k3-gguf-ontology-inventory.v1",
@@ -2073,7 +2073,7 @@
         {
           "artifact_identifier": "reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.kimi-k3-ontology.report.json",
           "artifact_kind": "kimi_k3_target_ontology_report",
-          "canonical_digest": "ea5a7660fe5ed98eb6b30f7d92fca5f4220f0bd19dd3d1fc5af8531856e0e577",
+          "canonical_digest": "679ed30f030237868a832615252b03601c7f3deb09f025a2251d1ab73d9559a0",
           "evidence_limitations": [
             "The ontology classifies target-side physical GGUF descriptors only.",
             "Packed expert PASS does not prove source expert ordering or source-to-target mapping.",
@@ -2088,10 +2088,10 @@
           "model_pack_digest": "6f151e70f2b28e367b84c59db6e7ad4184271b1cc7f518320043e3456c3ef288",
           "node_id": "target-ontology-report",
           "parent_dependency_digests": [
-            "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3"
+            "13a81e3f75b71266473bd1ab7588c6be3d47033245a2b96a80fb102d1ca1081f"
           ],
           "policy_digests": [
-            "dcd1ab32ba30153b2aa0c614136a35b090688e60fb2c7beb339421132badbbca"
+            "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0"
           ],
           "provider": "huggingface",
           "schema_id": "omiv.kimi-k3-gguf-ontology-report.v1",
@@ -2101,8 +2101,8 @@
       "evidence_stages": [
         {
           "artifact_digests": [
-            "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16",
-            "d1c31b67cf59e2c019d12dd37ab3b1ed6549842be2b3ffb6461b378d98ac1519"
+            "a82b347f69fab5731a31e71a888e0b4acde4dfb4bb94ce34f0880f1cb292ded3",
+            "f380d9b9ee8060cf205eef4c69e58353608f148f2ea59ba680e7af522e034afb"
           ],
           "evidence_node_ids": [
             "semantic-mapping-inventory",
@@ -2177,7 +2177,7 @@
         },
         {
           "artifact_digests": [
-            "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16"
+            "f380d9b9ee8060cf205eef4c69e58353608f148f2ea59ba680e7af522e034afb"
           ],
           "evidence_node_ids": [
             "semantic-mapping-inventory"
@@ -2192,7 +2192,7 @@
             "artifact-specific conversion provenance"
           ],
           "policy_digests": [
-            "bcfe1dbcbe2bd4724e385c5598fc7182bd630a0e090913fcf8c94e491573d0a9"
+            "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c"
           ],
           "scope": [
             "pinned converter code supports recorded relations"
@@ -2202,10 +2202,10 @@
         },
         {
           "artifact_digests": [
-            "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3",
+            "13a81e3f75b71266473bd1ab7588c6be3d47033245a2b96a80fb102d1ca1081f",
             "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7",
-            "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16",
-            "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520"
+            "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+            "f380d9b9ee8060cf205eef4c69e58353608f148f2ea59ba680e7af522e034afb"
           ],
           "evidence_node_ids": [
             "repository-snapshot",
@@ -2221,8 +2221,8 @@
           ],
           "next_required_evidence": [],
           "policy_digests": [
-            "bcfe1dbcbe2bd4724e385c5598fc7182bd630a0e090913fcf8c94e491573d0a9",
-            "dcd1ab32ba30153b2aa0c614136a35b090688e60fb2c7beb339421132badbbca"
+            "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c",
+            "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0"
           ],
           "scope": [
             "canonical digests and dependency reconstruction"
@@ -2251,7 +2251,7 @@
         },
         {
           "artifact_digests": [
-            "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16"
+            "f380d9b9ee8060cf205eef4c69e58353608f148f2ea59ba680e7af522e034afb"
           ],
           "evidence_node_ids": [
             "semantic-mapping-inventory"
@@ -2297,7 +2297,7 @@
         },
         {
           "artifact_digests": [
-            "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16"
+            "f380d9b9ee8060cf205eef4c69e58353608f148f2ea59ba680e7af522e034afb"
           ],
           "evidence_node_ids": [
             "semantic-mapping-inventory"
@@ -2411,7 +2411,7 @@
         },
         {
           "artifact_digests": [
-            "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16"
+            "f380d9b9ee8060cf205eef4c69e58353608f148f2ea59ba680e7af522e034afb"
           ],
           "evidence_node_ids": [
             "semantic-mapping-inventory"
@@ -2458,8 +2458,8 @@
         {
           "artifact_digests": [
             "15a6757becb69c56492fdb630d6853696082a9ec6109bcea05f387a5052ea469",
-            "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16",
-            "d1c31b67cf59e2c019d12dd37ab3b1ed6549842be2b3ffb6461b378d98ac1519"
+            "a82b347f69fab5731a31e71a888e0b4acde4dfb4bb94ce34f0880f1cb292ded3",
+            "f380d9b9ee8060cf205eef4c69e58353608f148f2ea59ba680e7af522e034afb"
           ],
           "evidence_node_ids": [
             "semantic-mapping-inventory",
@@ -2476,7 +2476,7 @@
             "payload relation verification"
           ],
           "policy_digests": [
-            "bcfe1dbcbe2bd4724e385c5598fc7182bd630a0e090913fcf8c94e491573d0a9"
+            "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c"
           ],
           "scope": [
             "descriptor-level source-to-target assignments"
@@ -2486,8 +2486,8 @@
         },
         {
           "artifact_digests": [
-            "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3",
-            "ea5a7660fe5ed98eb6b30f7d92fca5f4220f0bd19dd3d1fc5af8531856e0e577"
+            "13a81e3f75b71266473bd1ab7588c6be3d47033245a2b96a80fb102d1ca1081f",
+            "679ed30f030237868a832615252b03601c7f3deb09f025a2251d1ab73d9559a0"
           ],
           "evidence_node_ids": [
             "target-ontology-inventory",
@@ -2501,7 +2501,7 @@
           ],
           "next_required_evidence": [],
           "policy_digests": [
-            "dcd1ab32ba30153b2aa0c614136a35b090688e60fb2c7beb339421132badbbca"
+            "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0"
           ],
           "scope": [
             "Kimi K3 target ontology"
@@ -2600,7 +2600,7 @@
         },
         {
           "evidence": {
-            "ontology_digest": "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3"
+            "ontology_digest": "13a81e3f75b71266473bd1ab7588c6be3d47033245a2b96a80fb102d1ca1081f"
           },
           "finding_id": "VALIDATE-008",
           "limitation": null,
@@ -2609,7 +2609,7 @@
         },
         {
           "evidence": {
-            "mapping_digest": "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16"
+            "mapping_digest": "f380d9b9ee8060cf205eef4c69e58353608f148f2ea59ba680e7af522e034afb"
           },
           "finding_id": "VALIDATE-009",
           "limitation": null,
@@ -2698,7 +2698,7 @@
         },
         {
           "evidence": {
-            "evidence_graph_digest": "25967beebe9edbe79874eeda88516680c08cc820b34905fb6c174ac8bd42bc36"
+            "evidence_graph_digest": "ea08a66295a72ebb1331196e9cd3c94845fc21208b08240447828ae77b7db2eb"
           },
           "finding_id": "VALIDATE-020",
           "limitation": null,
@@ -2706,7 +2706,7 @@
           "summary": "The final bundle uses deterministic canonical serialization."
         }
       ],
-      "inventory_digest": "168c41d1002ac23acd5ed8d1fd411b41de290e840e96b23c75d368ee892db11b",
+      "inventory_digest": "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
       "limitations": [
         "Structural descriptor validation does not establish tensor payload integrity.",
         "Converter-code support does not establish which converter produced the published artifact.",
@@ -2845,9 +2845,9 @@
         ],
         "converter_evidence_revision": "cf67f0d24511864d2d3da0769108fd6fc16d00d1",
         "digest": "6f151e70f2b28e367b84c59db6e7ad4184271b1cc7f518320043e3456c3ef288",
-        "mapping_policy_digest": "bcfe1dbcbe2bd4724e385c5598fc7182bd630a0e090913fcf8c94e491573d0a9",
+        "mapping_policy_digest": "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c",
         "model_family": "kimi-k3",
-        "ontology_policy_digest": "dcd1ab32ba30153b2aa0c614136a35b090688e60fb2c7beb339421132badbbca",
+        "ontology_policy_digest": "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0",
         "version": 3
       },
       "not_verified_scope": [
@@ -3563,8 +3563,8 @@
         "expected_input_digests": {
           "prefix_report": "c5ca33b43e208fc37c5ac2016f530aabc05642c24dcc915df61f96aff161a1b4",
           "repository_snapshot": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
-          "semantic_mapping_inventory": "5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16",
-          "semantic_mapping_report": "d1c31b67cf59e2c019d12dd37ab3b1ed6549842be2b3ffb6461b378d98ac1519",
+          "semantic_mapping_inventory": "f380d9b9ee8060cf205eef4c69e58353608f148f2ea59ba680e7af522e034afb",
+          "semantic_mapping_report": "a82b347f69fab5731a31e71a888e0b4acde4dfb4bb94ce34f0880f1cb292ded3",
           "shard_01_header_inventory": "ad657eab768dc46fb07054eb1fdfaa5e1fac48f389c78523b38bef63c2bd7a8d",
           "shard_02_header_inventory": "573f7b53c497a91d030dc2e993f3e1c7348a4252a99a211a81d622363274e121",
           "shard_03_header_inventory": "92ec5e106b1c6db7ce0645efc8fa3aefcabb7f1f132a34206150ee2784a1462c",
@@ -3585,8 +3585,8 @@
           "source_checkpoint_inventory": "15a6757becb69c56492fdb630d6853696082a9ec6109bcea05f387a5052ea469",
           "split_inventory": "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7",
           "split_report": "42d8d90ea9872527deceb1620fda8bdd73baf8fd4bfc5cde2d886cb78a771b29",
-          "target_ontology_inventory": "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3",
-          "target_ontology_report": "ea5a7660fe5ed98eb6b30f7d92fca5f4220f0bd19dd3d1fc5af8531856e0e577"
+          "target_ontology_inventory": "13a81e3f75b71266473bd1ab7588c6be3d47033245a2b96a80fb102d1ca1081f",
+          "target_ontology_report": "679ed30f030237868a832615252b03601c7f3deb09f025a2251d1ab73d9559a0"
         },
         "no_payload_download": true,
         "offline_verification_commands": [
@@ -3984,7 +3984,7 @@
         "unresolved_records": 0
       },
       "target_artifact_identity": {
-        "ontology_inventory_digest": "131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3",
+        "ontology_inventory_digest": "13a81e3f75b71266473bd1ab7588c6be3d47033245a2b96a80fb102d1ca1081f",
         "physical_descriptors": 2573,
         "split_inventory_digest": "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7"
       },
@@ -4005,7 +4005,7 @@
       ],
       "warning_count": 0
     },
-    "report_digest": "3eb708e82661778525d4175dfb2f4bb47103bd2ea635af7661eea2893eadd7ce",
+    "report_digest": "76dd9f56bf8e72504ac920d4a79bfb45b610a5520709346ad7c0c76ec63f3a4b",
     "report_schema": "omiv.independent-model-validation-report.v1",
     "validation_stage_matrix": [
       {

@@ -407,9 +407,9 @@ def _transform_rules() -> list[MappingRule]:
 def _packed_rules() -> list[MappingRule]:
     rules = []
     for wid, component, target_suffix, types in (
-        ("w1", "gate", "ffn_gate_exps.weight", ["IQ1_S", "IQ2_XXS"]),
-        ("w2", "down", "ffn_down_exps.weight", ["IQ1_S", "IQ3_XXS"]),
-        ("w3", "up", "ffn_up_exps.weight", ["IQ1_S", "IQ2_XXS"]),
+        ("w1", "gate", "ffn_gate_exps.weight", ["IQ1_S", "IQ2_XXS", "MXFP4"]),
+        ("w2", "down", "ffn_down_exps.weight", ["IQ1_S", "IQ3_XXS", "MXFP4"]),
+        ("w3", "up", "ffn_up_exps.weight", ["IQ1_S", "IQ2_XXS", "MXFP4"]),
     ):
         escaped_target_suffix = target_suffix.replace(".", r"\.")
         rules.append(

@@ -16,11 +16,11 @@ This result is not evidence of tensor payload integrity, numerical quantization 
 - Selection: `UD\-IQ1\_M/\*\.gguf`
 - Model pack: `kimi-k3` v3
 - Model-pack digest: `6f151e70f2b28e367b84c59db6e7ad4184271b1cc7f518320043e3456c3ef288`
-- Evidence-graph digest: `25967beebe9edbe79874eeda88516680c08cc820b34905fb6c174ac8bd42bc36`
+- Evidence-graph digest: `ea08a66295a72ebb1331196e9cd3c94845fc21208b08240447828ae77b7db2eb`
 - Profile-policy digest: `ec745ebc9c7a7f1b51b115ab049a6507e76d5902aa98d8d7a27c70497886bdc7`
-- Artifact-index digest: `1760af1e55d11c22415283ec4da3e341944aec598bf5a8021a16f0a798b62170`
-- Validation inventory digest: `168c41d1002ac23acd5ed8d1fd411b41de290e840e96b23c75d368ee892db11b`
-- Validation report digest: `3eb708e82661778525d4175dfb2f4bb47103bd2ea635af7661eea2893eadd7ce`
+- Artifact-index digest: `6059d6a460f5d417173c4346f0c4e5d6c26a4887e488ea7c24d5e473ca6094a6`
+- Validation inventory digest: `54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8`
+- Validation report digest: `76dd9f56bf8e72504ac920d4a79bfb45b610a5520709346ad7c0c76ec63f3a4b`
 
 ## Validation Stages
 
@@ -216,10 +216,10 @@ Offline verification requires only the repository-relative artifacts in the embe
 - `inventories/remote/unsloth\_Kimi\-K3\-GGUF\_UD\-IQ1\_M/shards/Kimi\-K3\-UD\-IQ1\_M\-00015\-of\-00015\.header\.inventory\.json` — shard\_15\_header\_inventory, `cad7812fd44048000b91f36ae1cac417d697b8ef3ab6475760ebc6f769537e1b`, 20730 bytes
 - `inventories/remote/unsloth\_Kimi\-K3\-GGUF\_UD\-IQ1\_M\.split\.inventory\.json` — split\_inventory, `1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7`, 1927690 bytes
 - `reports/remote/unsloth\_Kimi\-K3\-GGUF\_UD\-IQ1\_M\.split\.report\.json` — split\_report, `42d8d90ea9872527deceb1620fda8bdd73baf8fd4bfc5cde2d886cb78a771b29`, 2050414 bytes
-- `inventories/remote/unsloth\_Kimi\-K3\-GGUF\_UD\-IQ1\_M\.kimi\-k3\-ontology\.inventory\.json` — target\_ontology\_inventory, `131df1bd203221907306d0a8a616f43ac4626d6c3b876ecb6818f62055d74bc3`, 323640 bytes
-- `reports/remote/unsloth\_Kimi\-K3\-GGUF\_UD\-IQ1\_M\.kimi\-k3\-ontology\.report\.json` — target\_ontology\_report, `ea5a7660fe5ed98eb6b30f7d92fca5f4220f0bd19dd3d1fc5af8531856e0e577`, 360661 bytes
-- `inventories/remote/unsloth\_Kimi\-K3\-GGUF\_UD\-IQ1\_M\.semantic\-mapping\.inventory\.json` — semantic\_mapping\_inventory, `5dec1c07c4cf592eab6e779fe234e2ed4be5b44070a795bc643337675c34eb16`, 3373037 bytes
-- `reports/remote/unsloth\_Kimi\-K3\-GGUF\_UD\-IQ1\_M\.semantic\-mapping\.report\.json` — semantic\_mapping\_report, `d1c31b67cf59e2c019d12dd37ab3b1ed6549842be2b3ffb6461b378d98ac1519`, 19510 bytes
+- `inventories/remote/unsloth\_Kimi\-K3\-GGUF\_UD\-IQ1\_M\.kimi\-k3\-ontology\.inventory\.json` — target\_ontology\_inventory, `13a81e3f75b71266473bd1ab7588c6be3d47033245a2b96a80fb102d1ca1081f`, 323883 bytes
+- `reports/remote/unsloth\_Kimi\-K3\-GGUF\_UD\-IQ1\_M\.kimi\-k3\-ontology\.report\.json` — target\_ontology\_report, `679ed30f030237868a832615252b03601c7f3deb09f025a2251d1ab73d9559a0`, 360918 bytes
+- `inventories/remote/unsloth\_Kimi\-K3\-GGUF\_UD\-IQ1\_M\.semantic\-mapping\.inventory\.json` — semantic\_mapping\_inventory, `f380d9b9ee8060cf205eef4c69e58353608f148f2ea59ba680e7af522e034afb`, 3377729 bytes
+- `reports/remote/unsloth\_Kimi\-K3\-GGUF\_UD\-IQ1\_M\.semantic\-mapping\.report\.json` — semantic\_mapping\_report, `a82b347f69fab5731a31e71a888e0b4acde4dfb4bb94ce34f0880f1cb292ded3`, 19510 bytes
 - `reports/raw/kimi\_k3\_tensors\.json` — source\_checkpoint\_inventory, `15a6757becb69c56492fdb630d6853696082a9ec6109bcea05f387a5052ea469`, 115542096 bytes
 
 ## Findings
