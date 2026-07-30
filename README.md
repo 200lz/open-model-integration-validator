@@ -45,7 +45,7 @@ The built-in production packs are:
 | Pack | Capabilities | Formats |
 | --- | --- | --- |
 | `qwen2` | `hf_ontology`, `gguf_ontology`, `semantic_mapping` | HF Safetensors → GGUF |
-| `kimi-k3` | `checkpoint_ontology`, `checkpoint_schema` | Safetensors header inventory |
+| `kimi-k3` | `checkpoint_ontology`, `checkpoint_schema`, `gguf_ontology` | Safetensors header inventory → GGUF |
 
 `synthetic-dense` is a tiny two-layer, test-only pack used to prove that the same
 core classifier, resolver, coverage checks, shape checks, and report generator work
@@ -909,5 +909,89 @@ metadata, GGML type-size, and per-shard parser policies are embedded and hashed.
 > is correct, that tensor payload bytes are intact, that quantization is faithful,
 > or that runtime outputs are equivalent.
 
-Phase 4F-4 may define the Kimi K3 GGUF ontology. Phase 4F-3 deliberately makes no
-KDA/MLA, dense/MoE schedule, packed-expert, shared-expert, or HF mapping claim.
+## Kimi K3 target-side GGUF ontology
+
+Phase 4F-4 adds a versioned `gguf_ontology` capability to the static trusted
+`kimi-k3` model pack. It consumes the verified Phase 4F-3 split inventory without
+network access, classifies physical target descriptors, and validates them against a
+policy grounded in the pinned target census, the existing Kimi K3 checkpoint
+ontology, and the Kimi K3 loader and tensor-name tables from pinned llama.cpp commit
+`cf67f0d24511864d2d3da0769108fd6fc16d00d1`.
+
+```bash
+omiv kimi-k3-gguf-ontology \
+  --input inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.split.inventory.json \
+  --model-pack kimi-k3 \
+  --output inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.kimi-k3-ontology.inventory.json \
+  --report-output reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.kimi-k3-ontology.report.json \
+  --markdown-output reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.kimi-k3-ontology.report.md
+```
+
+The command verifies the split inventory first. Phase 4F-3 intentionally retained
+metadata consistency summaries rather than model-specific scalar values, so the
+ontology command also verifies the integrity-linked broadest-metadata header
+inventory. Its default location is derived from the canonical split artifact name;
+`--metadata-inventory` provides an explicit equivalent. Repository, snapshot, shard
+path, declared file size, header parser policy, and inventory digest must all agree
+before those bounded metadata summaries are trusted.
+
+The mandatory census uses the exact `blk.<layer>.<component>[.<parameter>]` grammar,
+not a first-number search. It records top-level and suffix vocabularies, layer and
+shard counts, shape signatures, GGML type distributions, packed/shared/residual and
+gate names, and descriptor-order versus payload-offset observations. Every descriptor
+then has exactly one accounting outcome: classified, intentionally unclassified, or
+invalid. Duplicate classification is separately prohibited. Unknown auxiliary names
+remain visible rather than being forced into a nearby family.
+
+The target policy validates all 93 layers and the exact observed KDA/MLA schedule:
+69 KDA layers and the 24 MLA layers `3, 7, …, 91, 92`. Layer 0 has the three dense
+MLP tensors; layers 1 through 92 have router, latent-MoE, three packed routed-expert,
+and three shared-expert families. Packed expert dimensions structurally encode 896
+experts. This proves only the physical packed shape and coverage—it neither expands
+896 synthetic records per layer nor asserts source expert order.
+
+GGUF names differ from checkpoint names in several important ways. KDA uses the
+`ssm_*` vocabulary while MLA uses `attn_q_a`, `attn_kv_a_mqa`, and decomposed
+`attn_k_b`/`attn_v_b` tensors. Logical `g_proj` coverage is the union of `ssm_g` on
+KDA layers and `attn_gate` on MLA layers. Attention Residual is the target's fused
+`attn_res_score`, `ffn_res_score`, and `output_res_score` representation; the
+recorded block-size metadata is checked separately. These are target-side structural
+relations, not source-to-target transform claims.
+
+Shape rules are family-specific. Inventories retain physical GGUF loader-order
+dimensions and a documented normalized logical order; vectors remain unchanged,
+while explicitly declared matrix, convolution, and MLA families use the recorded
+reversal relation; packed-expert families retain their target semantic axis order.
+Family-level GGML type policy permits F32 controls
+and norms, Q8_0 projections, and the observed IQ1_S/IQ2_XXS/IQ3_XXS placements for
+packed expert matrices. Type placement says nothing about numerical quantization
+quality.
+
+The strict schemas are
+`omiv.kimi-k3-gguf-ontology-inventory.v1` and
+`omiv.kimi-k3-gguf-ontology-report.v1`. They embed the model-pack and ontology
+policies and their deterministic digests, reconstruct all `KIMIGGUF-001` through
+`KIMIGGUF-015` findings, and retain split, snapshot, repository, and metadata-header
+linkages without local paths or raw metadata. Standalone verification and full source
+linkage are available with:
+
+```bash
+omiv kimi-k3-gguf-ontology-inventory-verify \
+  --input inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.kimi-k3-ontology.inventory.json \
+  --source inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.split.inventory.json
+
+omiv report-verify \
+  --input reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.kimi-k3-ontology.report.json
+```
+
+> A successful Phase 4F-4 result proves that the verified target GGUF tensor
+> descriptors satisfy the recorded Kimi K3 target-side architecture ontology,
+> including layer schedules, required tensor families, packed expert structure,
+> shape relations, and GGML type placement. It does not prove that source
+> checkpoint tensors were mapped into those target tensors correctly, that packed
+> expert ordering is correct, that tensor payload values are intact, that
+> quantization is numerically faithful, or that runtime outputs are equivalent.
+
+Phase 4F-5 may define explicit packed MoE and shared-expert source-to-target mapping.
+Phase 4F-4 does not reconstruct the 497,220 source identities, inspect payloads, or
+make conversion, quantization-fidelity, tokenizer, logit, or runtime-parity claims.

@@ -9,7 +9,6 @@ from typer.testing import CliRunner
 
 from omiv.canonical import CANONICALIZATION_ID, canonical_sha256
 from omiv.cli import app
-from omiv.errors import OmivInputError
 from omiv.gguf.models import GGUFInventory
 from omiv.hf.models import HFInventory
 from omiv.mapping.manifest import load_mapping_manifest
@@ -192,9 +191,12 @@ def test_pack_capabilities_are_explicit() -> None:
     assert kimi.capabilities == {
         ModelPackCapability.CHECKPOINT_SCHEMA,
         ModelPackCapability.CHECKPOINT_ONTOLOGY,
+        ModelPackCapability.GGUF_ONTOLOGY,
     }
-    with pytest.raises(OmivInputError, match="does not support capability"):
-        kimi.classify_gguf_tensor("output.weight")
+    assert (
+        kimi.classify_gguf_tensor("output.weight").canonical.identity
+        == "kimi-k3.model.output_projection"
+    )
 
 
 def test_pack_metadata_digest_is_canonical_and_declarative() -> None:

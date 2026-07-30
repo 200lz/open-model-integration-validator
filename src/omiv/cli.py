@@ -33,6 +33,21 @@ from omiv.mapping.reporting import (
     render_mapping_markdown,
 )
 from omiv.mapping.validator import format_mapping_report, validate_semantic_mapping
+from omiv.model_packs.kimi_k3.gguf_models import ONTOLOGY_REPORT_SCHEMA
+from omiv.model_packs.kimi_k3.gguf_reporting import (
+    build_ontology_inventory_envelope,
+    build_ontology_report,
+    load_ontology_inventory,
+    load_ontology_report,
+    ontology_inventory_integrity_matches,
+    ontology_inventory_links_split,
+    ontology_report_integrity_matches,
+    pretty_ontology_json,
+    render_ontology_markdown,
+)
+from omiv.model_packs.kimi_k3.gguf_validator import (
+    build_kimi_k3_gguf_ontology,
+)
 from omiv.model_packs.registry import get_model_pack, list_model_packs
 from omiv.models import ModelInventory
 from omiv.normalizer import normalize_inventory, write_inventory
@@ -919,6 +934,105 @@ def remote_split_inventory_verify(
     typer.echo(f"PASS split inventory integrity {envelope.integrity.sha256}")
 
 
+def _default_split_metadata_inventory(split_path: Path, remote_path: str) -> Path:
+    suffix = ".split.inventory.json"
+    if not split_path.name.endswith(suffix):
+        raise OmivInputError("cannot derive metadata inventory path; use --metadata-inventory")
+    collection = split_path.name[: -len(suffix)]
+    file_name = remote_path.rsplit("/", 1)[-1]
+    if not file_name.endswith(".gguf"):
+        raise OmivInputError("broadest metadata shard is not a GGUF file")
+    return split_path.parent / collection / "shards" / f"{file_name[:-5]}.header.inventory.json"
+
+
+@app.command("kimi-k3-gguf-ontology")
+def kimi_k3_gguf_ontology(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    output_path: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    report_output: Annotated[Path, typer.Option("--report-output", dir_okay=False)],
+    markdown_output: Annotated[Path, typer.Option("--markdown-output", dir_okay=False)],
+    model_pack_id: Annotated[str, typer.Option("--model-pack")] = "kimi-k3",
+    metadata_inventory: Annotated[
+        Path | None, typer.Option("--metadata-inventory", dir_okay=False)
+    ] = None,
+) -> None:
+    """Validate a verified split inventory against the Kimi K3 target ontology."""
+    try:
+        split = load_split_inventory(input_path)
+        metadata_path = metadata_inventory or _default_split_metadata_inventory(
+            input_path,
+            split.inventory.metadata_consistency.broadest_metadata_shard,
+        )
+        if not metadata_path.is_file():
+            raise OmivInputError(
+                f"linked broadest-metadata header inventory not found: {metadata_path.name}"
+            )
+        inputs = (input_path, metadata_path)
+        outputs = (output_path, report_output, markdown_output)
+        if len({item.resolve(strict=False) for item in outputs}) != len(outputs):
+            raise OmivInputError("ontology inventory and report outputs must be distinct")
+        for output in outputs:
+            validate_output_path(output, forbidden_inputs=inputs)
+        header = load_header_inventory(metadata_path)
+        pack = get_model_pack(model_pack_id)
+        inventory = build_kimi_k3_gguf_ontology(split, header, pack)
+        inventory_envelope = build_ontology_inventory_envelope(inventory)
+        report_envelope = build_ontology_report(inventory_envelope)
+        atomic_write_text(
+            output_path,
+            pretty_ontology_json(inventory_envelope),
+            forbidden_inputs=inputs,
+        )
+        atomic_write_text(
+            report_output,
+            pretty_ontology_json(report_envelope),
+            forbidden_inputs=inputs,
+        )
+        atomic_write_text(
+            markdown_output,
+            render_ontology_markdown(report_envelope),
+            forbidden_inputs=inputs,
+        )
+    except (OSError, UnicodeError, ValidationError, OmivInputError) as exc:
+        typer.echo(f"ERROR Kimi K3 GGUF ontology failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"{report_envelope.report.execution.result.value.upper()} Kimi K3 GGUF ontology "
+        f"{inventory_envelope.integrity.sha256} "
+        f"tensors={inventory.classification.total_tensor_count} "
+        f"classified={inventory.classification.classified_count}"
+    )
+    if report_envelope.report.execution.exit_code:
+        raise typer.Exit(code=1)
+
+
+@app.command("kimi-k3-gguf-ontology-inventory-verify")
+def kimi_k3_gguf_ontology_inventory_verify(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    source_path: Annotated[
+        Path | None, typer.Option("--source", exists=True, dir_okay=False)
+    ] = None,
+) -> None:
+    """Verify ontology integrity, policies, and optional source-split linkage."""
+    try:
+        envelope = load_ontology_inventory(input_path)
+        if not ontology_inventory_integrity_matches(envelope):
+            typer.echo("FAIL ontology inventory integrity mismatch")
+            raise typer.Exit(code=1)
+        if source_path is not None:
+            split = load_split_inventory(source_path)
+            if not ontology_inventory_links_split(envelope, split):
+                typer.echo("FAIL ontology source split linkage mismatch")
+                raise typer.Exit(code=1)
+    except OmivInputError as exc:
+        typer.echo(f"ERROR {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"PASS ontology inventory integrity {envelope.integrity.sha256}"
+        + (" source-linkage=verified" if source_path is not None else "")
+    )
+
+
 @app.command("report")
 def report_command(
     input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
@@ -930,7 +1044,12 @@ def report_command(
         if output_format != "markdown":
             raise OmivInputError("unsupported report format; expected markdown")
         schema = _read_report_schema(input_path)
-        if schema == SPLIT_REPORT_SCHEMA:
+        if schema == ONTOLOGY_REPORT_SCHEMA:
+            ontology_envelope = load_ontology_report(input_path)
+            if not ontology_report_integrity_matches(ontology_envelope):
+                raise OmivInputError("report integrity mismatch")
+            content = render_ontology_markdown(ontology_envelope)
+        elif schema == SPLIT_REPORT_SCHEMA:
             split_envelope = load_split_report(input_path)
             if not split_report_integrity_matches(split_envelope):
                 raise OmivInputError("report integrity mismatch")
@@ -973,6 +1092,13 @@ def report_verify(
     """Verify report schema and payload integrity without original artifacts."""
     try:
         schema = _read_report_schema(input_path)
+        if schema == ONTOLOGY_REPORT_SCHEMA:
+            ontology_envelope = load_ontology_report(input_path)
+            if not ontology_report_integrity_matches(ontology_envelope):
+                typer.echo("FAIL report integrity mismatch")
+                raise typer.Exit(code=1)
+            typer.echo(f"PASS report integrity {ontology_envelope.integrity.sha256}")
+            return
         if schema == SPLIT_REPORT_SCHEMA:
             split_envelope = load_split_report(input_path)
             if not split_report_integrity_matches(split_envelope):
