@@ -53,6 +53,24 @@ from omiv.provenance.validator import (
     format_provenance_report,
     validate_provenance,
 )
+from omiv.remote.huggingface import HuggingFaceRepositoryAdapter
+from omiv.remote.probe import gguf_prefix_probe, range_probe
+from omiv.remote.range_client import BoundedRangeClient, RangeValidationError
+from omiv.remote.reporting import (
+    build_snapshot_report,
+    load_remote_report,
+    load_snapshot,
+    snapshot_envelope,
+)
+from omiv.remote.reporting import (
+    pretty_json as pretty_remote_json,
+)
+from omiv.remote.reporting import (
+    render_markdown as render_remote_markdown,
+)
+from omiv.remote.reporting import (
+    report_integrity_matches as remote_report_integrity_matches,
+)
 from omiv.reporters.console import format_report
 from omiv.safe_write import atomic_write_text, validate_output_path
 from omiv.schema.loader import load_schema
@@ -62,6 +80,11 @@ app = typer.Typer(no_args_is_help=True, pretty_exceptions_enable=False)
 model_packs_app = typer.Typer(no_args_is_help=True)
 app.add_typer(model_packs_app, name="model-packs")
 MAX_CANONICAL_INVENTORY_BYTES = 64 * 1024 * 1024
+REMOTE_REPORT_SCHEMAS = {
+    "omiv.remote-snapshot-report.v1",
+    "omiv.remote-range-probe-report.v1",
+    "omiv.remote-gguf-prefix-report.v1",
+}
 
 
 def _read_report_schema(path: Path) -> str | None:
@@ -407,6 +430,151 @@ def conversion_run(
     typer.echo(f"PASS conversion provenance {provenance.provenance_id}")
 
 
+def _require_online(offline: bool) -> None:
+    if offline:
+        raise OmivInputError("remote commands cannot run with --offline")
+
+
+@app.command("remote-snapshot")
+def remote_snapshot(
+    provider: Annotated[str, typer.Option("--provider")],
+    repo_id: Annotated[str, typer.Option("--repo")],
+    revision: Annotated[str, typer.Option("--revision")],
+    output_path: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    path_prefix: Annotated[str | None, typer.Option("--path-prefix")] = None,
+    patterns: Annotated[list[str] | None, typer.Option("--pattern")] = None,
+    report_output: Annotated[
+        Path | None, typer.Option("--report-output", dir_okay=False)
+    ] = None,
+    markdown_output: Annotated[
+        Path | None, typer.Option("--markdown-output", dir_okay=False)
+    ] = None,
+    offline: Annotated[bool, typer.Option("--offline")] = False,
+) -> None:
+    """Resolve and enumerate a pinned remote repository without file downloads."""
+    try:
+        _require_online(offline)
+        if provider != "huggingface":
+            raise OmivInputError("unsupported remote provider; expected huggingface")
+        outputs = [item for item in (output_path, report_output, markdown_output) if item]
+        if len({item.resolve(strict=False) for item in outputs}) != len(outputs):
+            raise OmivInputError("remote snapshot outputs must use distinct paths")
+        for item in outputs:
+            validate_output_path(item)
+        snapshot = HuggingFaceRepositoryAdapter().snapshot(
+            repo_id=repo_id,
+            revision=revision,
+            path_prefix=path_prefix,
+            patterns=patterns or [],
+        )
+        envelope = snapshot_envelope(snapshot)
+        report = build_snapshot_report(envelope)
+        atomic_write_text(output_path, pretty_remote_json(envelope))
+        if report_output is not None:
+            atomic_write_text(report_output, pretty_remote_json(report))
+        if markdown_output is not None:
+            atomic_write_text(markdown_output, render_remote_markdown(report))
+    except (OSError, UnicodeError, ValidationError, OmivInputError) as exc:
+        typer.echo(f"ERROR invalid remote configuration or evidence: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"{report.report.execution.result.value.upper()} remote snapshot "
+        f"{envelope.integrity.sha256}"
+    )
+    if report.report.execution.exit_code:
+        raise typer.Exit(code=1)
+
+
+@app.command("remote-range-probe")
+def remote_range_probe(
+    snapshot_path: Annotated[
+        Path, typer.Option("--snapshot", exists=True, dir_okay=False)
+    ],
+    file_path: Annotated[str, typer.Option("--file")],
+    offset: Annotated[int, typer.Option("--offset", min=0)],
+    length: Annotated[int, typer.Option("--length", min=1)],
+    output_path: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    hex_preview: Annotated[bool, typer.Option("--hex-preview")] = False,
+    offline: Annotated[bool, typer.Option("--offline")] = False,
+) -> None:
+    """Retrieve and validate exactly one bounded remote byte range."""
+    try:
+        _require_online(offline)
+        validate_output_path(output_path, forbidden_inputs=(snapshot_path,))
+        snapshot = load_snapshot(snapshot_path)
+        report = range_probe(
+            snapshot,
+            path=file_path,
+            offset=offset,
+            length=length,
+            client=BoundedRangeClient(),
+            include_hex_preview=hex_preview,
+        )
+        atomic_write_text(
+            output_path,
+            pretty_remote_json(report),
+            forbidden_inputs=(snapshot_path,),
+        )
+    except RangeValidationError as exc:
+        typer.echo(f"FAIL bounded range validation: {exc}", err=True)
+        raise typer.Exit(code=1) from exc
+    except (OSError, UnicodeError, ValidationError, OmivInputError) as exc:
+        typer.echo(f"ERROR invalid remote configuration or snapshot: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(f"PASS bounded range {report.integrity.sha256}")
+
+
+@app.command("remote-gguf-prefix")
+def remote_gguf_prefix(
+    snapshot_path: Annotated[
+        Path, typer.Option("--snapshot", exists=True, dir_okay=False)
+    ],
+    file_path: Annotated[str, typer.Option("--file")],
+    output_path: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    markdown_output: Annotated[
+        Path | None, typer.Option("--markdown-output", dir_okay=False)
+    ] = None,
+    offline: Annotated[bool, typer.Option("--offline")] = False,
+) -> None:
+    """Validate only the eight-byte GGUF magic/version prefix."""
+    try:
+        _require_online(offline)
+        outputs = [output_path] + ([markdown_output] if markdown_output else [])
+        if len({item.resolve(strict=False) for item in outputs}) != len(outputs):
+            raise OmivInputError("prefix report outputs must use distinct paths")
+        for item in outputs:
+            validate_output_path(item, forbidden_inputs=(snapshot_path,))
+        snapshot = load_snapshot(snapshot_path)
+        report = gguf_prefix_probe(
+            snapshot,
+            path=file_path,
+            client=BoundedRangeClient(),
+        )
+        atomic_write_text(
+            output_path,
+            pretty_remote_json(report),
+            forbidden_inputs=(snapshot_path,),
+        )
+        if markdown_output is not None:
+            atomic_write_text(
+                markdown_output,
+                render_remote_markdown(report),
+                forbidden_inputs=(snapshot_path,),
+            )
+    except RangeValidationError as exc:
+        typer.echo(f"FAIL bounded prefix validation: {exc}", err=True)
+        raise typer.Exit(code=1) from exc
+    except (OSError, UnicodeError, ValidationError, OmivInputError) as exc:
+        typer.echo(f"ERROR invalid remote configuration or snapshot: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"{report.report.execution.result.value.upper()} GGUF prefix "
+        f"{report.integrity.sha256}"
+    )
+    if report.report.execution.exit_code:
+        raise typer.Exit(code=1)
+
+
 @app.command("report")
 def report_command(
     input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
@@ -428,6 +596,11 @@ def report_command(
             if not provenance_report_integrity_matches(provenance_envelope):
                 raise OmivInputError("report integrity mismatch")
             content = render_provenance_markdown(provenance_envelope)
+        elif schema in REMOTE_REPORT_SCHEMAS:
+            remote_envelope = load_remote_report(input_path)
+            if not remote_report_integrity_matches(remote_envelope):
+                raise OmivInputError("report integrity mismatch")
+            content = render_remote_markdown(remote_envelope)
         else:
             envelope = load_report_envelope(input_path)
             if not report_integrity_matches(envelope):
@@ -459,6 +632,13 @@ def report_verify(
                 typer.echo("FAIL report integrity mismatch")
                 raise typer.Exit(code=1)
             typer.echo(f"PASS report integrity {provenance_envelope.integrity.sha256}")
+            return
+        if schema in REMOTE_REPORT_SCHEMAS:
+            remote_envelope = load_remote_report(input_path)
+            if not remote_report_integrity_matches(remote_envelope):
+                typer.echo("FAIL report integrity mismatch")
+                raise typer.Exit(code=1)
+            typer.echo(f"PASS report integrity {remote_envelope.integrity.sha256}")
             return
         envelope = load_report_envelope(input_path)
     except OmivInputError as exc:

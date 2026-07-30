@@ -1,0 +1,142 @@
+{
+  "integrity": {
+    "canonicalization": "omiv-json-v1",
+    "sha256": "ea7be6d02ddbf17ab0eb04ff9775bfcd6f21f0f9456947d158a973b8bb7f5cc4"
+  },
+  "report": {
+    "execution": {
+      "exit_code": 0,
+      "result": "pass"
+    },
+    "findings": [
+      {
+        "evidence": {
+          "requested_revision": "main",
+          "resolved_revision": "3d4b61ab4b6789d401191c476cbb4567246db8f5"
+        },
+        "message": "Repository revision resolved to an immutable commit.",
+        "rule_id": "REMOTE-001",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "selected_path_count": 15,
+          "strict_subtree": true
+        },
+        "message": "All selected paths passed canonical POSIX path validation.",
+        "rule_id": "REMOTE-002",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "file_count": 15
+        },
+        "message": "Selected file sizes are present and valid.",
+        "rule_id": "REMOTE-003",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "candidate_count": 1,
+          "complete_candidate_count": 1,
+          "extra_gguf_file_count": 0
+        },
+        "message": "Candidate split filenames are complete.",
+        "rule_id": "REMOTE-004",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "unique_file_count": 15
+        },
+        "message": "No duplicate selected file identities were observed.",
+        "rule_id": "REMOTE-005",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "snapshot_sha256": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520"
+        },
+        "message": "Snapshot uses canonical ordering and deterministic payload hashing.",
+        "rule_id": "REMOTE-006",
+        "severity": "info",
+        "status": "pass"
+      }
+    ],
+    "limitations": [
+      "Filename completeness is repository-layout evidence, not GGUF-header validation.",
+      "No tensor payload bytes were requested by repository enumeration."
+    ],
+    "report_schema": "omiv.remote-snapshot-report.v1",
+    "repository": {
+      "repo_id": "unsloth/Kimi-K3-GGUF",
+      "repo_type": "model",
+      "requested_revision": "main",
+      "resolved_revision": "3d4b61ab4b6789d401191c476cbb4567246db8f5"
+    },
+    "selection": {
+      "path_prefix": "UD-IQ1_M",
+      "patterns": [
+        "*.gguf"
+      ],
+      "strict_subtree": true
+    },
+    "snapshot_sha256": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+    "summary": {
+      "candidate_split_sets": [
+        {
+          "complete": true,
+          "declared_shard_count": 15,
+          "duplicate_ordinals": [],
+          "files": [
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00001-of-00015.gguf",
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00002-of-00015.gguf",
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00003-of-00015.gguf",
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00004-of-00015.gguf",
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00005-of-00015.gguf",
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00006-of-00015.gguf",
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00007-of-00015.gguf",
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00008-of-00015.gguf",
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00009-of-00015.gguf",
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00010-of-00015.gguf",
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00011-of-00015.gguf",
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00012-of-00015.gguf",
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00013-of-00015.gguf",
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00014-of-00015.gguf",
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00015-of-00015.gguf"
+          ],
+          "inconsistent_declared_counts": [],
+          "missing_ordinals": [],
+          "non_contiguous": false,
+          "observed_ordinals": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "stem": "UD-IQ1_M/Kimi-K3-UD-IQ1_M"
+        }
+      ],
+      "extra_gguf_files": [],
+      "file_count": 15,
+      "gguf_file_count": 15,
+      "total_byte_size": 648872012448
+    }
+  }
+}

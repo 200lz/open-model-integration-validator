@@ -35,6 +35,7 @@ addopts = "-ra"
 pythonpath = ["src"]
 markers = [
   "integration: tests that require the local full checkpoint inventory",
+  "remote_integration: opt-in tests that access a pinned remote repository",
 ]
 
 [tool.ruff]

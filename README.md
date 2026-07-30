@@ -15,7 +15,11 @@ Python 3.11 or newer is required.
 python -m pip install -e '.[dev]'
 ```
 
-The runtime has no Hugging Face client and performs no network access.
+Local inventory, validation, mapping, reporting, and conversion commands remain
+offline. Phase 4F-1 adds explicitly invoked remote commands for public Hugging Face
+repository metadata and bounded byte-range inspection. The production adapter uses
+the documented Hub API directly; `huggingface_hub` remains an optional, lazily
+imported integration rather than a runtime requirement.
 
 ## Core, format adapters, and model packs
 
@@ -658,3 +662,103 @@ therefore the legacy 290-tensor report remains a deliberate failure. Kimi K3 exp
 no realization evidence. Future Kimi K3 mappings, MoE expert packing, fused tensors,
 and accelerator-specific backends require their own explicit schemas and trusted,
 architecture-scoped evidence rather than extrapolation from the Qwen2 policy.
+
+## Pinned remote repository snapshots and bounded Range probes
+
+Phase 4F-1 introduces a provider-neutral remote-artifact boundary with a Hugging
+Face model-repository adapter. The primary identity is always the provider,
+repository ID, repository type, requested revision, and resolved immutable commit;
+an arbitrary URL is never accepted by the CLI as repository identity. A mutable
+reference such as `main` is resolved once through the Hub API, both revisions are
+recorded, and all later file requests use the full resolved commit. OMIV never
+silently returns to `main`.
+
+Create a metadata-only snapshot and its reports with:
+
+```bash
+omiv remote-snapshot \
+  --provider huggingface \
+  --repo unsloth/Kimi-K3-GGUF \
+  --revision main \
+  --path-prefix UD-IQ1_M \
+  --pattern "*.gguf" \
+  --output snapshots/huggingface/unsloth_Kimi-K3-GGUF_UD-IQ1_M.snapshot.json \
+  --report-output reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.snapshot.report.json \
+  --markdown-output reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.snapshot.report.md
+```
+
+Enumeration requests repository metadata only. Every returned path is treated as
+untrusted and must be a bounded-length canonical POSIX relative path with no
+absolute, empty, dot, traversal, backslash, control, NUL, or percent-decoded
+traversal component. Selection is restricted to the requested subtree and patterns,
+sorted deterministically, and records declared sizes plus stable Git, LFS, or Xet
+identifiers where the provider supplies them. It stores no timestamps, machine
+paths, token, cache location, temporary URL, or signed query parameter.
+
+Names of the form `<stem>-00001-of-00015.gguf` are grouped generically. The
+snapshot reports observed and declared ordinals, duplicates, gaps, inconsistent
+counts, non-contiguity, independent sets, and unrelated GGUF files. The shard count
+is always derived from pinned API evidence; it is not specific to 15. Filename
+completeness is repository-layout evidence only and is not complete GGUF-header or
+split-metadata validation.
+
+Probe one explicit interval, or the safe eight-byte GGUF prefix, with:
+
+```bash
+omiv remote-range-probe \
+  --snapshot snapshots/huggingface/unsloth_Kimi-K3-GGUF_UD-IQ1_M.snapshot.json \
+  --file UD-IQ1_M/Kimi-K3-UD-IQ1_M-00001-of-00015.gguf \
+  --offset 0 \
+  --length 8 \
+  --output reports/remote/range-probe.json
+
+omiv remote-gguf-prefix \
+  --snapshot snapshots/huggingface/unsloth_Kimi-K3-GGUF_UD-IQ1_M.snapshot.json \
+  --file UD-IQ1_M/Kimi-K3-UD-IQ1_M-00001-of-00015.gguf \
+  --output reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M_shard1.prefix.report.json \
+  --markdown-output reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M_shard1.prefix.report.md
+```
+
+The example filename illustrates the currently observed repository layout; the
+integration test and generic implementation derive the first shard and count from
+the immutable snapshot rather than relying on it.
+
+The Range client guarantees HTTPS, an explicit Hugging Face, `.huggingface.co`,
+`.cdn.hf.co`, and Xet bridge host policy, an explicit
+start and positive length, configured response/header/error-body caps, bounded
+redirects with destination revalidation, cross-host Authorization removal,
+`Accept-Encoding: identity`, and incremental reads of at most the permitted bytes
+plus one overflow-detection byte. Success requires HTTP 206, a single matching
+`Content-Range`, the exact body length, and agreement between the range total and
+snapshot size. HTTP 200 is never a successful fallback, multipart and compressed
+ranges are rejected, cookies are not persisted, and raw response bytes are omitted
+unless an explicit preview of at most 16 bytes is requested.
+
+Hugging Face may redirect resolved files to LFS or Xet storage using expiring signed
+URLs. OMIV validates each redirect host and retains repository identity separately;
+it neither persists nor logs those URLs or reconstructs Xet chunks. A provider path
+that cannot return a standards-compliant eight-byte 206 response fails honestly.
+The host policy is not relaxed and the file is not downloaded as a fallback.
+
+The snapshot SHA-256 covers the canonical `snapshot` payload and excludes its
+`integrity` member. A remote report SHA-256 similarly covers only the canonical
+`report` payload. These deterministic hashes detect changes but are not signatures,
+authorship claims, or independent attestations. Remote reports work with
+`report-verify` and `report --format markdown`.
+
+Remote commands are explicitly online and reject `--offline`. All pre-4F commands
+remain offline and make no background request. Public repositories need no token;
+Phase 4F-1 has no token-persistence feature, telemetry, upload, arbitrary crawling,
+generic URL CLI, local-model discovery, or tensor payload access. The normal test
+suite mocks metadata and transport. The opt-in live test is enabled only with
+`OMIV_RUN_REMOTE_INTEGRATION=1`, with optional `OMIV_HF_REPO`,
+`OMIV_HF_REVISION`, and `OMIV_HF_PATH_PREFIX` overrides.
+
+> A successful repository snapshot and Range probe prove that a pinned remote
+> artifact set was enumerated and that selected byte ranges were retrieved with
+> validated HTTP semantics. They do not prove complete GGUF headers, tensor payload
+> integrity, semantic mapping correctness, quantization fidelity, or runtime parity.
+
+Phase 4F-2 will review GGUF prefix endianness and aggregate complete split-header
+metadata. Phase 4F-1 deliberately does not parse header length, tensor counts,
+metadata counts, complete headers, or payloads.

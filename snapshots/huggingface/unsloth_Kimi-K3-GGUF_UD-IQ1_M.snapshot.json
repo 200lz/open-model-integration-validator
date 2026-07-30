@@ -1,0 +1,216 @@
+{
+  "integrity": {
+    "canonicalization": "omiv-json-v1",
+    "sha256": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520"
+  },
+  "snapshot": {
+    "files": [
+      {
+        "byte_size": 6934144,
+        "etag": null,
+        "lfs_sha256": "5df1dc703415112d194c7c6af66ad20ee912a62265316eb85cd13f8f890ca638",
+        "oid": "345fb5173a670d39ed8eb7a711eaac3dd054399b",
+        "path": "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00001-of-00015.gguf",
+        "storage": "lfs",
+        "xet_hash": null
+      },
+      {
+        "byte_size": 48284490176,
+        "etag": null,
+        "lfs_sha256": "de40b919c7be544f4d04905edff1579c49a11ccb8bcf14ed8c1f20e49e16a5e7",
+        "oid": "1bc109d4fff4551ab2f814a1d90b2beafee5f770",
+        "path": "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00002-of-00015.gguf",
+        "storage": "lfs",
+        "xet_hash": null
+      },
+      {
+        "byte_size": 49314306624,
+        "etag": null,
+        "lfs_sha256": "24dcf6f387e0e8c05a73c981c90edc339b32f45899217b3b1cc75f133ad43e06",
+        "oid": "ac564b5b7c943a366ccfaebf8f135eda938b2d7c",
+        "path": "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00003-of-00015.gguf",
+        "storage": "lfs",
+        "xet_hash": null
+      },
+      {
+        "byte_size": 49372224480,
+        "etag": null,
+        "lfs_sha256": "873ca9b51d1ffc92784523bf18f7607f65a83a04b6d7a49661a2f628c3a0d2c4",
+        "oid": "07082461aa6320da1f9bdb7f6297c564b1f5a1d7",
+        "path": "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00004-of-00015.gguf",
+        "storage": "lfs",
+        "xet_hash": null
+      },
+      {
+        "byte_size": 48384572352,
+        "etag": null,
+        "lfs_sha256": "c808ca7b73b75c43e972ed2c0bd49db2e17159ecbba8c6316007052195fa7ea9",
+        "oid": "e8f53cbde95855177fa8bdf0707d8c437720ea1d",
+        "path": "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00005-of-00015.gguf",
+        "storage": "lfs",
+        "xet_hash": null
+      },
+      {
+        "byte_size": 49372224480,
+        "etag": null,
+        "lfs_sha256": "982a4fe96e0aad984e816f166b6d4e8a138ed1d9bc47c16aa191da3bd84633a2",
+        "oid": "26f9c9e1adc8e868e82207e5cdcd7e96f91173d2",
+        "path": "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00006-of-00015.gguf",
+        "storage": "lfs",
+        "xet_hash": null
+      },
+      {
+        "byte_size": 49994559904,
+        "etag": null,
+        "lfs_sha256": "138c76c34206e383cadc469ce14da74e9afe4c812ae53bb93d1c5503802d2de8",
+        "oid": "7a1dcc15bf4181962ceed5b0cf8e337dab4e76e4",
+        "path": "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00007-of-00015.gguf",
+        "storage": "lfs",
+        "xet_hash": null
+      },
+      {
+        "byte_size": 49857848480,
+        "etag": null,
+        "lfs_sha256": "de60d0939385a9ce8c8725cdce807cb33cb359a53f35b1a01de705fc98619ad9",
+        "oid": "cc7473805faca90344b00f35f248507e89ce4e7f",
+        "path": "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00008-of-00015.gguf",
+        "storage": "lfs",
+        "xet_hash": null
+      },
+      {
+        "byte_size": 48365900224,
+        "etag": null,
+        "lfs_sha256": "58b5e1bdccdc2868dabe0fe2e244adf0890381ca6f0d2d482f4e882dff84c32f",
+        "oid": "042c98eca3c335aa53c7048f951dbd86bdff2fc6",
+        "path": "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00009-of-00015.gguf",
+        "storage": "lfs",
+        "xet_hash": null
+      },
+      {
+        "byte_size": 49286304192,
+        "etag": null,
+        "lfs_sha256": "5375e6902ae064251acc95217fa7e81896011f3b2ae527c30798bf0fcd02660b",
+        "oid": "db68d1211095f333d0a9e9846c20fd043454c03d",
+        "path": "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00010-of-00015.gguf",
+        "storage": "lfs",
+        "xet_hash": null
+      },
+      {
+        "byte_size": 49372224480,
+        "etag": null,
+        "lfs_sha256": "bb3e0d6c3262009b83efb5e5d57deba562b6967bd1ba39536a766beb78371c66",
+        "oid": "323b0be69dae1a5ffc582fc68a4f68cd8a5bf357",
+        "path": "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00011-of-00015.gguf",
+        "storage": "lfs",
+        "xet_hash": null
+      },
+      {
+        "byte_size": 49332978816,
+        "etag": null,
+        "lfs_sha256": "b009b0c6d8eb082ae817fa0564faa99f9da3eb931f244a70c11af61b62a5d34f",
+        "oid": "b3a73852fc3f639e8f4d9e9fe0b5ceca1d36c3da",
+        "path": "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00012-of-00015.gguf",
+        "storage": "lfs",
+        "xet_hash": null
+      },
+      {
+        "byte_size": 48570117056,
+        "etag": null,
+        "lfs_sha256": "fb59a5e125b1701984c042d4d1fa660c79ab451503ed810475030e52fbadf7df",
+        "oid": "0860d7b7226ba91e6305b7d4fe32f13ba4770265",
+        "path": "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00013-of-00015.gguf",
+        "storage": "lfs",
+        "xet_hash": null
+      },
+      {
+        "byte_size": 47848961952,
+        "etag": null,
+        "lfs_sha256": "8fdab07a3d3f48e04b2cac58dac32f557f9cbe8981de7e062ec7bb30a0a459e2",
+        "oid": "5a10dea731fdead2e5bd918d9e413c7a6754ef57",
+        "path": "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00014-of-00015.gguf",
+        "storage": "lfs",
+        "xet_hash": null
+      },
+      {
+        "byte_size": 11508365088,
+        "etag": null,
+        "lfs_sha256": "1f22c05d42d1329331ceb95b1133902c6c3163e50c26ed91d8437661f22c7cdd",
+        "oid": "381cce47055532004322747f8e739e7f4a1b0b82",
+        "path": "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00015-of-00015.gguf",
+        "storage": "lfs",
+        "xet_hash": null
+      }
+    ],
+    "provider": "huggingface",
+    "repository": {
+      "repo_id": "unsloth/Kimi-K3-GGUF",
+      "repo_type": "model",
+      "requested_revision": "main",
+      "resolved_revision": "3d4b61ab4b6789d401191c476cbb4567246db8f5"
+    },
+    "repository_metadata": {
+      "gated": false,
+      "private": false,
+      "security_status": null
+    },
+    "selection": {
+      "path_prefix": "UD-IQ1_M",
+      "patterns": [
+        "*.gguf"
+      ],
+      "strict_subtree": true
+    },
+    "snapshot_schema": "omiv.remote-repository-snapshot.v1",
+    "summary": {
+      "candidate_split_sets": [
+        {
+          "complete": true,
+          "declared_shard_count": 15,
+          "duplicate_ordinals": [],
+          "files": [
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00001-of-00015.gguf",
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00002-of-00015.gguf",
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00003-of-00015.gguf",
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00004-of-00015.gguf",
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00005-of-00015.gguf",
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00006-of-00015.gguf",
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00007-of-00015.gguf",
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00008-of-00015.gguf",
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00009-of-00015.gguf",
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00010-of-00015.gguf",
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00011-of-00015.gguf",
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00012-of-00015.gguf",
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00013-of-00015.gguf",
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00014-of-00015.gguf",
+            "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00015-of-00015.gguf"
+          ],
+          "inconsistent_declared_counts": [],
+          "missing_ordinals": [],
+          "non_contiguous": false,
+          "observed_ordinals": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "stem": "UD-IQ1_M/Kimi-K3-UD-IQ1_M"
+        }
+      ],
+      "extra_gguf_files": [],
+      "file_count": 15,
+      "gguf_file_count": 15,
+      "total_byte_size": 648872012448
+    }
+  }
+}
