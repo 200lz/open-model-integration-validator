@@ -1,0 +1,988 @@
+{
+  "article_id": "kimi-k3-gguf-validation",
+  "claims": [
+    {
+      "allowed_wording": [
+        "The repository revision is pinned to 3d4b61ab4b6789d401191c476cbb4567246db8f5."
+      ],
+      "claim_class": "verified_fact",
+      "claim_id": "CLAIM-001",
+      "claim_text": "The repository revision is pinned to 3d4b61ab4b6789d401191c476cbb4567246db8f5.",
+      "confidence_category": "verified",
+      "evidence_stage": "repository_identity",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "Immutable revision",
+      "supporting_artifact_digests": [
+        "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+        "3b7bbfc865c235544574113dd93ab91d05d72aebafaf226f3b3c25a56fb02a34",
+        "a2dc47c278642446813f6f1434cca0cebfe3639c7b89c4e6d22da8f25679e490"
+      ],
+      "supporting_finding_ids": [
+        "VALIDATE-001",
+        "COMPARE-004"
+      ],
+      "supporting_policy_digests": [],
+      "verification_status": "verified"
+    },
+    {
+      "allowed_wording": [
+        "UD-IQ1_M contains 15 selected GGUF shards at the pinned revision."
+      ],
+      "claim_class": "verified_fact",
+      "claim_id": "CLAIM-002",
+      "claim_text": "UD-IQ1_M contains 15 selected GGUF shards at the pinned revision.",
+      "confidence_category": "verified",
+      "evidence_stage": "repository_layout",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "IQ1_M shard count",
+      "supporting_artifact_digests": [
+        "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8"
+      ],
+      "supporting_finding_ids": [
+        "VALIDATE-004"
+      ],
+      "supporting_policy_digests": [],
+      "verification_status": "verified"
+    },
+    {
+      "allowed_wording": [
+        "UD-Q4_K_XL contains 32 selected GGUF shards at the same pinned revision."
+      ],
+      "claim_class": "verified_fact",
+      "claim_id": "CLAIM-003",
+      "claim_text": "UD-Q4_K_XL contains 32 selected GGUF shards at the same pinned revision.",
+      "confidence_category": "verified",
+      "evidence_stage": "repository_layout",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "Q4 shard count",
+      "supporting_artifact_digests": [
+        "3b7bbfc865c235544574113dd93ab91d05d72aebafaf226f3b3c25a56fb02a34"
+      ],
+      "supporting_finding_ids": [
+        "VALIDATE-004"
+      ],
+      "supporting_policy_digests": [],
+      "verification_status": "verified"
+    },
+    {
+      "allowed_wording": [
+        "The selected UD-IQ1_M repository files total 648,872,012,448 bytes."
+      ],
+      "claim_class": "verified_fact",
+      "claim_id": "CLAIM-004",
+      "claim_text": "The selected UD-IQ1_M repository files total 648,872,012,448 bytes.",
+      "confidence_category": "verified",
+      "evidence_stage": "repository_layout",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "IQ1_M repository bytes",
+      "supporting_artifact_digests": [
+        "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8"
+      ],
+      "supporting_finding_ids": [
+        "VALIDATE-004"
+      ],
+      "supporting_policy_digests": [],
+      "verification_status": "verified"
+    },
+    {
+      "allowed_wording": [
+        "The selected UD-Q4_K_XL repository files total 1,508,668,683,104 bytes."
+      ],
+      "claim_class": "verified_fact",
+      "claim_id": "CLAIM-005",
+      "claim_text": "The selected UD-Q4_K_XL repository files total 1,508,668,683,104 bytes.",
+      "confidence_category": "verified",
+      "evidence_stage": "repository_layout",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "Q4 repository bytes",
+      "supporting_artifact_digests": [
+        "3b7bbfc865c235544574113dd93ab91d05d72aebafaf226f3b3c25a56fb02a34"
+      ],
+      "supporting_finding_ids": [
+        "VALIDATE-004"
+      ],
+      "supporting_policy_digests": [],
+      "verification_status": "verified"
+    },
+    {
+      "allowed_wording": [
+        "OMIV accepted zero tensor payload bytes while generating remote structural evidence."
+      ],
+      "claim_class": "verified_fact",
+      "claim_id": "CLAIM-006",
+      "claim_text": "OMIV accepted zero tensor payload bytes while generating remote structural evidence.",
+      "confidence_category": "verified",
+      "evidence_stage": "range_semantics",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "Zero payload bytes",
+      "supporting_artifact_digests": [
+        "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+        "3b7bbfc865c235544574113dd93ab91d05d72aebafaf226f3b3c25a56fb02a34"
+      ],
+      "supporting_finding_ids": [
+        "VALIDATE-005"
+      ],
+      "supporting_policy_digests": [],
+      "verification_status": "verified"
+    },
+    {
+      "allowed_wording": [
+        "Complete GGUF headers were parsed using bounded Range requests."
+      ],
+      "claim_class": "verified_fact",
+      "claim_id": "CLAIM-007",
+      "claim_text": "Complete GGUF headers were parsed using bounded Range requests.",
+      "confidence_category": "verified",
+      "evidence_stage": "complete_header",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "Bounded complete headers",
+      "supporting_artifact_digests": [
+        "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+        "3b7bbfc865c235544574113dd93ab91d05d72aebafaf226f3b3c25a56fb02a34"
+      ],
+      "supporting_finding_ids": [
+        "VALIDATE-006"
+      ],
+      "supporting_policy_digests": [],
+      "verification_status": "verified"
+    },
+    {
+      "allowed_wording": [
+        "Both variants contain 2,573 verified target tensor descriptors."
+      ],
+      "claim_class": "verified_fact",
+      "claim_id": "CLAIM-008",
+      "claim_text": "Both variants contain 2,573 verified target tensor descriptors.",
+      "confidence_category": "verified",
+      "evidence_stage": "split_container",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "Descriptor totals",
+      "supporting_artifact_digests": [
+        "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+        "3b7bbfc865c235544574113dd93ab91d05d72aebafaf226f3b3c25a56fb02a34"
+      ],
+      "supporting_finding_ids": [
+        "VALIDATE-007"
+      ],
+      "supporting_policy_digests": [],
+      "verification_status": "verified"
+    },
+    {
+      "allowed_wording": [
+        "All tensor spans are computable, bounded, non-conflicting, and non-overlapping under their recorded type policies."
+      ],
+      "claim_class": "structural_conclusion",
+      "claim_id": "CLAIM-009",
+      "claim_text": "All tensor spans are computable, bounded, non-conflicting, and non-overlapping under their recorded type policies.",
+      "confidence_category": "structural",
+      "evidence_stage": "payload_span_bounds",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "Bounded spans",
+      "supporting_artifact_digests": [
+        "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+        "3b7bbfc865c235544574113dd93ab91d05d72aebafaf226f3b3c25a56fb02a34"
+      ],
+      "supporting_finding_ids": [
+        "VALIDATE-007",
+        "COMPARE-016"
+      ],
+      "supporting_policy_digests": [],
+      "verification_status": "verified"
+    },
+    {
+      "allowed_wording": [
+        "The target GGUF tensors satisfy the recorded Kimi K3 target ontology."
+      ],
+      "claim_class": "structural_conclusion",
+      "claim_id": "CLAIM-010",
+      "claim_text": "The target GGUF tensors satisfy the recorded Kimi K3 target ontology.",
+      "confidence_category": "structural",
+      "evidence_stage": "target_ontology",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "Kimi target ontology",
+      "supporting_artifact_digests": [
+        "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+        "3b7bbfc865c235544574113dd93ab91d05d72aebafaf226f3b3c25a56fb02a34"
+      ],
+      "supporting_finding_ids": [
+        "VALIDATE-008"
+      ],
+      "supporting_policy_digests": [
+        "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "allowed_wording": [
+        "The verified architecture contains 93 layers, with 69 KDA and 24 MLA layers."
+      ],
+      "claim_class": "verified_fact",
+      "claim_id": "CLAIM-011",
+      "claim_text": "The verified architecture contains 93 layers, with 69 KDA and 24 MLA layers.",
+      "confidence_category": "verified",
+      "evidence_stage": "target_ontology",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "Layer schedule",
+      "supporting_artifact_digests": [
+        "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+        "3b7bbfc865c235544574113dd93ab91d05d72aebafaf226f3b3c25a56fb02a34"
+      ],
+      "supporting_finding_ids": [
+        "VALIDATE-008"
+      ],
+      "supporting_policy_digests": [
+        "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "allowed_wording": [
+        "Layer 0 is dense and layers 1 through 92 are MoE."
+      ],
+      "claim_class": "verified_fact",
+      "claim_id": "CLAIM-012",
+      "claim_text": "Layer 0 is dense and layers 1 through 92 are MoE.",
+      "confidence_category": "verified",
+      "evidence_stage": "target_ontology",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "Dense and MoE schedule",
+      "supporting_artifact_digests": [
+        "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+        "3b7bbfc865c235544574113dd93ab91d05d72aebafaf226f3b3c25a56fb02a34"
+      ],
+      "supporting_finding_ids": [
+        "VALIDATE-008"
+      ],
+      "supporting_policy_digests": [
+        "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "allowed_wording": [
+        "The target structurally encodes 896 routed experts and 16 experts used."
+      ],
+      "claim_class": "structural_conclusion",
+      "claim_id": "CLAIM-013",
+      "claim_text": "The target structurally encodes 896 routed experts and 16 experts used.",
+      "confidence_category": "structural",
+      "evidence_stage": "target_ontology",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "Routed experts",
+      "supporting_artifact_digests": [
+        "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+        "3b7bbfc865c235544574113dd93ab91d05d72aebafaf226f3b3c25a56fb02a34"
+      ],
+      "supporting_finding_ids": [
+        "VALIDATE-008"
+      ],
+      "supporting_policy_digests": [
+        "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "allowed_wording": [
+        "Shared-expert structure is present across all 92 MoE layers."
+      ],
+      "claim_class": "structural_conclusion",
+      "claim_id": "CLAIM-014",
+      "claim_text": "Shared-expert structure is present across all 92 MoE layers.",
+      "confidence_category": "structural",
+      "evidence_stage": "structural_semantic_mapping",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "Shared experts",
+      "supporting_artifact_digests": [
+        "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+        "3b7bbfc865c235544574113dd93ab91d05d72aebafaf226f3b3c25a56fb02a34"
+      ],
+      "supporting_finding_ids": [
+        "VALIDATE-009"
+      ],
+      "supporting_policy_digests": [
+        "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "allowed_wording": [
+        "The source checkpoint inventory contains 497,220 physical records."
+      ],
+      "claim_class": "verified_fact",
+      "claim_id": "CLAIM-015",
+      "claim_text": "The source checkpoint inventory contains 497,220 physical records.",
+      "confidence_category": "verified",
+      "evidence_stage": "structural_semantic_mapping",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "Source inventory",
+      "supporting_artifact_digests": [
+        "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+        "3b7bbfc865c235544574113dd93ab91d05d72aebafaf226f3b3c25a56fb02a34"
+      ],
+      "supporting_finding_ids": [
+        "VALIDATE-011"
+      ],
+      "supporting_policy_digests": [
+        "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "allowed_wording": [
+        "All 497,220 source records are explicitly accounted for under Phase 4F-5."
+      ],
+      "claim_class": "structural_conclusion",
+      "claim_id": "CLAIM-016",
+      "claim_text": "All 497,220 source records are explicitly accounted for under Phase 4F-5.",
+      "confidence_category": "structural",
+      "evidence_stage": "structural_semantic_mapping",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "Source accounting",
+      "supporting_artifact_digests": [
+        "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+        "3b7bbfc865c235544574113dd93ab91d05d72aebafaf226f3b3c25a56fb02a34"
+      ],
+      "supporting_finding_ids": [
+        "VALIDATE-011"
+      ],
+      "supporting_policy_digests": [
+        "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "allowed_wording": [
+        "All 2,573 target descriptors are explicitly accounted for."
+      ],
+      "claim_class": "structural_conclusion",
+      "claim_id": "CLAIM-017",
+      "claim_text": "All 2,573 target descriptors are explicitly accounted for.",
+      "confidence_category": "structural",
+      "evidence_stage": "structural_semantic_mapping",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "Target accounting",
+      "supporting_artifact_digests": [
+        "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+        "3b7bbfc865c235544574113dd93ab91d05d72aebafaf226f3b3c25a56fb02a34"
+      ],
+      "supporting_finding_ids": [
+        "VALIDATE-012"
+      ],
+      "supporting_policy_digests": [
+        "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "allowed_wording": [
+        "276 complete routed-expert source groups map structurally to 276 packed target tensors."
+      ],
+      "claim_class": "structural_conclusion",
+      "claim_id": "CLAIM-018",
+      "claim_text": "276 complete routed-expert source groups map structurally to 276 packed target tensors.",
+      "confidence_category": "structural",
+      "evidence_stage": "structural_semantic_mapping",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "Routed packing",
+      "supporting_artifact_digests": [
+        "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+        "3b7bbfc865c235544574113dd93ab91d05d72aebafaf226f3b3c25a56fb02a34"
+      ],
+      "supporting_finding_ids": [
+        "VALIDATE-009"
+      ],
+      "supporting_policy_digests": [
+        "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "allowed_wording": [
+        "Artifact-specific conversion provenance is unavailable."
+      ],
+      "claim_class": "limitation",
+      "claim_id": "CLAIM-019",
+      "claim_text": "Artifact-specific conversion provenance is unavailable.",
+      "confidence_category": "explicit_boundary",
+      "evidence_stage": "artifact_specific_provenance",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "Provenance unavailable",
+      "supporting_artifact_digests": [
+        "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+        "3b7bbfc865c235544574113dd93ab91d05d72aebafaf226f3b3c25a56fb02a34",
+        "a2dc47c278642446813f6f1434cca0cebfe3639c7b89c4e6d22da8f25679e490"
+      ],
+      "supporting_finding_ids": [
+        "VALIDATE-014"
+      ],
+      "supporting_policy_digests": [],
+      "verification_status": "explicit_limitation"
+    },
+    {
+      "allowed_wording": [
+        "Payload verification is not checked."
+      ],
+      "claim_class": "limitation",
+      "claim_id": "CLAIM-020",
+      "claim_text": "Payload verification is not checked.",
+      "confidence_category": "explicit_boundary",
+      "evidence_stage": "payload_integrity",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "Payload not checked",
+      "supporting_artifact_digests": [
+        "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+        "3b7bbfc865c235544574113dd93ab91d05d72aebafaf226f3b3c25a56fb02a34",
+        "a2dc47c278642446813f6f1434cca0cebfe3639c7b89c4e6d22da8f25679e490"
+      ],
+      "supporting_finding_ids": [
+        "VALIDATE-015",
+        "COMPARE-018"
+      ],
+      "supporting_policy_digests": [],
+      "verification_status": "explicit_limitation"
+    },
+    {
+      "allowed_wording": [
+        "Quantization fidelity is not checked."
+      ],
+      "claim_class": "limitation",
+      "claim_id": "CLAIM-021",
+      "claim_text": "Quantization fidelity is not checked.",
+      "confidence_category": "explicit_boundary",
+      "evidence_stage": "quantization_fidelity",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "Quantization not checked",
+      "supporting_artifact_digests": [
+        "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+        "3b7bbfc865c235544574113dd93ab91d05d72aebafaf226f3b3c25a56fb02a34",
+        "a2dc47c278642446813f6f1434cca0cebfe3639c7b89c4e6d22da8f25679e490"
+      ],
+      "supporting_finding_ids": [
+        "VALIDATE-016",
+        "COMPARE-019"
+      ],
+      "supporting_policy_digests": [],
+      "verification_status": "explicit_limitation"
+    },
+    {
+      "allowed_wording": [
+        "Tokenizer parity is not checked."
+      ],
+      "claim_class": "limitation",
+      "claim_id": "CLAIM-022",
+      "claim_text": "Tokenizer parity is not checked.",
+      "confidence_category": "explicit_boundary",
+      "evidence_stage": "tokenizer_parity",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "Tokenizer not checked",
+      "supporting_artifact_digests": [
+        "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+        "3b7bbfc865c235544574113dd93ab91d05d72aebafaf226f3b3c25a56fb02a34",
+        "a2dc47c278642446813f6f1434cca0cebfe3639c7b89c4e6d22da8f25679e490"
+      ],
+      "supporting_finding_ids": [
+        "VALIDATE-017"
+      ],
+      "supporting_policy_digests": [],
+      "verification_status": "explicit_limitation"
+    },
+    {
+      "allowed_wording": [
+        "Runtime parity is not checked."
+      ],
+      "claim_class": "limitation",
+      "claim_id": "CLAIM-023",
+      "claim_text": "Runtime parity is not checked.",
+      "confidence_category": "explicit_boundary",
+      "evidence_stage": "runtime_parity",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "Runtime not checked",
+      "supporting_artifact_digests": [
+        "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+        "3b7bbfc865c235544574113dd93ab91d05d72aebafaf226f3b3c25a56fb02a34",
+        "a2dc47c278642446813f6f1434cca0cebfe3639c7b89c4e6d22da8f25679e490"
+      ],
+      "supporting_finding_ids": [
+        "VALIDATE-018",
+        "COMPARE-020"
+      ],
+      "supporting_policy_digests": [],
+      "verification_status": "explicit_limitation"
+    },
+    {
+      "allowed_wording": [
+        "UD-IQ1_M is structurally validated with limitations."
+      ],
+      "claim_class": "structural_conclusion",
+      "claim_id": "CLAIM-024",
+      "claim_text": "UD-IQ1_M is structurally validated with limitations.",
+      "confidence_category": "structural",
+      "evidence_stage": "deterministic_verification",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "IQ1_M validation",
+      "supporting_artifact_digests": [
+        "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8"
+      ],
+      "supporting_finding_ids": [
+        "VALIDATE-020"
+      ],
+      "supporting_policy_digests": [],
+      "verification_status": "verified"
+    },
+    {
+      "allowed_wording": [
+        "UD-Q4_K_XL is structurally validated with limitations."
+      ],
+      "claim_class": "structural_conclusion",
+      "claim_id": "CLAIM-025",
+      "claim_text": "UD-Q4_K_XL is structurally validated with limitations.",
+      "confidence_category": "structural",
+      "evidence_stage": "deterministic_verification",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "Q4 validation",
+      "supporting_artifact_digests": [
+        "3b7bbfc865c235544574113dd93ab91d05d72aebafaf226f3b3c25a56fb02a34"
+      ],
+      "supporting_finding_ids": [
+        "VALIDATE-020"
+      ],
+      "supporting_policy_digests": [],
+      "verification_status": "verified"
+    },
+    {
+      "allowed_wording": [
+        "UD-IQ1_M and UD-Q4_K_XL are structurally equivalent with quantization differences under the recorded comparison policy."
+      ],
+      "claim_class": "structural_conclusion",
+      "claim_id": "CLAIM-026",
+      "claim_text": "UD-IQ1_M and UD-Q4_K_XL are structurally equivalent with quantization differences under the recorded comparison policy.",
+      "confidence_category": "structural",
+      "evidence_stage": "cross_quantization_structural_comparison",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "Cross-quantization result",
+      "supporting_artifact_digests": [
+        "a2dc47c278642446813f6f1434cca0cebfe3639c7b89c4e6d22da8f25679e490"
+      ],
+      "supporting_finding_ids": [
+        "COMPARE-021"
+      ],
+      "supporting_policy_digests": [
+        "ccd616c38828ac3397485195fbb17ae3edeeb3aca12affab188241e78154068e"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "allowed_wording": [
+        "The two variants contain the same 2,573 normalized tensor identities and shapes."
+      ],
+      "claim_class": "structural_conclusion",
+      "claim_id": "CLAIM-027",
+      "claim_text": "The two variants contain the same 2,573 normalized tensor identities and shapes.",
+      "confidence_category": "structural",
+      "evidence_stage": "cross_quantization_structural_comparison",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "Identity and shape equivalence",
+      "supporting_artifact_digests": [
+        "a2dc47c278642446813f6f1434cca0cebfe3639c7b89c4e6d22da8f25679e490"
+      ],
+      "supporting_finding_ids": [
+        "COMPARE-006",
+        "COMPARE-007"
+      ],
+      "supporting_policy_digests": [
+        "ccd616c38828ac3397485195fbb17ae3edeeb3aca12affab188241e78154068e"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "allowed_wording": [
+        "The only observed GGML family transitions occur in 276 packed routed-expert targets."
+      ],
+      "claim_class": "structural_conclusion",
+      "claim_id": "CLAIM-028",
+      "claim_text": "The only observed GGML family transitions occur in 276 packed routed-expert targets.",
+      "confidence_category": "structural",
+      "evidence_stage": "cross_quantization_structural_comparison",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "Transition scope",
+      "supporting_artifact_digests": [
+        "a2dc47c278642446813f6f1434cca0cebfe3639c7b89c4e6d22da8f25679e490"
+      ],
+      "supporting_finding_ids": [
+        "COMPARE-010",
+        "COMPARE-011"
+      ],
+      "supporting_policy_digests": [
+        "ccd616c38828ac3397485195fbb17ae3edeeb3aca12affab188241e78154068e"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "allowed_wording": [
+        "The directional transitions are IQ1_S to MXFP4: 209, IQ2_XXS to MXFP4: 56, and IQ3_XXS to MXFP4: 11."
+      ],
+      "claim_class": "verified_fact",
+      "claim_id": "CLAIM-029",
+      "claim_text": "The directional transitions are IQ1_S to MXFP4: 209, IQ2_XXS to MXFP4: 56, and IQ3_XXS to MXFP4: 11.",
+      "confidence_category": "verified",
+      "evidence_stage": "cross_quantization_structural_comparison",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "Directional transitions",
+      "supporting_artifact_digests": [
+        "a2dc47c278642446813f6f1434cca0cebfe3639c7b89c4e6d22da8f25679e490"
+      ],
+      "supporting_finding_ids": [
+        "COMPARE-010"
+      ],
+      "supporting_policy_digests": [
+        "ccd616c38828ac3397485195fbb17ae3edeeb3aca12affab188241e78154068e"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "allowed_wording": [
+        "MXFP4 is structurally allowed only for packed routed-expert gate, up, and down families under the recorded policy."
+      ],
+      "claim_class": "structural_conclusion",
+      "claim_id": "CLAIM-030",
+      "claim_text": "MXFP4 is structurally allowed only for packed routed-expert gate, up, and down families under the recorded policy.",
+      "confidence_category": "structural",
+      "evidence_stage": "cross_quantization_structural_comparison",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "MXFP4 scope",
+      "supporting_artifact_digests": [
+        "a2dc47c278642446813f6f1434cca0cebfe3639c7b89c4e6d22da8f25679e490"
+      ],
+      "supporting_finding_ids": [
+        "COMPARE-011"
+      ],
+      "supporting_policy_digests": [
+        "ccd616c38828ac3397485195fbb17ae3edeeb3aca12affab188241e78154068e"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "allowed_wording": [
+        "The Q4 repository-file byte total is approximately 2.325 times the IQ1_M total."
+      ],
+      "claim_class": "verified_fact",
+      "claim_id": "CLAIM-031",
+      "claim_text": "The Q4 repository-file byte total is approximately 2.325 times the IQ1_M total.",
+      "confidence_category": "verified",
+      "evidence_stage": "cross_quantization_structural_comparison",
+      "forbidden_wording": [],
+      "limitations": [
+        "This is a physical storage ratio, not a quality measurement."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "Repository storage ratio",
+      "supporting_artifact_digests": [
+        "a2dc47c278642446813f6f1434cca0cebfe3639c7b89c4e6d22da8f25679e490"
+      ],
+      "supporting_finding_ids": [
+        "COMPARE-016"
+      ],
+      "supporting_policy_digests": [
+        "ccd616c38828ac3397485195fbb17ae3edeeb3aca12affab188241e78154068e"
+      ],
+      "verification_status": "verified"
+    },
+    {
+      "allowed_wording": [
+        "The physical size ratio is not evidence of numerical quality."
+      ],
+      "claim_class": "limitation",
+      "claim_id": "CLAIM-032",
+      "claim_text": "The physical size ratio is not evidence of numerical quality.",
+      "confidence_category": "explicit_boundary",
+      "evidence_stage": "quantization_fidelity",
+      "forbidden_wording": [],
+      "limitations": [
+        "This claim is limited to structural evidence."
+      ],
+      "publication_destinations": [
+        "technical_article",
+        "community_release_notes",
+        "social_draft"
+      ],
+      "short_title": "Storage is not quality",
+      "supporting_artifact_digests": [
+        "a2dc47c278642446813f6f1434cca0cebfe3639c7b89c4e6d22da8f25679e490"
+      ],
+      "supporting_finding_ids": [
+        "COMPARE-019"
+      ],
+      "supporting_policy_digests": [
+        "ccd616c38828ac3397485195fbb17ae3edeeb3aca12affab188241e78154068e"
+      ],
+      "verification_status": "explicit_limitation"
+    }
+  ],
+  "globally_forbidden_wording": [
+    "The weights are correct.",
+    "The conversion is numerically correct.",
+    "The published artifact was generated by the pinned converter revision.",
+    "The expert packing order is correct.",
+    "The scale records are numerically associated correctly.",
+    "MXFP4 is more accurate.",
+    "Q4 is better than IQ1_M.",
+    "IQ1_M is worse than Q4.",
+    "The quantization preserves model quality.",
+    "The tokenizer is equivalent.",
+    "The logits are equivalent.",
+    "Runtime outputs are equivalent.",
+    "The model is production certified.",
+    "The artifact is fully verified.",
+    "The model payload is intact.",
+    "The validation proves benchmark performance.",
+    "The validation proves safety.",
+    "The validation proves multimodal behavior.",
+    "The validation proves the full Kimi K3 release, beyond the selected text GGUF artifact set."
+  ],
+  "registry_digest": "d9d4af4e4b3d76e781ea95950fd71a2cabb8e9d6bf27ed1b555099dc15e7ffc9",
+  "schema_id": "omiv.public-claim-registry.v1"
+}

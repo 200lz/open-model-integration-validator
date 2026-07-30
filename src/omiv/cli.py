@@ -7,6 +7,23 @@ from typing import Annotated
 import typer
 from pydantic import ValidationError
 
+from omiv.article.builder import (
+    CLAIM_PATH,
+    INDEX_PATH,
+    MANIFEST_PATH,
+    REPRO_PATH,
+    build_article_index,
+    build_article_package,
+)
+from omiv.article.verification import (
+    PublicationClaimError,
+    verify_article_package,
+    verify_claim_registry,
+    verify_evidence_manifest,
+)
+from omiv.article.verification import (
+    pretty_json as pretty_article_json,
+)
 from omiv.canonical import canonical_sha256, load_json_value
 from omiv.comparison.engine import build_structural_comparison
 from omiv.comparison.models import COMPARISON_REPORT_SCHEMA
@@ -522,9 +539,7 @@ def remote_snapshot(
     output_path: Annotated[Path, typer.Option("--output", dir_okay=False)],
     path_prefix: Annotated[str | None, typer.Option("--path-prefix")] = None,
     patterns: Annotated[list[str] | None, typer.Option("--pattern")] = None,
-    report_output: Annotated[
-        Path | None, typer.Option("--report-output", dir_okay=False)
-    ] = None,
+    report_output: Annotated[Path | None, typer.Option("--report-output", dir_okay=False)] = None,
     markdown_output: Annotated[
         Path | None, typer.Option("--markdown-output", dir_okay=False)
     ] = None,
@@ -582,9 +597,7 @@ def remote_snapshot_verify(
 
 @app.command("remote-range-probe")
 def remote_range_probe(
-    snapshot_path: Annotated[
-        Path, typer.Option("--snapshot", exists=True, dir_okay=False)
-    ],
+    snapshot_path: Annotated[Path, typer.Option("--snapshot", exists=True, dir_okay=False)],
     file_path: Annotated[str, typer.Option("--file")],
     offset: Annotated[int, typer.Option("--offset", min=0)],
     length: Annotated[int, typer.Option("--length", min=1)],
@@ -621,9 +634,7 @@ def remote_range_probe(
 
 @app.command("remote-gguf-prefix")
 def remote_gguf_prefix(
-    snapshot_path: Annotated[
-        Path, typer.Option("--snapshot", exists=True, dir_okay=False)
-    ],
+    snapshot_path: Annotated[Path, typer.Option("--snapshot", exists=True, dir_okay=False)],
     file_path: Annotated[str, typer.Option("--file")],
     output_path: Annotated[Path, typer.Option("--output", dir_okay=False)],
     markdown_output: Annotated[
@@ -663,8 +674,7 @@ def remote_gguf_prefix(
         typer.echo(f"ERROR invalid remote configuration or snapshot: {exc}", err=True)
         raise typer.Exit(code=2) from exc
     typer.echo(
-        f"{report.report.execution.result.value.upper()} GGUF prefix "
-        f"{report.integrity.sha256}"
+        f"{report.report.execution.result.value.upper()} GGUF prefix {report.integrity.sha256}"
     )
     if report.report.execution.exit_code:
         raise typer.Exit(code=1)
@@ -672,56 +682,26 @@ def remote_gguf_prefix(
 
 @app.command("remote-gguf-header")
 def remote_gguf_header(
-    snapshot_path: Annotated[
-        Path, typer.Option("--snapshot", exists=True, dir_okay=False)
-    ],
+    snapshot_path: Annotated[Path, typer.Option("--snapshot", exists=True, dir_okay=False)],
     file_path: Annotated[str, typer.Option("--file")],
     output_path: Annotated[Path, typer.Option("--output", dir_okay=False)],
-    report_output: Annotated[
-        Path, typer.Option("--report-output", dir_okay=False)
-    ],
-    markdown_output: Annotated[
-        Path, typer.Option("--markdown-output", dir_okay=False)
-    ],
-    max_header_bytes: Annotated[
-        int, typer.Option("--max-header-bytes", min=24)
-    ] = 64 * 1024 * 1024,
-    max_request_bytes: Annotated[
-        int, typer.Option("--max-request-bytes", min=24)
-    ] = 256 * 1024,
-    read_ahead_bytes: Annotated[
-        int, typer.Option("--read-ahead-bytes", min=0)
-    ] = 256 * 1024,
-    max_metadata_count: Annotated[
-        int, typer.Option("--max-metadata-count", min=0)
-    ] = 1_000_000,
-    max_tensor_count: Annotated[
-        int, typer.Option("--max-tensor-count", min=0)
-    ] = 1_000_000,
-    max_string_bytes: Annotated[
-        int, typer.Option("--max-string-bytes", min=0)
-    ] = 16 * 1024 * 1024,
-    max_metadata_key_bytes: Annotated[
-        int, typer.Option("--max-metadata-key-bytes", min=1)
-    ] = 1024,
-    max_array_elements: Annotated[
-        int, typer.Option("--max-array-elements", min=0)
-    ] = 10_000_000,
-    max_tensor_name_bytes: Annotated[
-        int, typer.Option("--max-tensor-name-bytes", min=1)
-    ] = 4096,
+    report_output: Annotated[Path, typer.Option("--report-output", dir_okay=False)],
+    markdown_output: Annotated[Path, typer.Option("--markdown-output", dir_okay=False)],
+    max_header_bytes: Annotated[int, typer.Option("--max-header-bytes", min=24)] = 64 * 1024 * 1024,
+    max_request_bytes: Annotated[int, typer.Option("--max-request-bytes", min=24)] = 256 * 1024,
+    read_ahead_bytes: Annotated[int, typer.Option("--read-ahead-bytes", min=0)] = 256 * 1024,
+    max_metadata_count: Annotated[int, typer.Option("--max-metadata-count", min=0)] = 1_000_000,
+    max_tensor_count: Annotated[int, typer.Option("--max-tensor-count", min=0)] = 1_000_000,
+    max_string_bytes: Annotated[int, typer.Option("--max-string-bytes", min=0)] = 16 * 1024 * 1024,
+    max_metadata_key_bytes: Annotated[int, typer.Option("--max-metadata-key-bytes", min=1)] = 1024,
+    max_array_elements: Annotated[int, typer.Option("--max-array-elements", min=0)] = 10_000_000,
+    max_tensor_name_bytes: Annotated[int, typer.Option("--max-tensor-name-bytes", min=1)] = 4096,
     max_tensor_dimensions: Annotated[
         int, typer.Option("--max-tensor-dimensions", min=1, max=64)
     ] = 4,
-    max_alignment: Annotated[
-        int, typer.Option("--max-alignment", min=1)
-    ] = 4096,
-    max_request_count: Annotated[
-        int, typer.Option("--max-request-count", min=1)
-    ] = 4096,
-    max_preview_bytes: Annotated[
-        int, typer.Option("--max-preview-bytes", min=0, max=65536)
-    ] = 256,
+    max_alignment: Annotated[int, typer.Option("--max-alignment", min=1)] = 4096,
+    max_request_count: Annotated[int, typer.Option("--max-request-count", min=1)] = 4096,
+    max_preview_bytes: Annotated[int, typer.Option("--max-preview-bytes", min=0, max=65536)] = 256,
     offline: Annotated[bool, typer.Option("--offline")] = False,
 ) -> None:
     """Parse one complete pinned GGUF v3 header without accepting payload bytes."""
@@ -814,34 +794,22 @@ def remote_gguf_header_inventory_verify(
 
 @app.command("remote-split-gguf")
 def remote_split_gguf(
-    snapshot_path: Annotated[
-        Path, typer.Option("--snapshot", exists=True, dir_okay=False)
-    ],
+    snapshot_path: Annotated[Path, typer.Option("--snapshot", exists=True, dir_okay=False)],
     inventory_dir: Annotated[Path, typer.Option("--inventory-dir", file_okay=False)],
     output_path: Annotated[Path, typer.Option("--output", dir_okay=False)],
-    report_output: Annotated[
-        Path, typer.Option("--report-output", dir_okay=False)
-    ],
-    markdown_output: Annotated[
-        Path, typer.Option("--markdown-output", dir_okay=False)
-    ],
+    report_output: Annotated[Path, typer.Option("--report-output", dir_okay=False)],
+    markdown_output: Annotated[Path, typer.Option("--markdown-output", dir_okay=False)],
     regenerate: Annotated[bool, typer.Option("--regenerate")] = False,
     max_shards: Annotated[int, typer.Option("--max-shards", min=1)] = 256,
-    max_total_header_bytes: Annotated[
-        int, typer.Option("--max-total-header-bytes", min=24)
-    ] = 1024 * 1024 * 1024,
-    max_total_requests: Annotated[
-        int, typer.Option("--max-total-requests", min=1)
-    ] = 65536,
-    max_total_metadata: Annotated[
-        int, typer.Option("--max-total-metadata", min=1)
-    ] = 2_000_000,
-    max_total_tensors: Annotated[
-        int, typer.Option("--max-total-tensors", min=1)
-    ] = 5_000_000,
-    max_inventory_bytes: Annotated[
-        int, typer.Option("--max-inventory-bytes", min=1024)
-    ] = 1024 * 1024 * 1024,
+    max_total_header_bytes: Annotated[int, typer.Option("--max-total-header-bytes", min=24)] = 1024
+    * 1024
+    * 1024,
+    max_total_requests: Annotated[int, typer.Option("--max-total-requests", min=1)] = 65536,
+    max_total_metadata: Annotated[int, typer.Option("--max-total-metadata", min=1)] = 2_000_000,
+    max_total_tensors: Annotated[int, typer.Option("--max-total-tensors", min=1)] = 5_000_000,
+    max_inventory_bytes: Annotated[int, typer.Option("--max-inventory-bytes", min=1024)] = 1024
+    * 1024
+    * 1024,
     offline: Annotated[bool, typer.Option("--offline")] = False,
 ) -> None:
     """Aggregate a pinned split GGUF without reading tensor payload bytes."""
@@ -871,9 +839,9 @@ def remote_split_gguf(
         )
         reusable: dict[str, HeaderInventoryEnvelope] = {}
         if not regenerate:
-            search_paths = sorted(
-                inventory_dir.glob("*.header.inventory.json")
-            ) + sorted(output_path.parent.glob("*.header.inventory.json"))
+            search_paths = sorted(inventory_dir.glob("*.header.inventory.json")) + sorted(
+                output_path.parent.glob("*.header.inventory.json")
+            )
             for inventory_path in search_paths:
                 envelope = load_header_inventory(inventory_path)
                 remote_path = envelope.inventory.file.path
@@ -899,8 +867,7 @@ def remote_split_gguf(
         client = BoundedRangeClient(max_response_bytes=policy.max_request_bytes)
         for candidate_path in paths:
             shard_output = inventory_dir / (
-                candidate_path.rsplit("/", 1)[-1][:-5]
-                + ".header.inventory.json"
+                candidate_path.rsplit("/", 1)[-1][:-5] + ".header.inventory.json"
             )
             existing = reusable.get(candidate_path)
             if existing is not None:
@@ -1197,8 +1164,7 @@ def independent_validation(
             report_output,
             markdown_output,
             forbidden_inputs=tuple(
-                Path.cwd() / entry.relative_path
-                for entry in inventory.artifact_index.entries
+                Path.cwd() / entry.relative_path for entry in inventory.artifact_index.entries
             ),
         )
     except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
@@ -1236,9 +1202,7 @@ def structural_compare(
     candidate_validation: Annotated[
         Path, typer.Option("--candidate-validation", exists=True, dir_okay=False)
     ],
-    baseline_split: Annotated[
-        Path, typer.Option("--baseline-split", exists=True, dir_okay=False)
-    ],
+    baseline_split: Annotated[Path, typer.Option("--baseline-split", exists=True, dir_okay=False)],
     candidate_split: Annotated[
         Path, typer.Option("--candidate-split", exists=True, dir_okay=False)
     ],
@@ -1273,15 +1237,11 @@ def structural_compare(
             candidate_mapping_path=candidate_mapping,
             selected_profile=profile,
         )
-        report = write_comparison_bundle(
-            inventory, output, report_output, markdown_output
-        )
+        report = write_comparison_bundle(inventory, output, report_output, markdown_output)
     except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
         typer.echo(f"ERROR structural comparison failed: {exc}", err=True)
         raise typer.Exit(code=2) from exc
-    selected = next(
-        item for item in inventory.profile_results if item.profile_name == profile
-    )
+    selected = next(item for item in inventory.profile_results if item.profile_name == profile)
     typer.echo(
         f"{selected.outcome.value} structural comparison "
         f"inventory={inventory.comparison_digest} "
@@ -1295,9 +1255,7 @@ def structural_compare(
 @app.command("structural-comparison-inventory-verify")
 def structural_comparison_inventory_verify(
     input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
-    artifact_root: Annotated[
-        Path, typer.Option("--artifact-root", file_okay=False)
-    ] = Path("."),
+    artifact_root: Annotated[Path, typer.Option("--artifact-root", file_okay=False)] = Path("."),
 ) -> None:
     """Reconstruct a structural comparison from all verified dependencies."""
     try:
@@ -1456,6 +1414,83 @@ def report_verify(
         typer.echo("FAIL report integrity mismatch")
         raise typer.Exit(code=1)
     typer.echo(f"PASS report integrity {envelope.integrity.sha256}")
+
+
+@app.command("article-package-generate")
+def article_package_generate(
+    root: Annotated[Path, typer.Option("--root", exists=True, file_okay=False)] = Path("."),
+) -> None:
+    """Generate deterministic article evidence JSON from verified canonical artifacts."""
+    try:
+        root = root.resolve()
+        claims, reproduction, manifest = build_article_package(root)
+        outputs = {
+            CLAIM_PATH: claims,
+            REPRO_PATH: reproduction,
+            MANIFEST_PATH: manifest,
+        }
+        for relative, model in outputs.items():
+            path = root / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            atomic_write_text(path, pretty_article_json(model))
+        index = build_article_index(root, manifest, claims, reproduction)
+        index_path = root / INDEX_PATH
+        index_path.parent.mkdir(parents=True, exist_ok=True)
+        atomic_write_text(index_path, pretty_article_json(index))
+    except (OSError, UnicodeError, ValidationError, OmivInputError) as exc:
+        typer.echo(f"ERROR article package generation failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"PASS article package claims={claims.registry_digest} "
+        f"manifest={manifest.manifest_digest} index={index.index_digest}"
+    )
+
+
+@app.command("article-evidence-verify")
+def article_evidence_verify(
+    root: Annotated[Path, typer.Option("--root", exists=True, file_okay=False)] = Path("."),
+) -> None:
+    """Reconstruct and verify the publication evidence manifest offline."""
+    try:
+        manifest = verify_evidence_manifest(root.resolve())
+    except OmivInputError as exc:
+        typer.echo(f"ERROR {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(f"PASS article evidence {manifest.manifest_digest}")
+
+
+@app.command("article-claims-verify")
+def article_claims_verify(
+    root: Annotated[Path, typer.Option("--root", exists=True, file_okay=False)] = Path("."),
+) -> None:
+    """Reconstruct and verify every registered public claim offline."""
+    try:
+        registry = verify_claim_registry(root.resolve())
+    except OmivInputError as exc:
+        typer.echo(f"ERROR {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(f"PASS article claims {registry.registry_digest}")
+
+
+@app.command("article-preflight")
+def article_preflight(
+    root: Annotated[Path, typer.Option("--root", exists=True, file_okay=False)] = Path("."),
+    article: Annotated[Path, typer.Option("--article", exists=True, dir_okay=False)] = Path(
+        "articles/validating-kimi-k3-gguf-with-omiv.md"
+    ),
+) -> None:
+    """Verify evidence, claims, publication text, and artifact index offline."""
+    try:
+        root = root.resolve()
+        article_path = article if article.is_absolute() else root / article
+        index = verify_article_package(root, article_path)
+    except PublicationClaimError as exc:
+        typer.echo(f"FAIL article preflight: {exc}", err=True)
+        raise typer.Exit(code=1) from exc
+    except (OSError, UnicodeError, OmivInputError) as exc:
+        typer.echo(f"ERROR article preflight failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(f"PASS article preflight {index.index_digest}")
 
 
 @app.command()

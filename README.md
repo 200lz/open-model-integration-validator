@@ -1171,4 +1171,30 @@ behavior remain not checked.
 > It does not prove tensor payload equality, numerical quantization fidelity,
 > tokenizer equivalence, runtime equivalence, or comparative model quality.
 
-Phase 4F-8 technical article and community-release work remains out of scope.
+External publication, release tagging, and website generation remain out of scope.
+
+### Phase 4F evidence-linked publication case study
+
+The Kimi K3 case study packages the verified Phase 4F-1 through 4F-7 evidence
+without adding new validation conclusions. It covers UD-IQ1_M and UD-Q4_K_XL at
+immutable revision `3d4b61ab4b6789d401191c476cbb4567246db8f5`: bounded
+header inspection with zero accepted tensor payload bytes, split aggregation,
+complete Kimi target ontology and semantic-mapping accounting, independent
+validation, and cross-quantization structural comparison.
+
+- [Technical article](articles/validating-kimi-k3-gguf-with-omiv.md)
+- [Evidence manifest](articles/evidence/kimi-k3-gguf-validation.evidence-manifest.json)
+- [Public claim registry](articles/evidence/kimi-k3-gguf-validation.claim-registry.json)
+- [Reproducibility manifest](articles/evidence/kimi-k3-gguf-validation.reproducibility.json)
+
+```bash
+omiv article-evidence-verify --root .
+omiv article-claims-verify --root .
+omiv article-preflight --root . \
+  --article articles/validating-kimi-k3-gguf-with-omiv.md
+```
+
+The case study establishes descriptor-level structural evidence under recorded
+policies. It does not establish payload equality or integrity, numerical
+quantization fidelity, tokenizer parity, runtime equivalence, model quality, or
+artifact-specific conversion provenance.

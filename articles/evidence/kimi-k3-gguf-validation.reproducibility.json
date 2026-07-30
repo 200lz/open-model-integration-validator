@@ -1,0 +1,81 @@
+{
+  "commands": [
+    {
+      "command": "omiv remote-snapshot --provider huggingface --repo unsloth/Kimi-K3-GGUF --revision 3d4b61ab4b6789d401191c476cbb4567246db8f5 --path-prefix UD-IQ1_M --pattern \"*.gguf\" --output reproductions/UD-IQ1_M.snapshot.json --report-output reproductions/UD-IQ1_M.snapshot.report.json --markdown-output reproductions/UD-IQ1_M.snapshot.report.md",
+      "expected_exit_code": 0,
+      "expected_status": "PASS",
+      "network_required": true,
+      "order": 1,
+      "phase": "online_evidence_generation"
+    },
+    {
+      "command": "omiv remote-snapshot --provider huggingface --repo unsloth/Kimi-K3-GGUF --revision 3d4b61ab4b6789d401191c476cbb4567246db8f5 --path-prefix UD-Q4_K_XL --pattern \"*.gguf\" --output reproductions/UD-Q4_K_XL.snapshot.json --report-output reproductions/UD-Q4_K_XL.snapshot.report.json --markdown-output reproductions/UD-Q4_K_XL.snapshot.report.md",
+      "expected_exit_code": 0,
+      "expected_status": "PASS",
+      "network_required": true,
+      "order": 2,
+      "phase": "online_evidence_generation"
+    },
+    {
+      "command": "omiv independent-validation-inventory-verify --input validations/unsloth_Kimi-K3-GGUF_UD-IQ1_M.validation.inventory.json",
+      "expected_exit_code": 0,
+      "expected_status": "PASS",
+      "network_required": false,
+      "order": 3,
+      "phase": "offline"
+    },
+    {
+      "command": "omiv independent-validation-inventory-verify --input validations/unsloth_Kimi-K3-GGUF_UD-Q4_K_XL.validation.inventory.json",
+      "expected_exit_code": 0,
+      "expected_status": "PASS",
+      "network_required": false,
+      "order": 4,
+      "phase": "offline"
+    },
+    {
+      "command": "omiv structural-comparison-inventory-verify --input comparisons/unsloth_Kimi-K3-GGUF_UD-IQ1_M_vs_UD-Q4_K_XL.comparison.inventory.json",
+      "expected_exit_code": 0,
+      "expected_status": "PASS",
+      "network_required": false,
+      "order": 5,
+      "phase": "offline"
+    },
+    {
+      "command": "omiv article-preflight --root . --article articles/validating-kimi-k3-gguf-with-omiv.md",
+      "expected_exit_code": 0,
+      "expected_status": "PASS",
+      "network_required": false,
+      "order": 6,
+      "phase": "offline"
+    }
+  ],
+  "expected_artifact_paths": [
+    "comparisons/unsloth_Kimi-K3-GGUF_UD-IQ1_M_vs_UD-Q4_K_XL.comparison.inventory.json",
+    "validations/unsloth_Kimi-K3-GGUF_UD-IQ1_M.validation.inventory.json",
+    "validations/unsloth_Kimi-K3-GGUF_UD-Q4_K_XL.validation.inventory.json"
+  ],
+  "expected_digests": {
+    "comparisons/unsloth_Kimi-K3-GGUF_UD-IQ1_M_vs_UD-Q4_K_XL.comparison.inventory.json": "a2dc47c278642446813f6f1434cca0cebfe3639c7b89c4e6d22da8f25679e490",
+    "validations/unsloth_Kimi-K3-GGUF_UD-IQ1_M.validation.inventory.json": "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+    "validations/unsloth_Kimi-K3-GGUF_UD-Q4_K_XL.validation.inventory.json": "3b7bbfc865c235544574113dd93ab91d05d72aebafaf226f3b3c25a56fb02a34"
+  },
+  "expected_remote_header_bytes": {
+    "UD-IQ1_M": 7098363,
+    "UD-Q4_K_XL": 7100165
+  },
+  "expected_tensor_payload_bytes_accepted": 0,
+  "known_provider_limitations": [
+    "Original snapshot and Range evidence generation requires approved HTTPS access.",
+    "Publication-package verification is entirely offline."
+  ],
+  "omiv_repository_commit": "82db9f9f9465a20286d25de875d02d90bc3de871",
+  "repository": "unsloth/Kimi-K3-GGUF",
+  "reproducibility_digest": "3e209f926ee097273b1bfbca27dde898dba024b24c38de9a0bc9dc55ec99a9b7",
+  "required_software_assumptions": [
+    "Python version supported by the checked-in OMIV project",
+    "OMIV dependencies installed from the pinned project metadata",
+    "Canonical Phase 4F-1 through 4F-7 artifacts present"
+  ],
+  "resolved_revision": "3d4b61ab4b6789d401191c476cbb4567246db8f5",
+  "schema_id": "omiv.article-reproducibility-manifest.v1"
+}
