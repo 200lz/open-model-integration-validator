@@ -1,0 +1,296 @@
+{
+  "integrity": {
+    "canonicalization": "omiv-json-v1",
+    "sha256": "a1d08c5f2c0dac75682d6cce059929d4cd7d27f2cd7d7319c20b3aebb958270a"
+  },
+  "report": {
+    "execution": {
+      "exit_code": 0,
+      "result": "pass_with_warnings"
+    },
+    "findings": [
+      {
+        "evidence": {
+          "complete_required_artifact_digests": true,
+          "conflicts": [],
+          "repository_revision_pin": true,
+          "required_artifact_count": 1
+        },
+        "message": "Source identity is sufficiently pinned",
+        "rule_id": "PROV-001",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "checked": [],
+          "mismatches": [],
+          "unchecked_roles": [
+            "model"
+          ]
+        },
+        "message": "Some source artifact digests were not independently checked",
+        "rule_id": "PROV-002",
+        "severity": "warning",
+        "status": "warn"
+      },
+      {
+        "evidence": {
+          "declared_sha256": "85fa02ce8134d58db8af70189b5b3ee9f839a8933e142133442536226e96a302",
+          "mismatches": [],
+          "observed_sha256": "85fa02ce8134d58db8af70189b5b3ee9f839a8933e142133442536226e96a302"
+        },
+        "message": "Source inventory identity matches",
+        "rule_id": "PROV-003",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "installed_pack_id": "qwen2",
+          "mismatches": []
+        },
+        "message": "Model pack identity matches",
+        "rule_id": "PROV-004",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "declared_sha256": "c5800e9316b5a2841b91f928a1ec7754241192e7e202f68c5b5b21492110e014",
+          "mismatches": [],
+          "observed_sha256": "c5800e9316b5a2841b91f928a1ec7754241192e7e202f68c5b5b21492110e014"
+        },
+        "message": "Mapping manifest identity matches",
+        "rule_id": "PROV-005",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "declared_revision": "e3546c7948e3af463d0b401e6421d5a4c2faf565",
+          "immutable": true,
+          "observed_repository_head": null,
+          "revision_kind": "git_commit"
+        },
+        "message": "Conversion tool identity is pinned",
+        "rule_id": "PROV-006",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "argument_count": 5,
+          "output_argument_identifiable": true,
+          "problems": [],
+          "redacted_arguments": [],
+          "shell_command_string": false
+        },
+        "message": "Invocation is reproducibly recorded",
+        "rule_id": "PROV-007",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "declared_roles": [
+            "model"
+          ],
+          "problems": [],
+          "target_roles": [
+            "model"
+          ]
+        },
+        "message": "Process result is internally consistent",
+        "rule_id": "PROV-008",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "checked": [
+            {
+              "evidence": "inventory",
+              "role": "model"
+            }
+          ],
+          "mismatches": [],
+          "unchecked_roles": []
+        },
+        "message": "Target artifact digest matches",
+        "rule_id": "PROV-009",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "declared_sha256": "b0850a54414ffe2504ef511ecb915b2706579bbac699a75d13ce1e50a1a104cb",
+          "mismatches": [],
+          "observed_sha256": "b0850a54414ffe2504ef511ecb915b2706579bbac699a75d13ce1e50a1a104cb"
+        },
+        "message": "Target inventory identity matches",
+        "rule_id": "PROV-010",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "problems": []
+        },
+        "message": "Provenance chain is internally consistent",
+        "rule_id": "PROV-011",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "failed_rules": [],
+          "inventories_exact": true,
+          "mapping_exact": true,
+          "source_exact": true,
+          "target_exact": true,
+          "tool_exact": true
+        },
+        "message": "Exact lineage is sufficiently pinned",
+        "rule_id": "PROV-012",
+        "severity": "info",
+        "status": "pass"
+      }
+    ],
+    "limitations": [
+      "PROV-002: Some source artifact digests were not independently checked",
+      "Lineage does not prove converter correctness, target payload numerical correctness, or inference parity."
+    ],
+    "provenance": {
+      "capture": {
+        "artifact_hashing": "requested_full_sha256",
+        "capture_schema_version": 1,
+        "offline": true,
+        "omiv_version": "0.1.0",
+        "payload_access": "full_file_hashing",
+        "redaction_count": 0,
+        "tool_name": "open-model-integration-validator"
+      },
+      "interpretation": {
+        "mapping": {
+          "canonical_sha256": "c5800e9316b5a2841b91f928a1ec7754241192e7e202f68c5b5b21492110e014",
+          "mapping_id": "qwen2.5-0.5b-hf-to-gguf-realizations",
+          "mapping_schema": "omiv.semantic-mapping.v1"
+        },
+        "model_pack": {
+          "metadata_sha256": "807eb5de8f71aff1e75c17af41ba5118ef926ded8e2b81c3adfbba29fe95bd87",
+          "pack_id": "qwen2",
+          "pack_schema_version": 1,
+          "pack_version": 1
+        },
+        "policies": []
+      },
+      "operation": "convert",
+      "process": {
+        "declared_outputs": [
+          "model"
+        ],
+        "invocation": {
+          "arguments": [
+            "{source_model_dir}",
+            "--outfile",
+            "{target_output}",
+            "--outtype",
+            "f16"
+          ],
+          "executable": "python",
+          "redacted_arguments": [],
+          "working_tree_policy": "require_clean"
+        },
+        "operation": "convert",
+        "result": {
+          "exit_code": 0,
+          "success": true
+        },
+        "runtime": {
+          "package_versions": {
+            "gguf": "0.19.0",
+            "safetensors": "0.8.0",
+            "torch": "2.11.0+cpu",
+            "transformers": "4.57.6"
+          },
+          "python_version": "3.14.4"
+        },
+        "tool": {
+          "entrypoint": "convert_hf_to_gguf.py",
+          "name": "llama.cpp",
+          "repository": "ggml-org/llama.cpp",
+          "revision": "e3546c7948e3af463d0b401e6421d5a4c2faf565",
+          "revision_kind": "git_commit"
+        },
+        "tool_source": {
+          "clean_worktree": true,
+          "repository_head": "e3546c7948e3af463d0b401e6421d5a4c2faf565",
+          "source_tree_sha256": null
+        }
+      },
+      "provenance_id": "qwen2.5-0.5b-hf-to-gguf-f16-realizations",
+      "provenance_schema": "omiv.conversion-provenance.v1",
+      "source": {
+        "artifacts": [
+          {
+            "artifact_id": "model.safetensors",
+            "byte_size": 988097824,
+            "digest_evidence": "full_artifact",
+            "required": true,
+            "role": "model",
+            "sha256": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe"
+          }
+        ],
+        "format": "huggingface-safetensors",
+        "inventory_schema": "omiv.hf-inventory.v1",
+        "inventory_sha256": "85fa02ce8134d58db8af70189b5b3ee9f839a8933e142133442536226e96a302",
+        "model_family": "qwen2",
+        "model_pack": {
+          "metadata_sha256": "807eb5de8f71aff1e75c17af41ba5118ef926ded8e2b81c3adfbba29fe95bd87",
+          "pack_id": "qwen2",
+          "pack_version": 1
+        },
+        "repository": "Qwen/Qwen2.5-0.5B-Instruct",
+        "revision": "7ae557604adf67be50417f59c2c2f167def9a775"
+      },
+      "target": {
+        "architecture": "qwen2",
+        "artifact_type": null,
+        "artifacts": [
+          {
+            "artifact_id": "qwen2.5-0.5b-instruct-f16.generated.gguf",
+            "byte_size": 994156960,
+            "output_success": true,
+            "role": "model",
+            "sha256": "6f71ffde75bde493ca5cefe995306e2c2522e6e84a3dd5b4215453dda37bea32"
+          }
+        ],
+        "format": "gguf",
+        "inventory_schema": "omiv.gguf-inventory.v1",
+        "inventory_sha256": "b0850a54414ffe2504ef511ecb915b2706579bbac699a75d13ce1e50a1a104cb"
+      }
+    },
+    "provenance_sha256": "801ba112864540c87e0f7daceb1a8f1f1071b784239156780539a26e7929f977",
+    "report_schema": "omiv.conversion-provenance-report.v1",
+    "summary": {
+      "exact_lineage_status": "pass",
+      "fail_count": 0,
+      "invocation_status": "pass",
+      "mapping_status": "pass",
+      "model_pack_status": "pass",
+      "pass_count": 11,
+      "source_artifact_status": "warn",
+      "source_identity_status": "pass",
+      "source_inventory_status": "pass",
+      "target_artifact_status": "pass",
+      "target_inventory_status": "pass",
+      "tool_identity_status": "pass",
+      "warn_count": 1
+    },
+    "tool": {
+      "name": "open-model-integration-validator",
+      "version": "0.1.0"
+    }
+  }
+}

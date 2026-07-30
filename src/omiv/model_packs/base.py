@@ -21,7 +21,7 @@ from omiv.hf.models import (
 from omiv.models import ModelInventory, ValidationReport
 
 if TYPE_CHECKING:
-    from omiv.mapping.models import MappingManifest
+    from omiv.mapping.models import MappingManifest, RealizationEvidence
 
 
 class ModelPackCapability(StrEnum):
@@ -142,3 +142,7 @@ class ModelPack(ABC):
 
     def provide_model_constraints(self) -> ModelConstraints:
         return ModelConstraints()
+
+    def provide_realization_evidence(self) -> tuple[RealizationEvidence, ...]:
+        """Return immutable, built-in evidence owned by this model pack."""
+        return ()

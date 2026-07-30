@@ -226,6 +226,7 @@ def mapping_validate(
         manifest = load_mapping_manifest(mapping_path, requested_pack_id=model_pack_id)
         model_pack = None if model_pack_id is None else get_model_pack(model_pack_id)
         provenance_validation = None
+        conversion_provenance = None
         if provenance_report_path is not None:
             provenance_report = load_provenance_report_envelope(provenance_report_path)
             if not provenance_report_integrity_matches(provenance_report):
@@ -246,12 +247,14 @@ def mapping_validate(
                     model_pack=selected_pack,
                 ),
             )
+            conversion_provenance = provenance_report.report.provenance
         validation = validate_semantic_mapping(
             source,
             target,
             manifest,
             model_pack=model_pack,
             provenance_validation=provenance_validation,
+            conversion_provenance=conversion_provenance,
         )
         if json_output is not None or markdown_output is not None:
             envelope = build_mapping_report_envelope(source, target, manifest, validation)
