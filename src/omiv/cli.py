@@ -53,9 +53,25 @@ from omiv.provenance.validator import (
     format_provenance_report,
     validate_provenance,
 )
+from omiv.remote.gguf_header import RemoteGGUFHeaderParser
+from omiv.remote.header_models import HEADER_REPORT_SCHEMA, HeaderParserPolicy
+from omiv.remote.header_reporting import (
+    build_header_inventory_envelope,
+    build_header_report,
+    header_report_integrity_matches,
+    load_header_report,
+    pretty_header_json,
+    render_header_markdown,
+)
 from omiv.remote.huggingface import HuggingFaceRepositoryAdapter
-from omiv.remote.probe import gguf_prefix_probe, range_probe
+from omiv.remote.probe import (
+    gguf_prefix_probe,
+    range_probe,
+    resolved_file_url,
+    selected_snapshot_file,
+)
 from omiv.remote.range_client import BoundedRangeClient, RangeValidationError
+from omiv.remote.range_source import RangeBackedByteSource
 from omiv.remote.reporting import (
     build_snapshot_report,
     load_remote_report,
@@ -85,13 +101,14 @@ REMOTE_REPORT_SCHEMAS = {
     "omiv.remote-range-probe-report.v1",
     "omiv.remote-gguf-prefix-report.v1",
 }
+MAX_REPORT_DISPATCH_BYTES = 128 * 1024 * 1024
 
 
 def _read_report_schema(path: Path) -> str | None:
     raw = parse_bounded_json_bytes(
         path.read_bytes(),
         source_name=path.name,
-        max_bytes=16 * 1024 * 1024,
+        max_bytes=MAX_REPORT_DISPATCH_BYTES,
     )
     if not isinstance(raw, dict) or not isinstance(raw.get("report"), dict):
         return None
@@ -575,6 +592,132 @@ def remote_gguf_prefix(
         raise typer.Exit(code=1)
 
 
+@app.command("remote-gguf-header")
+def remote_gguf_header(
+    snapshot_path: Annotated[
+        Path, typer.Option("--snapshot", exists=True, dir_okay=False)
+    ],
+    file_path: Annotated[str, typer.Option("--file")],
+    output_path: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    report_output: Annotated[
+        Path, typer.Option("--report-output", dir_okay=False)
+    ],
+    markdown_output: Annotated[
+        Path, typer.Option("--markdown-output", dir_okay=False)
+    ],
+    max_header_bytes: Annotated[
+        int, typer.Option("--max-header-bytes", min=24)
+    ] = 64 * 1024 * 1024,
+    max_request_bytes: Annotated[
+        int, typer.Option("--max-request-bytes", min=24)
+    ] = 256 * 1024,
+    read_ahead_bytes: Annotated[
+        int, typer.Option("--read-ahead-bytes", min=0)
+    ] = 256 * 1024,
+    max_metadata_count: Annotated[
+        int, typer.Option("--max-metadata-count", min=0)
+    ] = 1_000_000,
+    max_tensor_count: Annotated[
+        int, typer.Option("--max-tensor-count", min=0)
+    ] = 1_000_000,
+    max_string_bytes: Annotated[
+        int, typer.Option("--max-string-bytes", min=0)
+    ] = 16 * 1024 * 1024,
+    max_metadata_key_bytes: Annotated[
+        int, typer.Option("--max-metadata-key-bytes", min=1)
+    ] = 1024,
+    max_array_elements: Annotated[
+        int, typer.Option("--max-array-elements", min=0)
+    ] = 10_000_000,
+    max_tensor_name_bytes: Annotated[
+        int, typer.Option("--max-tensor-name-bytes", min=1)
+    ] = 4096,
+    max_tensor_dimensions: Annotated[
+        int, typer.Option("--max-tensor-dimensions", min=1, max=64)
+    ] = 4,
+    max_alignment: Annotated[
+        int, typer.Option("--max-alignment", min=1)
+    ] = 4096,
+    max_request_count: Annotated[
+        int, typer.Option("--max-request-count", min=1)
+    ] = 4096,
+    max_preview_bytes: Annotated[
+        int, typer.Option("--max-preview-bytes", min=0, max=65536)
+    ] = 256,
+    offline: Annotated[bool, typer.Option("--offline")] = False,
+) -> None:
+    """Parse one complete pinned GGUF v3 header without accepting payload bytes."""
+    inputs = (snapshot_path,)
+    try:
+        _require_online(offline)
+        outputs = (output_path, report_output, markdown_output)
+        if len({item.resolve(strict=False) for item in outputs}) != len(outputs):
+            raise OmivInputError("header inventory and report outputs must be distinct")
+        for item in outputs:
+            validate_output_path(item, forbidden_inputs=inputs)
+        snapshot = load_snapshot(snapshot_path)
+        file = selected_snapshot_file(snapshot, file_path)
+        policy = HeaderParserPolicy(
+            max_total_header_bytes=max_header_bytes,
+            max_request_bytes=max_request_bytes,
+            read_ahead_bytes=read_ahead_bytes,
+            max_metadata_count=max_metadata_count,
+            max_tensor_count=max_tensor_count,
+            max_string_bytes=max_string_bytes,
+            max_metadata_key_bytes=max_metadata_key_bytes,
+            max_array_elements=max_array_elements,
+            max_tensor_name_bytes=max_tensor_name_bytes,
+            max_tensor_dimensions=max_tensor_dimensions,
+            max_alignment=max_alignment,
+            max_request_count=max_request_count,
+            max_preview_bytes=max_preview_bytes,
+        )
+        client = BoundedRangeClient(max_response_bytes=policy.max_request_bytes)
+        source = RangeBackedByteSource(
+            url=resolved_file_url(snapshot, file.path),
+            file_size=file.byte_size,
+            client=client,
+            policy=policy,
+        )
+        inventory = RemoteGGUFHeaderParser(policy).parse(
+            source,
+            repository=snapshot.snapshot.repository,
+            snapshot_sha256=snapshot.integrity.sha256,
+            file=file,
+        )
+        inventory_envelope = build_header_inventory_envelope(inventory)
+        report_envelope = build_header_report(inventory_envelope)
+        atomic_write_text(
+            output_path,
+            pretty_header_json(inventory_envelope),
+            forbidden_inputs=inputs,
+        )
+        atomic_write_text(
+            report_output,
+            pretty_header_json(report_envelope),
+            forbidden_inputs=inputs,
+        )
+        atomic_write_text(
+            markdown_output,
+            render_header_markdown(report_envelope),
+            forbidden_inputs=inputs,
+        )
+    except (
+        OSError,
+        UnicodeError,
+        ValidationError,
+        OmivInputError,
+        RangeValidationError,
+    ) as exc:
+        typer.echo(f"ERROR remote GGUF header parse failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"PASS remote GGUF header {inventory_envelope.integrity.sha256} "
+        f"bytes={inventory.total_remote_bytes_accepted} "
+        f"requests={inventory.request_count}"
+    )
+
+
 @app.command("report")
 def report_command(
     input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
@@ -586,7 +729,12 @@ def report_command(
         if output_format != "markdown":
             raise OmivInputError("unsupported report format; expected markdown")
         schema = _read_report_schema(input_path)
-        if schema == MAPPING_REPORT_SCHEMA_ID:
+        if schema == HEADER_REPORT_SCHEMA:
+            header_envelope = load_header_report(input_path)
+            if not header_report_integrity_matches(header_envelope):
+                raise OmivInputError("report integrity mismatch")
+            content = render_header_markdown(header_envelope)
+        elif schema == MAPPING_REPORT_SCHEMA_ID:
             mapping_envelope = load_mapping_report_envelope(input_path)
             if not mapping_report_integrity_matches(mapping_envelope):
                 raise OmivInputError("report integrity mismatch")
@@ -619,6 +767,13 @@ def report_verify(
     """Verify report schema and payload integrity without original artifacts."""
     try:
         schema = _read_report_schema(input_path)
+        if schema == HEADER_REPORT_SCHEMA:
+            header_envelope = load_header_report(input_path)
+            if not header_report_integrity_matches(header_envelope):
+                typer.echo("FAIL report integrity mismatch")
+                raise typer.Exit(code=1)
+            typer.echo(f"PASS report integrity {header_envelope.integrity.sha256}")
+            return
         if schema == MAPPING_REPORT_SCHEMA_ID:
             mapping_envelope = load_mapping_report_envelope(input_path)
             if not mapping_report_integrity_matches(mapping_envelope):

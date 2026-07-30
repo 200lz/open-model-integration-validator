@@ -759,6 +759,98 @@ suite mocks metadata and transport. The opt-in live test is enabled only with
 > validated HTTP semantics. They do not prove complete GGUF headers, tensor payload
 > integrity, semantic mapping correctness, quantization fidelity, or runtime parity.
 
-Phase 4F-2 will review GGUF prefix endianness and aggregate complete split-header
-metadata. Phase 4F-1 deliberately does not parse header length, tensor counts,
-metadata counts, complete headers, or payloads.
+Phase 4F-1 deliberately does not parse header length, tensor counts, metadata
+counts, complete headers, or payloads. Complete per-file headers begin in Phase
+4F-2 below; cross-shard aggregation remains later work.
+
+## Incremental remote GGUF v3 headers
+
+Phase 4F-2 parses one pinned GGUF file at a time. Unlike Safetensors, GGUF has no
+single field containing the complete header length. OMIV must decode the fixed
+prefix, every metadata key/value encoding, and every tensor descriptor before it
+can align the exclusive descriptor end and derive the tensor payload start.
+
+```bash
+omiv remote-gguf-header \
+  --snapshot snapshots/huggingface/unsloth_Kimi-K3-GGUF_UD-IQ1_M.snapshot.json \
+  --file UD-IQ1_M/Kimi-K3-UD-IQ1_M-00001-of-00015.gguf \
+  --output inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M_shard1.header.inventory.json \
+  --report-output reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M_shard1.header.report.json \
+  --markdown-output reports/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M_shard1.header.report.md
+```
+
+The filename above is an example from the immutable Phase 4F-1 snapshot. The
+integration test derives the first ordinal and path from a complete filename
+candidate rather than hard-coding the shard count or name.
+
+The range-backed source uses half-open intervals `[start, end)`. Each HTTP request
+has an explicit offset and length and is validated by the Phase 4F-1 206 and
+`Content-Range` checks. A last-window cache avoids duplicate reads. Read-ahead is
+never speculative: the parser supplies a conservative lower bound for bytes known
+to remain in later metadata values or tensor descriptors. Early reads can therefore
+fill a bounded window, while reads near the final descriptor shrink to the exact
+remaining encoding. Alignment padding is not fetched, and after the payload start
+is derived the source permanently rejects any interval whose exclusive end exceeds
+that boundary.
+
+The effective `omiv.remote-gguf-header-policy.v1` is embedded in every inventory and
+hashed canonically. Defaults are:
+
+| Limit | Default |
+| --- | ---: |
+| Total accepted header bytes | 64 MiB |
+| Bytes per Range request | 256 KiB |
+| Safe read-ahead | 256 KiB |
+| Metadata entries | 1,000,000 |
+| Tensor descriptors | 1,000,000 |
+| Individual string bytes | 16 MiB |
+| Metadata key bytes | 1,024 |
+| Array elements | 10,000,000 |
+| Tensor name bytes | 4,096 |
+| Tensor dimensions | 4 |
+| Alignment | 4,096 |
+| Range requests | 4,096 |
+| Preview bytes | 256 |
+
+All limits have CLI overrides. Offset addition, alignment, array byte counts,
+dimension products, and relative tensor offsets use checked unsigned 64-bit
+arithmetic. GGUF v3 is supported explicitly; another version is rejected rather
+than interpreted using a guessed layout.
+
+All GGUF v3 scalar metadata types, UTF-8 strings, and non-nested arrays of those
+scalar/string types are parsed. Metadata entry SHA-256 values cover the exact
+encoded key, type, and value bytes in the file. Large numeric arrays are hashed and
+validated in request-sized chunks. String arrays are decoded incrementally for
+UTF-8 validity. Inventories retain only scalar summaries and deterministic bounded
+previews, never complete tokenizer vocabularies, merges, scores, or token-type
+arrays.
+
+Every per-file tensor descriptor records its name, dimensions in GGUF on-disk
+order, GGML type code and name, relative data offset, logical element count,
+exclusive encoded span, and encoded SHA-256. This is syntax and boundary evidence
+only. Phase 4F-2 does not interpret Kimi K3 tensor semantics or read the data at
+those offsets.
+
+`general.alignment` is accepted only as a bounded non-zero power-of-two `UINT32`;
+otherwise the GGUF default of 32 is used. The descriptor end is aligned with checked
+arithmetic to obtain both the exclusive header end and payload start. The inventory
+records whether this boundary is before or exactly at repository EOF. A boundary
+past EOF fails. Successful evidence requires both the highest requested and highest
+accepted inclusive offsets to be strictly less than the payload start.
+
+The inventory and report have strict
+`omiv.remote-gguf-header-inventory.v1` and
+`omiv.remote-gguf-header-report.v1` schemas. Report verification reconstructs all
+ten HEADER findings from the embedded typed inventory, validates the inventory and
+policy linkage, and recomputes report integrity. Digests are deterministic tamper
+detection, not signatures.
+
+> A successful Phase 4F-2 result proves that one pinned GGUF file’s complete
+> metadata and tensor descriptor region was parsed using bounded remote byte
+> ranges without accepting tensor payload bytes. It does not prove cross-shard
+> consistency, model architecture correctness, semantic mapping correctness,
+> payload integrity, quantization fidelity, or runtime parity.
+
+Phase 4F-3 may aggregate independent shard inventories and define explicit
+cross-shard consistency rules. Phase 4F-2 does not aggregate the 15 files, validate
+split metadata across files, or describe them as a semantically valid model.

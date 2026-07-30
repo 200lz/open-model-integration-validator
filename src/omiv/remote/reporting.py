@@ -194,12 +194,15 @@ def pretty_json(value: SnapshotEnvelope | ReportEnvelope) -> str:
     )
 
 
-def _safe(value: Any) -> str:
+def safe_markdown_text(value: Any) -> str:
     text = str(value).replace("\r", " ").replace("\n", " ")
     text = html.escape(text, quote=True)
     for character in "\\`*_{}[]()#+-.!|":
         text = text.replace(character, f"\\{character}")
     return text
+
+
+_safe = safe_markdown_text
 
 
 def render_markdown(envelope: ReportEnvelope) -> str:

@@ -4,9 +4,16 @@ import os
 
 import pytest
 
+from omiv.remote.gguf_header import RemoteGGUFHeaderParser
+from omiv.remote.header_models import HeaderParserPolicy
 from omiv.remote.huggingface import HuggingFaceRepositoryAdapter
-from omiv.remote.probe import gguf_prefix_probe
+from omiv.remote.probe import (
+    gguf_prefix_probe,
+    resolved_file_url,
+    selected_snapshot_file,
+)
 from omiv.remote.range_client import BoundedRangeClient
+from omiv.remote.range_source import RangeBackedByteSource
 from omiv.remote.reporting import snapshot_envelope
 
 
@@ -34,3 +41,24 @@ def test_real_huggingface_snapshot_and_prefix_range() -> None:
     )
     assert report.report.gguf_magic_valid
     assert report.report.bounded_range_evidence.response_byte_count == 8
+
+    envelope = snapshot_envelope(snapshot)
+    file = selected_snapshot_file(envelope, first_path)
+    policy = HeaderParserPolicy()
+    source = RangeBackedByteSource(
+        url=resolved_file_url(envelope, first_path),
+        file_size=file.byte_size,
+        client=BoundedRangeClient(max_response_bytes=policy.max_request_bytes),
+        policy=policy,
+    )
+    inventory = RemoteGGUFHeaderParser(policy).parse(
+        source,
+        repository=snapshot.repository,
+        snapshot_sha256=envelope.integrity.sha256,
+        file=file,
+    )
+    assert inventory.metadata_count == len(inventory.metadata)
+    assert inventory.tensor_count == len(inventory.tensors)
+    assert inventory.total_remote_bytes_accepted <= policy.max_total_header_bytes
+    assert inventory.request_count <= policy.max_request_count
+    assert inventory.highest_accepted_offset < inventory.payload_start_offset

@@ -23,7 +23,7 @@ from omiv.remote.range_client import BoundedRangeClient
 from omiv.remote.reporting import report_envelope
 
 
-def _selected_file(snapshot: SnapshotEnvelope, path: str) -> RemoteFile:
+def selected_snapshot_file(snapshot: SnapshotEnvelope, path: str) -> RemoteFile:
     safe_path = validate_remote_path(path)
     matches = [item for item in snapshot.snapshot.files if item.path == safe_path]
     if len(matches) != 1:
@@ -31,7 +31,7 @@ def _selected_file(snapshot: SnapshotEnvelope, path: str) -> RemoteFile:
     return matches[0]
 
 
-def _resolve_url(snapshot: SnapshotEnvelope, path: str) -> str:
+def resolved_file_url(snapshot: SnapshotEnvelope, path: str) -> str:
     repo = quote(snapshot.snapshot.repository.repo_id, safe="/")
     revision = quote(snapshot.snapshot.repository.resolved_revision, safe="")
     encoded_path = "/".join(quote(component, safe="") for component in path.split("/"))
@@ -58,7 +58,7 @@ def _range_evidence(
     client: BoundedRangeClient,
 ) -> tuple[RangeEvidence, bytes]:
     result = client.read(
-        _resolve_url(snapshot, file.path),
+        resolved_file_url(snapshot, file.path),
         offset=offset,
         length=length,
         expected_total_size=file.byte_size,
@@ -95,7 +95,7 @@ def range_probe(
 ) -> ReportEnvelope:
     if include_hex_preview and length > 16:
         raise OmivInputError("hex preview is limited to ranges of at most 16 bytes")
-    file = _selected_file(snapshot, path)
+    file = selected_snapshot_file(snapshot, path)
     evidence, data = _range_evidence(
         snapshot, file, offset=offset, length=length, client=client
     )
@@ -133,7 +133,7 @@ def gguf_prefix_probe(
     path: str,
     client: BoundedRangeClient,
 ) -> ReportEnvelope:
-    file = _selected_file(snapshot, path)
+    file = selected_snapshot_file(snapshot, path)
     evidence, data = _range_evidence(
         snapshot, file, offset=0, length=8, client=client
     )

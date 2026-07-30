@@ -1,0 +1,1859 @@
+{
+  "integrity": {
+    "canonicalization": "omiv-json-v1",
+    "sha256": "5934de5d8ecb9ed921e7766651929eec1d7173912633bb9c8cfd442eb2b49e6c"
+  },
+  "report": {
+    "execution": {
+      "exit_code": 0,
+      "result": "pass"
+    },
+    "findings": [
+      {
+        "evidence": {
+          "gguf_version": 3
+        },
+        "message": "GGUF v3 fixed prefix and little-endian fields are valid.",
+        "rule_id": "HEADER-001",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "metadata_count": 64,
+          "tensor_count": 0
+        },
+        "message": "Metadata and tensor counts are within the recorded parser policy.",
+        "rule_id": "HEADER-002",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "metadata_entry_count": 64
+        },
+        "message": "All metadata binary encodings were fully parsed within configured bounds.",
+        "rule_id": "HEADER-003",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "tensor_descriptor_count": 0
+        },
+        "message": "All per-file tensor descriptors were syntactically parsed and uniquely named.",
+        "rule_id": "HEADER-004",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "repository_declared_file_size": 6934144
+        },
+        "message": "Tensor relative offsets fit within the repository-declared file boundary.",
+        "rule_id": "HEADER-005",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "alignment": 32
+        },
+        "message": "GGUF alignment is valid and bounded by policy.",
+        "rule_id": "HEADER-006",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "metadata_and_descriptor_end": 6934118,
+          "payload_start_offset": 6934144
+        },
+        "message": "The exact half-open header boundary was derived from parsed descriptors.",
+        "rule_id": "HEADER-007",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "highest_accepted_offset": 6934117,
+          "payload_start_offset": 6934144
+        },
+        "message": "No accepted or requested byte reached the tensor payload boundary.",
+        "rule_id": "HEADER-008",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "repository_declared_file_size": 6934144
+        },
+        "message": "Every HTTP Content-Range total agreed with repository file size.",
+        "rule_id": "HEADER-009",
+        "severity": "info",
+        "status": "pass"
+      },
+      {
+        "evidence": {
+          "parser_policy_sha256": "f77b269ec6f7b3ca18d52201528473ad15f752c8fd58e10b7162033e670131a3"
+        },
+        "message": "The header inventory and parser policy use deterministic canonical hashing.",
+        "rule_id": "HEADER-010",
+        "severity": "info",
+        "status": "pass"
+      }
+    ],
+    "inventory": {
+      "alignment": 32,
+      "file": {
+        "byte_size": 6934144,
+        "etag": null,
+        "lfs_sha256": "5df1dc703415112d194c7c6af66ad20ee912a62265316eb85cd13f8f890ca638",
+        "oid": "345fb5173a670d39ed8eb7a711eaac3dd054399b",
+        "path": "UD-IQ1_M/Kimi-K3-UD-IQ1_M-00001-of-00015.gguf",
+        "storage": "lfs",
+        "xet_hash": null
+      },
+      "gguf_version": 3,
+      "header_encoded_byte_length": 6934144,
+      "header_end_offset": 6934144,
+      "highest_accepted_offset": 6934117,
+      "highest_requested_offset": 6934117,
+      "inventory_schema": "omiv.remote-gguf-header-inventory.v1",
+      "metadata": [
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 47,
+          "encoded_end": 71,
+          "encoded_sha256": "82f28e0d82da6aae6e5bb0293deaefdf48fb7024a542312be0c70d57e8f7455c",
+          "encoded_start": 24,
+          "key": "general.architecture",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": "kimi-k3",
+          "summary_value": "kimi-k3",
+          "value_type": "STRING"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 52,
+          "encoded_end": 527,
+          "encoded_sha256": "79bea78f67a101a7436f5a6564dded1509a7c3b69c1fb85241606f3bc1880a15",
+          "encoded_start": 475,
+          "key": "general.base_model.0.name",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": "Kimi K3",
+          "summary_value": "Kimi K3",
+          "value_type": "STRING"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 63,
+          "encoded_end": 590,
+          "encoded_sha256": "220fe0a4d8f11b43a983db5057d1e173ec1e625ae6ca3226a446d1fc155fb2d5",
+          "encoded_start": 527,
+          "key": "general.base_model.0.organization",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": "Moonshotai",
+          "summary_value": "Moonshotai",
+          "value_type": "STRING"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 90,
+          "encoded_end": 680,
+          "encoded_sha256": "26acfae0185c933fd399820fcfe394d54c55836f1766e86cb6e7933c3bf3dacb",
+          "encoded_start": 590,
+          "key": "general.base_model.0.repo_url",
+          "preview": [],
+          "preview_truncated": true,
+          "string_preview": "[redacted-sensitive-text]",
+          "summary_value": null,
+          "value_type": "STRING"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 40,
+          "encoded_end": 475,
+          "encoded_sha256": "e7f059e6aa97467f46968fa2d5c9ad80a45aacc54dd44208336f6e121febd80f",
+          "encoded_start": 435,
+          "key": "general.base_model.count",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 1,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 43,
+          "encoded_end": 190,
+          "encoded_sha256": "8db76c64e54aa90065d038bce0f1a543de1676e8d5853113e9e88d28b2d1c855",
+          "encoded_start": 147,
+          "key": "general.basename",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": "Kimi-K3",
+          "summary_value": "Kimi-K3",
+          "value_type": "STRING"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 33,
+          "encoded_end": 6933796,
+          "encoded_sha256": "a3236c62a0a6b26e2bb6d05a6f85f53487ee61667e3e5111fad35c503e879714",
+          "encoded_start": 6933763,
+          "key": "general.file_type",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 24,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 40,
+          "encoded_end": 322,
+          "encoded_sha256": "db267f4e4fc235af22d1aec1008decdb9179be08a3946cd141674845aa3c515c",
+          "encoded_start": 282,
+          "key": "general.license",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": "other",
+          "summary_value": "other",
+          "value_type": "STRING"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 47,
+          "encoded_end": 369,
+          "encoded_sha256": "404e7a56ef7c6dcf7a478e19f561f5f7b38e172c02423dcedbc259161108c7f5",
+          "encoded_start": 322,
+          "key": "general.license.name",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": "kimi-k3",
+          "summary_value": "kimi-k3",
+          "value_type": "STRING"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 39,
+          "encoded_end": 147,
+          "encoded_sha256": "729fbe26ae5f5a7f024ac2ab851010611c9dcc1161a87eb367ff8f942c495d9b",
+          "encoded_start": 108,
+          "key": "general.name",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": "Kimi-K3",
+          "summary_value": "Kimi-K3",
+          "value_type": "STRING"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 44,
+          "encoded_end": 6933763,
+          "encoded_sha256": "6b89b11acedc83ac8c821f018f373ae6c0f34dce8a2cb9b234ed3dccecfdc96d",
+          "encoded_start": 6933719,
+          "key": "general.quantization_version",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 2,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 47,
+          "encoded_end": 237,
+          "encoded_sha256": "b3c875ee1aef87f1cc0fe46fab85735a3fb6c23b7c2e100e8f3cc6b039978b82",
+          "encoded_start": 190,
+          "key": "general.quantized_by",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": "Unsloth",
+          "summary_value": "Unsloth",
+          "value_type": "STRING"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 66,
+          "encoded_end": 435,
+          "encoded_sha256": "0884f9df814e2ff6a49bd29a0ed94321a1bc9db286fbcd4903e71aa5cc251c3f",
+          "encoded_start": 369,
+          "key": "general.repo_url",
+          "preview": [],
+          "preview_truncated": true,
+          "string_preview": "[redacted-sensitive-text]",
+          "summary_value": null,
+          "value_type": "STRING"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 45,
+          "encoded_end": 282,
+          "encoded_sha256": "4067167011835c3b952fef9dded0388defbda8d6d88bf59252c98098a733ba55",
+          "encoded_start": 237,
+          "key": "general.size_label",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": "896x60B",
+          "summary_value": "896x60B",
+          "value_type": "STRING"
+        },
+        {
+          "array_element_type": "STRING",
+          "element_count": 4,
+          "encoded_byte_length": 125,
+          "encoded_end": 805,
+          "encoded_sha256": "d1008e729e6f463e02a7a2d9970f4d79fd5277fed06c5a55389960b18d68f75d",
+          "encoded_start": 680,
+          "key": "general.tags",
+          "preview": [
+            "compressed-tensors",
+            "unsloth",
+            "conversational",
+            "image-text-to-text"
+          ],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": null,
+          "value_type": "ARRAY"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 37,
+          "encoded_end": 108,
+          "encoded_sha256": "09c0d4f71862452e1562fa2f27f3dd7c444eaa2297da77a87fe1449bd653cc90",
+          "encoded_start": 71,
+          "key": "general.type",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": "model",
+          "summary_value": "model",
+          "value_type": "STRING"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 44,
+          "encoded_end": 2482,
+          "encoded_sha256": "f8d964088ba9e268ad4b6070ae1ecfd778074d4dfcff93ef26944aac120603d7",
+          "encoded_start": 2438,
+          "key": "kimi-k3.activation.situ_beta",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 4.0,
+          "value_type": "FLOAT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 51,
+          "encoded_end": 2533,
+          "encoded_sha256": "62dd7140a5239d78a462dbd8ff857b8473c23526e3a1b403a9b97090026ef88c",
+          "encoded_start": 2482,
+          "key": "kimi-k3.activation.situ_linear_beta",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 25.0,
+          "value_type": "FLOAT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 44,
+          "encoded_end": 1005,
+          "encoded_sha256": "be5fadb5fb2c493c00a9b26bdaae3facd8f4a4313e5584a5c5fd24ed4c438480",
+          "encoded_start": 961,
+          "key": "kimi-k3.attention.head_count",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 96,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": "INT32",
+          "element_count": 93,
+          "encoded_byte_length": 427,
+          "encoded_end": 1432,
+          "encoded_sha256": "2dbe3e2b37afcdd2c0162554c53f3b6286f0734945386ba0805c08b6f4d628d1",
+          "encoded_start": 1005,
+          "key": "kimi-k3.attention.head_count_kv",
+          "preview": [
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1
+          ],
+          "preview_truncated": true,
+          "string_preview": null,
+          "summary_value": null,
+          "value_type": "ARRAY"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 44,
+          "encoded_end": 1736,
+          "encoded_sha256": "3f5fd9d5bd206a9f5a31045e414105fc5d3fde6ee3796ea241c775af039740f0",
+          "encoded_start": 1692,
+          "key": "kimi-k3.attention.key_length",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 576,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 48,
+          "encoded_end": 2118,
+          "encoded_sha256": "39fa1e20e2b1d138d5e88f686c74df296c8b3654740ef238c6e7b387db79d10b",
+          "encoded_start": 2070,
+          "key": "kimi-k3.attention.key_length_mla",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 192,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 46,
+          "encoded_end": 2026,
+          "encoded_sha256": "ea48024668406030c4b4951c126da7f45d55d14ac01c3132c99bd1aba5d194a5",
+          "encoded_start": 1980,
+          "key": "kimi-k3.attention.kv_lora_rank",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 512,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 56,
+          "encoded_end": 1526,
+          "encoded_sha256": "92466680d12a89090bae46f5c5b69e18e27df60c975a322db502e8153484776b",
+          "encoded_start": 1470,
+          "key": "kimi-k3.attention.layer_norm_rms_epsilon",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 9.999999747378752e-06,
+          "value_type": "FLOAT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 45,
+          "encoded_end": 1980,
+          "encoded_sha256": "50cb3ad40e5a470e6426482b20fb6b0e669e14ff0008dccaca8ecafec4f7cbec",
+          "encoded_start": 1935,
+          "key": "kimi-k3.attention.q_lora_rank",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 1536,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 46,
+          "encoded_end": 1782,
+          "encoded_sha256": "d0dc042554d454d3e0c01ac7352b3d09000a26bb6a7b6ca67d18e7cd8cda8b0b",
+          "encoded_start": 1736,
+          "key": "kimi-k3.attention.value_length",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 74,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 50,
+          "encoded_end": 2168,
+          "encoded_sha256": "21ec2099e04da18746a1efdc37e587ab20af3f6d8f1d60c58b11a2e58ecb75b5",
+          "encoded_start": 2118,
+          "key": "kimi-k3.attention.value_length_mla",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 128,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 43,
+          "encoded_end": 2576,
+          "encoded_sha256": "1a64cc99b434a2db2f4d5b47c175850fe8cba5eac2794e5376fdbbe21e92b153",
+          "encoded_start": 2533,
+          "key": "kimi-k3.attn_res.block_size",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 12,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 35,
+          "encoded_end": 840,
+          "encoded_sha256": "4a1a3ac8fdcc57e343153348a8cafd0bfe69d1c64ceb84530520c21aa24c3879",
+          "encoded_start": 805,
+          "key": "kimi-k3.block_count",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 93,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 38,
+          "encoded_end": 878,
+          "encoded_sha256": "a0f61cfea04c6f34ed09554469dc411ac4e7661999dfcc1de3ad424fe10dfaba",
+          "encoded_start": 840,
+          "key": "kimi-k3.context_length",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 1048576,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 40,
+          "encoded_end": 918,
+          "encoded_sha256": "9eb2fc1350a76a84367f9573a9e1a5407dc491b4b858ef2b5eb3b1e5942da5f7",
+          "encoded_start": 878,
+          "key": "kimi-k3.embedding_length",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 7168,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 36,
+          "encoded_end": 1562,
+          "encoded_sha256": "74224db9925a4d3868f0554aff985f54aafbc622043991e8c683ae8a12c66d6c",
+          "encoded_start": 1526,
+          "key": "kimi-k3.expert_count",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 896,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 50,
+          "encoded_end": 2218,
+          "encoded_sha256": "60193b33c7ed38e4c82b0c187d0afee41fdd1b450adccd3e89010df29821c741",
+          "encoded_start": 2168,
+          "key": "kimi-k3.expert_feed_forward_length",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 3072,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 42,
+          "encoded_end": 1692,
+          "encoded_sha256": "009966eafc831e601f57242f491d18d153d14e5dbd194e12d34626bb3aaa0f0f",
+          "encoded_start": 1650,
+          "key": "kimi-k3.expert_gating_func",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 2,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 47,
+          "encoded_end": 1650,
+          "encoded_sha256": "bd07e3f9ad051d2f1734f677d417e1e7d3cda3daa016c91863abbe0a949395f8",
+          "encoded_start": 1603,
+          "key": "kimi-k3.expert_group_used_count",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 1,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 44,
+          "encoded_end": 2438,
+          "encoded_sha256": "6edce06866e029e8b761cb9d9ab7ac2bb41950e368ce642addbfa0c7cb7c097c",
+          "encoded_start": 2394,
+          "key": "kimi-k3.expert_latent_length",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 3584,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 43,
+          "encoded_end": 2261,
+          "encoded_sha256": "8dda0cef59fce02553d90a0a6ae314713f1dc1c28121d110a8628f1d4f840504",
+          "encoded_start": 2218,
+          "key": "kimi-k3.expert_shared_count",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 2,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 41,
+          "encoded_end": 1603,
+          "encoded_sha256": "792320ff68a5bca75750745b4884f478cd4928e2df67b95a509639159d91798b",
+          "encoded_start": 1562,
+          "key": "kimi-k3.expert_used_count",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 16,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 40,
+          "encoded_end": 2394,
+          "encoded_sha256": "e648dd75a8b98b7c3ffd5c5f4ddbf52469156689c11c49a001d4d14f8242d08c",
+          "encoded_start": 2354,
+          "key": "kimi-k3.expert_weights_norm",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": true,
+          "value_type": "BOOL"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 44,
+          "encoded_end": 2354,
+          "encoded_sha256": "2af7bf7fddeb5f819b99a9d0a04374a11787083299a55a57c609df922f7fc403",
+          "encoded_start": 2310,
+          "key": "kimi-k3.expert_weights_scale",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 1.0,
+          "value_type": "FLOAT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 43,
+          "encoded_end": 961,
+          "encoded_sha256": "c33201b6d2fae9ed876b9597d832e5a3005cdf40c0aa8926b4021f37784920fe",
+          "encoded_start": 918,
+          "key": "kimi-k3.feed_forward_length",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 33792,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 44,
+          "encoded_end": 1935,
+          "encoded_sha256": "9e12ce9102fc2d67375d3caf25cd7e61eec90efe1907c967511c6551458368ad",
+          "encoded_start": 1891,
+          "key": "kimi-k3.kda.gate_lower_bound",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": -5.0,
+          "value_type": "FLOAT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 36,
+          "encoded_end": 1891,
+          "encoded_sha256": "e7e41842c5fe3d7010462fa98f6c99630c925083bb0678d5a1d168cf9ec7e2a7",
+          "encoded_start": 1855,
+          "key": "kimi-k3.kda.head_dim",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 128,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 49,
+          "encoded_end": 2310,
+          "encoded_sha256": "398f2aac3c85d6908812e98afdffb8e43328fd54f884252cb991001f814f99d7",
+          "encoded_start": 2261,
+          "key": "kimi-k3.leading_dense_block_count",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 1,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 44,
+          "encoded_end": 2070,
+          "encoded_sha256": "415f675db86185073fb064c87103087d2516f6ce35173b432366c27b80d590d2",
+          "encoded_start": 2026,
+          "key": "kimi-k3.rope.dimension_count",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 64,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 38,
+          "encoded_end": 1470,
+          "encoded_sha256": "9197f8d5092ff61c3a69b32ef8e24434cbb6e24f6c7efc0c8f4dd00e6ca9de81",
+          "encoded_start": 1432,
+          "key": "kimi-k3.rope.freq_base",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 10000.0,
+          "value_type": "FLOAT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 39,
+          "encoded_end": 1855,
+          "encoded_sha256": "334e2647f653bf6c3c1d1dddf284604e0cd6f007691be768f2970540aac67b97",
+          "encoded_start": 1816,
+          "key": "kimi-k3.ssm.conv_kernel",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 4,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 34,
+          "encoded_end": 1816,
+          "encoded_sha256": "1efaf3d5b10e50c2bf5e2102a9f760aa40b4b74858f145cd9e50464bc12da406",
+          "encoded_start": 1782,
+          "key": "kimi-k3.vocab_size",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 163840,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 45,
+          "encoded_end": 6934036,
+          "encoded_sha256": "c14825f8530cee01c630b371dc7d9e5694750f0516c65757fd221a8cf9dca563",
+          "encoded_start": 6933991,
+          "key": "quantize.imatrix.chunks_count",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 150,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 75,
+          "encoded_end": 6933945,
+          "encoded_sha256": "749f19c2a54b618f069c2edf4dc8e33e31f05bed8cf872cea21f1d20e2e7b735",
+          "encoded_start": 6933870,
+          "key": "quantize.imatrix.dataset",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": "unsloth_calibration_Kimi-K3.txt",
+          "summary_value": "unsloth_calibration_Kimi-K3.txt",
+          "value_type": "STRING"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 46,
+          "encoded_end": 6933991,
+          "encoded_sha256": "1798b9cabacf96efdfbb617891bc5c7d6a31ddf9554d3548af69c73d0e2168cb",
+          "encoded_start": 6933945,
+          "key": "quantize.imatrix.entries_count",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 1551,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 74,
+          "encoded_end": 6933870,
+          "encoded_sha256": "1c80eebb509535eea15cfa27ef5b2d58701c552922e081192bd3b2a9db60fee8",
+          "encoded_start": 6933796,
+          "key": "quantize.imatrix.file",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": "Kimi-K3-GGUF/imatrix_unsloth.gguf",
+          "summary_value": "Kimi-K3-GGUF/imatrix_unsloth.gguf",
+          "value_type": "STRING"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 25,
+          "encoded_end": 6934118,
+          "encoded_sha256": "3eaf56ee89b3b1fefe7b33223e7ca8421e85a2d4dc2b4ee72d1bfb4bfe144e29",
+          "encoded_start": 6934093,
+          "key": "split.count",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 15,
+          "value_type": "UINT16"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 22,
+          "encoded_end": 6934058,
+          "encoded_sha256": "c2e53d0f47e743fe998704e63e31748a64f90f7c49000d5a121c8385a291084e",
+          "encoded_start": 6934036,
+          "key": "split.no",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 0,
+          "value_type": "UINT16"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 35,
+          "encoded_end": 6934093,
+          "encoded_sha256": "1be34e1db7b06c54fa2542d76e442dd6b8b66cbe27f34bf2e728581fc03e6593",
+          "encoded_start": 6934058,
+          "key": "split.tensors.count",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 2573,
+          "value_type": "INT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 24739,
+          "encoded_end": 6933719,
+          "encoded_sha256": "acf020f7a5ab50ce489eb156b11b36b878f238de063769368ab264492f7c235c",
+          "encoded_start": 6908980,
+          "key": "tokenizer.chat_template",
+          "preview": [],
+          "preview_truncated": true,
+          "string_preview": "{#- Kimi-K3 template transcribed from the official parser -#}\n{%- set imgns = namespace(idx = 0, on = (image_prompts is defined and image_prompts is not none)) -%}\n\n{%- macro img_next() -%}\n{%- if not imgns.on -%}\n{{- '<|kimi_image_placeholder|>' -}}\n{%- e",
+          "summary_value": null,
+          "value_type": "STRING"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 43,
+          "encoded_end": 6908890,
+          "encoded_sha256": "48fcea675e6b450f57813f5a34c53e8b774120981274f292ed0c7a97cdbefc25",
+          "encoded_start": 6908847,
+          "key": "tokenizer.ggml.bos_token_id",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 163584,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 43,
+          "encoded_end": 6908933,
+          "encoded_sha256": "125107fa0e823c94d44e74bf3a573b2aa62ed25ce1b637374675f32e1a8aff7a",
+          "encoded_start": 6908890,
+          "key": "tokenizer.ggml.eos_token_id",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 163586,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": "STRING",
+          "element_count": 163328,
+          "encoded_byte_length": 3201710,
+          "encoded_end": 6908847,
+          "encoded_sha256": "247632e066170bd4135890820e2a5189db417e69d875c66ed6772b5d9c6322f9",
+          "encoded_start": 3707137,
+          "key": "tokenizer.ggml.merges",
+          "preview": [
+            "Ġ Ġ",
+            "ĠĠ ĠĠ",
+            "Ġ t",
+            "i n",
+            "ä ¸",
+            "Ġ a",
+            "e r",
+            "o n",
+            "r e",
+            "h e",
+            "a t",
+            "ç ļ",
+            "o r",
+            "çļ Ħ",
+            "s t",
+            "e n",
+            "ã Ģ",
+            "ä º",
+            "ĠĠ Ġ",
+            "Ġ c",
+            "Ġt he",
+            "i t",
+            "Ġ s",
+            "a n",
+            "o u",
+            "l e",
+            "ĠĠĠĠ ĠĠĠĠ",
+            "a l",
+            "Ġ w",
+            "Ġ f",
+            "Ġ p",
+            "a r",
+            "in g",
+            "i s",
+            "e s",
+            "Ġ b",
+            "ãĢ Ĥ",
+            "æ ľ",
+            "ä »",
+            "e d",
+            "å ı",
+            "i on",
+            "Ġ o",
+            "n d",
+            "Ġ m",
+            "i c",
+            "å ¤",
+            "; Ċ",
+            "Ġ d",
+            "e t",
+            "Ġ in",
+            "r o",
+            "Ġt o",
+            "å ħ",
+            "è ¿",
+            "æ ĺ",
+            "c t",
+            "å ®",
+            "a s"
+          ],
+          "preview_truncated": true,
+          "string_preview": null,
+          "summary_value": null,
+          "value_type": "ARRAY"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 44,
+          "encoded_end": 2620,
+          "encoded_sha256": "0f384efcbf1157be6c063ea506f81e0afa58f71c1ebde0c4f13952b45f2a37a3",
+          "encoded_start": 2576,
+          "key": "tokenizer.ggml.model",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": "gpt2",
+          "summary_value": "gpt2",
+          "value_type": "STRING"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 47,
+          "encoded_end": 6908980,
+          "encoded_sha256": "85ffe20fd553dbd70dda26f3cd78fd596a5a341c369eba41c854f3f61f14568f",
+          "encoded_start": 6908933,
+          "key": "tokenizer.ggml.padding_token_id",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": null,
+          "summary_value": 163839,
+          "value_type": "UINT32"
+        },
+        {
+          "array_element_type": null,
+          "element_count": null,
+          "encoded_byte_length": 45,
+          "encoded_end": 2665,
+          "encoded_sha256": "a7e60d3013647814a0c2ae28f2205b673f546a93dbb2b0bfb2861134c4b818a4",
+          "encoded_start": 2620,
+          "key": "tokenizer.ggml.pre",
+          "preview": [],
+          "preview_truncated": false,
+          "string_preview": "kimi-k2",
+          "summary_value": "kimi-k2",
+          "value_type": "STRING"
+        },
+        {
+          "array_element_type": "INT32",
+          "element_count": 163840,
+          "encoded_byte_length": 655409,
+          "encoded_end": 3707137,
+          "encoded_sha256": "bf060e0727cbd6e99aa8a36b2e2cb03f44e688dbced8dd9fc25c3efc0446fcfd",
+          "encoded_start": 3051728,
+          "key": "tokenizer.ggml.token_type",
+          "preview": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "preview_truncated": true,
+          "string_preview": null,
+          "summary_value": null,
+          "value_type": "ARRAY"
+        },
+        {
+          "array_element_type": "STRING",
+          "element_count": 163840,
+          "encoded_byte_length": 3049063,
+          "encoded_end": 3051728,
+          "encoded_sha256": "08350142d0d4d8d205a97fa7255d8ae31d1e5ea51b543d1bc0bd81ead7ae7236",
+          "encoded_start": 2665,
+          "key": "tokenizer.ggml.tokens",
+          "preview": [
+            "!",
+            "\"",
+            "#",
+            "$",
+            "%",
+            "&",
+            "'",
+            "(",
+            ")",
+            "*",
+            "+",
+            ",",
+            "-",
+            ".",
+            "/",
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            ":",
+            ";",
+            "<",
+            "=",
+            ">",
+            "?",
+            "@",
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H",
+            "I",
+            "J",
+            "K",
+            "L",
+            "M",
+            "N",
+            "O",
+            "P",
+            "Q",
+            "R",
+            "S",
+            "T",
+            "U",
+            "V",
+            "W",
+            "X",
+            "Y",
+            "Z",
+            "[",
+            "\\",
+            "]",
+            "^",
+            "_",
+            "`",
+            "a",
+            "b",
+            "c",
+            "d",
+            "e",
+            "f",
+            "g",
+            "h",
+            "i",
+            "j",
+            "k",
+            "l",
+            "m",
+            "n",
+            "o",
+            "p",
+            "q",
+            "r",
+            "s",
+            "t",
+            "u",
+            "v",
+            "w",
+            "x",
+            "y",
+            "z",
+            "{",
+            "|",
+            "}",
+            "~",
+            "¡",
+            "¢",
+            "£",
+            "¤",
+            "¥",
+            "¦",
+            "§",
+            "¨",
+            "©",
+            "ª",
+            "«",
+            "¬",
+            "®",
+            "¯",
+            "°",
+            "±",
+            "²",
+            "³",
+            "´",
+            "µ",
+            "¶",
+            "·",
+            "¸",
+            "¹",
+            "º",
+            "»",
+            "¼",
+            "½",
+            "¾",
+            "¿",
+            "À",
+            "Á",
+            "Â",
+            "Ã",
+            "Ä",
+            "Å",
+            "Æ",
+            "Ç",
+            "È",
+            "É",
+            "Ê",
+            "Ë",
+            "Ì",
+            "Í",
+            "Î",
+            "Ï",
+            "Ð",
+            "Ñ",
+            "Ò",
+            "Ó",
+            "Ô",
+            "Õ",
+            "Ö",
+            "×",
+            "Ø",
+            "Ù",
+            "Ú",
+            "Û",
+            "Ü",
+            "Ý",
+            "Þ",
+            "ß",
+            "à",
+            "á",
+            "â",
+            "ã",
+            "ä",
+            "å",
+            "æ",
+            "ç",
+            "è",
+            "é",
+            "ê",
+            "ë",
+            "ì",
+            "í",
+            "î",
+            "ï",
+            "ð",
+            "ñ",
+            "ò"
+          ],
+          "preview_truncated": true,
+          "string_preview": null,
+          "summary_value": null,
+          "value_type": "ARRAY"
+        }
+      ],
+      "metadata_and_descriptor_end": 6934118,
+      "metadata_count": 64,
+      "padding_length": 26,
+      "parser_policy": {
+        "max_alignment": 4096,
+        "max_array_elements": 10000000,
+        "max_metadata_count": 1000000,
+        "max_metadata_key_bytes": 1024,
+        "max_preview_bytes": 256,
+        "max_request_bytes": 262144,
+        "max_request_count": 4096,
+        "max_string_bytes": 16777216,
+        "max_tensor_count": 1000000,
+        "max_tensor_dimensions": 4,
+        "max_tensor_name_bytes": 4096,
+        "max_total_header_bytes": 67108864,
+        "policy_id": "omiv.gguf-v3.bounded-header.v1",
+        "policy_schema": "omiv.remote-gguf-header-policy.v1",
+        "read_ahead_bytes": 262144
+      },
+      "parser_policy_sha256": "f77b269ec6f7b3ca18d52201528473ad15f752c8fd58e10b7162033e670131a3",
+      "payload_start_offset": 6934144,
+      "provider": "huggingface",
+      "repository": {
+        "repo_id": "unsloth/Kimi-K3-GGUF",
+        "repo_type": "model",
+        "requested_revision": "main",
+        "resolved_revision": "3d4b61ab4b6789d401191c476cbb4567246db8f5"
+      },
+      "request_count": 71,
+      "requested_intervals": [
+        {
+          "byte_count": 24,
+          "end": 24,
+          "start": 0
+        },
+        {
+          "byte_count": 832,
+          "end": 856,
+          "start": 24
+        },
+        {
+          "byte_count": 643,
+          "end": 1499,
+          "start": 856
+        },
+        {
+          "byte_count": 570,
+          "end": 2069,
+          "start": 1499
+        },
+        {
+          "byte_count": 378,
+          "end": 2447,
+          "start": 2069
+        },
+        {
+          "byte_count": 292,
+          "end": 2739,
+          "start": 2447
+        },
+        {
+          "byte_count": 262144,
+          "end": 264883,
+          "start": 2739
+        },
+        {
+          "byte_count": 262144,
+          "end": 527027,
+          "start": 264883
+        },
+        {
+          "byte_count": 262144,
+          "end": 789171,
+          "start": 527027
+        },
+        {
+          "byte_count": 262144,
+          "end": 1051315,
+          "start": 789171
+        },
+        {
+          "byte_count": 262144,
+          "end": 1313459,
+          "start": 1051315
+        },
+        {
+          "byte_count": 262144,
+          "end": 1575603,
+          "start": 1313459
+        },
+        {
+          "byte_count": 262144,
+          "end": 1837747,
+          "start": 1575603
+        },
+        {
+          "byte_count": 262144,
+          "end": 2099891,
+          "start": 1837747
+        },
+        {
+          "byte_count": 262144,
+          "end": 2362035,
+          "start": 2099891
+        },
+        {
+          "byte_count": 262144,
+          "end": 2624179,
+          "start": 2362035
+        },
+        {
+          "byte_count": 164756,
+          "end": 2788935,
+          "start": 2624179
+        },
+        {
+          "byte_count": 100298,
+          "end": 2889233,
+          "start": 2788935
+        },
+        {
+          "byte_count": 61469,
+          "end": 2950702,
+          "start": 2889233
+        },
+        {
+          "byte_count": 37774,
+          "end": 2988476,
+          "start": 2950702
+        },
+        {
+          "byte_count": 22964,
+          "end": 3011440,
+          "start": 2988476
+        },
+        {
+          "byte_count": 14368,
+          "end": 3025808,
+          "start": 3011440
+        },
+        {
+          "byte_count": 9030,
+          "end": 3034838,
+          "start": 3025808
+        },
+        {
+          "byte_count": 5572,
+          "end": 3040410,
+          "start": 3034838
+        },
+        {
+          "byte_count": 3443,
+          "end": 3043853,
+          "start": 3040410
+        },
+        {
+          "byte_count": 2138,
+          "end": 3045991,
+          "start": 3043853
+        },
+        {
+          "byte_count": 1597,
+          "end": 3047588,
+          "start": 3045991
+        },
+        {
+          "byte_count": 1225,
+          "end": 3048813,
+          "start": 3047588
+        },
+        {
+          "byte_count": 925,
+          "end": 3049738,
+          "start": 3048813
+        },
+        {
+          "byte_count": 700,
+          "end": 3050438,
+          "start": 3049738
+        },
+        {
+          "byte_count": 525,
+          "end": 3050963,
+          "start": 3050438
+        },
+        {
+          "byte_count": 400,
+          "end": 3051363,
+          "start": 3050963
+        },
+        {
+          "byte_count": 300,
+          "end": 3051663,
+          "start": 3051363
+        },
+        {
+          "byte_count": 225,
+          "end": 3051888,
+          "start": 3051663
+        },
+        {
+          "byte_count": 262144,
+          "end": 3314032,
+          "start": 3051888
+        },
+        {
+          "byte_count": 262144,
+          "end": 3576176,
+          "start": 3314032
+        },
+        {
+          "byte_count": 131143,
+          "end": 3707319,
+          "start": 3576176
+        },
+        {
+          "byte_count": 262144,
+          "end": 3969463,
+          "start": 3707319
+        },
+        {
+          "byte_count": 262144,
+          "end": 4231607,
+          "start": 3969463
+        },
+        {
+          "byte_count": 262144,
+          "end": 4493751,
+          "start": 4231607
+        },
+        {
+          "byte_count": 262144,
+          "end": 4755895,
+          "start": 4493751
+        },
+        {
+          "byte_count": 262144,
+          "end": 5018039,
+          "start": 4755895
+        },
+        {
+          "byte_count": 262144,
+          "end": 5280183,
+          "start": 5018039
+        },
+        {
+          "byte_count": 262144,
+          "end": 5542327,
+          "start": 5280183
+        },
+        {
+          "byte_count": 262144,
+          "end": 5804471,
+          "start": 5542327
+        },
+        {
+          "byte_count": 262144,
+          "end": 6066615,
+          "start": 5804471
+        },
+        {
+          "byte_count": 262144,
+          "end": 6328759,
+          "start": 6066615
+        },
+        {
+          "byte_count": 215143,
+          "end": 6543902,
+          "start": 6328759
+        },
+        {
+          "byte_count": 134743,
+          "end": 6678645,
+          "start": 6543902
+        },
+        {
+          "byte_count": 84563,
+          "end": 6763208,
+          "start": 6678645
+        },
+        {
+          "byte_count": 53495,
+          "end": 6816703,
+          "start": 6763208
+        },
+        {
+          "byte_count": 33807,
+          "end": 6850510,
+          "start": 6816703
+        },
+        {
+          "byte_count": 21119,
+          "end": 6871629,
+          "start": 6850510
+        },
+        {
+          "byte_count": 13599,
+          "end": 6885228,
+          "start": 6871629
+        },
+        {
+          "byte_count": 8662,
+          "end": 6893890,
+          "start": 6885228
+        },
+        {
+          "byte_count": 5647,
+          "end": 6899537,
+          "start": 6893890
+        },
+        {
+          "byte_count": 3586,
+          "end": 6903123,
+          "start": 6899537
+        },
+        {
+          "byte_count": 2298,
+          "end": 6905421,
+          "start": 6903123
+        },
+        {
+          "byte_count": 1432,
+          "end": 6906853,
+          "start": 6905421
+        },
+        {
+          "byte_count": 884,
+          "end": 6907737,
+          "start": 6906853
+        },
+        {
+          "byte_count": 572,
+          "end": 6908309,
+          "start": 6907737
+        },
+        {
+          "byte_count": 364,
+          "end": 6908673,
+          "start": 6908309
+        },
+        {
+          "byte_count": 237,
+          "end": 6908910,
+          "start": 6908673
+        },
+        {
+          "byte_count": 163,
+          "end": 6909073,
+          "start": 6908910
+        },
+        {
+          "byte_count": 24763,
+          "end": 6933836,
+          "start": 6909073
+        },
+        {
+          "byte_count": 79,
+          "end": 6933915,
+          "start": 6933836
+        },
+        {
+          "byte_count": 95,
+          "end": 6934010,
+          "start": 6933915
+        },
+        {
+          "byte_count": 62,
+          "end": 6934072,
+          "start": 6934010
+        },
+        {
+          "byte_count": 31,
+          "end": 6934103,
+          "start": 6934072
+        },
+        {
+          "byte_count": 14,
+          "end": 6934117,
+          "start": 6934103
+        },
+        {
+          "byte_count": 1,
+          "end": 6934118,
+          "start": 6934117
+        }
+      ],
+      "snapshot_sha256": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "summary": {
+        "largest_metadata_entries": [
+          {
+            "encoded_byte_length": 3201710,
+            "key": "tokenizer.ggml.merges",
+            "value_type": "ARRAY"
+          },
+          {
+            "encoded_byte_length": 3049063,
+            "key": "tokenizer.ggml.tokens",
+            "value_type": "ARRAY"
+          },
+          {
+            "encoded_byte_length": 655409,
+            "key": "tokenizer.ggml.token_type",
+            "value_type": "ARRAY"
+          },
+          {
+            "encoded_byte_length": 24739,
+            "key": "tokenizer.chat_template",
+            "value_type": "STRING"
+          },
+          {
+            "encoded_byte_length": 427,
+            "key": "kimi-k3.attention.head_count_kv",
+            "value_type": "ARRAY"
+          },
+          {
+            "encoded_byte_length": 125,
+            "key": "general.tags",
+            "value_type": "ARRAY"
+          },
+          {
+            "encoded_byte_length": 90,
+            "key": "general.base_model.0.repo_url",
+            "value_type": "STRING"
+          },
+          {
+            "encoded_byte_length": 75,
+            "key": "quantize.imatrix.dataset",
+            "value_type": "STRING"
+          },
+          {
+            "encoded_byte_length": 74,
+            "key": "quantize.imatrix.file",
+            "value_type": "STRING"
+          },
+          {
+            "encoded_byte_length": 66,
+            "key": "general.repo_url",
+            "value_type": "STRING"
+          }
+        ],
+        "metadata_type_counts": {
+          "ARRAY": 5,
+          "BOOL": 1,
+          "FLOAT32": 6,
+          "INT32": 1,
+          "STRING": 17,
+          "UINT16": 2,
+          "UINT32": 32
+        },
+        "payload_relation": "payload_at_eof",
+        "representative_tensor_names": [],
+        "tensor_type_counts": {}
+      },
+      "tensor_count": 0,
+      "tensors": [],
+      "total_remote_bytes_accepted": 6934118
+    },
+    "inventory_sha256": "ad657eab768dc46fb07054eb1fdfaa5e1fac48f389c78523b38bef63c2bd7a8d",
+    "limitations": [
+      "Metadata PASS validates binary encoding, not semantic correctness.",
+      "Tensor descriptor PASS is per-file syntax, not Kimi K3 architecture evidence.",
+      "No tensor payload byte, payload digest, or payload value was accessed.",
+      "No cross-shard consistency or split-model claim is made."
+    ],
+    "report_schema": "omiv.remote-gguf-header-report.v1"
+  }
+}
