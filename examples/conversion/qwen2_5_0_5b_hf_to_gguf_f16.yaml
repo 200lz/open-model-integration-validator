@@ -1,0 +1,44 @@
+conversion_schema: omiv.conversion-run.v1
+conversion_id: qwen2.5-0.5b-instruct-hf-to-gguf-f16
+offline: true
+source:
+  model_dir: /runtime/source/Qwen2.5-0.5B-Instruct
+  inventory: /workspace/fixtures/hf/qwen2_5_0_5b_instruct.inventory.json
+  artifact_roles:
+    - role: model
+      path: /runtime/source/Qwen2.5-0.5B-Instruct/model.safetensors
+      required: true
+interpretation:
+  model_pack: qwen2
+  mapping: /workspace/mappings/qwen2_5_0_5b_hf_to_gguf.yaml
+tool:
+  name: llama.cpp
+  repository: ggml-org/llama.cpp
+  repository_dir: /runtime/tools/llama.cpp
+  expected_revision: e3546c7948e3af463d0b401e6421d5a4c2faf565
+  require_clean_worktree: true
+  executable: python
+  entrypoint: convert_hf_to_gguf.py
+runtime:
+  python: true
+  packages:
+    - gguf
+    - safetensors
+    - torch
+    - transformers
+invocation:
+  arguments:
+    - "{source_model_dir}"
+    - --outfile
+    - "{target_output}"
+    - --outtype
+    - f16
+target:
+  output: /runtime/output/qwen2.5-0.5b-instruct-f16.generated.gguf
+  format: gguf
+  inventory_output: /runtime/output/qwen2.5-0.5b-instruct-f16.generated.inventory.json
+  role: model
+outputs:
+  provenance: /runtime/output/qwen2.5-0.5b-instruct-f16.provenance.json
+  report_json: /runtime/output/qwen2.5-0.5b-instruct-f16.provenance.report.json
+  report_markdown: /runtime/output/qwen2.5-0.5b-instruct-f16.provenance.report.md

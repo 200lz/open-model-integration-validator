@@ -1,0 +1,116 @@
+{
+  "integrity": {
+    "canonicalization": "omiv-json-v1",
+    "sha256": "f20df189f1f2483ccdd577abf46a3661957e7f4478d7786f6719867c1f56e79a"
+  },
+  "provenance": {
+    "capture": {
+      "artifact_hashing": "requested_full_sha256",
+      "capture_schema_version": 1,
+      "offline": true,
+      "omiv_version": "0.1.0",
+      "payload_access": "full_file_hashing",
+      "redaction_count": 0,
+      "tool_name": "open-model-integration-validator"
+    },
+    "interpretation": {
+      "mapping": {
+        "canonical_sha256": "d56abf11141f8ae379b9bd6fe629f30168c27e9cb55c0a7a7efe70888916fb06",
+        "mapping_id": "qwen2.5-0.5b-hf-to-gguf",
+        "mapping_schema": "omiv.semantic-mapping.v1"
+      },
+      "model_pack": {
+        "metadata_sha256": "807eb5de8f71aff1e75c17af41ba5118ef926ded8e2b81c3adfbba29fe95bd87",
+        "pack_id": "qwen2",
+        "pack_schema_version": 1,
+        "pack_version": 1
+      },
+      "policies": []
+    },
+    "operation": "convert",
+    "process": {
+      "declared_outputs": [
+        "model"
+      ],
+      "invocation": {
+        "arguments": [
+          "{source_model_dir}",
+          "--outfile",
+          "{target_output}",
+          "--outtype",
+          "f16"
+        ],
+        "executable": "python",
+        "redacted_arguments": [],
+        "working_tree_policy": "require_clean"
+      },
+      "operation": "convert",
+      "result": {
+        "exit_code": 0,
+        "success": true
+      },
+      "runtime": {
+        "package_versions": {
+          "gguf": "0.19.0",
+          "safetensors": "0.8.0",
+          "torch": "2.11.0+cpu",
+          "transformers": "4.57.6"
+        },
+        "python_version": "3.14.4"
+      },
+      "tool": {
+        "entrypoint": "convert_hf_to_gguf.py",
+        "name": "llama.cpp",
+        "repository": "ggml-org/llama.cpp",
+        "revision": "e3546c7948e3af463d0b401e6421d5a4c2faf565",
+        "revision_kind": "git_commit"
+      },
+      "tool_source": {
+        "clean_worktree": true,
+        "repository_head": "e3546c7948e3af463d0b401e6421d5a4c2faf565",
+        "source_tree_sha256": null
+      }
+    },
+    "provenance_id": "qwen2.5-0.5b-instruct-hf-to-gguf-f16",
+    "provenance_schema": "omiv.conversion-provenance.v1",
+    "source": {
+      "artifacts": [
+        {
+          "artifact_id": "model.safetensors",
+          "byte_size": 988097824,
+          "digest_evidence": "full_artifact",
+          "required": true,
+          "role": "model",
+          "sha256": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe"
+        }
+      ],
+      "format": "huggingface-safetensors",
+      "inventory_schema": "omiv.hf-inventory.v1",
+      "inventory_sha256": "85fa02ce8134d58db8af70189b5b3ee9f839a8933e142133442536226e96a302",
+      "model_family": "qwen2",
+      "model_pack": {
+        "metadata_sha256": "807eb5de8f71aff1e75c17af41ba5118ef926ded8e2b81c3adfbba29fe95bd87",
+        "pack_id": "qwen2",
+        "pack_version": 1
+      },
+      "repository": "Qwen/Qwen2.5-0.5B-Instruct",
+      "revision": "7ae557604adf67be50417f59c2c2f167def9a775"
+    },
+    "target": {
+      "architecture": "qwen2",
+      "artifact_type": null,
+      "artifacts": [
+        {
+          "artifact_id": "qwen2.5-0.5b-instruct-f16.generated.gguf",
+          "byte_size": 994156960,
+          "output_success": true,
+          "role": "model",
+          "sha256": "6f71ffde75bde493ca5cefe995306e2c2522e6e84a3dd5b4215453dda37bea32"
+        }
+      ],
+      "format": "gguf",
+      "inventory_schema": "omiv.gguf-inventory.v1",
+      "inventory_sha256": "b0850a54414ffe2504ef511ecb915b2706579bbac699a75d13ce1e50a1a104cb"
+    }
+  }
+}

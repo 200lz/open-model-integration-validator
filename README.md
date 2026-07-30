@@ -548,6 +548,13 @@ tool:
   require_clean_worktree: true
   executable: python
   entrypoint: convert_hf_to_gguf.py
+runtime:
+  python: true
+  packages:
+    - gguf
+    - safetensors
+    - torch
+    - transformers
 invocation:
   arguments:
     - "{source_model_dir}"
@@ -571,6 +578,8 @@ they are replaced by explicit placeholders in canonical provenance. The entrypoi
 must resolve inside the configured repository, repository HEAD must equal the full
 expected commit, and a required-clean checkout must be clean. Inputs and outputs
 cannot collide, outputs must be distinct and absent, and output symlinks are rejected.
+An optional runtime probe invokes the same resolved Python executable with an argument
+array and records only its version plus the explicitly allowlisted package versions.
 The process uses `subprocess` with an argument list and `shell=False`. A failed process
 does not emit successful provenance or reports and partial targets are not
 automatically deleted. These checks are conservative best-effort protections and do
