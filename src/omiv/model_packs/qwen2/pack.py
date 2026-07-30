@@ -10,6 +10,7 @@ from omiv.hf.models import (
     HFTensorDescriptor,
     LogicalTensorTie,
 )
+from omiv.mapping.models import RealizationEvidence
 from omiv.model_packs.base import (
     ModelConstraints,
     ModelPack,
@@ -19,6 +20,7 @@ from omiv.model_packs.base import (
 from omiv.model_packs.qwen2.config import validate_config, validate_structure
 from omiv.model_packs.qwen2.gguf_ontology import classify_gguf_tensor
 from omiv.model_packs.qwen2.hf_ontology import classify_hf_tensor
+from omiv.model_packs.qwen2.realization_evidence import REALIZATION_EVIDENCE
 
 
 class Qwen2ModelPack(ModelPack):
@@ -54,3 +56,6 @@ class Qwen2ModelPack(ModelPack):
 
     def provide_model_constraints(self) -> ModelConstraints:
         return ModelConstraints(logical_tie_required=True)
+
+    def provide_realization_evidence(self) -> tuple[RealizationEvidence, ...]:
+        return REALIZATION_EVIDENCE

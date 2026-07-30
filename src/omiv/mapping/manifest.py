@@ -9,7 +9,14 @@ import yaml
 from pydantic import ValidationError
 
 from omiv.errors import OmivInputError
-from omiv.mapping.models import MappingManifest, MappingSelector
+from omiv.mapping.models import (
+    BackendFallbackRealization,
+    FormatAliasRealization,
+    MappingManifest,
+    MappingSelector,
+    MaterializedRealization,
+    SynthesizedRealization,
+)
 from omiv.model_packs.base import ModelPack, ModelPackCapability
 from omiv.model_packs.registry import detect_model_pack, get_model_pack
 
@@ -60,6 +67,25 @@ def _validate_selectors(manifest: MappingManifest) -> None:
         selectors.extend(
             ((f"{rule.rule_id}.source", rule.source), (f"{rule.rule_id}.target", rule.target))
         )
+        if rule.target.realization is not None:
+            for alternative in rule.target.realization.alternatives:
+                prefix = f"{rule.rule_id}.{alternative.realization_id}"
+                if isinstance(alternative, MaterializedRealization | SynthesizedRealization):
+                    selectors.append((f"{prefix}.tensor", alternative.tensor))
+                elif isinstance(alternative, FormatAliasRealization):
+                    selectors.extend(
+                        (
+                            (f"{prefix}.alias_tensor", alternative.alias_tensor),
+                            (f"{prefix}.backing_tensor", alternative.backing_tensor),
+                        )
+                    )
+                elif isinstance(alternative, BackendFallbackRealization):
+                    selectors.extend(
+                        (
+                            (f"{prefix}.omitted_tensor", alternative.omitted_tensor),
+                            (f"{prefix}.fallback_tensor", alternative.fallback_tensor),
+                        )
+                    )
     selectors.extend(
         (f"ignored_sources[{index}]", item.selector)
         for index, item in enumerate(manifest.ignored_sources)
@@ -94,9 +120,22 @@ def load_mapping_manifest(
             raise OmivInputError("mapping manifest must be a mapping")
         manifest = MappingManifest.model_validate(raw)
         _validate_selectors(manifest)
-        resolve_manifest_model_pack(
+        pack = resolve_manifest_model_pack(
             manifest, requested_pack_id=requested_pack_id
         )
+        trusted_ids = {item.evidence_id for item in pack.provide_realization_evidence()}
+        for rule in manifest.rules:
+            if rule.target.realization is None:
+                continue
+            for alternative in rule.target.realization.alternatives:
+                if (
+                    isinstance(alternative, BackendFallbackRealization)
+                    and alternative.backend_policy.evidence_id not in trusted_ids
+                ):
+                    raise OmivInputError(
+                        "unsupported realization evidence ID: "
+                        f"{alternative.backend_policy.evidence_id!r}"
+                    )
         return manifest
     except OmivInputError:
         raise

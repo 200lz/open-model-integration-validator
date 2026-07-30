@@ -602,3 +602,59 @@ interpretation, tool revision, invocation, and target artifacts were declared an
 cryptographically linked. It does not prove that the converter was bug-free, that
 target payload values are numerically correct, or that inference outputs match the
 reference implementation.
+
+## Logical target realizations
+
+Phase 4E separates a logical tensor identity from the physical representation used
+by a target. A mapping may declare a strict
+`omiv.target-realization.v1` `one_of` contract. Exactly one alternative must be
+satisfied; zero or multiple matches fail, and alternatives have no implicit
+precedence.
+
+The supported realization kinds are:
+
+- `materialized`: the target tensor exists exactly once under its declared physical
+  name and canonical identity.
+- `format_alias`: both the alias and its backing tensor exist, and explicit target
+  metadata establishes a named format contract. Tensor absence never establishes an
+  alias.
+- `backend_fallback`: the logical tensor is absent, the fallback tensor exists, and
+  trusted model-pack evidence plus validated conversion provenance establishes a
+  pinned, architecture-scoped backend policy.
+- `synthesized`: the target tensor exists and its converter, immutable revision,
+  stable synthesis rule, and operation (`copy`, `initialization`, `derivation`, or
+  `transform`) are declared and provenance-checked.
+
+Qwen2 tied output projection is the first production case. The realization-aware
+manifest at
+`mappings/qwen2_5_0_5b_hf_to_gguf_realizations.yaml` accepts either a separately
+materialized `output.weight` (the 291-tensor GGUF) or the reviewed llama.cpp Qwen2
+runtime fallback to `token_embd.weight` (the locally generated 290-tensor GGUF).
+The fallback evidence is static data owned by the Qwen2 model pack. It pins the
+backend repository, immutable revision, architecture, policy symbol, logical and
+fallback identities, and runtime consumer. User manifests can reference trusted
+evidence IDs but cannot create trusted evidence, load it from the filesystem, or
+supply executable policy code.
+
+The 290-tensor fallback requires conversion provenance tied to the
+realization-aware manifest and pinned converter revision. Absence of
+`output.weight` alone is insufficient: it could equally indicate an incomplete or
+incorrect target. The 291-tensor materialized alternative needs no backend fallback
+claim, so structural validation may pass while MAP-009 remains WARN when exact
+lineage is unavailable.
+
+Payload relation is independent and explicit. Phase 4E accepts only
+`status: not_checked`; structural validation never upgrades it to `declared`,
+`digest_verified`, or `numerically_verified`, and never implies aliasing or payload
+identity.
+
+> A structural realization PASS proves that one declared and evidence-supported
+> target representation satisfies the logical mapping contract. It does not prove
+> payload equality, numerical correctness, or runtime output parity.
+
+The original Qwen2 manifest retains its Phase 4C
+`target_materialization: required` behavior and is not reinterpreted as `one_of`;
+therefore the legacy 290-tensor report remains a deliberate failure. Kimi K3 exposes
+no realization evidence. Future Kimi K3 mappings, MoE expert packing, fused tensors,
+and accelerator-specific backends require their own explicit schemas and trusted,
+architecture-scoped evidence rather than extrapolation from the Qwen2 policy.

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from enum import StrEnum
-from typing import Literal
+from typing import Annotated, Literal
 
 from pydantic import (
     BaseModel,
@@ -42,6 +42,20 @@ class MaterializationPolicy(StrEnum):
     FORBIDDEN = "forbidden"
 
 
+class RealizationKind(StrEnum):
+    MATERIALIZED = "materialized"
+    FORMAT_ALIAS = "format_alias"
+    BACKEND_FALLBACK = "backend_fallback"
+    SYNTHESIZED = "synthesized"
+
+
+class PayloadRelationStatus(StrEnum):
+    NOT_CHECKED = "not_checked"
+    DECLARED = "declared"
+    DIGEST_VERIFIED = "digest_verified"
+    NUMERICALLY_VERIFIED = "numerically_verified"
+
+
 class MappingStatus(StrEnum):
     PASS = "pass"
     WARN = "warn"
@@ -77,6 +91,109 @@ class MappingSelector(StrictModel):
         return value
 
 
+class RealizationTensor(MappingSelector):
+    tensor_name: str = Field(min_length=1, max_length=256)
+
+
+class BackendPolicy(StrictModel):
+    backend: str = Field(min_length=1, max_length=128)
+    repository: str = Field(min_length=1, max_length=1000)
+    revision: str = Field(min_length=1, max_length=256, pattern=r"^[0-9a-f]{40,64}$")
+    architecture: str = Field(min_length=1, max_length=128)
+    policy_symbol: str = Field(min_length=1, max_length=512)
+    evidence_id: str = Field(
+        min_length=1, max_length=256, pattern=r"^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+    )
+
+
+class FormatContract(StrictModel):
+    target_format: str = Field(min_length=1, max_length=128)
+    contract_id: str = Field(
+        min_length=1, max_length=256, pattern=r"^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+    )
+    metadata_key: str = Field(min_length=1, max_length=256)
+    metadata_value: JsonValue
+
+
+class ConverterPolicy(StrictModel):
+    converter: str = Field(min_length=1, max_length=256)
+    repository: str = Field(min_length=1, max_length=1000)
+    revision: str = Field(min_length=1, max_length=256, pattern=r"^[0-9a-f]{40,64}$")
+    synthesis_rule_id: str = Field(
+        min_length=1, max_length=256, pattern=r"^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+    )
+    operation: Literal["copy", "initialization", "derivation", "transform"]
+
+
+class MaterializedRealization(StrictModel):
+    realization_id: str = Field(
+        min_length=1, max_length=128, pattern=r"^[A-Za-z0-9][A-Za-z0-9._-]*$"
+    )
+    kind: Literal[RealizationKind.MATERIALIZED]
+    tensor: RealizationTensor
+
+
+class FormatAliasRealization(StrictModel):
+    realization_id: str = Field(
+        min_length=1, max_length=128, pattern=r"^[A-Za-z0-9][A-Za-z0-9._-]*$"
+    )
+    kind: Literal[RealizationKind.FORMAT_ALIAS]
+    alias_tensor: RealizationTensor
+    backing_tensor: RealizationTensor
+    format_contract: FormatContract
+
+
+class BackendFallbackRealization(StrictModel):
+    realization_id: str = Field(
+        min_length=1, max_length=128, pattern=r"^[A-Za-z0-9][A-Za-z0-9._-]*$"
+    )
+    kind: Literal[RealizationKind.BACKEND_FALLBACK]
+    omitted_tensor: RealizationTensor
+    fallback_tensor: RealizationTensor
+    backend_policy: BackendPolicy
+
+
+class SynthesizedRealization(StrictModel):
+    realization_id: str = Field(
+        min_length=1, max_length=128, pattern=r"^[A-Za-z0-9][A-Za-z0-9._-]*$"
+    )
+    kind: Literal[RealizationKind.SYNTHESIZED]
+    tensor: RealizationTensor
+    converter_policy: ConverterPolicy
+
+
+RealizationAlternative = Annotated[
+    MaterializedRealization
+    | FormatAliasRealization
+    | BackendFallbackRealization
+    | SynthesizedRealization,
+    Field(discriminator="kind"),
+]
+
+
+class TargetRealization(StrictModel):
+    realization_schema: Literal["omiv.target-realization.v1"]
+    mode: Literal["one_of"]
+    alternatives: list[RealizationAlternative] = Field(min_length=1, max_length=100)
+
+    @model_validator(mode="after")
+    def unique_alternative_ids(self) -> TargetRealization:
+        ids = [item.realization_id for item in self.alternatives]
+        if len(ids) != len(set(ids)):
+            raise ValueError("duplicate realization IDs")
+        return self
+
+
+class PayloadRelation(StrictModel):
+    expected: Literal["equal"]
+    status: PayloadRelationStatus
+
+
+class MappingTarget(MappingSelector):
+    realization: TargetRealization | None = None
+    payload_relation: PayloadRelation | None = None
+
+
 class LayerBinding(StrictModel):
     variable: Literal["layer"]
     range: tuple[int, int]
@@ -99,7 +216,7 @@ class IgnoredSource(StrictModel):
 class MappingRule(StrictModel):
     rule_id: str = Field(min_length=1, max_length=128, pattern=r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
     source: MappingSelector
-    target: MappingSelector
+    target: MappingTarget
     source_kind: SourceKind
     cardinality: MappingCardinality
     layer_binding: LayerBinding | None = None
@@ -124,18 +241,43 @@ class MappingRule(StrictModel):
         if self.layer_binding is not None and (not source_layer or not target_layer):
             raise ValueError("layer-bound rule requires {layer} in both canonical selectors")
         if self.source_kind == SourceKind.LOGICAL:
-            if self.target_materialization is None:
-                raise ValueError("logical rule requires target_materialization")
             if self.physical_source is None:
                 raise ValueError("logical rule requires physical_source")
-            if self.payload_origin is None:
-                raise ValueError("logical rule requires payload_origin")
+            if self.target.realization is None:
+                if self.target_materialization is None:
+                    raise ValueError("logical rule requires target_materialization")
+                if self.payload_origin is None:
+                    raise ValueError("logical rule requires payload_origin")
+            else:
+                if self.target.tensor_name is not None:
+                    raise ValueError("realization-aware logical target must not name one tensor")
+                if self.target_materialization is not None or self.payload_origin is not None:
+                    raise ValueError(
+                        "realization-aware rule cannot use legacy materialization fields"
+                    )
+                if self.target.payload_relation is None:
+                    raise ValueError("realization-aware logical target requires payload_relation")
+                if self.target.payload_relation.status != PayloadRelationStatus.NOT_CHECKED:
+                    raise ValueError("Phase 4E only accepts payload status not_checked")
+                for alternative in self.target.realization.alternatives:
+                    if isinstance(alternative, MaterializedRealization | SynthesizedRealization):
+                        realized_identity = alternative.tensor.canonical_identity
+                    elif isinstance(alternative, FormatAliasRealization):
+                        realized_identity = alternative.alias_tensor.canonical_identity
+                    else:
+                        realized_identity = alternative.omitted_tensor.canonical_identity
+                    if realized_identity != self.target.canonical_identity:
+                        raise ValueError(
+                            "realization logical tensor identity does not match target"
+                        )
         elif any(
             value is not None
             for value in (
                 self.target_materialization,
                 self.physical_source,
                 self.payload_origin,
+                self.target.realization,
+                self.target.payload_relation,
             )
         ):
             raise ValueError(
@@ -201,6 +343,46 @@ class MappingResolution(StrictModel):
     parameter: Literal["weight", "bias"]
 
 
+class RealizationEvidence(StrictModel):
+    evidence_schema: Literal["omiv.realization-evidence.v1"]
+    evidence_id: str
+    backend: str
+    repository: str
+    revision: str = Field(pattern=r"^[0-9a-f]{40,64}$")
+    architecture: str
+    policy_symbol: str
+    logical_identity: str
+    fallback_identity: str
+    runtime_consumer: str
+    evidence_kind: Literal["source-reviewed"]
+
+    @property
+    def digest(self) -> str:
+        from omiv.canonical import canonical_sha256
+
+        return canonical_sha256(self.model_dump(mode="json"))
+
+
+class RealizationSelection(StrictModel):
+    rule_id: str
+    logical_identity: str
+    selected_realization_id: str | None
+    realization_kind: RealizationKind | None
+    required_evidence_id: str | None = None
+    evidence_digest: str | None = Field(default=None, pattern=r"^[0-9a-f]{64}$")
+    physical_tensor: str | None = None
+    physical_tensor_present: bool | None = None
+    backing_tensor: str | None = None
+    backing_tensor_present: bool | None = None
+    backend: str | None = None
+    repository: str | None = None
+    revision: str | None = None
+    architecture: str | None = None
+    payload_relation_status: PayloadRelationStatus
+    matched_realization_ids: list[str] = Field(default_factory=list)
+    failures: list[str] = Field(default_factory=list)
+
+
 class MappingFinding(StrictModel):
     rule_id: str
     severity: MappingSeverity
@@ -227,6 +409,7 @@ class MappingValidationReport(StrictModel):
     resolutions: list[MappingResolution]
     coverage: MappingCoverage
     unverified_payload_relation_count: int = Field(ge=0)
+    realizations: list[RealizationSelection] = Field(default_factory=list)
 
     @property
     def passed(self) -> bool:
@@ -296,6 +479,7 @@ class MappingReportPayload(StrictModel):
     mapping: ManifestReportProvenance
     summary: MappingReportSummary
     findings: list[MappingFinding]
+    realizations: list[RealizationSelection] = Field(default_factory=list)
 
 
 class MappingReportIntegrity(StrictModel):

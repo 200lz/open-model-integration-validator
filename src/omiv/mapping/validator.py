@@ -18,14 +18,17 @@ from omiv.mapping.models import (
     MappingStatus,
     MappingValidationReport,
     MaterializationPolicy,
+    RealizationSelection,
     SemanticTensorDescriptor,
     ShapeRelation,
     SourceKind,
 )
 from omiv.mapping.ontology import gguf_semantic_view, hf_semantic_view
+from omiv.mapping.realization import validate_realizations
 from omiv.mapping.resolver import ResolutionDiagnostics, resolve_mapping_with_diagnostics
 from omiv.model_packs.base import ModelPack
 from omiv.provenance.models import (
+    ConversionProvenance,
     ProvenanceStatus,
     ProvenanceValidationReport,
 )
@@ -385,6 +388,7 @@ def _logical_tie(
     diagnostics: ResolutionDiagnostics,
     manifest: MappingManifest,
     pack: ModelPack,
+    realizations: list[RealizationSelection],
 ) -> MappingFinding:
     logical_rules = [rule for rule in manifest.rules if rule.source_kind == SourceKind.LOGICAL]
     required = pack.provide_model_constraints().logical_tie_required
@@ -429,6 +433,9 @@ def _logical_tie(
         and rule.source_kind == SourceKind.LOGICAL
         and rule.source.canonical_identity == logical_identity
     }
+    realization_rules = [
+        rule for rule in logical_rules if rule.target.realization is not None
+    ]
     failures: list[str] = []
     if logical_identity is None:
         failures.append("logical tie identity is missing or ambiguous")
@@ -441,29 +448,51 @@ def _logical_tie(
     else:
         resolution = resolutions[0]
         rule = rules.get(resolution.rule_id)
-        if not resolution.target.materialized:
-            failures.append("logical target is not physically materialized")
-        if rule is None or rule.target_materialization != MaterializationPolicy.REQUIRED:
-            failures.append("target materialization is not declared required")
         if rule is None or tie is None or rule.physical_source != tie.physical_source_identity:
             failures.append("mapping rule has the wrong physical source identity")
-        if rule is None or rule.payload_origin != "unverified":
-            failures.append("payload origin must remain unverified")
+        if rule is not None and rule.target.realization is not None:
+            selection = next(
+                (item for item in realizations if item.rule_id == rule.rule_id), None
+            )
+            if selection is None or selection.selected_realization_id is None:
+                failures.append("logical target realization is not uniquely satisfied")
+        else:
+            selection = None
+            if not resolution.target.materialized:
+                failures.append("logical target is not physically materialized")
+            if rule is None or rule.target_materialization != MaterializationPolicy.REQUIRED:
+                failures.append("target materialization is not declared required")
+            if rule is None or rule.payload_origin != "unverified":
+                failures.append("payload origin must remain unverified")
+    if realization_rules and len(realization_rules) != 1:
+        failures.append("logical target realization declaration is missing or ambiguous")
+    selected = realizations[0] if len(realizations) == 1 else None
     return _finding(
         "MAP-008",
         MappingStatus.FAIL if failures else MappingStatus.PASS,
         (
-            "Logical tied output projection is structurally materialized"
+            "Logical tied target is structurally realized"
             if not failures
-            else "Logical tie materialization is invalid"
+            else "Logical tie realization is invalid"
         ),
         {
             "logical_tied_source": logical_identity,
             "physical_source_identity": (None if tie is None else tie.physical_source_identity),
             "source_materialized": None if tie is None else tie.materialized,
             "materialized_target": (None if resolution is None else resolution.target.exact_name),
-            "payload_equality_status": "not checked",
-            "payload_origin": "unverified",
+            "structural_realization": "pass" if not failures else "fail",
+            "selected_realization_id": (
+                None if selected is None else selected.selected_realization_id
+            ),
+            "realization_kind": (
+                None
+                if selected is None or selected.realization_kind is None
+                else selected.realization_kind.value
+            ),
+            "payload_equality_status": (
+                "not_checked" if realization_rules else "not checked"
+            ),
+            "payload_origin": None if realization_rules else "unverified",
             "failure_count": len(failures),
             "failure_examples": failures[:EXAMPLE_CAP],
             "physical_lm_head_required": False,
@@ -578,6 +607,7 @@ def validate_semantic_mapping(
     manifest: MappingManifest,
     model_pack: ModelPack | None = None,
     provenance_validation: ProvenanceValidationReport | None = None,
+    conversion_provenance: ConversionProvenance | None = None,
 ) -> MappingValidationReport:
     pack = (
         resolve_manifest_model_pack(manifest)
@@ -611,7 +641,19 @@ def validate_semantic_mapping(
         raise OmivInputError("mapping model_family does not match target inventory architecture")
     source_entities = hf_semantic_view(source)
     target_entities = gguf_semantic_view(target, pack)
-    diagnostics = resolve_mapping_with_diagnostics(source_entities, target_entities, manifest)
+    realization_validation = validate_realizations(
+        source,
+        target,
+        source_entities,
+        target_entities,
+        manifest,
+        pack,
+        provenance_validation,
+        conversion_provenance,
+    )
+    diagnostics = resolve_mapping_with_diagnostics(
+        source_entities, realization_validation.target_entities, manifest
+    )
     map001, map002, coverage = _coverage(source_entities, target_entities, diagnostics, manifest)
     findings = [
         map001,
@@ -621,18 +663,27 @@ def validate_semantic_mapping(
         _layers(diagnostics),
         _shapes(diagnostics),
         _parameters(diagnostics),
-        _logical_tie(source, diagnostics, manifest, pack),
+        _logical_tie(
+            source,
+            diagnostics,
+            manifest,
+            pack,
+            realization_validation.selections,
+        ),
         _provenance(source, target, provenance_validation),
     ]
+    if realization_validation.selections:
+        findings.extend(realization_validation.findings)
     return MappingValidationReport(
         findings=findings,
         resolutions=diagnostics.resolutions,
         coverage=coverage,
         unverified_payload_relation_count=sum(
             finding.rule_id == "MAP-008"
-            and finding.evidence.get("payload_equality_status") == "not checked"
+            and finding.evidence.get("payload_equality_status") in {"not checked", "not_checked"}
             for finding in findings
         ),
+        realizations=realization_validation.selections,
     )
 
 

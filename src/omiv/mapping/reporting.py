@@ -44,8 +44,10 @@ class ValidatedMappingReportPayload(MappingReportPayload):
     @model_validator(mode="after")
     def consistent_payload(self) -> ValidatedMappingReportPayload:
         expected_ids = [f"MAP-{number:03d}" for number in range(1, 10)]
+        if self.realizations:
+            expected_ids.extend(f"REALIZE-{number:03d}" for number in range(1, 8))
         if [finding.rule_id for finding in self.findings] != expected_ids:
-            raise ValueError("findings must contain MAP-001 through MAP-009 in order")
+            raise ValueError("mapping and realization findings are incomplete or out of order")
         expected_severity = {
             MappingStatus.PASS: "info",
             MappingStatus.WARN: "warning",
@@ -175,6 +177,7 @@ def build_mapping_report_envelope(
         ),
         summary=_report_summary(validation),
         findings=validation.findings,
+        realizations=validation.realizations,
     )
     return ValidatedMappingReportEnvelope(
         report=payload,
@@ -217,6 +220,8 @@ def load_mapping_report_envelope(path: Path) -> ValidatedMappingReportEnvelope:
 
 def mapping_report_integrity_matches(envelope: MappingReportEnvelope) -> bool:
     payload = envelope.report.model_dump(mode="json")
+    if envelope.integrity.sha256 == canonical_sha256(payload):
+        return True
     mapping = payload["mapping"]
     if isinstance(mapping, dict):
         for field in (
@@ -226,6 +231,8 @@ def mapping_report_integrity_matches(envelope: MappingReportEnvelope) -> bool:
         ):
             if mapping.get(field) is None:
                 mapping.pop(field, None)
+    if not payload.get("realizations"):
+        payload.pop("realizations", None)
     return envelope.integrity.sha256 == canonical_sha256(payload)
 
 
@@ -346,10 +353,59 @@ def render_mapping_markdown(envelope: MappingReportEnvelope) -> str:
             f"- Duplicate target mappings: {summary.duplicate_target_count}",
             f"- Unmapped source entities: {summary.unmapped_source_count}",
             f"- Unmapped target entities: {summary.unmapped_target_count}",
-            "",
-            "## Findings",
         ]
     )
+    if report.realizations:
+        lines.extend(["", "## Realization Summary", ""])
+        for realization in report.realizations:
+            kind = (
+                None
+                if realization.realization_kind is None
+                else realization.realization_kind.value
+            )
+            lines.extend(
+                [
+                    f"### {_safe_text(realization.logical_identity)}",
+                    "",
+                    "- Structural realization: "
+                    + ("PASS" if realization.selected_realization_id is not None else "FAIL"),
+                    "- Selected realization ID: "
+                    + _safe_text(realization.selected_realization_id),
+                    "- Selected realization: " + _safe_text(kind),
+                    "- Physical "
+                    + _safe_text(realization.physical_tensor)
+                    + ": "
+                    + (
+                        "present"
+                        if realization.physical_tensor_present
+                        else "absent"
+                        if realization.physical_tensor_present is False
+                        else "not applicable"
+                    ),
+                    "- Fallback tensor: " + _safe_text(realization.backing_tensor),
+                    "- Backend policy: "
+                    + (
+                        "not applicable"
+                        if realization.backend is None
+                        else "pinned "
+                        + _safe_text(realization.backend)
+                        + " "
+                        + _safe_text(realization.architecture)
+                        + " policy ("
+                        + _safe_text(realization.repository)
+                        + "@"
+                        + _safe_text(realization.revision)
+                        + ")"
+                    ),
+                    "- Required evidence: "
+                    + _safe_text(realization.required_evidence_id),
+                    "- Evidence digest: " + _safe_text(realization.evidence_digest),
+                    "- Payload equality: "
+                    + realization.payload_relation_status.value.replace("_", " ").upper(),
+                    "",
+                ]
+            )
+    lines.extend(["", "## Findings"])
     for finding in report.findings:
         lines.extend(_finding_lines(finding))
     lines.extend(
