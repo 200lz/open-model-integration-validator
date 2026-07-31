@@ -82,6 +82,11 @@ from omiv.model_packs.kimi_k3.semantic_mapping import run_kimi_mapping
 from omiv.model_packs.registry import get_model_pack, list_model_packs
 from omiv.models import ModelInventory
 from omiv.normalizer import normalize_inventory, write_inventory
+from omiv.passport.builder import build_passport
+from omiv.passport.models import UsageOutcome, VerificationMode
+from omiv.passport.policy import selected_profile_result
+from omiv.passport.reporting import render_passport_markdown, write_passport
+from omiv.passport.verification import load_passport, verify_passport
 from omiv.provenance.adapters import load_inventory_evidence
 from omiv.provenance.capture import ConversionRunFailed, run_conversion
 from omiv.provenance.loading import load_provenance_envelope
@@ -173,7 +178,9 @@ from omiv.validators.kimi_k3 import validate_inventory
 
 app = typer.Typer(no_args_is_help=True, pretty_exceptions_enable=False)
 model_packs_app = typer.Typer(no_args_is_help=True)
+passport_app = typer.Typer(no_args_is_help=True)
 app.add_typer(model_packs_app, name="model-packs")
+app.add_typer(passport_app, name="passport")
 MAX_CANONICAL_INVENTORY_BYTES = 64 * 1024 * 1024
 REMOTE_REPORT_SCHEMAS = {
     "omiv.remote-snapshot-report.v1",
@@ -1192,6 +1199,81 @@ def independent_validation_inventory_verify(
         typer.echo(f"ERROR {exc}", err=True)
         raise typer.Exit(code=2) from exc
     typer.echo(f"PASS independent validation inventory {inventory.inventory_digest}")
+
+
+@passport_app.command("create")
+def passport_create(
+    validation: Annotated[Path, typer.Option("--validation", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    markdown_output: Annotated[Path, typer.Option("--markdown-output", dir_okay=False)],
+    root: Annotated[Path, typer.Option("--root", exists=True, file_okay=False)] = Path("."),
+    profile: Annotated[str | None, typer.Option("--profile")] = None,
+) -> None:
+    """Create JSON and Markdown passports from verified validation evidence offline."""
+    try:
+        root = root.resolve()
+        validation_path = validation.resolve()
+        reference = validation_path.relative_to(root).as_posix()
+        inventory = verify_validation_inventory(validation_path, root)
+        passport = build_passport(inventory, validation_reference=reference)
+        if profile is not None:
+            selected = selected_profile_result(passport.usage_profiles, profile)
+        write_passport(
+            passport,
+            output,
+            markdown_output,
+            forbidden_inputs=(validation_path,),
+        )
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR passport creation failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"PASS Model Passport id={passport.passport_id} digest={passport.passport_digest}"
+    )
+    if profile is not None and selected.outcome not in {
+        UsageOutcome.SUITABLE_WITH_LIMITATIONS,
+    }:
+        raise typer.Exit(code=1)
+
+
+@passport_app.command("verify")
+def passport_verify_command(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    root: Annotated[Path, typer.Option("--root", exists=True, file_okay=False)] = Path("."),
+    digest_only: Annotated[bool, typer.Option("--digest-only")] = False,
+    profile: Annotated[str | None, typer.Option("--profile")] = None,
+) -> None:
+    """Verify a passport's integrity and, by default, all evidence dependencies offline."""
+    try:
+        result = verify_passport(input_path, root=root, digest_only=digest_only)
+        passport = load_passport(input_path)
+        if profile is not None:
+            selected = selected_profile_result(passport.usage_profiles, profile)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR passport verification failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    label = "PASS" if result.mode != VerificationMode.UNVERIFIABLE_REFERENCE else "UNVERIFIABLE"
+    typer.echo(
+        f"{label} Model Passport mode={result.mode.value} id={result.passport_id} "
+        f"digest={result.passport_digest}"
+    )
+    if result.mode == VerificationMode.UNVERIFIABLE_REFERENCE:
+        raise typer.Exit(code=2)
+    if profile is not None and selected.outcome != UsageOutcome.SUITABLE_WITH_LIMITATIONS:
+        raise typer.Exit(code=1)
+
+
+@passport_app.command("show")
+def passport_show(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+) -> None:
+    """Render a tamper-checked passport as a compact personal summary."""
+    try:
+        passport = load_passport(input_path)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR passport display failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(render_passport_markdown(passport), nl=False)
 
 
 @app.command("structural-compare")

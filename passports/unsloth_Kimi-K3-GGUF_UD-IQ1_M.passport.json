@@ -1,0 +1,519 @@
+{
+  "artifact_identity": {
+    "content_identity": {
+      "artifact_set_digest": "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7",
+      "file_count": 15,
+      "individual_file_digest_availability": "unavailable",
+      "total_declared_bytes": 648872012448
+    },
+    "format_identity": {
+      "architecture": "kimi-k3",
+      "format": "GGUF",
+      "split_container": true
+    },
+    "model_identity": {
+      "architecture": "kimi-k3",
+      "model_family": "kimi-k3"
+    },
+    "model_pack": "kimi-k3",
+    "model_pack_digest": "6f151e70f2b28e367b84c59db6e7ad4184271b1cc7f518320043e3456c3ef288",
+    "model_pack_version": 3,
+    "origin": {
+      "origin_type": "huggingface",
+      "provider": "huggingface",
+      "repository": "unsloth/Kimi-K3-GGUF",
+      "repository_type": "model_repository",
+      "resolved_revision": "3d4b61ab4b6789d401191c476cbb4567246db8f5"
+    },
+    "variant_identity": {
+      "selection": "UD-IQ1_M/*.gguf",
+      "variant": "UD-IQ1_M"
+    }
+  },
+  "custody_summary": {
+    "broken_links": 0,
+    "chain_id": null,
+    "chain_schema": null,
+    "event_count": 0,
+    "expired_attestations": 0,
+    "first_event_digest": null,
+    "latest_event_digest": null,
+    "missing_event_types": [
+      "acquisition",
+      "transformation",
+      "validation_attestation",
+      "approval",
+      "deployment",
+      "runtime_observation"
+    ],
+    "required_event_types": [
+      "acquisition",
+      "transformation",
+      "validation_attestation",
+      "approval",
+      "deployment",
+      "runtime_observation"
+    ],
+    "revoked_events": 0,
+    "status": "NOT_AVAILABLE"
+  },
+  "evidence_identity": {
+    "artifact_index_digest": "6059d6a460f5d417173c4346f0c4e5d6c26a4887e488ea7c24d5e473ca6094a6",
+    "evidence_graph_digest": "ea08a66295a72ebb1331196e9cd3c94845fc21208b08240447828ae77b7db2eb",
+    "mapping_policy_digest": "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c",
+    "model_pack_digest": "6f151e70f2b28e367b84c59db6e7ad4184271b1cc7f518320043e3456c3ef288",
+    "ontology_policy_digest": "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0",
+    "validation_inventory_digest": "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+    "validation_schema": "omiv.independent-model-validation.v1"
+  },
+  "evidence_references": [
+    {
+      "availability": "digest_only",
+      "digest": "6059d6a460f5d417173c4346f0c4e5d6c26a4887e488ea7c24d5e473ca6094a6",
+      "relative_path": null,
+      "role": "artifact_index",
+      "schema": "omiv.validation-artifact-index.v1",
+      "verification_mode": "digest_only_verification"
+    },
+    {
+      "availability": "digest_only",
+      "digest": "ea08a66295a72ebb1331196e9cd3c94845fc21208b08240447828ae77b7db2eb",
+      "relative_path": null,
+      "role": "evidence_graph",
+      "schema": "omiv.validation-evidence-graph.v1",
+      "verification_mode": "digest_only_verification"
+    },
+    {
+      "availability": "digest_only",
+      "digest": "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c",
+      "relative_path": null,
+      "role": "mapping_policy",
+      "schema": "omiv.mapping-policy.digest",
+      "verification_mode": "digest_only_verification"
+    },
+    {
+      "availability": "digest_only",
+      "digest": "6f151e70f2b28e367b84c59db6e7ad4184271b1cc7f518320043e3456c3ef288",
+      "relative_path": null,
+      "role": "model_pack",
+      "schema": "omiv.model-pack-identity.v1",
+      "verification_mode": "digest_only_verification"
+    },
+    {
+      "availability": "digest_only",
+      "digest": "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0",
+      "relative_path": null,
+      "role": "ontology_policy",
+      "schema": "omiv.ontology-policy.digest",
+      "verification_mode": "digest_only_verification"
+    },
+    {
+      "availability": "private",
+      "digest": "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+      "relative_path": "validations/unsloth_Kimi-K3-GGUF_UD-IQ1_M.validation.inventory.json",
+      "role": "validation_inventory",
+      "schema": "omiv.independent-model-validation.v1",
+      "verification_mode": "full_verification"
+    }
+  ],
+  "evidence_stages": [
+    {
+      "artifact_digest": null,
+      "evidence_source": "phase_5a_placeholder",
+      "finding_ids": [],
+      "limitations": [
+        "No approval workflow evidence is included."
+      ],
+      "next_step": [
+        "Obtain an approval attestation under an applicable policy."
+      ],
+      "scope": [],
+      "stage": "approval",
+      "status": "NOT_CHECKED"
+    },
+    {
+      "artifact_digest": "a450f338b1582101b375e815682ee01215145bd5d6782014d954f130b4295520",
+      "evidence_source": "validation_stage:repository_identity",
+      "finding_ids": [
+        "VALIDATE-004"
+      ],
+      "limitations": [],
+      "next_step": [],
+      "scope": [
+        "fixed repository and immutable revision"
+      ],
+      "stage": "artifact_identity",
+      "status": "PASS"
+    },
+    {
+      "artifact_digest": "030bdd1123d91b2d904e48700423a35b302d2ec9df25b126c42de62735905683",
+      "evidence_source": "validation_stage:artifact_specific_provenance",
+      "finding_ids": [
+        "VALIDATE-014"
+      ],
+      "limitations": [
+        "no artifact-specific conversion-run provenance exists"
+      ],
+      "next_step": [
+        "signed conversion-run provenance"
+      ],
+      "scope": [],
+      "stage": "artifact_specific_provenance",
+      "status": "UNAVAILABLE"
+    },
+    {
+      "artifact_digest": "f380d9b9ee8060cf205eef4c69e58353608f148f2ea59ba680e7af522e034afb",
+      "evidence_source": "validation_stage:converter_rule_support",
+      "finding_ids": [
+        "VALIDATE-013"
+      ],
+      "limitations": [
+        "does not identify the converter run that produced this artifact"
+      ],
+      "next_step": [
+        "artifact-specific conversion provenance"
+      ],
+      "scope": [
+        "pinned converter code supports recorded relations"
+      ],
+      "stage": "converter_rule_support",
+      "status": "AVAILABLE"
+    },
+    {
+      "artifact_digest": null,
+      "evidence_source": "phase_5a_placeholder",
+      "finding_ids": [],
+      "limitations": [
+        "No artifact lifecycle custody events are recorded."
+      ],
+      "next_step": [
+        "Record custody events in a future chain-of-custody implementation."
+      ],
+      "scope": [],
+      "stage": "custody_chain",
+      "status": "UNAVAILABLE"
+    },
+    {
+      "artifact_digest": null,
+      "evidence_source": "phase_5a_placeholder",
+      "finding_ids": [],
+      "limitations": [
+        "No deployed-artifact observation is included."
+      ],
+      "next_step": [
+        "Record deployment and runtime artifact identity in a future phase."
+      ],
+      "scope": [],
+      "stage": "deployment_observation",
+      "status": "NOT_CHECKED"
+    },
+    {
+      "artifact_digest": "5642e4e0ee52501e0609916d1a399965a8f51cad472645e6966cd0a0adeabad5",
+      "evidence_source": "validation_stage:complete_header",
+      "finding_ids": [
+        "VALIDATE-006"
+      ],
+      "limitations": [
+        "does not establish tensor payload or numerical correctness"
+      ],
+      "next_step": [],
+      "scope": [
+        "complete GGUF headers for all shards"
+      ],
+      "stage": "format_structure",
+      "status": "PASS"
+    },
+    {
+      "artifact_digest": "5642e4e0ee52501e0609916d1a399965a8f51cad472645e6966cd0a0adeabad5",
+      "evidence_source": "validation_stage:complete_header",
+      "finding_ids": [
+        "VALIDATE-006"
+      ],
+      "limitations": [
+        "does not establish tensor payload or numerical correctness"
+      ],
+      "next_step": [],
+      "scope": [
+        "complete GGUF headers for all shards"
+      ],
+      "stage": "header_integrity",
+      "status": "PASS"
+    },
+    {
+      "artifact_digest": "f380d9b9ee8060cf205eef4c69e58353608f148f2ea59ba680e7af522e034afb",
+      "evidence_source": "validation_stage:payload_integrity",
+      "finding_ids": [
+        "VALIDATE-015"
+      ],
+      "limitations": [
+        "no tensor payload bytes or hashes were accessed"
+      ],
+      "next_step": [
+        "payload digest evidence"
+      ],
+      "scope": [],
+      "stage": "payload_integrity",
+      "status": "NOT_CHECKED"
+    },
+    {
+      "artifact_digest": "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7",
+      "evidence_source": "validation_stage:payload_span_bounds",
+      "finding_ids": [
+        "VALIDATE-007"
+      ],
+      "limitations": [
+        "bounds do not prove payload bytes"
+      ],
+      "next_step": [
+        "payload integrity evidence"
+      ],
+      "scope": [
+        "computed descriptor payload spans fit shard bounds"
+      ],
+      "stage": "payload_span_bounds",
+      "status": "PASS"
+    },
+    {
+      "artifact_digest": "f380d9b9ee8060cf205eef4c69e58353608f148f2ea59ba680e7af522e034afb",
+      "evidence_source": "validation_stage:quantization_fidelity",
+      "finding_ids": [
+        "VALIDATE-016"
+      ],
+      "limitations": [
+        "allowed type transitions are not numerical fidelity"
+      ],
+      "next_step": [
+        "numerical quantization comparison"
+      ],
+      "scope": [],
+      "stage": "quantization_fidelity",
+      "status": "NOT_CHECKED"
+    },
+    {
+      "artifact_digest": "1b703d3720d4b5a09b7ce185fd8a7460c6c3fdd6d8481478c245570759f61c42",
+      "evidence_source": "validation_stage:repository_layout",
+      "finding_ids": [
+        "VALIDATE-004"
+      ],
+      "limitations": [],
+      "next_step": [],
+      "scope": [
+        "15-file selected split layout"
+      ],
+      "stage": "repository_layout",
+      "status": "PASS"
+    },
+    {
+      "artifact_digest": "f380d9b9ee8060cf205eef4c69e58353608f148f2ea59ba680e7af522e034afb",
+      "evidence_source": "validation_stage:runtime_parity",
+      "finding_ids": [
+        "VALIDATE-018"
+      ],
+      "limitations": [
+        "no backend execution, logits, or runtime output"
+      ],
+      "next_step": [
+        "runtime parity evidence"
+      ],
+      "scope": [],
+      "stage": "runtime_parity",
+      "status": "NOT_CHECKED"
+    },
+    {
+      "artifact_digest": null,
+      "evidence_source": "phase_5a_placeholder",
+      "finding_ids": [],
+      "limitations": [
+        "No security scanner was run in Phase 5A."
+      ],
+      "next_step": [
+        "Run a future policy-approved security inspection."
+      ],
+      "scope": [],
+      "stage": "security_inspection",
+      "status": "NOT_CHECKED"
+    },
+    {
+      "artifact_digest": "7ee790307bdfa9cd64419b1775b2566b820a3116f6602c96160f992c44007860",
+      "evidence_source": "validation_stage:structural_semantic_mapping",
+      "finding_ids": [
+        "VALIDATE-009"
+      ],
+      "limitations": [
+        "does not establish tensor payload or numerical correctness"
+      ],
+      "next_step": [
+        "payload relation verification"
+      ],
+      "scope": [
+        "descriptor-level source-to-target assignments"
+      ],
+      "stage": "semantic_mapping",
+      "status": "PASS"
+    },
+    {
+      "artifact_digest": "b33c4b80944df43e5c1ec68cbd40d246d4ef769ec228fb99b89dcac1a8ed1f7a",
+      "evidence_source": "validation_stage:split_container",
+      "finding_ids": [
+        "VALIDATE-007"
+      ],
+      "limitations": [
+        "does not establish tensor payload or numerical correctness"
+      ],
+      "next_step": [],
+      "scope": [
+        "split identity and descriptor aggregation"
+      ],
+      "stage": "split_container",
+      "status": "PASS"
+    },
+    {
+      "artifact_digest": "4d6b0cf2efe590594a2bca3961a0f7d2c2848717c8220de447632c866c278b8e",
+      "evidence_source": "validation_stage:target_ontology",
+      "finding_ids": [
+        "VALIDATE-008"
+      ],
+      "limitations": [
+        "does not establish tensor payload or numerical correctness"
+      ],
+      "next_step": [],
+      "scope": [
+        "Kimi K3 target ontology"
+      ],
+      "stage": "target_ontology",
+      "status": "PASS"
+    },
+    {
+      "artifact_digest": "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7",
+      "evidence_source": "validation_stage:tokenizer_parity",
+      "finding_ids": [
+        "VALIDATE-017"
+      ],
+      "limitations": [
+        "tokenizer arrays were not compared"
+      ],
+      "next_step": [
+        "tokenizer parity evidence"
+      ],
+      "scope": [],
+      "stage": "tokenizer_parity",
+      "status": "NOT_CHECKED"
+    }
+  ],
+  "limitations": [
+    "Allowed GGML type transitions do not establish numerical quantization fidelity.",
+    "Converter-code support does not establish which converter produced the published artifact.",
+    "No custody chain, approval, deployment, or runtime observation is available.",
+    "No security inspection was performed; this passport does not establish safety.",
+    "Payload values and individual artifact bytes have not been verified.",
+    "Structural descriptor validation does not establish tensor payload integrity.",
+    "The result supports structural integration acceptance only under profiles that permit these limitations.",
+    "Tokenizer arrays, logits, backend execution, and runtime behavior were not compared."
+  ],
+  "passport_digest": "ee8d3f83fe25ac8997e4e69f1551df35c82d6f4c4166e6be7052e06d417159af",
+  "passport_id": "mp_4a9b0e3b309c867711782e2075be77c6",
+  "policy_identity": {
+    "mapping_policy_digest": "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c",
+    "ontology_policy_digest": "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0",
+    "passport_policy_digest": "3f03e0855539e05a350a89a49e427437af74a4c7f6d36ea2d0357cb5a0e616dd",
+    "passport_policy_schema": "omiv.model-passport-policy.v1",
+    "profile_policy_digest": "871354a03edb309079942642bdfc77212eb5a862f4da5f634ceb91fbc0ab5210",
+    "validation_profile_policy_digest": "ec745ebc9c7a7f1b51b115ab049a6507e76d5902aa98d8d7a27c70497886bdc7"
+  },
+  "runtime_summary": {
+    "backend": null,
+    "backend_revision": null,
+    "compatibility_status": "NOT_CHECKED",
+    "deployment_identity": null,
+    "expected_artifact_digest": null,
+    "observed_artifact_digest": null,
+    "runtime_observation_digest": null,
+    "status": "NOT_CHECKED"
+  },
+  "schema": "omiv.model-passport.v1",
+  "security_summary": {
+    "archive_safety": "NOT_CHECKED",
+    "dependency_risk": "NOT_CHECKED",
+    "executable_code": "NOT_CHECKED",
+    "known_vulnerabilities": [],
+    "malware_result": "NOT_CHECKED",
+    "policy_digest": null,
+    "remote_code": "NOT_CHECKED",
+    "scanner_results": [],
+    "status": "NOT_CHECKED",
+    "unsafe_serialization": "NOT_CHECKED"
+  },
+  "subject": {
+    "artifact_kind": "model_artifact_set",
+    "artifact_scope": "selected_repository_artifact_set",
+    "artifact_variant": "UD-IQ1_M",
+    "display_name": "Kimi K3",
+    "model_family": "kimi-k3"
+  },
+  "trust_summary": {
+    "custody_status": "TRUST_CHAIN_INCOMPLETE",
+    "identity_status": "IDENTITY_VERIFIED",
+    "payload_status": "NOT_ASSESSED",
+    "provenance_status": "EVIDENCE_INCOMPLETE",
+    "runtime_status": "NOT_ASSESSED",
+    "security_status": "NOT_ASSESSED",
+    "structural_status": "STRUCTURALLY_VALIDATED_WITH_LIMITATIONS"
+  },
+  "usage_profiles": [
+    {
+      "guidance": "Structural evidence is available, but additional review evidence is required.",
+      "outcome": "REVIEW_REQUIRED",
+      "profile": "enterprise_structural_review",
+      "review_requirements": [
+        "artifact_specific_provenance",
+        "custody_chain",
+        "payload_integrity",
+        "runtime_parity",
+        "security_inspection"
+      ],
+      "unmet_stages": []
+    },
+    {
+      "guidance": "Suitable within the recorded structural scope; payload, security, and runtime limitations remain visible.",
+      "outcome": "SUITABLE_WITH_LIMITATIONS",
+      "profile": "local_experimentation",
+      "review_requirements": [
+        "payload_integrity",
+        "runtime_parity",
+        "security_inspection"
+      ],
+      "unmet_stages": []
+    },
+    {
+      "guidance": "Required evidence is missing or failed; this profile is not satisfied.",
+      "outcome": "NOT_SUITABLE",
+      "profile": "regulated_production",
+      "review_requirements": [],
+      "unmet_stages": [
+        "approval",
+        "artifact_specific_provenance",
+        "custody_chain",
+        "deployment_observation",
+        "payload_integrity",
+        "quantization_fidelity",
+        "runtime_parity",
+        "security_inspection",
+        "tokenizer_parity"
+      ]
+    },
+    {
+      "guidance": "Suitable within the recorded structural scope; payload, security, and runtime limitations remain visible.",
+      "outcome": "SUITABLE_WITH_LIMITATIONS",
+      "profile": "team_structural_intake",
+      "review_requirements": [
+        "artifact_specific_provenance"
+      ],
+      "unmet_stages": []
+    }
+  ],
+  "warnings": [
+    "Payload values and individual artifact bytes have not been verified.",
+    "No security inspection was performed; this passport does not establish safety.",
+    "No custody chain, approval, deployment, or runtime observation is available."
+  ]
+}

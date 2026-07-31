@@ -21,6 +21,78 @@ repository metadata and bounded byte-range inspection. The production adapter us
 the documented Hub API directly; `huggingface_hub` remains an optional, lazily
 imported integration rather than a runtime requirement.
 
+## Model Passports
+
+A Model Passport is a portable, integrity-linked summary of an AI artifact’s
+identity, evidence, trust status, and known limitations.
+
+A Model Chain of Custody is the integrity-linked history of how that artifact was
+acquired, transformed, approved, deployed, and observed at runtime.
+
+Phase 5A implements the first concept, not the second. A passport answers what an
+artifact is, which immutable identity and validation evidence are known, which
+checks remain unavailable, and what the recorded policies permit. It does not
+invent lifecycle events. The custody section therefore reports `NOT_AVAILABLE`
+and zero events until a future Phase 5B custody ledger supplies real evidence.
+
+The same strict `omiv.model-passport.v1` document supports several audiences:
+
+- A personal user gets a compact summary with prominent payload, security, and
+  runtime limitations.
+- A team can share a deterministic identity and structural-intake record without
+  copying full tensor or header inventories.
+- An enterprise system can consume typed trust dimensions, evidence references,
+  policy digests, and usage-profile decisions.
+
+Create and verify a passport entirely offline:
+
+```bash
+omiv passport create \
+  --validation validations/unsloth_Kimi-K3-GGUF_UD-IQ1_M.validation.inventory.json \
+  --output passports/unsloth_Kimi-K3-GGUF_UD-IQ1_M.passport.json \
+  --markdown-output passports/unsloth_Kimi-K3-GGUF_UD-IQ1_M.passport.md
+
+omiv passport verify \
+  --input passports/unsloth_Kimi-K3-GGUF_UD-IQ1_M.passport.json
+
+omiv passport show \
+  --input passports/unsloth_Kimi-K3-GGUF_UD-IQ1_M.passport.json
+```
+
+Full verification reconstructs the referenced independent-validation inventory,
+evidence graph, artifact index, model-pack identity, policy identities, passport
+stages, multidimensional trust summary, and usage profiles. `--digest-only`
+performs portable schema, digest, and internal policy reconstruction when private
+dependencies are not present; it is explicitly reported as
+`digest_only_verification`, never as full verification.
+
+Trust is intentionally not a single score. The passport records separate identity,
+structural, provenance, payload, security, custody, and runtime outcomes. Typical
+structural evidence can yield `STRUCTURALLY_VALIDATED_WITH_LIMITATIONS` while
+artifact-specific provenance remains `UNAVAILABLE` and payload, security, and
+runtime checks remain `NOT_CHECKED`. An unavailable or unchecked stage is never
+converted into `PASS`.
+
+Four static usage profiles provide policy-scoped guidance:
+
+- `local_experimentation` requires identity and format structure and can be
+  `SUITABLE_WITH_LIMITATIONS`; this is not a safety claim.
+- `team_structural_intake` additionally requires ontology and semantic mapping;
+  unavailable provenance remains a visible review warning.
+- `enterprise_structural_review` requires integrity-linked structural evidence and
+  policies; missing provenance, payload, security, custody, and runtime evidence
+  produces `REVIEW_REQUIRED`.
+- `regulated_production` requires provenance, payload, tokenizer, security, custody,
+  approval, deployment, and runtime evidence. Current structural-only passports are
+  `NOT_SUITABLE`.
+
+Phase 5A performs no security scanning, payload hashing or sampling, signing,
+approval, deployment admission, backend execution, or runtime observation. A GGUF
+parse does not establish safe execution, numerical conversion fidelity, backend
+compatibility, or production approval. Phase 5B is reserved for a real,
+integrity-linked custody-event ledger; the current validation evidence graph proves
+evidence dependencies and is not treated as a custody history.
+
 ## Core, format adapters, and model packs
 
 Phase 4C separates OMIV into three layers:
