@@ -93,6 +93,78 @@ compatibility, or production approval. Phase 5B is reserved for a real,
 integrity-linked custody-event ledger; the current validation evidence graph proves
 evidence dependencies and is not treated as a custody history.
 
+## Model Chain of Custody ledgers
+
+Phase 5B adds the deterministic `omiv.custody-ledger.v1` lifecycle record. A Model
+Passport summarizes an artifact's current identity and trust evidence; a Model Chain
+of Custody records ordered lifecycle claims about that artifact. The Phase 4F evidence
+graph remains a dependency graph and is never substituted for a custody ledger.
+
+A hash-linked custody ledger proves that recorded events have not been modified,
+removed, reordered, or relinked without detection.
+
+It does not, by itself, prove that a real-world action occurred or that the actor was
+authentic.
+
+A complete enterprise custody chain additionally requires acquisition,
+transformation, security, approval, deployment, runtime, and attestation evidence
+according to policy.
+
+Custody events use a deterministic sequence number, the previous event digest, and
+their own canonical digest. They do not use wall-clock timestamps, UUIDs, hostnames,
+usernames, or local paths for identity or ordering. The `event_id` changes when its
+subject, claim, evidence, policy, or parent changes; each downstream digest then
+changes because the previous digest is covered by the next event.
+
+The v1 taxonomy reserves lifecycle events for source location, immutable identity,
+acquisition, remote and format inspection, structural validation, transformation,
+quantization, passport issuance, security inspection, approval, registry promotion,
+deployment, runtime observation, revocation, and expiration. Reserved support does
+not mean those actions occurred. OMIV emits only event types backed by supplied
+evidence.
+
+Create, verify, and inspect a custody evidence segment entirely offline:
+
+```bash
+omiv custody create \
+  --passport passports/unsloth_Kimi-K3-GGUF_UD-IQ1_M.passport.json \
+  --validation validations/unsloth_Kimi-K3-GGUF_UD-IQ1_M.validation.inventory.json \
+  --profile evidence_segment \
+  --output custody/unsloth_Kimi-K3-GGUF_UD-IQ1_M.custody-ledger.json \
+  --report-output reports/custody/unsloth_Kimi-K3-GGUF_UD-IQ1_M.custody.report.json \
+  --markdown-output reports/custody/unsloth_Kimi-K3-GGUF_UD-IQ1_M.custody.report.md
+
+omiv custody verify \
+  --input custody/unsloth_Kimi-K3-GGUF_UD-IQ1_M.custody-ledger.json
+
+omiv custody show \
+  --input custody/unsloth_Kimi-K3-GGUF_UD-IQ1_M.custody-ledger.json
+```
+
+`custody append` accepts a strict event-input document, verifies the source ledger,
+derives the next sequence and parent digest, and writes a distinct output atomically.
+Appended declarations remain `USER_DECLARED` and `UNATTESTED`; hash integrity never
+upgrades their authenticity.
+
+The static custody profiles are `evidence_segment`, `local_model_intake`,
+`team_release`, `enterprise_deployment`, and `regulated_runtime`. An intact ledger can
+be lifecycle-incomplete. Current Kimi evidence satisfies `evidence_segment`, but it
+lacks acquisition, transformation, quantization, security, approval, registry,
+deployment, and runtime events. Its correct overall custody result is therefore
+`INCOMPLETE`, not `BROKEN` and not fully trusted.
+
+Custody-linked passports use `omiv.model-passport.v2`; existing v1 passports remain
+byte-identical and fully supported. The linked passport reports ledger availability
+and integrity separately from incomplete lifecycle coverage and unattested event
+authenticity.
+
+Phase 5B does not implement signatures, signer or actor proof, revocation services,
+approval workflows, deployment admission, runtime agents, security scanning, or
+payload validation. Phase 5C may consume custody evidence in additional policy
+decisions without changing these facts. Phase 5D is reserved for cryptographic
+attestations and trust-root verification. Phase 5B is not legal chain-of-custody
+certification.
+
 ## Core, format adapters, and model packs
 
 Phase 4C separates OMIV into three layers:

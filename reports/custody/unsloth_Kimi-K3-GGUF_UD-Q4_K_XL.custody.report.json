@@ -1,0 +1,331 @@
+{
+  "integrity": {
+    "canonicalization": "omiv-json-v1",
+    "sha256": "1db6ca6de0afca25dd2b09aa9e00a1702673ea4ac18495046899eaa162b09f0e"
+  },
+  "report": {
+    "authenticity_summary": {
+      "limitation": "Hash linking protects recorded event integrity but does not authenticate an actor or prove that a real-world action occurred.",
+      "signed_event_count": 0,
+      "statuses": [
+        "EVIDENCE_DERIVED"
+      ],
+      "unattested_event_count": 6
+    },
+    "chain_id": "mcoc_03093c611d82fd4b2fd71d47e358eb7a",
+    "event_timeline": [
+      {
+        "action": "Record the source repository locator as context for the immutable subject.",
+        "attestation_status": "UNATTESTED",
+        "authenticity": "EVIDENCE_DERIVED",
+        "event_digest": "84b06356b8be95e33e31820cc97b30a7c957b7cc51201fb75691f4d1dd601939",
+        "event_id": "ce_7bd04dfc23bba203fa74f9265af896d8",
+        "event_type": "SOURCE_LOCATOR_RECORDED",
+        "evidence_roles": [
+          "validation_inventory"
+        ],
+        "sequence": 0
+      },
+      {
+        "action": "Establish immutable repository and artifact-set identity.",
+        "attestation_status": "UNATTESTED",
+        "authenticity": "EVIDENCE_DERIVED",
+        "event_digest": "3ce7046af3db529d1c165dd73e51bb0ee429a0fcd55e35e8457dcdffb9d6654b",
+        "event_id": "ce_b1f6a9bca317350766f2803ebd720a3c",
+        "event_type": "IMMUTABLE_IDENTITY_ESTABLISHED",
+        "evidence_roles": [
+          "validation_inventory"
+        ],
+        "sequence": 1
+      },
+      {
+        "action": "Record verified bounded remote inspection evidence.",
+        "attestation_status": "UNATTESTED",
+        "authenticity": "EVIDENCE_DERIVED",
+        "event_digest": "07872cd097b0ae2fc311b02478e1220494733b28cd22a325954ef2ccc569ff81",
+        "event_id": "ce_087a59c4cd0e05a28ddaf51b410f587f",
+        "event_type": "REMOTE_INSPECTION_RECORDED",
+        "evidence_roles": [
+          "validation_inventory"
+        ],
+        "sequence": 2
+      },
+      {
+        "action": "Record verified GGUF header and split-container inspection.",
+        "attestation_status": "UNATTESTED",
+        "authenticity": "EVIDENCE_DERIVED",
+        "event_digest": "172d976d99977f3337eef260b2db72dfc9e694c6ed9954da662e0964d26baf0c",
+        "event_id": "ce_76d4cc44ded36679e4138dd61ea14fe4",
+        "event_type": "FORMAT_INSPECTION_COMPLETED",
+        "evidence_roles": [
+          "validation_inventory"
+        ],
+        "sequence": 3
+      },
+      {
+        "action": "Record independently verified structural validation evidence.",
+        "attestation_status": "UNATTESTED",
+        "authenticity": "EVIDENCE_DERIVED",
+        "event_digest": "ea2e6dc6c742e190da1ba9f3e04a6d52517c2968c381c4496fc017bcd82ed3c2",
+        "event_id": "ce_06c667803a50e37275ca08d338cec30d",
+        "event_type": "STRUCTURAL_VALIDATION_COMPLETED",
+        "evidence_roles": [
+          "validation_inventory"
+        ],
+        "sequence": 4
+      },
+      {
+        "action": "Record issuance of the integrity-linked Model Passport.",
+        "attestation_status": "UNATTESTED",
+        "authenticity": "EVIDENCE_DERIVED",
+        "event_digest": "8b6f0837ae58e0d37513ff96a2f9b9241b8b1d9e00252325aef5892d60040a08",
+        "event_id": "ce_30ef774f5b60e98cd1d27daa79935283",
+        "event_type": "PASSPORT_ISSUED",
+        "evidence_roles": [
+          "model_passport"
+        ],
+        "sequence": 5
+      }
+    ],
+    "evidence_linkage_summary": "VERIFIED",
+    "expiration_status": "NOT_ASSESSED",
+    "findings": [
+      {
+        "finding_id": "CUSTODY-001",
+        "limitation": null,
+        "status": "PASS",
+        "summary": "Immutable custody subject identity is valid."
+      },
+      {
+        "finding_id": "CUSTODY-002",
+        "limitation": null,
+        "status": "PASS",
+        "summary": "The genesis event is unique and valid."
+      },
+      {
+        "finding_id": "CUSTODY-003",
+        "limitation": null,
+        "status": "PASS",
+        "summary": "Event IDs reconstruct deterministically."
+      },
+      {
+        "finding_id": "CUSTODY-004",
+        "limitation": null,
+        "status": "PASS",
+        "summary": "Event digests reconstruct deterministically."
+      },
+      {
+        "finding_id": "CUSTODY-005",
+        "limitation": "Hash-link integrity does not prove that the real-world action occurred.",
+        "status": "PASS",
+        "summary": "Parent digest links are intact."
+      },
+      {
+        "finding_id": "CUSTODY-006",
+        "limitation": null,
+        "status": "PASS",
+        "summary": "Event sequence ordering is contiguous."
+      },
+      {
+        "finding_id": "CUSTODY-007",
+        "limitation": null,
+        "status": "PASS",
+        "summary": "No duplicate event identities exist."
+      },
+      {
+        "finding_id": "CUSTODY-008",
+        "limitation": null,
+        "status": "PASS",
+        "summary": "The linear ledger contains no fork."
+      },
+      {
+        "finding_id": "CUSTODY-009",
+        "limitation": null,
+        "status": "PASS",
+        "summary": "Artifact subject continuity is consistent."
+      },
+      {
+        "finding_id": "CUSTODY-010",
+        "limitation": "Verified references do not create missing artifact provenance.",
+        "status": "PASS",
+        "summary": "Referenced OMIV evidence verifies."
+      },
+      {
+        "finding_id": "CUSTODY-011",
+        "limitation": null,
+        "status": "PASS",
+        "summary": "Event authenticity boundaries are explicit."
+      },
+      {
+        "finding_id": "CUSTODY-012",
+        "limitation": "Incomplete lifecycle evidence is not a ledger-integrity failure.",
+        "status": "INCOMPLETE",
+        "summary": "Lifecycle completeness was evaluated independently from ledger integrity."
+      },
+      {
+        "finding_id": "CUSTODY-013",
+        "limitation": null,
+        "status": "PASS",
+        "summary": "Missing lifecycle events are explicit."
+      },
+      {
+        "finding_id": "CUSTODY-014",
+        "limitation": null,
+        "status": "PASS",
+        "summary": "Revocation status is explicit and not assessed."
+      },
+      {
+        "finding_id": "CUSTODY-015",
+        "limitation": null,
+        "status": "PASS",
+        "summary": "Expiration status is explicit and not assessed."
+      },
+      {
+        "finding_id": "CUSTODY-016",
+        "limitation": null,
+        "status": "PASS",
+        "summary": "The Model Passport linkage is valid."
+      },
+      {
+        "finding_id": "CUSTODY-017",
+        "limitation": null,
+        "status": "PASS",
+        "summary": "The custody ledger is deterministic."
+      },
+      {
+        "finding_id": "CUSTODY-018",
+        "limitation": null,
+        "status": "PASS",
+        "summary": "Custody limitations are explicit."
+      }
+    ],
+    "ledger_digest": "15d57adc5282a074e58f5d8d8e36e88d0bcd636aa5bdfae528ca8577ad5a6445",
+    "lifecycle_completeness": "INCOMPLETE",
+    "limitations": [
+      "A repository locator is not evidence that artifact acquisition occurred.",
+      "Allowed GGML type transitions do not establish numerical quantization fidelity.",
+      "Converter-code support does not establish which converter produced the published artifact.",
+      "Format inspection does not prove payload values or runtime compatibility.",
+      "Hash linking protects recorded event integrity but does not authenticate an actor or prove that a real-world action occurred.",
+      "Immutable metadata identity does not establish payload-byte integrity.",
+      "No acquisition, transformation, approval, deployment, or runtime event is claimed.",
+      "Passport issuance summarizes evidence; it is not an approval or signature.",
+      "Remote header inspection is not artifact acquisition or payload validation.",
+      "Structural descriptor validation does not establish tensor payload integrity.",
+      "The result supports structural integration acceptance only under profiles that permit these limitations.",
+      "This evidence segment is not a complete enterprise chain of custody.",
+      "Tokenizer arrays, logits, backend execution, and runtime behavior were not compared."
+    ],
+    "link_integrity_summary": {
+      "event_digest_integrity": "INTACT",
+      "ledger_integrity": "INTACT",
+      "parent_link_integrity": "INTACT"
+    },
+    "missing_event_types": [
+      "APPROVAL_RECORDED",
+      "ARTIFACT_ACQUISITION_RECORDED",
+      "DEPLOYMENT_RECORDED",
+      "QUANTIZATION_RECORDED",
+      "REGISTRY_PROMOTION_RECORDED",
+      "RUNTIME_OBSERVATION_RECORDED",
+      "SECURITY_INSPECTION_COMPLETED",
+      "TRANSFORMATION_RECORDED"
+    ],
+    "next_evidence_required": [
+      "APPROVAL_RECORDED",
+      "ARTIFACT_ACQUISITION_RECORDED",
+      "DEPLOYMENT_RECORDED",
+      "QUANTIZATION_RECORDED",
+      "REGISTRY_PROMOTION_RECORDED",
+      "RUNTIME_OBSERVATION_RECORDED",
+      "SECURITY_INSPECTION_COMPLETED",
+      "TRANSFORMATION_RECORDED"
+    ],
+    "overall_custody_status": "INCOMPLETE",
+    "profile_completeness": [
+      {
+        "missing_event_types": [
+          "APPROVAL_RECORDED",
+          "ARTIFACT_ACQUISITION_RECORDED",
+          "DEPLOYMENT_RECORDED",
+          "REGISTRY_PROMOTION_RECORDED",
+          "SECURITY_INSPECTION_COMPLETED",
+          "TRANSFORMATION_RECORDED"
+        ],
+        "missing_evidence_concepts": [],
+        "profile": "enterprise_deployment",
+        "status": "INCOMPLETE"
+      },
+      {
+        "missing_event_types": [],
+        "missing_evidence_concepts": [],
+        "profile": "evidence_segment",
+        "status": "COMPLETE"
+      },
+      {
+        "missing_event_types": [
+          "ARTIFACT_ACQUISITION_RECORDED",
+          "SECURITY_INSPECTION_COMPLETED"
+        ],
+        "missing_evidence_concepts": [],
+        "profile": "local_model_intake",
+        "status": "INCOMPLETE"
+      },
+      {
+        "missing_event_types": [
+          "APPROVAL_RECORDED",
+          "ARTIFACT_ACQUISITION_RECORDED",
+          "DEPLOYMENT_RECORDED",
+          "QUANTIZATION_RECORDED",
+          "REGISTRY_PROMOTION_RECORDED",
+          "RUNTIME_OBSERVATION_RECORDED",
+          "SECURITY_INSPECTION_COMPLETED",
+          "TRANSFORMATION_RECORDED"
+        ],
+        "missing_evidence_concepts": [
+          "expiration_check",
+          "payload_integrity",
+          "revocation_check",
+          "tokenizer_parity"
+        ],
+        "profile": "regulated_runtime",
+        "status": "INCOMPLETE"
+      },
+      {
+        "missing_event_types": [
+          "APPROVAL_RECORDED",
+          "ARTIFACT_ACQUISITION_RECORDED",
+          "SECURITY_INSPECTION_COMPLETED",
+          "TRANSFORMATION_RECORDED"
+        ],
+        "missing_evidence_concepts": [],
+        "profile": "team_release",
+        "status": "INCOMPLETE"
+      }
+    ],
+    "report_digest": "f15a3b92b0ca209cde687a3ef2ad1a7a4276dd27c0d2679bc7f0e53b49cab6c5",
+    "revocation_status": "NOT_ASSESSED",
+    "schema": "omiv.custody-ledger-report.v1",
+    "selected_profile": "evidence_segment",
+    "subject": {
+      "architecture": "kimi-k3",
+      "artifact_set_digest": "e30a2b8019258213d893d10caff79860bd07a3262ad6e5cc2352884b7cc4f51c",
+      "content_digest": null,
+      "file_count": 32,
+      "format": "GGUF",
+      "identity_digest": "14cd9878eb0b796ab790fed7aebfb43fb786b042e49ae534f4c88c81f8661e22",
+      "origin_type": "huggingface",
+      "passport_digest": "ccaa10f66f533c43e5ae74492f494ea375fa97f4d8d67ae0a8caa01c5347945e",
+      "passport_id": "mp_02e689eb3e09de0de341fec3aa90abaf",
+      "provider": "huggingface",
+      "repository": "unsloth/Kimi-K3-GGUF",
+      "repository_type": "model_repository",
+      "resolved_revision": "3d4b61ab4b6789d401191c476cbb4567246db8f5",
+      "selection": "UD-Q4_K_XL/*.gguf",
+      "total_declared_bytes": 1508668683104,
+      "validation_inventory_digest": "3b7bbfc865c235544574113dd93ab91d05d72aebafaf226f3b3c25a56fb02a34",
+      "variant": "UD-Q4_K_XL"
+    },
+    "subject_continuity_summary": "CONSISTENT"
+  }
+}

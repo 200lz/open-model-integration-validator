@@ -1,0 +1,737 @@
+{
+  "chain_id": "mcoc_51ddabd5223bccc6ed30070cbe44c60e",
+  "event_authenticity_summary": {
+    "limitation": "Hash linking protects recorded event integrity but does not authenticate an actor or prove that a real-world action occurred.",
+    "signed_event_count": 0,
+    "statuses": [
+      "EVIDENCE_DERIVED"
+    ],
+    "unattested_event_count": 6
+  },
+  "event_count": 6,
+  "event_digest_integrity": "INTACT",
+  "events": [
+    {
+      "action": "Record the source repository locator as context for the immutable subject.",
+      "actor_reference": {
+        "actor_kind": null,
+        "evidence_digest": null,
+        "organization_id": null,
+        "stable_actor_id": null,
+        "status": "UNAVAILABLE"
+      },
+      "assertion_origin": "DERIVED_FROM_VERIFIED_EVIDENCE",
+      "attestation_status": "UNATTESTED",
+      "authenticity": "EVIDENCE_DERIVED",
+      "chain_id": "mcoc_51ddabd5223bccc6ed30070cbe44c60e",
+      "environment_reference": {
+        "container_identity": null,
+        "environment_digest": null,
+        "evidence_reference": null,
+        "runtime_identity": null,
+        "status": "UNAVAILABLE"
+      },
+      "event_claims": {
+        "provider": "huggingface",
+        "repository": "unsloth/Kimi-K3-GGUF",
+        "selection": "UD-IQ1_M/*.gguf"
+      },
+      "event_digest": "6d1860f0283bc4908e6853351839485cecf29f995e794db9ffde926cd0bd93bc",
+      "event_id": "ce_e7933253b7c71204a6117a8cd94c630a",
+      "event_type": "SOURCE_LOCATOR_RECORDED",
+      "evidence_references": [
+        {
+          "availability": "private",
+          "digest": "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+          "finding_ids": [
+            "VALIDATE-004"
+          ],
+          "policy_digests": [
+            "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c",
+            "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0",
+            "ec745ebc9c7a7f1b51b115ab049a6507e76d5902aa98d8d7a27c70497886bdc7"
+          ],
+          "relative_path": "validations/unsloth_Kimi-K3-GGUF_UD-IQ1_M.validation.inventory.json",
+          "role": "validation_inventory",
+          "schema": "omiv.independent-model-validation.v1",
+          "source_phase": "4F-6",
+          "verification_mode": "full_verification"
+        }
+      ],
+      "input_artifacts": [],
+      "limitations": [
+        "A repository locator is not evidence that artifact acquisition occurred."
+      ],
+      "output_artifacts": [],
+      "policy_references": [
+        {
+          "policy_digest": "f1aab7e0f39d99c11865fc21aa9d645119cb8f4052aee436a13ef91e5e68cb80",
+          "policy_id": "custody_policy"
+        },
+        {
+          "policy_digest": "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c",
+          "policy_id": "mapping_policy"
+        },
+        {
+          "policy_digest": "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0",
+          "policy_id": "ontology_policy"
+        },
+        {
+          "policy_digest": "3f03e0855539e05a350a89a49e427437af74a4c7f6d36ea2d0357cb5a0e616dd",
+          "policy_id": "passport_policy"
+        },
+        {
+          "policy_digest": "ec745ebc9c7a7f1b51b115ab049a6507e76d5902aa98d8d7a27c70497886bdc7",
+          "policy_id": "validation_profile_policy"
+        }
+      ],
+      "previous_event_digest": null,
+      "schema": "omiv.custody-event.v1",
+      "sequence": 0,
+      "subject": {
+        "architecture": "kimi-k3",
+        "artifact_set_digest": "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7",
+        "content_digest": null,
+        "file_count": 15,
+        "format": "GGUF",
+        "identity_digest": "ba714c1ebb1009e7adb857229437afd34a952bbbb4993f3e13ddc2f14f2d8966",
+        "origin_type": "huggingface",
+        "passport_digest": "ee8d3f83fe25ac8997e4e69f1551df35c82d6f4c4166e6be7052e06d417159af",
+        "passport_id": "mp_4a9b0e3b309c867711782e2075be77c6",
+        "provider": "huggingface",
+        "repository": "unsloth/Kimi-K3-GGUF",
+        "repository_type": "model_repository",
+        "resolved_revision": "3d4b61ab4b6789d401191c476cbb4567246db8f5",
+        "selection": "UD-IQ1_M/*.gguf",
+        "total_declared_bytes": 648872012448,
+        "validation_inventory_digest": "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+        "variant": "UD-IQ1_M"
+      },
+      "tool_reference": null
+    },
+    {
+      "action": "Establish immutable repository and artifact-set identity.",
+      "actor_reference": {
+        "actor_kind": null,
+        "evidence_digest": null,
+        "organization_id": null,
+        "stable_actor_id": null,
+        "status": "UNAVAILABLE"
+      },
+      "assertion_origin": "DERIVED_FROM_VERIFIED_EVIDENCE",
+      "attestation_status": "UNATTESTED",
+      "authenticity": "EVIDENCE_DERIVED",
+      "chain_id": "mcoc_51ddabd5223bccc6ed30070cbe44c60e",
+      "environment_reference": {
+        "container_identity": null,
+        "environment_digest": null,
+        "evidence_reference": null,
+        "runtime_identity": null,
+        "status": "UNAVAILABLE"
+      },
+      "event_claims": {
+        "artifact_set_digest": "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7",
+        "resolved_revision": "3d4b61ab4b6789d401191c476cbb4567246db8f5"
+      },
+      "event_digest": "864e708359e7e9a97abd6f035006006660bd0cf17f48b5e955881e2eeffc42b1",
+      "event_id": "ce_7a0e62bd7c027e1480035d936ed01ba8",
+      "event_type": "IMMUTABLE_IDENTITY_ESTABLISHED",
+      "evidence_references": [
+        {
+          "availability": "private",
+          "digest": "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+          "finding_ids": [
+            "VALIDATE-004"
+          ],
+          "policy_digests": [
+            "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c",
+            "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0",
+            "ec745ebc9c7a7f1b51b115ab049a6507e76d5902aa98d8d7a27c70497886bdc7"
+          ],
+          "relative_path": "validations/unsloth_Kimi-K3-GGUF_UD-IQ1_M.validation.inventory.json",
+          "role": "validation_inventory",
+          "schema": "omiv.independent-model-validation.v1",
+          "source_phase": "4F-6",
+          "verification_mode": "full_verification"
+        }
+      ],
+      "input_artifacts": [],
+      "limitations": [
+        "Immutable metadata identity does not establish payload-byte integrity."
+      ],
+      "output_artifacts": [],
+      "policy_references": [
+        {
+          "policy_digest": "f1aab7e0f39d99c11865fc21aa9d645119cb8f4052aee436a13ef91e5e68cb80",
+          "policy_id": "custody_policy"
+        },
+        {
+          "policy_digest": "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c",
+          "policy_id": "mapping_policy"
+        },
+        {
+          "policy_digest": "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0",
+          "policy_id": "ontology_policy"
+        },
+        {
+          "policy_digest": "3f03e0855539e05a350a89a49e427437af74a4c7f6d36ea2d0357cb5a0e616dd",
+          "policy_id": "passport_policy"
+        },
+        {
+          "policy_digest": "ec745ebc9c7a7f1b51b115ab049a6507e76d5902aa98d8d7a27c70497886bdc7",
+          "policy_id": "validation_profile_policy"
+        }
+      ],
+      "previous_event_digest": "6d1860f0283bc4908e6853351839485cecf29f995e794db9ffde926cd0bd93bc",
+      "schema": "omiv.custody-event.v1",
+      "sequence": 1,
+      "subject": {
+        "architecture": "kimi-k3",
+        "artifact_set_digest": "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7",
+        "content_digest": null,
+        "file_count": 15,
+        "format": "GGUF",
+        "identity_digest": "ba714c1ebb1009e7adb857229437afd34a952bbbb4993f3e13ddc2f14f2d8966",
+        "origin_type": "huggingface",
+        "passport_digest": "ee8d3f83fe25ac8997e4e69f1551df35c82d6f4c4166e6be7052e06d417159af",
+        "passport_id": "mp_4a9b0e3b309c867711782e2075be77c6",
+        "provider": "huggingface",
+        "repository": "unsloth/Kimi-K3-GGUF",
+        "repository_type": "model_repository",
+        "resolved_revision": "3d4b61ab4b6789d401191c476cbb4567246db8f5",
+        "selection": "UD-IQ1_M/*.gguf",
+        "total_declared_bytes": 648872012448,
+        "validation_inventory_digest": "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+        "variant": "UD-IQ1_M"
+      },
+      "tool_reference": null
+    },
+    {
+      "action": "Record verified bounded remote inspection evidence.",
+      "actor_reference": {
+        "actor_kind": null,
+        "evidence_digest": null,
+        "organization_id": null,
+        "stable_actor_id": null,
+        "status": "UNAVAILABLE"
+      },
+      "assertion_origin": "DERIVED_FROM_VERIFIED_EVIDENCE",
+      "attestation_status": "UNATTESTED",
+      "authenticity": "EVIDENCE_DERIVED",
+      "chain_id": "mcoc_51ddabd5223bccc6ed30070cbe44c60e",
+      "environment_reference": {
+        "container_identity": null,
+        "environment_digest": null,
+        "evidence_reference": null,
+        "runtime_identity": null,
+        "status": "UNAVAILABLE"
+      },
+      "event_claims": {
+        "artifact_index_digest": "6059d6a460f5d417173c4346f0c4e5d6c26a4887e488ea7c24d5e473ca6094a6",
+        "evidence_graph_digest": "ea08a66295a72ebb1331196e9cd3c94845fc21208b08240447828ae77b7db2eb",
+        "tensor_payload_bytes_accepted": 0
+      },
+      "event_digest": "20fff15d614c2d794ba2b8457a4c7ab66cb96fb5e0cad6179e7c278d31f20fee",
+      "event_id": "ce_9d8a79b117418ac99795e22e097479e7",
+      "event_type": "REMOTE_INSPECTION_RECORDED",
+      "evidence_references": [
+        {
+          "availability": "private",
+          "digest": "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+          "finding_ids": [
+            "VALIDATE-004",
+            "VALIDATE-005"
+          ],
+          "policy_digests": [
+            "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c",
+            "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0",
+            "ec745ebc9c7a7f1b51b115ab049a6507e76d5902aa98d8d7a27c70497886bdc7"
+          ],
+          "relative_path": "validations/unsloth_Kimi-K3-GGUF_UD-IQ1_M.validation.inventory.json",
+          "role": "validation_inventory",
+          "schema": "omiv.independent-model-validation.v1",
+          "source_phase": "4F-6",
+          "verification_mode": "full_verification"
+        }
+      ],
+      "input_artifacts": [],
+      "limitations": [
+        "Remote header inspection is not artifact acquisition or payload validation."
+      ],
+      "output_artifacts": [],
+      "policy_references": [
+        {
+          "policy_digest": "f1aab7e0f39d99c11865fc21aa9d645119cb8f4052aee436a13ef91e5e68cb80",
+          "policy_id": "custody_policy"
+        },
+        {
+          "policy_digest": "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c",
+          "policy_id": "mapping_policy"
+        },
+        {
+          "policy_digest": "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0",
+          "policy_id": "ontology_policy"
+        },
+        {
+          "policy_digest": "3f03e0855539e05a350a89a49e427437af74a4c7f6d36ea2d0357cb5a0e616dd",
+          "policy_id": "passport_policy"
+        },
+        {
+          "policy_digest": "ec745ebc9c7a7f1b51b115ab049a6507e76d5902aa98d8d7a27c70497886bdc7",
+          "policy_id": "validation_profile_policy"
+        }
+      ],
+      "previous_event_digest": "864e708359e7e9a97abd6f035006006660bd0cf17f48b5e955881e2eeffc42b1",
+      "schema": "omiv.custody-event.v1",
+      "sequence": 2,
+      "subject": {
+        "architecture": "kimi-k3",
+        "artifact_set_digest": "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7",
+        "content_digest": null,
+        "file_count": 15,
+        "format": "GGUF",
+        "identity_digest": "ba714c1ebb1009e7adb857229437afd34a952bbbb4993f3e13ddc2f14f2d8966",
+        "origin_type": "huggingface",
+        "passport_digest": "ee8d3f83fe25ac8997e4e69f1551df35c82d6f4c4166e6be7052e06d417159af",
+        "passport_id": "mp_4a9b0e3b309c867711782e2075be77c6",
+        "provider": "huggingface",
+        "repository": "unsloth/Kimi-K3-GGUF",
+        "repository_type": "model_repository",
+        "resolved_revision": "3d4b61ab4b6789d401191c476cbb4567246db8f5",
+        "selection": "UD-IQ1_M/*.gguf",
+        "total_declared_bytes": 648872012448,
+        "validation_inventory_digest": "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+        "variant": "UD-IQ1_M"
+      },
+      "tool_reference": null
+    },
+    {
+      "action": "Record verified GGUF header and split-container inspection.",
+      "actor_reference": {
+        "actor_kind": null,
+        "evidence_digest": null,
+        "organization_id": null,
+        "stable_actor_id": null,
+        "status": "UNAVAILABLE"
+      },
+      "assertion_origin": "DERIVED_FROM_VERIFIED_EVIDENCE",
+      "attestation_status": "UNATTESTED",
+      "authenticity": "EVIDENCE_DERIVED",
+      "chain_id": "mcoc_51ddabd5223bccc6ed30070cbe44c60e",
+      "environment_reference": {
+        "container_identity": null,
+        "environment_digest": null,
+        "evidence_reference": null,
+        "runtime_identity": null,
+        "status": "UNAVAILABLE"
+      },
+      "event_claims": {
+        "artifact_set_digest": "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7",
+        "file_count": 15,
+        "format": "GGUF"
+      },
+      "event_digest": "13dbeb0d30fc2a1673dbcdb56f9fda097329de7e077230397dc92743663cde0d",
+      "event_id": "ce_4b09150117e85d7c1816d47b713b01cb",
+      "event_type": "FORMAT_INSPECTION_COMPLETED",
+      "evidence_references": [
+        {
+          "availability": "private",
+          "digest": "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+          "finding_ids": [
+            "VALIDATE-006",
+            "VALIDATE-007"
+          ],
+          "policy_digests": [
+            "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c",
+            "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0",
+            "ec745ebc9c7a7f1b51b115ab049a6507e76d5902aa98d8d7a27c70497886bdc7"
+          ],
+          "relative_path": "validations/unsloth_Kimi-K3-GGUF_UD-IQ1_M.validation.inventory.json",
+          "role": "validation_inventory",
+          "schema": "omiv.independent-model-validation.v1",
+          "source_phase": "4F-6",
+          "verification_mode": "full_verification"
+        }
+      ],
+      "input_artifacts": [],
+      "limitations": [
+        "Format inspection does not prove payload values or runtime compatibility."
+      ],
+      "output_artifacts": [],
+      "policy_references": [
+        {
+          "policy_digest": "f1aab7e0f39d99c11865fc21aa9d645119cb8f4052aee436a13ef91e5e68cb80",
+          "policy_id": "custody_policy"
+        },
+        {
+          "policy_digest": "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c",
+          "policy_id": "mapping_policy"
+        },
+        {
+          "policy_digest": "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0",
+          "policy_id": "ontology_policy"
+        },
+        {
+          "policy_digest": "3f03e0855539e05a350a89a49e427437af74a4c7f6d36ea2d0357cb5a0e616dd",
+          "policy_id": "passport_policy"
+        },
+        {
+          "policy_digest": "ec745ebc9c7a7f1b51b115ab049a6507e76d5902aa98d8d7a27c70497886bdc7",
+          "policy_id": "validation_profile_policy"
+        }
+      ],
+      "previous_event_digest": "20fff15d614c2d794ba2b8457a4c7ab66cb96fb5e0cad6179e7c278d31f20fee",
+      "schema": "omiv.custody-event.v1",
+      "sequence": 3,
+      "subject": {
+        "architecture": "kimi-k3",
+        "artifact_set_digest": "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7",
+        "content_digest": null,
+        "file_count": 15,
+        "format": "GGUF",
+        "identity_digest": "ba714c1ebb1009e7adb857229437afd34a952bbbb4993f3e13ddc2f14f2d8966",
+        "origin_type": "huggingface",
+        "passport_digest": "ee8d3f83fe25ac8997e4e69f1551df35c82d6f4c4166e6be7052e06d417159af",
+        "passport_id": "mp_4a9b0e3b309c867711782e2075be77c6",
+        "provider": "huggingface",
+        "repository": "unsloth/Kimi-K3-GGUF",
+        "repository_type": "model_repository",
+        "resolved_revision": "3d4b61ab4b6789d401191c476cbb4567246db8f5",
+        "selection": "UD-IQ1_M/*.gguf",
+        "total_declared_bytes": 648872012448,
+        "validation_inventory_digest": "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+        "variant": "UD-IQ1_M"
+      },
+      "tool_reference": null
+    },
+    {
+      "action": "Record independently verified structural validation evidence.",
+      "actor_reference": {
+        "actor_kind": null,
+        "evidence_digest": null,
+        "organization_id": null,
+        "stable_actor_id": null,
+        "status": "UNAVAILABLE"
+      },
+      "assertion_origin": "DERIVED_FROM_VERIFIED_EVIDENCE",
+      "attestation_status": "UNATTESTED",
+      "authenticity": "EVIDENCE_DERIVED",
+      "chain_id": "mcoc_51ddabd5223bccc6ed30070cbe44c60e",
+      "environment_reference": {
+        "container_identity": null,
+        "environment_digest": null,
+        "evidence_reference": null,
+        "runtime_identity": null,
+        "status": "UNAVAILABLE"
+      },
+      "event_claims": {
+        "evidence_graph_digest": "ea08a66295a72ebb1331196e9cd3c94845fc21208b08240447828ae77b7db2eb",
+        "result": "STRUCTURALLY_VALIDATED_WITH_LIMITATIONS",
+        "validation_inventory_digest": "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8"
+      },
+      "event_digest": "0374f9f4e11400562753fa0fc08c337a604b354d8271b33a4bcdc9e99d7b0ca2",
+      "event_id": "ce_3d083a09d484cb898b4377ccff9b0036",
+      "event_type": "STRUCTURAL_VALIDATION_COMPLETED",
+      "evidence_references": [
+        {
+          "availability": "private",
+          "digest": "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+          "finding_ids": [
+            "VALIDATE-008",
+            "VALIDATE-009",
+            "VALIDATE-020"
+          ],
+          "policy_digests": [
+            "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c",
+            "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0",
+            "ec745ebc9c7a7f1b51b115ab049a6507e76d5902aa98d8d7a27c70497886bdc7"
+          ],
+          "relative_path": "validations/unsloth_Kimi-K3-GGUF_UD-IQ1_M.validation.inventory.json",
+          "role": "validation_inventory",
+          "schema": "omiv.independent-model-validation.v1",
+          "source_phase": "4F-6",
+          "verification_mode": "full_verification"
+        }
+      ],
+      "input_artifacts": [],
+      "limitations": [
+        "Structural descriptor validation does not establish tensor payload integrity.",
+        "Converter-code support does not establish which converter produced the published artifact.",
+        "Allowed GGML type transitions do not establish numerical quantization fidelity.",
+        "Tokenizer arrays, logits, backend execution, and runtime behavior were not compared.",
+        "The result supports structural integration acceptance only under profiles that permit these limitations."
+      ],
+      "output_artifacts": [],
+      "policy_references": [
+        {
+          "policy_digest": "f1aab7e0f39d99c11865fc21aa9d645119cb8f4052aee436a13ef91e5e68cb80",
+          "policy_id": "custody_policy"
+        },
+        {
+          "policy_digest": "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c",
+          "policy_id": "mapping_policy"
+        },
+        {
+          "policy_digest": "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0",
+          "policy_id": "ontology_policy"
+        },
+        {
+          "policy_digest": "3f03e0855539e05a350a89a49e427437af74a4c7f6d36ea2d0357cb5a0e616dd",
+          "policy_id": "passport_policy"
+        },
+        {
+          "policy_digest": "ec745ebc9c7a7f1b51b115ab049a6507e76d5902aa98d8d7a27c70497886bdc7",
+          "policy_id": "validation_profile_policy"
+        }
+      ],
+      "previous_event_digest": "13dbeb0d30fc2a1673dbcdb56f9fda097329de7e077230397dc92743663cde0d",
+      "schema": "omiv.custody-event.v1",
+      "sequence": 4,
+      "subject": {
+        "architecture": "kimi-k3",
+        "artifact_set_digest": "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7",
+        "content_digest": null,
+        "file_count": 15,
+        "format": "GGUF",
+        "identity_digest": "ba714c1ebb1009e7adb857229437afd34a952bbbb4993f3e13ddc2f14f2d8966",
+        "origin_type": "huggingface",
+        "passport_digest": "ee8d3f83fe25ac8997e4e69f1551df35c82d6f4c4166e6be7052e06d417159af",
+        "passport_id": "mp_4a9b0e3b309c867711782e2075be77c6",
+        "provider": "huggingface",
+        "repository": "unsloth/Kimi-K3-GGUF",
+        "repository_type": "model_repository",
+        "resolved_revision": "3d4b61ab4b6789d401191c476cbb4567246db8f5",
+        "selection": "UD-IQ1_M/*.gguf",
+        "total_declared_bytes": 648872012448,
+        "validation_inventory_digest": "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+        "variant": "UD-IQ1_M"
+      },
+      "tool_reference": null
+    },
+    {
+      "action": "Record issuance of the integrity-linked Model Passport.",
+      "actor_reference": {
+        "actor_kind": null,
+        "evidence_digest": null,
+        "organization_id": null,
+        "stable_actor_id": null,
+        "status": "UNAVAILABLE"
+      },
+      "assertion_origin": "DERIVED_FROM_VERIFIED_EVIDENCE",
+      "attestation_status": "UNATTESTED",
+      "authenticity": "EVIDENCE_DERIVED",
+      "chain_id": "mcoc_51ddabd5223bccc6ed30070cbe44c60e",
+      "environment_reference": {
+        "container_identity": null,
+        "environment_digest": null,
+        "evidence_reference": null,
+        "runtime_identity": null,
+        "status": "UNAVAILABLE"
+      },
+      "event_claims": {
+        "passport_digest": "ee8d3f83fe25ac8997e4e69f1551df35c82d6f4c4166e6be7052e06d417159af",
+        "passport_id": "mp_4a9b0e3b309c867711782e2075be77c6"
+      },
+      "event_digest": "e149325cf1e6d9a79d17d7f5c9b8c0d98310a331898c83fdb41c030c6534f501",
+      "event_id": "ce_b9ebd9787f05e0a481a96c5a193e114d",
+      "event_type": "PASSPORT_ISSUED",
+      "evidence_references": [
+        {
+          "availability": "private",
+          "digest": "ee8d3f83fe25ac8997e4e69f1551df35c82d6f4c4166e6be7052e06d417159af",
+          "finding_ids": [],
+          "policy_digests": [
+            "3f03e0855539e05a350a89a49e427437af74a4c7f6d36ea2d0357cb5a0e616dd"
+          ],
+          "relative_path": "passports/unsloth_Kimi-K3-GGUF_UD-IQ1_M.passport.json",
+          "role": "model_passport",
+          "schema": "omiv.model-passport.v1",
+          "source_phase": "5A",
+          "verification_mode": "full_verification"
+        }
+      ],
+      "input_artifacts": [],
+      "limitations": [
+        "Passport issuance summarizes evidence; it is not an approval or signature."
+      ],
+      "output_artifacts": [],
+      "policy_references": [
+        {
+          "policy_digest": "f1aab7e0f39d99c11865fc21aa9d645119cb8f4052aee436a13ef91e5e68cb80",
+          "policy_id": "custody_policy"
+        },
+        {
+          "policy_digest": "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c",
+          "policy_id": "mapping_policy"
+        },
+        {
+          "policy_digest": "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0",
+          "policy_id": "ontology_policy"
+        },
+        {
+          "policy_digest": "3f03e0855539e05a350a89a49e427437af74a4c7f6d36ea2d0357cb5a0e616dd",
+          "policy_id": "passport_policy"
+        },
+        {
+          "policy_digest": "ec745ebc9c7a7f1b51b115ab049a6507e76d5902aa98d8d7a27c70497886bdc7",
+          "policy_id": "validation_profile_policy"
+        }
+      ],
+      "previous_event_digest": "0374f9f4e11400562753fa0fc08c337a604b354d8271b33a4bcdc9e99d7b0ca2",
+      "schema": "omiv.custody-event.v1",
+      "sequence": 5,
+      "subject": {
+        "architecture": "kimi-k3",
+        "artifact_set_digest": "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7",
+        "content_digest": null,
+        "file_count": 15,
+        "format": "GGUF",
+        "identity_digest": "ba714c1ebb1009e7adb857229437afd34a952bbbb4993f3e13ddc2f14f2d8966",
+        "origin_type": "huggingface",
+        "passport_digest": "ee8d3f83fe25ac8997e4e69f1551df35c82d6f4c4166e6be7052e06d417159af",
+        "passport_id": "mp_4a9b0e3b309c867711782e2075be77c6",
+        "provider": "huggingface",
+        "repository": "unsloth/Kimi-K3-GGUF",
+        "repository_type": "model_repository",
+        "resolved_revision": "3d4b61ab4b6789d401191c476cbb4567246db8f5",
+        "selection": "UD-IQ1_M/*.gguf",
+        "total_declared_bytes": 648872012448,
+        "validation_inventory_digest": "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+        "variant": "UD-IQ1_M"
+      },
+      "tool_reference": null
+    }
+  ],
+  "evidence_linkage": "VERIFIED",
+  "expiration_status": "NOT_ASSESSED",
+  "genesis_event_digest": "6d1860f0283bc4908e6853351839485cecf29f995e794db9ffde926cd0bd93bc",
+  "latest_event_digest": "e149325cf1e6d9a79d17d7f5c9b8c0d98310a331898c83fdb41c030c6534f501",
+  "ledger_digest": "8bc0818732f0fc8d0dc91d84589f1c046c28e68a31f2f4cd831e3372f96141c7",
+  "ledger_integrity": "INTACT",
+  "lifecycle_completeness": "INCOMPLETE",
+  "missing_event_analysis": {
+    "missing_event_types": [
+      "APPROVAL_RECORDED",
+      "ARTIFACT_ACQUISITION_RECORDED",
+      "DEPLOYMENT_RECORDED",
+      "QUANTIZATION_RECORDED",
+      "REGISTRY_PROMOTION_RECORDED",
+      "RUNTIME_OBSERVATION_RECORDED",
+      "SECURITY_INSPECTION_COMPLETED",
+      "TRANSFORMATION_RECORDED"
+    ],
+    "missing_evidence_concepts": [
+      "expiration_check",
+      "payload_integrity",
+      "revocation_check",
+      "tokenizer_parity"
+    ],
+    "profile_results": [
+      {
+        "missing_event_types": [
+          "APPROVAL_RECORDED",
+          "ARTIFACT_ACQUISITION_RECORDED",
+          "DEPLOYMENT_RECORDED",
+          "REGISTRY_PROMOTION_RECORDED",
+          "SECURITY_INSPECTION_COMPLETED",
+          "TRANSFORMATION_RECORDED"
+        ],
+        "missing_evidence_concepts": [],
+        "profile": "enterprise_deployment",
+        "status": "INCOMPLETE"
+      },
+      {
+        "missing_event_types": [],
+        "missing_evidence_concepts": [],
+        "profile": "evidence_segment",
+        "status": "COMPLETE"
+      },
+      {
+        "missing_event_types": [
+          "ARTIFACT_ACQUISITION_RECORDED",
+          "SECURITY_INSPECTION_COMPLETED"
+        ],
+        "missing_evidence_concepts": [],
+        "profile": "local_model_intake",
+        "status": "INCOMPLETE"
+      },
+      {
+        "missing_event_types": [
+          "APPROVAL_RECORDED",
+          "ARTIFACT_ACQUISITION_RECORDED",
+          "DEPLOYMENT_RECORDED",
+          "QUANTIZATION_RECORDED",
+          "REGISTRY_PROMOTION_RECORDED",
+          "RUNTIME_OBSERVATION_RECORDED",
+          "SECURITY_INSPECTION_COMPLETED",
+          "TRANSFORMATION_RECORDED"
+        ],
+        "missing_evidence_concepts": [
+          "expiration_check",
+          "payload_integrity",
+          "revocation_check",
+          "tokenizer_parity"
+        ],
+        "profile": "regulated_runtime",
+        "status": "INCOMPLETE"
+      },
+      {
+        "missing_event_types": [
+          "APPROVAL_RECORDED",
+          "ARTIFACT_ACQUISITION_RECORDED",
+          "SECURITY_INSPECTION_COMPLETED",
+          "TRANSFORMATION_RECORDED"
+        ],
+        "missing_evidence_concepts": [],
+        "profile": "team_release",
+        "status": "INCOMPLETE"
+      }
+    ],
+    "selected_profile": "evidence_segment"
+  },
+  "overall_custody_status": "INCOMPLETE",
+  "parent_link_integrity": "INTACT",
+  "passport_reference": {
+    "digest": "ee8d3f83fe25ac8997e4e69f1551df35c82d6f4c4166e6be7052e06d417159af",
+    "relative_path": "passports/unsloth_Kimi-K3-GGUF_UD-IQ1_M.passport.json",
+    "role": "model_passport",
+    "schema": "omiv.model-passport.v1"
+  },
+  "policy_identity": {
+    "custody_policy_digest": "f1aab7e0f39d99c11865fc21aa9d645119cb8f4052aee436a13ef91e5e68cb80",
+    "custody_policy_schema": "omiv.custody-policy.v1",
+    "mapping_policy_digest": "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c",
+    "ontology_policy_digest": "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0",
+    "passport_policy_digest": "3f03e0855539e05a350a89a49e427437af74a4c7f6d36ea2d0357cb5a0e616dd",
+    "validation_profile_policy_digest": "ec745ebc9c7a7f1b51b115ab049a6507e76d5902aa98d8d7a27c70497886bdc7"
+  },
+  "revocation_status": "NOT_ASSESSED",
+  "schema": "omiv.custody-ledger.v1",
+  "selected_profile": "evidence_segment",
+  "subject": {
+    "architecture": "kimi-k3",
+    "artifact_set_digest": "1aa8e70e92cda916aa552e468c49410389bc3cf71f1f56163716f68078bb04c7",
+    "content_digest": null,
+    "file_count": 15,
+    "format": "GGUF",
+    "identity_digest": "ba714c1ebb1009e7adb857229437afd34a952bbbb4993f3e13ddc2f14f2d8966",
+    "origin_type": "huggingface",
+    "passport_digest": "ee8d3f83fe25ac8997e4e69f1551df35c82d6f4c4166e6be7052e06d417159af",
+    "passport_id": "mp_4a9b0e3b309c867711782e2075be77c6",
+    "provider": "huggingface",
+    "repository": "unsloth/Kimi-K3-GGUF",
+    "repository_type": "model_repository",
+    "resolved_revision": "3d4b61ab4b6789d401191c476cbb4567246db8f5",
+    "selection": "UD-IQ1_M/*.gguf",
+    "total_declared_bytes": 648872012448,
+    "validation_inventory_digest": "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+    "variant": "UD-IQ1_M"
+  },
+  "subject_continuity": "CONSISTENT",
+  "validation_reference": {
+    "digest": "54b7f52695634878fcde5b9d4d9e89e4c8f6fd4b32060f2be81ebe7876e003c8",
+    "relative_path": "validations/unsloth_Kimi-K3-GGUF_UD-IQ1_M.validation.inventory.json",
+    "role": "validation_inventory",
+    "schema": "omiv.independent-model-validation.v1"
+  }
+}

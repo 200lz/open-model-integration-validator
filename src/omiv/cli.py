@@ -34,6 +34,27 @@ from omiv.comparison.reporting import (
     verify_comparison_report,
     write_comparison_bundle,
 )
+from omiv.custody.append import append_event
+from omiv.custody.builder import build_evidence_custody_ledger
+from omiv.custody.models import CustodyEventInput, LifecycleCompleteness
+from omiv.custody.passport import (
+    build_custody_linked_passport,
+    load_custody_linked_passport,
+    render_linked_passport_markdown,
+    verify_custody_linked_passport,
+    write_custody_linked_passport,
+)
+from omiv.custody.policy import selected_profile_result as custody_profile_result
+from omiv.custody.reporting import (
+    build_custody_report,
+    render_custody_markdown,
+    verify_custody_report,
+    write_custody_bundle,
+)
+from omiv.custody.reporting import (
+    pretty_json as pretty_custody_json,
+)
+from omiv.custody.verification import load_custody_ledger, verify_custody_ledger
 from omiv.errors import OmivInputError
 from omiv.gguf.compare import compare_gguf_inventories, format_gguf_report
 from omiv.gguf.models import GGUFInventory
@@ -179,8 +200,10 @@ from omiv.validators.kimi_k3 import validate_inventory
 app = typer.Typer(no_args_is_help=True, pretty_exceptions_enable=False)
 model_packs_app = typer.Typer(no_args_is_help=True)
 passport_app = typer.Typer(no_args_is_help=True)
+custody_app = typer.Typer(no_args_is_help=True)
 app.add_typer(model_packs_app, name="model-packs")
 app.add_typer(passport_app, name="passport")
+app.add_typer(custody_app, name="custody")
 MAX_CANONICAL_INVENTORY_BYTES = 64 * 1024 * 1024
 REMOTE_REPORT_SCHEMAS = {
     "omiv.remote-snapshot-report.v1",
@@ -1208,6 +1231,9 @@ def passport_create(
     markdown_output: Annotated[Path, typer.Option("--markdown-output", dir_okay=False)],
     root: Annotated[Path, typer.Option("--root", exists=True, file_okay=False)] = Path("."),
     profile: Annotated[str | None, typer.Option("--profile")] = None,
+    custody_ledger: Annotated[
+        Path | None, typer.Option("--custody-ledger", exists=True, dir_okay=False)
+    ] = None,
 ) -> None:
     """Create JSON and Markdown passports from verified validation evidence offline."""
     try:
@@ -1218,17 +1244,35 @@ def passport_create(
         passport = build_passport(inventory, validation_reference=reference)
         if profile is not None:
             selected = selected_profile_result(passport.usage_profiles, profile)
-        write_passport(
-            passport,
-            output,
-            markdown_output,
-            forbidden_inputs=(validation_path,),
-        )
+        if custody_ledger is None:
+            write_passport(
+                passport,
+                output,
+                markdown_output,
+                forbidden_inputs=(validation_path,),
+            )
+            passport_id = passport.passport_id
+            passport_digest = passport.passport_digest
+        else:
+            ledger_path = custody_ledger.resolve()
+            ledger = verify_custody_ledger(ledger_path, root)
+            ledger_reference = ledger_path.relative_to(root).as_posix()
+            linked = build_custody_linked_passport(
+                passport, ledger, ledger_reference=ledger_reference
+            )
+            write_custody_linked_passport(
+                linked,
+                output,
+                markdown_output,
+                forbidden_inputs=(validation_path, ledger_path),
+            )
+            passport_id = linked.passport_id
+            passport_digest = linked.passport_digest
     except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
         typer.echo(f"ERROR passport creation failed: {exc}", err=True)
         raise typer.Exit(code=2) from exc
     typer.echo(
-        f"PASS Model Passport id={passport.passport_id} digest={passport.passport_digest}"
+        f"PASS Model Passport id={passport_id} digest={passport_digest}"
     )
     if profile is not None and selected.outcome not in {
         UsageOutcome.SUITABLE_WITH_LIMITATIONS,
@@ -1245,19 +1289,33 @@ def passport_verify_command(
 ) -> None:
     """Verify a passport's integrity and, by default, all evidence dependencies offline."""
     try:
-        result = verify_passport(input_path, root=root, digest_only=digest_only)
-        passport = load_passport(input_path)
+        schema = load_json_value(input_path.read_text(encoding="utf-8")).get("schema")
+        if schema == "omiv.model-passport.v2":
+            linked = verify_custody_linked_passport(
+                input_path, root=root, digest_only=digest_only
+            )
+            mode = "digest_only_verification" if digest_only else "full_verification"
+            passport_id = linked.passport_id
+            passport_digest = linked.passport_digest
+            profiles = linked.usage_profiles
+        else:
+            result = verify_passport(input_path, root=root, digest_only=digest_only)
+            passport = load_passport(input_path)
+            mode = result.mode.value
+            passport_id = result.passport_id
+            passport_digest = result.passport_digest
+            profiles = passport.usage_profiles
         if profile is not None:
-            selected = selected_profile_result(passport.usage_profiles, profile)
+            selected = selected_profile_result(profiles, profile)
     except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
         typer.echo(f"ERROR passport verification failed: {exc}", err=True)
         raise typer.Exit(code=2) from exc
-    label = "PASS" if result.mode != VerificationMode.UNVERIFIABLE_REFERENCE else "UNVERIFIABLE"
+    label = "PASS" if mode != VerificationMode.UNVERIFIABLE_REFERENCE.value else "UNVERIFIABLE"
     typer.echo(
-        f"{label} Model Passport mode={result.mode.value} id={result.passport_id} "
-        f"digest={result.passport_digest}"
+        f"{label} Model Passport mode={mode} id={passport_id} "
+        f"digest={passport_digest}"
     )
-    if result.mode == VerificationMode.UNVERIFIABLE_REFERENCE:
+    if mode == VerificationMode.UNVERIFIABLE_REFERENCE.value:
         raise typer.Exit(code=2)
     if profile is not None and selected.outcome != UsageOutcome.SUITABLE_WITH_LIMITATIONS:
         raise typer.Exit(code=1)
@@ -1269,11 +1327,139 @@ def passport_show(
 ) -> None:
     """Render a tamper-checked passport as a compact personal summary."""
     try:
-        passport = load_passport(input_path)
+        schema = load_json_value(input_path.read_text(encoding="utf-8")).get("schema")
+        if schema == "omiv.model-passport.v2":
+            text = render_linked_passport_markdown(
+                load_custody_linked_passport(input_path)
+            )
+        else:
+            text = render_passport_markdown(load_passport(input_path))
     except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
         typer.echo(f"ERROR passport display failed: {exc}", err=True)
         raise typer.Exit(code=2) from exc
-    typer.echo(render_passport_markdown(passport), nl=False)
+    typer.echo(text, nl=False)
+
+
+@custody_app.command("create")
+def custody_create(
+    passport_path: Annotated[Path, typer.Option("--passport", exists=True, dir_okay=False)],
+    validation: Annotated[Path, typer.Option("--validation", exists=True, dir_okay=False)],
+    profile: Annotated[str, typer.Option("--profile")],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    report_output: Annotated[Path, typer.Option("--report-output", dir_okay=False)],
+    markdown_output: Annotated[Path, typer.Option("--markdown-output", dir_okay=False)],
+    root: Annotated[Path, typer.Option("--root", exists=True, file_okay=False)] = Path("."),
+) -> None:
+    """Build an evidence-derived, hash-linked custody segment offline."""
+    try:
+        root = root.resolve()
+        passport_file = passport_path.resolve()
+        validation_file = validation.resolve()
+        verify_passport(passport_file, root=root)
+        passport = load_passport(passport_file)
+        inventory = verify_validation_inventory(validation_file, root)
+        ledger = build_evidence_custody_ledger(
+            passport,
+            inventory,
+            passport_reference=passport_file.relative_to(root).as_posix(),
+            validation_reference=validation_file.relative_to(root).as_posix(),
+            selected_profile=profile,
+        )
+        report = write_custody_bundle(
+            ledger,
+            output,
+            report_output,
+            markdown_output,
+            forbidden_inputs=(passport_file, validation_file),
+        )
+        selected = custody_profile_result(ledger.missing_event_analysis)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR custody creation failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"PASS custody chain={ledger.chain_id} ledger={ledger.ledger_digest} "
+        f"report={report.report.report_digest} profile={selected.status.value}"
+    )
+    if selected.status != LifecycleCompleteness.COMPLETE:
+        raise typer.Exit(code=1)
+
+
+@custody_app.command("append")
+def custody_append(
+    ledger_path: Annotated[Path, typer.Option("--ledger", exists=True, dir_okay=False)],
+    event_path: Annotated[Path, typer.Option("--event", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    root: Annotated[Path, typer.Option("--root", exists=True, file_okay=False)] = Path("."),
+) -> None:
+    """Append one strict user-declared event without mutating the source ledger."""
+    try:
+        if output.resolve() == ledger_path.resolve():
+            raise OmivInputError("in-place custody ledger overwrite is not allowed")
+        ledger = verify_custody_ledger(ledger_path, root.resolve())
+        raw = load_json_value(event_path.read_text(encoding="utf-8"))
+        event_input = CustodyEventInput.model_validate(raw)
+        updated = append_event(ledger, event_input)
+        atomic_write_text(
+            output,
+            pretty_custody_json(updated),
+            forbidden_inputs=(ledger_path.resolve(), event_path.resolve()),
+        )
+        selected = custody_profile_result(updated.missing_event_analysis)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR custody append failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(f"PASS custody append event={updated.events[-1].event_id}")
+    if selected.status != LifecycleCompleteness.COMPLETE:
+        raise typer.Exit(code=1)
+
+
+@custody_app.command("verify")
+def custody_verify_command(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    root: Annotated[Path, typer.Option("--root", exists=True, file_okay=False)] = Path("."),
+) -> None:
+    """Fully verify ledger hashes, links, policy, and canonical evidence offline."""
+    try:
+        ledger = verify_custody_ledger(input_path, root.resolve())
+        selected = custody_profile_result(ledger.missing_event_analysis)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR custody verification failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"PASS custody mode=full_verification chain={ledger.chain_id} "
+        f"integrity={ledger.ledger_integrity.value} profile={selected.status.value}"
+    )
+    if selected.status != LifecycleCompleteness.COMPLETE:
+        raise typer.Exit(code=1)
+
+
+@custody_app.command("show")
+def custody_show(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+) -> None:
+    """Show an integrity-checked custody ledger as compact Markdown."""
+    try:
+        ledger = load_custody_ledger(input_path)
+        text = render_custody_markdown(build_custody_report(ledger))
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR custody display failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(text, nl=False)
+
+
+@custody_app.command("report-verify")
+def custody_report_verify_command(
+    report: Annotated[Path, typer.Option("--report", exists=True, dir_okay=False)],
+    ledger: Annotated[Path, typer.Option("--ledger", exists=True, dir_okay=False)],
+    root: Annotated[Path, typer.Option("--root", exists=True, file_okay=False)] = Path("."),
+) -> None:
+    """Reconstruct a custody report from its fully verified ledger."""
+    try:
+        envelope = verify_custody_report(report, ledger, root.resolve())
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR custody report verification failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(f"PASS custody report {envelope.report.report_digest}")
 
 
 @app.command("structural-compare")
