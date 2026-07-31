@@ -15,6 +15,11 @@ Python 3.11 or newer is required.
 python -m pip install -e '.[dev]'
 ```
 
+Phase 5D uses the maintained `cryptography` library as its single cryptographic
+backend, with Ed25519 as the initial signature algorithm. OMIV does not implement
+cryptographic primitives itself, and private keys must never be committed. This
+dependency baseline does not yet implement Phase 5D signing or trust evaluation.
+
 Local inventory, validation, mapping, reporting, and conversion commands remain
 offline. Phase 4F-1 adds explicitly invoked remote commands for public Hugging Face
 repository metadata and bounded byte-range inspection. The production adapter uses
