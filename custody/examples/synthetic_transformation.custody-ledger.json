@@ -1,0 +1,204 @@
+{
+  "attestation_reference": {
+    "attestation_id": "att_4a6efa7aad56fc20f2b840688c0756db",
+    "digest": "ef3d56a52e87bfaeea3d5f5c6e64a719c590897fe9580349bdcb58177d833024",
+    "relative_path": "attestations/examples/synthetic_transformation.attestation.json",
+    "schema": "omiv.artifact-attestation.v1"
+  },
+  "chain_id": "mcoc_3d488470cbfea983ea353763f51a6b3b",
+  "event_count": 1,
+  "events": [
+    {
+      "action": "Record canonical transformation attestation.",
+      "actor_reference": {
+        "actor_kind": null,
+        "evidence_digest": null,
+        "organization_id": null,
+        "stable_actor_id": null,
+        "status": "UNAVAILABLE"
+      },
+      "assertion_origin": "DERIVED_FROM_VERIFIED_EVIDENCE",
+      "attestation_status": "UNATTESTED",
+      "authenticity": "EVIDENCE_DERIVED",
+      "chain_id": "mcoc_3d488470cbfea983ea353763f51a6b3b",
+      "environment_reference": {
+        "container_identity": "2fa7a3b20667bb36d5f8057356288e5d8c36f18fe6154255d5918db9d58e441f",
+        "environment_digest": "69c165ba4f4c01fa84c81af5df1714e21a1a69279fe89b629cd0dd95b0ee30d5",
+        "evidence_reference": null,
+        "runtime_identity": "synthetic-runtime-v1",
+        "status": "SYSTEM_DERIVED"
+      },
+      "event_claims": {
+        "artifact_attestation_digest": "ef3d56a52e87bfaeea3d5f5c6e64a719c590897fe9580349bdcb58177d833024",
+        "artifact_attestation_id": "att_4a6efa7aad56fc20f2b840688c0756db",
+        "attestation_assertion_origin": "VERIFIED_EXECUTION_RECORD",
+        "attestation_authenticity": "EXECUTION_VERIFIED",
+        "attestation_kind": "TRANSFORMATION",
+        "claim_type": "ARTIFACT_CONVERTED",
+        "declared_input_identities": [
+          "df4ef8c1d5fd7e44485b846a7d071cf0f7edc814f909033a6af541401281b623"
+        ],
+        "declared_output_identities": [
+          "115d09d019d8ac353057dbc40a69fd5929e91fdcfe83b996d4823217831f819b"
+        ],
+        "evidence_linkage": "FULLY_VERIFIED",
+        "execution_verification": "VERIFIED",
+        "materialization_eligibility": "ELIGIBLE",
+        "provenance_strength": "ARTIFACT_SPECIFIC_PROVENANCE"
+      },
+      "event_digest": "cc6838220da61892e7bf3a0818bd062787d3c4715ba3e495a6e0c0ed9da433e3",
+      "event_id": "ce_ff7454070633a8f266ee460c337e2045",
+      "event_type": "TRANSFORMATION_RECORDED",
+      "evidence_references": [
+        {
+          "availability": "private",
+          "digest": "ef3d56a52e87bfaeea3d5f5c6e64a719c590897fe9580349bdcb58177d833024",
+          "finding_ids": [],
+          "policy_digests": [
+            "e0edfbb43523bc438c99d2451d0fcf00c0867e2ac469109a2e62f7d617e732bb"
+          ],
+          "relative_path": "attestations/examples/synthetic_transformation.attestation.json",
+          "role": "artifact_attestation",
+          "schema": "omiv.artifact-attestation.v1",
+          "source_phase": "5C",
+          "verification_mode": "full_verification"
+        }
+      ],
+      "input_artifacts": [
+        {
+          "architecture": "generic-transformer",
+          "artifact_set_digest": "c06902ff7ef401ca63152b62e28d300d1f10671bcf00de5fa83f1964b844e989",
+          "content_digest": "c06902ff7ef401ca63152b62e28d300d1f10671bcf00de5fa83f1964b844e989",
+          "file_count": 1,
+          "format": "safetensors",
+          "identity_digest": "df4ef8c1d5fd7e44485b846a7d071cf0f7edc814f909033a6af541401281b623",
+          "origin_type": "internal_registry",
+          "passport_digest": null,
+          "passport_id": null,
+          "provider": "synthetic.example",
+          "repository": "synthetic/source-model",
+          "repository_type": "model",
+          "resolved_revision": "2222222222222222222222222222222222222222",
+          "selection": "source",
+          "total_declared_bytes": 4096,
+          "validation_inventory_digest": null,
+          "variant": "source"
+        }
+      ],
+      "limitations": [
+        "Attestation integrity does not prove real-world action occurrence.",
+        "Numerical fidelity was not checked.",
+        "Payload correctness was not checked.",
+        "Runtime compatibility was not checked.",
+        "The custody event is unattested and not cryptographically signed.",
+        "The execution record is unsigned and does not authenticate an issuer."
+      ],
+      "output_artifacts": [
+        {
+          "architecture": "generic-transformer",
+          "artifact_set_digest": "3eab6db0aecb6595cadfc5899e02a511e2eb24ccce76ca97adaa319cb4330444",
+          "content_digest": "3eab6db0aecb6595cadfc5899e02a511e2eb24ccce76ca97adaa319cb4330444",
+          "file_count": 1,
+          "format": "gguf",
+          "identity_digest": "115d09d019d8ac353057dbc40a69fd5929e91fdcfe83b996d4823217831f819b",
+          "origin_type": "internal_registry",
+          "passport_digest": null,
+          "passport_id": null,
+          "provider": "synthetic.example",
+          "repository": "synthetic/output-model",
+          "repository_type": "model",
+          "resolved_revision": "3333333333333333333333333333333333333333",
+          "selection": "converted",
+          "total_declared_bytes": 4096,
+          "validation_inventory_digest": null,
+          "variant": "converted"
+        }
+      ],
+      "policy_references": [
+        {
+          "policy_digest": "f1aab7e0f39d99c11865fc21aa9d645119cb8f4052aee436a13ef91e5e68cb80",
+          "policy_id": "custody_policy"
+        },
+        {
+          "policy_digest": "e0edfbb43523bc438c99d2451d0fcf00c0867e2ac469109a2e62f7d617e732bb",
+          "policy_id": "artifact_attestation_policy"
+        }
+      ],
+      "previous_event_digest": null,
+      "schema": "omiv.custody-event.v1",
+      "sequence": 0,
+      "subject": {
+        "architecture": "generic-transformer",
+        "artifact_set_digest": "c06902ff7ef401ca63152b62e28d300d1f10671bcf00de5fa83f1964b844e989",
+        "content_digest": "c06902ff7ef401ca63152b62e28d300d1f10671bcf00de5fa83f1964b844e989",
+        "file_count": 1,
+        "format": "safetensors",
+        "identity_digest": "df4ef8c1d5fd7e44485b846a7d071cf0f7edc814f909033a6af541401281b623",
+        "origin_type": "internal_registry",
+        "passport_digest": null,
+        "passport_id": null,
+        "provider": "synthetic.example",
+        "repository": "synthetic/source-model",
+        "repository_type": "model",
+        "resolved_revision": "2222222222222222222222222222222222222222",
+        "selection": "source",
+        "total_declared_bytes": 4096,
+        "validation_inventory_digest": null,
+        "variant": "source"
+      },
+      "tool_reference": {
+        "evidence_status": "VERIFIED",
+        "status": "SYSTEM_DERIVED",
+        "tool_identity_digest": "17f24ee96ed8e3aea5577a8efcaf0964fb0ad5b4e3f735ebb2249af02a1db257",
+        "tool_name": "synthetic-converter",
+        "tool_revision": "4444444444444444444444444444444444444444",
+        "tool_version": "1.0"
+      }
+    }
+  ],
+  "evidence_linkage": "VERIFIED",
+  "genesis_event_digest": "cc6838220da61892e7bf3a0818bd062787d3c4715ba3e495a6e0c0ed9da433e3",
+  "genesis_semantics": "PORTABLE_SEGMENT_BEGINNING",
+  "latest_event_digest": "cc6838220da61892e7bf3a0818bd062787d3c4715ba3e495a6e0c0ed9da433e3",
+  "ledger_digest": "13e3a5f481651172122e6fdf66c15769b76b833bc2ea2fd9870f5b214e2d4dfb",
+  "ledger_integrity": "INTACT",
+  "lifecycle_completeness": "INCOMPLETE",
+  "missing_event_types": [
+    "APPROVAL_RECORDED",
+    "ARTIFACT_ACQUISITION_RECORDED",
+    "DEPLOYMENT_RECORDED",
+    "QUANTIZATION_RECORDED",
+    "REGISTRY_PROMOTION_RECORDED",
+    "RUNTIME_OBSERVATION_RECORDED",
+    "SECURITY_INSPECTION_COMPLETED"
+  ],
+  "overall_custody_status": "INCOMPLETE",
+  "policy_identity": {
+    "attestation_policy_digest": "e0edfbb43523bc438c99d2451d0fcf00c0867e2ac469109a2e62f7d617e732bb",
+    "custody_policy_digest": "f1aab7e0f39d99c11865fc21aa9d645119cb8f4052aee436a13ef91e5e68cb80"
+  },
+  "schema": "omiv.custody-ledger.v2",
+  "selected_profile": "evidence_segment",
+  "signed_event_count": 0,
+  "subject": {
+    "architecture": "generic-transformer",
+    "artifact_set_digest": "c06902ff7ef401ca63152b62e28d300d1f10671bcf00de5fa83f1964b844e989",
+    "content_digest": "c06902ff7ef401ca63152b62e28d300d1f10671bcf00de5fa83f1964b844e989",
+    "file_count": 1,
+    "format": "safetensors",
+    "identity_digest": "df4ef8c1d5fd7e44485b846a7d071cf0f7edc814f909033a6af541401281b623",
+    "origin_type": "internal_registry",
+    "passport_digest": null,
+    "passport_id": null,
+    "provider": "synthetic.example",
+    "repository": "synthetic/source-model",
+    "repository_type": "model",
+    "resolved_revision": "2222222222222222222222222222222222222222",
+    "selection": "source",
+    "total_declared_bytes": 4096,
+    "validation_inventory_digest": null,
+    "variant": "source"
+  },
+  "subject_continuity": "CONSISTENT",
+  "unattested_event_count": 1
+}

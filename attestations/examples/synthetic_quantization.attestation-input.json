@@ -1,0 +1,386 @@
+{
+  "acquisition_method": null,
+  "assertion_origin": "VERIFIED_EXECUTION_RECORD",
+  "attestation_kind": "QUANTIZATION",
+  "claim_details": {
+    "payload_correctness": "NOT_CHECKED",
+    "relationship": "explicit input/tool/configuration/output linkage",
+    "runtime": "NOT_CHECKED",
+    "structural_relation": "VERIFIED"
+  },
+  "claim_type": "ARTIFACT_QUANTIZED",
+  "command_identity": {
+    "argument_digests": [],
+    "command_digest": "186a4ea87fee73cd2a3bca172f16cb36e283008d7c3bf991a6d6edb05dfd9970",
+    "normalized_arguments": [
+      "--input-identity",
+      "56df066f82355228130e543a42feb511f64849bd15f08645e576edaf229f3ee7",
+      "--output-identity",
+      "985fb84d42cd9a616a0e394b7e91aca6f6230d53d02945361a4ab529089fc5c5",
+      "--configuration-digest",
+      "8bf02669b55b3a5d63132b2641e13e0a68cda15ee71cd579f935c53317dd0c9f"
+    ],
+    "program": "synthetic-converter",
+    "redacted_fields": [],
+    "working_directory_status": "UNAVAILABLE"
+  },
+  "configuration_identity": {
+    "availability": "included",
+    "configuration_digest": "8bf02669b55b3a5d63132b2641e13e0a68cda15ee71cd579f935c53317dd0c9f",
+    "configuration_schema": "omiv.synthetic-conversion-configuration.v1",
+    "normalized_parameters": {
+      "architecture": "generic-transformer",
+      "mixed_precision": {
+        "output_head": "f16"
+      },
+      "output_format": "gguf",
+      "quantization_family": "generic-block",
+      "target_type_policy": "generic-q4",
+      "tensor_mapping_policy": "synthetic-mapping-v1"
+    },
+    "redacted_parameter_names": [],
+    "source_reference": null,
+    "verification_mode": "full_verification"
+  },
+  "destination_location": null,
+  "environment_identity": {
+    "architecture_identity": "generic-64",
+    "container_image_digest": "2fa7a3b20667bb36d5f8057356288e5d8c36f18fe6154255d5918db9d58e441f",
+    "dependency_lock_digest": "6ae910efc9056119e2747404aecc2f0ae946c45b7dbf6d5317c3f26deaed918b",
+    "environment_digest": "69c165ba4f4c01fa84c81af5df1714e21a1a69279fe89b629cd0dd95b0ee30d5",
+    "environment_kind": "synthetic_container",
+    "evidence_references": [
+      {
+        "availability": "included",
+        "claim_scope": [
+          "synthetic environment identity identity"
+        ],
+        "digest": "69c165ba4f4c01fa84c81af5df1714e21a1a69279fe89b629cd0dd95b0ee30d5",
+        "finding_ids": [],
+        "included_payload": {
+          "architecture_identity": "generic-64",
+          "environment_kind": "synthetic_container",
+          "runtime_identity": "synthetic-runtime-v1"
+        },
+        "policy_digests": [],
+        "relative_path": null,
+        "role": "environment_identity",
+        "schema": "omiv.synthetic-environment_identity.v1",
+        "source_phase": "5C-synthetic",
+        "verification_mode": "full_verification"
+      }
+    ],
+    "os_identity": null,
+    "runtime_identity": "synthetic-runtime-v1",
+    "status": "EVIDENCE_LINKED"
+  },
+  "evidence_references": [
+    {
+      "availability": "included",
+      "claim_scope": [
+        "synthetic execution evidence identity"
+      ],
+      "digest": "7e0d3e48988ecf6b5a7dbcdb4af55cf37f0bfd24fc1d6cd1aeaf9ef46618257d",
+      "finding_ids": [],
+      "included_payload": {
+        "configuration_digest": "8bf02669b55b3a5d63132b2641e13e0a68cda15ee71cd579f935c53317dd0c9f",
+        "input_identity": "56df066f82355228130e543a42feb511f64849bd15f08645e576edaf229f3ee7",
+        "output_identity": "985fb84d42cd9a616a0e394b7e91aca6f6230d53d02945361a4ab529089fc5c5",
+        "result": "SUCCEEDED",
+        "tool_identity_digest": "17f24ee96ed8e3aea5577a8efcaf0964fb0ad5b4e3f735ebb2249af02a1db257"
+      },
+      "policy_digests": [],
+      "relative_path": null,
+      "role": "execution_evidence",
+      "schema": "omiv.synthetic-execution_evidence.v1",
+      "source_phase": "5C-synthetic",
+      "verification_mode": "full_verification"
+    },
+    {
+      "availability": "included",
+      "claim_scope": [
+        "synthetic structural validation identity"
+      ],
+      "digest": "e5d14bb27760710b3a9f05f9015991bfbbbbc2de7dda0c8df3c22183dc928df1",
+      "finding_ids": [],
+      "included_payload": {
+        "format": "gguf",
+        "output_identity": "985fb84d42cd9a616a0e394b7e91aca6f6230d53d02945361a4ab529089fc5c5",
+        "structure": "VALID"
+      },
+      "policy_digests": [],
+      "relative_path": null,
+      "role": "structural_validation",
+      "schema": "omiv.synthetic-structural_validation.v1",
+      "source_phase": "5C-synthetic",
+      "verification_mode": "full_verification"
+    },
+    {
+      "availability": "included",
+      "claim_scope": [
+        "synthetic mapping evidence identity"
+      ],
+      "digest": "dfaa0c143c6c7967383918f549c8f5a3aefaa217da0effb948b4e5898b5732e7",
+      "finding_ids": [],
+      "included_payload": {
+        "input_identity": "56df066f82355228130e543a42feb511f64849bd15f08645e576edaf229f3ee7",
+        "mapping_policy": "synthetic-mapping-v1",
+        "output_identity": "985fb84d42cd9a616a0e394b7e91aca6f6230d53d02945361a4ab529089fc5c5"
+      },
+      "policy_digests": [],
+      "relative_path": null,
+      "role": "mapping_evidence",
+      "schema": "omiv.synthetic-mapping_evidence.v1",
+      "source_phase": "5C-synthetic",
+      "verification_mode": "full_verification"
+    }
+  ],
+  "execution_record": {
+    "command_identity": {
+      "argument_digests": [],
+      "command_digest": "186a4ea87fee73cd2a3bca172f16cb36e283008d7c3bf991a6d6edb05dfd9970",
+      "normalized_arguments": [
+        "--input-identity",
+        "56df066f82355228130e543a42feb511f64849bd15f08645e576edaf229f3ee7",
+        "--output-identity",
+        "985fb84d42cd9a616a0e394b7e91aca6f6230d53d02945361a4ab529089fc5c5",
+        "--configuration-digest",
+        "8bf02669b55b3a5d63132b2641e13e0a68cda15ee71cd579f935c53317dd0c9f"
+      ],
+      "program": "synthetic-converter",
+      "redacted_fields": [],
+      "working_directory_status": "UNAVAILABLE"
+    },
+    "configuration_identity": {
+      "availability": "included",
+      "configuration_digest": "8bf02669b55b3a5d63132b2641e13e0a68cda15ee71cd579f935c53317dd0c9f",
+      "configuration_schema": "omiv.synthetic-conversion-configuration.v1",
+      "normalized_parameters": {
+        "architecture": "generic-transformer",
+        "mixed_precision": {
+          "output_head": "f16"
+        },
+        "output_format": "gguf",
+        "quantization_family": "generic-block",
+        "target_type_policy": "generic-q4",
+        "tensor_mapping_policy": "synthetic-mapping-v1"
+      },
+      "redacted_parameter_names": [],
+      "source_reference": null,
+      "verification_mode": "full_verification"
+    },
+    "environment_identity": {
+      "architecture_identity": "generic-64",
+      "container_image_digest": "2fa7a3b20667bb36d5f8057356288e5d8c36f18fe6154255d5918db9d58e441f",
+      "dependency_lock_digest": "6ae910efc9056119e2747404aecc2f0ae946c45b7dbf6d5317c3f26deaed918b",
+      "environment_digest": "69c165ba4f4c01fa84c81af5df1714e21a1a69279fe89b629cd0dd95b0ee30d5",
+      "environment_kind": "synthetic_container",
+      "evidence_references": [
+        {
+          "availability": "included",
+          "claim_scope": [
+            "synthetic environment identity identity"
+          ],
+          "digest": "69c165ba4f4c01fa84c81af5df1714e21a1a69279fe89b629cd0dd95b0ee30d5",
+          "finding_ids": [],
+          "included_payload": {
+            "architecture_identity": "generic-64",
+            "environment_kind": "synthetic_container",
+            "runtime_identity": "synthetic-runtime-v1"
+          },
+          "policy_digests": [],
+          "relative_path": null,
+          "role": "environment_identity",
+          "schema": "omiv.synthetic-environment_identity.v1",
+          "source_phase": "5C-synthetic",
+          "verification_mode": "full_verification"
+        }
+      ],
+      "os_identity": null,
+      "runtime_identity": "synthetic-runtime-v1",
+      "status": "EVIDENCE_LINKED"
+    },
+    "evidence_references": [
+      {
+        "availability": "included",
+        "claim_scope": [
+          "synthetic execution evidence identity"
+        ],
+        "digest": "7e0d3e48988ecf6b5a7dbcdb4af55cf37f0bfd24fc1d6cd1aeaf9ef46618257d",
+        "finding_ids": [],
+        "included_payload": {
+          "configuration_digest": "8bf02669b55b3a5d63132b2641e13e0a68cda15ee71cd579f935c53317dd0c9f",
+          "input_identity": "56df066f82355228130e543a42feb511f64849bd15f08645e576edaf229f3ee7",
+          "output_identity": "985fb84d42cd9a616a0e394b7e91aca6f6230d53d02945361a4ab529089fc5c5",
+          "result": "SUCCEEDED",
+          "tool_identity_digest": "17f24ee96ed8e3aea5577a8efcaf0964fb0ad5b4e3f735ebb2249af02a1db257"
+        },
+        "policy_digests": [],
+        "relative_path": null,
+        "role": "execution_evidence",
+        "schema": "omiv.synthetic-execution_evidence.v1",
+        "source_phase": "5C-synthetic",
+        "verification_mode": "full_verification"
+      }
+    ],
+    "execution_record_digest": "7e1e566354073ca5582b434d5ce7d03495f179faadeead777009fbab6ae8d4bb",
+    "execution_record_id": "exec_6a97bb9ed381da561b50e1d996d9d33e",
+    "execution_result": "SUCCEEDED",
+    "input_artifacts": [
+      {
+        "architecture": "generic-transformer",
+        "artifact_set_digest": "a6d3b23ad0058414b4d028b039992d4d0322b52b7571b6aac232729a68f2ff84",
+        "content_digest": "a6d3b23ad0058414b4d028b039992d4d0322b52b7571b6aac232729a68f2ff84",
+        "file_count": 1,
+        "format": "safetensors",
+        "identity_digest": "56df066f82355228130e543a42feb511f64849bd15f08645e576edaf229f3ee7",
+        "origin_type": "internal_registry",
+        "passport_digest": null,
+        "passport_id": null,
+        "provider": "synthetic.example",
+        "repository": "synthetic/source-model",
+        "repository_type": "model",
+        "resolved_revision": "2222222222222222222222222222222222222222",
+        "selection": "source",
+        "total_declared_bytes": 4096,
+        "validation_inventory_digest": null,
+        "variant": "source"
+      }
+    ],
+    "limitations": [
+      "Execution-record consistency does not establish output semantic correctness."
+    ],
+    "output_artifacts": [
+      {
+        "architecture": "generic-transformer",
+        "artifact_set_digest": "409317356075b5b55d757f44fd403de89f888038aa12a938ef03edf8755801f6",
+        "content_digest": "409317356075b5b55d757f44fd403de89f888038aa12a938ef03edf8755801f6",
+        "file_count": 1,
+        "format": "gguf",
+        "identity_digest": "985fb84d42cd9a616a0e394b7e91aca6f6230d53d02945361a4ab529089fc5c5",
+        "origin_type": "internal_registry",
+        "passport_digest": null,
+        "passport_id": null,
+        "provider": "synthetic.example",
+        "repository": "synthetic/output-model",
+        "repository_type": "model",
+        "resolved_revision": "3333333333333333333333333333333333333333",
+        "selection": "quantized",
+        "total_declared_bytes": 4096,
+        "validation_inventory_digest": null,
+        "variant": "quantized"
+      }
+    ],
+    "schema": "omiv.tool-execution-record.v1",
+    "tool_identity": {
+      "tool_identity_digest": "17f24ee96ed8e3aea5577a8efcaf0964fb0ad5b4e3f735ebb2249af02a1db257",
+      "tool_name": "synthetic-converter",
+      "tool_revision": "4444444444444444444444444444444444444444",
+      "tool_version": "1.0"
+    }
+  },
+  "inputs": [
+    {
+      "architecture": "generic-transformer",
+      "artifact_set_digest": "a6d3b23ad0058414b4d028b039992d4d0322b52b7571b6aac232729a68f2ff84",
+      "content_digest": "a6d3b23ad0058414b4d028b039992d4d0322b52b7571b6aac232729a68f2ff84",
+      "file_count": 1,
+      "format": "safetensors",
+      "identity_digest": "56df066f82355228130e543a42feb511f64849bd15f08645e576edaf229f3ee7",
+      "origin_type": "internal_registry",
+      "passport_digest": null,
+      "passport_id": null,
+      "provider": "synthetic.example",
+      "repository": "synthetic/source-model",
+      "repository_type": "model",
+      "resolved_revision": "2222222222222222222222222222222222222222",
+      "selection": "source",
+      "total_declared_bytes": 4096,
+      "validation_inventory_digest": null,
+      "variant": "source"
+    }
+  ],
+  "issuer": {
+    "display_label": null,
+    "evidence_digest": null,
+    "issuer_kind": null,
+    "issuer_status": "UNAVAILABLE",
+    "organization_id": null,
+    "stable_issuer_id": null,
+    "system_id": null
+  },
+  "limitations": [
+    "Numerical fidelity was not checked.",
+    "Payload correctness was not checked.",
+    "Runtime compatibility was not checked.",
+    "The execution record is unsigned and does not authenticate an issuer."
+  ],
+  "outputs": [
+    {
+      "architecture": "generic-transformer",
+      "artifact_set_digest": "409317356075b5b55d757f44fd403de89f888038aa12a938ef03edf8755801f6",
+      "content_digest": "409317356075b5b55d757f44fd403de89f888038aa12a938ef03edf8755801f6",
+      "file_count": 1,
+      "format": "gguf",
+      "identity_digest": "985fb84d42cd9a616a0e394b7e91aca6f6230d53d02945361a4ab529089fc5c5",
+      "origin_type": "internal_registry",
+      "passport_digest": null,
+      "passport_id": null,
+      "provider": "synthetic.example",
+      "repository": "synthetic/output-model",
+      "repository_type": "model",
+      "resolved_revision": "3333333333333333333333333333333333333333",
+      "selection": "quantized",
+      "total_declared_bytes": 4096,
+      "validation_inventory_digest": null,
+      "variant": "quantized"
+    }
+  ],
+  "policy_references": [],
+  "quantization": {
+    "block_size": 32,
+    "calibration_identity": null,
+    "excluded_tensor_classes": [
+      "normalization",
+      "output_head"
+    ],
+    "group_size": null,
+    "importance_matrix_identity": null,
+    "mixed_precision_policy": {
+      "output_head": "f16"
+    },
+    "numerical_fidelity_status": "NOT_CHECKED",
+    "payload_status": "NOT_CHECKED",
+    "quantization_family": "generic-block",
+    "target_type_policy": "generic-q4"
+  },
+  "schema": "omiv.artifact-attestation-input.v1",
+  "source_location": null,
+  "subject": {
+    "architecture": "generic-transformer",
+    "artifact_set_digest": "409317356075b5b55d757f44fd403de89f888038aa12a938ef03edf8755801f6",
+    "content_digest": "409317356075b5b55d757f44fd403de89f888038aa12a938ef03edf8755801f6",
+    "file_count": 1,
+    "format": "gguf",
+    "identity_digest": "985fb84d42cd9a616a0e394b7e91aca6f6230d53d02945361a4ab529089fc5c5",
+    "origin_type": "internal_registry",
+    "passport_digest": null,
+    "passport_id": null,
+    "provider": "synthetic.example",
+    "repository": "synthetic/output-model",
+    "repository_type": "model",
+    "resolved_revision": "3333333333333333333333333333333333333333",
+    "selection": "quantized",
+    "total_declared_bytes": 4096,
+    "validation_inventory_digest": null,
+    "variant": "quantized"
+  },
+  "tool_identity": {
+    "tool_identity_digest": "17f24ee96ed8e3aea5577a8efcaf0964fb0ad5b4e3f735ebb2249af02a1db257",
+    "tool_name": "synthetic-converter",
+    "tool_revision": "4444444444444444444444444444444444444444",
+    "tool_version": "1.0"
+  },
+  "transformation_kind": "QUANTIZATION",
+  "warnings": []
+}

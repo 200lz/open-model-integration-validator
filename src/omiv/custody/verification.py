@@ -53,7 +53,10 @@ def reconstruct_subject_continuity(
     for event in ledger.events:
         if event.subject.identity_digest != current.identity_digest:
             return SubjectContinuityStatus.DIVERGED
-        if event.event_type == CustodyEventType.TRANSFORMATION_RECORDED:
+        if event.event_type in {
+            CustodyEventType.TRANSFORMATION_RECORDED,
+            CustodyEventType.QUANTIZATION_RECORDED,
+        }:
             if len(event.input_artifacts) != 1 or len(event.output_artifacts) != 1:
                 return SubjectContinuityStatus.DIVERGED
             if event.input_artifacts[0].identity_digest != current.identity_digest:
@@ -106,8 +109,7 @@ def _verify_internal(ledger: CustodyLedger) -> None:
         raise OmivInputError("custody missing-event reconstruction mismatch")
     lifecycle = (
         LifecycleCompleteness.INCOMPLETE
-        if expected_analysis.missing_event_types
-        or expected_analysis.missing_evidence_concepts
+        if expected_analysis.missing_event_types or expected_analysis.missing_evidence_concepts
         else LifecycleCompleteness.COMPLETE
     )
     if ledger.lifecycle_completeness != lifecycle:
@@ -155,6 +157,7 @@ def load_custody_ledger(path: Path) -> CustodyLedger:
 def _verify_event_evidence(
     ledger: CustodyLedger,
     *,
+    root: Path,
     passport_digest: str,
     validation_digest: str,
     finding_ids: set[str],
@@ -181,6 +184,14 @@ def _verify_event_evidence(
                     raise OmivInputError("custody evidence references an unknown finding")
                 if not set(reference.policy_digests).issubset(policy_digests):
                     raise OmivInputError("custody evidence references an unknown policy")
+            elif reference.role == "artifact_attestation":
+                if reference.relative_path is None:
+                    raise OmivInputError("attestation evidence requires a relative path")
+                from omiv.attestations.verification import verify_attestation
+
+                attestation = verify_attestation(root / reference.relative_path)
+                if attestation.attestation_digest != reference.digest:
+                    raise OmivInputError("custody attestation evidence digest mismatch")
             elif reference.verification_mode == "full_verification":
                 raise OmivInputError("unknown evidence cannot claim full verification")
     if not modes:
@@ -221,6 +232,7 @@ def verify_custody_ledger(path: Path, root: Path) -> CustodyLedger:
         raise OmivInputError("custody mapping-policy linkage mismatch")
     linkage = _verify_event_evidence(
         ledger,
+        root=root,
         passport_digest=passport.passport_digest,
         validation_digest=validation.inventory_digest,
         finding_ids={item.finding_id for item in validation.findings},

@@ -1,0 +1,155 @@
+{
+  "attestation_reference": {
+    "attestation_id": "att_4f1bdb5f184f99c81341c00d55b6a2b4",
+    "digest": "5d7a5b8b479cd34d398dfa923dc1965ed0216e97d15ec078af6647157a741267",
+    "relative_path": "attestations/examples/synthetic_local_acquisition.attestation.json",
+    "schema": "omiv.artifact-attestation.v1"
+  },
+  "chain_id": "mcoc_198f158cac16e3beed1b116c1431351d",
+  "event_count": 1,
+  "events": [
+    {
+      "action": "Record a user-declared acquisition claim; acquisition is not verified.",
+      "actor_reference": {
+        "actor_kind": null,
+        "evidence_digest": null,
+        "organization_id": null,
+        "stable_actor_id": null,
+        "status": "UNAVAILABLE"
+      },
+      "assertion_origin": "USER_DECLARED",
+      "attestation_status": "UNATTESTED",
+      "authenticity": "USER_DECLARED",
+      "chain_id": "mcoc_198f158cac16e3beed1b116c1431351d",
+      "environment_reference": {
+        "container_identity": null,
+        "environment_digest": null,
+        "evidence_reference": null,
+        "runtime_identity": null,
+        "status": "UNAVAILABLE"
+      },
+      "event_claims": {
+        "artifact_attestation_digest": "5d7a5b8b479cd34d398dfa923dc1965ed0216e97d15ec078af6647157a741267",
+        "artifact_attestation_id": "att_4f1bdb5f184f99c81341c00d55b6a2b4",
+        "attestation_assertion_origin": "USER_DECLARED",
+        "attestation_authenticity": "DECLARED",
+        "attestation_kind": "ACQUISITION",
+        "claim_type": "ARTIFACT_OBTAINED",
+        "declared_input_identities": [
+          "31812de56aff608abf2fa158c5648b952262d44821de95694c4692aa577b2ee7"
+        ],
+        "declared_output_identities": [
+          "71bafad40a9f30d0f438a97bb270fa1769a50f077ac87edd1efc28f2ac7550a4"
+        ],
+        "evidence_linkage": "UNAVAILABLE",
+        "execution_verification": "NOT_APPLICABLE",
+        "materialization_eligibility": "ELIGIBLE",
+        "provenance_strength": "DECLARED_PROVENANCE"
+      },
+      "event_digest": "5aa1b0ce07ee8bfbf20e1920fcd4d79dfa723c95a52d7418450d52e8049a5376",
+      "event_id": "ce_0a6c7bc3a7d894e69ff5dc2e3105f63d",
+      "event_type": "ARTIFACT_ACQUISITION_RECORDED",
+      "evidence_references": [
+        {
+          "availability": "private",
+          "digest": "5d7a5b8b479cd34d398dfa923dc1965ed0216e97d15ec078af6647157a741267",
+          "finding_ids": [],
+          "policy_digests": [
+            "e0edfbb43523bc438c99d2451d0fcf00c0867e2ac469109a2e62f7d617e732bb"
+          ],
+          "relative_path": "attestations/examples/synthetic_local_acquisition.attestation.json",
+          "role": "artifact_attestation",
+          "schema": "omiv.artifact-attestation.v1",
+          "source_phase": "5C",
+          "verification_mode": "full_verification"
+        }
+      ],
+      "input_artifacts": [],
+      "limitations": [
+        "Attestation integrity does not prove real-world action occurrence.",
+        "Payload equality was not checked.",
+        "The acquisition action is user-declared and not independently observed.",
+        "The custody event is unattested and not cryptographically signed."
+      ],
+      "output_artifacts": [],
+      "policy_references": [
+        {
+          "policy_digest": "f1aab7e0f39d99c11865fc21aa9d645119cb8f4052aee436a13ef91e5e68cb80",
+          "policy_id": "custody_policy"
+        },
+        {
+          "policy_digest": "e0edfbb43523bc438c99d2451d0fcf00c0867e2ac469109a2e62f7d617e732bb",
+          "policy_id": "artifact_attestation_policy"
+        }
+      ],
+      "previous_event_digest": null,
+      "schema": "omiv.custody-event.v1",
+      "sequence": 0,
+      "subject": {
+        "architecture": "generic-transformer",
+        "artifact_set_digest": "eb0677c8349c674c3805f7ab838d35f0898554e011646ccf925dbfd9ed43e75a",
+        "content_digest": "eb0677c8349c674c3805f7ab838d35f0898554e011646ccf925dbfd9ed43e75a",
+        "file_count": 1,
+        "format": "safetensors",
+        "identity_digest": "71bafad40a9f30d0f438a97bb270fa1769a50f077ac87edd1efc28f2ac7550a4",
+        "origin_type": "local_file",
+        "passport_digest": null,
+        "passport_id": null,
+        "provider": null,
+        "repository": null,
+        "repository_type": null,
+        "resolved_revision": null,
+        "selection": "base",
+        "total_declared_bytes": 4096,
+        "validation_inventory_digest": null,
+        "variant": "base"
+      },
+      "tool_reference": null
+    }
+  ],
+  "evidence_linkage": "PARTIAL",
+  "genesis_event_digest": "5aa1b0ce07ee8bfbf20e1920fcd4d79dfa723c95a52d7418450d52e8049a5376",
+  "genesis_semantics": "PORTABLE_SEGMENT_BEGINNING",
+  "latest_event_digest": "5aa1b0ce07ee8bfbf20e1920fcd4d79dfa723c95a52d7418450d52e8049a5376",
+  "ledger_digest": "6efb3598d6178ad560986e287802bdedd6cf12af1babe5cf81257d2abeaaa98c",
+  "ledger_integrity": "INTACT",
+  "lifecycle_completeness": "INCOMPLETE",
+  "missing_event_types": [
+    "APPROVAL_RECORDED",
+    "DEPLOYMENT_RECORDED",
+    "QUANTIZATION_RECORDED",
+    "REGISTRY_PROMOTION_RECORDED",
+    "RUNTIME_OBSERVATION_RECORDED",
+    "SECURITY_INSPECTION_COMPLETED",
+    "TRANSFORMATION_RECORDED"
+  ],
+  "overall_custody_status": "INCOMPLETE",
+  "policy_identity": {
+    "attestation_policy_digest": "e0edfbb43523bc438c99d2451d0fcf00c0867e2ac469109a2e62f7d617e732bb",
+    "custody_policy_digest": "f1aab7e0f39d99c11865fc21aa9d645119cb8f4052aee436a13ef91e5e68cb80"
+  },
+  "schema": "omiv.custody-ledger.v2",
+  "selected_profile": "evidence_segment",
+  "signed_event_count": 0,
+  "subject": {
+    "architecture": "generic-transformer",
+    "artifact_set_digest": "eb0677c8349c674c3805f7ab838d35f0898554e011646ccf925dbfd9ed43e75a",
+    "content_digest": "eb0677c8349c674c3805f7ab838d35f0898554e011646ccf925dbfd9ed43e75a",
+    "file_count": 1,
+    "format": "safetensors",
+    "identity_digest": "71bafad40a9f30d0f438a97bb270fa1769a50f077ac87edd1efc28f2ac7550a4",
+    "origin_type": "local_file",
+    "passport_digest": null,
+    "passport_id": null,
+    "provider": null,
+    "repository": null,
+    "repository_type": null,
+    "resolved_revision": null,
+    "selection": "base",
+    "total_declared_bytes": 4096,
+    "validation_inventory_digest": null,
+    "variant": "base"
+  },
+  "subject_continuity": "CONSISTENT",
+  "unattested_event_count": 1
+}

@@ -1,0 +1,232 @@
+{
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "omiv-json-v1",
+    "digest": "ac19db80c85b5c5223ba25b1338d842355348740340c76c47fa36e93425b953a"
+  },
+  "report": {
+    "actor_authenticity": "UNVERIFIED",
+    "artifact_continuity": "VALID",
+    "assertion_origin": "USER_DECLARED",
+    "attestation_digest": "5d7a5b8b479cd34d398dfa923dc1965ed0216e97d15ec078af6647157a741267",
+    "attestation_id": "att_4f1bdb5f184f99c81341c00d55b6a2b4",
+    "attestation_kind": "ACQUISITION",
+    "attestation_signature_boundary": "UNSIGNED",
+    "authenticity": "DECLARED",
+    "claim_type": "ARTIFACT_OBTAINED",
+    "configuration_digest": null,
+    "cryptographic_signature": "NOT_AVAILABLE",
+    "custody_event_mapping": "ARTIFACT_ACQUISITION_RECORDED",
+    "environment_status": "UNAVAILABLE",
+    "evidence_linkage": "UNAVAILABLE",
+    "execution_record_integrity": "NOT_AVAILABLE",
+    "execution_verification": "NOT_APPLICABLE",
+    "findings": [
+      {
+        "finding_id": "ATTEST-001",
+        "limitation": null,
+        "status": "PASS",
+        "summary": "Strict attestation schema is valid."
+      },
+      {
+        "finding_id": "ATTEST-002",
+        "limitation": null,
+        "status": "PASS",
+        "summary": "Attestation identity is deterministic."
+      },
+      {
+        "finding_id": "ATTEST-003",
+        "limitation": "Integrity does not prove action occurrence.",
+        "status": "PASS",
+        "summary": "Canonical attestation digest is valid."
+      },
+      {
+        "finding_id": "ATTEST-004",
+        "limitation": null,
+        "status": "PASS",
+        "summary": "Artifact references are canonical."
+      },
+      {
+        "finding_id": "ATTEST-005",
+        "limitation": "Continuity does not establish semantic correctness.",
+        "status": "PASS",
+        "summary": "Input/output relation is valid."
+      },
+      {
+        "finding_id": "ATTEST-006",
+        "limitation": null,
+        "status": "PASS",
+        "summary": "Assertion origin is explicit."
+      },
+      {
+        "finding_id": "ATTEST-007",
+        "limitation": "Evidence linkage is not a signature.",
+        "status": "DECLARED",
+        "summary": "Authenticity was reconstructed."
+      },
+      {
+        "finding_id": "ATTEST-008",
+        "limitation": "Issuer identity is not authenticated.",
+        "status": "PASS",
+        "summary": "Issuer status is explicit."
+      },
+      {
+        "finding_id": "ATTEST-009",
+        "limitation": null,
+        "status": "PASS",
+        "summary": "Tool identity is explicit where required."
+      },
+      {
+        "finding_id": "ATTEST-010",
+        "limitation": null,
+        "status": "PASS",
+        "summary": "Configuration identity is deterministic."
+      },
+      {
+        "finding_id": "ATTEST-011",
+        "limitation": null,
+        "status": "PASS",
+        "summary": "Environment identity status is explicit."
+      },
+      {
+        "finding_id": "ATTEST-012",
+        "limitation": null,
+        "status": "PASS",
+        "summary": "Evidence references satisfy their recorded mode."
+      },
+      {
+        "finding_id": "ATTEST-013",
+        "limitation": "Execution linkage does not prove output correctness.",
+        "status": "NOT_APPLICABLE",
+        "summary": "Execution-record status was reconstructed."
+      },
+      {
+        "finding_id": "ATTEST-014",
+        "limitation": null,
+        "status": "PASS",
+        "summary": "Artifact continuity was reconstructed."
+      },
+      {
+        "finding_id": "ATTEST-015",
+        "limitation": "Structural similarity alone is insufficient.",
+        "status": "DECLARED_PROVENANCE",
+        "summary": "Provenance strength was reconstructed."
+      },
+      {
+        "finding_id": "ATTEST-016",
+        "limitation": null,
+        "status": "PASS",
+        "summary": "Custody-event mapping is explicit."
+      },
+      {
+        "finding_id": "ATTEST-017",
+        "limitation": null,
+        "status": "PASS",
+        "summary": "Forbidden trust escalation was prevented."
+      },
+      {
+        "finding_id": "ATTEST-018",
+        "limitation": null,
+        "status": "PASS",
+        "summary": "Limitations are explicit."
+      },
+      {
+        "finding_id": "ATTEST-019",
+        "limitation": null,
+        "status": "PASS",
+        "summary": "Canonical generation is deterministic."
+      },
+      {
+        "finding_id": "ATTEST-020",
+        "limitation": null,
+        "status": "PASS",
+        "summary": "Sensitive canonical fields are absent."
+      }
+    ],
+    "inputs": [
+      {
+        "architecture": "generic-transformer",
+        "artifact_set_digest": "eb0677c8349c674c3805f7ab838d35f0898554e011646ccf925dbfd9ed43e75a",
+        "content_digest": "eb0677c8349c674c3805f7ab838d35f0898554e011646ccf925dbfd9ed43e75a",
+        "file_count": 1,
+        "format": "safetensors",
+        "identity_digest": "31812de56aff608abf2fa158c5648b952262d44821de95694c4692aa577b2ee7",
+        "origin_type": "huggingface",
+        "passport_digest": null,
+        "passport_id": null,
+        "provider": "synthetic.example",
+        "repository": "example/synthetic-model",
+        "repository_type": "model",
+        "resolved_revision": "1111111111111111111111111111111111111111",
+        "selection": "base",
+        "total_declared_bytes": 4096,
+        "validation_inventory_digest": null,
+        "variant": "base"
+      }
+    ],
+    "issuer_authentication": "UNVERIFIED",
+    "issuer_status": "UNAVAILABLE",
+    "limitations": [
+      "Payload equality was not checked.",
+      "The acquisition action is user-declared and not independently observed."
+    ],
+    "materialization_eligibility": "ELIGIBLE",
+    "next_evidence_required": [
+      "fully reconstructable claim evidence",
+      "issuer identity evidence",
+      "payload or numerical fidelity evidence",
+      "signed attestation (future phase)"
+    ],
+    "numerical_fidelity_status": "NOT_CHECKED",
+    "outputs": [
+      {
+        "architecture": "generic-transformer",
+        "artifact_set_digest": "eb0677c8349c674c3805f7ab838d35f0898554e011646ccf925dbfd9ed43e75a",
+        "content_digest": "eb0677c8349c674c3805f7ab838d35f0898554e011646ccf925dbfd9ed43e75a",
+        "file_count": 1,
+        "format": "safetensors",
+        "identity_digest": "71bafad40a9f30d0f438a97bb270fa1769a50f077ac87edd1efc28f2ac7550a4",
+        "origin_type": "local_file",
+        "passport_digest": null,
+        "passport_id": null,
+        "provider": null,
+        "repository": null,
+        "repository_type": null,
+        "resolved_revision": null,
+        "selection": "base",
+        "total_declared_bytes": 4096,
+        "validation_inventory_digest": null,
+        "variant": "base"
+      }
+    ],
+    "payload_status": "NOT_CHECKED",
+    "provenance_strength": "DECLARED_PROVENANCE",
+    "report_digest": "ac19db80c85b5c5223ba25b1338d842355348740340c76c47fa36e93425b953a",
+    "runtime_status": "NOT_CHECKED",
+    "schema": "omiv.artifact-attestation-report.v1",
+    "security_status": "NOT_CHECKED",
+    "subject": {
+      "architecture": "generic-transformer",
+      "artifact_set_digest": "eb0677c8349c674c3805f7ab838d35f0898554e011646ccf925dbfd9ed43e75a",
+      "content_digest": "eb0677c8349c674c3805f7ab838d35f0898554e011646ccf925dbfd9ed43e75a",
+      "file_count": 1,
+      "format": "safetensors",
+      "identity_digest": "71bafad40a9f30d0f438a97bb270fa1769a50f077ac87edd1efc28f2ac7550a4",
+      "origin_type": "local_file",
+      "passport_digest": null,
+      "passport_id": null,
+      "provider": null,
+      "repository": null,
+      "repository_type": null,
+      "resolved_revision": null,
+      "selection": "base",
+      "total_declared_bytes": 4096,
+      "validation_inventory_digest": null,
+      "variant": "base"
+    },
+    "tool_identity_digest": null,
+    "warnings": [
+      "Remote inspection and source location alone are not acquisition evidence."
+    ]
+  }
+}

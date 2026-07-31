@@ -24,6 +24,22 @@ from omiv.article.verification import (
 from omiv.article.verification import (
     pretty_json as pretty_article_json,
 )
+from omiv.attestations.builder import build_attestation
+from omiv.attestations.custody import append_attestation_to_ledger
+from omiv.attestations.models import (
+    ArtifactAttestationInput,
+)
+from omiv.attestations.models import (
+    Authenticity as AttestationAuthenticity,
+)
+from omiv.attestations.reporting import (
+    build_attestation_report,
+    render_attestation_markdown,
+    verify_attestation_report,
+    write_attestation_bundle,
+)
+from omiv.attestations.segment import verify_attestation_custody_segment
+from omiv.attestations.verification import load_attestation, verify_attestation
 from omiv.canonical import canonical_sha256, load_json_value
 from omiv.comparison.engine import build_structural_comparison
 from omiv.comparison.models import COMPARISON_REPORT_SCHEMA
@@ -201,9 +217,11 @@ app = typer.Typer(no_args_is_help=True, pretty_exceptions_enable=False)
 model_packs_app = typer.Typer(no_args_is_help=True)
 passport_app = typer.Typer(no_args_is_help=True)
 custody_app = typer.Typer(no_args_is_help=True)
+attestation_app = typer.Typer(no_args_is_help=True)
 app.add_typer(model_packs_app, name="model-packs")
 app.add_typer(passport_app, name="passport")
 app.add_typer(custody_app, name="custody")
+app.add_typer(attestation_app, name="attestation")
 MAX_CANONICAL_INVENTORY_BYTES = 64 * 1024 * 1024
 REMOTE_REPORT_SCHEMAS = {
     "omiv.remote-snapshot-report.v1",
@@ -1271,9 +1289,7 @@ def passport_create(
     except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
         typer.echo(f"ERROR passport creation failed: {exc}", err=True)
         raise typer.Exit(code=2) from exc
-    typer.echo(
-        f"PASS Model Passport id={passport_id} digest={passport_digest}"
-    )
+    typer.echo(f"PASS Model Passport id={passport_id} digest={passport_digest}")
     if profile is not None and selected.outcome not in {
         UsageOutcome.SUITABLE_WITH_LIMITATIONS,
     }:
@@ -1291,9 +1307,7 @@ def passport_verify_command(
     try:
         schema = load_json_value(input_path.read_text(encoding="utf-8")).get("schema")
         if schema == "omiv.model-passport.v2":
-            linked = verify_custody_linked_passport(
-                input_path, root=root, digest_only=digest_only
-            )
+            linked = verify_custody_linked_passport(input_path, root=root, digest_only=digest_only)
             mode = "digest_only_verification" if digest_only else "full_verification"
             passport_id = linked.passport_id
             passport_digest = linked.passport_digest
@@ -1311,10 +1325,7 @@ def passport_verify_command(
         typer.echo(f"ERROR passport verification failed: {exc}", err=True)
         raise typer.Exit(code=2) from exc
     label = "PASS" if mode != VerificationMode.UNVERIFIABLE_REFERENCE.value else "UNVERIFIABLE"
-    typer.echo(
-        f"{label} Model Passport mode={mode} id={passport_id} "
-        f"digest={passport_digest}"
-    )
+    typer.echo(f"{label} Model Passport mode={mode} id={passport_id} digest={passport_digest}")
     if mode == VerificationMode.UNVERIFIABLE_REFERENCE.value:
         raise typer.Exit(code=2)
     if profile is not None and selected.outcome != UsageOutcome.SUITABLE_WITH_LIMITATIONS:
@@ -1329,9 +1340,7 @@ def passport_show(
     try:
         schema = load_json_value(input_path.read_text(encoding="utf-8")).get("schema")
         if schema == "omiv.model-passport.v2":
-            text = render_linked_passport_markdown(
-                load_custody_linked_passport(input_path)
-            )
+            text = render_linked_passport_markdown(load_custody_linked_passport(input_path))
         else:
             text = render_passport_markdown(load_passport(input_path))
     except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
@@ -1460,6 +1469,144 @@ def custody_report_verify_command(
         typer.echo(f"ERROR custody report verification failed: {exc}", err=True)
         raise typer.Exit(code=2) from exc
     typer.echo(f"PASS custody report {envelope.report.report_digest}")
+
+
+def _attestation_exit_incomplete(authenticity: AttestationAuthenticity) -> bool:
+    return authenticity in {
+        AttestationAuthenticity.DECLARED,
+        AttestationAuthenticity.UNATTESTED,
+        AttestationAuthenticity.UNVERIFIED,
+    }
+
+
+@attestation_app.command("create")
+def attestation_create(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    report_output: Annotated[Path, typer.Option("--report-output", dir_okay=False)],
+    markdown_output: Annotated[Path, typer.Option("--markdown-output", dir_okay=False)],
+) -> None:
+    """Build a canonical artifact attestation and deterministic report offline."""
+    try:
+        raw = load_json_value(input_path.read_text(encoding="utf-8"))
+        value = build_attestation(ArtifactAttestationInput.model_validate(raw))
+        report = build_attestation_report(value)
+        write_attestation_bundle(
+            value,
+            report,
+            output,
+            report_output,
+            markdown_output,
+            forbidden_inputs=(input_path,),
+        )
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR attestation creation failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"PASS attestation id={value.attestation_id} digest={value.attestation_digest} "
+        f"authenticity={value.authenticity.value} "
+        f"signature={value.verification_summary.cryptographic_signature} "
+        f"issuer={value.verification_summary.issuer_authentication} "
+        f"payload={value.verification_summary.payload_status} "
+        f"runtime={value.verification_summary.runtime_status}"
+    )
+    if _attestation_exit_incomplete(value.authenticity):
+        raise typer.Exit(code=1)
+
+
+@attestation_app.command("verify")
+def attestation_verify_command(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+) -> None:
+    """Verify schema, policy, canonical identity, digest, and reconstructed trust."""
+    try:
+        value = verify_attestation(input_path)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR attestation verification failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"PASS attestation id={value.attestation_id} integrity=VALID "
+        f"authenticity={value.authenticity.value} "
+        f"provenance={value.verification_summary.provenance_strength.value} "
+        f"signature={value.verification_summary.cryptographic_signature} "
+        f"issuer={value.verification_summary.issuer_authentication} "
+        f"payload={value.verification_summary.payload_status} "
+        f"runtime={value.verification_summary.runtime_status}"
+    )
+    if _attestation_exit_incomplete(value.authenticity):
+        raise typer.Exit(code=1)
+
+
+@attestation_app.command("show")
+def attestation_show(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+) -> None:
+    """Show a strict attestation with its trust boundaries in Markdown."""
+    try:
+        value = load_attestation(input_path)
+        text = render_attestation_markdown(build_attestation_report(value))
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR attestation display failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(text, nl=False)
+
+
+@attestation_app.command("report-verify")
+def attestation_report_verify_command(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    attestation: Annotated[Path, typer.Option("--attestation", exists=True, dir_okay=False)],
+) -> None:
+    """Reconstruct an attestation report from its canonical attestation."""
+    try:
+        report = verify_attestation_report(input_path, attestation)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR attestation report verification failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(f"PASS attestation report {report.report.report_digest}")
+
+
+@attestation_app.command("append-custody")
+def attestation_append_custody(
+    attestation: Annotated[Path, typer.Option("--attestation", exists=True, dir_okay=False)],
+    ledger: Annotated[Path, typer.Option("--ledger", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    root: Annotated[Path, typer.Option("--root", exists=True, file_okay=False)] = Path("."),
+) -> None:
+    """Verify an attestation and append its mapped event to a verified ledger."""
+    try:
+        updated = append_attestation_to_ledger(
+            attestation_path=attestation,
+            ledger_path=ledger,
+            output_path=output,
+            root=root.resolve(),
+        )
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR attestation custody append failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"PASS attestation custody append event={updated.events[-1].event_id} "
+        f"ledger={updated.ledger_digest}"
+    )
+
+
+@attestation_app.command("custody-verify")
+def attestation_custody_verify(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    root: Annotated[Path, typer.Option("--root", exists=True, file_okay=False)] = Path("."),
+) -> None:
+    """Verify a portable v2 custody segment reconstructed from one attestation."""
+    try:
+        value = verify_attestation_custody_segment(input_path, root.resolve())
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR attestation custody verification failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"PASS attestation custody chain={value.chain_id} "
+        f"ledger={value.ledger_digest} completeness={value.lifecycle_completeness.value} "
+        "genesis=PORTABLE_SEGMENT_BEGINNING signed_events=0"
+    )
+    if value.lifecycle_completeness != LifecycleCompleteness.COMPLETE:
+        raise typer.Exit(code=1)
 
 
 @app.command("structural-compare")

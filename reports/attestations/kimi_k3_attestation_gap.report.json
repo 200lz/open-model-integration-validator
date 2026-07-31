@@ -1,0 +1,24 @@
+{
+  "acquisition_attestation": "UNAVAILABLE",
+  "artifact_specific_provenance": "UNAVAILABLE",
+  "artifact_variant": "UD-IQ1_M",
+  "execution_record": "UNAVAILABLE",
+  "immutable_revision_status": "KNOWN",
+  "issuer_identity": "UNAVAILABLE",
+  "limitations": [
+    "Remote inspection is not acquisition.",
+    "Structural equivalence is not artifact-specific transformation provenance.",
+    "No acquisition, transformation, quantization, execution, issuer, or signature attestation is available."
+  ],
+  "passport_digest": "ee8d3f83fe25ac8997e4e69f1551df35c82d6f4c4166e6be7052e06d417159af",
+  "passport_id": "mp_4a9b0e3b309c867711782e2075be77c6",
+  "quantization_attestation": "UNAVAILABLE",
+  "remote_inspection_status": "AVAILABLE",
+  "report_digest": "74ad82434b31d5edc91cdeedefb22618f603896ef10ac88437cfaefa319f157b",
+  "schema": "omiv.artifact-attestation-gap-report.v1",
+  "signature": "UNAVAILABLE",
+  "source_locator_status": "KNOWN",
+  "structural_evidence_status": "AVAILABLE",
+  "subject_display_name": "Kimi K3",
+  "transformation_attestation": "UNAVAILABLE"
+}

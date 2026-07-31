@@ -21,9 +21,15 @@ def _claim_identity(event_input: CustodyEventInput) -> str:
     return canonical_sha256(data)
 
 
-def append_event(ledger: CustodyLedger, event_input: CustodyEventInput) -> CustodyLedger:
-    if event_input.assertion_origin != AssertionOrigin.USER_DECLARED:
-        raise OmivInputError("appended event inputs must remain USER_DECLARED")
+def _append_event(
+    ledger: CustodyLedger,
+    event_input: CustodyEventInput,
+    *,
+    allowed_origins: set[AssertionOrigin],
+) -> CustodyLedger:
+    if event_input.assertion_origin not in allowed_origins:
+        allowed = ", ".join(sorted(item.value for item in allowed_origins))
+        raise OmivInputError(f"appended event origin must be one of: {allowed}")
     policy = custody_policy()
     if event_input.event_type not in policy.allowed_event_types or event_input.event_type in {
         CustodyEventType.REVOCATION_RECORDED_RESERVED,
@@ -50,19 +56,23 @@ def append_event(ledger: CustodyLedger, event_input: CustodyEventInput) -> Custo
     last = ledger.events[-1]
     current_subject = (
         last.output_artifacts[0]
-        if last.event_type == CustodyEventType.TRANSFORMATION_RECORDED
+        if last.event_type
+        in {
+            CustodyEventType.TRANSFORMATION_RECORDED,
+            CustodyEventType.QUANTIZATION_RECORDED,
+        }
         and len(last.output_artifacts) == 1
         else last.subject
     )
-    if event_input.event_type == CustodyEventType.TRANSFORMATION_RECORDED:
+    if event_input.event_type in {
+        CustodyEventType.TRANSFORMATION_RECORDED,
+        CustodyEventType.QUANTIZATION_RECORDED,
+    }:
         if event_input.subject.identity_digest != current_subject.identity_digest:
             raise OmivInputError("transformation input does not match current subject")
         if len(event_input.input_artifacts) != 1 or len(event_input.output_artifacts) != 1:
             raise OmivInputError("transformation requires exactly one input and one output")
-        if (
-            event_input.input_artifacts[0].identity_digest
-            != current_subject.identity_digest
-        ):
+        if event_input.input_artifacts[0].identity_digest != current_subject.identity_digest:
             raise OmivInputError("transformation relation has the wrong input artifact")
     elif event_input.subject.identity_digest != current_subject.identity_digest:
         raise OmivInputError("custody subject divergence")
@@ -75,9 +85,7 @@ def append_event(ledger: CustodyLedger, event_input: CustodyEventInput) -> Custo
     linkage = ledger.evidence_linkage
     if not event.evidence_references:
         linkage = (
-            EvidenceLinkageStatus.PARTIAL
-            if ledger.events
-            else EvidenceLinkageStatus.UNAVAILABLE
+            EvidenceLinkageStatus.PARTIAL if ledger.events else EvidenceLinkageStatus.UNAVAILABLE
         )
     elif any(
         reference.verification_mode != "full_verification"
@@ -92,4 +100,25 @@ def append_event(ledger: CustodyLedger, event_input: CustodyEventInput) -> Custo
         events=[*ledger.events, event],
         selected_profile=ledger.selected_profile,
         evidence_linkage=linkage,
+    )
+
+
+def append_event(ledger: CustodyLedger, event_input: CustodyEventInput) -> CustodyLedger:
+    """Append a strict user declaration without trust escalation."""
+    if event_input.assertion_origin != AssertionOrigin.USER_DECLARED:
+        raise OmivInputError("appended event inputs must remain USER_DECLARED")
+    return _append_event(ledger, event_input, allowed_origins={AssertionOrigin.USER_DECLARED})
+
+
+def append_evidence_event(ledger: CustodyLedger, event_input: CustodyEventInput) -> CustodyLedger:
+    """Append an already verified attestation-derived event."""
+    return _append_event(
+        ledger,
+        event_input,
+        allowed_origins={
+            AssertionOrigin.USER_DECLARED,
+            AssertionOrigin.SYSTEM_OBSERVED,
+            AssertionOrigin.DERIVED_FROM_VERIFIED_EVIDENCE,
+            AssertionOrigin.IMPORTED_ATTESTATION,
+        },
     )

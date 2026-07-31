@@ -1342,3 +1342,105 @@ The case study establishes descriptor-level structural evidence under recorded
 policies. It does not establish payload equality or integrity, numerical
 quantization fidelity, tokenizer parity, runtime equivalence, model quality, or
 artifact-specific conversion provenance.
+
+## Artifact acquisition and transformation attestations
+
+An artifact attestation is a structured claim about an acquisition, transfer,
+transformation, or quantization action. Phase 5C provides generic strict schemas,
+deterministic identities, evidence-link reconstruction, execution-record linkage,
+provenance-strength reconstruction, reports, and a custody-event adapter. The core
+attestation, custody, and Passport packages do not depend on Kimi or GGUF logic;
+local files, Safetensors-like artifacts, registries, OCI objects, S3 identities,
+and air-gapped packages use the same artifact-reference model.
+
+A valid attestation proves that the canonical record has not been altered and
+that its internal references satisfy the selected policy. It does not, by itself,
+prove the issuer's identity or provide cryptographic non-repudiation. A verified
+execution record can establish artifact-specific input, tool, configuration, and
+output linkage without proving numerical correctness, security, or runtime
+behavior.
+
+Acquisition and inspection are different. Remote inspection is not acquisition:
+a source locator, immutable revision, or bounded header read does not establish
+that an artifact was downloaded or transferred. A transfer preserves artifact
+identity between custody contexts, while a transformation explicitly relates
+different input and output identities. Quantization is a specialized
+transformation with an explicit target-type policy; its execution record does not
+establish numerical fidelity.
+
+A generic transfer does not automatically become an acquisition custody event.
+Transfer materialization is fail-closed unless policy-reconstructable evidence
+establishes entry into a new custody boundary, verifies the destination artifact
+identity and source/destination continuity, and satisfies every acquisition-event
+requirement. Same-boundary replication, cache relocation, registry mirroring,
+storage-tier migration, backup, and packaging remain valid transfer descriptions
+but are not acquisition-materializable.
+
+Attestation integrity, authenticity, and provenance are reported separately:
+
+- `USER_DECLARED` records a declaration and remains `DECLARED` and unsigned.
+- `SYSTEM_OBSERVED` requires explicit observation evidence but does not identify
+  an actor.
+- `DERIVED_FROM_VERIFIED_EVIDENCE` may be `EVIDENCE_LINKED` when all relevant
+  evidence reconstructs.
+- `VERIFIED_EXECUTION_RECORD` may be `EXECUTION_VERIFIED` when exact tool,
+  configuration, environment-status, input, output, and execution evidence
+  reconstruct.
+- Signed authenticity and signed provenance are reserved for Phase 5D.
+
+`EXECUTION_VERIFIED` always remains visibly unsigned: execution-record integrity
+is verified, while cryptographic signature is not available, issuer and actor
+authenticity are unverified, and payload correctness, numerical fidelity,
+security, runtime compatibility, and approval remain not checked.
+
+Structural equivalence is not artifact-specific transformation provenance.
+Converter source availability, a pinned revision, or compatible output structure
+cannot replace an execution record linking a specific input to a specific output.
+
+```bash
+omiv attestation create \
+  --input attestations/examples/synthetic_transformation.attestation-input.json \
+  --output attestations/examples/synthetic_transformation.attestation.json \
+  --report-output reports/attestations/synthetic_transformation.attestation.report.json \
+  --markdown-output reports/attestations/synthetic_transformation.attestation.report.md
+
+omiv attestation verify \
+  --input attestations/examples/synthetic_transformation.attestation.json
+
+omiv attestation show \
+  --input attestations/examples/synthetic_transformation.attestation.json
+
+omiv attestation report-verify \
+  --input reports/attestations/synthetic_transformation.attestation.report.json \
+  --attestation attestations/examples/synthetic_transformation.attestation.json
+
+omiv attestation append-custody \
+  --attestation attestations/examples/example.attestation.json \
+  --ledger custody/example.custody-ledger.json \
+  --output custody/example.with-attestation.custody-ledger.json
+```
+
+The custody adapter verifies both inputs, maps acquisition, transformation, and
+quantization claims to the existing typed custody taxonomy, derives the next
+sequence and parent digest, and writes a new ledger atomically. It never mutates
+the source ledger. Declared attestations remain unattested custody events;
+execution-verified events remain unsigned.
+
+A portable custody segment is a self-contained attestation-backed ledger
+fragment. Its genesis is the beginning of the portable segment, not necessarily
+the beginning of the artifact's real-world lifecycle. Segment envelopes are not
+concatenated: an attestation is re-materialized as a newly sequenced event under
+the verified destination ledger and its exact parent digest. A one-event intact
+segment remains lifecycle-incomplete.
+
+The Kimi K3 gap report deliberately records absence rather than creating a
+lifecycle claim. Its source locator, immutable revision, remote inspection, and
+structural evidence are available, while acquisition, transformation,
+quantization, execution, issuer, signature, and artifact-specific provenance
+attestations remain unavailable. Existing Kimi Passport v1/v2 and custody-ledger
+artifacts remain unchanged.
+
+Phase 5C is not signed supply-chain attestation. Phase 5D may add cryptographic
+signatures and trust roots; approval workflows, deployment admission, runtime
+agents, security scanning, payload fidelity, revocation services, and hosted
+registries remain outside Phase 5C.
