@@ -1,0 +1,31 @@
+{
+  "allowed_object_types": [
+    "ARTIFACT_ATTESTATION",
+    "CUSTODY_EVENT",
+    "CUSTODY_SEGMENT",
+    "MODEL_PASSPORT",
+    "TOOL_EXECUTION_RECORD"
+  ],
+  "allowed_purposes": [
+    "ATTESTATION_ISSUANCE",
+    "CUSTODY_EVENT_ISSUANCE",
+    "CUSTODY_SEGMENT_ISSUANCE",
+    "EXECUTION_RECORD_ISSUANCE",
+    "PASSPORT_ISSUANCE"
+  ],
+  "delegation_allowed": true,
+  "key_id": "key_ed39d828050734934fcf309c611f5d9b",
+  "limitations": [
+    "Trust applies only under a selected policy and recorded constraints."
+  ],
+  "maximum_delegation_depth": 1,
+  "namespaces": [
+    "synthetic"
+  ],
+  "provider_artifact_scopes": [],
+  "root_digest": "9ef4798ce45c3d027ce6f75d7910f1c7c7b271ba183f65766d21c29300efc7c8",
+  "schema": "omiv.trust-root.v1",
+  "status": "ACTIVE",
+  "trust_root_id": "root_f66518aac336a7d5bd3becf8a275f1be",
+  "validity": null
+}

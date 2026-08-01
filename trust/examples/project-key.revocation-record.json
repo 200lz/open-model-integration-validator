@@ -1,0 +1,15 @@
+{
+  "authoritative_basis": "LOCAL_POLICY",
+  "effective_at": null,
+  "evidence": [],
+  "limitations": [
+    "Static local revocation applies only when accepted by selected policy."
+  ],
+  "reason": "KEY_COMPROMISE",
+  "replacement_reference": null,
+  "revocation_digest": "2cd778c714d8dbfd818c86f6b127bd8aff7ad069685a327a7ca39e090cf893d4",
+  "revocation_id": "revocation_7cc2ef76a0da29efaa49ab80f7588571",
+  "schema": "omiv.revocation-record.v1",
+  "scope": "KEY",
+  "target_id": "key_ed39d828050734934fcf309c611f5d9b"
+}

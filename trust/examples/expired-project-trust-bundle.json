@@ -1,0 +1,119 @@
+{
+  "bundle_digest": "b952e2888e78d9cfa042316a45772e11643796a4e081a81c95cd9cbea4277760",
+  "bundle_id": "tb_5d6ca713cb2245f8482449bad5b5532a",
+  "delegations": [],
+  "keys": [
+    {
+      "algorithm": "ED25519",
+      "allowed_key_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "allowed_object_types": [
+        "ARTIFACT_ATTESTATION"
+      ],
+      "allowed_purposes": [
+        "ATTESTATION_ISSUANCE"
+      ],
+      "key_digest": "3a8815c3e1efff0e6717b824e870cd83bdafa14b38f10bd3a47e9c76a98c4ccd",
+      "key_id": "key_ed39d828050734934fcf309c611f5d9b",
+      "limitations": [
+        "Public-key identity does not establish signer identity."
+      ],
+      "namespaces": [
+        "synthetic"
+      ],
+      "provider_artifact_scopes": [],
+      "public_key": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+      "public_key_digest": "ed39d828050734934fcf309c611f5d9bf060b0b231f08fb9bfe60e68aaa6e3d9",
+      "public_key_encoding": "RAW_HEX",
+      "schema": "omiv.key-identity.v1",
+      "status": "ACTIVE",
+      "validity": {
+        "not_after": "2025-12-31T23:59:59Z",
+        "not_before": "2025-01-01T00:00:00Z"
+      }
+    }
+  ],
+  "limitations": [
+    "Static offline bundle; no online discovery or continuous reevaluation."
+  ],
+  "revocations": [],
+  "schema": "omiv.trust-bundle.v1",
+  "signer_identities": [
+    {
+      "display_label": "Synthetic Project Maintainer",
+      "identity_digest": "082e138673107569b19c98118ccc5f62b5f3513a5574b66e4f2e373e59674fc7",
+      "identity_evidence": [],
+      "identity_kind": "PROJECT_MAINTAINER_DECLARED",
+      "limitations": [
+        "Synthetic declared identity; no external identity proof."
+      ],
+      "namespace": "synthetic",
+      "organization_id": null,
+      "role": "maintainer",
+      "schema": "omiv.signer-identity.v1",
+      "signer_identity_id": "signer_e689b3a142f8aa48f256acaa128b04c1",
+      "verification_status": "DECLARED"
+    }
+  ],
+  "signer_key_bindings": [
+    {
+      "allowed_object_types": [
+        "ARTIFACT_ATTESTATION"
+      ],
+      "allowed_roles": [
+        "maintainer"
+      ],
+      "allowed_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "binding_digest": "3a9a83cee812cb7b39dee4d1cba84f4ed3b7ba14f6affc383afed5d89cca11d8",
+      "binding_id": "binding_cb93ee35249d6ab7b3b8bafd7b03336c",
+      "binding_origin": "TRUST_BUNDLE_DECLARED",
+      "evidence_references": [],
+      "key_id": "key_ed39d828050734934fcf309c611f5d9b",
+      "limitations": [
+        "Binding validity does not prove the underlying signed claim."
+      ],
+      "namespaces": [
+        "synthetic"
+      ],
+      "schema": "omiv.signer-key-binding.v1",
+      "signer_identity_id": "signer_e689b3a142f8aa48f256acaa128b04c1",
+      "validity": {
+        "not_after": "2025-12-31T23:59:59Z",
+        "not_before": "2025-01-01T00:00:00Z"
+      },
+      "verification_status": "VERIFIED_BY_TRUST_BUNDLE"
+    }
+  ],
+  "trust_roots": [
+    {
+      "allowed_object_types": [
+        "ARTIFACT_ATTESTATION"
+      ],
+      "allowed_purposes": [
+        "ATTESTATION_ISSUANCE"
+      ],
+      "delegation_allowed": false,
+      "key_id": "key_ed39d828050734934fcf309c611f5d9b",
+      "limitations": [
+        "Trust applies only under a selected policy and recorded constraints."
+      ],
+      "maximum_delegation_depth": 0,
+      "namespaces": [
+        "synthetic"
+      ],
+      "provider_artifact_scopes": [],
+      "root_digest": "0eb6698c9da33dc42e8e929c8e6ed68c7b179147bbcdf657e3570c41257d3bb2",
+      "schema": "omiv.trust-root.v1",
+      "status": "ACTIVE",
+      "trust_root_id": "root_587fa96968f7faa9d248d60d90b70551",
+      "validity": {
+        "not_after": "2025-12-31T23:59:59Z",
+        "not_before": "2025-01-01T00:00:00Z"
+      }
+    }
+  ],
+  "validity": null
+}

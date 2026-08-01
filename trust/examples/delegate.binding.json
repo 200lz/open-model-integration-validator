@@ -1,0 +1,26 @@
+{
+  "allowed_object_types": [
+    "CUSTODY_SEGMENT"
+  ],
+  "allowed_roles": [
+    "release"
+  ],
+  "allowed_usages": [
+    "SIGN_OMIV_OBJECT"
+  ],
+  "binding_digest": "95433d4c8fbcf988ebc3c9614a1fd92f243c171146c867ffe524b9f0917ad766",
+  "binding_id": "binding_f85dd4a3a2cf43c3f386ccb3ae07dedd",
+  "binding_origin": "TRUST_BUNDLE_DECLARED",
+  "evidence_references": [],
+  "key_id": "key_01ff700f954d00c581e5100c77858e6b",
+  "limitations": [
+    "Binding validity does not prove the underlying signed claim."
+  ],
+  "namespaces": [
+    "synthetic"
+  ],
+  "schema": "omiv.signer-key-binding.v1",
+  "signer_identity_id": "signer_d11b0ece36c5fd0e6bb404d14df4b3bd",
+  "validity": null,
+  "verification_status": "VERIFIED_BY_TRUST_BUNDLE"
+}

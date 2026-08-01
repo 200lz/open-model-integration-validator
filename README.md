@@ -1449,3 +1449,157 @@ Phase 5C is not signed supply-chain attestation. Phase 5D may add cryptographic
 signatures and trust roots; approval workflows, deployment admission, runtime
 agents, security scanning, payload fidelity, revocation services, and hosted
 registries remain outside Phase 5C.
+
+## Phase 5D: signed attestations and trust roots
+
+Phase 5D signs canonical OMIV source objects through separate
+`omiv.signed-object-envelope.v1` wrappers. It supports artifact attestations,
+tool-execution records, custody events, portable custody-ledger v2 segments, and
+Model Passport v1/v2 objects. The source object's ID, digest, and bytes are not
+changed.
+
+Only Ed25519 is active. OMIV uses `cryptography`'s Ed25519 implementation with
+32-byte raw public keys and 64-byte detached signatures encoded as lowercase
+hex. ECDSA, RSA-PSS, and Sigstore identifiers are reserved and fail closed.
+OMIV never implements or selects a fallback cryptographic primitive.
+
+The exact signed bytes are:
+
+```text
+ASCII("OMIV-SIGNED-OBJECT-V1")
++ 0x00
++ canonical_json(omiv.signature-payload.v1)
+```
+
+The payload descriptor binds the canonicalization version, source schema,
+typed object kind, object ID, SHA-256 digest of the complete canonical object,
+signature purpose, optional policy identity, namespace, provider/artifact scope,
+and key usage. Consequently a signature cannot be reused across an attestation
+and Passport, an execution record and custody event, a custody event and custody
+segment, or a different purpose, namespace, schema, ID, or canonicalization
+version. Pretty-printed source bytes and local line endings are never signed.
+
+The dependency order avoids digest cycles:
+
+```text
+canonical source object
+→ signature payload descriptor
+→ domain-separated canonical bytes
+→ detached Ed25519 signature
+→ signature record
+→ signed-object envelope
+→ reconstructed trust report
+```
+
+Key identity and signer identity are separate. `omiv.key-identity.v1` derives a
+`key_<32 hex>` ID from the schema, algorithm, encoding, and raw public-key bytes;
+it never contains a private key. `omiv.signer-identity.v1` contains an explicit
+declared or evidence-linked identity, while `omiv.signer-key-binding.v1` records
+the policy-visible relationship between that identity and key. A signature may
+be cryptographically valid while signer identity remains unavailable or
+unverified. OMIV never infers identity from a username, Git author, email,
+hostname, repository owner, or filesystem metadata.
+
+`omiv.trust-bundle.v1` is a deterministic static offline collection of public
+keys, signer identities, bindings, roots, bounded signed delegations, and static
+revocations. A trusted key is trusted only for the object types, purposes,
+namespaces, provider/artifact scopes, usages, delegation depth, validity window,
+and other constraints accepted by the selected `omiv.trust-policy.v1` policy.
+There is no universal built-in root. The available policy model supports the
+profiles `personal_local_trust`, `project_maintainer_release`, `team_release`,
+`enterprise_offline_release`, and `regulated_multi_party_release`; a profile has
+no approval semantics.
+
+Revocation is static and offline. Local declarative revocation is authoritative
+only when the selected policy explicitly accepts it. Expiration is evaluated
+only against an explicit `omiv.evaluation-context.v1`; verification never calls
+the system clock. Historical evaluation therefore means validity under the
+caller-supplied historical context, not a trusted signing time or timestamp
+authority.
+
+Root-signed revocation is reserved and rejected in Phase 5D because no signed
+revocation issuer format is implemented. Record integrity alone is never
+revocation authority. Reports identify each applicable record, its local-policy
+authority, scope, effective status, reason, and replacement relation. Validity
+windows use strict fixed-width UTC values; `not_before` and `not_after` are
+inclusive, and offsets or ambiguous local times are rejected rather than
+normalized.
+
+Signed-object envelopes can carry deterministically ordered signatures from
+distinct key/purpose pairs. Verification evaluates every signature independently
+and policies can require up to eight accepted signatures. Duplicate signatures
+and duplicate key/purpose pairs fail schema validation; one invalid signature
+makes the overall envelope invalid. This N-of-M signature threshold is trust
+evaluation only and has no approval semantics. The `trust sign` command creates
+one signature per new envelope; multi-signature envelope assembly is available
+through the typed builder API rather than an append-signature CLI workflow.
+
+A valid signature proves that the holder of the corresponding private key
+signed a specific canonical OMIV object. It does not by itself prove the
+underlying real-world claim is true. Signature validity is not key trust; a known
+key is not necessarily trusted; a valid signer/key binding does not prove claim
+content; a signed execution record does not establish a trusted environment; a
+trusted Passport signature does not mean a model is safe or approved.
+
+Signing an attestation does not upgrade its evidence, authenticity, provenance,
+payload, numerical fidelity, tokenizer parity, security, runtime, approval,
+deployment, or lifecycle-completeness state. A signed declared acquisition
+remains `DECLARED` with `DECLARED_PROVENANCE`. An execution-verified
+transformation retains its reconstructed Phase 5C authenticity and provenance,
+while payload, fidelity, security, and runtime remain `NOT_CHECKED`. A signed
+custody event remains one event, and `PORTABLE_SEGMENT_BEGINNING` does not become
+real-world lifecycle genesis.
+
+Trust reports render approval as `NOT_AVAILABLE`: Phase 5D contains no approval
+decision mechanism. A policy-accepted signature is always shown next to its
+signature integrity, key, signer identity and binding, underlying claim state,
+unchecked payload/fidelity/security/runtime dimensions, and lifecycle status.
+
+All commands operate offline:
+
+```bash
+omiv trust key-inspect --public-key maintainer-public.pem
+
+omiv trust sign \
+  --input attestations/examples/synthetic_transformation.attestation.json \
+  --object-type ARTIFACT_ATTESTATION \
+  --purpose ATTESTATION_ISSUANCE \
+  --private-key runtime-only-private-key.pem \
+  --public-key maintainer-public.pem \
+  --output signed-envelope.json
+
+omiv trust verify \
+  --input signed-envelope.json \
+  --trust-bundle trust/examples/project-trust-bundle.json \
+  --policy trust/examples/project-trust-policy.json \
+  --evaluation-context trust/examples/evaluation-context.json
+
+omiv trust show --input signed-envelope.json
+omiv trust bundle-verify --input trust/examples/project-trust-bundle.json
+omiv trust delegation-verify \
+  --input trust/examples/delegation-record.json \
+  --trust-bundle trust/examples/delegated-trust-bundle.json
+omiv trust revocation-verify --input trust/examples/project-key.revocation-record.json
+```
+
+`trust verify` exits 0 when the selected policy is satisfied, 1 for a valid
+object and signature with incomplete or unsatisfied trust, and 2 for malformed
+input, invalid signatures, authoritative revocation, required-current-validity
+failure, invalid delegation, unsupported algorithms or purposes, and operational
+errors. Signing accepts only a bounded unencrypted PKCS8 PEM private key at
+runtime. Private material is never placed in keys, envelopes, bundles, reports,
+or console output.
+
+The synthetic examples under `trust/examples/` and `reports/trust/` use public
+cryptographic test-vector material and fictional identities. They include
+trusted, declared, unknown-key, delegated, revoked, expired, execution-record,
+custody-event, and custody-segment cases. They make no publisher claim about
+Kimi K3; the existing Kimi gap remains signature unavailable and lifecycle
+incomplete.
+
+Phase 5D uses static offline trust bundles. KMS, HSM, TPM, smart cards, X.509,
+OIDC, Sigstore, Fulcio, Rekor, transparency logs, timestamp authorities, online
+key discovery, online revocation, approval, promotion, deployment admission,
+runtime agents, security scanning, payload verification, and fidelity/parity are
+not implemented. A future policy-decision, approval, and promotion-gate phase
+can consume these layered reports without changing Phase 5D signature meaning.

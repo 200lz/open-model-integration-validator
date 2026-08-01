@@ -1,0 +1,31 @@
+{
+  "allowed_object_types": [
+    "ARTIFACT_ATTESTATION",
+    "CUSTODY_EVENT",
+    "CUSTODY_SEGMENT",
+    "MODEL_PASSPORT",
+    "TOOL_EXECUTION_RECORD"
+  ],
+  "allowed_roles": [
+    "maintainer"
+  ],
+  "allowed_usages": [
+    "DELEGATE_SIGNING",
+    "SIGN_OMIV_OBJECT"
+  ],
+  "binding_digest": "fbd58ddc88181aa461a449b97859747d30567e6f7cc248357e27a3457ad2243a",
+  "binding_id": "binding_3ad2e7f029de8027bc241cd31ddde92e",
+  "binding_origin": "TRUST_BUNDLE_DECLARED",
+  "evidence_references": [],
+  "key_id": "key_ed39d828050734934fcf309c611f5d9b",
+  "limitations": [
+    "Binding validity does not prove the underlying signed claim."
+  ],
+  "namespaces": [
+    "synthetic"
+  ],
+  "schema": "omiv.signer-key-binding.v1",
+  "signer_identity_id": "signer_e689b3a142f8aa48f256acaa128b04c1",
+  "validity": null,
+  "verification_status": "VERIFIED_BY_TRUST_BUNDLE"
+}

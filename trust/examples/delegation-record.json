@@ -1,0 +1,25 @@
+{
+  "allowed_object_types": [
+    "CUSTODY_SEGMENT"
+  ],
+  "allowed_purposes": [
+    "CUSTODY_SEGMENT_ISSUANCE"
+  ],
+  "authorization_algorithm": "ED25519",
+  "authorization_signature": "31aad872c71b7802c6bb2e175f59ba36f5d4c6f74de45b747c895cf2c907eff2c28b2b8839e7f56f5f982d440859babf179fadf43b5221dc2a799f0bbd3abd0a",
+  "delegate_key_id": "key_01ff700f954d00c581e5100c77858e6b",
+  "delegation_digest": "2a6d314850c60350c97cc891c1ce9fa5915399a46c71c3f3f3ccf0a2e8c2564b",
+  "delegation_id": "delegation_e784f01481270e1547e82cbedac69ee0",
+  "delegator_key_id": "key_ed39d828050734934fcf309c611f5d9b",
+  "limitations": [
+    "Delegation grants only the explicitly bounded signing authority."
+  ],
+  "maximum_subordinate_depth": 0,
+  "namespaces": [
+    "synthetic"
+  ],
+  "provider_artifact_scopes": [],
+  "schema": "omiv.delegation-record.v1",
+  "status": "ACTIVE",
+  "validity": null
+}

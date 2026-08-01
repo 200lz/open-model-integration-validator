@@ -1,0 +1,11 @@
+{
+  "context_digest": "e7f6324602c36e5855d38a8ca865e8329e76df143d52093acfc4ee5fcc8f8d1c",
+  "evaluation_context_id": "eval_7c59ec8987e31fb3381e6f48c1f5a002",
+  "evaluation_time": "2026-07-31T00:00:00Z",
+  "limitations": [
+    "Evaluation time is caller supplied; no trusted timestamp authority."
+  ],
+  "policy_id": "omiv.trust-policy.project_maintainer_release.v1",
+  "purpose": "CURRENT",
+  "schema": "omiv.evaluation-context.v1"
+}

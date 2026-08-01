@@ -1,0 +1,468 @@
+{
+  "envelope_digest": "3212cc2f0cc0e687bd2c2ba8aedb14cae5aa626e6bd48c4b06f1e44db19b3140",
+  "envelope_id": "soe_98af9f5a8c4b0fa4f35dcbed7c519c4e",
+  "key_records": [
+    {
+      "algorithm": "ED25519",
+      "allowed_key_usages": [
+        "DELEGATE_SIGNING",
+        "SIGN_OMIV_OBJECT"
+      ],
+      "allowed_object_types": [
+        "ARTIFACT_ATTESTATION",
+        "CUSTODY_EVENT",
+        "CUSTODY_SEGMENT",
+        "MODEL_PASSPORT",
+        "TOOL_EXECUTION_RECORD"
+      ],
+      "allowed_purposes": [
+        "ATTESTATION_ISSUANCE",
+        "CUSTODY_EVENT_ISSUANCE",
+        "CUSTODY_SEGMENT_ISSUANCE",
+        "EXECUTION_RECORD_ISSUANCE",
+        "PASSPORT_ISSUANCE"
+      ],
+      "key_digest": "db143bcdb007e443ead4c0704cb7d4eab9d299eb2cf5b6a6cabd0ca268c382c7",
+      "key_id": "key_ed39d828050734934fcf309c611f5d9b",
+      "limitations": [
+        "Public-key identity does not establish signer identity."
+      ],
+      "namespaces": [
+        "synthetic"
+      ],
+      "provider_artifact_scopes": [],
+      "public_key": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+      "public_key_digest": "ed39d828050734934fcf309c611f5d9bf060b0b231f08fb9bfe60e68aaa6e3d9",
+      "public_key_encoding": "RAW_HEX",
+      "schema": "omiv.key-identity.v1",
+      "status": "ACTIVE",
+      "validity": null
+    }
+  ],
+  "limitations": [
+    "The canonical source object is unchanged; trust is reconstructed externally."
+  ],
+  "schema": "omiv.signed-object-envelope.v1",
+  "signatures": [
+    {
+      "algorithm": "ED25519",
+      "binding_id": "binding_3ad2e7f029de8027bc241cd31ddde92e",
+      "detached_signature": "8d800f6edbcbc55e385af2691843f9ccb7651ebd40fae5ae2c7257db3067416aa778720f17746ed173b7bea451a514a88584a5789d201033a86759896854f90d",
+      "key_id": "key_ed39d828050734934fcf309c611f5d9b",
+      "limitations": [
+        "Signature integrity does not prove the underlying claim is true."
+      ],
+      "payload": {
+        "canonicalization_version": "omiv-json-v1",
+        "digest_algorithm": "SHA-256",
+        "domain": "OMIV-SIGNED-OBJECT-V1",
+        "key_usage": "SIGN_OMIV_OBJECT",
+        "namespace": "synthetic",
+        "provider_artifact_scope": null,
+        "schema": "omiv.signature-payload.v1",
+        "signature_purpose": "ATTESTATION_ISSUANCE",
+        "signed_object_digest": "c3978007ace5620f1b324a2577c3063f6d4b3d329e58e76afd8795414c03216a",
+        "signed_object_id": "att_4a6efa7aad56fc20f2b840688c0756db",
+        "signed_object_schema": "omiv.artifact-attestation.v1",
+        "signed_object_type": "ARTIFACT_ATTESTATION",
+        "trust_policy_id": "omiv.trust-policy.project_maintainer_release.v1"
+      },
+      "purpose": "ATTESTATION_ISSUANCE",
+      "schema": "omiv.signature-record.v1",
+      "signature_digest": "3d7bcdecc2c988c65f7e12e4e18b77b21f9031b011202d32d6fedf065909b9a2",
+      "signature_encoding": "RAW_HEX",
+      "signature_id": "sig_394019ac99ffc102ce48b71982ee64dd",
+      "trust_policy_id": "omiv.trust-policy.project_maintainer_release.v1"
+    }
+  ],
+  "signed_object": {
+    "acquisition_method": null,
+    "acquisition_outcome": null,
+    "assertion_origin": "VERIFIED_EXECUTION_RECORD",
+    "attestation_digest": "ef3d56a52e87bfaeea3d5f5c6e64a719c590897fe9580349bdcb58177d833024",
+    "attestation_id": "att_4a6efa7aad56fc20f2b840688c0756db",
+    "attestation_kind": "TRANSFORMATION",
+    "authenticity": "EXECUTION_VERIFIED",
+    "claim_details": {
+      "payload_correctness": "NOT_CHECKED",
+      "relationship": "explicit input/tool/configuration/output linkage",
+      "runtime": "NOT_CHECKED",
+      "structural_relation": "VERIFIED"
+    },
+    "claim_type": "ARTIFACT_CONVERTED",
+    "command_identity": {
+      "argument_digests": [],
+      "command_digest": "b97ca553cbdb5ad8873cdfd9f317e52751d3b50c7f6ba76f198b055879a99247",
+      "normalized_arguments": [
+        "--input-identity",
+        "df4ef8c1d5fd7e44485b846a7d071cf0f7edc814f909033a6af541401281b623",
+        "--output-identity",
+        "115d09d019d8ac353057dbc40a69fd5929e91fdcfe83b996d4823217831f819b",
+        "--configuration-digest",
+        "630337320ced948dab6320300377b42b769c809d6511c6d01a0cb72867eee397"
+      ],
+      "program": "synthetic-converter",
+      "redacted_fields": [],
+      "working_directory_status": "UNAVAILABLE"
+    },
+    "configuration_identity": {
+      "availability": "included",
+      "configuration_digest": "630337320ced948dab6320300377b42b769c809d6511c6d01a0cb72867eee397",
+      "configuration_schema": "omiv.synthetic-conversion-configuration.v1",
+      "normalized_parameters": {
+        "architecture": "generic-transformer",
+        "output_format": "gguf",
+        "tensor_mapping_policy": "synthetic-mapping-v1"
+      },
+      "redacted_parameter_names": [],
+      "source_reference": null,
+      "verification_mode": "full_verification"
+    },
+    "destination_location": null,
+    "environment_identity": {
+      "architecture_identity": "generic-64",
+      "container_image_digest": "2fa7a3b20667bb36d5f8057356288e5d8c36f18fe6154255d5918db9d58e441f",
+      "dependency_lock_digest": "6ae910efc9056119e2747404aecc2f0ae946c45b7dbf6d5317c3f26deaed918b",
+      "environment_digest": "69c165ba4f4c01fa84c81af5df1714e21a1a69279fe89b629cd0dd95b0ee30d5",
+      "environment_kind": "synthetic_container",
+      "evidence_references": [
+        {
+          "availability": "included",
+          "claim_scope": [
+            "synthetic environment identity identity"
+          ],
+          "digest": "69c165ba4f4c01fa84c81af5df1714e21a1a69279fe89b629cd0dd95b0ee30d5",
+          "finding_ids": [],
+          "included_payload": {
+            "architecture_identity": "generic-64",
+            "environment_kind": "synthetic_container",
+            "runtime_identity": "synthetic-runtime-v1"
+          },
+          "policy_digests": [],
+          "relative_path": null,
+          "role": "environment_identity",
+          "schema": "omiv.synthetic-environment_identity.v1",
+          "source_phase": "5C-synthetic",
+          "verification_mode": "full_verification"
+        }
+      ],
+      "os_identity": null,
+      "runtime_identity": "synthetic-runtime-v1",
+      "status": "EVIDENCE_LINKED"
+    },
+    "evidence_references": [
+      {
+        "availability": "included",
+        "claim_scope": [
+          "synthetic execution evidence identity"
+        ],
+        "digest": "da06bd6be179ea6b858ed7db33cc47a30a66dfb8b32040f9da4b919f966e70c3",
+        "finding_ids": [],
+        "included_payload": {
+          "configuration_digest": "630337320ced948dab6320300377b42b769c809d6511c6d01a0cb72867eee397",
+          "input_identity": "df4ef8c1d5fd7e44485b846a7d071cf0f7edc814f909033a6af541401281b623",
+          "output_identity": "115d09d019d8ac353057dbc40a69fd5929e91fdcfe83b996d4823217831f819b",
+          "result": "SUCCEEDED",
+          "tool_identity_digest": "17f24ee96ed8e3aea5577a8efcaf0964fb0ad5b4e3f735ebb2249af02a1db257"
+        },
+        "policy_digests": [],
+        "relative_path": null,
+        "role": "execution_evidence",
+        "schema": "omiv.synthetic-execution_evidence.v1",
+        "source_phase": "5C-synthetic",
+        "verification_mode": "full_verification"
+      },
+      {
+        "availability": "included",
+        "claim_scope": [
+          "synthetic structural validation identity"
+        ],
+        "digest": "6a19a2542cbd6adf2f99c05255a82576371208f9fdf78f9e8eb1f34345990329",
+        "finding_ids": [],
+        "included_payload": {
+          "format": "gguf",
+          "output_identity": "115d09d019d8ac353057dbc40a69fd5929e91fdcfe83b996d4823217831f819b",
+          "structure": "VALID"
+        },
+        "policy_digests": [],
+        "relative_path": null,
+        "role": "structural_validation",
+        "schema": "omiv.synthetic-structural_validation.v1",
+        "source_phase": "5C-synthetic",
+        "verification_mode": "full_verification"
+      },
+      {
+        "availability": "included",
+        "claim_scope": [
+          "synthetic mapping evidence identity"
+        ],
+        "digest": "596cdd8ff397f9213f97bf0616dd62d107515dac4eb04e6df2f113ad99fde8a9",
+        "finding_ids": [],
+        "included_payload": {
+          "input_identity": "df4ef8c1d5fd7e44485b846a7d071cf0f7edc814f909033a6af541401281b623",
+          "mapping_policy": "synthetic-mapping-v1",
+          "output_identity": "115d09d019d8ac353057dbc40a69fd5929e91fdcfe83b996d4823217831f819b"
+        },
+        "policy_digests": [],
+        "relative_path": null,
+        "role": "mapping_evidence",
+        "schema": "omiv.synthetic-mapping_evidence.v1",
+        "source_phase": "5C-synthetic",
+        "verification_mode": "full_verification"
+      }
+    ],
+    "execution_record": {
+      "command_identity": {
+        "argument_digests": [],
+        "command_digest": "b97ca553cbdb5ad8873cdfd9f317e52751d3b50c7f6ba76f198b055879a99247",
+        "normalized_arguments": [
+          "--input-identity",
+          "df4ef8c1d5fd7e44485b846a7d071cf0f7edc814f909033a6af541401281b623",
+          "--output-identity",
+          "115d09d019d8ac353057dbc40a69fd5929e91fdcfe83b996d4823217831f819b",
+          "--configuration-digest",
+          "630337320ced948dab6320300377b42b769c809d6511c6d01a0cb72867eee397"
+        ],
+        "program": "synthetic-converter",
+        "redacted_fields": [],
+        "working_directory_status": "UNAVAILABLE"
+      },
+      "configuration_identity": {
+        "availability": "included",
+        "configuration_digest": "630337320ced948dab6320300377b42b769c809d6511c6d01a0cb72867eee397",
+        "configuration_schema": "omiv.synthetic-conversion-configuration.v1",
+        "normalized_parameters": {
+          "architecture": "generic-transformer",
+          "output_format": "gguf",
+          "tensor_mapping_policy": "synthetic-mapping-v1"
+        },
+        "redacted_parameter_names": [],
+        "source_reference": null,
+        "verification_mode": "full_verification"
+      },
+      "environment_identity": {
+        "architecture_identity": "generic-64",
+        "container_image_digest": "2fa7a3b20667bb36d5f8057356288e5d8c36f18fe6154255d5918db9d58e441f",
+        "dependency_lock_digest": "6ae910efc9056119e2747404aecc2f0ae946c45b7dbf6d5317c3f26deaed918b",
+        "environment_digest": "69c165ba4f4c01fa84c81af5df1714e21a1a69279fe89b629cd0dd95b0ee30d5",
+        "environment_kind": "synthetic_container",
+        "evidence_references": [
+          {
+            "availability": "included",
+            "claim_scope": [
+              "synthetic environment identity identity"
+            ],
+            "digest": "69c165ba4f4c01fa84c81af5df1714e21a1a69279fe89b629cd0dd95b0ee30d5",
+            "finding_ids": [],
+            "included_payload": {
+              "architecture_identity": "generic-64",
+              "environment_kind": "synthetic_container",
+              "runtime_identity": "synthetic-runtime-v1"
+            },
+            "policy_digests": [],
+            "relative_path": null,
+            "role": "environment_identity",
+            "schema": "omiv.synthetic-environment_identity.v1",
+            "source_phase": "5C-synthetic",
+            "verification_mode": "full_verification"
+          }
+        ],
+        "os_identity": null,
+        "runtime_identity": "synthetic-runtime-v1",
+        "status": "EVIDENCE_LINKED"
+      },
+      "evidence_references": [
+        {
+          "availability": "included",
+          "claim_scope": [
+            "synthetic execution evidence identity"
+          ],
+          "digest": "da06bd6be179ea6b858ed7db33cc47a30a66dfb8b32040f9da4b919f966e70c3",
+          "finding_ids": [],
+          "included_payload": {
+            "configuration_digest": "630337320ced948dab6320300377b42b769c809d6511c6d01a0cb72867eee397",
+            "input_identity": "df4ef8c1d5fd7e44485b846a7d071cf0f7edc814f909033a6af541401281b623",
+            "output_identity": "115d09d019d8ac353057dbc40a69fd5929e91fdcfe83b996d4823217831f819b",
+            "result": "SUCCEEDED",
+            "tool_identity_digest": "17f24ee96ed8e3aea5577a8efcaf0964fb0ad5b4e3f735ebb2249af02a1db257"
+          },
+          "policy_digests": [],
+          "relative_path": null,
+          "role": "execution_evidence",
+          "schema": "omiv.synthetic-execution_evidence.v1",
+          "source_phase": "5C-synthetic",
+          "verification_mode": "full_verification"
+        }
+      ],
+      "execution_record_digest": "3765a4566ada8ce35098d5ec44a8ee011d393f531b711705f6d4d9bbb21b3bbb",
+      "execution_record_id": "exec_069c07cc120038699000c6a16404f69a",
+      "execution_result": "SUCCEEDED",
+      "input_artifacts": [
+        {
+          "architecture": "generic-transformer",
+          "artifact_set_digest": "c06902ff7ef401ca63152b62e28d300d1f10671bcf00de5fa83f1964b844e989",
+          "content_digest": "c06902ff7ef401ca63152b62e28d300d1f10671bcf00de5fa83f1964b844e989",
+          "file_count": 1,
+          "format": "safetensors",
+          "identity_digest": "df4ef8c1d5fd7e44485b846a7d071cf0f7edc814f909033a6af541401281b623",
+          "origin_type": "internal_registry",
+          "passport_digest": null,
+          "passport_id": null,
+          "provider": "synthetic.example",
+          "repository": "synthetic/source-model",
+          "repository_type": "model",
+          "resolved_revision": "2222222222222222222222222222222222222222",
+          "selection": "source",
+          "total_declared_bytes": 4096,
+          "validation_inventory_digest": null,
+          "variant": "source"
+        }
+      ],
+      "limitations": [
+        "Execution-record consistency does not establish output semantic correctness."
+      ],
+      "output_artifacts": [
+        {
+          "architecture": "generic-transformer",
+          "artifact_set_digest": "3eab6db0aecb6595cadfc5899e02a511e2eb24ccce76ca97adaa319cb4330444",
+          "content_digest": "3eab6db0aecb6595cadfc5899e02a511e2eb24ccce76ca97adaa319cb4330444",
+          "file_count": 1,
+          "format": "gguf",
+          "identity_digest": "115d09d019d8ac353057dbc40a69fd5929e91fdcfe83b996d4823217831f819b",
+          "origin_type": "internal_registry",
+          "passport_digest": null,
+          "passport_id": null,
+          "provider": "synthetic.example",
+          "repository": "synthetic/output-model",
+          "repository_type": "model",
+          "resolved_revision": "3333333333333333333333333333333333333333",
+          "selection": "converted",
+          "total_declared_bytes": 4096,
+          "validation_inventory_digest": null,
+          "variant": "converted"
+        }
+      ],
+      "schema": "omiv.tool-execution-record.v1",
+      "tool_identity": {
+        "tool_identity_digest": "17f24ee96ed8e3aea5577a8efcaf0964fb0ad5b4e3f735ebb2249af02a1db257",
+        "tool_name": "synthetic-converter",
+        "tool_revision": "4444444444444444444444444444444444444444",
+        "tool_version": "1.0"
+      }
+    },
+    "inputs": [
+      {
+        "architecture": "generic-transformer",
+        "artifact_set_digest": "c06902ff7ef401ca63152b62e28d300d1f10671bcf00de5fa83f1964b844e989",
+        "content_digest": "c06902ff7ef401ca63152b62e28d300d1f10671bcf00de5fa83f1964b844e989",
+        "file_count": 1,
+        "format": "safetensors",
+        "identity_digest": "df4ef8c1d5fd7e44485b846a7d071cf0f7edc814f909033a6af541401281b623",
+        "origin_type": "internal_registry",
+        "passport_digest": null,
+        "passport_id": null,
+        "provider": "synthetic.example",
+        "repository": "synthetic/source-model",
+        "repository_type": "model",
+        "resolved_revision": "2222222222222222222222222222222222222222",
+        "selection": "source",
+        "total_declared_bytes": 4096,
+        "validation_inventory_digest": null,
+        "variant": "source"
+      }
+    ],
+    "issuer": {
+      "display_label": null,
+      "evidence_digest": null,
+      "issuer_kind": null,
+      "issuer_status": "UNAVAILABLE",
+      "organization_id": null,
+      "stable_issuer_id": null,
+      "system_id": null
+    },
+    "limitations": [
+      "Numerical fidelity was not checked.",
+      "Payload correctness was not checked.",
+      "Runtime compatibility was not checked.",
+      "The execution record is unsigned and does not authenticate an issuer."
+    ],
+    "outputs": [
+      {
+        "architecture": "generic-transformer",
+        "artifact_set_digest": "3eab6db0aecb6595cadfc5899e02a511e2eb24ccce76ca97adaa319cb4330444",
+        "content_digest": "3eab6db0aecb6595cadfc5899e02a511e2eb24ccce76ca97adaa319cb4330444",
+        "file_count": 1,
+        "format": "gguf",
+        "identity_digest": "115d09d019d8ac353057dbc40a69fd5929e91fdcfe83b996d4823217831f819b",
+        "origin_type": "internal_registry",
+        "passport_digest": null,
+        "passport_id": null,
+        "provider": "synthetic.example",
+        "repository": "synthetic/output-model",
+        "repository_type": "model",
+        "resolved_revision": "3333333333333333333333333333333333333333",
+        "selection": "converted",
+        "total_declared_bytes": 4096,
+        "validation_inventory_digest": null,
+        "variant": "converted"
+      }
+    ],
+    "policy_identity": {
+      "policy_digest": "e0edfbb43523bc438c99d2451d0fcf00c0867e2ac469109a2e62f7d617e732bb",
+      "policy_schema": "omiv.artifact-attestation-policy.v1"
+    },
+    "policy_references": [],
+    "quantization": null,
+    "schema": "omiv.artifact-attestation.v1",
+    "source_location": null,
+    "subject": {
+      "architecture": "generic-transformer",
+      "artifact_set_digest": "3eab6db0aecb6595cadfc5899e02a511e2eb24ccce76ca97adaa319cb4330444",
+      "content_digest": "3eab6db0aecb6595cadfc5899e02a511e2eb24ccce76ca97adaa319cb4330444",
+      "file_count": 1,
+      "format": "gguf",
+      "identity_digest": "115d09d019d8ac353057dbc40a69fd5929e91fdcfe83b996d4823217831f819b",
+      "origin_type": "internal_registry",
+      "passport_digest": null,
+      "passport_id": null,
+      "provider": "synthetic.example",
+      "repository": "synthetic/output-model",
+      "repository_type": "model",
+      "resolved_revision": "3333333333333333333333333333333333333333",
+      "selection": "converted",
+      "total_declared_bytes": 4096,
+      "validation_inventory_digest": null,
+      "variant": "converted"
+    },
+    "tool_identity": {
+      "tool_identity_digest": "17f24ee96ed8e3aea5577a8efcaf0964fb0ad5b4e3f735ebb2249af02a1db257",
+      "tool_name": "synthetic-converter",
+      "tool_revision": "4444444444444444444444444444444444444444",
+      "tool_version": "1.0"
+    },
+    "transformation_kind": "FORMAT_CONVERSION",
+    "verification_summary": {
+      "actor_authenticity": "UNVERIFIED",
+      "artifact_continuity": "VALID",
+      "attestation_signature_boundary": "UNSIGNED",
+      "cryptographic_signature": "NOT_AVAILABLE",
+      "evidence_linkage": "FULLY_VERIFIED",
+      "execution_record_integrity": "VERIFIED",
+      "execution_verification": "VERIFIED",
+      "integrity": "VALID",
+      "issuer_authentication": "UNVERIFIED",
+      "materialization_eligibility": "ELIGIBLE",
+      "numerical_fidelity_status": "NOT_CHECKED",
+      "payload_status": "NOT_CHECKED",
+      "provenance_strength": "ARTIFACT_SPECIFIC_PROVENANCE",
+      "runtime_status": "NOT_CHECKED",
+      "security_status": "NOT_CHECKED"
+    },
+    "warnings": []
+  },
+  "signed_object_digest": "c3978007ace5620f1b324a2577c3063f6d4b3d329e58e76afd8795414c03216a",
+  "signed_object_id": "att_4a6efa7aad56fc20f2b840688c0756db",
+  "signed_object_schema": "omiv.artifact-attestation.v1",
+  "signed_object_type": "ARTIFACT_ATTESTATION",
+  "trust_policy_id": "omiv.trust-policy.project_maintainer_release.v1"
+}

@@ -1,0 +1,571 @@
+{
+  "envelope_digest": "19c78eb74e7fbe0f55a887795e46b7e8e2a144e5b1bb990d3e85f9377efc5e1e",
+  "envelope_id": "soe_d45c3af67645538185c67770250dd86f",
+  "key_records": [
+    {
+      "algorithm": "ED25519",
+      "allowed_key_usages": [
+        "DELEGATE_SIGNING",
+        "SIGN_OMIV_OBJECT"
+      ],
+      "allowed_object_types": [
+        "ARTIFACT_ATTESTATION",
+        "CUSTODY_EVENT",
+        "CUSTODY_SEGMENT",
+        "MODEL_PASSPORT",
+        "TOOL_EXECUTION_RECORD"
+      ],
+      "allowed_purposes": [
+        "ATTESTATION_ISSUANCE",
+        "CUSTODY_EVENT_ISSUANCE",
+        "CUSTODY_SEGMENT_ISSUANCE",
+        "EXECUTION_RECORD_ISSUANCE",
+        "PASSPORT_ISSUANCE"
+      ],
+      "key_digest": "db143bcdb007e443ead4c0704cb7d4eab9d299eb2cf5b6a6cabd0ca268c382c7",
+      "key_id": "key_ed39d828050734934fcf309c611f5d9b",
+      "limitations": [
+        "Public-key identity does not establish signer identity."
+      ],
+      "namespaces": [
+        "synthetic"
+      ],
+      "provider_artifact_scopes": [],
+      "public_key": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+      "public_key_digest": "ed39d828050734934fcf309c611f5d9bf060b0b231f08fb9bfe60e68aaa6e3d9",
+      "public_key_encoding": "RAW_HEX",
+      "schema": "omiv.key-identity.v1",
+      "status": "ACTIVE",
+      "validity": null
+    }
+  ],
+  "limitations": [
+    "The canonical source object is unchanged; trust is reconstructed externally."
+  ],
+  "schema": "omiv.signed-object-envelope.v1",
+  "signatures": [
+    {
+      "algorithm": "ED25519",
+      "binding_id": "binding_3ad2e7f029de8027bc241cd31ddde92e",
+      "detached_signature": "78d68b1680581092a68dffd0e5cc23732dc7097e4fe51ca8cbbeeebc0d8f4783a8f50db3f571cfa89f35aeff1ac826272d2d81b876aa901667a1acce4a5d5203",
+      "key_id": "key_ed39d828050734934fcf309c611f5d9b",
+      "limitations": [
+        "Signature integrity does not prove the underlying claim is true."
+      ],
+      "payload": {
+        "canonicalization_version": "omiv-json-v1",
+        "digest_algorithm": "SHA-256",
+        "domain": "OMIV-SIGNED-OBJECT-V1",
+        "key_usage": "SIGN_OMIV_OBJECT",
+        "namespace": "synthetic",
+        "provider_artifact_scope": null,
+        "schema": "omiv.signature-payload.v1",
+        "signature_purpose": "PASSPORT_ISSUANCE",
+        "signed_object_digest": "3195317a34b8e1154f654ed65a60a11a98196b5e862636376b1b6b04a7955a53",
+        "signed_object_id": "mp_9b2b95af28fb5bbfc87c1e3ded1054f2",
+        "signed_object_schema": "omiv.model-passport.v2",
+        "signed_object_type": "MODEL_PASSPORT",
+        "trust_policy_id": "omiv.trust-policy.project_maintainer_release.v1"
+      },
+      "purpose": "PASSPORT_ISSUANCE",
+      "schema": "omiv.signature-record.v1",
+      "signature_digest": "379d2e7384ee2071623151d7d2ed49398810944a5859ffe6d028a56e187980ba",
+      "signature_encoding": "RAW_HEX",
+      "signature_id": "sig_9c389fb0f43ed3269fe8dc022be06261",
+      "trust_policy_id": "omiv.trust-policy.project_maintainer_release.v1"
+    }
+  ],
+  "signed_object": {
+    "artifact_identity": {
+      "content_identity": {
+        "artifact_set_digest": "e30a2b8019258213d893d10caff79860bd07a3262ad6e5cc2352884b7cc4f51c",
+        "file_count": 32,
+        "individual_file_digest_availability": "unavailable",
+        "total_declared_bytes": 1508668683104
+      },
+      "format_identity": {
+        "architecture": "synthetic-transformer",
+        "format": "GGUF",
+        "split_container": true
+      },
+      "model_identity": {
+        "architecture": "synthetic-transformer",
+        "model_family": "synthetic-transformer"
+      },
+      "model_pack": "synthetic-transformer",
+      "model_pack_digest": "6f151e70f2b28e367b84c59db6e7ad4184271b1cc7f518320043e3456c3ef288",
+      "model_pack_version": 3,
+      "origin": {
+        "origin_type": "internal_registry",
+        "provider": "internal_registry",
+        "repository": "synthetic-project/Synthetic-Transformer-GGUF",
+        "repository_type": "model_repository",
+        "resolved_revision": "3d4b61ab4b6789d401191c476cbb4567246db8f5"
+      },
+      "variant_identity": {
+        "selection": "SYNTHETIC-F16/*.gguf",
+        "variant": "SYNTHETIC-F16"
+      }
+    },
+    "base_passport_digest": "ccaa10f66f533c43e5ae74492f494ea375fa97f4d8d67ae0a8caa01c5347945e",
+    "base_passport_id": "mp_02e689eb3e09de0de341fec3aa90abaf",
+    "custody_reference": {
+      "digest": "15d57adc5282a074e58f5d8d8e36e88d0bcd636aa5bdfae528ca8577ad5a6445",
+      "relative_path": "custody/synthetic-project_Synthetic-Transformer-GGUF_SYNTHETIC-F16.custody-ledger.json",
+      "role": "custody_ledger",
+      "schema": "omiv.custody-ledger.v1"
+    },
+    "custody_summary": {
+      "chain_id": "mcoc_03093c611d82fd4b2fd71d47e358eb7a",
+      "event_authenticity": [
+        "EVIDENCE_DERIVED"
+      ],
+      "event_count": 6,
+      "evidence_linkage": "VERIFIED",
+      "genesis_event_digest": "84b06356b8be95e33e31820cc97b30a7c957b7cc51201fb75691f4d1dd601939",
+      "latest_event_digest": "8b6f0837ae58e0d37513ff96a2f9b9241b8b1d9e00252325aef5892d60040a08",
+      "ledger_digest": "15d57adc5282a074e58f5d8d8e36e88d0bcd636aa5bdfae528ca8577ad5a6445",
+      "ledger_integrity": "INTACT",
+      "ledger_schema": "omiv.custody-ledger.v1",
+      "lifecycle_completeness": "INCOMPLETE",
+      "missing_event_types": [
+        "APPROVAL_RECORDED",
+        "ARTIFACT_ACQUISITION_RECORDED",
+        "DEPLOYMENT_RECORDED",
+        "QUANTIZATION_RECORDED",
+        "REGISTRY_PROMOTION_RECORDED",
+        "RUNTIME_OBSERVATION_RECORDED",
+        "SECURITY_INSPECTION_COMPLETED",
+        "TRANSFORMATION_RECORDED"
+      ],
+      "overall_custody_status": "INCOMPLETE",
+      "status": "AVAILABLE",
+      "subject_continuity": "CONSISTENT"
+    },
+    "evidence_identity": {
+      "artifact_index_digest": "edf368d6550f38f47a918289212cf068e75dc81ca37a3f7f3e143865711486e0",
+      "evidence_graph_digest": "f4ebc3b3ec9de76fc26d1f23ea9c9755a88e9c53099c70f3d79a166af768109b",
+      "mapping_policy_digest": "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c",
+      "model_pack_digest": "6f151e70f2b28e367b84c59db6e7ad4184271b1cc7f518320043e3456c3ef288",
+      "ontology_policy_digest": "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0",
+      "validation_inventory_digest": "3b7bbfc865c235544574113dd93ab91d05d72aebafaf226f3b3c25a56fb02a34",
+      "validation_schema": "omiv.independent-model-validation.v1"
+    },
+    "evidence_stages": [
+      {
+        "artifact_digest": null,
+        "evidence_source": "phase_5a_placeholder",
+        "finding_ids": [],
+        "limitations": [
+          "No approval workflow evidence is included."
+        ],
+        "next_step": [
+          "Obtain an approval attestation under an applicable policy."
+        ],
+        "scope": [],
+        "stage": "approval",
+        "status": "NOT_CHECKED"
+      },
+      {
+        "artifact_digest": "845df5f9ddfd88c6abe4778ac9924fb68bc0c247380dfa580a0683b07d9547c0",
+        "evidence_source": "validation_stage:repository_identity",
+        "finding_ids": [
+          "VALIDATE-004"
+        ],
+        "limitations": [],
+        "next_step": [],
+        "scope": [
+          "fixed repository and immutable revision"
+        ],
+        "stage": "artifact_identity",
+        "status": "PASS"
+      },
+      {
+        "artifact_digest": "5730c3a21771c8bb214825e407d5697b5992601aa0f3ea23df79817fa995be29",
+        "evidence_source": "validation_stage:artifact_specific_provenance",
+        "finding_ids": [
+          "VALIDATE-014"
+        ],
+        "limitations": [
+          "no artifact-specific conversion-run provenance exists"
+        ],
+        "next_step": [
+          "signed conversion-run provenance"
+        ],
+        "scope": [],
+        "stage": "artifact_specific_provenance",
+        "status": "UNAVAILABLE"
+      },
+      {
+        "artifact_digest": "6578d6a2d12a3f3950d6c937a1d17f240105e74e783b5e16dcdc13861ed51dda",
+        "evidence_source": "validation_stage:converter_rule_support",
+        "finding_ids": [
+          "VALIDATE-013"
+        ],
+        "limitations": [
+          "does not identify the converter run that produced this artifact"
+        ],
+        "next_step": [
+          "artifact-specific conversion provenance"
+        ],
+        "scope": [
+          "pinned converter code supports recorded relations"
+        ],
+        "stage": "converter_rule_support",
+        "status": "AVAILABLE"
+      },
+      {
+        "artifact_digest": "15d57adc5282a074e58f5d8d8e36e88d0bcd636aa5bdfae528ca8577ad5a6445",
+        "evidence_source": "custody_ledger",
+        "finding_ids": [],
+        "limitations": [
+          "lifecycle completeness remains incomplete and events are unattested"
+        ],
+        "next_step": [
+          "APPROVAL_RECORDED",
+          "ARTIFACT_ACQUISITION_RECORDED",
+          "DEPLOYMENT_RECORDED",
+          "QUANTIZATION_RECORDED",
+          "REGISTRY_PROMOTION_RECORDED",
+          "RUNTIME_OBSERVATION_RECORDED",
+          "SECURITY_INSPECTION_COMPLETED",
+          "TRANSFORMATION_RECORDED"
+        ],
+        "scope": [
+          "hash-linked evidence-derived custody segment is available"
+        ],
+        "stage": "custody_chain",
+        "status": "AVAILABLE"
+      },
+      {
+        "artifact_digest": null,
+        "evidence_source": "phase_5a_placeholder",
+        "finding_ids": [],
+        "limitations": [
+          "No deployed-artifact observation is included."
+        ],
+        "next_step": [
+          "Record deployment and runtime artifact identity in a future phase."
+        ],
+        "scope": [],
+        "stage": "deployment_observation",
+        "status": "NOT_CHECKED"
+      },
+      {
+        "artifact_digest": "ed2a0fcc78165c8821d365e1df6e6ef8e0a19b54168bc421e7f752cf71966ed8",
+        "evidence_source": "validation_stage:complete_header",
+        "finding_ids": [
+          "VALIDATE-006"
+        ],
+        "limitations": [
+          "does not establish tensor payload or numerical correctness"
+        ],
+        "next_step": [],
+        "scope": [
+          "complete GGUF headers for all shards"
+        ],
+        "stage": "format_structure",
+        "status": "PASS"
+      },
+      {
+        "artifact_digest": "ed2a0fcc78165c8821d365e1df6e6ef8e0a19b54168bc421e7f752cf71966ed8",
+        "evidence_source": "validation_stage:complete_header",
+        "finding_ids": [
+          "VALIDATE-006"
+        ],
+        "limitations": [
+          "does not establish tensor payload or numerical correctness"
+        ],
+        "next_step": [],
+        "scope": [
+          "complete GGUF headers for all shards"
+        ],
+        "stage": "header_integrity",
+        "status": "PASS"
+      },
+      {
+        "artifact_digest": "6578d6a2d12a3f3950d6c937a1d17f240105e74e783b5e16dcdc13861ed51dda",
+        "evidence_source": "validation_stage:payload_integrity",
+        "finding_ids": [
+          "VALIDATE-015"
+        ],
+        "limitations": [
+          "no tensor payload bytes or hashes were accessed"
+        ],
+        "next_step": [
+          "payload digest evidence"
+        ],
+        "scope": [],
+        "stage": "payload_integrity",
+        "status": "NOT_CHECKED"
+      },
+      {
+        "artifact_digest": "e30a2b8019258213d893d10caff79860bd07a3262ad6e5cc2352884b7cc4f51c",
+        "evidence_source": "validation_stage:payload_span_bounds",
+        "finding_ids": [
+          "VALIDATE-007"
+        ],
+        "limitations": [
+          "bounds do not prove payload bytes"
+        ],
+        "next_step": [
+          "payload integrity evidence"
+        ],
+        "scope": [
+          "computed descriptor payload spans fit shard bounds"
+        ],
+        "stage": "payload_span_bounds",
+        "status": "PASS"
+      },
+      {
+        "artifact_digest": "6578d6a2d12a3f3950d6c937a1d17f240105e74e783b5e16dcdc13861ed51dda",
+        "evidence_source": "validation_stage:quantization_fidelity",
+        "finding_ids": [
+          "VALIDATE-016"
+        ],
+        "limitations": [
+          "allowed type transitions are not numerical fidelity"
+        ],
+        "next_step": [
+          "numerical quantization comparison"
+        ],
+        "scope": [],
+        "stage": "quantization_fidelity",
+        "status": "NOT_CHECKED"
+      },
+      {
+        "artifact_digest": "f4766ff3c74a9c7dad1f46d27b93ad0b49b02db6bec6e7184caac4d31cff4e7b",
+        "evidence_source": "validation_stage:repository_layout",
+        "finding_ids": [
+          "VALIDATE-004"
+        ],
+        "limitations": [],
+        "next_step": [],
+        "scope": [
+          "15-file selected split layout"
+        ],
+        "stage": "repository_layout",
+        "status": "PASS"
+      },
+      {
+        "artifact_digest": "6578d6a2d12a3f3950d6c937a1d17f240105e74e783b5e16dcdc13861ed51dda",
+        "evidence_source": "validation_stage:runtime_parity",
+        "finding_ids": [
+          "VALIDATE-018"
+        ],
+        "limitations": [
+          "no backend execution, logits, or runtime output"
+        ],
+        "next_step": [
+          "runtime parity evidence"
+        ],
+        "scope": [],
+        "stage": "runtime_parity",
+        "status": "NOT_CHECKED"
+      },
+      {
+        "artifact_digest": null,
+        "evidence_source": "phase_5a_placeholder",
+        "finding_ids": [],
+        "limitations": [
+          "No security scanner was run in Phase 5A."
+        ],
+        "next_step": [
+          "Run a future policy-approved security inspection."
+        ],
+        "scope": [],
+        "stage": "security_inspection",
+        "status": "NOT_CHECKED"
+      },
+      {
+        "artifact_digest": "eccb45b3db31596d949f2b0581222d84765176fe9ab544d655933eac796543d0",
+        "evidence_source": "validation_stage:structural_semantic_mapping",
+        "finding_ids": [
+          "VALIDATE-009"
+        ],
+        "limitations": [
+          "does not establish tensor payload or numerical correctness"
+        ],
+        "next_step": [
+          "payload relation verification"
+        ],
+        "scope": [
+          "descriptor-level source-to-target assignments"
+        ],
+        "stage": "semantic_mapping",
+        "status": "PASS"
+      },
+      {
+        "artifact_digest": "947b8d6de55ce2fb9d7a5bdbc204976e01dd83ec8a24508e12b335a1da97971b",
+        "evidence_source": "validation_stage:split_container",
+        "finding_ids": [
+          "VALIDATE-007"
+        ],
+        "limitations": [
+          "does not establish tensor payload or numerical correctness"
+        ],
+        "next_step": [],
+        "scope": [
+          "split identity and descriptor aggregation"
+        ],
+        "stage": "split_container",
+        "status": "PASS"
+      },
+      {
+        "artifact_digest": "98ce20902bebc87e5f60d65881995f1d1c16ebd6a842633f8bb69da4149d6584",
+        "evidence_source": "validation_stage:target_ontology",
+        "finding_ids": [
+          "VALIDATE-008"
+        ],
+        "limitations": [
+          "does not establish tensor payload or numerical correctness"
+        ],
+        "next_step": [],
+        "scope": [
+          "Synthetic Transformer target ontology"
+        ],
+        "stage": "target_ontology",
+        "status": "PASS"
+      },
+      {
+        "artifact_digest": "e30a2b8019258213d893d10caff79860bd07a3262ad6e5cc2352884b7cc4f51c",
+        "evidence_source": "validation_stage:tokenizer_parity",
+        "finding_ids": [
+          "VALIDATE-017"
+        ],
+        "limitations": [
+          "tokenizer arrays were not compared"
+        ],
+        "next_step": [
+          "tokenizer parity evidence"
+        ],
+        "scope": [],
+        "stage": "tokenizer_parity",
+        "status": "NOT_CHECKED"
+      }
+    ],
+    "limitations": [
+      "Allowed GGML type transitions do not establish numerical quantization fidelity.",
+      "Converter-code support does not establish which converter produced the published artifact.",
+      "Evidence-derived custody events are unattested and do not authenticate actors.",
+      "No custody chain, approval, deployment, or runtime observation is available.",
+      "No security inspection was performed; this passport does not establish safety.",
+      "Payload values and individual artifact bytes have not been verified.",
+      "Structural descriptor validation does not establish tensor payload integrity.",
+      "The custody ledger is intact but lifecycle evidence is incomplete.",
+      "The result supports structural integration acceptance only under profiles that permit these limitations.",
+      "Tokenizer arrays, logits, backend execution, and runtime behavior were not compared."
+    ],
+    "passport_digest": "5f9d54a5bb9ed4e9fc07744ca0fc7183be61ee11e273536d76535743dfed638f",
+    "passport_id": "mp_9b2b95af28fb5bbfc87c1e3ded1054f2",
+    "policy_identity": {
+      "mapping_policy_digest": "0201db3da3e2e6f47596b1cdb369d8004a34c7340a4ae5bca281004bb6e72f6c",
+      "ontology_policy_digest": "67b767da34ec3e95202266992c1468bef145756b16d9fcbc9f90895c2cea49a0",
+      "passport_policy_digest": "3f03e0855539e05a350a89a49e427437af74a4c7f6d36ea2d0357cb5a0e616dd",
+      "passport_policy_schema": "omiv.model-passport-policy.v1",
+      "profile_policy_digest": "871354a03edb309079942642bdfc77212eb5a862f4da5f634ceb91fbc0ab5210",
+      "validation_profile_policy_digest": "ec745ebc9c7a7f1b51b115ab049a6507e76d5902aa98d8d7a27c70497886bdc7"
+    },
+    "runtime_summary": {
+      "backend": null,
+      "backend_revision": null,
+      "compatibility_status": "NOT_CHECKED",
+      "deployment_identity": null,
+      "expected_artifact_digest": null,
+      "observed_artifact_digest": null,
+      "runtime_observation_digest": null,
+      "status": "NOT_CHECKED"
+    },
+    "schema": "omiv.model-passport.v2",
+    "security_summary": {
+      "archive_safety": "NOT_CHECKED",
+      "dependency_risk": "NOT_CHECKED",
+      "executable_code": "NOT_CHECKED",
+      "known_vulnerabilities": [],
+      "malware_result": "NOT_CHECKED",
+      "policy_digest": null,
+      "remote_code": "NOT_CHECKED",
+      "scanner_results": [],
+      "status": "NOT_CHECKED",
+      "unsafe_serialization": "NOT_CHECKED"
+    },
+    "subject": {
+      "artifact_kind": "model_artifact_set",
+      "artifact_scope": "selected_repository_artifact_set",
+      "artifact_variant": "SYNTHETIC-F16",
+      "display_name": "Synthetic Transformer",
+      "model_family": "synthetic-transformer"
+    },
+    "trust_summary": {
+      "custody_status": "TRUST_CHAIN_INCOMPLETE",
+      "identity_status": "IDENTITY_VERIFIED",
+      "payload_status": "NOT_ASSESSED",
+      "provenance_status": "EVIDENCE_INCOMPLETE",
+      "runtime_status": "NOT_ASSESSED",
+      "security_status": "NOT_ASSESSED",
+      "structural_status": "STRUCTURALLY_VALIDATED_WITH_LIMITATIONS"
+    },
+    "usage_profiles": [
+      {
+        "guidance": "Structural evidence is available, but additional review evidence is required.",
+        "outcome": "REVIEW_REQUIRED",
+        "profile": "enterprise_structural_review",
+        "review_requirements": [
+          "artifact_specific_provenance",
+          "custody_chain",
+          "payload_integrity",
+          "runtime_parity",
+          "security_inspection"
+        ],
+        "unmet_stages": []
+      },
+      {
+        "guidance": "Suitable within the recorded structural scope; payload, security, and runtime limitations remain visible.",
+        "outcome": "SUITABLE_WITH_LIMITATIONS",
+        "profile": "local_experimentation",
+        "review_requirements": [
+          "payload_integrity",
+          "runtime_parity",
+          "security_inspection"
+        ],
+        "unmet_stages": []
+      },
+      {
+        "guidance": "Required evidence is missing or failed; this profile is not satisfied.",
+        "outcome": "NOT_SUITABLE",
+        "profile": "regulated_production",
+        "review_requirements": [],
+        "unmet_stages": [
+          "approval",
+          "artifact_specific_provenance",
+          "custody_chain",
+          "deployment_observation",
+          "payload_integrity",
+          "quantization_fidelity",
+          "runtime_parity",
+          "security_inspection",
+          "tokenizer_parity"
+        ]
+      },
+      {
+        "guidance": "Suitable within the recorded structural scope; payload, security, and runtime limitations remain visible.",
+        "outcome": "SUITABLE_WITH_LIMITATIONS",
+        "profile": "team_structural_intake",
+        "review_requirements": [
+          "artifact_specific_provenance"
+        ],
+        "unmet_stages": []
+      }
+    ],
+    "warnings": [
+      "Payload values and individual artifact bytes have not been verified.",
+      "No security inspection was performed; this passport does not establish safety.",
+      "No custody chain, approval, deployment, or runtime observation is available."
+    ]
+  },
+  "signed_object_digest": "3195317a34b8e1154f654ed65a60a11a98196b5e862636376b1b6b04a7955a53",
+  "signed_object_id": "mp_9b2b95af28fb5bbfc87c1e3ded1054f2",
+  "signed_object_schema": "omiv.model-passport.v2",
+  "signed_object_type": "MODEL_PASSPORT",
+  "trust_policy_id": "omiv.trust-policy.project_maintainer_release.v1"
+}

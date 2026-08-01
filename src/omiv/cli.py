@@ -203,6 +203,45 @@ from omiv.remote.split_reporting import (
 from omiv.reporters.console import format_report
 from omiv.safe_write import atomic_write_text, validate_output_path
 from omiv.schema.loader import load_schema
+from omiv.trust.algorithms import load_private_key, load_public_key, raw_public_key
+from omiv.trust.models import (
+    SignaturePurpose,
+    SignatureReport,
+    SignedObjectType,
+)
+from omiv.trust.reporting import render_markdown as render_trust_markdown
+from omiv.trust.reporting import write_outputs as write_trust_outputs
+from omiv.trust.signing import (
+    build_descriptor,
+    build_key_identity_from_public,
+    build_signature_record,
+    build_signed_envelope,
+)
+from omiv.trust.verification import (
+    load_bundle as load_trust_bundle,
+)
+from omiv.trust.verification import (
+    load_context as load_evaluation_context,
+)
+from omiv.trust.verification import load_delegation as load_delegation_record
+from omiv.trust.verification import (
+    load_envelope as load_signed_envelope,
+)
+from omiv.trust.verification import (
+    load_policy as load_trust_policy,
+)
+from omiv.trust.verification import load_revocation as load_revocation_record
+from omiv.trust.verification import (
+    pretty_json as pretty_trust_json,
+)
+from omiv.trust.verification import verify_bundle as verify_static_trust_bundle
+from omiv.trust.verification import verify_delegation_record
+from omiv.trust.verification import (
+    verify_envelope as verify_signed_envelope,
+)
+from omiv.trust.verification import (
+    verify_report as verify_signature_report,
+)
 from omiv.validation.builder import build_independent_validation
 from omiv.validation.models import VALIDATION_REPORT_SCHEMA
 from omiv.validation.reporting import (
@@ -218,10 +257,12 @@ model_packs_app = typer.Typer(no_args_is_help=True)
 passport_app = typer.Typer(no_args_is_help=True)
 custody_app = typer.Typer(no_args_is_help=True)
 attestation_app = typer.Typer(no_args_is_help=True)
+trust_app = typer.Typer(no_args_is_help=True)
 app.add_typer(model_packs_app, name="model-packs")
 app.add_typer(passport_app, name="passport")
 app.add_typer(custody_app, name="custody")
 app.add_typer(attestation_app, name="attestation")
+app.add_typer(trust_app, name="trust")
 MAX_CANONICAL_INVENTORY_BYTES = 64 * 1024 * 1024
 REMOTE_REPORT_SCHEMAS = {
     "omiv.remote-snapshot-report.v1",
@@ -1607,6 +1648,327 @@ def attestation_custody_verify(
     )
     if value.lifecycle_completeness != LifecycleCompleteness.COMPLETE:
         raise typer.Exit(code=1)
+
+
+@trust_app.command("key-inspect")
+def trust_key_inspect(
+    public_key_path: Annotated[Path, typer.Option("--public-key", exists=True, dir_okay=False)],
+) -> None:
+    """Inspect an Ed25519 public key and print a deterministic public-only identity."""
+    try:
+        public_key = load_public_key(public_key_path)
+        key = build_key_identity_from_public(
+            public_key,
+            allowed_object_types=list(SignedObjectType),
+            allowed_purposes=[
+                SignaturePurpose.ATTESTATION_ISSUANCE,
+                SignaturePurpose.EXECUTION_RECORD_ISSUANCE,
+                SignaturePurpose.CUSTODY_EVENT_ISSUANCE,
+                SignaturePurpose.CUSTODY_SEGMENT_ISSUANCE,
+                SignaturePurpose.PASSPORT_ISSUANCE,
+            ],
+            limitations=[
+                "Inspection records public material only; trust and signer identity "
+                "are not inferred."
+            ],
+        )
+    except (OSError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR public-key inspection failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(pretty_trust_json(key), nl=False)
+
+
+@trust_app.command("sign")
+def trust_sign(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    object_type: Annotated[SignedObjectType, typer.Option("--object-type")],
+    purpose: Annotated[SignaturePurpose, typer.Option("--purpose")],
+    private_key_path: Annotated[Path, typer.Option("--private-key", exists=True, dir_okay=False)],
+    public_key_path: Annotated[Path, typer.Option("--public-key", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    policy_path: Annotated[
+        Path | None, typer.Option("--policy", exists=True, dir_okay=False)
+    ] = None,
+    trust_bundle_path: Annotated[
+        Path | None, typer.Option("--trust-bundle", exists=True, dir_okay=False)
+    ] = None,
+    evaluation_context_path: Annotated[
+        Path | None, typer.Option("--evaluation-context", exists=True, dir_okay=False)
+    ] = None,
+    report_output: Annotated[Path | None, typer.Option("--report-output", dir_okay=False)] = None,
+    markdown_output: Annotated[
+        Path | None, typer.Option("--markdown-output", dir_okay=False)
+    ] = None,
+    namespace: Annotated[str | None, typer.Option("--namespace")] = None,
+    provider_artifact_scope: Annotated[
+        str | None, typer.Option("--provider-artifact-scope")
+    ] = None,
+    binding_id: Annotated[str | None, typer.Option("--binding-id")] = None,
+) -> None:
+    """Create a detached Ed25519 signature envelope for one canonical OMIV object."""
+    inputs = tuple(
+        item
+        for item in (
+            input_path,
+            private_key_path,
+            public_key_path,
+            policy_path,
+            trust_bundle_path,
+            evaluation_context_path,
+        )
+        if item is not None
+    )
+    try:
+        raw = load_json_value(input_path.read_text(encoding="utf-8"))
+        if not isinstance(raw, dict):
+            raise OmivInputError("signed input must be a canonical JSON object")
+        private_key = load_private_key(private_key_path)
+        public_key = load_public_key(public_key_path)
+        if raw_public_key(private_key.public_key()) != raw_public_key(public_key):
+            raise OmivInputError("private and public keys do not correspond")
+        policy = load_trust_policy(policy_path) if policy_path else None
+        bundle = load_trust_bundle(trust_bundle_path) if trust_bundle_path else None
+        matching_keys = (
+            [item for item in bundle.keys if item.public_key == raw_public_key(public_key).hex()]
+            if bundle
+            else []
+        )
+        if len(matching_keys) > 1:
+            raise OmivInputError("trust bundle contains conflicting matching public keys")
+        key = (
+            matching_keys[0]
+            if matching_keys
+            else build_key_identity_from_public(
+                public_key,
+                allowed_object_types=[object_type],
+                allowed_purposes=[purpose],
+                namespaces=[namespace] if namespace else [],
+                provider_artifact_scopes=(
+                    [provider_artifact_scope] if provider_artifact_scope else []
+                ),
+            )
+        )
+        descriptor = build_descriptor(
+            raw,
+            object_type,
+            purpose,
+            policy_id=policy.policy_id if policy else None,
+            namespace=namespace,
+            provider_artifact_scope=provider_artifact_scope,
+        )
+        record = build_signature_record(descriptor, private_key, key, binding_id=binding_id)
+        envelope = build_signed_envelope(raw, object_type, [record], keys=[key])
+        report = None
+        if report_output is not None or markdown_output is not None:
+            if policy is None or trust_bundle_path is None:
+                raise OmivInputError("report outputs require both --policy and --trust-bundle")
+            if bundle is None:
+                raise OmivInputError("trust bundle is unavailable")
+            context = (
+                load_evaluation_context(evaluation_context_path)
+                if evaluation_context_path
+                else None
+            )
+            report = verify_signed_envelope(envelope, bundle, policy, context)
+        outputs = [item for item in (output, report_output, markdown_output) if item]
+        if len({item.resolve(strict=False) for item in outputs}) != len(outputs):
+            raise OmivInputError("trust outputs must use distinct paths")
+        write_trust_outputs(
+            envelope,
+            report,
+            envelope_path=output,
+            report_path=report_output,
+            markdown_path=markdown_output,
+            forbidden_inputs=inputs,
+        )
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR signing failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"PASS signed object={envelope.signed_object_id} envelope={envelope.envelope_id} "
+        f"signature={record.signature_id} key={key.key_id}"
+    )
+
+
+def _trust_report_exit(report: SignatureReport) -> int:
+    status = report.overall_status.value
+    if status == "TRUSTED_SIGNATURE_WITH_LIMITATIONS":
+        return 0
+    if status in {
+        "INVALID_SIGNATURE",
+        "REVOKED",
+        "EXPIRED",
+        "NOT_YET_VALID",
+        "EXPIRATION_NOT_EVALUATED",
+        "REVOCATION_NOT_EVALUATED",
+        "UNSUPPORTED",
+    }:
+        return 2
+    return 1
+
+
+@trust_app.command("verify")
+def trust_verify(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    trust_bundle_path: Annotated[Path, typer.Option("--trust-bundle", exists=True, dir_okay=False)],
+    policy_path: Annotated[Path, typer.Option("--policy", exists=True, dir_okay=False)],
+    evaluation_context_path: Annotated[
+        Path | None, typer.Option("--evaluation-context", exists=True, dir_okay=False)
+    ] = None,
+    report_output: Annotated[Path | None, typer.Option("--report-output", dir_okay=False)] = None,
+    markdown_output: Annotated[
+        Path | None, typer.Option("--markdown-output", dir_okay=False)
+    ] = None,
+) -> None:
+    """Verify signature integrity and policy trust entirely offline."""
+    try:
+        envelope = load_signed_envelope(input_path)
+        bundle = load_trust_bundle(trust_bundle_path)
+        policy = load_trust_policy(policy_path)
+        context = (
+            load_evaluation_context(evaluation_context_path) if evaluation_context_path else None
+        )
+        report = verify_signed_envelope(envelope, bundle, policy, context)
+        if report_output is not None:
+            atomic_write_text(
+                report_output,
+                pretty_trust_json(report),
+                forbidden_inputs=(input_path, trust_bundle_path, policy_path),
+            )
+        if markdown_output is not None:
+            atomic_write_text(
+                markdown_output,
+                render_trust_markdown(report),
+                forbidden_inputs=(input_path, trust_bundle_path, policy_path),
+            )
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR trust verification failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"{report.overall_status.value} object={report.signed_object_id} "
+        f"accepted={report.accepted_signature_count} report={report.report_digest}"
+    )
+    for result in report.signature_results:
+        binding_status = (
+            result.signer_binding_status.value
+            if result.signer_binding_status
+            else result.signer_binding.value
+        )
+        typer.echo(
+            f"signature_integrity={result.signature_integrity.value} "
+            f"trusted_by_selected_policy="
+            f"{'YES' if result.trust_policy_status.value == 'TRUSTED_BY_POLICY' else 'NO'} "
+            f"key={result.key_id} key_status={result.key_status.value} "
+            f"signer_identity={result.signer_identity_status.value} "
+            f"identity_verification={result.signer_identity_verification.value} "
+            f"signer_binding={binding_status}"
+        )
+    typer.echo(
+        f"claim_authenticity={report.underlying_claim.get('authenticity', 'NOT_APPLICABLE')} "
+        f"provenance_strength="
+        f"{report.underlying_claim.get('provenance_strength', 'NOT_APPLICABLE')} "
+        f"claim_independently_proven=NO payload_integrity={report.payload_status} "
+        f"numerical_fidelity={report.numerical_fidelity_status} "
+        f"security={report.security_status} runtime={report.runtime_status} "
+        f"approval={report.approval_status} "
+        f"lifecycle_completeness={report.lifecycle_completeness}"
+    )
+    code = _trust_report_exit(report)
+    if code:
+        raise typer.Exit(code=code)
+
+
+@trust_app.command("show")
+def trust_show(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+) -> None:
+    """Show signed-envelope identities without asserting policy trust."""
+    try:
+        envelope = load_signed_envelope(input_path)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR signed-envelope display failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"Object: {envelope.signed_object_type.value} {envelope.signed_object_id}\n"
+        f"Canonical digest: {envelope.signed_object_digest}\n"
+        f"Envelope: {envelope.envelope_id} {envelope.envelope_digest}\n"
+        "Trust: NOT_EVALUATED\n"
+        + "\n".join(
+            f"Signature: {item.signature_id} key={item.key_id} purpose={item.purpose.value}"
+            for item in envelope.signatures
+        )
+    )
+
+
+@trust_app.command("bundle-verify")
+def trust_bundle_verify(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+) -> None:
+    """Verify a deterministic static trust bundle."""
+    try:
+        bundle = load_trust_bundle(input_path)
+        verify_static_trust_bundle(bundle)
+    except (OSError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR trust-bundle verification failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(f"PASS trust bundle {bundle.bundle_id} {bundle.bundle_digest}")
+
+
+@trust_app.command("report-verify")
+def trust_report_verify(
+    report_path: Annotated[Path, typer.Option("--report", exists=True, dir_okay=False)],
+    envelope_path: Annotated[Path, typer.Option("--envelope", exists=True, dir_okay=False)],
+    trust_bundle_path: Annotated[Path, typer.Option("--trust-bundle", exists=True, dir_okay=False)],
+    policy_path: Annotated[Path, typer.Option("--policy", exists=True, dir_okay=False)],
+    evaluation_context_path: Annotated[
+        Path | None, typer.Option("--evaluation-context", exists=True, dir_okay=False)
+    ] = None,
+) -> None:
+    """Reconstruct a report from its signed envelope, bundle, policy, and context."""
+    try:
+        envelope = load_signed_envelope(envelope_path)
+        bundle = load_trust_bundle(trust_bundle_path)
+        policy = load_trust_policy(policy_path)
+        context = (
+            load_evaluation_context(evaluation_context_path) if evaluation_context_path else None
+        )
+        report = verify_signature_report(report_path, envelope, bundle, policy, context)
+    except (OSError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR signature-report verification failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(f"PASS signature report {report.report_digest}")
+
+
+@trust_app.command("delegation-verify")
+def trust_delegation_verify(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    trust_bundle_path: Annotated[Path, typer.Option("--trust-bundle", exists=True, dir_okay=False)],
+) -> None:
+    """Verify delegation identity, authorization signature, and bounded authority."""
+    try:
+        value = load_delegation_record(input_path)
+        bundle = load_trust_bundle(trust_bundle_path)
+        verify_delegation_record(value, bundle)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR delegation verification failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(f"PASS delegation record {value.delegation_id} {value.delegation_digest}")
+
+
+@trust_app.command("revocation-verify")
+def trust_revocation_verify(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+) -> None:
+    """Verify strict static revocation-record schema and identity."""
+    try:
+        value = load_revocation_record(input_path)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR revocation verification failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"PASS revocation record-integrity {value.revocation_id} "
+        f"{value.revocation_digest} authority=NOT_EVALUATED"
+    )
 
 
 @app.command("structural-compare")

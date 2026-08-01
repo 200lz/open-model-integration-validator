@@ -1,0 +1,15 @@
+{
+  "display_label": "Synthetic Project Maintainer",
+  "identity_digest": "082e138673107569b19c98118ccc5f62b5f3513a5574b66e4f2e373e59674fc7",
+  "identity_evidence": [],
+  "identity_kind": "PROJECT_MAINTAINER_DECLARED",
+  "limitations": [
+    "Synthetic declared identity; no external identity proof."
+  ],
+  "namespace": "synthetic",
+  "organization_id": null,
+  "role": "maintainer",
+  "schema": "omiv.signer-identity.v1",
+  "signer_identity_id": "signer_e689b3a142f8aa48f256acaa128b04c1",
+  "verification_status": "DECLARED"
+}

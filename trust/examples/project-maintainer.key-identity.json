@@ -1,0 +1,36 @@
+{
+  "algorithm": "ED25519",
+  "allowed_key_usages": [
+    "DELEGATE_SIGNING",
+    "SIGN_OMIV_OBJECT"
+  ],
+  "allowed_object_types": [
+    "ARTIFACT_ATTESTATION",
+    "CUSTODY_EVENT",
+    "CUSTODY_SEGMENT",
+    "MODEL_PASSPORT",
+    "TOOL_EXECUTION_RECORD"
+  ],
+  "allowed_purposes": [
+    "ATTESTATION_ISSUANCE",
+    "CUSTODY_EVENT_ISSUANCE",
+    "CUSTODY_SEGMENT_ISSUANCE",
+    "EXECUTION_RECORD_ISSUANCE",
+    "PASSPORT_ISSUANCE"
+  ],
+  "key_digest": "db143bcdb007e443ead4c0704cb7d4eab9d299eb2cf5b6a6cabd0ca268c382c7",
+  "key_id": "key_ed39d828050734934fcf309c611f5d9b",
+  "limitations": [
+    "Public-key identity does not establish signer identity."
+  ],
+  "namespaces": [
+    "synthetic"
+  ],
+  "provider_artifact_scopes": [],
+  "public_key": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+  "public_key_digest": "ed39d828050734934fcf309c611f5d9bf060b0b231f08fb9bfe60e68aaa6e3d9",
+  "public_key_encoding": "RAW_HEX",
+  "schema": "omiv.key-identity.v1",
+  "status": "ACTIVE",
+  "validity": null
+}

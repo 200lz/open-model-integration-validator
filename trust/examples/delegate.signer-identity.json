@@ -1,0 +1,15 @@
+{
+  "display_label": "Synthetic Release Team",
+  "identity_digest": "358088b57d4dd9e896bd46c3687bc5d7233df5e4a356e0e0ad2ed64380e86883",
+  "identity_evidence": [],
+  "identity_kind": "TEAM_DECLARED",
+  "limitations": [
+    "Synthetic declared identity; no external identity proof."
+  ],
+  "namespace": "synthetic",
+  "organization_id": null,
+  "role": "release",
+  "schema": "omiv.signer-identity.v1",
+  "signer_identity_id": "signer_d11b0ece36c5fd0e6bb404d14df4b3bd",
+  "verification_status": "DECLARED"
+}
