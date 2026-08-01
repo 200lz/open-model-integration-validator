@@ -1,0 +1,18 @@
+{
+  "accepted_decision_outcomes": [
+    "ALLOW_WITH_LIMITATIONS"
+  ],
+  "allow_conditions": true,
+  "gate_policy_digest": "0952a8a1eca3e3a89148909b4271fc7518ee88eae46436c376c82f36797e4036",
+  "gate_policy_id": "promotion_gate_c67029a589e0a0f366924231fa94b6f9",
+  "permitted_target_types": [
+    "TEAM_ARTIFACT_REGISTRY"
+  ],
+  "require_expiration_evaluation": false,
+  "require_quorum": true,
+  "require_revocation_evaluation": false,
+  "require_security_evidence": false,
+  "require_separation_of_duties": true,
+  "require_trusted_decision_signature": true,
+  "schema": "omiv.promotion-gate-policy.v1"
+}

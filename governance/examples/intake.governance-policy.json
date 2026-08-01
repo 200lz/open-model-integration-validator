@@ -1,0 +1,283 @@
+{
+  "accepted_formats": [
+    "GGUF",
+    "SAFETENSORS",
+    "SYNTHETIC"
+  ],
+  "accepted_origin_types": [
+    "air_gapped",
+    "internal_registry",
+    "local",
+    "oci",
+    "other",
+    "s3"
+  ],
+  "allowed_target_types": [
+    "TEAM_ARTIFACT_REGISTRY"
+  ],
+  "approval_policy": {
+    "accepted_identity_trust": [
+      "TRUSTED_BY_POLICY"
+    ],
+    "approval_policy_digest": "7b40926c6c528d28c1ee19a63e8cc45fac4b09de226a2e05ed381180a729b515",
+    "approval_policy_id": "approval_policy_5f4e70b286569f9aad58d121d0795702",
+    "permitted_roles": [
+      "APPROVER"
+    ],
+    "quorum": {
+      "abstentions_count": false,
+      "conditional_approvals_count": true,
+      "minimum_count": 1,
+      "minimum_distinct_keys": 1,
+      "minimum_distinct_signers": 1,
+      "minimum_distinct_trust_roots": 0,
+      "quorum_digest": "508763a6029f3f7ae6484f19c1c2e736f4cc8226277d483c222874cea4e84a3e",
+      "quorum_id": "quorum_c02c19b0824687b9d41fadaa8a1cca1f",
+      "rejection_blocks": true,
+      "required_roles": [
+        "APPROVER"
+      ],
+      "unanimous": false
+    },
+    "requested_action": "APPROVE_ARTIFACT_INTAKE",
+    "require_signed_approval": true,
+    "schema": "omiv.approval-policy.v1"
+  },
+  "decision_precedence": [
+    "POLICY_INVALID",
+    "EVIDENCE_BROKEN",
+    "DENY",
+    "NOT_EVALUATED",
+    "REVIEW_REQUIRED",
+    "ALLOW_WITH_LIMITATIONS",
+    "ALLOW"
+  ],
+  "limitations": [
+    "Policy satisfaction does not independently prove underlying claims.",
+    "Policy evaluation does not prove security, deployment, or runtime state."
+  ],
+  "missing_evidence_behavior": "REVIEW",
+  "policy_digest": "2e4284a54638e8c5823fd9e6b8c6b14c335c49449f615d43c864aebfff4554b7",
+  "policy_id": "omiv.governance-policy.team_artifact_intake.v1",
+  "profile": "team_artifact_intake",
+  "require_evaluation_time": false,
+  "require_expiration_evaluation": false,
+  "require_revocation_evaluation": false,
+  "requirement_set": {
+    "requirement_set_digest": "bbdf63b5c857aec668c0a000fa034c70f5e52832f5af61dd00c7d92a46aa695a",
+    "requirement_set_id": "requirement_set_3112da0d2fbf1718ecf38878e5c39806",
+    "requirements": [
+      {
+        "accepted_schemas": [
+          "omiv.artifact-security-evidence.v1"
+        ],
+        "accepted_trust_statuses": [],
+        "accepted_verification_modes": [
+          "FULL"
+        ],
+        "allow_with_limitations": true,
+        "category": "SECURITY_INSPECTION",
+        "failure_severity": "WARNING",
+        "minimum_freshness_seconds": null,
+        "minimum_signature_count": 0,
+        "not_applicable_policy_evidence": [],
+        "optional": true,
+        "remediation": "Phase 5F must provide verifiable artifact security evidence.",
+        "required_custody_status": null,
+        "required_lifecycle_events": [],
+        "required_object_types": [],
+        "required_provenance_strength": null,
+        "required_signer_roles": [],
+        "requirement_digest": "40d33daede204815ae32614197b7a8a3f02f81fbdba92aa1c7144dd2c3f004ab",
+        "requirement_id": "requirement_3346551c587510b5ecd702feef2b9e8a",
+        "reviewable": false,
+        "schema": "omiv.evidence-requirement.v1",
+        "source_phase": "5F"
+      },
+      {
+        "accepted_schemas": [
+          "omiv.synthetic-structural-validation.v1"
+        ],
+        "accepted_trust_statuses": [],
+        "accepted_verification_modes": [
+          "FULL"
+        ],
+        "allow_with_limitations": true,
+        "category": "STRUCTURAL_VALIDATION",
+        "failure_severity": "BLOCKING",
+        "minimum_freshness_seconds": null,
+        "minimum_signature_count": 0,
+        "not_applicable_policy_evidence": [],
+        "optional": false,
+        "remediation": "Provide verified structural validation.",
+        "required_custody_status": null,
+        "required_lifecycle_events": [],
+        "required_object_types": [],
+        "required_provenance_strength": null,
+        "required_signer_roles": [],
+        "requirement_digest": "65f0a53e77da8dc3e605fd35fd5d04dec3a39ad77297d91f8ab1dbbdbb2b6898",
+        "requirement_id": "requirement_33b2578a9d68d525a2008db5463ccf31",
+        "reviewable": false,
+        "schema": "omiv.evidence-requirement.v1",
+        "source_phase": "4F"
+      },
+      {
+        "accepted_schemas": [
+          "omiv.synthetic-artifact-identity.v1"
+        ],
+        "accepted_trust_statuses": [],
+        "accepted_verification_modes": [
+          "FULL"
+        ],
+        "allow_with_limitations": false,
+        "category": "ARTIFACT_IDENTITY",
+        "failure_severity": "BLOCKING",
+        "minimum_freshness_seconds": null,
+        "minimum_signature_count": 0,
+        "not_applicable_policy_evidence": [],
+        "optional": false,
+        "remediation": "Provide a canonical immutable artifact identity.",
+        "required_custody_status": null,
+        "required_lifecycle_events": [],
+        "required_object_types": [],
+        "required_provenance_strength": null,
+        "required_signer_roles": [],
+        "requirement_digest": "08b4cf2a1eec0ec7f6b2210e9bbfc427e1314ebd02995cf009500d7f33a6d549",
+        "requirement_id": "requirement_411fb249b90b4ea60be0b31c1e4f14a9",
+        "reviewable": false,
+        "schema": "omiv.evidence-requirement.v1",
+        "source_phase": "5A"
+      },
+      {
+        "accepted_schemas": [
+          "omiv.signature-report.v1"
+        ],
+        "accepted_trust_statuses": [
+          "TRUSTED_BY_POLICY"
+        ],
+        "accepted_verification_modes": [
+          "FULL"
+        ],
+        "allow_with_limitations": false,
+        "category": "SIGNATURE_TRUST",
+        "failure_severity": "BLOCKING",
+        "minimum_freshness_seconds": null,
+        "minimum_signature_count": 0,
+        "not_applicable_policy_evidence": [],
+        "optional": false,
+        "remediation": "Provide a policy-trusted signed evidence object.",
+        "required_custody_status": null,
+        "required_lifecycle_events": [],
+        "required_object_types": [],
+        "required_provenance_strength": null,
+        "required_signer_roles": [],
+        "requirement_digest": "ef31756f76249ecf7ae6f2a52c76d2e16eb3d3a8c6047aa02d8355eff1ddc705",
+        "requirement_id": "requirement_6ce5dacac4a2594c6b3cb0cf9716fed7",
+        "reviewable": false,
+        "schema": "omiv.evidence-requirement.v1",
+        "source_phase": "5D"
+      },
+      {
+        "accepted_schemas": [
+          "omiv.artifact-attestation.v1"
+        ],
+        "accepted_trust_statuses": [],
+        "accepted_verification_modes": [
+          "FULL"
+        ],
+        "allow_with_limitations": false,
+        "category": "ACQUISITION_ATTESTATION",
+        "failure_severity": "BLOCKING",
+        "minimum_freshness_seconds": null,
+        "minimum_signature_count": 0,
+        "not_applicable_policy_evidence": [],
+        "optional": false,
+        "remediation": "Provide artifact-specific acquisition evidence.",
+        "required_custody_status": null,
+        "required_lifecycle_events": [],
+        "required_object_types": [],
+        "required_provenance_strength": null,
+        "required_signer_roles": [],
+        "requirement_digest": "20e75de7bcb8647dca2927f8345d7d630bf3093645ae7d8cd671b11065a45d9f",
+        "requirement_id": "requirement_86d31fce4c18d74633619677de82c912",
+        "reviewable": false,
+        "schema": "omiv.evidence-requirement.v1",
+        "source_phase": "5C"
+      },
+      {
+        "accepted_schemas": [
+          "omiv.synthetic-immutable-revision.v1"
+        ],
+        "accepted_trust_statuses": [],
+        "accepted_verification_modes": [
+          "FULL"
+        ],
+        "allow_with_limitations": false,
+        "category": "IMMUTABLE_REVISION",
+        "failure_severity": "BLOCKING",
+        "minimum_freshness_seconds": null,
+        "minimum_signature_count": 0,
+        "not_applicable_policy_evidence": [],
+        "optional": false,
+        "remediation": "Resolve an immutable artifact revision.",
+        "required_custody_status": null,
+        "required_lifecycle_events": [],
+        "required_object_types": [],
+        "required_provenance_strength": null,
+        "required_signer_roles": [],
+        "requirement_digest": "c240313995131932811c68623946ae216643fe3807d5d742ede157b1ad031dc7",
+        "requirement_id": "requirement_b24d857c248fa5e80ab96bb0fd5599da",
+        "reviewable": false,
+        "schema": "omiv.evidence-requirement.v1",
+        "source_phase": "5A"
+      },
+      {
+        "accepted_schemas": [
+          "omiv.custody-ledger.v2"
+        ],
+        "accepted_trust_statuses": [],
+        "accepted_verification_modes": [
+          "FULL"
+        ],
+        "allow_with_limitations": false,
+        "category": "CUSTODY_INTEGRITY",
+        "failure_severity": "BLOCKING",
+        "minimum_freshness_seconds": null,
+        "minimum_signature_count": 0,
+        "not_applicable_policy_evidence": [],
+        "optional": false,
+        "remediation": "Provide an intact portable custody segment.",
+        "required_custody_status": "INTACT",
+        "required_lifecycle_events": [],
+        "required_object_types": [],
+        "required_provenance_strength": null,
+        "required_signer_roles": [],
+        "requirement_digest": "8b34057bcc6647af3b2542bbf7251fb199c97fb73dcffd09f83b07684c6718e7",
+        "requirement_id": "requirement_f6ea7624ca946661a18b0ab3419d2ae2",
+        "reviewable": false,
+        "schema": "omiv.evidence-requirement.v1",
+        "source_phase": "5B"
+      }
+    ],
+    "schema": "omiv.evidence-requirement-set.v1"
+  },
+  "schema": "omiv.governance-policy.v1",
+  "separation_of_duties_policy": {
+    "delegates_under_same_root_independent": false,
+    "producer_must_not_be_sole_validator": true,
+    "promoter_must_not_approve_request": true,
+    "requester_must_not_approve": true,
+    "required_independence": [
+      "DISTINCT_KEY",
+      "DISTINCT_SIGNER_IDENTITY"
+    ],
+    "schema": "omiv.separation-of-duties-policy.v1",
+    "separation_policy_digest": "511cd963e7c553243527e972371fba9c356e70660642802f7b26efc76b0871ef",
+    "separation_policy_id": "separation_policy_60553af9310188ddecabe4e984758471",
+    "transformer_must_not_approve": true,
+    "validator_must_not_promote": true
+  },
+  "stale_evidence_behavior": "DENY",
+  "trust_policy_ids": [],
+  "version": 1
+}

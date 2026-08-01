@@ -1,0 +1,16 @@
+{
+  "evaluated_dimensions": [
+    "DISTINCT_KEY",
+    "DISTINCT_SIGNER_IDENTITY"
+  ],
+  "limitations": [
+    "Duty separation is limited to supplied identity, key, role, and trust evidence."
+  ],
+  "outcome": "VIOLATED",
+  "result_digest": "2cbb1313da32b940aac35768b67147347e702d6fa23be9c43be2cdab216bfd7b",
+  "separation_policy_id": "separation_policy_60553af9310188ddecabe4e984758471",
+  "violations": [
+    "REQUESTER_IS_APPROVER",
+    "REQUESTER_KEY_IS_APPROVER_KEY"
+  ]
+}

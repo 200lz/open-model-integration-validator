@@ -1,0 +1,15 @@
+{
+  "delegates_under_same_root_independent": false,
+  "producer_must_not_be_sole_validator": true,
+  "promoter_must_not_approve_request": true,
+  "requester_must_not_approve": true,
+  "required_independence": [
+    "DISTINCT_KEY",
+    "DISTINCT_SIGNER_IDENTITY"
+  ],
+  "schema": "omiv.separation-of-duties-policy.v1",
+  "separation_policy_digest": "511cd963e7c553243527e972371fba9c356e70660642802f7b26efc76b0871ef",
+  "separation_policy_id": "separation_policy_60553af9310188ddecabe4e984758471",
+  "transformer_must_not_approve": true,
+  "validator_must_not_promote": true
+}

@@ -1,0 +1,18 @@
+{
+  "approver": {
+    "identity_trust": "TRUSTED_BY_POLICY",
+    "key_id": "key_01ff700f954d00c581e5100c77858e6b",
+    "organization_id": "synthetic-review-team",
+    "signer_identity_id": "signer_d5e36c1cb9e24fe9b120b9e85b5e02f5",
+    "trust_root_id": "root_17fd05513cdd7026d8434bca90fb9b70"
+  },
+  "approver_role": "APPROVER",
+  "conditions": [
+    "Security remains not checked."
+  ],
+  "evidence_ids": [],
+  "outcome": "APPROVED_WITH_CONDITIONS",
+  "schema": "omiv.approval-input.v1",
+  "scope": "team artifact intake under the named policy",
+  "validity_not_after": null
+}

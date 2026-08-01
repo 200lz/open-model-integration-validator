@@ -1,0 +1,28 @@
+{
+  "approval_scope": "team artifact intake under the named policy",
+  "blockers": [],
+  "decision_id": "decision_93a6b38fadb966a198e08e8d82db069e",
+  "decision_outcome": "ALLOW_WITH_LIMITATIONS",
+  "deployment_status": "NOT_PERFORMED",
+  "limitations": [
+    "This separate summary does not modify the Passport or upgrade its evidence.",
+    "Approval and promotion are policy-scoped and do not prove security or deployment."
+  ],
+  "missing_evidence": [
+    "SECURITY_INSPECTION"
+  ],
+  "passport_digest": "372674adf0d8c819b693e04859507415dd9bf8bbb8f0221a252e2ca9a5cd0c47",
+  "passport_id": "mp_3e4556490aa5fcc65e76036136698068",
+  "policy_digest": "2e4284a54638e8c5823fd9e6b8c6b14c335c49449f615d43c864aebfff4554b7",
+  "policy_id": "omiv.governance-policy.team_artifact_intake.v1",
+  "promotion_eligibility": "PROMOTION_ALLOWED_WITH_CONDITIONS",
+  "quorum_status": "SATISFIED",
+  "runtime_status": "NOT_CHECKED",
+  "schema": "omiv.passport-governance-summary.v1",
+  "security_status": "NOT_CHECKED",
+  "separation_status": "SATISFIED",
+  "signed_approval_status": "TRUSTED_BY_POLICY",
+  "signed_decision_status": "TRUSTED_BY_POLICY",
+  "summary_digest": "c9787a7a394e52061e3054cb25166459e1f70e3e123cbbed1887c0911a4d072f",
+  "target_id": "target_ed3310f198fc897385e62d13099f1734"
+}

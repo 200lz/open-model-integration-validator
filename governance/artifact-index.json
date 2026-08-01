@@ -1,0 +1,360 @@
+{
+  "artifacts": [
+    {
+      "relative_path": "governance/examples/enterprise.governance-policy.json",
+      "sha256": "2b034f8d17fb56bb4bc371f9573515d2e1d894a51b8d63ef8c7b974f9350a82c",
+      "size_bytes": 10373
+    },
+    {
+      "relative_path": "governance/examples/enterprise.policy-decision.json",
+      "sha256": "6ec667a01afaa9c00c3fd36a32d7f4272f7f0b3150f3e9aa2fcd9a3aad83ca27",
+      "size_bytes": 6608
+    },
+    {
+      "relative_path": "governance/examples/enterprise.policy-evaluation-input.json",
+      "sha256": "e607aeba858235317d4052f17af3e897d6478e82e549af3610621ff3265900ff",
+      "size_bytes": 5532
+    },
+    {
+      "relative_path": "governance/examples/enterprise.promotion-decision.json",
+      "sha256": "d81bc679d312a14eccf6e2a021ff40c1261fa8f9d72b829654359b13081d1a38",
+      "size_bytes": 2767
+    },
+    {
+      "relative_path": "governance/examples/enterprise.promotion-gate-policy.json",
+      "sha256": "4bf07de2ffb66ca9ba40c205bd229c3f46503882f9cc3d4507c2e2dc84d82eff",
+      "size_bytes": 591
+    },
+    {
+      "relative_path": "governance/examples/enterprise.promotion-target.json",
+      "sha256": "f2b53c1fd2fcf01e352f60fbbbf02e398a4661e9ab7ce04dbb4bc461cbe6a286",
+      "size_bytes": 764
+    },
+    {
+      "relative_path": "governance/examples/enterprise.release-candidate.json",
+      "sha256": "f62bdcdbff340d45a5202dab072531bbd050fc267c000bb622b2d1851e459868",
+      "size_bytes": 7597
+    },
+    {
+      "relative_path": "governance/examples/enterprise.requirement-set.json",
+      "sha256": "b235194e4fae6b375b11334f10f2f1bce64db24aa4350ea21a9bed3b13c6a2b8",
+      "size_bytes": 7208
+    },
+    {
+      "relative_path": "governance/examples/governance-trust-bundle.json",
+      "sha256": "db358b729798e5d8a25fb6044ff9deda1349208aa520be8718718ddc6b7c62fa",
+      "size_bytes": 7771
+    },
+    {
+      "relative_path": "governance/examples/governance-trust-policy.json",
+      "sha256": "eae6e1dfd41b2061587a4626afb74cd8bffae444526da3e732403fc8311d7bfd",
+      "size_bytes": 1459
+    },
+    {
+      "relative_path": "governance/examples/intake.approval-policy.json",
+      "sha256": "97fcb11b9374800b2117840bf26080af4df96a7a313ef865a6368f46be951fc3",
+      "size_bytes": 873
+    },
+    {
+      "relative_path": "governance/examples/intake.governance-policy.json",
+      "sha256": "8c8bc78ee2a7a2d98f6f81e41eeaf2496bd8395be3c853f435bfdac5a8d1fd46",
+      "size_bytes": 10294
+    },
+    {
+      "relative_path": "governance/examples/intake.policy-decision.json",
+      "sha256": "4442786ac0b19762e8dbdb9ba132e5c4d0b7347760842e74f662d8b42f71ed1f",
+      "size_bytes": 6583
+    },
+    {
+      "relative_path": "governance/examples/intake.policy-evaluation-input.json",
+      "sha256": "fea90b6cd7512ec753584be1ed2ce08a6b180f6d37fae0d2d25614f175d004cf",
+      "size_bytes": 5496
+    },
+    {
+      "relative_path": "governance/examples/intake.requirement-set.json",
+      "sha256": "c73c1c4ebf704db2171f778b32b917bb327ed373a671edbffc50421c32bfa2ed",
+      "size_bytes": 7205
+    },
+    {
+      "relative_path": "governance/examples/personal.governance-policy.json",
+      "sha256": "05dad598b03357414ab4173f2b52fced35f6753bd95c662f52487873ab0a1cdc",
+      "size_bytes": 4551
+    },
+    {
+      "relative_path": "governance/examples/personal.policy-decision.json",
+      "sha256": "31caebe29c63bf07195881f9855ba191442fea73cf87c63f5b48095fff10022a",
+      "size_bytes": 4241
+    },
+    {
+      "relative_path": "governance/examples/personal.policy-evaluation-input.json",
+      "sha256": "5bc33869fd66432d743ecd3cb51cecc2c8e2f3144e5010f0456db078090ca5cc",
+      "size_bytes": 2374
+    },
+    {
+      "relative_path": "governance/examples/personal.requirement-set.json",
+      "sha256": "1a25bf8453fc1d7c2a3f64a7ac6386241e0025214749d972b4f3630c6e74280f",
+      "size_bytes": 3234
+    },
+    {
+      "relative_path": "governance/examples/regulated.governance-policy.json",
+      "sha256": "04dce8cfeefc9a11171c392af5c734182a65b8203c9962c46744402bce9afce1",
+      "size_bytes": 12426
+    },
+    {
+      "relative_path": "governance/examples/regulated.policy-decision.json",
+      "sha256": "11e1be9f4d03e326e4e517a9f89e6c4140470cadc372bdabeec606134c469008",
+      "size_bytes": 9009
+    },
+    {
+      "relative_path": "governance/examples/regulated.policy-evaluation-input.json",
+      "sha256": "7ccabd42073d47e125119ce886ed40546394ba44b9075de32547ad9cab5e5e19",
+      "size_bytes": 5530
+    },
+    {
+      "relative_path": "governance/examples/regulated.requirement-set.json",
+      "sha256": "3924c8efbc86ce378b643c93296a25a1e46add8fd696a7c393ea7ac49e49369e",
+      "size_bytes": 9192
+    },
+    {
+      "relative_path": "governance/examples/release.approval-policy.json",
+      "sha256": "542bdb55444d8fca3502435094353305ee67d08197e1fbb09369df8f33ef9e8b",
+      "size_bytes": 927
+    },
+    {
+      "relative_path": "governance/examples/release.governance-policy.json",
+      "sha256": "0182e6f80ff1faf6e275f7be37970b193f66b246271b9185a1ac9afbb76898e0",
+      "size_bytes": 10357
+    },
+    {
+      "relative_path": "governance/examples/release.policy-decision.json",
+      "sha256": "9f07a99194facc2924a6ee967f4142a82b0e2efb4ab8cecc97dc9cc997233733",
+      "size_bytes": 6601
+    },
+    {
+      "relative_path": "governance/examples/release.policy-evaluation-input.json",
+      "sha256": "54388117e3e284bb6a57de3c3b805c5ef6f92463d22e1a02e186a72cb34b1abd",
+      "size_bytes": 5500
+    },
+    {
+      "relative_path": "governance/examples/release.requirement-set.json",
+      "sha256": "b235194e4fae6b375b11334f10f2f1bce64db24aa4350ea21a9bed3b13c6a2b8",
+      "size_bytes": 7208
+    },
+    {
+      "relative_path": "governance/examples/separation-of-duties-policy.json",
+      "sha256": "57dc430c52c191a643945ee55ee22c5c21a61b48a34ef109eb1ced811bb27877",
+      "size_bytes": 575
+    },
+    {
+      "relative_path": "governance/examples/signed-team-intake-approval.signed-envelope.json",
+      "sha256": "96e0eaa97044001fedac686c90c3a2400ce0a250302d2ec7cdf6246b31acde6c",
+      "size_bytes": 4702
+    },
+    {
+      "relative_path": "governance/examples/signed-team-intake-decision.signed-envelope.json",
+      "sha256": "4782188e8ece72a99716637c34e8830ba41f624a8c96a2e0f11b40f89063f462",
+      "size_bytes": 10311
+    },
+    {
+      "relative_path": "governance/examples/signed-team-intake-rejection.signed-envelope.json",
+      "sha256": "7668967601839ead116097611d2f2abcf031433314116b60aab1050a64b047f1",
+      "size_bytes": 4561
+    },
+    {
+      "relative_path": "governance/examples/signed-team-promotion-decision.signed-envelope.json",
+      "sha256": "69f69e519b9e0253a5ad9a69eeca114f14c9d83df9bad0f5a2ada10559f1bde0",
+      "size_bytes": 6529
+    },
+    {
+      "relative_path": "governance/examples/signed-team-release-candidate.signed-envelope.json",
+      "sha256": "aa783888759539f7aee5e7246f743d10b6bd0edb3ddc979f5f9c52661d8cb230",
+      "size_bytes": 11523
+    },
+    {
+      "relative_path": "governance/examples/team-intake.approval-input.json",
+      "sha256": "258d348b19dcafb800e598933f8416640a656620634e23206d5fbbd2d234890e",
+      "size_bytes": 578
+    },
+    {
+      "relative_path": "governance/examples/team-intake.approval-record.json",
+      "sha256": "1795837f53f4305034cdd7cee713ee9f4cbdf0b9b819586af609e1a9170f9a53",
+      "size_bytes": 1308
+    },
+    {
+      "relative_path": "governance/examples/team-intake.approval-request-input.json",
+      "sha256": "1133e31bc5f722bf62f30fea88c3066a79bc199dc1e8306522d1b22aacf915b9",
+      "size_bytes": 708
+    },
+    {
+      "relative_path": "governance/examples/team-intake.approval-request.json",
+      "sha256": "ce55f39841d1dcefcb9fc8eac47293a52ada73e1adc6d7b1ae310622841e5ad8",
+      "size_bytes": 2075
+    },
+    {
+      "relative_path": "governance/examples/team-intake.quorum-result.json",
+      "sha256": "e120f805fb00d32bfd320687687906591b268ac3631efbbeff9f61595d898d84",
+      "size_bytes": 504
+    },
+    {
+      "relative_path": "governance/examples/team-intake.rejection-quorum-result.json",
+      "sha256": "54e8ef39a0601e9591ed4bd56221d18be62e6df0fc8d31b2303b378b43e6f425",
+      "size_bytes": 567
+    },
+    {
+      "relative_path": "governance/examples/team-intake.rejection-record.json",
+      "sha256": "8bbc4d4e4d000f994fc283e1b2c71e2ce68e98c91c009b8fbf036f9507cc903e",
+      "size_bytes": 1165
+    },
+    {
+      "relative_path": "governance/examples/team-intake.self-approval-record.json",
+      "sha256": "acfb88a3c7b1be0f0b7b55d4a6e48f8abce7483de9c0dfe7ce4e0a62323cf329",
+      "size_bytes": 1254
+    },
+    {
+      "relative_path": "governance/examples/team-intake.self-approval-separation-result.json",
+      "sha256": "1e9d4cd8c3ce3569a80db42462f9010a5aeb4da45ef9522fd8a22b1660612c5b",
+      "size_bytes": 477
+    },
+    {
+      "relative_path": "governance/examples/team-intake.separation-result.json",
+      "sha256": "1e4ac4dfdb3073dd5e9af936dd07342d13cc969a5b7d45d1bfb0550f5166e407",
+      "size_bytes": 410
+    },
+    {
+      "relative_path": "governance/examples/team.custody-governance-linkage.json",
+      "sha256": "8056f9ece2156a4c6038e02e22d000dc64775f70fe447a98ee119e6b26c03310",
+      "size_bytes": 771
+    },
+    {
+      "relative_path": "governance/examples/team.passport-governance-summary.json",
+      "sha256": "a7bcc428db4b2ccba87b45e2d3799f471097b48f31852df17797a682a8507e29",
+      "size_bytes": 1283
+    },
+    {
+      "relative_path": "governance/examples/team.promotion-decision.json",
+      "sha256": "c654252e8077bad85232476839579ea6b6184a654be08e5c02c266acd4400a7f",
+      "size_bytes": 3013
+    },
+    {
+      "relative_path": "governance/examples/team.promotion-gate-policy.json",
+      "sha256": "c06b59c66a9921b053b4fcc768d47bc9bf5ced7bc88777fcc5446e95c3bd5eba",
+      "size_bytes": 605
+    },
+    {
+      "relative_path": "governance/examples/team.promotion-target.json",
+      "sha256": "05d6fd25411222fa7db3995a973bb91fe545f4338ae87dc50ab98f6583b31aa2",
+      "size_bytes": 754
+    },
+    {
+      "relative_path": "governance/examples/team.release-candidate.json",
+      "sha256": "8f2f2ed100a07818346537bfe8a5402ae1197ff756bc73e13cf48e6481eec77f",
+      "size_bytes": 7741
+    },
+    {
+      "relative_path": "reports/governance/enterprise.governance-report.json",
+      "sha256": "a2182fe3416f25b0ea4df3e73c04dc5e978f5e367de8b7245860a05ff035ee9e",
+      "size_bytes": 5469
+    },
+    {
+      "relative_path": "reports/governance/enterprise.governance-report.md",
+      "sha256": "48f8a75694f5935d67217b99ce057ddad920ccf0321a38fe49d55fc7f9cda584",
+      "size_bytes": 2255
+    },
+    {
+      "relative_path": "reports/governance/intake.governance-report.json",
+      "sha256": "1541f868c3a52f666f215ccaf85f601637522da170728ea1755749d08bd64968",
+      "size_bytes": 6830
+    },
+    {
+      "relative_path": "reports/governance/intake.governance-report.md",
+      "sha256": "4fb890e708c2d39a02e6325da9374105daf7c9f63abff9b20f9ec8499594369b",
+      "size_bytes": 2590
+    },
+    {
+      "relative_path": "reports/governance/personal.governance-report.json",
+      "sha256": "bcf435af77325461d145b32d2bfe8f976a9a051ae71f2c1554d43a8598b431c9",
+      "size_bytes": 3904
+    },
+    {
+      "relative_path": "reports/governance/personal.governance-report.md",
+      "sha256": "3f9ea5c0fbf6a53a7d7bb0631fd65f9b7315e421b8e2ce76cdd5d818579471cd",
+      "size_bytes": 1874
+    },
+    {
+      "relative_path": "reports/governance/regulated.governance-report.json",
+      "sha256": "646ad2752da031d0550ad45a78fafbcdd71b6e00cadaee0d2d3f370e307800f2",
+      "size_bytes": 7450
+    },
+    {
+      "relative_path": "reports/governance/regulated.governance-report.md",
+      "sha256": "99322a67884200e6466384378bc9cdab46a8c027983c7fb1cafaebb57c1bc736",
+      "size_bytes": 2693
+    },
+    {
+      "relative_path": "reports/governance/release.governance-report.json",
+      "sha256": "24b873575e09544504d39dace77d23ef9ff035ea06048415526e24106a38a558",
+      "size_bytes": 5462
+    },
+    {
+      "relative_path": "reports/governance/release.governance-report.md",
+      "sha256": "e42a8d035a672e886b3a04a9cb838cedf244b1d77f022e26a98e960a19139e8e",
+      "size_bytes": 2248
+    },
+    {
+      "relative_path": "reports/governance/signed-team-intake-approval.signature-report.json",
+      "sha256": "156c144bfc98583af73fee9bec3cc46bfae2dc754249c8e93ac36d5224a08846",
+      "size_bytes": 4812
+    },
+    {
+      "relative_path": "reports/governance/signed-team-intake-approval.signature-report.md",
+      "sha256": "c7a62a97fea1ecc2370c159b6f0b9ab8ab7899d378b4e239bd2613f2ab3f46e1",
+      "size_bytes": 2155
+    },
+    {
+      "relative_path": "reports/governance/signed-team-intake-decision.signature-report.json",
+      "sha256": "cb396d6401910d04b20b0faaceb0bbe0e34291f8432e326698dc687fbb699cd7",
+      "size_bytes": 4834
+    },
+    {
+      "relative_path": "reports/governance/signed-team-intake-decision.signature-report.md",
+      "sha256": "a53b6825a1a9ab8049abd8db6bdf36a62f7d3fb1140df8caa47f880c01ef721f",
+      "size_bytes": 2170
+    },
+    {
+      "relative_path": "reports/governance/signed-team-intake-rejection.signature-report.json",
+      "sha256": "b479b4c7870ee4d20d3ccac231ff37eb485699975a4abd6abd21e4085c37f887",
+      "size_bytes": 4799
+    },
+    {
+      "relative_path": "reports/governance/signed-team-intake-rejection.signature-report.md",
+      "sha256": "0bf57989b85ed327b034ffbad67f7a8b67ec89a562758a393300f1c4087a0235",
+      "size_bytes": 2141
+    },
+    {
+      "relative_path": "reports/governance/signed-team-promotion-decision.signature-report.json",
+      "sha256": "37d1dbe64cb5c65d6d8105705d6586d13397d28503932c1b674e922637999d32",
+      "size_bytes": 4804
+    },
+    {
+      "relative_path": "reports/governance/signed-team-promotion-decision.signature-report.md",
+      "sha256": "e40701e4d98a8d007f52e0c1e27d4a19d0278d5ac993fad44d35e63cdefc71be",
+      "size_bytes": 2127
+    },
+    {
+      "relative_path": "reports/governance/signed-team-release-candidate.signature-report.json",
+      "sha256": "af4c94531f31446126b747fb0f0e912f48319f6bf981aef3f1d67ad6e8e3face",
+      "size_bytes": 4745
+    },
+    {
+      "relative_path": "reports/governance/signed-team-release-candidate.signature-report.md",
+      "sha256": "e6d008b316fcf7189fbdb9003842e0014a9a0fbf7b72c4454f0d81cc3fe6003b",
+      "size_bytes": 2070
+    }
+  ],
+  "index_digest": "d6b18b54a1c01bead5a33b569f686bdc8ad857604be17a55a8fe04a8ca269d85",
+  "index_id": "governance_index_4dc643e9884e236d0537d17bdf9d081a",
+  "limitations": [
+    "Index covers public deterministic Phase 5E fixtures only; no model payloads."
+  ],
+  "schema": "omiv.governance-artifact-index.v1"
+}

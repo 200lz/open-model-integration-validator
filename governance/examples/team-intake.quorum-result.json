@@ -1,0 +1,18 @@
+{
+  "counted_approval_ids": [
+    "approval_6f531c7f19e6859f0681db4bd50b4500"
+  ],
+  "distinct_keys": 1,
+  "distinct_signers": 1,
+  "distinct_trust_roots": 1,
+  "limitations": [
+    "Approval quorum is independent of cryptographic multi-signature count."
+  ],
+  "outcome": "SATISFIED",
+  "quorum_id": "quorum_c02c19b0824687b9d41fadaa8a1cca1f",
+  "rejected_record_ids": [],
+  "result_digest": "1c48bfb8e1fbe39223efc8928744b4b0ff46eb55e0044b2a4876a9e81fc576e8",
+  "satisfied_roles": [
+    "APPROVER"
+  ]
+}

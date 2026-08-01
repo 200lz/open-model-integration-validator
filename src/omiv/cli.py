@@ -83,6 +83,42 @@ from omiv.gguf.reporting import (
     render_markdown,
     report_integrity_matches,
 )
+from omiv.governance.evaluation import (
+    build_approval_record as build_governance_approval_record,
+)
+from omiv.governance.evaluation import (
+    build_approval_request as build_governance_approval_request,
+)
+from omiv.governance.evaluation import build_governance_report, verify_policy_decision
+from omiv.governance.evaluation import build_policy_decision as build_governance_decision
+from omiv.governance.evaluation import (
+    build_promotion_decision as build_governance_promotion_decision,
+)
+from omiv.governance.models import DecisionOutcome, PromotionOutcome
+from omiv.governance.reporting import load_approval as load_governance_approval
+from omiv.governance.reporting import (
+    load_approval_input,
+    load_approval_request_input,
+    load_quorum_result,
+    load_separation_result,
+)
+from omiv.governance.reporting import (
+    load_approval_request as load_governance_approval_request,
+)
+from omiv.governance.reporting import load_candidate as load_release_candidate
+from omiv.governance.reporting import load_decision as load_governance_decision
+from omiv.governance.reporting import load_evaluation_input as load_governance_input
+from omiv.governance.reporting import load_gate_policy as load_promotion_gate_policy
+from omiv.governance.reporting import load_policy as load_governance_policy
+from omiv.governance.reporting import (
+    load_promotion_decision as load_governance_promotion_decision,
+)
+from omiv.governance.reporting import load_rejection as load_governance_rejection
+from omiv.governance.reporting import load_target as load_promotion_target
+from omiv.governance.reporting import pretty_json as pretty_governance_json
+from omiv.governance.reporting import render_markdown as render_governance_markdown
+from omiv.governance.reporting import verify_report_file as verify_governance_report_file
+from omiv.governance.signing import approval_linkage, decision_linkage
 from omiv.hf.json_loader import parse_bounded_json_bytes
 from omiv.hf.models import HFInventory
 from omiv.hf.reader import pretty_hf_inventory, read_hf_inventory
@@ -205,6 +241,7 @@ from omiv.safe_write import atomic_write_text, validate_output_path
 from omiv.schema.loader import load_schema
 from omiv.trust.algorithms import load_private_key, load_public_key, raw_public_key
 from omiv.trust.models import (
+    ACTIVE_PURPOSES,
     SignaturePurpose,
     SignatureReport,
     SignedObjectType,
@@ -258,11 +295,13 @@ passport_app = typer.Typer(no_args_is_help=True)
 custody_app = typer.Typer(no_args_is_help=True)
 attestation_app = typer.Typer(no_args_is_help=True)
 trust_app = typer.Typer(no_args_is_help=True)
+governance_app = typer.Typer(no_args_is_help=True)
 app.add_typer(model_packs_app, name="model-packs")
 app.add_typer(passport_app, name="passport")
 app.add_typer(custody_app, name="custody")
 app.add_typer(attestation_app, name="attestation")
 app.add_typer(trust_app, name="trust")
+app.add_typer(governance_app, name="governance")
 MAX_CANONICAL_INVENTORY_BYTES = 64 * 1024 * 1024
 REMOTE_REPORT_SCHEMAS = {
     "omiv.remote-snapshot-report.v1",
@@ -1660,13 +1699,7 @@ def trust_key_inspect(
         key = build_key_identity_from_public(
             public_key,
             allowed_object_types=list(SignedObjectType),
-            allowed_purposes=[
-                SignaturePurpose.ATTESTATION_ISSUANCE,
-                SignaturePurpose.EXECUTION_RECORD_ISSUANCE,
-                SignaturePurpose.CUSTODY_EVENT_ISSUANCE,
-                SignaturePurpose.CUSTODY_SEGMENT_ISSUANCE,
-                SignaturePurpose.PASSPORT_ISSUANCE,
-            ],
+            allowed_purposes=sorted(ACTIVE_PURPOSES, key=lambda item: item.value),
             limitations=[
                 "Inspection records public material only; trust and signer identity "
                 "are not inferred."
@@ -1968,6 +2001,420 @@ def trust_revocation_verify(
     typer.echo(
         f"PASS revocation record-integrity {value.revocation_id} "
         f"{value.revocation_digest} authority=NOT_EVALUATED"
+    )
+
+
+def _governance_decision_exit(outcome: DecisionOutcome) -> int:
+    if outcome == DecisionOutcome.ALLOW:
+        return 0
+    if outcome in {DecisionOutcome.ALLOW_WITH_LIMITATIONS, DecisionOutcome.REVIEW_REQUIRED}:
+        return 1
+    return 2
+
+
+def _governance_promotion_exit(outcome: PromotionOutcome) -> int:
+    if outcome == PromotionOutcome.PROMOTION_ALLOWED:
+        return 0
+    if outcome in {
+        PromotionOutcome.PROMOTION_ALLOWED_WITH_CONDITIONS,
+        PromotionOutcome.REVIEW_REQUIRED,
+    }:
+        return 1
+    return 2
+
+
+@governance_app.command("evaluate")
+def governance_evaluate(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    policy_path: Annotated[Path, typer.Option("--policy", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    report_output: Annotated[Path, typer.Option("--report-output", dir_okay=False)],
+    markdown_output: Annotated[Path, typer.Option("--markdown-output", dir_okay=False)],
+) -> None:
+    """Evaluate supplied evidence and write a reconstructed offline decision and report."""
+    inputs = (input_path, policy_path)
+    try:
+        value = load_governance_input(input_path)
+        policy = load_governance_policy(policy_path)
+        decision = build_governance_decision(value, policy)
+        report = build_governance_report(decision)
+        outputs = (output, report_output, markdown_output)
+        if len({item.resolve(strict=False) for item in outputs}) != len(outputs):
+            raise OmivInputError("governance outputs must use distinct paths")
+        for path in outputs:
+            validate_output_path(path, forbidden_inputs=inputs)
+        atomic_write_text(output, pretty_governance_json(decision), forbidden_inputs=inputs)
+        atomic_write_text(report_output, pretty_governance_json(report), forbidden_inputs=inputs)
+        atomic_write_text(
+            markdown_output,
+            render_governance_markdown(report),
+            forbidden_inputs=inputs,
+        )
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR governance evaluation failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"{decision.decision_outcome.value} decision={decision.decision_id} "
+        f"report={report.report_id} deployment=NOT_PERFORMED runtime=NOT_CHECKED"
+    )
+    code = _governance_decision_exit(decision.decision_outcome)
+    if code:
+        raise typer.Exit(code=code)
+
+
+@governance_app.command("decision-verify")
+def governance_decision_verify(
+    decision_path: Annotated[Path, typer.Option("--decision", exists=True, dir_okay=False)],
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    policy_path: Annotated[Path, typer.Option("--policy", exists=True, dir_okay=False)],
+) -> None:
+    """Reconstruct a policy decision from the supplied policy and evidence references."""
+    try:
+        observed = load_governance_decision(decision_path)
+        value = load_governance_input(input_path)
+        policy = load_governance_policy(policy_path)
+        decision = verify_policy_decision(observed, value, policy)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR governance decision verification failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"PASS decision={decision.decision_id} outcome={decision.decision_outcome.value} "
+        "claim_truth=NOT_PROVEN"
+    )
+
+
+@governance_app.command("decision-show")
+def governance_decision_show(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+) -> None:
+    """Display a decision without adding approval, promotion, or deployment claims."""
+    try:
+        decision = load_governance_decision(input_path)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR governance decision display failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"Decision: {decision.decision_id}\n"
+        f"Policy: {decision.policy_id} {decision.policy_digest}\n"
+        f"Outcome: {decision.decision_outcome.value}\n"
+        "Underlying claims independently proven: NO\n"
+        "Approval: NOT_INFERRED\nPromotion: NOT_PERFORMED\n"
+        "Deployment: NOT_PERFORMED\nRuntime: NOT_CHECKED"
+    )
+
+
+@governance_app.command("approval-request-create")
+def governance_approval_request_create(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    decision_path: Annotated[Path, typer.Option("--decision", exists=True, dir_okay=False)],
+    policy_path: Annotated[Path, typer.Option("--policy", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+) -> None:
+    """Create an offline approval request; no notification or approval occurs."""
+    inputs = (input_path, decision_path, policy_path)
+    try:
+        value = load_approval_request_input(input_path)
+        decision = load_governance_decision(decision_path)
+        policy = load_governance_policy(policy_path)
+        request = build_governance_approval_request(
+            decision,
+            policy,
+            requested_action=value.requested_action,
+            requester_role=value.requester_role,
+            requester=value.requester,
+            requested_target_id=value.requested_target_id,
+            requested_scope=value.requested_scope,
+            evidence_ids=value.evidence_ids,
+        )
+        atomic_write_text(output, pretty_governance_json(request), forbidden_inputs=inputs)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR approval request creation failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(f"PASS approval request={request.approval_request_id} approval=NOT_GRANTED")
+
+
+@governance_app.command("approval-create")
+def governance_approval_create(
+    request_path: Annotated[Path, typer.Option("--request", exists=True, dir_okay=False)],
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+) -> None:
+    """Create an explicit unsigned approval record for later independent signing."""
+    inputs = (request_path, input_path)
+    try:
+        request = load_governance_approval_request(request_path)
+        value = load_approval_input(input_path)
+        approval = build_governance_approval_record(
+            request,
+            approver_role=value.approver_role,
+            approver=value.approver,
+            outcome=value.outcome,
+            scope=value.scope,
+            conditions=value.conditions,
+            evidence_ids=value.evidence_ids,
+            validity_not_after=value.validity_not_after,
+        )
+        atomic_write_text(output, pretty_governance_json(approval), forbidden_inputs=inputs)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR approval creation failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"PASS approval={approval.approval_id} outcome={approval.outcome.value} "
+        "signature=NOT_EVALUATED deployment=NOT_PERFORMED"
+    )
+
+
+@governance_app.command("approval-verify")
+def governance_approval_verify(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    request_path: Annotated[Path, typer.Option("--request", exists=True, dir_okay=False)],
+    policy_path: Annotated[Path, typer.Option("--policy", exists=True, dir_okay=False)],
+    envelope_path: Annotated[
+        Path | None, typer.Option("--envelope", exists=True, dir_okay=False)
+    ] = None,
+    trust_bundle_path: Annotated[
+        Path | None, typer.Option("--trust-bundle", exists=True, dir_okay=False)
+    ] = None,
+    trust_policy_path: Annotated[
+        Path | None, typer.Option("--trust-policy", exists=True, dir_okay=False)
+    ] = None,
+) -> None:
+    """Verify approval structure/scope and optionally reconstruct its signature trust."""
+    try:
+        approval = load_governance_approval(input_path)
+        request = load_governance_approval_request(request_path)
+        policy = load_governance_policy(policy_path)
+        if (
+            approval.approval_request_id != request.approval_request_id
+            or approval.request_digest != request.request_digest
+            or approval.subject_id != request.subject.subject_id
+            or approval.policy_id != policy.policy_id
+            or approval.policy_digest != policy.policy_digest
+        ):
+            raise OmivInputError("approval does not match request subject or governance policy")
+        signed = False
+        signature_inputs = (envelope_path, trust_bundle_path, trust_policy_path)
+        if any(signature_inputs):
+            if not all(signature_inputs):
+                raise OmivInputError("signed approval verification requires all trust inputs")
+            envelope = load_signed_envelope(envelope_path)  # type: ignore[arg-type]
+            bundle = load_trust_bundle(trust_bundle_path)  # type: ignore[arg-type]
+            trust_policy = load_trust_policy(trust_policy_path)  # type: ignore[arg-type]
+            trust_report = verify_signed_envelope(envelope, bundle, trust_policy)
+            if envelope.signed_object != approval.model_dump(mode="json", by_alias=True):
+                raise OmivInputError("signed envelope contains a different approval record")
+            signed = approval_linkage(envelope, trust_report).trust_status == "TRUSTED_BY_POLICY"
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR approval verification failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"PASS approval={approval.approval_id} scope={approval.scope} "
+        f"signature_trusted={'YES' if signed else 'NOT_EVALUATED'} deployment=NOT_PERFORMED"
+    )
+    if policy.approval_policy and policy.approval_policy.require_signed_approval and not signed:
+        raise typer.Exit(code=1)
+
+
+@governance_app.command("approval-show")
+def governance_approval_show(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+) -> None:
+    """Show scoped approval evidence without inferring signature trust or deployment."""
+    try:
+        approval = load_governance_approval(input_path)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR approval display failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"Approval: {approval.approval_id}\nOutcome: {approval.outcome.value}\n"
+        f"Scope: {approval.scope}\nPolicy: {approval.policy_id}\n"
+        "Signature trust: NOT_EVALUATED\nSecurity: NOT_PROVEN\n"
+        "Promotion: NOT_PERFORMED\nDeployment: NOT_PERFORMED"
+    )
+
+
+def _trusted_governance_decision(
+    envelope_path: Path | None,
+    bundle_path: Path | None,
+    policy_path: Path | None,
+) -> bool:
+    values = (envelope_path, bundle_path, policy_path)
+    if not any(values):
+        return False
+    if not all(values):
+        raise OmivInputError("decision signature evaluation requires all trust inputs")
+    envelope = load_signed_envelope(envelope_path)  # type: ignore[arg-type]
+    bundle = load_trust_bundle(bundle_path)  # type: ignore[arg-type]
+    policy = load_trust_policy(policy_path)  # type: ignore[arg-type]
+    report = verify_signed_envelope(envelope, bundle, policy)
+    return decision_linkage(envelope, report).trust_status == "TRUSTED_BY_POLICY"
+
+
+@governance_app.command("promotion-evaluate")
+def governance_promotion_evaluate(
+    candidate_path: Annotated[Path, typer.Option("--candidate", exists=True, dir_okay=False)],
+    target_path: Annotated[Path, typer.Option("--target", exists=True, dir_okay=False)],
+    policy_path: Annotated[Path, typer.Option("--policy", exists=True, dir_okay=False)],
+    decision_path: Annotated[Path, typer.Option("--decision", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    quorum_path: Annotated[
+        Path | None, typer.Option("--quorum", exists=True, dir_okay=False)
+    ] = None,
+    separation_path: Annotated[
+        Path | None, typer.Option("--separation", exists=True, dir_okay=False)
+    ] = None,
+    decision_envelope_path: Annotated[
+        Path | None, typer.Option("--decision-envelope", exists=True, dir_okay=False)
+    ] = None,
+    trust_bundle_path: Annotated[
+        Path | None, typer.Option("--trust-bundle", exists=True, dir_okay=False)
+    ] = None,
+    trust_policy_path: Annotated[
+        Path | None, typer.Option("--trust-policy", exists=True, dir_okay=False)
+    ] = None,
+) -> None:
+    """Evaluate a logical promotion gate without contacting or modifying a registry."""
+    try:
+        candidate = load_release_candidate(candidate_path)
+        target = load_promotion_target(target_path)
+        gate_policy = load_promotion_gate_policy(policy_path)
+        decision = load_governance_decision(decision_path)
+        quorum = load_quorum_result(quorum_path) if quorum_path else None
+        separation = load_separation_result(separation_path) if separation_path else None
+        trusted = _trusted_governance_decision(
+            decision_envelope_path, trust_bundle_path, trust_policy_path
+        )
+        promotion = build_governance_promotion_decision(
+            candidate,
+            target,
+            gate_policy,
+            decision,
+            quorum=quorum,
+            separation=separation,
+            trusted_decision_signature=trusted,
+        )
+        atomic_write_text(
+            output,
+            pretty_governance_json(promotion),
+            forbidden_inputs=(candidate_path, target_path, policy_path, decision_path),
+        )
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR promotion evaluation failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"Logical promotion permission: {promotion.gate_result.outcome.value} "
+        f"promotion={promotion.promotion_decision_id} target={promotion.target_id} "
+        f"conditions={','.join(promotion.conditions) or 'NONE'} "
+        f"registry_write={promotion.registry_write} promotion_performed="
+        f"{promotion.promotion_performed} security={promotion.security_status} "
+        f"deployment={promotion.deployment_status} runtime={promotion.runtime_status}"
+    )
+    code = _governance_promotion_exit(promotion.gate_result.outcome)
+    if code:
+        raise typer.Exit(code=code)
+
+
+@governance_app.command("promotion-verify")
+def governance_promotion_verify(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    candidate_path: Annotated[Path, typer.Option("--candidate", exists=True, dir_okay=False)],
+    target_path: Annotated[Path, typer.Option("--target", exists=True, dir_okay=False)],
+    policy_path: Annotated[Path, typer.Option("--policy", exists=True, dir_okay=False)],
+    decision_path: Annotated[Path, typer.Option("--decision", exists=True, dir_okay=False)],
+    quorum_path: Annotated[
+        Path | None, typer.Option("--quorum", exists=True, dir_okay=False)
+    ] = None,
+    separation_path: Annotated[
+        Path | None, typer.Option("--separation", exists=True, dir_okay=False)
+    ] = None,
+    decision_envelope_path: Annotated[
+        Path | None, typer.Option("--decision-envelope", exists=True, dir_okay=False)
+    ] = None,
+    trust_bundle_path: Annotated[
+        Path | None, typer.Option("--trust-bundle", exists=True, dir_okay=False)
+    ] = None,
+    trust_policy_path: Annotated[
+        Path | None, typer.Option("--trust-policy", exists=True, dir_okay=False)
+    ] = None,
+) -> None:
+    """Reconstruct a promotion decision without executing promotion."""
+    try:
+        observed = load_governance_promotion_decision(input_path)
+        trusted = _trusted_governance_decision(
+            decision_envelope_path, trust_bundle_path, trust_policy_path
+        )
+        reconstructed = build_governance_promotion_decision(
+            load_release_candidate(candidate_path),
+            load_promotion_target(target_path),
+            load_promotion_gate_policy(policy_path),
+            load_governance_decision(decision_path),
+            quorum=load_quorum_result(quorum_path) if quorum_path else None,
+            separation=load_separation_result(separation_path) if separation_path else None,
+            trusted_decision_signature=trusted,
+        )
+        if observed != reconstructed:
+            raise OmivInputError("promotion decision does not match reconstructed gate state")
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR promotion decision verification failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"PASS promotion={observed.promotion_decision_id} "
+        f"outcome={observed.gate_result.outcome.value} action_performed=NO"
+    )
+
+
+@governance_app.command("report-verify")
+def governance_report_verify(
+    report_path: Annotated[Path, typer.Option("--report", exists=True, dir_okay=False)],
+    decision_path: Annotated[Path, typer.Option("--decision", exists=True, dir_okay=False)],
+    approval_request_path: Annotated[
+        Path | None, typer.Option("--approval-request", exists=True, dir_okay=False)
+    ] = None,
+    approval_path: Annotated[
+        Path | None, typer.Option("--approval", exists=True, dir_okay=False)
+    ] = None,
+    rejection_path: Annotated[
+        Path | None, typer.Option("--rejection", exists=True, dir_okay=False)
+    ] = None,
+    quorum_path: Annotated[
+        Path | None, typer.Option("--quorum", exists=True, dir_okay=False)
+    ] = None,
+    separation_path: Annotated[
+        Path | None, typer.Option("--separation", exists=True, dir_okay=False)
+    ] = None,
+    target_path: Annotated[
+        Path | None, typer.Option("--target", exists=True, dir_okay=False)
+    ] = None,
+    promotion_path: Annotated[
+        Path | None, typer.Option("--promotion", exists=True, dir_okay=False)
+    ] = None,
+) -> None:
+    """Reconstruct governance report summaries from canonical dependency records."""
+    try:
+        decision = load_governance_decision(decision_path)
+        report = verify_governance_report_file(
+            report_path,
+            decision,
+            approval_request=(
+                load_governance_approval_request(approval_request_path)
+                if approval_request_path
+                else None
+            ),
+            approvals=[load_governance_approval(approval_path)] if approval_path else [],
+            rejections=[load_governance_rejection(rejection_path)] if rejection_path else [],
+            quorum=load_quorum_result(quorum_path) if quorum_path else None,
+            separation=load_separation_result(separation_path) if separation_path else None,
+            target=load_promotion_target(target_path) if target_path else None,
+            promotion=(
+                load_governance_promotion_decision(promotion_path) if promotion_path else None
+            ),
+        )
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR governance report verification failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"PASS governance report={report.report_id} outcome={report.decision_outcome.value} "
+        "deployment=NOT_PERFORMED runtime=NOT_CHECKED"
     )
 
 

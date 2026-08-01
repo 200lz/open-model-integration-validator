@@ -1,0 +1,68 @@
+{
+  "blockers": [
+    "APPROVAL_QUORUM_NOT_SATISFIED",
+    "ARTIFACT_SECURITY_EVIDENCE_MISSING",
+    "EXPIRATION_EVALUATION_MISSING",
+    "POLICY_DECISION_NOT_ACCEPTED",
+    "REVOCATION_EVALUATION_MISSING",
+    "SEPARATION_OF_DUTIES_NOT_SATISFIED",
+    "TARGET_APPROVAL_POLICY_MISMATCH",
+    "TARGET_DECISION_OUTCOME_NOT_ACCEPTED",
+    "TRUSTED_DECISION_SIGNATURE_MISSING"
+  ],
+  "candidate_digest": "4b980b4ac798d6d8c6dab7ffa785c47eeb3bf8894cc3a0e594a32706d8f20ea1",
+  "candidate_id": "candidate_8ae4e1e4f92e4a846f4694b429b350bc",
+  "conditions": [],
+  "deployment_status": "NOT_PERFORMED",
+  "gate_policy_digest": "7bea0a201cbb5ca824500cbdf4fe072a65d3d882a429645703e675c9e3625a1a",
+  "gate_policy_id": "promotion_gate_10daac96fddba80a6da109b36181380b",
+  "gate_result": {
+    "blockers": [
+      "APPROVAL_QUORUM_NOT_SATISFIED",
+      "ARTIFACT_SECURITY_EVIDENCE_MISSING",
+      "EXPIRATION_EVALUATION_MISSING",
+      "POLICY_DECISION_NOT_ACCEPTED",
+      "REVOCATION_EVALUATION_MISSING",
+      "SEPARATION_OF_DUTIES_NOT_SATISFIED",
+      "TARGET_APPROVAL_POLICY_MISMATCH",
+      "TARGET_DECISION_OUTCOME_NOT_ACCEPTED",
+      "TRUSTED_DECISION_SIGNATURE_MISSING"
+    ],
+    "conditions": [],
+    "gate_policy_id": "promotion_gate_10daac96fddba80a6da109b36181380b",
+    "limitations": [
+      "Promotion allowed means policy permission only; no upload or deployment occurred."
+    ],
+    "missing_evidence": [
+      "EXPIRATION_EVALUATION",
+      "REVOCATION_EVALUATION",
+      "SECURITY_INSPECTION"
+    ],
+    "outcome": "PROMOTION_DENIED",
+    "result_digest": "4908fffcf1f5fc990fba42319468ef61148f149aa77a5823546409de96348546",
+    "target_id": "target_c66397e85b6e2799ffe074c0f450ddb4"
+  },
+  "limitations": [
+    "Promotion allowed means policy permission only; no upload or deployment occurred.",
+    "This record does not execute promotion, registry upload, or deployment."
+  ],
+  "missing_evidence": [
+    "EXPIRATION_EVALUATION",
+    "REVOCATION_EVALUATION",
+    "SECURITY_INSPECTION"
+  ],
+  "policy_decision_digest": "31db56378c96edede3a350c638b36471271ab9599aadc18318b0ce55a4186796",
+  "policy_decision_id": "decision_7c1f604e7a8cc3089003ffb98ce1aa20",
+  "promotion_decision_digest": "ebd0d652a9a543447f94caab72556fbfd041d511edfd3455fa778090e19f89d2",
+  "promotion_decision_id": "promotion_809a69db675a3ca5e4c9c2f9e242afe6",
+  "promotion_performed": "NO",
+  "quorum_result": null,
+  "registry_write": "NOT_PERFORMED",
+  "runtime_status": "NOT_CHECKED",
+  "schema": "omiv.promotion-decision-record.v1",
+  "security_status": "MISSING",
+  "separation_result": null,
+  "target_digest": "95f3db131962a8dac2864dfb7400fcf66e7576b821748b8a4bf142798d4dd126",
+  "target_id": "target_c66397e85b6e2799ffe074c0f450ddb4",
+  "trust_summary": "SIGNATURE_NOT_EVALUATED"
+}

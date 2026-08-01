@@ -1,0 +1,22 @@
+{
+  "accepted_formats": [
+    "GGUF",
+    "SAFETENSORS",
+    "SYNTHETIC"
+  ],
+  "environment_class": "ENTERPRISE_RELEASE",
+  "limitations": [
+    "This is a logical target; no registry endpoint or credential is stored."
+  ],
+  "logical_namespace": "synthetic/enterprise-candidates",
+  "provider_reference": null,
+  "required_approval_policy_id": "approval_policy_ba677c3509ddff7cf52f027d257d455c",
+  "required_decision_outcomes": [
+    "ALLOW"
+  ],
+  "schema": "omiv.promotion-target.v1",
+  "target_digest": "95f3db131962a8dac2864dfb7400fcf66e7576b821748b8a4bf142798d4dd126",
+  "target_id": "target_c66397e85b6e2799ffe074c0f450ddb4",
+  "target_policy_id": "omiv.governance-policy.enterprise_registry_promotion.v1",
+  "target_type": "ENTERPRISE_RELEASE_REGISTRY"
+}

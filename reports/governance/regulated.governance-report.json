@@ -1,0 +1,209 @@
+{
+  "approval_record_ids": [],
+  "approval_request_id": null,
+  "blockers": [
+    "requirement_2d8ed8e14c49e55b3db92eb7a666cec6",
+    "requirement_55768c863afaf6d7de173a310a54697e",
+    "requirement_bda759b101f89f28adb5e3131ced8867"
+  ],
+  "decision_digest": "ee9a5f602b9be298f1668f8579a947683519839a16d5f4509209f5c49ae6f592",
+  "decision_id": "decision_de0afc58b7cfa67eb1969ee494c2209f",
+  "decision_outcome": "DENY",
+  "deployment_status": "NOT_PERFORMED",
+  "limitations": [
+    "Approval status is scoped; it is not a security or deployment assertion.",
+    "Policy evaluation does not prove security, deployment, or runtime state.",
+    "Policy satisfaction does not independently prove underlying claims.",
+    "Promotion permission does not prove upload, deployment, or runtime observation.",
+    "Structural validation does not prove payload integrity or security."
+  ],
+  "missing_evidence": {
+    "items": [
+      {
+        "blocking": true,
+        "category": "SECURITY_INSPECTION",
+        "current_status": "MISSING",
+        "decision_impact": "Blocks policy outcome",
+        "outside_current_phase": true,
+        "promotion_impact": "Blocks promotion",
+        "remediation": "Phase 5F must provide verifiable artifact security evidence.",
+        "required_status": "SATISFIED",
+        "requirement_id": "requirement_2d8ed8e14c49e55b3db92eb7a666cec6",
+        "severity": "BLOCKING",
+        "source_phase": "5F"
+      },
+      {
+        "blocking": true,
+        "category": "RUNTIME_OBSERVATION",
+        "current_status": "MISSING",
+        "decision_impact": "Blocks policy outcome",
+        "outside_current_phase": true,
+        "promotion_impact": "Blocks promotion",
+        "remediation": "Provide runtime observation evidence in Phase 5G.",
+        "required_status": "SATISFIED",
+        "requirement_id": "requirement_55768c863afaf6d7de173a310a54697e",
+        "severity": "BLOCKING",
+        "source_phase": "5G"
+      },
+      {
+        "blocking": true,
+        "category": "PAYLOAD_INTEGRITY",
+        "current_status": "MISSING",
+        "decision_impact": "Blocks policy outcome",
+        "outside_current_phase": true,
+        "promotion_impact": "Blocks promotion",
+        "remediation": "Provide payload integrity evidence in a later phase.",
+        "required_status": "SATISFIED",
+        "requirement_id": "requirement_bda759b101f89f28adb5e3131ced8867",
+        "severity": "BLOCKING",
+        "source_phase": "5F"
+      }
+    ]
+  },
+  "next_actions": [
+    "Phase 5F must provide verifiable artifact security evidence.",
+    "Provide payload integrity evidence in a later phase.",
+    "Provide runtime observation evidence in Phase 5G."
+  ],
+  "policy_digest": "7683cb1c7c983e041c90cf9103f20a1d35f790d7085ccb6d0812daaddc9c8130",
+  "policy_id": "omiv.governance-policy.regulated_production_release.v1",
+  "promotion_conditions": [],
+  "promotion_outcome": null,
+  "promotion_performed": "NO",
+  "promotion_target_id": null,
+  "quorum_result": null,
+  "registry_write": "NOT_PERFORMED",
+  "rejection_record_ids": [],
+  "report_digest": "7f11d11868b4d4bd2f63b8b1cbf112f7a9d98a2bf539b4edaee1d436dbb719ea",
+  "report_id": "governance_report_7df36159dd1d1a5a27bcb27a11319ef3",
+  "requirement_results": [
+    {
+      "blocking": true,
+      "category": "SECURITY_INSPECTION",
+      "limitations": [],
+      "matched_evidence_ids": [],
+      "outcome": "MISSING",
+      "policy_evidence": [],
+      "reason": "No evidence reference was supplied for this requirement.",
+      "requirement_id": "requirement_2d8ed8e14c49e55b3db92eb7a666cec6",
+      "reviewable": false
+    },
+    {
+      "blocking": false,
+      "category": "STRUCTURAL_VALIDATION",
+      "limitations": [
+        "Structural validation does not prove payload integrity or security."
+      ],
+      "matched_evidence_ids": [
+        "evidence_structural"
+      ],
+      "outcome": "SATISFIED_WITH_LIMITATIONS",
+      "policy_evidence": [],
+      "reason": "Evidence satisfies the requirement with explicit limitations.",
+      "requirement_id": "requirement_33b2578a9d68d525a2008db5463ccf31",
+      "reviewable": false
+    },
+    {
+      "blocking": false,
+      "category": "ARTIFACT_IDENTITY",
+      "limitations": [],
+      "matched_evidence_ids": [
+        "evidence_identity"
+      ],
+      "outcome": "SATISFIED",
+      "policy_evidence": [],
+      "reason": "Evidence satisfies the requirement.",
+      "requirement_id": "requirement_411fb249b90b4ea60be0b31c1e4f14a9",
+      "reviewable": false
+    },
+    {
+      "blocking": true,
+      "category": "RUNTIME_OBSERVATION",
+      "limitations": [],
+      "matched_evidence_ids": [],
+      "outcome": "MISSING",
+      "policy_evidence": [],
+      "reason": "No evidence reference was supplied for this requirement.",
+      "requirement_id": "requirement_55768c863afaf6d7de173a310a54697e",
+      "reviewable": false
+    },
+    {
+      "blocking": false,
+      "category": "SIGNATURE_TRUST",
+      "limitations": [],
+      "matched_evidence_ids": [
+        "evidence_signature"
+      ],
+      "outcome": "SATISFIED",
+      "policy_evidence": [],
+      "reason": "Evidence satisfies the requirement.",
+      "requirement_id": "requirement_6ce5dacac4a2594c6b3cb0cf9716fed7",
+      "reviewable": false
+    },
+    {
+      "blocking": false,
+      "category": "ACQUISITION_ATTESTATION",
+      "limitations": [],
+      "matched_evidence_ids": [
+        "evidence_acquisition"
+      ],
+      "outcome": "SATISFIED",
+      "policy_evidence": [],
+      "reason": "Evidence satisfies the requirement.",
+      "requirement_id": "requirement_86d31fce4c18d74633619677de82c912",
+      "reviewable": false
+    },
+    {
+      "blocking": false,
+      "category": "IMMUTABLE_REVISION",
+      "limitations": [],
+      "matched_evidence_ids": [
+        "evidence_immutable"
+      ],
+      "outcome": "SATISFIED",
+      "policy_evidence": [],
+      "reason": "Evidence satisfies the requirement.",
+      "requirement_id": "requirement_b24d857c248fa5e80ab96bb0fd5599da",
+      "reviewable": false
+    },
+    {
+      "blocking": true,
+      "category": "PAYLOAD_INTEGRITY",
+      "limitations": [],
+      "matched_evidence_ids": [],
+      "outcome": "MISSING",
+      "policy_evidence": [],
+      "reason": "No evidence reference was supplied for this requirement.",
+      "requirement_id": "requirement_bda759b101f89f28adb5e3131ced8867",
+      "reviewable": false
+    },
+    {
+      "blocking": false,
+      "category": "CUSTODY_INTEGRITY",
+      "limitations": [],
+      "matched_evidence_ids": [
+        "evidence_custody"
+      ],
+      "outcome": "SATISFIED",
+      "policy_evidence": [],
+      "reason": "Evidence satisfies the requirement.",
+      "requirement_id": "requirement_f6ea7624ca946661a18b0ab3419d2ae2",
+      "reviewable": false
+    }
+  ],
+  "runtime_status": "NOT_CHECKED",
+  "schema": "omiv.governance-report.v1",
+  "security_status": "MISSING",
+  "separation_result": null,
+  "subject": {
+    "artifact_digest": "80ffb3927d28091d7dcdba9bc5913f87008d8a2742ed9b82e6df71174240454f",
+    "artifact_format": "SAFETENSORS",
+    "artifact_set_digest": "259479c9c510ec96155ea97458caea1f8dd91b5453b3dff623cf5f37b16f85a5",
+    "immutable_revision": "revision-synthetic-001",
+    "logical_locator": "models/synthetic-transformer",
+    "origin_type": "internal_registry",
+    "provider": "synthetic-project",
+    "subject_id": "subject_08991da9b911f652087ec5813dfb65e8",
+    "variant": "SYNTHETIC-F16"
+  }
+}

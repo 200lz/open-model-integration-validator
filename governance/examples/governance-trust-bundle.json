@@ -1,0 +1,241 @@
+{
+  "bundle_digest": "fa8a0468dd88779a4b1698bad6f43946eff8362bba25069182c42986cc6f5e47",
+  "bundle_id": "tb_e676b0ccb52d9a293c802687d90b86b4",
+  "delegations": [],
+  "keys": [
+    {
+      "algorithm": "ED25519",
+      "allowed_key_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "allowed_object_types": [
+        "APPROVAL_RECORD",
+        "POLICY_DECISION",
+        "PROMOTION_DECISION",
+        "REJECTION_RECORD",
+        "RELEASE_CANDIDATE"
+      ],
+      "allowed_purposes": [
+        "APPROVAL_RECORD_ISSUANCE",
+        "POLICY_DECISION_ISSUANCE",
+        "PROMOTION_DECISION_ISSUANCE",
+        "REJECTION_RECORD_ISSUANCE",
+        "RELEASE_CANDIDATE_ISSUANCE"
+      ],
+      "key_digest": "aa9cbd707f7cb6cacd5cfcbf548e0f3c649f0114bddb7008cb0b5519e7a7386b",
+      "key_id": "key_01ff700f954d00c581e5100c77858e6b",
+      "limitations": [
+        "Public-key identity does not establish signer identity."
+      ],
+      "namespaces": [
+        "synthetic"
+      ],
+      "provider_artifact_scopes": [],
+      "public_key": "3d4017c3e843895a92b70aa74d1b7ebc9c982ccf2ec4968cc0cd55f12af4660c",
+      "public_key_digest": "01ff700f954d00c581e5100c77858e6b09ab023ba74ee5adb3ebfdcdb86b54e8",
+      "public_key_encoding": "RAW_HEX",
+      "schema": "omiv.key-identity.v1",
+      "status": "ACTIVE",
+      "validity": null
+    },
+    {
+      "algorithm": "ED25519",
+      "allowed_key_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "allowed_object_types": [
+        "APPROVAL_RECORD",
+        "POLICY_DECISION",
+        "PROMOTION_DECISION",
+        "REJECTION_RECORD",
+        "RELEASE_CANDIDATE"
+      ],
+      "allowed_purposes": [
+        "APPROVAL_RECORD_ISSUANCE",
+        "POLICY_DECISION_ISSUANCE",
+        "PROMOTION_DECISION_ISSUANCE",
+        "REJECTION_RECORD_ISSUANCE",
+        "RELEASE_CANDIDATE_ISSUANCE"
+      ],
+      "key_digest": "9be9ed5018bb56543b079cbbc61ce0231d616238d3b60f01e6f2f55e8b6adf76",
+      "key_id": "key_ed39d828050734934fcf309c611f5d9b",
+      "limitations": [
+        "Public-key identity does not establish signer identity."
+      ],
+      "namespaces": [
+        "synthetic"
+      ],
+      "provider_artifact_scopes": [],
+      "public_key": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+      "public_key_digest": "ed39d828050734934fcf309c611f5d9bf060b0b231f08fb9bfe60e68aaa6e3d9",
+      "public_key_encoding": "RAW_HEX",
+      "schema": "omiv.key-identity.v1",
+      "status": "ACTIVE",
+      "validity": null
+    }
+  ],
+  "limitations": [
+    "Static offline bundle; no online discovery or continuous reevaluation."
+  ],
+  "revocations": [],
+  "schema": "omiv.trust-bundle.v1",
+  "signer_identities": [
+    {
+      "display_label": "Synthetic Requester",
+      "identity_digest": "43b4859b9ee591597ea9b3215eaf8de21ae4c6885d037f371bfa43d36de67f13",
+      "identity_evidence": [],
+      "identity_kind": "INDIVIDUAL_DECLARED",
+      "limitations": [
+        "Synthetic declared identity; no external identity proof."
+      ],
+      "namespace": "synthetic",
+      "organization_id": null,
+      "role": "requester",
+      "schema": "omiv.signer-identity.v1",
+      "signer_identity_id": "signer_706df69713edd12c203dcb490e4a04a2",
+      "verification_status": "DECLARED"
+    },
+    {
+      "display_label": "Synthetic Approver",
+      "identity_digest": "1f7157c226d62f32f04792dd8044dcef2401db767af487632508ca13eb56c91d",
+      "identity_evidence": [],
+      "identity_kind": "INDIVIDUAL_DECLARED",
+      "limitations": [
+        "Synthetic declared identity; no external identity proof."
+      ],
+      "namespace": "synthetic",
+      "organization_id": null,
+      "role": "approver",
+      "schema": "omiv.signer-identity.v1",
+      "signer_identity_id": "signer_d5e36c1cb9e24fe9b120b9e85b5e02f5",
+      "verification_status": "DECLARED"
+    }
+  ],
+  "signer_key_bindings": [
+    {
+      "allowed_object_types": [
+        "APPROVAL_RECORD",
+        "POLICY_DECISION",
+        "PROMOTION_DECISION",
+        "REJECTION_RECORD",
+        "RELEASE_CANDIDATE"
+      ],
+      "allowed_roles": [
+        "approver"
+      ],
+      "allowed_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "binding_digest": "0443a47dfd5325f7a51d5481d22cb4ba4b5567cd0195c356697df25825773b36",
+      "binding_id": "binding_245d055e2dfd0827f1e591ac9903cc35",
+      "binding_origin": "TRUST_BUNDLE_DECLARED",
+      "evidence_references": [],
+      "key_id": "key_01ff700f954d00c581e5100c77858e6b",
+      "limitations": [
+        "Binding validity does not prove the underlying signed claim."
+      ],
+      "namespaces": [
+        "synthetic"
+      ],
+      "schema": "omiv.signer-key-binding.v1",
+      "signer_identity_id": "signer_d5e36c1cb9e24fe9b120b9e85b5e02f5",
+      "validity": null,
+      "verification_status": "VERIFIED_BY_TRUST_BUNDLE"
+    },
+    {
+      "allowed_object_types": [
+        "APPROVAL_RECORD",
+        "POLICY_DECISION",
+        "PROMOTION_DECISION",
+        "REJECTION_RECORD",
+        "RELEASE_CANDIDATE"
+      ],
+      "allowed_roles": [
+        "requester"
+      ],
+      "allowed_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "binding_digest": "87dfbde64fcf94ed029245faff1284829ee98c29cbf3ef4d6141fa448917d4e1",
+      "binding_id": "binding_a8387687a34227dfda1ed6783bdad918",
+      "binding_origin": "TRUST_BUNDLE_DECLARED",
+      "evidence_references": [],
+      "key_id": "key_ed39d828050734934fcf309c611f5d9b",
+      "limitations": [
+        "Binding validity does not prove the underlying signed claim."
+      ],
+      "namespaces": [
+        "synthetic"
+      ],
+      "schema": "omiv.signer-key-binding.v1",
+      "signer_identity_id": "signer_706df69713edd12c203dcb490e4a04a2",
+      "validity": null,
+      "verification_status": "VERIFIED_BY_TRUST_BUNDLE"
+    }
+  ],
+  "trust_roots": [
+    {
+      "allowed_object_types": [
+        "APPROVAL_RECORD",
+        "POLICY_DECISION",
+        "PROMOTION_DECISION",
+        "REJECTION_RECORD",
+        "RELEASE_CANDIDATE"
+      ],
+      "allowed_purposes": [
+        "APPROVAL_RECORD_ISSUANCE",
+        "POLICY_DECISION_ISSUANCE",
+        "PROMOTION_DECISION_ISSUANCE",
+        "REJECTION_RECORD_ISSUANCE",
+        "RELEASE_CANDIDATE_ISSUANCE"
+      ],
+      "delegation_allowed": false,
+      "key_id": "key_01ff700f954d00c581e5100c77858e6b",
+      "limitations": [
+        "Trust applies only under a selected policy and recorded constraints."
+      ],
+      "maximum_delegation_depth": 0,
+      "namespaces": [
+        "synthetic"
+      ],
+      "provider_artifact_scopes": [],
+      "root_digest": "233ad48f30e95f6c5362e5ab7c6d8c0a85327eae535b6fb2d2471562803b040d",
+      "schema": "omiv.trust-root.v1",
+      "status": "ACTIVE",
+      "trust_root_id": "root_17fd05513cdd7026d8434bca90fb9b70",
+      "validity": null
+    },
+    {
+      "allowed_object_types": [
+        "APPROVAL_RECORD",
+        "POLICY_DECISION",
+        "PROMOTION_DECISION",
+        "REJECTION_RECORD",
+        "RELEASE_CANDIDATE"
+      ],
+      "allowed_purposes": [
+        "APPROVAL_RECORD_ISSUANCE",
+        "POLICY_DECISION_ISSUANCE",
+        "PROMOTION_DECISION_ISSUANCE",
+        "REJECTION_RECORD_ISSUANCE",
+        "RELEASE_CANDIDATE_ISSUANCE"
+      ],
+      "delegation_allowed": false,
+      "key_id": "key_ed39d828050734934fcf309c611f5d9b",
+      "limitations": [
+        "Trust applies only under a selected policy and recorded constraints."
+      ],
+      "maximum_delegation_depth": 0,
+      "namespaces": [
+        "synthetic"
+      ],
+      "provider_artifact_scopes": [],
+      "root_digest": "0fd6d343a6508c06aa8200bd5dcb7fbe6a38d8c99ff61b3fbcf025014ac8e0a8",
+      "schema": "omiv.trust-root.v1",
+      "status": "ACTIVE",
+      "trust_root_id": "root_91c06218bbf9c4a16de7d7fc648c2c31",
+      "validity": null
+    }
+  ],
+  "validity": null
+}

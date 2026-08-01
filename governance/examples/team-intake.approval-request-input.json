@@ -1,0 +1,22 @@
+{
+  "evidence_ids": [
+    "evidence_acquisition",
+    "evidence_custody",
+    "evidence_identity",
+    "evidence_immutable",
+    "evidence_signature",
+    "evidence_structural"
+  ],
+  "requested_action": "APPROVE_ARTIFACT_INTAKE",
+  "requested_scope": "team artifact intake under the named policy",
+  "requested_target_id": null,
+  "requester": {
+    "identity_trust": "TRUSTED_BY_POLICY",
+    "key_id": "key_ed39d828050734934fcf309c611f5d9b",
+    "organization_id": "synthetic-request-team",
+    "signer_identity_id": "signer_706df69713edd12c203dcb490e4a04a2",
+    "trust_root_id": "root_91c06218bbf9c4a16de7d7fc648c2c31"
+  },
+  "requester_role": "REQUESTER",
+  "schema": "omiv.approval-request-input.v1"
+}

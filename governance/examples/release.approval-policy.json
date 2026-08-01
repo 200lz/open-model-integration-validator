@@ -1,0 +1,30 @@
+{
+  "accepted_identity_trust": [
+    "TRUSTED_BY_POLICY"
+  ],
+  "approval_policy_digest": "26baeb11d109bc323ed1bec1168285929a72a6f1e35f40e0ea2433c974109a9c",
+  "approval_policy_id": "approval_policy_ba677c3509ddff7cf52f027d257d455c",
+  "permitted_roles": [
+    "APPROVER",
+    "SECURITY_REVIEWER"
+  ],
+  "quorum": {
+    "abstentions_count": false,
+    "conditional_approvals_count": true,
+    "minimum_count": 2,
+    "minimum_distinct_keys": 2,
+    "minimum_distinct_signers": 2,
+    "minimum_distinct_trust_roots": 2,
+    "quorum_digest": "9f1db9e8f06c89616dc831969a4eb3f785ffa76a453d65216b166eeda3a140e3",
+    "quorum_id": "quorum_58ad7409234e40d764aa9ebf3c6ea60c",
+    "rejection_blocks": true,
+    "required_roles": [
+      "APPROVER",
+      "SECURITY_REVIEWER"
+    ],
+    "unanimous": false
+  },
+  "requested_action": "APPROVE_RELEASE_CANDIDATE",
+  "require_signed_approval": true,
+  "schema": "omiv.approval-policy.v1"
+}

@@ -1,0 +1,14 @@
+{
+  "custody_ledger_digest": "31af5ce4b6a7ec794c53953e362ea02696359885397e3252a5186b612c692e61",
+  "custody_ledger_id": "mcoc_5c80dd57c9fb74ab6a5b87fb947e91ab",
+  "event_type": "PROMOTION_AUTHORIZED",
+  "governance_object_digest": "7bd6f4e10235772024bd42a95f8285df554177713696aa0d623d2cdb3ee0abbb",
+  "governance_object_id": "promotion_92b2b841a5dc7f07b470482080eb38c8",
+  "lifecycle_completeness": "UNCHANGED_INCOMPLETE",
+  "limitations": [
+    "Governance linkage records authorization only; no artifact movement, deployment, or runtime event occurred."
+  ],
+  "linkage_digest": "4c0a1a1a4e184399b73e4facf3c8f58991f9cd25db4dbaec5bca6898df93e5e9",
+  "linkage_id": "custody_governance_2c0a04509f0a04b84f0fae9083c853ad",
+  "schema": "omiv.custody-governance-linkage.v1"
+}

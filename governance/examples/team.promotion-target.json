@@ -1,0 +1,22 @@
+{
+  "accepted_formats": [
+    "GGUF",
+    "SAFETENSORS",
+    "SYNTHETIC"
+  ],
+  "environment_class": "TEAM_REVIEWED",
+  "limitations": [
+    "This is a logical target; no registry endpoint or credential is stored."
+  ],
+  "logical_namespace": "synthetic/team-approved",
+  "provider_reference": null,
+  "required_approval_policy_id": "approval_policy_5f4e70b286569f9aad58d121d0795702",
+  "required_decision_outcomes": [
+    "ALLOW_WITH_LIMITATIONS"
+  ],
+  "schema": "omiv.promotion-target.v1",
+  "target_digest": "1422b6e30d8a73e7c36c29c8764e12d87a63b69f4d5b52486a334353400b7c6d",
+  "target_id": "target_ed3310f198fc897385e62d13099f1734",
+  "target_policy_id": "omiv.governance-policy.team_artifact_intake.v1",
+  "target_type": "TEAM_ARTIFACT_REGISTRY"
+}

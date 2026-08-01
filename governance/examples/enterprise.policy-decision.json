@@ -1,0 +1,191 @@
+{
+  "approval_status": "NOT_EVALUATED",
+  "blocking_findings": [
+    "requirement_2d8ed8e14c49e55b3db92eb7a666cec6"
+  ],
+  "decision_digest": "31db56378c96edede3a350c638b36471271ab9599aadc18318b0ce55a4186796",
+  "decision_id": "decision_7c1f604e7a8cc3089003ffb98ce1aa20",
+  "decision_outcome": "DENY",
+  "decision_reasons": [
+    {
+      "blocking": true,
+      "code": "GOV-006",
+      "requirement_id": "requirement_2d8ed8e14c49e55b3db92eb7a666cec6",
+      "summary": "No evidence reference was supplied for this requirement."
+    },
+    {
+      "blocking": false,
+      "code": "GOV-005",
+      "requirement_id": "requirement_33b2578a9d68d525a2008db5463ccf31",
+      "summary": "Evidence satisfies the requirement with explicit limitations."
+    },
+    {
+      "blocking": false,
+      "code": "GOV-005",
+      "requirement_id": "requirement_411fb249b90b4ea60be0b31c1e4f14a9",
+      "summary": "Evidence satisfies the requirement."
+    },
+    {
+      "blocking": false,
+      "code": "GOV-005",
+      "requirement_id": "requirement_6ce5dacac4a2594c6b3cb0cf9716fed7",
+      "summary": "Evidence satisfies the requirement."
+    },
+    {
+      "blocking": false,
+      "code": "GOV-005",
+      "requirement_id": "requirement_86d31fce4c18d74633619677de82c912",
+      "summary": "Evidence satisfies the requirement."
+    },
+    {
+      "blocking": false,
+      "code": "GOV-005",
+      "requirement_id": "requirement_b24d857c248fa5e80ab96bb0fd5599da",
+      "summary": "Evidence satisfies the requirement."
+    },
+    {
+      "blocking": false,
+      "code": "GOV-005",
+      "requirement_id": "requirement_f6ea7624ca946661a18b0ab3419d2ae2",
+      "summary": "Evidence satisfies the requirement."
+    }
+  ],
+  "evaluation_context_id": "gov_eval_652913bce510f6eaa589418bf6cd4958",
+  "evaluation_result_digest": "7d1f3854c9ff81bb3d5cf13a6e9151b39ecbba6163a6e613db108f4d57b4cabb",
+  "limitations": [
+    "Policy evaluation does not prove security, deployment, or runtime state.",
+    "Policy satisfaction does not independently prove underlying claims.",
+    "Promotion permission does not prove upload, deployment, or runtime observation.",
+    "Structural validation does not prove payload integrity or security."
+  ],
+  "missing_evidence": {
+    "items": [
+      {
+        "blocking": true,
+        "category": "SECURITY_INSPECTION",
+        "current_status": "MISSING",
+        "decision_impact": "Blocks policy outcome",
+        "outside_current_phase": true,
+        "promotion_impact": "Blocks promotion",
+        "remediation": "Phase 5F must provide verifiable artifact security evidence.",
+        "required_status": "SATISFIED",
+        "requirement_id": "requirement_2d8ed8e14c49e55b3db92eb7a666cec6",
+        "severity": "BLOCKING",
+        "source_phase": "5F"
+      }
+    ]
+  },
+  "next_required_actions": [
+    "Phase 5F must provide verifiable artifact security evidence."
+  ],
+  "policy_digest": "0872e0bf876556a2ef6ff3f2d938bd452d1388d52ec4cf84f4773d89de217e55",
+  "policy_id": "omiv.governance-policy.enterprise_registry_promotion.v1",
+  "promotion_eligibility": "NOT_EVALUATED",
+  "requirement_results": [
+    {
+      "blocking": true,
+      "category": "SECURITY_INSPECTION",
+      "limitations": [],
+      "matched_evidence_ids": [],
+      "outcome": "MISSING",
+      "policy_evidence": [],
+      "reason": "No evidence reference was supplied for this requirement.",
+      "requirement_id": "requirement_2d8ed8e14c49e55b3db92eb7a666cec6",
+      "reviewable": false
+    },
+    {
+      "blocking": false,
+      "category": "STRUCTURAL_VALIDATION",
+      "limitations": [
+        "Structural validation does not prove payload integrity or security."
+      ],
+      "matched_evidence_ids": [
+        "evidence_structural"
+      ],
+      "outcome": "SATISFIED_WITH_LIMITATIONS",
+      "policy_evidence": [],
+      "reason": "Evidence satisfies the requirement with explicit limitations.",
+      "requirement_id": "requirement_33b2578a9d68d525a2008db5463ccf31",
+      "reviewable": false
+    },
+    {
+      "blocking": false,
+      "category": "ARTIFACT_IDENTITY",
+      "limitations": [],
+      "matched_evidence_ids": [
+        "evidence_identity"
+      ],
+      "outcome": "SATISFIED",
+      "policy_evidence": [],
+      "reason": "Evidence satisfies the requirement.",
+      "requirement_id": "requirement_411fb249b90b4ea60be0b31c1e4f14a9",
+      "reviewable": false
+    },
+    {
+      "blocking": false,
+      "category": "SIGNATURE_TRUST",
+      "limitations": [],
+      "matched_evidence_ids": [
+        "evidence_signature"
+      ],
+      "outcome": "SATISFIED",
+      "policy_evidence": [],
+      "reason": "Evidence satisfies the requirement.",
+      "requirement_id": "requirement_6ce5dacac4a2594c6b3cb0cf9716fed7",
+      "reviewable": false
+    },
+    {
+      "blocking": false,
+      "category": "ACQUISITION_ATTESTATION",
+      "limitations": [],
+      "matched_evidence_ids": [
+        "evidence_acquisition"
+      ],
+      "outcome": "SATISFIED",
+      "policy_evidence": [],
+      "reason": "Evidence satisfies the requirement.",
+      "requirement_id": "requirement_86d31fce4c18d74633619677de82c912",
+      "reviewable": false
+    },
+    {
+      "blocking": false,
+      "category": "IMMUTABLE_REVISION",
+      "limitations": [],
+      "matched_evidence_ids": [
+        "evidence_immutable"
+      ],
+      "outcome": "SATISFIED",
+      "policy_evidence": [],
+      "reason": "Evidence satisfies the requirement.",
+      "requirement_id": "requirement_b24d857c248fa5e80ab96bb0fd5599da",
+      "reviewable": false
+    },
+    {
+      "blocking": false,
+      "category": "CUSTODY_INTEGRITY",
+      "limitations": [],
+      "matched_evidence_ids": [
+        "evidence_custody"
+      ],
+      "outcome": "SATISFIED",
+      "policy_evidence": [],
+      "reason": "Evidence satisfies the requirement.",
+      "requirement_id": "requirement_f6ea7624ca946661a18b0ab3419d2ae2",
+      "reviewable": false
+    }
+  ],
+  "schema": "omiv.policy-decision-record.v1",
+  "separation_of_duties_status": "NOT_EVALUATED",
+  "subject": {
+    "artifact_digest": "80ffb3927d28091d7dcdba9bc5913f87008d8a2742ed9b82e6df71174240454f",
+    "artifact_format": "SAFETENSORS",
+    "artifact_set_digest": "259479c9c510ec96155ea97458caea1f8dd91b5453b3dff623cf5f37b16f85a5",
+    "immutable_revision": "revision-synthetic-001",
+    "logical_locator": "models/synthetic-transformer",
+    "origin_type": "internal_registry",
+    "provider": "synthetic-project",
+    "subject_id": "subject_08991da9b911f652087ec5813dfb65e8",
+    "variant": "SYNTHETIC-F16"
+  },
+  "trust_summary": "POLICY_SCOPED_EVIDENCE_EVALUATED"
+}

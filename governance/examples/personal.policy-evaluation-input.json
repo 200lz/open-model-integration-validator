@@ -1,0 +1,65 @@
+{
+  "approval_record_ids": [],
+  "approval_request_ids": [],
+  "evaluation_context": null,
+  "evidence": [
+    {
+      "availability": "INCLUDED",
+      "category": "ARTIFACT_IDENTITY",
+      "custody_status": null,
+      "digest": "4fbcb91bfbbc5e23c57d541d516b217278f753a3863c3aa9b6b83183aac7b4f3",
+      "evidence_id": "evidence_identity",
+      "governance_policy_id": null,
+      "lifecycle_events": [],
+      "limitations": [],
+      "object_id": "object_identity",
+      "observed_at": null,
+      "provenance_strength": null,
+      "schema": "omiv.synthetic-artifact-identity.v1",
+      "signer_roles": [],
+      "source_phase": "5E",
+      "subject_id": "subject_08991da9b911f652087ec5813dfb65e8",
+      "trust_status": null,
+      "valid_until": null,
+      "verification_mode": "FULL"
+    },
+    {
+      "availability": "INCLUDED",
+      "category": "STRUCTURAL_VALIDATION",
+      "custody_status": null,
+      "digest": "5c31e7ee829c377b778e0d509b1ed37bed6c1b1f395528240725a3fa47e4006b",
+      "evidence_id": "evidence_structural",
+      "governance_policy_id": null,
+      "lifecycle_events": [],
+      "limitations": [
+        "Structural validation does not prove payload integrity or security."
+      ],
+      "object_id": "object_structural",
+      "observed_at": null,
+      "provenance_strength": null,
+      "schema": "omiv.synthetic-structural-validation.v1",
+      "signer_roles": [],
+      "source_phase": "4F",
+      "subject_id": "subject_08991da9b911f652087ec5813dfb65e8",
+      "trust_status": null,
+      "valid_until": null,
+      "verification_mode": "FULL"
+    }
+  ],
+  "policy_digest": "8b7e0822647149987e36c11f3d1ea9e042241fcdab759600734c9f86f5aa03db",
+  "policy_id": "omiv.governance-policy.personal_local_use.v1",
+  "promotion_target_id": null,
+  "role_assignments": [],
+  "schema": "omiv.policy-evaluation-input.v1",
+  "subject": {
+    "artifact_digest": "80ffb3927d28091d7dcdba9bc5913f87008d8a2742ed9b82e6df71174240454f",
+    "artifact_format": "SAFETENSORS",
+    "artifact_set_digest": "259479c9c510ec96155ea97458caea1f8dd91b5453b3dff623cf5f37b16f85a5",
+    "immutable_revision": "revision-synthetic-001",
+    "logical_locator": "models/synthetic-transformer",
+    "origin_type": "internal_registry",
+    "provider": "synthetic-project",
+    "subject_id": "subject_08991da9b911f652087ec5813dfb65e8",
+    "variant": "SYNTHETIC-F16"
+  }
+}

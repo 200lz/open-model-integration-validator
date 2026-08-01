@@ -13,6 +13,13 @@ from omiv.attestations.segment import AttestationCustodyLedger
 from omiv.canonical import canonical_sha256, load_json_value
 from omiv.custody.models import CustodyEvent, CustodyLinkedPassport
 from omiv.errors import OmivInputError
+from omiv.governance.models import (
+    ApprovalRecord,
+    PolicyDecisionRecord,
+    PromotionDecisionRecord,
+    RejectionRecord,
+    ReleaseCandidate,
+)
 from omiv.passport.models import ModelPassport
 from omiv.trust.algorithms import public_key_from_raw, verify
 from omiv.trust.domain import delegation_bytes, signed_object_bytes
@@ -264,6 +271,16 @@ def _validate_source_object(envelope: SignedObjectEnvelope) -> None:
         model = CustodyEvent
     elif envelope.signed_object_type == SignedObjectType.CUSTODY_SEGMENT:
         model = AttestationCustodyLedger
+    elif envelope.signed_object_type == SignedObjectType.POLICY_DECISION:
+        model = PolicyDecisionRecord
+    elif envelope.signed_object_type == SignedObjectType.APPROVAL_RECORD:
+        model = ApprovalRecord
+    elif envelope.signed_object_type == SignedObjectType.REJECTION_RECORD:
+        model = RejectionRecord
+    elif envelope.signed_object_type == SignedObjectType.RELEASE_CANDIDATE:
+        model = ReleaseCandidate
+    elif envelope.signed_object_type == SignedObjectType.PROMOTION_DECISION:
+        model = PromotionDecisionRecord
     elif envelope.signed_object_schema == "omiv.model-passport.v1":
         model = ModelPassport
     else:
@@ -281,6 +298,11 @@ def _validate_source_object(envelope: SignedObjectEnvelope) -> None:
         SignedObjectType.CUSTODY_EVENT: "event_digest",
         SignedObjectType.CUSTODY_SEGMENT: "ledger_digest",
         SignedObjectType.MODEL_PASSPORT: "passport_digest",
+        SignedObjectType.POLICY_DECISION: "decision_digest",
+        SignedObjectType.APPROVAL_RECORD: "approval_digest",
+        SignedObjectType.REJECTION_RECORD: "rejection_digest",
+        SignedObjectType.RELEASE_CANDIDATE: "candidate_digest",
+        SignedObjectType.PROMOTION_DECISION: "promotion_decision_digest",
     }[envelope.signed_object_type]
     digest_body.pop(digest_field)
     if object_digest != canonical_sha256(digest_body):
@@ -649,6 +671,32 @@ def _claim_summary(envelope: SignedObjectEnvelope) -> tuple[dict[str, Any], str]
             or custody.get("status", "NOT_ASSESSED")
         )
         return {"passport_trust_summary": trust}, str(lifecycle)
+    if envelope.signed_object_type == SignedObjectType.POLICY_DECISION:
+        return {
+            "decision_outcome": value.get("decision_outcome"),
+            "policy_id": value.get("policy_id"),
+            "claim_truth_independently_proven": False,
+        }, "NOT_APPLICABLE"
+    if envelope.signed_object_type in {
+        SignedObjectType.APPROVAL_RECORD,
+        SignedObjectType.REJECTION_RECORD,
+    }:
+        return {
+            "approval_outcome": value.get("outcome", "REJECTED"),
+            "scope": value.get("scope"),
+            "approval_is_deployment": False,
+        }, "NOT_APPLICABLE"
+    if envelope.signed_object_type == SignedObjectType.RELEASE_CANDIDATE:
+        return {
+            "candidate_status": "GOVERNANCE_OBJECT_ONLY",
+            "release_occurred": False,
+        }, "INCOMPLETE"
+    if envelope.signed_object_type == SignedObjectType.PROMOTION_DECISION:
+        return {
+            "promotion_outcome": value.get("gate_result", {}).get("outcome"),
+            "promotion_performed": False,
+            "deployment_performed": False,
+        }, "INCOMPLETE"
     return {
         "execution_result": value.get("execution_result"),
         "environment_status": value.get("environment_identity", {}).get("status"),

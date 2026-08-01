@@ -1,0 +1,26 @@
+{
+  "approval_request_id": "approval_request_bbb3c631d8f23f8425d3d83e2d6dd33d",
+  "evidence_ids": [],
+  "limitations": [
+    "Rejection blocks this request; it does not revoke the artifact or key."
+  ],
+  "policy_digest": "2e4284a54638e8c5823fd9e6b8c6b14c335c49449f615d43c864aebfff4554b7",
+  "policy_id": "omiv.governance-policy.team_artifact_intake.v1",
+  "reasons": [
+    "Required security review has not been supplied."
+  ],
+  "rejecting_actor": {
+    "identity_trust": "TRUSTED_BY_POLICY",
+    "key_id": "key_01ff700f954d00c581e5100c77858e6b",
+    "organization_id": "synthetic-review-team",
+    "signer_identity_id": "signer_d5e36c1cb9e24fe9b120b9e85b5e02f5",
+    "trust_root_id": "root_17fd05513cdd7026d8434bca90fb9b70"
+  },
+  "rejecting_role": "APPROVER",
+  "rejection_digest": "6e22be3cfbb394a7cb36c565f7973ea3aeca5db4b1720398c14a855a3093c951",
+  "rejection_id": "rejection_e12b1587414a644498957f0dde037b61",
+  "request_digest": "c59bee6d1a6f0c1113e49e55a2ec9da9c6e63682f67195eac37aa7439ea77ea5",
+  "schema": "omiv.rejection-record.v1",
+  "scope": "team artifact intake under the named policy",
+  "subject_id": "subject_08991da9b911f652087ec5813dfb65e8"
+}

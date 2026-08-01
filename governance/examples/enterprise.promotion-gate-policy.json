@@ -1,0 +1,18 @@
+{
+  "accepted_decision_outcomes": [
+    "ALLOW"
+  ],
+  "allow_conditions": false,
+  "gate_policy_digest": "7bea0a201cbb5ca824500cbdf4fe072a65d3d882a429645703e675c9e3625a1a",
+  "gate_policy_id": "promotion_gate_10daac96fddba80a6da109b36181380b",
+  "permitted_target_types": [
+    "ENTERPRISE_RELEASE_REGISTRY"
+  ],
+  "require_expiration_evaluation": true,
+  "require_quorum": true,
+  "require_revocation_evaluation": true,
+  "require_security_evidence": true,
+  "require_separation_of_duties": true,
+  "require_trusted_decision_signature": true,
+  "schema": "omiv.promotion-gate-policy.v1"
+}

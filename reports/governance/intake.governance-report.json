@@ -1,0 +1,190 @@
+{
+  "approval_record_ids": [
+    "approval_6f531c7f19e6859f0681db4bd50b4500"
+  ],
+  "approval_request_id": "approval_request_bbb3c631d8f23f8425d3d83e2d6dd33d",
+  "blockers": [],
+  "decision_digest": "5e332515326cdfab3d4595545f32075f0eefbee83cdea7955e491902020f5e11",
+  "decision_id": "decision_93a6b38fadb966a198e08e8d82db069e",
+  "decision_outcome": "ALLOW_WITH_LIMITATIONS",
+  "deployment_status": "NOT_PERFORMED",
+  "limitations": [
+    "Approval status is scoped; it is not a security or deployment assertion.",
+    "Policy evaluation does not prove security, deployment, or runtime state.",
+    "Policy satisfaction does not independently prove underlying claims.",
+    "Promotion allowed means policy permission only; no upload or deployment occurred.",
+    "Promotion permission does not prove upload, deployment, or runtime observation.",
+    "Structural validation does not prove payload integrity or security.",
+    "This record does not execute promotion, registry upload, or deployment."
+  ],
+  "missing_evidence": {
+    "items": [
+      {
+        "blocking": false,
+        "category": "SECURITY_INSPECTION",
+        "current_status": "NOT_CHECKED",
+        "decision_impact": "Limits or requires review",
+        "outside_current_phase": true,
+        "promotion_impact": "Requires target review",
+        "remediation": "Phase 5F must provide verifiable artifact security evidence.",
+        "required_status": "SATISFIED",
+        "requirement_id": "requirement_3346551c587510b5ecd702feef2b9e8a",
+        "severity": "WARNING",
+        "source_phase": "5F"
+      }
+    ]
+  },
+  "next_actions": [
+    "Phase 5F must provide verifiable artifact security evidence."
+  ],
+  "policy_digest": "2e4284a54638e8c5823fd9e6b8c6b14c335c49449f615d43c864aebfff4554b7",
+  "policy_id": "omiv.governance-policy.team_artifact_intake.v1",
+  "promotion_conditions": [
+    "Approval record remains applicable: approval_6f531c7f19e6859f0681db4bd50b4500"
+  ],
+  "promotion_outcome": "PROMOTION_ALLOWED_WITH_CONDITIONS",
+  "promotion_performed": "NO",
+  "promotion_target_id": "target_ed3310f198fc897385e62d13099f1734",
+  "quorum_result": {
+    "counted_approval_ids": [
+      "approval_6f531c7f19e6859f0681db4bd50b4500"
+    ],
+    "distinct_keys": 1,
+    "distinct_signers": 1,
+    "distinct_trust_roots": 1,
+    "limitations": [
+      "Approval quorum is independent of cryptographic multi-signature count."
+    ],
+    "outcome": "SATISFIED",
+    "quorum_id": "quorum_c02c19b0824687b9d41fadaa8a1cca1f",
+    "rejected_record_ids": [],
+    "result_digest": "1c48bfb8e1fbe39223efc8928744b4b0ff46eb55e0044b2a4876a9e81fc576e8",
+    "satisfied_roles": [
+      "APPROVER"
+    ]
+  },
+  "registry_write": "NOT_PERFORMED",
+  "rejection_record_ids": [],
+  "report_digest": "b1215085732a3b4211d99e9ec35b504731c47f8827b32abfccecc38b54879c76",
+  "report_id": "governance_report_edf5a06fa193d6c4c6a3561fa181372f",
+  "requirement_results": [
+    {
+      "blocking": false,
+      "category": "SECURITY_INSPECTION",
+      "limitations": [],
+      "matched_evidence_ids": [],
+      "outcome": "NOT_CHECKED",
+      "policy_evidence": [],
+      "reason": "No evidence reference was supplied for this requirement.",
+      "requirement_id": "requirement_3346551c587510b5ecd702feef2b9e8a",
+      "reviewable": false
+    },
+    {
+      "blocking": false,
+      "category": "STRUCTURAL_VALIDATION",
+      "limitations": [
+        "Structural validation does not prove payload integrity or security."
+      ],
+      "matched_evidence_ids": [
+        "evidence_structural"
+      ],
+      "outcome": "SATISFIED_WITH_LIMITATIONS",
+      "policy_evidence": [],
+      "reason": "Evidence satisfies the requirement with explicit limitations.",
+      "requirement_id": "requirement_33b2578a9d68d525a2008db5463ccf31",
+      "reviewable": false
+    },
+    {
+      "blocking": false,
+      "category": "ARTIFACT_IDENTITY",
+      "limitations": [],
+      "matched_evidence_ids": [
+        "evidence_identity"
+      ],
+      "outcome": "SATISFIED",
+      "policy_evidence": [],
+      "reason": "Evidence satisfies the requirement.",
+      "requirement_id": "requirement_411fb249b90b4ea60be0b31c1e4f14a9",
+      "reviewable": false
+    },
+    {
+      "blocking": false,
+      "category": "SIGNATURE_TRUST",
+      "limitations": [],
+      "matched_evidence_ids": [
+        "evidence_signature"
+      ],
+      "outcome": "SATISFIED",
+      "policy_evidence": [],
+      "reason": "Evidence satisfies the requirement.",
+      "requirement_id": "requirement_6ce5dacac4a2594c6b3cb0cf9716fed7",
+      "reviewable": false
+    },
+    {
+      "blocking": false,
+      "category": "ACQUISITION_ATTESTATION",
+      "limitations": [],
+      "matched_evidence_ids": [
+        "evidence_acquisition"
+      ],
+      "outcome": "SATISFIED",
+      "policy_evidence": [],
+      "reason": "Evidence satisfies the requirement.",
+      "requirement_id": "requirement_86d31fce4c18d74633619677de82c912",
+      "reviewable": false
+    },
+    {
+      "blocking": false,
+      "category": "IMMUTABLE_REVISION",
+      "limitations": [],
+      "matched_evidence_ids": [
+        "evidence_immutable"
+      ],
+      "outcome": "SATISFIED",
+      "policy_evidence": [],
+      "reason": "Evidence satisfies the requirement.",
+      "requirement_id": "requirement_b24d857c248fa5e80ab96bb0fd5599da",
+      "reviewable": false
+    },
+    {
+      "blocking": false,
+      "category": "CUSTODY_INTEGRITY",
+      "limitations": [],
+      "matched_evidence_ids": [
+        "evidence_custody"
+      ],
+      "outcome": "SATISFIED",
+      "policy_evidence": [],
+      "reason": "Evidence satisfies the requirement.",
+      "requirement_id": "requirement_f6ea7624ca946661a18b0ab3419d2ae2",
+      "reviewable": false
+    }
+  ],
+  "runtime_status": "NOT_CHECKED",
+  "schema": "omiv.governance-report.v1",
+  "security_status": "NOT_CHECKED",
+  "separation_result": {
+    "evaluated_dimensions": [
+      "DISTINCT_KEY",
+      "DISTINCT_SIGNER_IDENTITY"
+    ],
+    "limitations": [
+      "Duty separation is limited to supplied identity, key, role, and trust evidence."
+    ],
+    "outcome": "SATISFIED",
+    "result_digest": "5fb5c6c9ebb3cc5e6ff7503ea63cf4e4c14457672fb0a1757a6a9a48a2a660f4",
+    "separation_policy_id": "separation_policy_60553af9310188ddecabe4e984758471",
+    "violations": []
+  },
+  "subject": {
+    "artifact_digest": "80ffb3927d28091d7dcdba9bc5913f87008d8a2742ed9b82e6df71174240454f",
+    "artifact_format": "SAFETENSORS",
+    "artifact_set_digest": "259479c9c510ec96155ea97458caea1f8dd91b5453b3dff623cf5f37b16f85a5",
+    "immutable_revision": "revision-synthetic-001",
+    "logical_locator": "models/synthetic-transformer",
+    "origin_type": "internal_registry",
+    "provider": "synthetic-project",
+    "subject_id": "subject_08991da9b911f652087ec5813dfb65e8",
+    "variant": "SYNTHETIC-F16"
+  }
+}

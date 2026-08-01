@@ -56,6 +56,31 @@ OBJECT_METADATA: dict[SignedObjectType, tuple[set[str], str, str]] = {
         "passport_id",
         "passport_digest",
     ),
+    SignedObjectType.POLICY_DECISION: (
+        {"omiv.policy-decision-record.v1"},
+        "decision_id",
+        "decision_digest",
+    ),
+    SignedObjectType.APPROVAL_RECORD: (
+        {"omiv.approval-record.v1"},
+        "approval_id",
+        "approval_digest",
+    ),
+    SignedObjectType.REJECTION_RECORD: (
+        {"omiv.rejection-record.v1"},
+        "rejection_id",
+        "rejection_digest",
+    ),
+    SignedObjectType.RELEASE_CANDIDATE: (
+        {"omiv.release-candidate.v1"},
+        "candidate_id",
+        "candidate_digest",
+    ),
+    SignedObjectType.PROMOTION_DECISION: (
+        {"omiv.promotion-decision-record.v1"},
+        "promotion_decision_id",
+        "promotion_decision_digest",
+    ),
 }
 EXPECTED_PURPOSE = {
     SignedObjectType.ARTIFACT_ATTESTATION: SignaturePurpose.ATTESTATION_ISSUANCE,
@@ -63,6 +88,11 @@ EXPECTED_PURPOSE = {
     SignedObjectType.CUSTODY_EVENT: SignaturePurpose.CUSTODY_EVENT_ISSUANCE,
     SignedObjectType.CUSTODY_SEGMENT: SignaturePurpose.CUSTODY_SEGMENT_ISSUANCE,
     SignedObjectType.MODEL_PASSPORT: SignaturePurpose.PASSPORT_ISSUANCE,
+    SignedObjectType.POLICY_DECISION: SignaturePurpose.POLICY_DECISION_ISSUANCE,
+    SignedObjectType.APPROVAL_RECORD: SignaturePurpose.APPROVAL_RECORD_ISSUANCE,
+    SignedObjectType.REJECTION_RECORD: SignaturePurpose.REJECTION_RECORD_ISSUANCE,
+    SignedObjectType.RELEASE_CANDIDATE: SignaturePurpose.RELEASE_CANDIDATE_ISSUANCE,
+    SignedObjectType.PROMOTION_DECISION: SignaturePurpose.PROMOTION_DECISION_ISSUANCE,
 }
 
 

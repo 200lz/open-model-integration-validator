@@ -1603,3 +1603,175 @@ key discovery, online revocation, approval, promotion, deployment admission,
 runtime agents, security scanning, payload verification, and fidelity/parity are
 not implemented. A future policy-decision, approval, and promotion-gate phase
 can consume these layered reports without changing Phase 5D signature meaning.
+
+## Phase 5E: policy decisions, approval, and promotion gates
+
+Phase 5E adds a generic deterministic governance layer under `omiv governance`.
+It links artifact identity, Passport and custody references, attestations, and
+Phase 5D trust reports to explicit evidence requirements, reconstructed policy
+decisions, scoped approval records, separation-of-duties checks, approval quorum,
+release candidates, and logical promotion gates. It remains offline and does not
+contact a registry, notification service, identity provider, or deployment system.
+
+The dependency order is acyclic:
+
+```text
+canonical evidence references
+→ policy evaluation input
+→ requirement results
+→ policy decision record
+→ approval request
+→ approval or rejection records
+→ quorum and separation-of-duties results
+→ release candidate and logical promotion target
+→ promotion decision
+→ governance report and separate Passport/custody adapters
+```
+
+Phase 5D signed-object envelopes remain external wrappers around canonical Phase
+5E objects. A signature report or governance report is never part of the bytes it
+describes.
+
+### Governance semantics
+
+A policy decision proves that the supplied evidence was evaluated against a
+specific policy. It does not independently prove the underlying claims.
+
+An approval record is an explicit governance action under a defined scope. A
+generic trusted signature is not automatically an approval. A signed approval
+counts only when its object type and purpose are approval-specific and its request,
+subject, scope, role, binding, trust, revocation, and expiration state satisfy the
+selected policy.
+
+Promotion allowed means that policy permits movement into a logical target. It
+does not prove that the artifact was uploaded, deployed, or observed at runtime.
+Phase 5E never performs registry upload or deployment.
+
+Separation of duties is evaluated only from available identity, key, role, trust
+root, and policy evidence. It does not prove organizational independence beyond
+that evidence. Multiple signatures on one envelope are not multiple business
+approvals; each `ApprovalRecord` is evaluated independently.
+An approver role label counts toward quorum only when a supplied role assignment
+matches the actor, policy, requested action, and subject scope.
+
+Missing mandatory security evidence remains blocking until Phase 5F produces
+verifiable security evidence. Phase 5E models security, payload, fidelity,
+deployment, and runtime requirements so policies can fail closed, but it does not
+produce or verify those forms of evidence. A caller-declared future schema,
+generic signature, approval, or text such as “security passed” cannot satisfy a
+mandatory security requirement in Phase 5E.
+
+### Governance schemas
+
+- `omiv.governance-policy.v1`
+- `omiv.evidence-requirement.v1`
+- `omiv.evidence-requirement-set.v1`
+- `omiv.policy-evaluation-input.v1`
+- `omiv.policy-evaluation.v1`
+- `omiv.policy-decision-record.v1`
+- `omiv.approval-request-input.v1`
+- `omiv.approval-request.v1`
+- `omiv.approval-input.v1`
+- `omiv.approval-record.v1`
+- `omiv.rejection-record.v1`
+- `omiv.approval-policy.v1`
+- `omiv.separation-of-duties-policy.v1`
+- `omiv.release-candidate.v1`
+- `omiv.promotion-target.v1`
+- `omiv.promotion-gate-policy.v1`
+- `omiv.promotion-decision-record.v1`
+- `omiv.governance-report.v1`
+- `omiv.passport-governance-summary.v1`
+- `omiv.custody-governance-linkage.v1`
+- `omiv.governance-artifact-index.v1`
+
+Records reject unknown fields. Portable governance values reject local absolute
+paths, credentials, signed URLs, UUID identities, and implicit timestamps. IDs and
+digests derive from OMIV canonical JSON; freshness uses only a caller-supplied
+fixed-width UTC evaluation context.
+
+### Policy profiles and precedence
+
+- `personal_local_use`: identity and structural evidence with security explicitly
+  not checked; expected `ALLOW_WITH_LIMITATIONS`.
+- `team_artifact_intake`: immutable identity, acquisition, structure, custody, and
+  trusted signed evidence plus scoped approval; expected
+  `ALLOW_WITH_LIMITATIONS` for the synthetic example.
+- `team_release_candidate`: signed provenance, quorum, duties, and mandatory
+  security evidence; missing Phase 5F evidence yields `DENY`.
+- `enterprise_registry_promotion`: strict evidence, approval, duties, revocation,
+  expiration, and security requirements; missing security evidence yields `DENY`.
+- `regulated_production_release`: payload, security, runtime, and multi-party
+  requirements remain deliberately unsatisfied in Phase 5E.
+
+Decision precedence is:
+
+```text
+POLICY_INVALID
+→ EVIDENCE_BROKEN
+→ DENY
+→ NOT_EVALUATED
+→ REVIEW_REQUIRED
+→ ALLOW_WITH_LIMITATIONS
+→ ALLOW
+```
+
+`NOT_APPLICABLE` requires an explicit fully verified policy-evidence reference.
+Absence is `MISSING`, `UNAVAILABLE`, `NOT_CHECKED`, or `NOT_EVALUATED`; it is never
+silently converted to not applicable.
+
+### Offline governance CLI
+
+```bash
+omiv governance evaluate \
+  --input governance/examples/personal.policy-evaluation-input.json \
+  --policy governance/examples/personal.governance-policy.json \
+  --output /tmp/decision.json \
+  --report-output /tmp/governance-report.json \
+  --markdown-output /tmp/governance-report.md
+
+omiv governance decision-verify \
+  --decision /tmp/decision.json \
+  --input governance/examples/personal.policy-evaluation-input.json \
+  --policy governance/examples/personal.governance-policy.json
+
+omiv governance approval-request-create \
+  --input governance/examples/team-intake.approval-request-input.json \
+  --decision governance/examples/intake.policy-decision.json \
+  --policy governance/examples/intake.governance-policy.json \
+  --output /tmp/approval-request.json
+
+omiv governance approval-create \
+  --request /tmp/approval-request.json \
+  --input governance/examples/team-intake.approval-input.json \
+  --output /tmp/approval-record.json
+
+omiv governance promotion-evaluate \
+  --candidate governance/examples/enterprise.release-candidate.json \
+  --target governance/examples/enterprise.promotion-target.json \
+  --policy governance/examples/enterprise.promotion-gate-policy.json \
+  --decision governance/examples/enterprise.policy-decision.json \
+  --output /tmp/promotion-decision.json
+```
+
+Additional commands are `decision-show`, `approval-verify`, `approval-show`,
+`promotion-verify`, and `report-verify`. Use `omiv trust sign` with the additive
+Phase 5E object types and issuance purposes when a decision or approval needs a
+detached Ed25519 wrapper.
+
+Exit codes are:
+
+- `0`: `ALLOW`, unconditional `PROMOTION_ALLOWED`, or successful structural
+  verification;
+- `1`: `ALLOW_WITH_LIMITATIONS`, `REVIEW_REQUIRED`, conditional promotion,
+  partial/incomplete non-blocking results, or a valid approval whose required
+  signature trust was not evaluated;
+- `2`: denial, malformed or broken evidence, invalid/revoked/expired required
+  signatures, failed duty separation, insufficient mandatory quorum, prohibited
+  escalation, or operational failure.
+
+Generated examples live in `governance/examples/`, reports in
+`reports/governance/`, and their public deterministic inventory in
+`governance/artifact-index.json`. They use synthetic identities only. No Kimi
+approval, Kimi promotion, security pass, deployment authorization, or runtime
+authorization is generated.

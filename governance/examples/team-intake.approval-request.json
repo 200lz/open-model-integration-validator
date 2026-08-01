@@ -1,0 +1,48 @@
+{
+  "approval_policy_digest": "7b40926c6c528d28c1ee19a63e8cc45fac4b09de226a2e05ed381180a729b515",
+  "approval_policy_id": "approval_policy_5f4e70b286569f9aad58d121d0795702",
+  "approval_request_id": "approval_request_bbb3c631d8f23f8425d3d83e2d6dd33d",
+  "decision_digest": "5e332515326cdfab3d4595545f32075f0eefbee83cdea7955e491902020f5e11",
+  "decision_id": "decision_93a6b38fadb966a198e08e8d82db069e",
+  "evidence_ids": [
+    "evidence_acquisition",
+    "evidence_custody",
+    "evidence_identity",
+    "evidence_immutable",
+    "evidence_signature",
+    "evidence_structural"
+  ],
+  "limitations": [
+    "An approval request does not imply approval, promotion, or deployment."
+  ],
+  "policy_digest": "2e4284a54638e8c5823fd9e6b8c6b14c335c49449f615d43c864aebfff4554b7",
+  "policy_id": "omiv.governance-policy.team_artifact_intake.v1",
+  "quorum_id": "quorum_c02c19b0824687b9d41fadaa8a1cca1f",
+  "request_digest": "c59bee6d1a6f0c1113e49e55a2ec9da9c6e63682f67195eac37aa7439ea77ea5",
+  "requested_action": "APPROVE_ARTIFACT_INTAKE",
+  "requested_approver_roles": [
+    "APPROVER"
+  ],
+  "requested_scope": "team artifact intake under the named policy",
+  "requested_target_id": null,
+  "requester": {
+    "identity_trust": "TRUSTED_BY_POLICY",
+    "key_id": "key_ed39d828050734934fcf309c611f5d9b",
+    "organization_id": "synthetic-request-team",
+    "signer_identity_id": "signer_706df69713edd12c203dcb490e4a04a2",
+    "trust_root_id": "root_91c06218bbf9c4a16de7d7fc648c2c31"
+  },
+  "requester_role": "REQUESTER",
+  "schema": "omiv.approval-request.v1",
+  "subject": {
+    "artifact_digest": "80ffb3927d28091d7dcdba9bc5913f87008d8a2742ed9b82e6df71174240454f",
+    "artifact_format": "SAFETENSORS",
+    "artifact_set_digest": "259479c9c510ec96155ea97458caea1f8dd91b5453b3dff623cf5f37b16f85a5",
+    "immutable_revision": "revision-synthetic-001",
+    "logical_locator": "models/synthetic-transformer",
+    "origin_type": "internal_registry",
+    "provider": "synthetic-project",
+    "subject_id": "subject_08991da9b911f652087ec5813dfb65e8",
+    "variant": "SYNTHETIC-F16"
+  }
+}
