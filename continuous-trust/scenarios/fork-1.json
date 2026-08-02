@@ -1,0 +1,11 @@
+{
+  "conflicting_event_ids": [
+    "historical_event_a77cbf3d8fec1529eabc6aec73f8d000",
+    "historical_event_f80882078fc2683b16159a1a2baac3a5"
+  ],
+  "fork_digest": "dc8705f84bd09b53f0bc4b6d54edad02e474111f074537eea59833b34bf3364b",
+  "fork_id": "timeline_fork_22737fe1ca7bd272fd5f5f8057efcfd5",
+  "outcome": "CONFLICT_DETECTED",
+  "reason": "Different event content occupies sequence ('timeline.synthetic', 1, 6).",
+  "schema": "omiv.timeline-fork.v1"
+}

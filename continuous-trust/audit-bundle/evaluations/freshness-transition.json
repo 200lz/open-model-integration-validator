@@ -1,0 +1,13 @@
+{
+  "freshness_digest": "9cf8d93f3e1d5c45cbfdefee7fe23d18c174d1d91f02148b6a632cad4d26605d",
+  "freshness_id": "freshness_transition_0025a4d32dea9a7d19cf34d89a54b5be",
+  "limitations": [
+    "Freshness is evaluated only under explicit supplied contexts."
+  ],
+  "new_context_digest": "75f1431760a7b85dd37fc5b744cbbd75c41875a57051b20b6bf3d040b269b94c",
+  "new_state": "STALE",
+  "object_id": "runtime_observation_ef4de78eb21c83dc7c28da10481842bf",
+  "previous_context_digest": "bffd2c5dc4a8d5e50f6076a5fcc8c6483c6984a0a09aa93164f7d54b72ace511",
+  "previous_state": "CURRENT",
+  "schema": "omiv.freshness-transition-result.v1"
+}

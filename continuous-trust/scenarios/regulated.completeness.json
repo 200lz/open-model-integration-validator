@@ -1,0 +1,57 @@
+{
+  "bundle_id": "audit_bundle_ec581f46841de6e41033147554427484",
+  "completeness_digest": "13627d03cca71cd460069a07f1436ecc40ee8cf53313f3b6cac607c4a3ad6a7b",
+  "completeness_id": "bundle_completeness_6d5bff09bbcc50f05616a9f3b2766b32",
+  "gaps": [
+    {
+      "affected_conclusion": "Continuous real-world state is not established.",
+      "category": "CONTINUOUS_OBSERVATION",
+      "reason": "Phase 5H is finite and offline.",
+      "remediation": "Use a separately authorized future continuous reevaluation system.",
+      "required": false,
+      "state": "UNAVAILABLE"
+    },
+    {
+      "affected_conclusion": "Bundle verification does not establish payload completeness.",
+      "category": "MODEL_PAYLOAD",
+      "reason": "Model payload is excluded by Phase 5H policy.",
+      "remediation": "Transfer payload separately under an explicit future policy.",
+      "required": false,
+      "state": "EXCLUDED"
+    },
+    {
+      "affected_conclusion": "Event time is supplied context, not trusted time.",
+      "category": "TRUSTED_TIMESTAMP",
+      "reason": "No timestamp authority was contacted.",
+      "remediation": "Provide explicit trusted timestamp evidence in a future phase.",
+      "required": false,
+      "state": "UNAVAILABLE"
+    }
+  ],
+  "limitations": [
+    "Completeness is scoped to the declared bundle purpose and policy."
+  ],
+  "missing_dimensions": [
+    "continuous-observation",
+    "trusted-timestamp",
+    "behavioral-evidence",
+    "numerical-evidence"
+  ],
+  "purpose": "REGULATORY_EVIDENCE_EXPORT",
+  "satisfied_dimensions": [
+    "omiv.evidence-set-manifest.v1",
+    "omiv.freshness-transition-result.v1",
+    "omiv.historical-evaluation-request.v1",
+    "omiv.historical-evaluation-result.v1",
+    "omiv.historical-event.v1",
+    "omiv.reevaluation-policy-set.v1",
+    "omiv.renewal-record.v1",
+    "omiv.revocation-propagation-result.v1",
+    "omiv.supersession-graph.v1",
+    "omiv.trust-snapshot.v1",
+    "omiv.trust-timeline.v1",
+    "omiv.trust-transition.v1"
+  ],
+  "schema": "omiv.audit-bundle-completeness.v1",
+  "state": "PARTIAL"
+}

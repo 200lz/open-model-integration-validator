@@ -1,0 +1,97 @@
+{
+  "affected_object": {
+    "object_digest": "11d674c55fcd53404e578f5ca10f1045930eda900dfc30bcdc911c1702b6d5ee",
+    "object_id": "runtime_observation_ef4de78eb21c83dc7c28da10481842bf",
+    "schema": "omiv.runtime-observation.v1",
+    "source_phase": "5G"
+  },
+  "assertion_origin": "SIGNED_AND_TRUSTED",
+  "authority": {
+    "actor_id": "runtime_observer_f69aee8f2aea0fa462a3538343161715",
+    "allowed_object_schemas": [
+      "omiv.approval-record.v1",
+      "omiv.artifact-attestation.v1",
+      "omiv.assertion-authority-scope.v1",
+      "omiv.continuity-evaluation.v1",
+      "omiv.custody-ledger.v2",
+      "omiv.deployment-artifact-set.v1",
+      "omiv.deployment-record.v1",
+      "omiv.policy-decision.v1",
+      "omiv.product-subject.v1",
+      "omiv.runtime-observation.v1",
+      "omiv.security-evaluation.v1",
+      "omiv.trust-bundle.v1"
+    ],
+    "assertion_types": [
+      "EVIDENCE_ADDED",
+      "EVIDENCE_REVOKED",
+      "EVIDENCE_EXPIRED",
+      "EVIDENCE_SUPERSEDED",
+      "EVIDENCE_WITHDRAWN",
+      "POLICY_CHANGED",
+      "TRUST_BUNDLE_CHANGED",
+      "APPROVAL_ADDED",
+      "APPROVAL_WITHDRAWN",
+      "SECURITY_EVIDENCE_ADDED",
+      "SECURITY_EVIDENCE_STALE",
+      "DEPLOYMENT_RECORDED",
+      "RUNTIME_OBSERVATION_ADDED",
+      "RUNTIME_OBSERVATION_RENEWED",
+      "RUNTIME_OBSERVATION_STALE",
+      "DRIFT_DETECTED",
+      "DRIFT_RESOLVED",
+      "ARTIFACT_REPLACED",
+      "CUSTODY_EVENT_ADDED",
+      "OTHER_NORMALIZED_EVENT"
+    ],
+    "authorized": true,
+    "key_id": "key.history-authority",
+    "key_usage": "SIGNING",
+    "purpose": "HISTORICAL_EVENT_ASSERTION",
+    "scope": {
+      "environment_scope": "environment.team",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "signer_binding_status": "BOUND_AND_TRUSTED",
+    "subject_id": "product_subject_2cb1fa6a8c4968f6d1ea3adc01896821",
+    "trusted": true,
+    "valid_from_sequence": 1,
+    "valid_through_sequence": 100
+  },
+  "available_at": "2026-08-01T00:00:00Z",
+  "effective_at": "2026-08-01T00:00:00Z",
+  "epoch": 1,
+  "evaluation_context_digest": "75f1431760a7b85dd37fc5b744cbbd75c41875a57051b20b6bf3d040b269b94c",
+  "event_digest": "0ffc1870d2953756357c07b24eb1c5bef787c3c57d6afc02f2bd76b8ca2ea490",
+  "event_id": "historical_event_a5e2344043fa4a1b5b9a3ea74a631a0e",
+  "event_type": "EVIDENCE_REVOKED",
+  "evidence_references": [],
+  "limitations": [
+    "Event is supplied evidence; signature and authority do not independently prove the event occurred."
+  ],
+  "observed_at": null,
+  "predecessor_event_id": "historical_event_23171fd90c0eab9f5630231e0cd0f474",
+  "schema": "omiv.historical-event.v1",
+  "sequence": 2,
+  "sequence_namespace": "timeline.synthetic",
+  "subject": {
+    "scope": {
+      "environment_scope": "environment.team",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "MIXED_DEPLOYMENT_ARTIFACT_SET",
+    "subject_digest": "ab87dcd7ebeb03bb3caa1ad15090f6936f8e89604852d7644b464eb261f65ecf",
+    "subject_id": "product_subject_2cb1fa6a8c4968f6d1ea3adc01896821"
+  },
+  "trusted_time_status": "NOT_AVAILABLE"
+}

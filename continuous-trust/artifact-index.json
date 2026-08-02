@@ -1,0 +1,503 @@
+{
+  "entries": [
+    {
+      "canonical_id": "custody_history_290889a4e0cd35137d584582605e8ed7",
+      "relative_path": "continuous-trust/adapters/custody-historical-linkage.json",
+      "schema_id": "omiv.custody-historical-linkage.v1",
+      "sha256": "f95c958bf0271f5754c570a456dd874ee04f27aaa65f1ee37482da91aa2cbc79",
+      "size": 834
+    },
+    {
+      "canonical_id": "governance_history_faafef3612ecdd08dff6f88358a24601",
+      "relative_path": "continuous-trust/adapters/governance-historical-adapter.json",
+      "schema_id": "omiv.governance-historical-adapter.v1",
+      "sha256": "6d28fb172731be7ac0a90c3a647ebc3492563bc4ba2e4a5ebb5f5685748ed0f7",
+      "size": 1378
+    },
+    {
+      "canonical_id": "passport_history_4a911d1adf66eaa17e8fe3937edd5c49",
+      "relative_path": "continuous-trust/adapters/passport-historical-summary.json",
+      "schema_id": "omiv.passport-historical-summary.v1",
+      "sha256": "2b8efa0ed641919ff5837b7c638ac45f6c0c6ce573dadbf37b71bf2811f5557d",
+      "size": 1357
+    },
+    {
+      "canonical_id": "freshness_transition_0025a4d32dea9a7d19cf34d89a54b5be",
+      "relative_path": "continuous-trust/audit-bundle/evaluations/freshness-transition.json",
+      "schema_id": "omiv.freshness-transition-result.v1",
+      "sha256": "48f4c5f75c801a5cc83850df4940a4fc661e566d31e762147052c391738882cc",
+      "size": 626
+    },
+    {
+      "canonical_id": "historical_request_synthetic-v2",
+      "relative_path": "continuous-trust/audit-bundle/evaluations/historical-request.json",
+      "schema_id": "omiv.historical-evaluation-request.v1",
+      "sha256": "76a0b5135e89d97cff396d25fa1934b5f73b461d6af9a2575c445c3e1c4e7641",
+      "size": 1749
+    },
+    {
+      "canonical_id": "historical_eval_5e1c222b2e58fe2c587fc8e2e4b3e6ac",
+      "relative_path": "continuous-trust/audit-bundle/evaluations/historical-result.json",
+      "schema_id": "omiv.historical-evaluation-result.v1",
+      "sha256": "3b276472970efe052952807681e2ff3d2e4b42dbc339455827f8351649fda923",
+      "size": 2536
+    },
+    {
+      "canonical_id": "renewal_bb644f7b7b4d66a48da77dba52ffc5fa",
+      "relative_path": "continuous-trust/audit-bundle/evaluations/renewal.json",
+      "schema_id": "omiv.renewal-record.v1",
+      "sha256": "01e2ae07abb4234cc881ac86f9164b5a7bc94038e02b1f78fadb6adfc96184f5",
+      "size": 1381
+    },
+    {
+      "canonical_id": "trust_transition_31e1c6e9776e79deead440afe57c7fbf",
+      "relative_path": "continuous-trust/audit-bundle/evaluations/restoration-transition.json",
+      "schema_id": "omiv.trust-transition.v1",
+      "sha256": "af003066a3b2ccd9e1cf6962899e2d976868dfa3301a16692dd98e2f764c0216",
+      "size": 1303
+    },
+    {
+      "canonical_id": "revocation_propagation_8378056c3532166114c8f4c9a39724d9",
+      "relative_path": "continuous-trust/audit-bundle/evaluations/revocation-propagation.json",
+      "schema_id": "omiv.revocation-propagation-result.v1",
+      "sha256": "38678bf2f25ffa0bdba46698d727a66b6f77496df774dd8da2d497a680925b9b",
+      "size": 938
+    },
+    {
+      "canonical_id": "trust_transition_8562d890f3867fc3a3a36bac15b9f7fc",
+      "relative_path": "continuous-trust/audit-bundle/evaluations/revocation-transition.json",
+      "schema_id": "omiv.trust-transition.v1",
+      "sha256": "97a74c4e1d97067c22d31bb8eea0f758f79941b5caf007bb9ffca11932cfabbf",
+      "size": 1284
+    },
+    {
+      "canonical_id": "trust_transition_7dfaecc38d21d0ec45abe2d0891f9125",
+      "relative_path": "continuous-trust/audit-bundle/evaluations/security-transition.json",
+      "schema_id": "omiv.trust-transition.v1",
+      "sha256": "97c9e9c51b5306bf9093d30a95d676d3498bf08c62442bcb34c84e7c4c13c446",
+      "size": 1210
+    },
+    {
+      "canonical_id": "supersession_graph_81323575e2e5f5a401743b278c86ae75",
+      "relative_path": "continuous-trust/audit-bundle/evaluations/supersession-graph.json",
+      "schema_id": "omiv.supersession-graph.v1",
+      "sha256": "574a427ca793114b8ed86ca70339f085ce5bfa902f11e4b0164b8f36307ef946",
+      "size": 676
+    },
+    {
+      "canonical_id": "audit_bundle_426346d45bcf7f57fc22876bde84fa01",
+      "relative_path": "continuous-trust/audit-bundle/manifest.json",
+      "schema_id": "omiv.audit-bundle-manifest.v1",
+      "sha256": "8cc0a9be798efb6a78ae2e0ffb25340d1b534525a8456883e1928b71e95f915e",
+      "size": 13092
+    },
+    {
+      "canonical_id": "evidence_set_00c4c2672943c5cd323b3db8c7c64f82",
+      "relative_path": "continuous-trust/audit-bundle/objects/evidence-set-v1.json",
+      "schema_id": "omiv.evidence-set-manifest.v1",
+      "sha256": "c7fe9134ddf83ec653f63ce8ac6f99e91bcffc705cbdeafcec7d6a09630e81f7",
+      "size": 7945
+    },
+    {
+      "canonical_id": "evidence_set_3e3f13486eaf8836cc1a05ba3bf594a8",
+      "relative_path": "continuous-trust/audit-bundle/objects/evidence-set-v2.json",
+      "schema_id": "omiv.evidence-set-manifest.v1",
+      "sha256": "d4663bff207bc27ef09161fedfc6bab22e2b400041e0a4548479b650d468dc0e",
+      "size": 8605
+    },
+    {
+      "canonical_id": "reevaluation_policy.enterprise_history.v1",
+      "relative_path": "continuous-trust/audit-bundle/policies/enterprise-policy-set.json",
+      "schema_id": "omiv.reevaluation-policy-set.v1",
+      "sha256": "70fc1aad05f82ed39dafb9c0d90e88433b2d31bd1911b3f30645cd8290b7aba2",
+      "size": 2112
+    },
+    {
+      "canonical_id": "reevaluation_policy.team_history.v1",
+      "relative_path": "continuous-trust/audit-bundle/policies/team-policy-set.json",
+      "schema_id": "omiv.reevaluation-policy-set.v1",
+      "sha256": "74dfd1bb247c5868f902b6bbef54ddf0e86f09b76adf7018c6170b14af6af522",
+      "size": 2076
+    },
+    {
+      "canonical_id": "trust_snapshot_ec4f634585db3e6d042c0761dec28b46",
+      "relative_path": "continuous-trust/audit-bundle/snapshots/snapshot-revoked.json",
+      "schema_id": "omiv.trust-snapshot.v1",
+      "sha256": "f1bec077cfe862abdda404a1628947b6d2c4b3c7ccbd2066b3c1bb0de5c0f2ae",
+      "size": 7955
+    },
+    {
+      "canonical_id": "trust_snapshot_ebd754cea828b6d25bd404277a6b0f5d",
+      "relative_path": "continuous-trust/audit-bundle/snapshots/snapshot-t1.json",
+      "schema_id": "omiv.trust-snapshot.v1",
+      "sha256": "565e3d404ee8f6e07752f4e94ae021c964baf4e1a043cb7961a1041b6894dacd",
+      "size": 7702
+    },
+    {
+      "canonical_id": "trust_snapshot_19c61f684efdbf4085e1fc0744145525",
+      "relative_path": "continuous-trust/audit-bundle/snapshots/snapshot-t2.json",
+      "schema_id": "omiv.trust-snapshot.v1",
+      "sha256": "f91cafe92eb1fec3b651092b7ff438a585f6f62067baf83fab86a9384dac6249",
+      "size": 7462
+    },
+    {
+      "canonical_id": "historical_event_4af93862093fbfa3970522528c551f65",
+      "relative_path": "continuous-trust/audit-bundle/timeline/runtime-renewed.event.json",
+      "schema_id": "omiv.historical-event.v1",
+      "sha256": "798ee5650ab939a0c8ccd1479f8c021a05d226fd5e50c506e951c4257381c43c",
+      "size": 3573
+    },
+    {
+      "canonical_id": "historical_event_a5e2344043fa4a1b5b9a3ea74a631a0e",
+      "relative_path": "continuous-trust/audit-bundle/timeline/runtime-revoked.event.json",
+      "schema_id": "omiv.historical-event.v1",
+      "sha256": "17c4c3a0893eb4e450795c4525a58253a54fdfbe83c06538086078be8845a0d5",
+      "size": 3544
+    },
+    {
+      "canonical_id": "historical_event_4cf67a975ab1e915d32e4ff6957563ec",
+      "relative_path": "continuous-trust/audit-bundle/timeline/runtime-stale.event.json",
+      "schema_id": "omiv.historical-event.v1",
+      "sha256": "3b2ee00ec4c238fd434563398c509a6dc26a99a0ac92b71b849632b13cfcdd0a",
+      "size": 3553
+    },
+    {
+      "canonical_id": "historical_event_23171fd90c0eab9f5630231e0cd0f474",
+      "relative_path": "continuous-trust/audit-bundle/timeline/security-added.event.json",
+      "schema_id": "omiv.historical-event.v1",
+      "sha256": "519aaf196c745670435117fee16cbbd7348a62100d5efb8c4c8b1e852d190c6e",
+      "size": 3489
+    },
+    {
+      "canonical_id": "historical_event_9333c1624e394401d298a8cd6a1e8aaf",
+      "relative_path": "continuous-trust/audit-bundle/timeline/security-superseded.event.json",
+      "schema_id": "omiv.historical-event.v1",
+      "sha256": "66fa7524c9caf47b55a3abbe118c123c4cfa8d9ff40adb6b506c8b11f120eda2",
+      "size": 3532
+    },
+    {
+      "canonical_id": "trust_timeline_25c6fe1b170bb9d0641c40e2f532eca4",
+      "relative_path": "continuous-trust/audit-bundle/timeline/timeline.json",
+      "schema_id": "omiv.trust-timeline.v1",
+      "sha256": "d280a73528a01094ce46b1b3ed8346e02b813d97677ed7eb7082019384d36859",
+      "size": 1883
+    },
+    {
+      "canonical_id": "audit_bundle_475345f754630cfcbc504d2bcdb67698",
+      "relative_path": "continuous-trust/scenarios/air-gapped.bundle-manifest.json",
+      "schema_id": "omiv.audit-bundle-manifest.v1",
+      "sha256": "8750b95203051448068c3cae9ce90f356cac448773205c3878f8dd4ee729f623",
+      "size": 13095
+    },
+    {
+      "canonical_id": "bundle_completeness_798b8c933108ce2554a5aeefcdb0bd1a",
+      "relative_path": "continuous-trust/scenarios/air-gapped.completeness.json",
+      "schema_id": "omiv.audit-bundle-completeness.v1",
+      "sha256": "3051bec2298f12892379d7ac4f1cb8dbfb7d6d16ab037f34954b573e9b627670",
+      "size": 1982
+    },
+    {
+      "canonical_id": "bundle_verification_028e5e5de5f08657e8932d2a6ab9485a",
+      "relative_path": "continuous-trust/scenarios/air-gapped.verification.json",
+      "schema_id": "omiv.audit-bundle-verification-result.v1",
+      "sha256": "564f218147d3a093ebac3573771c78af57a234df8ee86556b55d274a2fc99dd5",
+      "size": 2074
+    },
+    {
+      "canonical_id": "historical_event_bfbf234ec2d3c323da915a4f25d0e44c",
+      "relative_path": "continuous-trust/scenarios/approval-withdrawn.event.json",
+      "schema_id": "omiv.historical-event.v1",
+      "sha256": "2298e2c2b0a205832c52ef546f510632b667bb5ba967bdb16e8b6c83d7411da3",
+      "size": 3516
+    },
+    {
+      "canonical_id": "timeline_fork_22737fe1ca7bd272fd5f5f8057efcfd5",
+      "relative_path": "continuous-trust/scenarios/fork-1.json",
+      "schema_id": "omiv.timeline-fork.v1",
+      "sha256": "0bf7ca5700e551b24a303cdf9bc94ad8f80aadd896b2753bd4d2aa514f5cf042",
+      "size": 456
+    },
+    {
+      "canonical_id": "timeline_fork_897b5aa54463ec5003d286684702f534",
+      "relative_path": "continuous-trust/scenarios/fork-2.json",
+      "schema_id": "omiv.timeline-fork.v1",
+      "sha256": "9cda70c526a821314e8e6b7ba8bd14fafa5dca3ce35daa8f295d337b62afc2ff",
+      "size": 473
+    },
+    {
+      "canonical_id": "historical_event_f80882078fc2683b16159a1a2baac3a5",
+      "relative_path": "continuous-trust/scenarios/fork-a.event.json",
+      "schema_id": "omiv.historical-event.v1",
+      "sha256": "83cd25d80cd3ef12ba389e238eb9b5d12f19b97d29290fc10b31a5d231180eac",
+      "size": 3543
+    },
+    {
+      "canonical_id": "historical_event_a77cbf3d8fec1529eabc6aec73f8d000",
+      "relative_path": "continuous-trust/scenarios/fork-b.event.json",
+      "schema_id": "omiv.historical-event.v1",
+      "sha256": "c91ccb7e5cdb018de04aa2060ba3eb64afeddf81a229a4ad16239380c795273e",
+      "size": 3543
+    },
+    {
+      "canonical_id": "trust_timeline_6419a6fc19e9a37f5deebe7f44ba55a1",
+      "relative_path": "continuous-trust/scenarios/forked-timeline.json",
+      "schema_id": "omiv.trust-timeline.v1",
+      "sha256": "f7527b46b61488fb1f1507abc1ea613b191a8432dfc1c38e962af6cbe9570513",
+      "size": 1862
+    },
+    {
+      "canonical_id": "audit_bundle_e4738dd1a7cd5a1663fbb94165dd314b",
+      "relative_path": "continuous-trust/scenarios/partial.bundle-manifest.json",
+      "schema_id": "omiv.audit-bundle-manifest.v1",
+      "sha256": "b1706f0b171bbabf8d164f2351d1c4afb9069fffd66aa79a2628c05252f3cd56",
+      "size": 12117
+    },
+    {
+      "canonical_id": "bundle_completeness_bd04969c4592176bc5207a383b4e2bb4",
+      "relative_path": "continuous-trust/scenarios/partial.completeness.json",
+      "schema_id": "omiv.audit-bundle-completeness.v1",
+      "sha256": "572e26100504f6f746cc7491d272c40cd901164b7200b4a1f7d50763fea9177b",
+      "size": 1982
+    },
+    {
+      "canonical_id": "bundle_verification_67e4e564375bd039729a2066c9300f7e",
+      "relative_path": "continuous-trust/scenarios/partial.verification.json",
+      "schema_id": "omiv.audit-bundle-verification-result.v1",
+      "sha256": "03e67433aa73af4922d5b775dbb61160a2bc2401f9017532f3436127f5e3b562",
+      "size": 1967
+    },
+    {
+      "canonical_id": "trust_transition_b5c03aafce98041c0656d33ac5cdc57e",
+      "relative_path": "continuous-trust/scenarios/policy-reclassified.transition.json",
+      "schema_id": "omiv.trust-transition.v1",
+      "sha256": "8c18366c0f793e4191bef50e42ca14b80cb62f375504b9c6b4d46bfb8b351b93",
+      "size": 1101
+    },
+    {
+      "canonical_id": "audit_bundle_ec581f46841de6e41033147554427484",
+      "relative_path": "continuous-trust/scenarios/regulated.bundle-manifest.json",
+      "schema_id": "omiv.audit-bundle-manifest.v1",
+      "sha256": "70e88cfeef82a002c1063677cb19a601f6051752fbf41e6476c19f8e5b7416b2",
+      "size": 13101
+    },
+    {
+      "canonical_id": "bundle_completeness_6d5bff09bbcc50f05616a9f3b2766b32",
+      "relative_path": "continuous-trust/scenarios/regulated.completeness.json",
+      "schema_id": "omiv.audit-bundle-completeness.v1",
+      "sha256": "e0de3b2d6e5a306adfae6fe3b56ecac204aa80682ad46dd7769df48c2c7b694d",
+      "size": 2081
+    },
+    {
+      "canonical_id": "bundle_verification_870c18569038e8d27b7976b26c071b0c",
+      "relative_path": "continuous-trust/scenarios/regulated.verification.json",
+      "schema_id": "omiv.audit-bundle-verification-result.v1",
+      "sha256": "c4db522153f4fb3d48fe3bf0b8b28560ffd34df897d2aa06050359fa5136a28e",
+      "size": 2059
+    },
+    {
+      "canonical_id": "trust_transition_cb8f7f6afe94a839d766756b8884ee20",
+      "relative_path": "continuous-trust/scenarios/stable.transition.json",
+      "schema_id": "omiv.trust-transition.v1",
+      "sha256": "ac38761de850b25add768ab35cc63934ace1acece21ac512c08dace82cd113e0",
+      "size": 1092
+    },
+    {
+      "canonical_id": "trust_snapshot_3e6aebb8894519d1cbfddad5ab05f142",
+      "relative_path": "continuous-trust/scenarios/stale.snapshot.json",
+      "schema_id": "omiv.trust-snapshot.v1",
+      "sha256": "d5e7b208f672ad3f8efd2effc8d3e8fb964ac359d4f1734d89af43b6f38acc5b",
+      "size": 8191
+    },
+    {
+      "canonical_id": "trust_transition_b830411b81bae8dcf7143716aec59f3b",
+      "relative_path": "continuous-trust/scenarios/stale.transition.json",
+      "schema_id": "omiv.trust-transition.v1",
+      "sha256": "2311ef87e030cb01fc5e9fd82a45fa6dc07fb0df280e2b7154b7001ca00db681",
+      "size": 1315
+    },
+    {
+      "canonical_id": "trust_snapshot_efb6f64e05c56b82bd8f298a0ac46639",
+      "relative_path": "continuous-trust/scenarios/strict-policy.snapshot.json",
+      "schema_id": "omiv.trust-snapshot.v1",
+      "sha256": "e40dd1088161bd61628b755303fbb9b94f3595d7d87f163e78379c1e0ea24e5d",
+      "size": 7468
+    },
+    {
+      "canonical_id": "trust_transition_0c9d5d888912e693a2022c4172515dcd",
+      "relative_path": "continuous-trust/scenarios/withdrawal.transition.json",
+      "schema_id": "omiv.trust-transition.v1",
+      "sha256": "2bc8b9384b584e1bcffcaaa2deb0e726cea8eab8a514a509a8eda1a43dbbe1f7",
+      "size": 1195
+    },
+    {
+      "canonical_id": "trust_snapshot_5c6a4e021bd7ae97f61625a82dd98b16",
+      "relative_path": "continuous-trust/scenarios/withdrawn.snapshot.json",
+      "schema_id": "omiv.trust-snapshot.v1",
+      "sha256": "d3d09658f207295452e9bbef54bedc529b38fb80d1b50b695c64e70476388d1d",
+      "size": 7694
+    },
+    {
+      "canonical_id": "generated_2bb014a482431363ace53719dd052756",
+      "relative_path": "continuous-trust/signed/audit-bundle.envelope.json",
+      "schema_id": "omiv.signed-object-envelope.v1",
+      "sha256": "2bb014a482431363ace53719dd052756f46b8073017c0eee04ce718f084f546c",
+      "size": 16963
+    },
+    {
+      "canonical_id": "generated_dd49d57820de19494201411ba14113d0",
+      "relative_path": "continuous-trust/signed/audit-bundle.linkage.json",
+      "schema_id": "omiv.signed-historical-linkage.v1",
+      "sha256": "dd49d57820de19494201411ba14113d0255291b2c3ee2799ec5ef9b474b65ad6",
+      "size": 713
+    },
+    {
+      "canonical_id": "generated_5867dd4d130babf387e40df47102e196",
+      "relative_path": "continuous-trust/signed/bundle-verification.envelope.json",
+      "schema_id": "omiv.signed-object-envelope.v1",
+      "sha256": "5867dd4d130babf387e40df47102e1964c017bbb094a836db79124139ad34020",
+      "size": 5662
+    },
+    {
+      "canonical_id": "generated_8494a01e01f7fba6e918a2b09f56bade",
+      "relative_path": "continuous-trust/signed/bundle-verification.linkage.json",
+      "schema_id": "omiv.signed-historical-linkage.v1",
+      "sha256": "8494a01e01f7fba6e918a2b09f56bade3fd3137dd6a492366809d31f4060a7a0",
+      "size": 731
+    },
+    {
+      "canonical_id": "generated_c3a059c1a47bed80b25f65359a88745d",
+      "relative_path": "continuous-trust/signed/historical-evaluation.envelope.json",
+      "schema_id": "omiv.signed-object-envelope.v1",
+      "sha256": "c3a059c1a47bed80b25f65359a88745d99cb62b5cfe81b3d5d4a783e31698615",
+      "size": 6071
+    },
+    {
+      "canonical_id": "generated_edd4f4cfbb43982cc9235ec8d1ee34c7",
+      "relative_path": "continuous-trust/signed/historical-evaluation.linkage.json",
+      "schema_id": "omiv.signed-historical-linkage.v1",
+      "sha256": "edd4f4cfbb43982cc9235ec8d1ee34c78e0f524160728025d87adf8eefea34bb",
+      "size": 723
+    },
+    {
+      "canonical_id": "generated_84654468ba90e7a317f327911436855d",
+      "relative_path": "continuous-trust/signed/historical.trust-bundle.json",
+      "schema_id": "omiv.trust-bundle.v1",
+      "sha256": "84654468ba90e7a317f327911436855df6dc7b0c6dde18b4dd3d359a641d2333",
+      "size": 4220
+    },
+    {
+      "canonical_id": "generated_1b774b1052870667db0e396a4a87f65c",
+      "relative_path": "continuous-trust/signed/historical.trust-policy.json",
+      "schema_id": "omiv.trust-policy.v1",
+      "sha256": "1b774b1052870667db0e396a4a87f65cfd676aa2aad1c1776832670c65b5e3ce",
+      "size": 1489
+    },
+    {
+      "canonical_id": "generated_be0b25344f9613176576512a6dbf6010",
+      "relative_path": "continuous-trust/signed/snapshot.envelope.json",
+      "schema_id": "omiv.signed-object-envelope.v1",
+      "sha256": "be0b25344f9613176576512a6dbf601037159d8a6aca012336d2bcb6c8eb5a88",
+      "size": 11253
+    },
+    {
+      "canonical_id": "generated_d70189a818e240ddfd896903c6de8b36",
+      "relative_path": "continuous-trust/signed/snapshot.linkage.json",
+      "schema_id": "omiv.signed-historical-linkage.v1",
+      "sha256": "d70189a818e240ddfd896903c6de8b3619b2723f8b9b3b05ee3caacea6319df8",
+      "size": 708
+    },
+    {
+      "canonical_id": "generated_d7b2a48814d6f0ad6b3afda9c612a080",
+      "relative_path": "continuous-trust/signed/timeline.envelope.json",
+      "schema_id": "omiv.signed-object-envelope.v1",
+      "sha256": "d7b2a48814d6f0ad6b3afda9c612a080cad6e1aec8c2e288ffa3f836f6943e33",
+      "size": 5318
+    },
+    {
+      "canonical_id": "generated_2dbe89c0518b68159c529dfc11ea4b23",
+      "relative_path": "continuous-trust/signed/timeline.linkage.json",
+      "schema_id": "omiv.signed-historical-linkage.v1",
+      "sha256": "2dbe89c0518b68159c529dfc11ea4b2370b1facba1dedb24e5397ea8ec68e508",
+      "size": 708
+    },
+    {
+      "canonical_id": "bundle_completeness_8705fcfea261ac2a688c87e0f1df758f",
+      "relative_path": "continuous-trust/verification/enterprise.completeness.json",
+      "schema_id": "omiv.audit-bundle-completeness.v1",
+      "sha256": "9306fb0f6cbc4061146836f5a2b0a04c4f460133ae318ac0f001db5dfcdc70be",
+      "size": 1979
+    },
+    {
+      "canonical_id": "bundle_verification_f0f8cb5c1e98078fe5ff68f8f9c80bc2",
+      "relative_path": "continuous-trust/verification/enterprise.result.json",
+      "schema_id": "omiv.audit-bundle-verification-result.v1",
+      "sha256": "682607eb55b783172a9acf75f9d04385fff0b1de729f3f2d719533498e67788e",
+      "size": 2129
+    },
+    {
+      "canonical_id": "generated_fdb117826f9bc17b2ced9142c0c1e9dc",
+      "relative_path": "reports/continuous-trust/audit-bundle.signature-report.json",
+      "schema_id": "omiv.signature-report.v1",
+      "sha256": "fdb117826f9bc17b2ced9142c0c1e9dc5876c739333ac7f937ba74194dbc0486",
+      "size": 4756
+    },
+    {
+      "canonical_id": "generated_36033cfcd95dc03b2638e26fbf8254be",
+      "relative_path": "reports/continuous-trust/bundle-verification.signature-report.json",
+      "schema_id": "omiv.signature-report.v1",
+      "sha256": "36033cfcd95dc03b2638e26fbf8254bef1685bc8229fa9c27daf410dd81a8ba9",
+      "size": 4785
+    },
+    {
+      "canonical_id": "audit_report_6a38f059f02e46de3a8c06b4c355ca8e",
+      "relative_path": "reports/continuous-trust/enterprise.audit-report.json",
+      "schema_id": "omiv.audit-bundle-report.v1",
+      "sha256": "4170282bc4bf87c7a3d8c513388d641e4be8288f8e1b6e11224a176c4cb68480",
+      "size": 1268
+    },
+    {
+      "canonical_id": "audit_markdown_9e840736279f2bfe06e1650bff90a0d9",
+      "relative_path": "reports/continuous-trust/enterprise.audit-report.md",
+      "schema_id": "omiv.audit-report-markdown.v1",
+      "sha256": "9e840736279f2bfe06e1650bff90a0d9be5e1470bca1a5599e060b9543f57596",
+      "size": 1042
+    },
+    {
+      "canonical_id": "generated_0a8908aae9fe0abbcbb5e04d5e8e217f",
+      "relative_path": "reports/continuous-trust/historical-evaluation.signature-report.json",
+      "schema_id": "omiv.signature-report.v1",
+      "sha256": "0a8908aae9fe0abbcbb5e04d5e8e217fdfda483f0153161d54e576684e15d137",
+      "size": 4773
+    },
+    {
+      "canonical_id": "generated_b042fe0a4ea967611230b48064d06150",
+      "relative_path": "reports/continuous-trust/kimi-k3.historical-audit-gap.json",
+      "schema_id": "omiv.historical-audit-gap-report.v1",
+      "sha256": "b042fe0a4ea967611230b48064d06150871ab5bf849bb972fcf5a754ac20571b",
+      "size": 720
+    },
+    {
+      "canonical_id": "generated_0d848bc28549f68f955dfb1b209764ec",
+      "relative_path": "reports/continuous-trust/snapshot.signature-report.json",
+      "schema_id": "omiv.signature-report.v1",
+      "sha256": "0d848bc28549f68f955dfb1b209764ecdb14bf54896053b43ca42e80f682cb72",
+      "size": 4744
+    },
+    {
+      "canonical_id": "generated_f08f77e188fe37face1bfdf0195bcb4d",
+      "relative_path": "reports/continuous-trust/timeline.signature-report.json",
+      "schema_id": "omiv.signature-report.v1",
+      "sha256": "f08f77e188fe37face1bfdf0195bcb4d387560149df1576f7dd4728504e1f931",
+      "size": 4744
+    }
+  ],
+  "generated_json_count": 69,
+  "generated_markdown_count": 1,
+  "index_digest": "46e570d75f2a10bef9ad0392ea3779002685338f6e279579f53e809ee713026c",
+  "index_id": "continuous_trust_index_f5f683a9d7d194d867086139396b3cb1",
+  "limitations": [
+    "Index covers generated Phase 5H records and excludes itself."
+  ],
+  "schema": "omiv.continuous-trust-artifact-index.v1",
+  "total_size": 269201
+}

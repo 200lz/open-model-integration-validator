@@ -1,0 +1,53 @@
+{
+  "bundle_id": "audit_bundle_e4738dd1a7cd5a1663fbb94165dd314b",
+  "completeness_digest": "cd294faa185e792f00d085b876263684328439d67d099b6ac3da3ab1a3c31028",
+  "completeness_id": "bundle_completeness_bd04969c4592176bc5207a383b4e2bb4",
+  "gaps": [
+    {
+      "affected_conclusion": "Continuous real-world state is not established.",
+      "category": "CONTINUOUS_OBSERVATION",
+      "reason": "Phase 5H is finite and offline.",
+      "remediation": "Use a separately authorized future continuous reevaluation system.",
+      "required": false,
+      "state": "UNAVAILABLE"
+    },
+    {
+      "affected_conclusion": "Bundle verification does not establish payload completeness.",
+      "category": "MODEL_PAYLOAD",
+      "reason": "Model payload is excluded by Phase 5H policy.",
+      "remediation": "Transfer payload separately under an explicit future policy.",
+      "required": false,
+      "state": "EXCLUDED"
+    },
+    {
+      "affected_conclusion": "Event time is supplied context, not trusted time.",
+      "category": "TRUSTED_TIMESTAMP",
+      "reason": "No timestamp authority was contacted.",
+      "remediation": "Provide explicit trusted timestamp evidence in a future phase.",
+      "required": false,
+      "state": "UNAVAILABLE"
+    }
+  ],
+  "limitations": [
+    "Completeness is scoped to the declared bundle purpose and policy."
+  ],
+  "missing_dimensions": [
+    "omiv.reevaluation-policy-set.v1"
+  ],
+  "purpose": "TEAM_RELEASE_REVIEW",
+  "satisfied_dimensions": [
+    "omiv.evidence-set-manifest.v1",
+    "omiv.freshness-transition-result.v1",
+    "omiv.historical-evaluation-request.v1",
+    "omiv.historical-evaluation-result.v1",
+    "omiv.historical-event.v1",
+    "omiv.renewal-record.v1",
+    "omiv.revocation-propagation-result.v1",
+    "omiv.supersession-graph.v1",
+    "omiv.trust-snapshot.v1",
+    "omiv.trust-timeline.v1",
+    "omiv.trust-transition.v1"
+  ],
+  "schema": "omiv.audit-bundle-completeness.v1",
+  "state": "MISSING_REQUIRED_MEMBER"
+}

@@ -50,6 +50,30 @@ from omiv.comparison.reporting import (
     verify_comparison_report,
     write_comparison_bundle,
 )
+from omiv.continuous_trust.bundles import verify_bundle_directory
+from omiv.continuous_trust.models import (
+    AuditBundleManifest,
+    AuditBundleReport,
+    AuditBundleVerificationResult,
+    CustodyHistoricalLinkage,
+    GovernanceHistoricalAdapter,
+    HistoricalEvaluationResult,
+    HistoricalEvent,
+    PassportHistoricalSummary,
+    RenewalRecord,
+    RevocationPropagationResult,
+    SupersessionGraph,
+    TrustSnapshot,
+    TrustTimeline,
+    TrustTransition,
+)
+from omiv.continuous_trust.reporting import (
+    pretty_audit_json,
+    render_audit_markdown,
+    verify_audit_report,
+)
+from omiv.continuous_trust.schema import SCHEMA_MODELS as AUDIT_SCHEMA_MODELS
+from omiv.continuous_trust.schema import load_audit
 from omiv.custody.append import append_event
 from omiv.custody.builder import build_evidence_custody_ledger
 from omiv.custody.models import CustodyEventInput, LifecycleCompleteness
@@ -360,6 +384,7 @@ trust_app = typer.Typer(no_args_is_help=True)
 governance_app = typer.Typer(no_args_is_help=True)
 security_app = typer.Typer(no_args_is_help=True)
 runtime_app = typer.Typer(no_args_is_help=True)
+audit_app = typer.Typer(no_args_is_help=True)
 app.add_typer(model_packs_app, name="model-packs")
 app.add_typer(passport_app, name="passport")
 app.add_typer(custody_app, name="custody")
@@ -368,6 +393,7 @@ app.add_typer(trust_app, name="trust")
 app.add_typer(governance_app, name="governance")
 app.add_typer(security_app, name="security")
 app.add_typer(runtime_app, name="runtime")
+app.add_typer(audit_app, name="audit")
 MAX_CANONICAL_INVENTORY_BYTES = 64 * 1024 * 1024
 REMOTE_REPORT_SCHEMAS = {
     "omiv.remote-snapshot-report.v1",
@@ -3459,3 +3485,242 @@ def runtime_custody_link(
     code = _runtime_exit(evaluation.verdict)
     if code:
         raise typer.Exit(code=code)
+
+
+def _audit_exit(value: object) -> int:
+    text = str(getattr(value, "value", value))
+    if text in {
+        "VERIFIED",
+        "COMPLETE_FOR_PURPOSE",
+        "TRUSTED_FOR_SCOPED_USE",
+        "UNCHANGED",
+        "STRENGTHENED",
+    }:
+        return 0
+    if text in {
+        "VERIFIED_WITH_LIMITATIONS",
+        "COMPLETE_WITH_LIMITATIONS",
+        "PARTIAL",
+        "STALE",
+        "TRUSTED_WITH_LIMITATIONS",
+        "REVIEW_REQUIRED",
+    }:
+        return 1
+    return 2
+
+
+def _audit_copy(input_path: Path, output: Path, model: type[BaseModel]) -> BaseModel:
+    value = load_audit(input_path, model)
+    validate_output_path(output, forbidden_inputs=(input_path,))
+    atomic_write_text(output, pretty_audit_json(value), forbidden_inputs=(input_path,))
+    return value
+
+
+def _audit_create(input_path: Path, output: Path, model: type[BaseModel]) -> None:
+    try:
+        value = _audit_copy(input_path, output, model)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR audit record creation failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"CREATED schema={value.model_dump(mode='json', by_alias=True)['schema']} "
+        "continuous=NOT_IMPLEMENTED"
+    )
+
+
+@audit_app.command("snapshot-create")
+def audit_snapshot_create(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+) -> None:
+    """Validate an explicitly supplied immutable snapshot without inferring current state."""
+    _audit_create(input_path, output, TrustSnapshot)
+
+
+@audit_app.command("snapshot-verify")
+def audit_snapshot_verify(
+    snapshot_path: Annotated[Path, typer.Option("--snapshot", exists=True, dir_okay=False)],
+) -> None:
+    try:
+        value = load_audit(snapshot_path, TrustSnapshot)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR snapshot verification failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"VALID snapshot={value.snapshot_id} state={value.overall_state.value} "
+        "latest_supplied=YES current_real_world=NOT_INFERRED"
+    )
+    code = _audit_exit(value.overall_state)
+    if code:
+        raise typer.Exit(code=code)
+
+
+@audit_app.command("event-create")
+def audit_event_create(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+) -> None:
+    _audit_create(input_path, output, HistoricalEvent)
+
+
+@audit_app.command("timeline-build")
+def audit_timeline_build(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+) -> None:
+    _audit_create(input_path, output, TrustTimeline)
+
+
+@audit_app.command("timeline-verify")
+def audit_timeline_verify(
+    timeline_path: Annotated[Path, typer.Option("--timeline", exists=True, dir_okay=False)],
+) -> None:
+    try:
+        value = load_audit(timeline_path, TrustTimeline)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR timeline verification failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"{value.completeness.value} timeline={value.timeline_id} continuous=NOT_ESTABLISHED"
+    )
+    code = _audit_exit(value.completeness)
+    if code:
+        raise typer.Exit(code=code)
+
+
+@audit_app.command("transition-evaluate")
+def audit_transition_evaluate(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+) -> None:
+    _audit_create(input_path, output, TrustTransition)
+
+
+@audit_app.command("reevaluate")
+def audit_reevaluate(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+) -> None:
+    _audit_create(input_path, output, HistoricalEvaluationResult)
+
+
+@audit_app.command("revocation-propagate")
+def audit_revocation_propagate(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+) -> None:
+    _audit_create(input_path, output, RevocationPropagationResult)
+
+
+@audit_app.command("supersession-build")
+def audit_supersession_build(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+) -> None:
+    _audit_create(input_path, output, SupersessionGraph)
+
+
+@audit_app.command("renewal-create")
+def audit_renewal_create(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+) -> None:
+    _audit_create(input_path, output, RenewalRecord)
+
+
+@audit_app.command("bundle-create")
+def audit_bundle_create(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+) -> None:
+    _audit_create(input_path, output, AuditBundleManifest)
+
+
+@audit_app.command("bundle-verify")
+def audit_bundle_verify(
+    bundle_root: Annotated[Path, typer.Option("--bundle-root", exists=True, file_okay=False)],
+    manifest_path: Annotated[Path, typer.Option("--manifest", exists=True, dir_okay=False)],
+) -> None:
+    try:
+        manifest = load_audit(manifest_path, AuditBundleManifest)
+        result = verify_bundle_directory(bundle_root, manifest)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR bundle verification failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(f"{result.outcome.value} bundle={result.bundle_id} network=NO model_payload=NO")
+    code = _audit_exit(result.outcome)
+    if code:
+        raise typer.Exit(code=code)
+
+
+@audit_app.command("bundle-show")
+def audit_bundle_show(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+) -> None:
+    try:
+        raw, _ = load_bounded_json(input_path, max_bytes=16 * 1024 * 1024)
+        model = AUDIT_SCHEMA_MODELS.get(raw.get("schema"))
+        if model is None:
+            raise OmivInputError("unsupported audit object schema")
+        value = load_audit(input_path, model)
+        typer.echo(
+            render_audit_markdown(value)
+            if isinstance(value, AuditBundleReport)
+            else pretty_audit_json(value)
+        )
+        typer.echo(
+            "Latest supplied state only; current real-world state=NOT_INFERRED "
+            "continuous_monitoring=NOT_IMPLEMENTED"
+        )
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR audit display failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+
+
+@audit_app.command("report-verify")
+def audit_report_verify(
+    report_path: Annotated[Path, typer.Option("--report", exists=True, dir_okay=False)],
+    bundle_path: Annotated[Path, typer.Option("--bundle", exists=True, dir_okay=False)],
+    completeness_path: Annotated[Path, typer.Option("--completeness", exists=True, dir_okay=False)],
+    verification_path: Annotated[Path, typer.Option("--verification", exists=True, dir_okay=False)],
+    snapshot_path: Annotated[Path, typer.Option("--snapshot", exists=True, dir_okay=False)],
+) -> None:
+    from omiv.continuous_trust.models import AuditBundleCompleteness
+
+    try:
+        report = load_audit(report_path, AuditBundleReport)
+        verify_audit_report(
+            report,
+            load_audit(bundle_path, AuditBundleManifest),
+            load_audit(completeness_path, AuditBundleCompleteness),
+            load_audit(verification_path, AuditBundleVerificationResult),
+            load_audit(snapshot_path, TrustSnapshot),
+        )
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR audit report verification failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(f"VALID_REPORT report={report.report_id} current_real_world=NOT_INFERRED")
+
+
+@audit_app.command("passport-summary")
+def audit_passport_summary(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+) -> None:
+    _audit_create(input_path, output, PassportHistoricalSummary)
+
+
+@audit_app.command("custody-link")
+def audit_custody_link(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+) -> None:
+    _audit_create(input_path, output, CustodyHistoricalLinkage)
+
+
+@audit_app.command("governance-adapt")
+def audit_governance_adapt(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+) -> None:
+    _audit_create(input_path, output, GovernanceHistoricalAdapter)

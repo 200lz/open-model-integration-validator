@@ -1,0 +1,44 @@
+{
+  "bundle_id": "audit_bundle_426346d45bcf7f57fc22876bde84fa01",
+  "completeness_id": "bundle_completeness_8705fcfea261ac2a688c87e0f1df758f",
+  "limitations": [
+    "Offline verification establishes internal integrity, not independent truth of underlying claims."
+  ],
+  "manifest_digest": "9a46216eadc8fe7098d1597bac496364edd5faed7f7795ff426478549b09c219",
+  "outcome": "VERIFIED_WITH_LIMITATIONS",
+  "reconstructed_snapshot_ids": [
+    "trust_snapshot_19c61f684efdbf4085e1fc0744145525",
+    "trust_snapshot_ebd754cea828b6d25bd404277a6b0f5d"
+  ],
+  "reconstructed_timeline_ids": [
+    "trust_timeline_25c6fe1b170bb9d0641c40e2f532eca4"
+  ],
+  "rejected_member_ids": [],
+  "schema": "omiv.audit-bundle-verification-result.v1",
+  "verification_digest": "cd3954d997f7ade5aebc1b304a232c127991dab11c094a176a9e491c6a3ae5c5",
+  "verification_id": "bundle_verification_f0f8cb5c1e98078fe5ff68f8f9c80bc2",
+  "verified_member_ids": [
+    "evidence_set_00c4c2672943c5cd323b3db8c7c64f82",
+    "evidence_set_3e3f13486eaf8836cc1a05ba3bf594a8",
+    "freshness_transition_0025a4d32dea9a7d19cf34d89a54b5be",
+    "historical_eval_5e1c222b2e58fe2c587fc8e2e4b3e6ac",
+    "historical_event_23171fd90c0eab9f5630231e0cd0f474",
+    "historical_event_4af93862093fbfa3970522528c551f65",
+    "historical_event_4cf67a975ab1e915d32e4ff6957563ec",
+    "historical_event_9333c1624e394401d298a8cd6a1e8aaf",
+    "historical_event_a5e2344043fa4a1b5b9a3ea74a631a0e",
+    "historical_request_synthetic-v2",
+    "reevaluation_policy.enterprise_history.v1",
+    "reevaluation_policy.team_history.v1",
+    "renewal_bb644f7b7b4d66a48da77dba52ffc5fa",
+    "revocation_propagation_8378056c3532166114c8f4c9a39724d9",
+    "supersession_graph_81323575e2e5f5a401743b278c86ae75",
+    "trust_snapshot_19c61f684efdbf4085e1fc0744145525",
+    "trust_snapshot_ebd754cea828b6d25bd404277a6b0f5d",
+    "trust_snapshot_ec4f634585db3e6d042c0761dec28b46",
+    "trust_timeline_25c6fe1b170bb9d0641c40e2f532eca4",
+    "trust_transition_31e1c6e9776e79deead440afe57c7fbf",
+    "trust_transition_7dfaecc38d21d0ec45abe2d0891f9125",
+    "trust_transition_8562d890f3867fc3a3a36bac15b9f7fc"
+  ]
+}

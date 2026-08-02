@@ -1,0 +1,24 @@
+{
+  "append_only": true,
+  "audit_bundle_ids": [
+    "audit_bundle_426346d45bcf7f57fc22876bde84fa01"
+  ],
+  "chain_id": "custody_synthetic-history",
+  "event_types": [
+    "TRUST_SNAPSHOT_RECORDED",
+    "TRUST_REEVALUATION_RECORDED",
+    "AUDIT_BUNDLE_CREATED",
+    "AUDIT_BUNDLE_VERIFIED"
+  ],
+  "limitations": [
+    "Custody linkage records supplied historical evidence; it does not claim current trust."
+  ],
+  "linkage_digest": "2ce2829ab92e16cb67cbd14db85ee98a519ae8cfa9f2bb35f052fdf203dbee75",
+  "linkage_id": "custody_history_290889a4e0cd35137d584582605e8ed7",
+  "schema": "omiv.custody-historical-linkage.v1",
+  "snapshot_ids": [
+    "trust_snapshot_19c61f684efdbf4085e1fc0744145525"
+  ],
+  "subject_id": "product_subject_2cb1fa6a8c4968f6d1ea3adc01896821",
+  "timeline_id": "trust_timeline_25c6fe1b170bb9d0641c40e2f532eca4"
+}

@@ -1,0 +1,35 @@
+{
+  "authority_event_id": "historical_event_4af93862093fbfa3970522528c551f65",
+  "deployment_instance_id": "deployment_instance_49be802bee3afc1dbeaf3b6ccf614ca2",
+  "dimensions_not_renewed": [
+    "APPROVAL",
+    "BEHAVIORAL_SAFETY",
+    "SECURITY_EVIDENCE"
+  ],
+  "evaluation_context_digest": "75f1431760a7b85dd37fc5b744cbbd75c41875a57051b20b6bf3d040b269b94c",
+  "limitations": [
+    "Renewal applies only to explicitly renewed dimensions."
+  ],
+  "new_observation_id": "runtime_observation_renewed-synthetic",
+  "observer_id": "runtime_observer_f69aee8f2aea0fa462a3538343161715",
+  "policy_id": "omiv.continuity-policy.team_service_continuity.v1",
+  "previous_observation_id": "runtime_observation_ef4de78eb21c83dc7c28da10481842bf",
+  "renewal_digest": "92aee977fa73a69bcac07e10ecd716b3b2425d080d88c137d115602e9b499e15",
+  "renewal_id": "renewal_bb644f7b7b4d66a48da77dba52ffc5fa",
+  "renewed_dimensions": [
+    "ARTIFACT_IDENTITY",
+    "CONFIGURATION_IDENTITY",
+    "ENGINE_IDENTITY"
+  ],
+  "schema": "omiv.renewal-record.v1",
+  "scope": {
+    "environment_scope": "environment.team",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.runtime",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  },
+  "sequence": 4
+}

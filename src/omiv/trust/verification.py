@@ -11,6 +11,13 @@ from pydantic import ValidationError
 from omiv.attestations.models import ArtifactAttestation, ToolExecutionRecord
 from omiv.attestations.segment import AttestationCustodyLedger
 from omiv.canonical import canonical_sha256, load_json_value
+from omiv.continuous_trust.models import (
+    AuditBundleManifest,
+    AuditBundleVerificationResult,
+    HistoricalEvaluationResult,
+    TrustSnapshot,
+    TrustTimeline,
+)
 from omiv.custody.models import CustodyEvent, CustodyLinkedPassport
 from omiv.errors import OmivInputError
 from omiv.governance.models import (
@@ -309,6 +316,16 @@ def _validate_source_object(envelope: SignedObjectEnvelope) -> None:
         model = RuntimeObservation
     elif envelope.signed_object_type == SignedObjectType.CONTINUITY_EVALUATION:
         model = ContinuityEvaluation
+    elif envelope.signed_object_type == SignedObjectType.TRUST_SNAPSHOT:
+        model = TrustSnapshot
+    elif envelope.signed_object_type == SignedObjectType.TRUST_TIMELINE:
+        model = TrustTimeline
+    elif envelope.signed_object_type == SignedObjectType.HISTORICAL_EVALUATION_RESULT:
+        model = HistoricalEvaluationResult
+    elif envelope.signed_object_type == SignedObjectType.AUDIT_BUNDLE_MANIFEST:
+        model = AuditBundleManifest
+    elif envelope.signed_object_type == SignedObjectType.AUDIT_BUNDLE_VERIFICATION_RESULT:
+        model = AuditBundleVerificationResult
     elif envelope.signed_object_schema == "omiv.model-passport.v1":
         model = ModelPassport
     else:
@@ -339,6 +356,11 @@ def _validate_source_object(envelope: SignedObjectEnvelope) -> None:
         SignedObjectType.DEPLOYMENT_RECORD: "record_digest",
         SignedObjectType.RUNTIME_OBSERVATION: "observation_digest",
         SignedObjectType.CONTINUITY_EVALUATION: "evaluation_digest",
+        SignedObjectType.TRUST_SNAPSHOT: "snapshot_digest",
+        SignedObjectType.TRUST_TIMELINE: "timeline_digest",
+        SignedObjectType.HISTORICAL_EVALUATION_RESULT: "result_digest",
+        SignedObjectType.AUDIT_BUNDLE_MANIFEST: "manifest_digest",
+        SignedObjectType.AUDIT_BUNDLE_VERIFICATION_RESULT: "verification_digest",
     }[envelope.signed_object_type]
     digest_body.pop(digest_field)
     if object_digest != canonical_sha256(digest_body):

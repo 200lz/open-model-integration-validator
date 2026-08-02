@@ -2012,3 +2012,52 @@ broken evidence, authority/trust failure, mandatory coverage failure, or unsafe
 input. Fixtures live in `runtime/examples/`, policies in `runtime/policies/`,
 reports in `reports/runtime/`, and the duplicate-checked inventory in
 `runtime/artifact-index.json`.
+
+## Phase 5H: historical trust and audit bundles
+
+Phase 5H adds deterministic offline historical reconstruction under `omiv
+audit`. A finite `EvidenceSetManifest` identifies the exact canonical evidence
+used by an immutable `TrustSnapshot`; later revocation, expiry, withdrawal,
+supersession, renewal, or policy changes produce new snapshots and transitions
+instead of rewriting history. Snapshot dimensions preserve source limitations,
+including Phase 5F security limits and Phase 5G snapshot-only runtime limits.
+
+Historical events retain origin, signature, trust, assertion authority,
+corroboration, scope, explicit context, epoch, sequence, and predecessor as
+separate facts. Timelines detect missing predecessors, sequence conflicts, and
+forks without resolving them automatically. Revocation propagation limits
+dependent conclusions without deleting records. Supersession selects preferred
+future evidence but does not prove that an older record was false. Observation
+renewal applies only to explicitly renewed dimensions.
+
+Directory-form audit bundles declare purpose, scope, historical range, member
+IDs/digests/sizes, completeness policy, and every exclusion. Model payloads and
+private keys are excluded. Offline verification rejects traversal, symlinks,
+special or undeclared files, missing members, duplicate canonical IDs, schema or
+hash mismatches, and altered reports. Audit-bundle completeness applies only to
+the declared purpose, and a bundle signature does not independently prove every
+claim inside it.
+
+A TrustSnapshot is a reconstruction for supplied evidence, exact policies, and
+an explicit evaluation context. “Latest supplied snapshot” does not mean current
+real-world state. Phase 5H provides offline reevaluation capability, not a
+daemon, scheduler, webhook, background poller, online revocation service, trusted
+timestamp authority, or continuous monitoring system. Continuous observation
+remains `NOT_ESTABLISHED`.
+
+Historical reconstruction uses `KNOWN_AS_OF_CUTOFF`: evidence first available after the
+cutoff cannot affect the earlier result, even when it asserts an earlier effective time.
+Availability exactly at the cutoff is included. Event time is not a trusted timestamp,
+and historically effective does not mean known to the evaluator. Retrospective
+`EFFECTIVE_AS_OF_CUTOFF` reconstruction is not implemented and fails closed.
+
+Bundle paths use NFC, slash-separated relative names and reject case/Unicode collisions,
+Windows reserved names, trailing spaces/dots, traversal, controls, and file/directory
+prefix conflicts. Timeline completeness and purpose-specific bundle completeness remain
+separate. Graph, timeline, bundle, renewal, report, and index inputs have documented
+deterministic limits; limit failures are explicit and never silently truncated.
+
+Fixtures and the representative bundle live in `continuous-trust/`, reports in
+`reports/continuous-trust/`, and the deterministic inventory in
+`continuous-trust/artifact-index.json`. Detailed architecture and limitations
+are documented in `docs/phase-5h-continuous-trust-audit-bundles.md`.

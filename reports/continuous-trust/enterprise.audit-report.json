@@ -1,0 +1,30 @@
+{
+  "bundle_id": "audit_bundle_426346d45bcf7f57fc22876bde84fa01",
+  "completeness": "COMPLETE_WITH_LIMITATIONS",
+  "continuous_monitoring": "NOT_IMPLEMENTED",
+  "continuous_observation": "NOT_ESTABLISHED",
+  "evidence_range": "sequence 1 through 5",
+  "historical_records_modified": false,
+  "knowledge_mode": "KNOWN_AS_OF_CUTOFF",
+  "latest_snapshot_cutoff": "2026-08-01T00:00:00Z",
+  "latest_supplied_snapshot_id": "trust_snapshot_19c61f684efdbf4085e1fc0744145525",
+  "limitations": [
+    "Latest supplied snapshot is not necessarily current real-world state.",
+    "Bundle completeness is for the declared purpose only."
+  ],
+  "model_payload_included": false,
+  "outstanding_gaps": [
+    "CONTINUOUS_OBSERVATION",
+    "MODEL_PAYLOAD",
+    "TRUSTED_TIMESTAMP"
+  ],
+  "policy_set_digest": "fef3c3295b43ad9933cf04d997a1fe42eb74415746ee2c1b16c3243c13b2dea2",
+  "policy_set_id": "reevaluation_policy.team_history.v1",
+  "purpose": "ENTERPRISE_AUDIT",
+  "report_digest": "a06bb6b76cda7d12eb97cfadadb8cf9745af8f9c8f971afc3c18d6f5232c2183",
+  "report_id": "audit_report_6a38f059f02e46de3a8c06b4c355ca8e",
+  "revoked_records_retained": true,
+  "schema": "omiv.audit-bundle-report.v1",
+  "trusted_timestamp": "NOT_AVAILABLE",
+  "verification": "VERIFIED_WITH_LIMITATIONS"
+}

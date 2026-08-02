@@ -1,0 +1,18 @@
+{
+  "conflicting_object_ids": [],
+  "edges": [
+    {
+      "event_id": "historical_event_9333c1624e394401d298a8cd6a1e8aaf",
+      "old_object_id": "security_evaluation_synthetic-history",
+      "replacement_object_id": "security_evaluation_replacement-synthetic"
+    }
+  ],
+  "graph_digest": "13c67f5d2d920d09882048bfd0bb6d98b1aff489bd175054feccb6bf37fa308c",
+  "graph_id": "supersession_graph_81323575e2e5f5a401743b278c86ae75",
+  "limitations": [
+    "Supersession selects preferred future evidence; prior records are retained."
+  ],
+  "schema": "omiv.supersession-graph.v1",
+  "subject_id": "product_subject_2cb1fa6a8c4968f6d1ea3adc01896821",
+  "withdrawn_object_ids": []
+}

@@ -121,6 +121,23 @@ OBJECT_METADATA: dict[SignedObjectType, tuple[set[str], str, str]] = {
         "evaluation_id",
         "evaluation_digest",
     ),
+    SignedObjectType.TRUST_SNAPSHOT: ({"omiv.trust-snapshot.v1"}, "snapshot_id", "snapshot_digest"),
+    SignedObjectType.TRUST_TIMELINE: ({"omiv.trust-timeline.v1"}, "timeline_id", "timeline_digest"),
+    SignedObjectType.HISTORICAL_EVALUATION_RESULT: (
+        {"omiv.historical-evaluation-result.v1"},
+        "result_id",
+        "result_digest",
+    ),
+    SignedObjectType.AUDIT_BUNDLE_MANIFEST: (
+        {"omiv.audit-bundle-manifest.v1"},
+        "bundle_id",
+        "manifest_digest",
+    ),
+    SignedObjectType.AUDIT_BUNDLE_VERIFICATION_RESULT: (
+        {"omiv.audit-bundle-verification-result.v1"},
+        "verification_id",
+        "verification_digest",
+    ),
 }
 EXPECTED_PURPOSE = {
     SignedObjectType.ARTIFACT_ATTESTATION: SignaturePurpose.ATTESTATION_ISSUANCE,
@@ -141,6 +158,13 @@ EXPECTED_PURPOSE = {
     SignedObjectType.DEPLOYMENT_RECORD: SignaturePurpose.DEPLOYMENT_RECORD_ISSUANCE,
     SignedObjectType.RUNTIME_OBSERVATION: SignaturePurpose.RUNTIME_OBSERVATION_ISSUANCE,
     SignedObjectType.CONTINUITY_EVALUATION: SignaturePurpose.CONTINUITY_EVALUATION_ISSUANCE,
+    SignedObjectType.TRUST_SNAPSHOT: SignaturePurpose.TRUST_SNAPSHOT_ISSUANCE,
+    SignedObjectType.TRUST_TIMELINE: SignaturePurpose.TRUST_TIMELINE_ISSUANCE,
+    SignedObjectType.HISTORICAL_EVALUATION_RESULT: SignaturePurpose.HISTORICAL_EVALUATION_ISSUANCE,
+    SignedObjectType.AUDIT_BUNDLE_MANIFEST: SignaturePurpose.AUDIT_BUNDLE_ISSUANCE,
+    SignedObjectType.AUDIT_BUNDLE_VERIFICATION_RESULT: (
+        SignaturePurpose.AUDIT_BUNDLE_VERIFICATION_ISSUANCE
+    ),
 }
 
 

@@ -1,0 +1,31 @@
+{
+  "audit_bundle_ids": [
+    "audit_bundle_426346d45bcf7f57fc22876bde84fa01"
+  ],
+  "continuous_observation": "NOT_ESTABLISHED",
+  "current_reconstructed_state": "TRUSTED_WITH_LIMITATIONS",
+  "historical_snapshot_count": 2,
+  "knowledge_mode": "KNOWN_AS_OF_CUTOFF",
+  "latest_snapshot_cutoff": "2026-08-01T00:00:00Z",
+  "latest_supplied_snapshot_id": "trust_snapshot_19c61f684efdbf4085e1fc0744145525",
+  "limitations": [
+    "Historical snapshot is immutable and context-scoped.",
+    "Latest supplied snapshot is not necessarily current real-world state.",
+    "Continuous observation is NOT_ESTABLISHED.",
+    "Phase 5F security limitations and Phase 5G snapshot-only limitations remain in force."
+  ],
+  "passport_id": "mp_synthetic-historical",
+  "policy_set_digest": "fef3c3295b43ad9933cf04d997a1fe42eb74415746ee2c1b16c3243c13b2dea2",
+  "policy_set_id": "reevaluation_policy.team_history.v1",
+  "prior_states": [
+    "TRUSTED_WITH_LIMITATIONS"
+  ],
+  "revoked_object_ids": [],
+  "schema": "omiv.passport-historical-summary.v1",
+  "stale_dimensions": [],
+  "subject_id": "product_subject_2cb1fa6a8c4968f6d1ea3adc01896821",
+  "summary_digest": "e8bab8f662609a4958d899a26819b6f57c5e61412972f0abadaf41a0ffb4fd8b",
+  "summary_id": "passport_history_4a911d1adf66eaa17e8fe3937edd5c49",
+  "superseded_object_ids": [],
+  "trusted_timestamp": "NOT_AVAILABLE"
+}

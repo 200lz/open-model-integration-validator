@@ -1,0 +1,56 @@
+{
+  "allow_limited_security": true,
+  "authority_actor_id": "actor.policy-authority",
+  "authority_key_id": "key.policy-authority",
+  "authority_purpose": "HISTORICAL_REEVALUATION",
+  "authority_status": "AUTHORIZED",
+  "available_at": "2026-07-01T00:00:00Z",
+  "knowledge_mode": "KNOWN_AS_OF_CUTOFF",
+  "policy_references": [
+    {
+      "object_digest": "f72fb12f8320afa2ac224cddff2fba18cf0d103f8ec49c9841a189ca4c9e5922",
+      "object_id": "trust_policy_team_history",
+      "schema": "omiv.trust-policy.v1",
+      "source_phase": "5D"
+    },
+    {
+      "object_digest": "5067cfe76b800741db7c8216256ceec92a5e70bc15e2f39815176a7ca99dff35",
+      "object_id": "governance_policy_team_history",
+      "schema": "omiv.governance-policy.v1",
+      "source_phase": "5E"
+    },
+    {
+      "object_digest": "e3405c3c332c5d37f4c7a6e55f1b53baf4e0bc8aaaaf12b4aa888a2c4f5f4afa",
+      "object_id": "security_policy_team_history",
+      "schema": "omiv.security-policy.v1",
+      "source_phase": "5F"
+    },
+    {
+      "object_digest": "214ee14754418239e78dd1180b4c7fbe4041c0377e6029867404c9460717fd65",
+      "object_id": "continuity_policy_team_history",
+      "schema": "omiv.continuity-policy.v1",
+      "source_phase": "5G"
+    },
+    {
+      "object_digest": "b32299dd3750229d77a9f7453fb3cc4b66f2f39e0a12ee3b684178fa1b308b37",
+      "object_id": "audit_policy_team_history",
+      "schema": "omiv.audit-policy.v1",
+      "source_phase": "5H"
+    }
+  ],
+  "policy_set_digest": "fef3c3295b43ad9933cf04d997a1fe42eb74415746ee2c1b16c3243c13b2dea2",
+  "policy_set_id": "reevaluation_policy.team_history.v1",
+  "policy_version": 1,
+  "require_current_runtime": false,
+  "require_no_revocations": true,
+  "schema": "omiv.reevaluation-policy-set.v1",
+  "scope": {
+    "environment_scope": "environment.team",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.runtime",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "allow_limited_security": false,
+  "authority_actor_id": "actor.policy-authority",
+  "authority_key_id": "key.policy-authority",
+  "authority_purpose": "HISTORICAL_REEVALUATION",
+  "authority_status": "AUTHORIZED",
+  "available_at": "2026-07-01T00:00:00Z",
+  "knowledge_mode": "KNOWN_AS_OF_CUTOFF",
+  "policy_references": [
+    {
+      "object_digest": "7729e6647f567c88ecf84ded872de390d6a0acc137b8acbfa6337839ac40476b",
+      "object_id": "trust_policy_enterprise_history",
+      "schema": "omiv.trust-policy.v1",
+      "source_phase": "5D"
+    },
+    {
+      "object_digest": "00aa1d62c5a424822ea547ef2a5cf3f1400d9d2d83a26b8e91ad0dd05347633b",
+      "object_id": "governance_policy_enterprise_history",
+      "schema": "omiv.governance-policy.v1",
+      "source_phase": "5E"
+    },
+    {
+      "object_digest": "b6f85dcc05c9da4049c17f41202b0442b7072325269a9d8ee03145a79a3b6c6d",
+      "object_id": "security_policy_enterprise_history",
+      "schema": "omiv.security-policy.v1",
+      "source_phase": "5F"
+    },
+    {
+      "object_digest": "e4b335e0e8d0ddbc774e973b7dd9647684872f808c52f11ce40f4537774e3548",
+      "object_id": "continuity_policy_enterprise_history",
+      "schema": "omiv.continuity-policy.v1",
+      "source_phase": "5G"
+    },
+    {
+      "object_digest": "7794f97cee390f036aad0f6f099db27289db07d36f0aa8d54c681fc00cd62d81",
+      "object_id": "audit_policy_enterprise_history",
+      "schema": "omiv.audit-policy.v1",
+      "source_phase": "5H"
+    }
+  ],
+  "policy_set_digest": "4f441dceee7a63d507b77654a84defb4939bf3d7f4e208e6cee5a976f1744f1b",
+  "policy_set_id": "reevaluation_policy.enterprise_history.v1",
+  "policy_version": 1,
+  "require_current_runtime": true,
+  "require_no_revocations": true,
+  "schema": "omiv.reevaluation-policy-set.v1",
+  "scope": {
+    "environment_scope": "environment.team",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.runtime",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  }
+}

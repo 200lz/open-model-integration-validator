@@ -1,0 +1,141 @@
+{
+  "envelope_digest": "5c32f6e51f571990476f89910708cc372b54030ffe944c85c7bf56155151ef1a",
+  "envelope_id": "soe_33d8e4467c8dcf447153b64a39e4aacf",
+  "key_records": [
+    {
+      "algorithm": "ED25519",
+      "allowed_key_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "allowed_object_types": [
+        "AUDIT_BUNDLE_MANIFEST",
+        "AUDIT_BUNDLE_VERIFICATION_RESULT",
+        "HISTORICAL_EVALUATION_RESULT",
+        "TRUST_SNAPSHOT",
+        "TRUST_TIMELINE"
+      ],
+      "allowed_purposes": [
+        "AUDIT_BUNDLE_ISSUANCE",
+        "AUDIT_BUNDLE_VERIFICATION_ISSUANCE",
+        "HISTORICAL_EVALUATION_ISSUANCE",
+        "TRUST_SNAPSHOT_ISSUANCE",
+        "TRUST_TIMELINE_ISSUANCE"
+      ],
+      "key_digest": "5645b67721b545860074267cfc150e5d737463fe56312dce73f1375add60911a",
+      "key_id": "key_6fb15d4e047165bf77b3d19878fcd70d",
+      "limitations": [
+        "Public-key identity does not establish signer identity."
+      ],
+      "namespaces": [],
+      "provider_artifact_scopes": [],
+      "public_key": "f80cccdce4ae1c07ae208a2adf99a310ae4207e0306fa0236110b06827bbb8d0",
+      "public_key_digest": "6fb15d4e047165bf77b3d19878fcd70d0ecfa8d5251fb8b177569bdfb1128b53",
+      "public_key_encoding": "RAW_HEX",
+      "schema": "omiv.key-identity.v1",
+      "status": "ACTIVE",
+      "validity": null
+    }
+  ],
+  "limitations": [
+    "The canonical source object is unchanged; trust is reconstructed externally."
+  ],
+  "schema": "omiv.signed-object-envelope.v1",
+  "signatures": [
+    {
+      "algorithm": "ED25519",
+      "binding_id": "binding_0202bcd7fa52fc58dcc3e1d788f820d5",
+      "detached_signature": "50a70c35ef0f4716b4e51ca732661d4eea997f85d205009f48749d74df8b06cfc46e30d0ee280eba00b9341d782f119e6f93a65158b70d730a11065cefd60800",
+      "key_id": "key_6fb15d4e047165bf77b3d19878fcd70d",
+      "limitations": [
+        "Signature integrity does not prove the underlying claim is true."
+      ],
+      "payload": {
+        "canonicalization_version": "omiv-json-v1",
+        "digest_algorithm": "SHA-256",
+        "domain": "OMIV-SIGNED-OBJECT-V1",
+        "key_usage": "SIGN_OMIV_OBJECT",
+        "namespace": null,
+        "provider_artifact_scope": null,
+        "schema": "omiv.signature-payload.v1",
+        "signature_purpose": "HISTORICAL_EVALUATION_ISSUANCE",
+        "signed_object_digest": "7fc73211ddd2ef67e35bb90610be5c8eaf18922df7e9a648cb1f605fc429aa66",
+        "signed_object_id": "historical_eval_5e1c222b2e58fe2c587fc8e2e4b3e6ac",
+        "signed_object_schema": "omiv.historical-evaluation-result.v1",
+        "signed_object_type": "HISTORICAL_EVALUATION_RESULT",
+        "trust_policy_id": "omiv.trust-policy.team_release.v1"
+      },
+      "purpose": "HISTORICAL_EVALUATION_ISSUANCE",
+      "schema": "omiv.signature-record.v1",
+      "signature_digest": "628005b64fe7504188870682517bfea9ccf56a8d6e4bdc8a194ee3e8eb1c3a68",
+      "signature_encoding": "RAW_HEX",
+      "signature_id": "sig_b0e4399db0a13ac190176612d9c648a1",
+      "trust_policy_id": "omiv.trust-policy.team_release.v1"
+    }
+  ],
+  "signed_object": {
+    "accepted_evidence_ids": [
+      "historical_event_23171fd90c0eab9f5630231e0cd0f474",
+      "historical_event_4af93862093fbfa3970522528c551f65",
+      "historical_event_4cf67a975ab1e915d32e4ff6957563ec",
+      "historical_event_9333c1624e394401d298a8cd6a1e8aaf",
+      "historical_event_a5e2344043fa4a1b5b9a3ea74a631a0e"
+    ],
+    "cutoff": "2026-08-01T00:00:00Z",
+    "fork_ids": [],
+    "gaps": [
+      {
+        "affected_conclusion": "BEHAVIORAL_SAFETY cannot be treated as fully satisfied.",
+        "category": "BEHAVIORAL_SAFETY",
+        "remediation": "Supply authorized canonical evidence and reevaluate under an explicit context.",
+        "state": "UNAVAILABLE"
+      },
+      {
+        "affected_conclusion": "NUMERICAL_PARITY cannot be treated as fully satisfied.",
+        "category": "NUMERICAL_PARITY",
+        "remediation": "Supply authorized canonical evidence and reevaluate under an explicit context.",
+        "state": "UNAVAILABLE"
+      },
+      {
+        "affected_conclusion": "PAYLOAD_INTEGRITY cannot be treated as fully satisfied.",
+        "category": "PAYLOAD_INTEGRITY",
+        "remediation": "Supply authorized canonical evidence and reevaluate under an explicit context.",
+        "state": "UNAVAILABLE"
+      },
+      {
+        "affected_conclusion": "QUANTIZATION_FIDELITY cannot be treated as fully satisfied.",
+        "category": "QUANTIZATION_FIDELITY",
+        "remediation": "Supply authorized canonical evidence and reevaluate under an explicit context.",
+        "state": "UNAVAILABLE"
+      },
+      {
+        "affected_conclusion": "TOKENIZER_PARITY cannot be treated as fully satisfied.",
+        "category": "TOKENIZER_PARITY",
+        "remediation": "Supply authorized canonical evidence and reevaluate under an explicit context.",
+        "state": "UNAVAILABLE"
+      }
+    ],
+    "knowledge_mode": "KNOWN_AS_OF_CUTOFF",
+    "late_arriving_evidence_ids": [],
+    "limitations": [
+      "Historical result reconstructs supplied evidence at the explicit cutoff only."
+    ],
+    "rejected_evidence_ids": [],
+    "request_id": "historical_request_synthetic-v2",
+    "result_digest": "3a8ae48aa5592eef6f55b0705cb677c11edf82bd8cfebfe08fafaf4251ae4947",
+    "result_id": "historical_eval_5e1c222b2e58fe2c587fc8e2e4b3e6ac",
+    "revocation_event_ids": [
+      "historical_event_a5e2344043fa4a1b5b9a3ea74a631a0e"
+    ],
+    "schema": "omiv.historical-evaluation-result.v1",
+    "snapshot_id": "trust_snapshot_19c61f684efdbf4085e1fc0744145525",
+    "superseded_object_ids": [
+      "security_evaluation_synthetic-history"
+    ],
+    "transition_id": "trust_transition_7dfaecc38d21d0ec45abe2d0891f9125"
+  },
+  "signed_object_digest": "7fc73211ddd2ef67e35bb90610be5c8eaf18922df7e9a648cb1f605fc429aa66",
+  "signed_object_id": "historical_eval_5e1c222b2e58fe2c587fc8e2e4b3e6ac",
+  "signed_object_schema": "omiv.historical-evaluation-result.v1",
+  "signed_object_type": "HISTORICAL_EVALUATION_RESULT",
+  "trust_policy_id": "omiv.trust-policy.team_release.v1"
+}

@@ -1,0 +1,14 @@
+{
+  "envelope_digest": "947ef281fa27e725d83987cd9c31031963f2e0c26d8dd425c547df2db7caab35",
+  "envelope_id": "soe_48dcfce13752d5fc69c71d34617c6a46",
+  "limitations": [
+    "Signature integrity does not upgrade completeness, authority, history, or truth."
+  ],
+  "linkage_digest": "01654c81f61878d68074a0b5831a51276fad68efe69d855077d8f528c362aeb8",
+  "linkage_id": "signed_history_fc7b2ae69a3aef99761f43867f501bfd",
+  "object_digest": "142ce42327b457b4d049998f6c8b2fc4aa91db886a196c71a04a95283914cded",
+  "object_id": "trust_timeline_25c6fe1b170bb9d0641c40e2f532eca4",
+  "object_type": "TRUST_TIMELINE",
+  "schema": "omiv.signed-historical-linkage.v1",
+  "trust_status": "TRUSTED_SIGNATURE_WITH_LIMITATIONS"
+}

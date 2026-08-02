@@ -1,0 +1,36 @@
+{
+  "changed_dimensions": [],
+  "changed_evidence": [],
+  "changed_policy": false,
+  "limitations": [
+    "Transition describes supplied snapshots only; it is not a continuous-state assertion."
+  ],
+  "new_snapshot_id": "trust_snapshot_19c61f684efdbf4085e1fc0744145525",
+  "outcome": "UNCHANGED",
+  "previous_snapshot_id": "trust_snapshot_19c61f684efdbf4085e1fc0744145525",
+  "reasons": [],
+  "schema": "omiv.trust-transition.v1",
+  "transition_digest": "9aa5a6ea427d715ea8fd203a871ca5a5d2876bedb4113a538faef615a717a7a3",
+  "transition_id": "trust_transition_cb8f7f6afe94a839d766756b8884ee20",
+  "unchanged_dimensions": [
+    "APPROVAL",
+    "ARTIFACT_IDENTITY",
+    "ARTIFACT_SET_COMPLETENESS",
+    "BEHAVIORAL_SAFETY",
+    "CUSTODY_INTEGRITY",
+    "DEPLOYMENT_EVIDENCE",
+    "FRESHNESS",
+    "GOVERNANCE_DECISION",
+    "NUMERICAL_PARITY",
+    "PAYLOAD_INTEGRITY",
+    "QUANTIZATION_FIDELITY",
+    "REVOCATION",
+    "RUNTIME_CONTINUITY",
+    "RUNTIME_OBSERVATION",
+    "SECURITY_EVIDENCE",
+    "SIGNATURE_TRUST",
+    "SIGNER_AUTHORITY",
+    "SOURCE_PROVENANCE",
+    "TOKENIZER_PARITY"
+  ]
+}

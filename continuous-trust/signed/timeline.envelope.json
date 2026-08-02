@@ -1,0 +1,127 @@
+{
+  "envelope_digest": "947ef281fa27e725d83987cd9c31031963f2e0c26d8dd425c547df2db7caab35",
+  "envelope_id": "soe_48dcfce13752d5fc69c71d34617c6a46",
+  "key_records": [
+    {
+      "algorithm": "ED25519",
+      "allowed_key_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "allowed_object_types": [
+        "AUDIT_BUNDLE_MANIFEST",
+        "AUDIT_BUNDLE_VERIFICATION_RESULT",
+        "HISTORICAL_EVALUATION_RESULT",
+        "TRUST_SNAPSHOT",
+        "TRUST_TIMELINE"
+      ],
+      "allowed_purposes": [
+        "AUDIT_BUNDLE_ISSUANCE",
+        "AUDIT_BUNDLE_VERIFICATION_ISSUANCE",
+        "HISTORICAL_EVALUATION_ISSUANCE",
+        "TRUST_SNAPSHOT_ISSUANCE",
+        "TRUST_TIMELINE_ISSUANCE"
+      ],
+      "key_digest": "5645b67721b545860074267cfc150e5d737463fe56312dce73f1375add60911a",
+      "key_id": "key_6fb15d4e047165bf77b3d19878fcd70d",
+      "limitations": [
+        "Public-key identity does not establish signer identity."
+      ],
+      "namespaces": [],
+      "provider_artifact_scopes": [],
+      "public_key": "f80cccdce4ae1c07ae208a2adf99a310ae4207e0306fa0236110b06827bbb8d0",
+      "public_key_digest": "6fb15d4e047165bf77b3d19878fcd70d0ecfa8d5251fb8b177569bdfb1128b53",
+      "public_key_encoding": "RAW_HEX",
+      "schema": "omiv.key-identity.v1",
+      "status": "ACTIVE",
+      "validity": null
+    }
+  ],
+  "limitations": [
+    "The canonical source object is unchanged; trust is reconstructed externally."
+  ],
+  "schema": "omiv.signed-object-envelope.v1",
+  "signatures": [
+    {
+      "algorithm": "ED25519",
+      "binding_id": "binding_0202bcd7fa52fc58dcc3e1d788f820d5",
+      "detached_signature": "ca6e79b2729c89538ed0a3aa200e7869cd97b4714936427f3e9d265d6818d1d150d2cfcd2ebbd0edf515203088b46e37c970afe30ce01022481ed4e3a4271c09",
+      "key_id": "key_6fb15d4e047165bf77b3d19878fcd70d",
+      "limitations": [
+        "Signature integrity does not prove the underlying claim is true."
+      ],
+      "payload": {
+        "canonicalization_version": "omiv-json-v1",
+        "digest_algorithm": "SHA-256",
+        "domain": "OMIV-SIGNED-OBJECT-V1",
+        "key_usage": "SIGN_OMIV_OBJECT",
+        "namespace": null,
+        "provider_artifact_scope": null,
+        "schema": "omiv.signature-payload.v1",
+        "signature_purpose": "TRUST_TIMELINE_ISSUANCE",
+        "signed_object_digest": "142ce42327b457b4d049998f6c8b2fc4aa91db886a196c71a04a95283914cded",
+        "signed_object_id": "trust_timeline_25c6fe1b170bb9d0641c40e2f532eca4",
+        "signed_object_schema": "omiv.trust-timeline.v1",
+        "signed_object_type": "TRUST_TIMELINE",
+        "trust_policy_id": "omiv.trust-policy.team_release.v1"
+      },
+      "purpose": "TRUST_TIMELINE_ISSUANCE",
+      "schema": "omiv.signature-record.v1",
+      "signature_digest": "4a96f0eff0a5196044c899bf40666d8a92ac20953b8a9b24990a5d0db79c63c1",
+      "signature_encoding": "RAW_HEX",
+      "signature_id": "sig_0f6da262f5ec95f43b9b7c426d279d75",
+      "trust_policy_id": "omiv.trust-policy.team_release.v1"
+    }
+  ],
+  "signed_object": {
+    "completeness": "COMPLETE_FOR_DECLARED_RANGE",
+    "declared_end_sequence": 5,
+    "declared_start_sequence": 1,
+    "epoch": 1,
+    "event_ids": [
+      "historical_event_23171fd90c0eab9f5630231e0cd0f474",
+      "historical_event_a5e2344043fa4a1b5b9a3ea74a631a0e",
+      "historical_event_4cf67a975ab1e915d32e4ff6957563ec",
+      "historical_event_4af93862093fbfa3970522528c551f65",
+      "historical_event_9333c1624e394401d298a8cd6a1e8aaf"
+    ],
+    "fork_ids": [],
+    "limitations": [
+      "Completeness applies only to the supplied declared sequence range.",
+      "Timeline ordering does not establish continuous monitoring."
+    ],
+    "schema": "omiv.trust-timeline.v1",
+    "sequence_namespace": "timeline.synthetic",
+    "snapshot_ids": [
+      "trust_snapshot_ebd754cea828b6d25bd404277a6b0f5d",
+      "trust_snapshot_19c61f684efdbf4085e1fc0744145525",
+      "trust_snapshot_ec4f634585db3e6d042c0761dec28b46",
+      "trust_snapshot_19c61f684efdbf4085e1fc0744145525"
+    ],
+    "subject": {
+      "scope": {
+        "environment_scope": "environment.team",
+        "organization_scope": "organization.synthetic",
+        "product_scope": "product.generic-inference",
+        "project_scope": "project.runtime",
+        "target_scope": "target-scope.runtime",
+        "tenant_scope": "tenant.synthetic",
+        "trust_domain": "trust-domain.synthetic"
+      },
+      "subject_class": "MIXED_DEPLOYMENT_ARTIFACT_SET",
+      "subject_digest": "ab87dcd7ebeb03bb3caa1ad15090f6936f8e89604852d7644b464eb261f65ecf",
+      "subject_id": "product_subject_2cb1fa6a8c4968f6d1ea3adc01896821"
+    },
+    "timeline_digest": "0a9c47ceb5b1053b31c3765e9ecd3f1dac1165a5ab1a92189685d3797e5508d1",
+    "timeline_id": "trust_timeline_25c6fe1b170bb9d0641c40e2f532eca4",
+    "transition_ids": [
+      "trust_transition_7dfaecc38d21d0ec45abe2d0891f9125",
+      "trust_transition_8562d890f3867fc3a3a36bac15b9f7fc",
+      "trust_transition_31e1c6e9776e79deead440afe57c7fbf"
+    ]
+  },
+  "signed_object_digest": "142ce42327b457b4d049998f6c8b2fc4aa91db886a196c71a04a95283914cded",
+  "signed_object_id": "trust_timeline_25c6fe1b170bb9d0641c40e2f532eca4",
+  "signed_object_schema": "omiv.trust-timeline.v1",
+  "signed_object_type": "TRUST_TIMELINE",
+  "trust_policy_id": "omiv.trust-policy.team_release.v1"
+}

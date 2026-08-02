@@ -1,0 +1,41 @@
+{
+  "changed_dimensions": [
+    "APPROVAL"
+  ],
+  "changed_evidence": [
+    "historical_event_bfbf234ec2d3c323da915a4f25d0e44c"
+  ],
+  "changed_policy": false,
+  "limitations": [
+    "Transition describes supplied snapshots only; it is not a continuous-state assertion."
+  ],
+  "new_snapshot_id": "trust_snapshot_5c6a4e021bd7ae97f61625a82dd98b16",
+  "outcome": "WITHDRAWN",
+  "previous_snapshot_id": "trust_snapshot_19c61f684efdbf4085e1fc0744145525",
+  "reasons": [
+    "APPROVAL: SATISFIED -> WITHDRAWN"
+  ],
+  "schema": "omiv.trust-transition.v1",
+  "transition_digest": "2f1c23e3fff65e01e0c4ca9888fd5fe841850302da682dd5fe717b72bfef8434",
+  "transition_id": "trust_transition_0c9d5d888912e693a2022c4172515dcd",
+  "unchanged_dimensions": [
+    "ARTIFACT_IDENTITY",
+    "ARTIFACT_SET_COMPLETENESS",
+    "BEHAVIORAL_SAFETY",
+    "CUSTODY_INTEGRITY",
+    "DEPLOYMENT_EVIDENCE",
+    "FRESHNESS",
+    "GOVERNANCE_DECISION",
+    "NUMERICAL_PARITY",
+    "PAYLOAD_INTEGRITY",
+    "QUANTIZATION_FIDELITY",
+    "REVOCATION",
+    "RUNTIME_CONTINUITY",
+    "RUNTIME_OBSERVATION",
+    "SECURITY_EVIDENCE",
+    "SIGNATURE_TRUST",
+    "SIGNER_AUTHORITY",
+    "SOURCE_PROVENANCE",
+    "TOKENIZER_PARITY"
+  ]
+}

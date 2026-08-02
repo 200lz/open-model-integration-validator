@@ -1,0 +1,237 @@
+{
+  "cutoff": "2026-08-01T00:00:00Z",
+  "dimensions": [
+    {
+      "dimension": "APPROVAL",
+      "evidence_ids": [
+        "approval_synthetic-history"
+      ],
+      "limitations": [
+        "State is reconstructed only from the finite supplied evidence set."
+      ],
+      "state": "SATISFIED"
+    },
+    {
+      "dimension": "ARTIFACT_IDENTITY",
+      "evidence_ids": [
+        "product_subject_2cb1fa6a8c4968f6d1ea3adc01896821"
+      ],
+      "limitations": [
+        "State is reconstructed only from the finite supplied evidence set."
+      ],
+      "state": "SATISFIED"
+    },
+    {
+      "dimension": "ARTIFACT_SET_COMPLETENESS",
+      "evidence_ids": [],
+      "limitations": [
+        "State is reconstructed only from the finite supplied evidence set."
+      ],
+      "state": "SATISFIED"
+    },
+    {
+      "dimension": "BEHAVIORAL_SAFETY",
+      "evidence_ids": [],
+      "limitations": [
+        "State is reconstructed only from the finite supplied evidence set."
+      ],
+      "state": "NOT_CHECKED"
+    },
+    {
+      "dimension": "CUSTODY_INTEGRITY",
+      "evidence_ids": [],
+      "limitations": [
+        "State is reconstructed only from the finite supplied evidence set."
+      ],
+      "state": "SATISFIED"
+    },
+    {
+      "dimension": "DEPLOYMENT_EVIDENCE",
+      "evidence_ids": [],
+      "limitations": [
+        "State is reconstructed only from the finite supplied evidence set."
+      ],
+      "state": "SATISFIED_WITH_LIMITATIONS"
+    },
+    {
+      "dimension": "FRESHNESS",
+      "evidence_ids": [],
+      "limitations": [
+        "State is reconstructed only from the finite supplied evidence set."
+      ],
+      "state": "SATISFIED"
+    },
+    {
+      "dimension": "GOVERNANCE_DECISION",
+      "evidence_ids": [],
+      "limitations": [
+        "State is reconstructed only from the finite supplied evidence set."
+      ],
+      "state": "SATISFIED"
+    },
+    {
+      "dimension": "NUMERICAL_PARITY",
+      "evidence_ids": [],
+      "limitations": [
+        "State is reconstructed only from the finite supplied evidence set."
+      ],
+      "state": "NOT_CHECKED"
+    },
+    {
+      "dimension": "PAYLOAD_INTEGRITY",
+      "evidence_ids": [],
+      "limitations": [
+        "State is reconstructed only from the finite supplied evidence set."
+      ],
+      "state": "NOT_CHECKED"
+    },
+    {
+      "dimension": "QUANTIZATION_FIDELITY",
+      "evidence_ids": [],
+      "limitations": [
+        "State is reconstructed only from the finite supplied evidence set."
+      ],
+      "state": "NOT_CHECKED"
+    },
+    {
+      "dimension": "REVOCATION",
+      "evidence_ids": [],
+      "limitations": [
+        "State is reconstructed only from the finite supplied evidence set."
+      ],
+      "state": "SATISFIED"
+    },
+    {
+      "dimension": "RUNTIME_CONTINUITY",
+      "evidence_ids": [],
+      "limitations": [
+        "State is reconstructed only from the finite supplied evidence set."
+      ],
+      "state": "REVOKED"
+    },
+    {
+      "dimension": "RUNTIME_OBSERVATION",
+      "evidence_ids": [],
+      "limitations": [
+        "State is reconstructed only from the finite supplied evidence set."
+      ],
+      "state": "REVOKED"
+    },
+    {
+      "dimension": "SECURITY_EVIDENCE",
+      "evidence_ids": [],
+      "limitations": [
+        "State is reconstructed only from the finite supplied evidence set."
+      ],
+      "state": "SATISFIED_WITH_LIMITATIONS"
+    },
+    {
+      "dimension": "SIGNATURE_TRUST",
+      "evidence_ids": [],
+      "limitations": [
+        "State is reconstructed only from the finite supplied evidence set."
+      ],
+      "state": "SATISFIED"
+    },
+    {
+      "dimension": "SIGNER_AUTHORITY",
+      "evidence_ids": [],
+      "limitations": [
+        "State is reconstructed only from the finite supplied evidence set."
+      ],
+      "state": "SATISFIED"
+    },
+    {
+      "dimension": "SOURCE_PROVENANCE",
+      "evidence_ids": [],
+      "limitations": [
+        "State is reconstructed only from the finite supplied evidence set."
+      ],
+      "state": "SATISFIED_WITH_LIMITATIONS"
+    },
+    {
+      "dimension": "TOKENIZER_PARITY",
+      "evidence_ids": [],
+      "limitations": [
+        "State is reconstructed only from the finite supplied evidence set."
+      ],
+      "state": "NOT_CHECKED"
+    }
+  ],
+  "evaluation_context_digest": "75f1431760a7b85dd37fc5b744cbbd75c41875a57051b20b6bf3d040b269b94c",
+  "evidence_manifest_digest": "f2c668221f07538f7a8044a609fb3f73f80d78abe6d58cb83a4a93bd03259191",
+  "evidence_manifest_id": "evidence_set_3e3f13486eaf8836cc1a05ba3bf594a8",
+  "gaps": [
+    {
+      "affected_conclusion": "BEHAVIORAL_SAFETY cannot be treated as fully satisfied.",
+      "category": "BEHAVIORAL_SAFETY",
+      "remediation": "Supply authorized canonical evidence and reevaluate under an explicit context.",
+      "state": "UNAVAILABLE"
+    },
+    {
+      "affected_conclusion": "NUMERICAL_PARITY cannot be treated as fully satisfied.",
+      "category": "NUMERICAL_PARITY",
+      "remediation": "Supply authorized canonical evidence and reevaluate under an explicit context.",
+      "state": "UNAVAILABLE"
+    },
+    {
+      "affected_conclusion": "PAYLOAD_INTEGRITY cannot be treated as fully satisfied.",
+      "category": "PAYLOAD_INTEGRITY",
+      "remediation": "Supply authorized canonical evidence and reevaluate under an explicit context.",
+      "state": "UNAVAILABLE"
+    },
+    {
+      "affected_conclusion": "QUANTIZATION_FIDELITY cannot be treated as fully satisfied.",
+      "category": "QUANTIZATION_FIDELITY",
+      "remediation": "Supply authorized canonical evidence and reevaluate under an explicit context.",
+      "state": "UNAVAILABLE"
+    },
+    {
+      "affected_conclusion": "RUNTIME_CONTINUITY cannot be treated as fully satisfied.",
+      "category": "RUNTIME_CONTINUITY",
+      "remediation": "Supply authorized canonical evidence and reevaluate under an explicit context.",
+      "state": "MISSING"
+    },
+    {
+      "affected_conclusion": "RUNTIME_OBSERVATION cannot be treated as fully satisfied.",
+      "category": "RUNTIME_OBSERVATION",
+      "remediation": "Supply authorized canonical evidence and reevaluate under an explicit context.",
+      "state": "MISSING"
+    },
+    {
+      "affected_conclusion": "TOKENIZER_PARITY cannot be treated as fully satisfied.",
+      "category": "TOKENIZER_PARITY",
+      "remediation": "Supply authorized canonical evidence and reevaluate under an explicit context.",
+      "state": "UNAVAILABLE"
+    }
+  ],
+  "knowledge_mode": "KNOWN_AS_OF_CUTOFF",
+  "limitations": [
+    "Historical snapshot is immutable and context-scoped.",
+    "Latest supplied snapshot is not necessarily current real-world state.",
+    "Continuous observation is NOT_ESTABLISHED.",
+    "Phase 5F security limitations and Phase 5G snapshot-only limitations remain in force."
+  ],
+  "overall_state": "REVOKED",
+  "policy_set_digest": "4f441dceee7a63d507b77654a84defb4939bf3d7f4e208e6cee5a976f1744f1b",
+  "policy_set_id": "reevaluation_policy.enterprise_history.v1",
+  "schema": "omiv.trust-snapshot.v1",
+  "snapshot_digest": "848dacc786f3ffd6bd64a7dc62765047c81e7726a12bd93e49f851d6f77e8873",
+  "snapshot_id": "trust_snapshot_ec4f634585db3e6d042c0761dec28b46",
+  "subject": {
+    "scope": {
+      "environment_scope": "environment.team",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "MIXED_DEPLOYMENT_ARTIFACT_SET",
+    "subject_digest": "ab87dcd7ebeb03bb3caa1ad15090f6936f8e89604852d7644b464eb261f65ecf",
+    "subject_id": "product_subject_2cb1fa6a8c4968f6d1ea3adc01896821"
+  },
+  "trust_bundle_digest": "70528285be70341a98f6c1cd69821a02896ee0eef3a0c279c9f5a0f17a4aa6d3",
+  "trust_bundle_id": "trust_bundle_synthetic-history"
+}

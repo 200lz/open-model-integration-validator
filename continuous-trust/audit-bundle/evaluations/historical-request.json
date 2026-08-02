@@ -1,0 +1,50 @@
+{
+  "cutoff": "2026-08-01T00:00:00Z",
+  "cutoff_sequence": 5,
+  "evaluated_at": "2026-08-01T00:00:00Z",
+  "evaluation_context_digest": "75f1431760a7b85dd37fc5b744cbbd75c41875a57051b20b6bf3d040b269b94c",
+  "evidence_manifest_id": "evidence_set_3e3f13486eaf8836cc1a05ba3bf594a8",
+  "knowledge_mode": "KNOWN_AS_OF_CUTOFF",
+  "limitations": [
+    "Cutoff is explicit and does not mean current real-world state."
+  ],
+  "policy_set_digest": "fef3c3295b43ad9933cf04d997a1fe42eb74415746ee2c1b16c3243c13b2dea2",
+  "policy_set_id": "reevaluation_policy.team_history.v1",
+  "request_id": "historical_request_synthetic-v2",
+  "requested_dimensions": [
+    "APPROVAL",
+    "ARTIFACT_IDENTITY",
+    "ARTIFACT_SET_COMPLETENESS",
+    "BEHAVIORAL_SAFETY",
+    "CUSTODY_INTEGRITY",
+    "DEPLOYMENT_EVIDENCE",
+    "FRESHNESS",
+    "GOVERNANCE_DECISION",
+    "NUMERICAL_PARITY",
+    "PAYLOAD_INTEGRITY",
+    "QUANTIZATION_FIDELITY",
+    "REVOCATION",
+    "RUNTIME_CONTINUITY",
+    "RUNTIME_OBSERVATION",
+    "SECURITY_EVIDENCE",
+    "SIGNATURE_TRUST",
+    "SIGNER_AUTHORITY",
+    "SOURCE_PROVENANCE",
+    "TOKENIZER_PARITY"
+  ],
+  "schema": "omiv.historical-evaluation-request.v1",
+  "subject": {
+    "scope": {
+      "environment_scope": "environment.team",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "MIXED_DEPLOYMENT_ARTIFACT_SET",
+    "subject_digest": "ab87dcd7ebeb03bb3caa1ad15090f6936f8e89604852d7644b464eb261f65ecf",
+    "subject_id": "product_subject_2cb1fa6a8c4968f6d1ea3adc01896821"
+  }
+}

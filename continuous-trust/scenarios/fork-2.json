@@ -1,0 +1,11 @@
+{
+  "conflicting_event_ids": [
+    "historical_event_a77cbf3d8fec1529eabc6aec73f8d000",
+    "historical_event_f80882078fc2683b16159a1a2baac3a5"
+  ],
+  "fork_digest": "18a509319da304b191247912f3e19172e8b04d53a8babb725c1abd0290b4bc40",
+  "fork_id": "timeline_fork_897b5aa54463ec5003d286684702f534",
+  "outcome": "FORK_DETECTED",
+  "reason": "Multiple successors reference predecessor historical_event_9333c1624e394401d298a8cd6a1e8aaf.",
+  "schema": "omiv.timeline-fork.v1"
+}

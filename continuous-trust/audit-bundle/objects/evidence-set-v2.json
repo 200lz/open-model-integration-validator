@@ -1,0 +1,207 @@
+{
+  "evaluation_context_digest": "75f1431760a7b85dd37fc5b744cbbd75c41875a57051b20b6bf3d040b269b94c",
+  "evidence_set_version": 2,
+  "limitations": [
+    "Finite supplied evidence only; absence of new evidence does not prove no real-world change."
+  ],
+  "manifest_digest": "f2c668221f07538f7a8044a609fb3f73f80d78abe6d58cb83a4a93bd03259191",
+  "manifest_id": "evidence_set_3e3f13486eaf8836cc1a05ba3bf594a8",
+  "members": [
+    {
+      "authority_status": "AUTHORIZED",
+      "availability": "AVAILABLE",
+      "available_at": "2026-07-01T00:00:00Z",
+      "evidence_origin": "EVIDENCE_LINKED",
+      "inclusion_reason": "Required approval evidence for the synthetic historical snapshot.",
+      "reference": {
+        "object_digest": "868182134111ff6713efbed817cc5564e0995984d0a73d2f3eeb07833d7d375a",
+        "object_id": "approval_synthetic-history",
+        "schema": "omiv.approval-record.v1",
+        "source_phase": "5E"
+      },
+      "role": "APPROVAL",
+      "verification_mode": "CANONICAL_DIGEST_VERIFIED"
+    },
+    {
+      "authority_status": "AUTHORIZED",
+      "availability": "AVAILABLE",
+      "available_at": "2026-07-01T00:00:00Z",
+      "evidence_origin": "EVIDENCE_LINKED",
+      "inclusion_reason": "Required artifact_identity evidence for the synthetic historical snapshot.",
+      "reference": {
+        "object_digest": "ab87dcd7ebeb03bb3caa1ad15090f6936f8e89604852d7644b464eb261f65ecf",
+        "object_id": "product_subject_2cb1fa6a8c4968f6d1ea3adc01896821",
+        "schema": "omiv.product-subject.v1",
+        "source_phase": "5G"
+      },
+      "role": "ARTIFACT_IDENTITY",
+      "verification_mode": "CANONICAL_DIGEST_VERIFIED"
+    },
+    {
+      "authority_status": "AUTHORIZED",
+      "availability": "AVAILABLE",
+      "available_at": "2026-07-01T00:00:00Z",
+      "evidence_origin": "EVIDENCE_LINKED",
+      "inclusion_reason": "Required artifact_set evidence for the synthetic historical snapshot.",
+      "reference": {
+        "object_digest": "91586db6f9447406701de9681bd6509a7ab652dc82540c3fb797db2d533124ee",
+        "object_id": "deployment_artifact_set_cd68f234c89aca95a9edbd9cef3391cd",
+        "schema": "omiv.deployment-artifact-set.v1",
+        "source_phase": "5G"
+      },
+      "role": "ARTIFACT_SET",
+      "verification_mode": "CANONICAL_DIGEST_VERIFIED"
+    },
+    {
+      "authority_status": "AUTHORIZED",
+      "availability": "AVAILABLE",
+      "available_at": "2026-07-01T00:00:00Z",
+      "evidence_origin": "EVIDENCE_LINKED",
+      "inclusion_reason": "Required attestation evidence for the synthetic historical snapshot.",
+      "reference": {
+        "object_digest": "22aa7ef3d4b3ebf53a8f38a8f4ffae4cc67e147ec242e4df3dd8cff184cf3a1e",
+        "object_id": "attestation_synthetic-history",
+        "schema": "omiv.artifact-attestation.v1",
+        "source_phase": "5C"
+      },
+      "role": "ATTESTATION",
+      "verification_mode": "CANONICAL_DIGEST_VERIFIED"
+    },
+    {
+      "authority_status": "AUTHORIZED",
+      "availability": "AVAILABLE",
+      "available_at": "2026-07-01T00:00:00Z",
+      "evidence_origin": "EVIDENCE_LINKED",
+      "inclusion_reason": "Required authority evidence for the synthetic historical snapshot.",
+      "reference": {
+        "object_digest": "de8bc5097b4a93ae2ff26bdff586efc43fc905a9d20057525728cba2fbcb71c4",
+        "object_id": "runtime_authority_adb5472ff1c130437d9dac1fd5ebe46c",
+        "schema": "omiv.assertion-authority-scope.v1",
+        "source_phase": "5G"
+      },
+      "role": "AUTHORITY",
+      "verification_mode": "CANONICAL_DIGEST_VERIFIED"
+    },
+    {
+      "authority_status": "AUTHORIZED",
+      "availability": "AVAILABLE",
+      "available_at": "2026-07-01T00:00:00Z",
+      "evidence_origin": "EVIDENCE_LINKED",
+      "inclusion_reason": "Required continuity evidence for the synthetic historical snapshot.",
+      "reference": {
+        "object_digest": "db1db47d1060065c34946a1f3055bd13fbbe3e724ef45d0bd14bcc3d18d0a999",
+        "object_id": "runtime_evaluation_9f0cbbfbeda0d366a6aadcec6983be56",
+        "schema": "omiv.continuity-evaluation.v1",
+        "source_phase": "5G"
+      },
+      "role": "CONTINUITY",
+      "verification_mode": "CANONICAL_DIGEST_VERIFIED"
+    },
+    {
+      "authority_status": "AUTHORIZED",
+      "availability": "AVAILABLE",
+      "available_at": "2026-07-01T00:00:00Z",
+      "evidence_origin": "EVIDENCE_LINKED",
+      "inclusion_reason": "Required custody evidence for the synthetic historical snapshot.",
+      "reference": {
+        "object_digest": "63ca7ae8bf89b056cfb461e5393aaa1d200bf6372223607909ab766543fcbf28",
+        "object_id": "custody_synthetic-history",
+        "schema": "omiv.custody-ledger.v2",
+        "source_phase": "5B"
+      },
+      "role": "CUSTODY",
+      "verification_mode": "CANONICAL_DIGEST_VERIFIED"
+    },
+    {
+      "authority_status": "AUTHORIZED",
+      "availability": "AVAILABLE",
+      "available_at": "2026-07-01T00:00:00Z",
+      "evidence_origin": "EVIDENCE_LINKED",
+      "inclusion_reason": "Required deployment evidence for the synthetic historical snapshot.",
+      "reference": {
+        "object_digest": "d1cbd9ddb901e395e7342e7effad74511fe3f59ceb53c0a034b47c4df3681195",
+        "object_id": "deployment_record_054c7ffc6c9043c6380fb48a376ce6cf",
+        "schema": "omiv.deployment-record.v1",
+        "source_phase": "5G"
+      },
+      "role": "DEPLOYMENT",
+      "verification_mode": "CANONICAL_DIGEST_VERIFIED"
+    },
+    {
+      "authority_status": "AUTHORIZED",
+      "availability": "AVAILABLE",
+      "available_at": "2026-07-01T00:00:00Z",
+      "evidence_origin": "EVIDENCE_LINKED",
+      "inclusion_reason": "Required governance evidence for the synthetic historical snapshot.",
+      "reference": {
+        "object_digest": "1f269697a2872baa68532f23cf07890388357ee1f2efab63f50c151756389def",
+        "object_id": "policy_decision_synthetic-history",
+        "schema": "omiv.policy-decision.v1",
+        "source_phase": "5E"
+      },
+      "role": "GOVERNANCE",
+      "verification_mode": "CANONICAL_DIGEST_VERIFIED"
+    },
+    {
+      "authority_status": "AUTHORIZED",
+      "availability": "AVAILABLE",
+      "available_at": "2026-07-01T00:00:00Z",
+      "evidence_origin": "EVIDENCE_LINKED",
+      "inclusion_reason": "Required runtime evidence for the synthetic historical snapshot.",
+      "reference": {
+        "object_digest": "11d674c55fcd53404e578f5ca10f1045930eda900dfc30bcdc911c1702b6d5ee",
+        "object_id": "runtime_observation_ef4de78eb21c83dc7c28da10481842bf",
+        "schema": "omiv.runtime-observation.v1",
+        "source_phase": "5G"
+      },
+      "role": "RUNTIME",
+      "verification_mode": "CANONICAL_DIGEST_VERIFIED"
+    },
+    {
+      "authority_status": "AUTHORIZED",
+      "availability": "AVAILABLE",
+      "available_at": "2026-08-01T00:00:00Z",
+      "evidence_origin": "EVIDENCE_LINKED",
+      "inclusion_reason": "Required security evidence for the synthetic historical snapshot.",
+      "reference": {
+        "object_digest": "9258173cb4d1562437a91f6a3c13eff21b27fe5ad1fe5629a0f4196d4e71dbf1",
+        "object_id": "security_evaluation_synthetic-history",
+        "schema": "omiv.security-evaluation.v1",
+        "source_phase": "5F"
+      },
+      "role": "SECURITY",
+      "verification_mode": "CANONICAL_DIGEST_VERIFIED"
+    },
+    {
+      "authority_status": "AUTHORIZED",
+      "availability": "AVAILABLE",
+      "available_at": "2026-07-01T00:00:00Z",
+      "evidence_origin": "EVIDENCE_LINKED",
+      "inclusion_reason": "Required trust evidence for the synthetic historical snapshot.",
+      "reference": {
+        "object_digest": "70528285be70341a98f6c1cd69821a02896ee0eef3a0c279c9f5a0f17a4aa6d3",
+        "object_id": "trust_bundle_synthetic-history",
+        "schema": "omiv.trust-bundle.v1",
+        "source_phase": "5D"
+      },
+      "role": "TRUST",
+      "verification_mode": "CANONICAL_DIGEST_VERIFIED"
+    }
+  ],
+  "predecessor_manifest_id": "evidence_set_00c4c2672943c5cd323b3db8c7c64f82",
+  "schema": "omiv.evidence-set-manifest.v1",
+  "subject": {
+    "scope": {
+      "environment_scope": "environment.team",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "MIXED_DEPLOYMENT_ARTIFACT_SET",
+    "subject_digest": "ab87dcd7ebeb03bb3caa1ad15090f6936f8e89604852d7644b464eb261f65ecf",
+    "subject_id": "product_subject_2cb1fa6a8c4968f6d1ea3adc01896821"
+  }
+}

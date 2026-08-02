@@ -1,0 +1,22 @@
+{
+  "available": "structural, custody, and trust gap records only",
+  "current_state_claim": "NOT_MADE",
+  "enterprise_bundle": "INCOMPLETE",
+  "gap_report_digest": "993de147253c2b06691f6d3c07807cc0d39df95ab423043f0bd60c3328aa3316",
+  "gap_report_id": "historical_gap_kimi-k3",
+  "limitations": [
+    "Analysis-only gap report; no publisher authorization is implied."
+  ],
+  "missing": [
+    "acquisition execution",
+    "transformation execution",
+    "security evidence",
+    "deployment evidence",
+    "runtime observation",
+    "continuous observation"
+  ],
+  "model_payload_included": false,
+  "regulated_bundle": "INCOMPLETE",
+  "schema": "omiv.historical-audit-gap-report.v1",
+  "subject": "moonshotai/Kimi-K3"
+}

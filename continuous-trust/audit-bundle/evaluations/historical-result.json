@@ -1,0 +1,61 @@
+{
+  "accepted_evidence_ids": [
+    "historical_event_23171fd90c0eab9f5630231e0cd0f474",
+    "historical_event_4af93862093fbfa3970522528c551f65",
+    "historical_event_4cf67a975ab1e915d32e4ff6957563ec",
+    "historical_event_9333c1624e394401d298a8cd6a1e8aaf",
+    "historical_event_a5e2344043fa4a1b5b9a3ea74a631a0e"
+  ],
+  "cutoff": "2026-08-01T00:00:00Z",
+  "fork_ids": [],
+  "gaps": [
+    {
+      "affected_conclusion": "BEHAVIORAL_SAFETY cannot be treated as fully satisfied.",
+      "category": "BEHAVIORAL_SAFETY",
+      "remediation": "Supply authorized canonical evidence and reevaluate under an explicit context.",
+      "state": "UNAVAILABLE"
+    },
+    {
+      "affected_conclusion": "NUMERICAL_PARITY cannot be treated as fully satisfied.",
+      "category": "NUMERICAL_PARITY",
+      "remediation": "Supply authorized canonical evidence and reevaluate under an explicit context.",
+      "state": "UNAVAILABLE"
+    },
+    {
+      "affected_conclusion": "PAYLOAD_INTEGRITY cannot be treated as fully satisfied.",
+      "category": "PAYLOAD_INTEGRITY",
+      "remediation": "Supply authorized canonical evidence and reevaluate under an explicit context.",
+      "state": "UNAVAILABLE"
+    },
+    {
+      "affected_conclusion": "QUANTIZATION_FIDELITY cannot be treated as fully satisfied.",
+      "category": "QUANTIZATION_FIDELITY",
+      "remediation": "Supply authorized canonical evidence and reevaluate under an explicit context.",
+      "state": "UNAVAILABLE"
+    },
+    {
+      "affected_conclusion": "TOKENIZER_PARITY cannot be treated as fully satisfied.",
+      "category": "TOKENIZER_PARITY",
+      "remediation": "Supply authorized canonical evidence and reevaluate under an explicit context.",
+      "state": "UNAVAILABLE"
+    }
+  ],
+  "knowledge_mode": "KNOWN_AS_OF_CUTOFF",
+  "late_arriving_evidence_ids": [],
+  "limitations": [
+    "Historical result reconstructs supplied evidence at the explicit cutoff only."
+  ],
+  "rejected_evidence_ids": [],
+  "request_id": "historical_request_synthetic-v2",
+  "result_digest": "3a8ae48aa5592eef6f55b0705cb677c11edf82bd8cfebfe08fafaf4251ae4947",
+  "result_id": "historical_eval_5e1c222b2e58fe2c587fc8e2e4b3e6ac",
+  "revocation_event_ids": [
+    "historical_event_a5e2344043fa4a1b5b9a3ea74a631a0e"
+  ],
+  "schema": "omiv.historical-evaluation-result.v1",
+  "snapshot_id": "trust_snapshot_19c61f684efdbf4085e1fc0744145525",
+  "superseded_object_ids": [
+    "security_evaluation_synthetic-history"
+  ],
+  "transition_id": "trust_transition_7dfaecc38d21d0ec45abe2d0891f9125"
+}

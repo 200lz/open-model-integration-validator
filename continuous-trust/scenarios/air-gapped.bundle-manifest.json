@@ -1,0 +1,255 @@
+{
+  "bundle_id": "audit_bundle_475345f754630cfcbc504d2bcdb67698",
+  "completeness_policy_digest": "8bd62fc6f9d084fa4154b7e5a61f842db694ef8cf66ba9e9ab6da302e416cda9",
+  "completeness_policy_id": "audit-completeness.air-gapped.v1",
+  "exclusions": [
+    {
+      "affected_conclusion": "Continuous real-world state is not established.",
+      "category": "CONTINUOUS_OBSERVATION",
+      "reason": "Phase 5H is finite and offline.",
+      "remediation": "Use a separately authorized future continuous reevaluation system.",
+      "required": false,
+      "state": "UNAVAILABLE"
+    },
+    {
+      "affected_conclusion": "Bundle verification does not establish payload completeness.",
+      "category": "MODEL_PAYLOAD",
+      "reason": "Model payload is excluded by Phase 5H policy.",
+      "remediation": "Transfer payload separately under an explicit future policy.",
+      "required": false,
+      "state": "EXCLUDED"
+    },
+    {
+      "affected_conclusion": "Event time is supplied context, not trusted time.",
+      "category": "TRUSTED_TIMESTAMP",
+      "reason": "No timestamp authority was contacted.",
+      "remediation": "Provide explicit trusted timestamp evidence in a future phase.",
+      "required": false,
+      "state": "UNAVAILABLE"
+    }
+  ],
+  "limitations": [
+    "Directory bundle contains canonical references, not model payloads.",
+    "A valid bundle signature does not prove every contained claim."
+  ],
+  "manifest_digest": "fbbe7c933807e76d9a4b7e5c483eb6c17bf427e4f6a682d7ec96a2cb789b5444",
+  "members": [
+    {
+      "inclusion_reason": "Required canonical member for offline enterprise historical reconstruction.",
+      "object_digest": "bffd2c5dc4a8d5e50f6076a5fcc8c6483c6984a0a09aa93164f7d54b72ace511",
+      "object_id": "freshness_transition_0025a4d32dea9a7d19cf34d89a54b5be",
+      "relative_path": "evaluations/freshness-transition.json",
+      "schema_id": "omiv.freshness-transition-result.v1",
+      "sha256": "48f4c5f75c801a5cc83850df4940a4fc661e566d31e762147052c391738882cc",
+      "size": 626
+    },
+    {
+      "inclusion_reason": "Required canonical member for offline enterprise historical reconstruction.",
+      "object_digest": "84e87e039d57e9176ed3c26dd9a784ee58ba19d5fff90135b5a4737c163b5850",
+      "object_id": "historical_request_synthetic-v2",
+      "relative_path": "evaluations/historical-request.json",
+      "schema_id": "omiv.historical-evaluation-request.v1",
+      "sha256": "76a0b5135e89d97cff396d25fa1934b5f73b461d6af9a2575c445c3e1c4e7641",
+      "size": 1749
+    },
+    {
+      "inclusion_reason": "Required canonical member for offline enterprise historical reconstruction.",
+      "object_digest": "3a8ae48aa5592eef6f55b0705cb677c11edf82bd8cfebfe08fafaf4251ae4947",
+      "object_id": "historical_eval_5e1c222b2e58fe2c587fc8e2e4b3e6ac",
+      "relative_path": "evaluations/historical-result.json",
+      "schema_id": "omiv.historical-evaluation-result.v1",
+      "sha256": "3b276472970efe052952807681e2ff3d2e4b42dbc339455827f8351649fda923",
+      "size": 2536
+    },
+    {
+      "inclusion_reason": "Required canonical member for offline enterprise historical reconstruction.",
+      "object_digest": "92aee977fa73a69bcac07e10ecd716b3b2425d080d88c137d115602e9b499e15",
+      "object_id": "renewal_bb644f7b7b4d66a48da77dba52ffc5fa",
+      "relative_path": "evaluations/renewal.json",
+      "schema_id": "omiv.renewal-record.v1",
+      "sha256": "01e2ae07abb4234cc881ac86f9164b5a7bc94038e02b1f78fadb6adfc96184f5",
+      "size": 1381
+    },
+    {
+      "inclusion_reason": "Required canonical member for offline enterprise historical reconstruction.",
+      "object_digest": "8560ef2287c2e055e3279d6305765bb70a09900010f0142e893fda6d3026b0eb",
+      "object_id": "trust_transition_31e1c6e9776e79deead440afe57c7fbf",
+      "relative_path": "evaluations/restoration-transition.json",
+      "schema_id": "omiv.trust-transition.v1",
+      "sha256": "af003066a3b2ccd9e1cf6962899e2d976868dfa3301a16692dd98e2f764c0216",
+      "size": 1303
+    },
+    {
+      "inclusion_reason": "Required canonical member for offline enterprise historical reconstruction.",
+      "object_digest": "b96bf408a2220cdc0090808f6743706f9186c088381e849bc48d126465b46961",
+      "object_id": "revocation_propagation_8378056c3532166114c8f4c9a39724d9",
+      "relative_path": "evaluations/revocation-propagation.json",
+      "schema_id": "omiv.revocation-propagation-result.v1",
+      "sha256": "38678bf2f25ffa0bdba46698d727a66b6f77496df774dd8da2d497a680925b9b",
+      "size": 938
+    },
+    {
+      "inclusion_reason": "Required canonical member for offline enterprise historical reconstruction.",
+      "object_digest": "1ddacccf958fe273d88434a28bae077563f835ee5c77ad84a5e51742e22bfdbe",
+      "object_id": "trust_transition_8562d890f3867fc3a3a36bac15b9f7fc",
+      "relative_path": "evaluations/revocation-transition.json",
+      "schema_id": "omiv.trust-transition.v1",
+      "sha256": "97a74c4e1d97067c22d31bb8eea0f758f79941b5caf007bb9ffca11932cfabbf",
+      "size": 1284
+    },
+    {
+      "inclusion_reason": "Required canonical member for offline enterprise historical reconstruction.",
+      "object_digest": "b82695d711b3efba87db42c03ddf946f75d90c69a43de543bf77ac796c1492c0",
+      "object_id": "trust_transition_7dfaecc38d21d0ec45abe2d0891f9125",
+      "relative_path": "evaluations/security-transition.json",
+      "schema_id": "omiv.trust-transition.v1",
+      "sha256": "97c9e9c51b5306bf9093d30a95d676d3498bf08c62442bcb34c84e7c4c13c446",
+      "size": 1210
+    },
+    {
+      "inclusion_reason": "Required canonical member for offline enterprise historical reconstruction.",
+      "object_digest": "13c67f5d2d920d09882048bfd0bb6d98b1aff489bd175054feccb6bf37fa308c",
+      "object_id": "supersession_graph_81323575e2e5f5a401743b278c86ae75",
+      "relative_path": "evaluations/supersession-graph.json",
+      "schema_id": "omiv.supersession-graph.v1",
+      "sha256": "574a427ca793114b8ed86ca70339f085ce5bfa902f11e4b0164b8f36307ef946",
+      "size": 676
+    },
+    {
+      "inclusion_reason": "Required canonical member for offline enterprise historical reconstruction.",
+      "object_digest": "35df3ed6c84e6ce8a98ba809ad15ccd574932227270c52c111c7c7bc1efb5593",
+      "object_id": "evidence_set_00c4c2672943c5cd323b3db8c7c64f82",
+      "relative_path": "objects/evidence-set-v1.json",
+      "schema_id": "omiv.evidence-set-manifest.v1",
+      "sha256": "c7fe9134ddf83ec653f63ce8ac6f99e91bcffc705cbdeafcec7d6a09630e81f7",
+      "size": 7945
+    },
+    {
+      "inclusion_reason": "Required canonical member for offline enterprise historical reconstruction.",
+      "object_digest": "f2c668221f07538f7a8044a609fb3f73f80d78abe6d58cb83a4a93bd03259191",
+      "object_id": "evidence_set_3e3f13486eaf8836cc1a05ba3bf594a8",
+      "relative_path": "objects/evidence-set-v2.json",
+      "schema_id": "omiv.evidence-set-manifest.v1",
+      "sha256": "d4663bff207bc27ef09161fedfc6bab22e2b400041e0a4548479b650d468dc0e",
+      "size": 8605
+    },
+    {
+      "inclusion_reason": "Required canonical member for offline enterprise historical reconstruction.",
+      "object_digest": "b77421b1fb369d01a0fd0f8fddb947da919b7a75cd9208fc56ec0951ee0c92fb",
+      "object_id": "reevaluation_policy.enterprise_history.v1",
+      "relative_path": "policies/enterprise-policy-set.json",
+      "schema_id": "omiv.reevaluation-policy-set.v1",
+      "sha256": "70fc1aad05f82ed39dafb9c0d90e88433b2d31bd1911b3f30645cd8290b7aba2",
+      "size": 2112
+    },
+    {
+      "inclusion_reason": "Required canonical member for offline enterprise historical reconstruction.",
+      "object_digest": "6e75c562413a3969eeb9c7b11be3dc00a0ca45266729daecc2e3bb62d3fe7361",
+      "object_id": "reevaluation_policy.team_history.v1",
+      "relative_path": "policies/team-policy-set.json",
+      "schema_id": "omiv.reevaluation-policy-set.v1",
+      "sha256": "74dfd1bb247c5868f902b6bbef54ddf0e86f09b76adf7018c6170b14af6af522",
+      "size": 2076
+    },
+    {
+      "inclusion_reason": "Required canonical member for offline enterprise historical reconstruction.",
+      "object_digest": "f2c668221f07538f7a8044a609fb3f73f80d78abe6d58cb83a4a93bd03259191",
+      "object_id": "trust_snapshot_ec4f634585db3e6d042c0761dec28b46",
+      "relative_path": "snapshots/snapshot-revoked.json",
+      "schema_id": "omiv.trust-snapshot.v1",
+      "sha256": "f1bec077cfe862abdda404a1628947b6d2c4b3c7ccbd2066b3c1bb0de5c0f2ae",
+      "size": 7955
+    },
+    {
+      "inclusion_reason": "Required canonical member for offline enterprise historical reconstruction.",
+      "object_digest": "35df3ed6c84e6ce8a98ba809ad15ccd574932227270c52c111c7c7bc1efb5593",
+      "object_id": "trust_snapshot_ebd754cea828b6d25bd404277a6b0f5d",
+      "relative_path": "snapshots/snapshot-t1.json",
+      "schema_id": "omiv.trust-snapshot.v1",
+      "sha256": "565e3d404ee8f6e07752f4e94ae021c964baf4e1a043cb7961a1041b6894dacd",
+      "size": 7702
+    },
+    {
+      "inclusion_reason": "Required canonical member for offline enterprise historical reconstruction.",
+      "object_digest": "f2c668221f07538f7a8044a609fb3f73f80d78abe6d58cb83a4a93bd03259191",
+      "object_id": "trust_snapshot_19c61f684efdbf4085e1fc0744145525",
+      "relative_path": "snapshots/snapshot-t2.json",
+      "schema_id": "omiv.trust-snapshot.v1",
+      "sha256": "f91cafe92eb1fec3b651092b7ff438a585f6f62067baf83fab86a9384dac6249",
+      "size": 7462
+    },
+    {
+      "inclusion_reason": "Required canonical member for offline enterprise historical reconstruction.",
+      "object_digest": "237ab9528886e0d90f187c86a5aa6b9a481cc5159cd6971447fe0b4991ca3193",
+      "object_id": "historical_event_4af93862093fbfa3970522528c551f65",
+      "relative_path": "timeline/runtime-renewed.event.json",
+      "schema_id": "omiv.historical-event.v1",
+      "sha256": "798ee5650ab939a0c8ccd1479f8c021a05d226fd5e50c506e951c4257381c43c",
+      "size": 3573
+    },
+    {
+      "inclusion_reason": "Required canonical member for offline enterprise historical reconstruction.",
+      "object_digest": "0ffc1870d2953756357c07b24eb1c5bef787c3c57d6afc02f2bd76b8ca2ea490",
+      "object_id": "historical_event_a5e2344043fa4a1b5b9a3ea74a631a0e",
+      "relative_path": "timeline/runtime-revoked.event.json",
+      "schema_id": "omiv.historical-event.v1",
+      "sha256": "17c4c3a0893eb4e450795c4525a58253a54fdfbe83c06538086078be8845a0d5",
+      "size": 3544
+    },
+    {
+      "inclusion_reason": "Required canonical member for offline enterprise historical reconstruction.",
+      "object_digest": "c6804d5c03eb188462f28622df096bbf04a87ef9f38f71996a9a9364ca521686",
+      "object_id": "historical_event_4cf67a975ab1e915d32e4ff6957563ec",
+      "relative_path": "timeline/runtime-stale.event.json",
+      "schema_id": "omiv.historical-event.v1",
+      "sha256": "3b2ee00ec4c238fd434563398c509a6dc26a99a0ac92b71b849632b13cfcdd0a",
+      "size": 3553
+    },
+    {
+      "inclusion_reason": "Required canonical member for offline enterprise historical reconstruction.",
+      "object_digest": "4862d6341a91a184eef1bde1fdd760f6f755328593148149ec11262793083c0c",
+      "object_id": "historical_event_23171fd90c0eab9f5630231e0cd0f474",
+      "relative_path": "timeline/security-added.event.json",
+      "schema_id": "omiv.historical-event.v1",
+      "sha256": "519aaf196c745670435117fee16cbbd7348a62100d5efb8c4c8b1e852d190c6e",
+      "size": 3489
+    },
+    {
+      "inclusion_reason": "Required canonical member for offline enterprise historical reconstruction.",
+      "object_digest": "bf24bbb6cc70d08a6e0708c986086cf6610c10ac767ef2588e8b6b82874f0a3e",
+      "object_id": "historical_event_9333c1624e394401d298a8cd6a1e8aaf",
+      "relative_path": "timeline/security-superseded.event.json",
+      "schema_id": "omiv.historical-event.v1",
+      "sha256": "66fa7524c9caf47b55a3abbe118c123c4cfa8d9ff40adb6b506c8b11f120eda2",
+      "size": 3532
+    },
+    {
+      "inclusion_reason": "Required canonical member for offline enterprise historical reconstruction.",
+      "object_digest": "0a9c47ceb5b1053b31c3765e9ecd3f1dac1165a5ab1a92189685d3797e5508d1",
+      "object_id": "trust_timeline_25c6fe1b170bb9d0641c40e2f532eca4",
+      "relative_path": "timeline/timeline.json",
+      "schema_id": "omiv.trust-timeline.v1",
+      "sha256": "d280a73528a01094ce46b1b3ed8346e02b813d97677ed7eb7082019384d36859",
+      "size": 1883
+    }
+  ],
+  "model_payload_included": false,
+  "purpose": "AIR_GAPPED_TRANSFER",
+  "range_end_sequence": 5,
+  "range_start_sequence": 1,
+  "schema": "omiv.audit-bundle-manifest.v1",
+  "subject": {
+    "scope": {
+      "environment_scope": "environment.team",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "MIXED_DEPLOYMENT_ARTIFACT_SET",
+    "subject_digest": "ab87dcd7ebeb03bb3caa1ad15090f6936f8e89604852d7644b464eb261f65ecf",
+    "subject_id": "product_subject_2cb1fa6a8c4968f6d1ea3adc01896821"
+  }
+}

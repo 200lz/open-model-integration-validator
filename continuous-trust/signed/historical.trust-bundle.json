@@ -1,0 +1,126 @@
+{
+  "bundle_digest": "ee08691bb34c4d554e417d5dfbcc4082afce96704c3ec0c6b73a04843241252e",
+  "bundle_id": "tb_3a12c6c34fa2589c0fe4a97a7ced54ca",
+  "delegations": [],
+  "keys": [
+    {
+      "algorithm": "ED25519",
+      "allowed_key_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "allowed_object_types": [
+        "AUDIT_BUNDLE_MANIFEST",
+        "AUDIT_BUNDLE_VERIFICATION_RESULT",
+        "HISTORICAL_EVALUATION_RESULT",
+        "TRUST_SNAPSHOT",
+        "TRUST_TIMELINE"
+      ],
+      "allowed_purposes": [
+        "AUDIT_BUNDLE_ISSUANCE",
+        "AUDIT_BUNDLE_VERIFICATION_ISSUANCE",
+        "HISTORICAL_EVALUATION_ISSUANCE",
+        "TRUST_SNAPSHOT_ISSUANCE",
+        "TRUST_TIMELINE_ISSUANCE"
+      ],
+      "key_digest": "5645b67721b545860074267cfc150e5d737463fe56312dce73f1375add60911a",
+      "key_id": "key_6fb15d4e047165bf77b3d19878fcd70d",
+      "limitations": [
+        "Public-key identity does not establish signer identity."
+      ],
+      "namespaces": [],
+      "provider_artifact_scopes": [],
+      "public_key": "f80cccdce4ae1c07ae208a2adf99a310ae4207e0306fa0236110b06827bbb8d0",
+      "public_key_digest": "6fb15d4e047165bf77b3d19878fcd70d0ecfa8d5251fb8b177569bdfb1128b53",
+      "public_key_encoding": "RAW_HEX",
+      "schema": "omiv.key-identity.v1",
+      "status": "ACTIVE",
+      "validity": null
+    }
+  ],
+  "limitations": [
+    "Static offline bundle; no online discovery or continuous reevaluation."
+  ],
+  "revocations": [],
+  "schema": "omiv.trust-bundle.v1",
+  "signer_identities": [
+    {
+      "display_label": "Synthetic historical audit issuer",
+      "identity_digest": "83615d8cef5ee9cf97474c47b81b96a805fb88a3e175112a32503ceaa3e0a191",
+      "identity_evidence": [
+        "5139820a19b36eaa1e2c35a8b37d1ff6f5e8588cb0fce2549f3af6a7fabc4475"
+      ],
+      "identity_kind": "SERVICE_DECLARED",
+      "limitations": [
+        "Synthetic declared identity; no external identity proof."
+      ],
+      "namespace": null,
+      "organization_id": null,
+      "role": "AUDIT_ISSUER",
+      "schema": "omiv.signer-identity.v1",
+      "signer_identity_id": "signer_b23202a8755373a9b5defa8af4f2f1c3",
+      "verification_status": "EVIDENCE_LINKED"
+    }
+  ],
+  "signer_key_bindings": [
+    {
+      "allowed_object_types": [
+        "AUDIT_BUNDLE_MANIFEST",
+        "AUDIT_BUNDLE_VERIFICATION_RESULT",
+        "HISTORICAL_EVALUATION_RESULT",
+        "TRUST_SNAPSHOT",
+        "TRUST_TIMELINE"
+      ],
+      "allowed_roles": [
+        "AUDIT_ISSUER"
+      ],
+      "allowed_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "binding_digest": "25c55ef71a3abd1c53a35fc84f1920d49cc140f7a3a4d2c82daef688ac69e6ea",
+      "binding_id": "binding_0202bcd7fa52fc58dcc3e1d788f820d5",
+      "binding_origin": "TRUST_BUNDLE_DECLARED",
+      "evidence_references": [],
+      "key_id": "key_6fb15d4e047165bf77b3d19878fcd70d",
+      "limitations": [
+        "Binding validity does not prove the underlying signed claim."
+      ],
+      "namespaces": [],
+      "schema": "omiv.signer-key-binding.v1",
+      "signer_identity_id": "signer_b23202a8755373a9b5defa8af4f2f1c3",
+      "validity": null,
+      "verification_status": "VERIFIED_BY_TRUST_BUNDLE"
+    }
+  ],
+  "trust_roots": [
+    {
+      "allowed_object_types": [
+        "AUDIT_BUNDLE_MANIFEST",
+        "AUDIT_BUNDLE_VERIFICATION_RESULT",
+        "HISTORICAL_EVALUATION_RESULT",
+        "TRUST_SNAPSHOT",
+        "TRUST_TIMELINE"
+      ],
+      "allowed_purposes": [
+        "AUDIT_BUNDLE_ISSUANCE",
+        "AUDIT_BUNDLE_VERIFICATION_ISSUANCE",
+        "HISTORICAL_EVALUATION_ISSUANCE",
+        "TRUST_SNAPSHOT_ISSUANCE",
+        "TRUST_TIMELINE_ISSUANCE"
+      ],
+      "delegation_allowed": false,
+      "key_id": "key_6fb15d4e047165bf77b3d19878fcd70d",
+      "limitations": [
+        "Trust applies only under a selected policy and recorded constraints."
+      ],
+      "maximum_delegation_depth": 0,
+      "namespaces": [],
+      "provider_artifact_scopes": [],
+      "root_digest": "7a3c3cd9783b75defabd7d4fbe6906e38d95ca4e37dbcd4464f15829aea73eea",
+      "schema": "omiv.trust-root.v1",
+      "status": "ACTIVE",
+      "trust_root_id": "root_182af441ce654e2fa3a7d8ccac286a59",
+      "validity": null
+    }
+  ],
+  "validity": null
+}
