@@ -1,0 +1,80 @@
+{
+  "accepted_deployment_strengths": [
+    "DECLARED",
+    "EVIDENCE_LINKED",
+    "IMPORTED_UNVERIFIED",
+    "INDEPENDENTLY_CORROBORATED",
+    "SIGNED",
+    "SIGNED_AND_TRUSTED",
+    "STRUCTURALLY_VERIFIED",
+    "SYSTEM_OBSERVED"
+  ],
+  "accepted_observation_strengths": [
+    "INDEPENDENTLY_CORROBORATED",
+    "SIGNED",
+    "SIGNED_AND_TRUSTED",
+    "SYSTEM_OBSERVED"
+  ],
+  "accepted_subject_classes": [
+    "ADAPTER",
+    "AGENT_PACKAGE",
+    "CHAT_TEMPLATE",
+    "CONTAINER_IMAGE",
+    "DEPLOYMENT_PACKAGE",
+    "EVALUATION_DATASET",
+    "LORA_ADAPTER",
+    "MODEL_CONFIG",
+    "MODEL_WEIGHTS",
+    "OTHER_DECLARED",
+    "POLICY_BUNDLE",
+    "PROMPT_TEMPLATE",
+    "RUNTIME_ENGINE",
+    "SECURITY_EVIDENCE_BUNDLE",
+    "TOKENIZER",
+    "TOOL_PACKAGE"
+  ],
+  "allow_limited_security_evidence": true,
+  "decision_precedence": [
+    "EVIDENCE_BROKEN",
+    "REPLAY_REJECTED",
+    "MISMATCH",
+    "DRIFT_DETECTED",
+    "OBSERVER_UNAUTHORIZED",
+    "OBSERVER_UNTRUSTED",
+    "DEPLOYMENT_UNVERIFIED",
+    "COVERAGE_INCOMPLETE",
+    "STALE",
+    "NOT_OBSERVED",
+    "NOT_EVALUATED",
+    "IDENTITY_PROXY_MATCH",
+    "PARTIAL_CONTINUITY",
+    "PASS_WITH_LIMITATIONS",
+    "PASS"
+  ],
+  "fail_closed_reserved": false,
+  "limitations": [
+    "Continuity PASS is policy- and snapshot-scoped; behavior, safety, and continuous continuity remain unverified."
+  ],
+  "maximum_age_sequences": 5,
+  "offline_trust_requires_limitation": false,
+  "policy_digest": "5c3db1f33c7cc37cc35dc6c9be671b5536058aff18387498ab039297198d384d",
+  "policy_id": "omiv.continuity-policy.local_runtime_continuity.v1",
+  "profile": "local_runtime_continuity",
+  "require_corroboration": false,
+  "require_direct_artifact_identity": false,
+  "require_distinct_key": false,
+  "require_distinct_signer": false,
+  "require_distinct_trust_root": false,
+  "require_independent_observer": false,
+  "require_signed_deployment": false,
+  "require_signed_observation": false,
+  "require_trusted_observer": false,
+  "required_dimensions": [
+    "ARTIFACT_SET_DIGEST",
+    "ENGINE_VERSION_REVISION",
+    "PRIMARY_ARTIFACT_DIGEST",
+    "RUNTIME_CONFIG_DIGEST",
+    "TARGET_IDENTITY"
+  ],
+  "schema": "omiv.continuity-policy.v1"
+}

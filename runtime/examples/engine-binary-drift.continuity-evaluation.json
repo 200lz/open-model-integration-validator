@@ -1,0 +1,123 @@
+{
+  "artifact_members": [
+    {
+      "evidence_strength": "INDEPENDENTLY_CORROBORATED",
+      "limitations": [],
+      "logical_name": "adapter.data",
+      "method": "DIRECT_BYTE_IDENTITY",
+      "required": true,
+      "result": "FULL_CONTINUITY"
+    },
+    {
+      "evidence_strength": "INDEPENDENTLY_CORROBORATED",
+      "limitations": [],
+      "logical_name": "model.weights",
+      "method": "DIRECT_BYTE_IDENTITY",
+      "required": true,
+      "result": "FULL_CONTINUITY"
+    },
+    {
+      "evidence_strength": "INDEPENDENTLY_CORROBORATED",
+      "limitations": [],
+      "logical_name": "prompt.template",
+      "method": "DIRECT_BYTE_IDENTITY",
+      "required": false,
+      "result": "FULL_CONTINUITY"
+    },
+    {
+      "evidence_strength": "INDEPENDENTLY_CORROBORATED",
+      "limitations": [],
+      "logical_name": "runtime.generated-index",
+      "method": "DIRECT_BYTE_IDENTITY",
+      "required": false,
+      "result": "FULL_CONTINUITY"
+    },
+    {
+      "evidence_strength": "INDEPENDENTLY_CORROBORATED",
+      "limitations": [],
+      "logical_name": "tokenizer.data",
+      "method": "DIRECT_BYTE_IDENTITY",
+      "required": true,
+      "result": "FULL_CONTINUITY"
+    }
+  ],
+  "artifact_set_continuity": "FULL_CONTINUITY",
+  "artifact_set_id": "deployment_artifact_set_cd68f234c89aca95a9edbd9cef3391cd",
+  "behavioral_parity": "NOT_CHECKED",
+  "blockers": [
+    "one or more required identities drifted"
+  ],
+  "configuration_continuity": "FULL_CONTINUITY",
+  "continuous_continuity": "NOT_ESTABLISHED",
+  "coverage_status": "COMPLETE_FOR_REQUIRED_DIMENSIONS",
+  "deployment_evidence": "VERIFIED",
+  "deployment_record_digest": "d1cbd9ddb901e395e7342e7effad74511fe3f59ceb53c0a034b47c4df3681195",
+  "drift_findings": [
+    {
+      "category": "ENGINE_BINARY_DRIFT",
+      "confidence": "CONFIRMED",
+      "drift_digest": "68de784f961fa0899b2888f0edf6f19dcff4d535caf53eef83879bd94daaad0d",
+      "drift_id": "runtime_drift_c0b042b726346842c3a706d30187ed1f",
+      "evidence_strength": "INDEPENDENTLY_CORROBORATED",
+      "expected_reference": "12d820f3b16c6930d87301e067cb14fb88f0a17fbda6381b73f8b154f1534399",
+      "limitations": [
+        "Identity drift does not by itself establish semantic or behavioral impact."
+      ],
+      "observation_method": "DIRECT_BYTE_IDENTITY",
+      "observed_reference": "a502a0f7d6c7b0c9d1b6c8a4e68ee463c14cad4a8a6c45da25fb0ee35574fc43",
+      "policy_impact": "BLOCKING",
+      "remediation": "Reconcile expected and observed identity evidence before reevaluation.",
+      "schema": "omiv.drift-finding.v1",
+      "scope": {
+        "environment_scope": "environment.team",
+        "organization_scope": "organization.synthetic",
+        "product_scope": "product.generic-inference",
+        "project_scope": "project.runtime",
+        "target_scope": "target-scope.runtime",
+        "tenant_scope": "tenant.synthetic",
+        "trust_domain": "trust-domain.synthetic"
+      },
+      "severity": "HIGH"
+    }
+  ],
+  "engine_continuity": "MISMATCH",
+  "environment_continuity": "FULL_CONTINUITY",
+  "evaluation_digest": "d49c12d4e88dbfd0ff73f6c4772a416a4ffb311c037c4dd8cbba50232f423782",
+  "evaluation_id": "runtime_evaluation_7cb1acc388d4d7f832467309477ae653",
+  "freshness": "CURRENT",
+  "governance_continuity": "APPLICABLE_TO_INSTANCE",
+  "instance_id": "deployment_instance_49be802bee3afc1dbeaf3b6ccf614ca2",
+  "intent_digest": "c2b96f8b139bafda25d7074d8d18d8397afb7e367702cc2f04920f716786b716",
+  "limitations": [
+    "Continuity PASS is policy- and snapshot-scoped; behavior, safety, and continuous continuity remain unverified.",
+    "Deployment intent records authorization and does not prove deployment.",
+    "Deployment record evidence does not independently prove deployment success.",
+    "Manifest defines intended state; it does not prove deployed or loaded state.",
+    "Observation plan defines required snapshot dimensions only.",
+    "Runtime observation is a point-in-time observer assertion, not continuous trust.",
+    "Security evidence remains policy- and declared-scope limited.",
+    "Snapshot continuity does not establish continuously unchanged state.",
+    "Trusted observer identity does not prove observer correctness or host integrity."
+  ],
+  "manifest_digest": "5d72c7e990f47030743d13668b52aaa44c12271f617018b3750af410d0b3a486",
+  "observation_digest": "df47d9a5a037aa9768b41c834bb48f0b92665a01e0520a137252efb42c53e45c",
+  "observation_integrity": "VALID",
+  "observer_authority": "AUTHORIZED",
+  "observer_trust": "TRUSTED_BY_POLICY",
+  "policy_digest": "985dee8db7843a6fed88f6e9482e21fc19eae890647b263ad8504b53c63e8608",
+  "policy_id": "omiv.continuity-policy.team_service_continuity.v1",
+  "replay_status": "BOUND",
+  "revocation_status": "EVALUATED_NO_APPLICABLE_REVOCATION",
+  "runtime_safety": "NOT_VERIFIED",
+  "schema": "omiv.continuity-evaluation.v1",
+  "security_evidence_continuity": "PASS",
+  "separation_of_duties": "SATISFIED",
+  "snapshot_scope": "SNAPSHOT_ONLY",
+  "structured_gaps": [],
+  "subject_id": "product_subject_2cb1fa6a8c4968f6d1ea3adc01896821",
+  "target_continuity": "FULL_CONTINUITY",
+  "trust_bundle_freshness": "CURRENT_FOR_EXPLICIT_CONTEXT",
+  "trusted_timestamp_status": "NOT_AVAILABLE",
+  "unobserved_dimensions": [],
+  "verdict": "DRIFT_DETECTED"
+}

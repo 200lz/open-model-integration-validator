@@ -1,0 +1,27 @@
+{
+  "adapter_digest": "2e2fcbf2d7239d7c59060832a01f9bfb7d2507eca2cde8211f3cd5ef421c396b",
+  "adapter_id": "governance_runtime_1db8fe72c99b09ce79f612e4d58fc7b6",
+  "continuity_evaluation_digest": "db1db47d1060065c34946a1f3055bd13fbbe3e724ef45d0bd14bcc3d18d0a999",
+  "continuity_evaluation_id": "runtime_evaluation_9f0cbbfbeda0d366a6aadcec6983be56",
+  "continuity_outcome": "SATISFIED_WITH_LIMITATIONS",
+  "deployment_evidence_outcome": "SATISFIED_WITH_LIMITATIONS",
+  "instance_id": "deployment_instance_49be802bee3afc1dbeaf3b6ccf614ca2",
+  "limitations": [
+    "Continuity PASS is policy- and snapshot-scoped; behavior, safety, and continuous continuity remain unverified.",
+    "Deployment intent records authorization and does not prove deployment.",
+    "Deployment record evidence does not independently prove deployment success.",
+    "Manifest defines intended state; it does not prove deployed or loaded state.",
+    "Observation plan defines required snapshot dimensions only.",
+    "Runtime observation is a point-in-time observer assertion, not continuous trust.",
+    "Security evidence remains policy- and declared-scope limited.",
+    "Snapshot continuity does not establish continuously unchanged state.",
+    "Trusted observer identity does not prove observer correctness or host integrity."
+  ],
+  "runtime_observation_outcome": "SATISFIED_WITH_LIMITATIONS",
+  "schema": "omiv.governance-runtime-adapter.v1",
+  "source_security_limitations": [
+    "Security evidence remains policy- and declared-scope limited."
+  ],
+  "source_security_verdict": "PASS",
+  "subject_id": "product_subject_2cb1fa6a8c4968f6d1ea3adc01896821"
+}

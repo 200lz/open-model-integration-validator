@@ -1,0 +1,29 @@
+{
+  "configuration_digest": "0e83869050ab2593fb6f855149055fdc30e698ee4d68ecbcf53be19738670903",
+  "configuration_id": "runtime_config_2fa873a745a4002dbd3395366548b901",
+  "limitations": [
+    "Normalized identity equality does not prove semantic equivalence."
+  ],
+  "normalization_policy_digest": "abaaf3176d846ae52b6e0001bce0269a5bb7fcffa21f6ae9e54f3a24f05567b3",
+  "normalized_fields": [
+    {
+      "name": "batch-size",
+      "normalized_value": "1",
+      "source": "DEFAULT"
+    },
+    {
+      "name": "precision",
+      "normalized_value": "declared",
+      "source": "DEFAULT"
+    }
+  ],
+  "schema": "omiv.deployment-configuration-identity.v1",
+  "secret_references": [
+    {
+      "logical_reference_id": "credential-reference.synthetic",
+      "provider_class": "logical-provider.synthetic",
+      "reference_digest": "a0a233826972435220cd94cbe757dc1e9d6e94981bf65db9009a88961ff3990e"
+    }
+  ],
+  "unknown_fields": []
+}

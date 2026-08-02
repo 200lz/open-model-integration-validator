@@ -1,0 +1,65 @@
+{
+  "expected_artifact_set_digest": "91586db6f9447406701de9681bd6509a7ab652dc82540c3fb797db2d533124ee",
+  "expected_configuration_digest": "0e83869050ab2593fb6f855149055fdc30e698ee4d68ecbcf53be19738670903",
+  "expected_engine_digest": "20387f960d951eb0985963a1c4df738af2e2dacfc8bb19ead44fabf40f0b0479",
+  "expected_environment_digest": "d7ef9b775b799ba175049a103b164345f7ba5bb76fdcc3b26dbd22ed33447683",
+  "expected_target_id": "target.synthetic-runtime",
+  "instance_id": "deployment_instance_49be802bee3afc1dbeaf3b6ccf614ca2",
+  "limitations": [
+    "Observation plan defines required snapshot dimensions only."
+  ],
+  "manifest_id": "deployment_manifest_e5ba8f0041a8158811da86a3bd03e094",
+  "maximum_age_sequences": 5,
+  "maximum_evidence_references": 32,
+  "observer_id": "runtime_observer_63b048ad7088151bf8734e8d402472b6",
+  "optional_dimensions": [],
+  "plan_digest": "93e35a271011b96f4e4670b57ba338744bb5ff819cd462718d1a5a46a74099c3",
+  "plan_id": "runtime_plan_bd51c92f87ecd9854dbc4cd60942406f",
+  "replay_context": {
+    "artifact_set_digest": "91586db6f9447406701de9681bd6509a7ab652dc82540c3fb797db2d533124ee",
+    "epoch": 1,
+    "evaluation_context_digest": "c137cf51424aef179c30708969aac71368c665c4f63b380b2d6f4f89c7e609e9",
+    "expected_sequence": 1,
+    "instance_id": "deployment_instance_49be802bee3afc1dbeaf3b6ccf614ca2",
+    "manifest_digest": "5d72c7e990f47030743d13668b52aaa44c12271f617018b3750af410d0b3a486",
+    "observer_id": "runtime_observer_63b048ad7088151bf8734e8d402472b6",
+    "policy_digest": "5c3db1f33c7cc37cc35dc6c9be671b5536058aff18387498ab039297198d384d",
+    "predecessor_observation_id": null,
+    "replay_digest": "890ad184787f0e27a6ef876626ff4d05fdd806e103c406885a83b0667ccad77f",
+    "replay_id": "runtime_replay_b62a96d12e5527daf99fc250ab89114d",
+    "schema": "omiv.replay-protection-context.v1",
+    "scope": {
+      "environment_scope": "environment.team",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "sequence_namespace": "sequence.runtime-observer",
+    "target_id": "target.synthetic-runtime"
+  },
+  "required_capabilities": [
+    "ARTIFACT_IDENTITY_OBSERVATION",
+    "ARTIFACT_SET_OBSERVATION",
+    "CONFIGURATION_IDENTITY_OBSERVATION",
+    "CONTAINER_IMAGE_OBSERVATION",
+    "ENDPOINT_LOGICAL_IDENTITY_OBSERVATION",
+    "ENGINE_BINARY_OBSERVATION",
+    "ENGINE_IDENTITY_OBSERVATION",
+    "ENVIRONMENT_IDENTITY_OBSERVATION",
+    "PROCESS_LOGICAL_IDENTITY_OBSERVATION",
+    "REGISTRY_REFERENCE_OBSERVATION",
+    "RUNTIME_HEALTH_OBSERVATION",
+    "STARTUP_MANIFEST_OBSERVATION"
+  ],
+  "required_dimensions": [
+    "ARTIFACT_SET_DIGEST",
+    "ENGINE_VERSION_REVISION",
+    "PRIMARY_ARTIFACT_DIGEST",
+    "RUNTIME_CONFIG_DIGEST",
+    "TARGET_IDENTITY"
+  ],
+  "schema": "omiv.runtime-observation-plan.v1"
+}

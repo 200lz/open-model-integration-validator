@@ -1,0 +1,139 @@
+{
+  "approval_quorum_status": "SATISFIED",
+  "artifact_set_digest": "91586db6f9447406701de9681bd6509a7ab652dc82540c3fb797db2d533124ee",
+  "artifact_set_id": "deployment_artifact_set_cd68f234c89aca95a9edbd9cef3391cd",
+  "authority": {
+    "actions": [
+      "DEPLOY"
+    ],
+    "actor_id": "actor.deployer",
+    "artifact_classes": [
+      "ADAPTER",
+      "AGENT_PACKAGE",
+      "CHAT_TEMPLATE",
+      "CONTAINER_IMAGE",
+      "DEPLOYMENT_PACKAGE",
+      "EVALUATION_DATASET",
+      "LORA_ADAPTER",
+      "MODEL_CONFIG",
+      "MODEL_WEIGHTS",
+      "OTHER_DECLARED",
+      "POLICY_BUNDLE",
+      "PROMPT_TEMPLATE",
+      "RUNTIME_ENGINE",
+      "SECURITY_EVIDENCE_BUNDLE",
+      "TOKENIZER",
+      "TOOL_PACKAGE"
+    ],
+    "assertion_types": [
+      "DEPLOYMENT_ACTION"
+    ],
+    "authority_digest": "49107dd7facafc0a6ff75ef68a1b671eecf8772a28d82fa5f201883685df35ed",
+    "authority_id": "runtime_authority_31effe82adf928d3fbee9e6f5d064460",
+    "delegated_by_authority_id": null,
+    "limitations": [
+      "Authority is policy-scoped and does not prove the asserted fact."
+    ],
+    "maximum_delegation_depth": 0,
+    "object_types": [
+      "DEPLOYMENT_RECORD",
+      "RUNTIME_OBSERVATION"
+    ],
+    "schema": "omiv.assertion-authority-scope.v1",
+    "scope": {
+      "environment_scope": "environment.team",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "target_classes": [
+      "AIR_GAPPED_APPLIANCE",
+      "BATCH_INFERENCE_JOB",
+      "CLOUD_MANAGED_ENDPOINT",
+      "DESKTOP_RUNTIME",
+      "EDGE_DEVICE",
+      "INTERNAL_CLUSTER",
+      "KUBERNETES_WORKLOAD",
+      "LOCAL_CONTAINER",
+      "LOCAL_MODEL_SERVER",
+      "LOCAL_PROCESS",
+      "MOBILE_RUNTIME_RESERVED",
+      "OCI_RUNTIME",
+      "OTHER_DECLARED",
+      "SERVERLESS_INFERENCE",
+      "TEAM_INFERENCE_SERVICE"
+    ],
+    "valid_from_sequence": 1,
+    "valid_through_sequence": 100
+  },
+  "evaluation_sequence": 10,
+  "expected_configuration_id": "runtime_config_2fa873a745a4002dbd3395366548b901",
+  "expected_engine_id": "runtime_engine_f25c3d194c3da9b4737988999b064a08",
+  "governance_decision_digest": "1f269697a2872baa68532f23cf07890388357ee1f2efab63f50c151756389def",
+  "governance_decision_outcome": "ALLOW",
+  "governance_policy_id": "governance-policy.synthetic",
+  "intent_digest": "c2b96f8b139bafda25d7074d8d18d8397afb7e367702cc2f04920f716786b716",
+  "intent_id": "deployment_intent_caf9efc597b811fcf1cc84468dbfbf7b",
+  "limitations": [
+    "Deployment intent records authorization and does not prove deployment."
+  ],
+  "promotion_authorization_status": "VERIFIED",
+  "promotion_decision_digest": "66a75b0d60d0183a6e45005c067527e11650eab2e42bddb5393d50c66a7e24fb",
+  "promotion_decision_id": "promotion-decision.synthetic",
+  "promotion_outcome": "PROMOTE",
+  "release_candidate_id": "release-candidate.synthetic",
+  "requester": {
+    "actor_id": "actor.deployer",
+    "authority_id": "runtime_authority_31effe82adf928d3fbee9e6f5d064460",
+    "key_id": "key.deployer",
+    "limitations": [
+      "Synthetic logical actor; authority remains policy-scoped."
+    ],
+    "role": "deployer",
+    "signer_identity_id": "signer.deployer",
+    "trust_root_id": "root.deployment"
+  },
+  "schema": "omiv.deployment-intent.v1",
+  "scope": {
+    "environment_scope": "environment.team",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.runtime",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  },
+  "security_evaluation_digest": "2213b74277a548e931d8fa1354ac0935ab28b8cc56dff5f606c5d1e26f1152b0",
+  "security_evaluation_freshness": "CURRENT",
+  "security_evaluation_id": "security-evaluation.synthetic",
+  "security_evaluation_trust_status": "TRUSTED_BY_POLICY",
+  "security_limitations": [
+    "Security evidence remains policy- and declared-scope limited."
+  ],
+  "security_verdict": "PASS",
+  "subject_id": "product_subject_2cb1fa6a8c4968f6d1ea3adc01896821",
+  "target": {
+    "limitations": [
+      "Logical target only; OMIV performed no deployment or endpoint access."
+    ],
+    "namespace": "namespace.synthetic",
+    "observer_policy_digest": "a8b0f22d89ac4052d6dd343c728846a70cc7143615c423bdb0ee194cfc9de5ef",
+    "region_classification": "region.offline",
+    "registry_class": "registry.logical",
+    "runtime_policy_digest": "663c624bccce8a5516fd35fd4970e13140632df452606db1c93cef2c99a60efe",
+    "scope": {
+      "environment_scope": "environment.team",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "target_id": "target.synthetic-runtime",
+    "target_type": "TEAM_INFERENCE_SERVICE"
+  }
+}

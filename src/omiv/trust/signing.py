@@ -96,6 +96,31 @@ OBJECT_METADATA: dict[SignedObjectType, tuple[set[str], str, str]] = {
         "evaluation_id",
         "evaluation_digest",
     ),
+    SignedObjectType.DEPLOYMENT_INTENT: (
+        {"omiv.deployment-intent.v1"},
+        "intent_id",
+        "intent_digest",
+    ),
+    SignedObjectType.DEPLOYMENT_MANIFEST: (
+        {"omiv.deployment-manifest.v1"},
+        "manifest_id",
+        "manifest_digest",
+    ),
+    SignedObjectType.DEPLOYMENT_RECORD: (
+        {"omiv.deployment-record.v1"},
+        "record_id",
+        "record_digest",
+    ),
+    SignedObjectType.RUNTIME_OBSERVATION: (
+        {"omiv.runtime-observation.v1"},
+        "observation_id",
+        "observation_digest",
+    ),
+    SignedObjectType.CONTINUITY_EVALUATION: (
+        {"omiv.continuity-evaluation.v1"},
+        "evaluation_id",
+        "evaluation_digest",
+    ),
 }
 EXPECTED_PURPOSE = {
     SignedObjectType.ARTIFACT_ATTESTATION: SignaturePurpose.ATTESTATION_ISSUANCE,
@@ -111,6 +136,11 @@ EXPECTED_PURPOSE = {
     SignedObjectType.SECURITY_SCAN_EXECUTION_RECORD: SignaturePurpose.SECURITY_SCAN_ISSUANCE,
     SignedObjectType.SECURITY_EVIDENCE_BUNDLE: SignaturePurpose.SECURITY_EVIDENCE_ISSUANCE,
     SignedObjectType.SECURITY_EVALUATION: SignaturePurpose.SECURITY_EVALUATION_ISSUANCE,
+    SignedObjectType.DEPLOYMENT_INTENT: SignaturePurpose.DEPLOYMENT_INTENT_ISSUANCE,
+    SignedObjectType.DEPLOYMENT_MANIFEST: SignaturePurpose.DEPLOYMENT_MANIFEST_ISSUANCE,
+    SignedObjectType.DEPLOYMENT_RECORD: SignaturePurpose.DEPLOYMENT_RECORD_ISSUANCE,
+    SignedObjectType.RUNTIME_OBSERVATION: SignaturePurpose.RUNTIME_OBSERVATION_ISSUANCE,
+    SignedObjectType.CONTINUITY_EVALUATION: SignaturePurpose.CONTINUITY_EVALUATION_ISSUANCE,
 }
 
 

@@ -1,0 +1,19 @@
+{
+  "limitations": [
+    "Logical product subject identity does not prove artifact content."
+  ],
+  "logical_name": "subject.synthetic",
+  "schema": "omiv.product-subject.v1",
+  "scope": {
+    "environment_scope": "environment.team",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.runtime",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  },
+  "subject_class": "MODEL_WEIGHTS",
+  "subject_digest": "ab87dcd7ebeb03bb3caa1ad15090f6936f8e89604852d7644b464eb261f65ecf",
+  "subject_id": "product_subject_2cb1fa6a8c4968f6d1ea3adc01896821"
+}

@@ -1,0 +1,22 @@
+{
+  "artifact_set_digest": "91586db6f9447406701de9681bd6509a7ab652dc82540c3fb797db2d533124ee",
+  "configuration_digest": "0e83869050ab2593fb6f855149055fdc30e698ee4d68ecbcf53be19738670903",
+  "engine_digest": "20387f960d951eb0985963a1c4df738af2e2dacfc8bb19ead44fabf40f0b0479",
+  "evaluation_context_digest": "c137cf51424aef179c30708969aac71368c665c4f63b380b2d6f4f89c7e609e9",
+  "generation": 1,
+  "instance_digest": "75fd5142669d886c498eefc50c412529da5abadb6a49e29c08aedb8c47e3a6cf",
+  "instance_id": "deployment_instance_49be802bee3afc1dbeaf3b6ccf614ca2",
+  "intent_id": "deployment_intent_caf9efc597b811fcf1cc84468dbfbf7b",
+  "predecessor_instance_id": null,
+  "schema": "omiv.deployment-instance-identity.v1",
+  "scope": {
+    "environment_scope": "environment.team",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.runtime",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  },
+  "target_id": "target.synthetic-runtime"
+}

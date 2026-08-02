@@ -21,6 +21,13 @@ from omiv.governance.models import (
     ReleaseCandidate,
 )
 from omiv.passport.models import ModelPassport
+from omiv.runtime.models import (
+    ContinuityEvaluation,
+    DeploymentIntent,
+    DeploymentManifest,
+    DeploymentRecord,
+    RuntimeObservation,
+)
 from omiv.security.models import (
     SecurityEvaluationResult,
     SecurityEvidenceBundle,
@@ -292,6 +299,16 @@ def _validate_source_object(envelope: SignedObjectEnvelope) -> None:
         model = SecurityEvidenceBundle
     elif envelope.signed_object_type == SignedObjectType.SECURITY_EVALUATION:
         model = SecurityEvaluationResult
+    elif envelope.signed_object_type == SignedObjectType.DEPLOYMENT_INTENT:
+        model = DeploymentIntent
+    elif envelope.signed_object_type == SignedObjectType.DEPLOYMENT_MANIFEST:
+        model = DeploymentManifest
+    elif envelope.signed_object_type == SignedObjectType.DEPLOYMENT_RECORD:
+        model = DeploymentRecord
+    elif envelope.signed_object_type == SignedObjectType.RUNTIME_OBSERVATION:
+        model = RuntimeObservation
+    elif envelope.signed_object_type == SignedObjectType.CONTINUITY_EVALUATION:
+        model = ContinuityEvaluation
     elif envelope.signed_object_schema == "omiv.model-passport.v1":
         model = ModelPassport
     else:
@@ -317,6 +334,11 @@ def _validate_source_object(envelope: SignedObjectEnvelope) -> None:
         SignedObjectType.SECURITY_SCAN_EXECUTION_RECORD: "execution_digest",
         SignedObjectType.SECURITY_EVIDENCE_BUNDLE: "bundle_digest",
         SignedObjectType.SECURITY_EVALUATION: "evaluation_digest",
+        SignedObjectType.DEPLOYMENT_INTENT: "intent_digest",
+        SignedObjectType.DEPLOYMENT_MANIFEST: "manifest_digest",
+        SignedObjectType.DEPLOYMENT_RECORD: "record_digest",
+        SignedObjectType.RUNTIME_OBSERVATION: "observation_digest",
+        SignedObjectType.CONTINUITY_EVALUATION: "evaluation_digest",
     }[envelope.signed_object_type]
     digest_body.pop(digest_field)
     if object_digest != canonical_sha256(digest_body):
@@ -723,6 +745,23 @@ def _claim_summary(envelope: SignedObjectEnvelope) -> tuple[dict[str, Any], str]
             ),
             "signed_record_proves_scanner_correctness": False,
             "signed_record_upgrades_coverage": False,
+        }, "INCOMPLETE"
+    if envelope.signed_object_type in {
+        SignedObjectType.DEPLOYMENT_INTENT,
+        SignedObjectType.DEPLOYMENT_MANIFEST,
+        SignedObjectType.DEPLOYMENT_RECORD,
+        SignedObjectType.RUNTIME_OBSERVATION,
+        SignedObjectType.CONTINUITY_EVALUATION,
+    }:
+        assertion = value.get("assertion", {})
+        return {
+            "deployment_status": value.get("status", "NOT_APPLICABLE"),
+            "continuity_verdict": value.get("verdict", "NOT_APPLICABLE"),
+            "evidence_origin": assertion.get("origin", "NOT_APPLICABLE"),
+            "signed_record_upgrades_origin": False,
+            "signed_record_upgrades_authority": False,
+            "signed_record_upgrades_coverage": False,
+            "signed_record_proves_runtime_behavior": False,
         }, "INCOMPLETE"
     return {
         "execution_result": value.get("execution_result"),

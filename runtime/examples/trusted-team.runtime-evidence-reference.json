@@ -1,0 +1,30 @@
+{
+  "availability": "INCLUDED",
+  "category": "RUNTIME_OBSERVATION",
+  "custody_status": null,
+  "digest": "db1db47d1060065c34946a1f3055bd13fbbe3e724ef45d0bd14bcc3d18d0a999",
+  "evidence_id": "runtime_evidence_runtime_observation_db1db47d1060065c34946a1f",
+  "governance_policy_id": "omiv.continuity-policy.team_service_continuity.v1",
+  "lifecycle_events": [],
+  "limitations": [
+    "Continuity PASS is policy- and snapshot-scoped; behavior, safety, and continuous continuity remain unverified.",
+    "Deployment intent records authorization and does not prove deployment.",
+    "Deployment record evidence does not independently prove deployment success.",
+    "Manifest defines intended state; it does not prove deployed or loaded state.",
+    "Observation plan defines required snapshot dimensions only.",
+    "Runtime observation is a point-in-time observer assertion, not continuous trust.",
+    "Security evidence remains policy- and declared-scope limited.",
+    "Snapshot continuity does not establish continuously unchanged state.",
+    "Trusted observer identity does not prove observer correctness or host integrity."
+  ],
+  "object_id": "runtime_evaluation_9f0cbbfbeda0d366a6aadcec6983be56",
+  "observed_at": null,
+  "provenance_strength": "SNAPSHOT_CONTINUITY",
+  "schema": "omiv.deployment-runtime-evidence.v1",
+  "signer_roles": [],
+  "source_phase": "5G",
+  "subject_id": "subject_142454cc35c719f2d3b5a2dd821e6727",
+  "trust_status": "TRUSTED_BY_POLICY",
+  "valid_until": null,
+  "verification_mode": "FULL"
+}

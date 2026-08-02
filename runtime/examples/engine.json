@@ -1,0 +1,19 @@
+{
+  "binary_digest": "12d820f3b16c6930d87301e067cb14fb88f0a17fbda6381b73f8b154f1534399",
+  "build_configuration_digest": "0a8c131b88c4fbafa01a80e43e28822481ebc6d516cde7f5a82cde842f9d3af7",
+  "container_image_digest": null,
+  "dependency_lock_digest": "90a99a408175448b703f73c1bbf39f2d77226f991a01eb967254215fe21d42a2",
+  "display_version": "1.0",
+  "engine_digest": "20387f960d951eb0985963a1c4df738af2e2dacfc8bb19ead44fabf40f0b0479",
+  "engine_id": "runtime_engine_f25c3d194c3da9b4737988999b064a08",
+  "family": "CUSTOM_INFERENCE_SERVER",
+  "limitations": [
+    "Engine identity does not establish engine behavior or runtime safety."
+  ],
+  "name": "engine.synthetic",
+  "runtime_configuration_digest": "5decdb3d1dc79a52d3dc65c0c51ed420668def1d5deb21c75c606c71781eba53",
+  "runtime_configuration_schema": "runtime-config.synthetic.v1",
+  "schema": "omiv.runtime-engine-identity.v1",
+  "source_revision": "revision-1",
+  "trust_references": []
+}

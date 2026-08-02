@@ -1,0 +1,20 @@
+{
+  "authority_preserved": true,
+  "coverage_preserved": true,
+  "envelope_digest": "4e3f8a7d86c0111734707d0646ac19f889d9d6d45a3f8e1061fd232cae0220ba",
+  "envelope_id": "soe_86d39b8eb02497f1fb06efbc817775c2",
+  "evidence_origin_preserved": true,
+  "limitations": [
+    "Signature trust status is TRUSTED_BY_POLICY; signing does not upgrade origin, authority, coverage, freshness, continuity, behavior, or safety."
+  ],
+  "linkage_digest": "df953c59657b543e0b8d44dcd7419cc9a4cb91cf0c4fbb47b9ddc2326ef758df",
+  "linkage_id": "signed_runtime_99aebe6c1226681164e5bba63bad80c9",
+  "object_digest": "66bdf81d36b06ac16368b67841900654d3ab1516670690409f2fa463f57f90d3",
+  "object_id": "deployment_record_054c7ffc6c9043c6380fb48a376ce6cf",
+  "object_type": "DEPLOYMENT_RECORD",
+  "schema": "omiv.signed-runtime-linkage.v1",
+  "signature_purposes": [
+    "DEPLOYMENT_RECORD_ISSUANCE"
+  ],
+  "verdict_preserved": true
+}

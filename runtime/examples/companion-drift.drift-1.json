@@ -1,0 +1,26 @@
+{
+  "category": "COMPANION_ARTIFACT_DRIFT",
+  "confidence": "CONFIRMED",
+  "drift_digest": "b2ec18f1c2fe827ece12e7c8d7c1e63f0aeb7470db316e315f966c9c6f683320",
+  "drift_id": "runtime_drift_146eebcb400c49eee45aa75d9bab07e9",
+  "evidence_strength": "INDEPENDENTLY_CORROBORATED",
+  "expected_reference": "9d3362d55bc56804b937263e0860e48427f0b882d29e2cd07a16fb11ef8d3e1d",
+  "limitations": [
+    "Identity drift does not by itself establish semantic or behavioral impact."
+  ],
+  "observation_method": "DIRECT_BYTE_IDENTITY",
+  "observed_reference": "43472897c4d38054a161e751b60c7a2f8f431c884f7919a2bc3c15149453127b",
+  "policy_impact": "BLOCKING",
+  "remediation": "Reconcile expected and observed identity evidence before reevaluation.",
+  "schema": "omiv.drift-finding.v1",
+  "scope": {
+    "environment_scope": "environment.team",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.runtime",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  },
+  "severity": "HIGH"
+}

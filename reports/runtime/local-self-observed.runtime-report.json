@@ -1,0 +1,171 @@
+{
+  "artifact_set_id": "deployment_artifact_set_cd68f234c89aca95a9edbd9cef3391cd",
+  "coverage": {
+    "coverage_digest": "274a6bb8d41fb5dd0d7a344eca2cc2df8ca6cea99aa6102c41d43850c1b2a55e",
+    "coverage_id": "runtime_coverage_936bb21fe2ef1b591e2d7882589333fc",
+    "errored_dimensions": [],
+    "expected_dimensions": [
+      "ARTIFACT_SET_DIGEST",
+      "ENGINE_VERSION_REVISION",
+      "PRIMARY_ARTIFACT_DIGEST",
+      "RUNTIME_CONFIG_DIGEST",
+      "TARGET_IDENTITY"
+    ],
+    "inaccessible_dimensions": [],
+    "independently_corroborated_dimensions": [],
+    "limitations": [
+      "Coverage is complete only for explicitly required dimensions."
+    ],
+    "observed_dimensions": [
+      "ARTIFACT_SET_DIGEST",
+      "ENGINE_VERSION_REVISION",
+      "PRIMARY_ARTIFACT_DIGEST",
+      "RUNTIME_CONFIG_DIGEST",
+      "TARGET_IDENTITY"
+    ],
+    "proxy_only_dimensions": [],
+    "schema": "omiv.observation-coverage.v1",
+    "stale_dimensions": [],
+    "status": "COMPLETE_FOR_REQUIRED_DIMENSIONS",
+    "unsupported_dimensions": []
+  },
+  "coverage_remediation": [],
+  "deployment_evidence_origin": "SIGNED_AND_TRUSTED",
+  "deployment_performed_by_omiv": false,
+  "deployment_record_id": "deployment_record_054c7ffc6c9043c6380fb48a376ce6cf",
+  "deployment_status": "COMPLETED_OBSERVED",
+  "engine_id": "runtime_engine_f25c3d194c3da9b4737988999b064a08",
+  "environment_id": "runtime_environment_8e879e5e31d8fbdf3f2105efa7951e14",
+  "evaluation": {
+    "artifact_members": [
+      {
+        "evidence_strength": "SYSTEM_OBSERVED",
+        "limitations": [],
+        "logical_name": "adapter.data",
+        "method": "DIRECT_BYTE_IDENTITY",
+        "required": true,
+        "result": "FULL_CONTINUITY"
+      },
+      {
+        "evidence_strength": "SYSTEM_OBSERVED",
+        "limitations": [],
+        "logical_name": "model.weights",
+        "method": "DIRECT_BYTE_IDENTITY",
+        "required": true,
+        "result": "FULL_CONTINUITY"
+      },
+      {
+        "evidence_strength": "SYSTEM_OBSERVED",
+        "limitations": [],
+        "logical_name": "prompt.template",
+        "method": "DIRECT_BYTE_IDENTITY",
+        "required": false,
+        "result": "FULL_CONTINUITY"
+      },
+      {
+        "evidence_strength": "SYSTEM_OBSERVED",
+        "limitations": [],
+        "logical_name": "runtime.generated-index",
+        "method": "DIRECT_BYTE_IDENTITY",
+        "required": false,
+        "result": "FULL_CONTINUITY"
+      },
+      {
+        "evidence_strength": "SYSTEM_OBSERVED",
+        "limitations": [],
+        "logical_name": "tokenizer.data",
+        "method": "DIRECT_BYTE_IDENTITY",
+        "required": true,
+        "result": "FULL_CONTINUITY"
+      }
+    ],
+    "artifact_set_continuity": "FULL_CONTINUITY",
+    "artifact_set_id": "deployment_artifact_set_cd68f234c89aca95a9edbd9cef3391cd",
+    "behavioral_parity": "NOT_CHECKED",
+    "blockers": [],
+    "configuration_continuity": "FULL_CONTINUITY",
+    "continuous_continuity": "NOT_ESTABLISHED",
+    "coverage_status": "COMPLETE_FOR_REQUIRED_DIMENSIONS",
+    "deployment_evidence": "VERIFIED",
+    "deployment_record_digest": "d1cbd9ddb901e395e7342e7effad74511fe3f59ceb53c0a034b47c4df3681195",
+    "drift_findings": [],
+    "engine_continuity": "FULL_CONTINUITY",
+    "environment_continuity": "FULL_CONTINUITY",
+    "evaluation_digest": "0b2d8642fd58989d59b558e3574670f05fad9351aa2ca88a19cfdfaadfbf84f5",
+    "evaluation_id": "runtime_evaluation_7dc0ff14735654631bbcc507df25aacf",
+    "freshness": "CURRENT",
+    "governance_continuity": "APPLICABLE_TO_INSTANCE",
+    "instance_id": "deployment_instance_49be802bee3afc1dbeaf3b6ccf614ca2",
+    "intent_digest": "c2b96f8b139bafda25d7074d8d18d8397afb7e367702cc2f04920f716786b716",
+    "limitations": [
+      "Continuity PASS is policy- and snapshot-scoped; behavior, safety, and continuous continuity remain unverified.",
+      "Deployment intent records authorization and does not prove deployment.",
+      "Deployment record evidence does not independently prove deployment success.",
+      "Deployment was self-observed; independent corroboration is absent.",
+      "Manifest defines intended state; it does not prove deployed or loaded state.",
+      "Observation plan defines required snapshot dimensions only.",
+      "Runtime observation is a point-in-time observer assertion, not continuous trust.",
+      "Security evidence remains policy- and declared-scope limited.",
+      "Snapshot continuity does not establish continuously unchanged state.",
+      "Trusted observer identity does not prove observer correctness or host integrity."
+    ],
+    "manifest_digest": "5d72c7e990f47030743d13668b52aaa44c12271f617018b3750af410d0b3a486",
+    "observation_digest": "e42633512403b2e8a6de4e5557e35da0e952f6cf93b650ef53439c6882fb42df",
+    "observation_integrity": "VALID",
+    "observer_authority": "AUTHORIZED",
+    "observer_trust": "UNTRUSTED_BY_POLICY",
+    "policy_digest": "5c3db1f33c7cc37cc35dc6c9be671b5536058aff18387498ab039297198d384d",
+    "policy_id": "omiv.continuity-policy.local_runtime_continuity.v1",
+    "replay_status": "BOUND",
+    "revocation_status": "EVALUATED_NO_APPLICABLE_REVOCATION",
+    "runtime_safety": "NOT_VERIFIED",
+    "schema": "omiv.continuity-evaluation.v1",
+    "security_evidence_continuity": "PASS",
+    "separation_of_duties": "SELF_OBSERVED",
+    "snapshot_scope": "SNAPSHOT_ONLY",
+    "structured_gaps": [],
+    "subject_id": "product_subject_2cb1fa6a8c4968f6d1ea3adc01896821",
+    "target_continuity": "FULL_CONTINUITY",
+    "trust_bundle_freshness": "CURRENT_FOR_EXPLICIT_CONTEXT",
+    "trusted_timestamp_status": "NOT_AVAILABLE",
+    "unobserved_dimensions": [],
+    "verdict": "PASS_WITH_LIMITATIONS"
+  },
+  "instance_id": "deployment_instance_49be802bee3afc1dbeaf3b6ccf614ca2",
+  "intent_id": "deployment_intent_caf9efc597b811fcf1cc84468dbfbf7b",
+  "limitations": [
+    "Continuity PASS is policy- and snapshot-scoped; behavior, safety, and continuous continuity remain unverified.",
+    "Deployment intent records authorization and does not prove deployment.",
+    "Deployment record evidence does not independently prove deployment success.",
+    "Deployment was self-observed; independent corroboration is absent.",
+    "Manifest defines intended state; it does not prove deployed or loaded state.",
+    "OMIV performed no external deployment action.",
+    "Observation plan defines required snapshot dimensions only.",
+    "Runtime observation is a point-in-time observer assertion, not continuous trust.",
+    "Security evidence remains policy- and declared-scope limited.",
+    "Snapshot continuity does not establish continuously unchanged state.",
+    "Trusted observer identity does not prove observer correctness or host integrity."
+  ],
+  "manifest_id": "deployment_manifest_e5ba8f0041a8158811da86a3bd03e094",
+  "observation_id": "runtime_observation_f905d8b0a193a47f30a45f5e7ddf7ea5",
+  "observation_strength": "SYSTEM_OBSERVED",
+  "observer_id": "runtime_observer_63b048ad7088151bf8734e8d402472b6",
+  "report_digest": "2efcff20ab584f35f45119d0a591c11cb4c5d6d0e09a991b19146b21ab6d3ed7",
+  "report_id": "runtime_report_c3a976e359ee2bdbcc8a34b884030bc0",
+  "schema": "omiv.deployment-runtime-report.v1",
+  "scope": {
+    "environment_scope": "environment.team",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.runtime",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  },
+  "source_security_limitations": [
+    "Security evidence remains policy- and declared-scope limited."
+  ],
+  "source_security_verdict": "PASS",
+  "subject_id": "product_subject_2cb1fa6a8c4968f6d1ea3adc01896821",
+  "target_id": "target.synthetic-runtime"
+}

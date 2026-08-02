@@ -1,0 +1,174 @@
+{
+  "envelope_digest": "fd43ae5c5d4a218bc20fdd919cee78c6a20a01d178135277ed7d171789136804",
+  "envelope_id": "soe_dac94f0fc436b708a5f8106e47948d4c",
+  "key_records": [
+    {
+      "algorithm": "ED25519",
+      "allowed_key_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "allowed_object_types": [
+        "CONTINUITY_EVALUATION",
+        "DEPLOYMENT_INTENT",
+        "DEPLOYMENT_MANIFEST",
+        "DEPLOYMENT_RECORD",
+        "RUNTIME_OBSERVATION"
+      ],
+      "allowed_purposes": [
+        "CONTINUITY_EVALUATION_ISSUANCE",
+        "DEPLOYMENT_INTENT_ISSUANCE",
+        "DEPLOYMENT_MANIFEST_ISSUANCE",
+        "DEPLOYMENT_RECORD_ISSUANCE",
+        "RUNTIME_OBSERVATION_ISSUANCE"
+      ],
+      "key_digest": "9513c953782bd4208b18e463b1c2b10001126557351fc38363d91536baec7d43",
+      "key_id": "key_db8d0a55a290c0040d719920892bd392",
+      "limitations": [
+        "Public-key identity does not establish signer identity."
+      ],
+      "namespaces": [],
+      "provider_artifact_scopes": [],
+      "public_key": "e28a8970753332bd72fef413e6b0b2ef1b4aadda7aa2c141f233712a6876b351",
+      "public_key_digest": "db8d0a55a290c0040d719920892bd392a105965753d381caa49a448e449c7957",
+      "public_key_encoding": "RAW_HEX",
+      "schema": "omiv.key-identity.v1",
+      "status": "ACTIVE",
+      "validity": null
+    }
+  ],
+  "limitations": [
+    "The canonical source object is unchanged; trust is reconstructed externally."
+  ],
+  "schema": "omiv.signed-object-envelope.v1",
+  "signatures": [
+    {
+      "algorithm": "ED25519",
+      "binding_id": "binding_576a5d322cf83e5f2ced5f5b4d77cc5c",
+      "detached_signature": "87c8d8343bdfc28665acdffdbc8a25d1b8d6826efde5af4f14dbf75c2a7b45fa51ee33732a133cc4ab8573547a7020d12e0b401cea125fb6bd9625be357ad203",
+      "key_id": "key_db8d0a55a290c0040d719920892bd392",
+      "limitations": [
+        "Signature integrity does not prove the underlying claim is true."
+      ],
+      "payload": {
+        "canonicalization_version": "omiv-json-v1",
+        "digest_algorithm": "SHA-256",
+        "domain": "OMIV-SIGNED-OBJECT-V1",
+        "key_usage": "SIGN_OMIV_OBJECT",
+        "namespace": null,
+        "provider_artifact_scope": null,
+        "schema": "omiv.signature-payload.v1",
+        "signature_purpose": "CONTINUITY_EVALUATION_ISSUANCE",
+        "signed_object_digest": "3e98a25167f48799229027cfa26d193c94c54c69dffa4bbe0133f9f318ae7d95",
+        "signed_object_id": "runtime_evaluation_c7c15ad94b42d3a3055bdef0eaff0b1a",
+        "signed_object_schema": "omiv.continuity-evaluation.v1",
+        "signed_object_type": "CONTINUITY_EVALUATION",
+        "trust_policy_id": "omiv.trust-policy.team_release.v1"
+      },
+      "purpose": "CONTINUITY_EVALUATION_ISSUANCE",
+      "schema": "omiv.signature-record.v1",
+      "signature_digest": "ad65f7e939535c9e9de320eab4485c5a9749bbe82c4c0714d383dedf2bf87b89",
+      "signature_encoding": "RAW_HEX",
+      "signature_id": "sig_2bb50c6cf5cdb36d692ef24896f5cf7d",
+      "trust_policy_id": "omiv.trust-policy.team_release.v1"
+    }
+  ],
+  "signed_object": {
+    "artifact_members": [
+      {
+        "evidence_strength": "INDEPENDENTLY_CORROBORATED",
+        "limitations": [],
+        "logical_name": "adapter.data",
+        "method": "DIRECT_BYTE_IDENTITY",
+        "required": true,
+        "result": "FULL_CONTINUITY"
+      },
+      {
+        "evidence_strength": "INDEPENDENTLY_CORROBORATED",
+        "limitations": [],
+        "logical_name": "model.weights",
+        "method": "DIRECT_BYTE_IDENTITY",
+        "required": true,
+        "result": "FULL_CONTINUITY"
+      },
+      {
+        "evidence_strength": "INDEPENDENTLY_CORROBORATED",
+        "limitations": [],
+        "logical_name": "prompt.template",
+        "method": "DIRECT_BYTE_IDENTITY",
+        "required": false,
+        "result": "FULL_CONTINUITY"
+      },
+      {
+        "evidence_strength": "INDEPENDENTLY_CORROBORATED",
+        "limitations": [],
+        "logical_name": "runtime.generated-index",
+        "method": "DIRECT_BYTE_IDENTITY",
+        "required": false,
+        "result": "FULL_CONTINUITY"
+      },
+      {
+        "evidence_strength": "INDEPENDENTLY_CORROBORATED",
+        "limitations": [],
+        "logical_name": "tokenizer.data",
+        "method": "DIRECT_BYTE_IDENTITY",
+        "required": true,
+        "result": "FULL_CONTINUITY"
+      }
+    ],
+    "artifact_set_continuity": "FULL_CONTINUITY",
+    "artifact_set_id": "deployment_artifact_set_cd68f234c89aca95a9edbd9cef3391cd",
+    "behavioral_parity": "NOT_CHECKED",
+    "blockers": [],
+    "configuration_continuity": "FULL_CONTINUITY",
+    "continuous_continuity": "NOT_ESTABLISHED",
+    "coverage_status": "COMPLETE_FOR_REQUIRED_DIMENSIONS",
+    "deployment_evidence": "VERIFIED",
+    "deployment_record_digest": "d1cbd9ddb901e395e7342e7effad74511fe3f59ceb53c0a034b47c4df3681195",
+    "drift_findings": [],
+    "engine_continuity": "FULL_CONTINUITY",
+    "environment_continuity": "FULL_CONTINUITY",
+    "evaluation_digest": "7404290e61f6251718888cdd44889d6216ec70d958d3d7b0af25c73ccd51f861",
+    "evaluation_id": "runtime_evaluation_c7c15ad94b42d3a3055bdef0eaff0b1a",
+    "freshness": "CURRENT",
+    "governance_continuity": "APPLICABLE_TO_INSTANCE",
+    "instance_id": "deployment_instance_49be802bee3afc1dbeaf3b6ccf614ca2",
+    "intent_digest": "c2b96f8b139bafda25d7074d8d18d8397afb7e367702cc2f04920f716786b716",
+    "limitations": [
+      "Continuity PASS is policy- and snapshot-scoped; behavior, safety, and continuous continuity remain unverified.",
+      "Deployment intent records authorization and does not prove deployment.",
+      "Deployment record evidence does not independently prove deployment success.",
+      "Manifest defines intended state; it does not prove deployed or loaded state.",
+      "Observation plan defines required snapshot dimensions only.",
+      "Runtime observation is a point-in-time observer assertion, not continuous trust.",
+      "Security evidence remains policy- and declared-scope limited.",
+      "Snapshot continuity does not establish continuously unchanged state.",
+      "Trusted observer identity does not prove observer correctness or host integrity."
+    ],
+    "manifest_digest": "5d72c7e990f47030743d13668b52aaa44c12271f617018b3750af410d0b3a486",
+    "observation_digest": "a500815c13494595aee31a893141fa120bfec3f788b3a77fb8dfd32569e26bc5",
+    "observation_integrity": "VALID",
+    "observer_authority": "AUTHORIZED",
+    "observer_trust": "TRUSTED_BY_POLICY",
+    "policy_digest": "1d5fe7c7fe9121bbc856f3282c0f6e79d797ba45bf55181b3f85de1bfdfb7827",
+    "policy_id": "omiv.continuity-policy.enterprise_deployment_continuity.v1",
+    "replay_status": "BOUND",
+    "revocation_status": "EVALUATED_NO_APPLICABLE_REVOCATION",
+    "runtime_safety": "NOT_VERIFIED",
+    "schema": "omiv.continuity-evaluation.v1",
+    "security_evidence_continuity": "PASS",
+    "separation_of_duties": "SATISFIED",
+    "snapshot_scope": "SNAPSHOT_ONLY",
+    "structured_gaps": [],
+    "subject_id": "product_subject_2cb1fa6a8c4968f6d1ea3adc01896821",
+    "target_continuity": "FULL_CONTINUITY",
+    "trust_bundle_freshness": "CURRENT_FOR_EXPLICIT_CONTEXT",
+    "trusted_timestamp_status": "NOT_AVAILABLE",
+    "unobserved_dimensions": [],
+    "verdict": "PASS"
+  },
+  "signed_object_digest": "3e98a25167f48799229027cfa26d193c94c54c69dffa4bbe0133f9f318ae7d95",
+  "signed_object_id": "runtime_evaluation_c7c15ad94b42d3a3055bdef0eaff0b1a",
+  "signed_object_schema": "omiv.continuity-evaluation.v1",
+  "signed_object_type": "CONTINUITY_EVALUATION",
+  "trust_policy_id": "omiv.trust-policy.team_release.v1"
+}

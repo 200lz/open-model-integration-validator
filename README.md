@@ -1935,3 +1935,80 @@ Synthetic artifacts and canonical records live in `security/examples/`, static
 policies in `security/policies/`, reports in `reports/security/`, and their
 deterministic inventory in `security/artifact-index.json`. Regenerate all of them
 offline with `python -m omiv.security.examples`.
+
+## Phase 5G: deployment and runtime snapshot verification
+
+Phase 5G adds a generic, deterministic `omiv runtime` evidence layer. It models
+product subjects, multi-member deployment artifact sets, deployment intents and
+instances, intended manifests, deployment records, observer identities, scoped
+assertion authority, replay-bound runtime observations, exact observation
+coverage, identity drift, and policy-scoped continuity. Core records are not tied
+to model weights, Hugging Face, one artifact format, Kubernetes, Docker, a cloud,
+or an inference engine.
+
+A deployment record states that deployment was declared, imported, observed,
+signed, or corroborated. These origins are not equivalent. A trusted signer is
+not automatically authorized to make every deployment or runtime assertion, and
+a signed declaration remains a declaration. Observer authority is evaluated for
+tenant, project, product, environment, target, artifact class, action, trust
+domain, and explicit sequence interval. Enterprise policies can also require
+deployer/observer separation, distinct signing identity, distinct trust root, and
+independent corroboration.
+
+Evidence origins are not a universal strength ladder. Structural verification,
+direct observation, signature presence, signature trust, authority,
+corroboration, coverage, and freshness are evaluated independently. Adapter
+capability ceilings use explicit accepted-origin sets, not enum ordering.
+
+Artifact-set continuity evaluates the primary artifact and required companion
+artifacts independently. Container-image or registry-reference continuity does
+not prove loaded model-byte continuity. Engine display-version equality does not
+prove engine-binary equality. Matching normalized configuration identity means
+only identity under the selected normalization policy; it does not prove complete
+semantic equivalence. Canonical configuration records contain allowlisted public
+fields and logical secret-reference digests, never secret values or raw process
+environments.
+Secret-reference digests identify logical reference metadata and provider class;
+they are not hashes or fingerprints of secret values.
+
+Runtime observations bind to a deterministic deployment instance, manifest,
+target, artifact-set digest, policy, explicit evaluation context, observation
+sequence namespace, epoch, sequence, and predecessor. A valid observation for an
+older instance cannot be reused for a later deployment. Coverage distinguishes observed, unsupported,
+inaccessible, errored, stale, proxy-only, and independently corroborated
+dimensions; missing mandatory dimensions cannot produce full PASS.
+
+Built-in policies are `local_runtime_continuity`, `team_service_continuity`,
+`enterprise_deployment_continuity`, `air_gapped_runtime_continuity`, and
+`regulated_runtime_continuity`. The regulated policy remains fail closed.
+Air-gapped continuity is limited when online revocation or continuing offline
+trust-bundle freshness cannot be established; unavailable online checks do not
+silently become PASS. Trusted timestamp status remains `NOT_AVAILABLE`.
+Precedence is broken evidence, replay, mismatch, drift, unauthorized observer,
+untrusted observer, unverified deployment, incomplete coverage, stale or absent
+observation, proxy/partial continuity, limited PASS, then PASS.
+
+A Phase 5G PASS means only that supplied, verified, policy-authorized deployment
+and runtime evidence establishes continuity for explicitly observed dimensions,
+subject set, scope, trust domain, deployment instance, and evaluation context.
+Phase 5G verifies a point-in-time snapshot. It does not establish continuous
+continuity, numerical parity, tokenizer parity, behavioral correctness, model
+safety, or runtime security.
+
+Platform-specific products and integrations normalize evidence into the OMIV
+canonical model; they do not change core evidence semantics. Only the bounded
+local JSON adapter is operational. OCI, Kubernetes, runtime-specific, cloud, and
+internal-platform adapter identities are reserved and fail closed. Phase 5G does
+not deploy artifacts, contact runtimes or registries, invoke platform SDKs,
+execute models, infer workstation identity, or perform continuous monitoring.
+
+The offline CLI provides `intent-create`, `manifest-create`,
+`deployment-record-create`, `deployment-verify`, `observation-plan-create`,
+`observation-create`, `observation-verify`, `continuity-evaluate`, `show`,
+`report-verify`, `governance-adapt`, and `custody-link` under `omiv runtime`.
+Exit `0` means full policy satisfaction, exit `1` means limited, partial, proxy,
+or reviewable evidence, and exit `2` means mismatch, blocking drift, replay,
+broken evidence, authority/trust failure, mandatory coverage failure, or unsafe
+input. Fixtures live in `runtime/examples/`, policies in `runtime/policies/`,
+reports in `reports/runtime/`, and the duplicate-checked inventory in
+`runtime/artifact-index.json`.

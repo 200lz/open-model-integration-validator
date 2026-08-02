@@ -1,0 +1,18 @@
+{
+  "accelerator_class": "accelerator.declared",
+  "architecture": "architecture.generic",
+  "container_vm_identity_digest": null,
+  "dependency_lock_digest": "41a30909162c2155b207456e02006884ab8ff0cc34d0276824aa4188e3f91b42",
+  "environment_class": "environment.synthetic",
+  "environment_digest": "d7ef9b775b799ba175049a103b164345f7ba5bb76fdcc3b26dbd22ed33447683",
+  "environment_id": "runtime_environment_8e879e5e31d8fbdf3f2105efa7951e14",
+  "filesystem_policy_digest": "a2ec7e3dd25011cf476d8e5e8d34040d4d4e109ab25be8b9586dfd4cd633c24b",
+  "limitations": [
+    "Privacy-safe logical environment; no workstation fingerprinting occurred."
+  ],
+  "network_policy_digest": "029e5861510d9c489fb93b0f84aa8c9b037784f1fea3d0e95f16d2c8256698df",
+  "operating_system_class": "os.generic",
+  "runtime_policy_digest": "34c2b328dd95499e967fc5bc5f11e2a092687e3e090610b2e3cf508ec3cb612a",
+  "schema": "omiv.runtime-environment-identity.v1",
+  "trust_domain": "trust-domain.synthetic"
+}

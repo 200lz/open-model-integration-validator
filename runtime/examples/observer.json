@@ -1,0 +1,145 @@
+{
+  "authority": {
+    "actions": [
+      "OBSERVE_RUNTIME"
+    ],
+    "actor_id": "actor.observer",
+    "artifact_classes": [
+      "ADAPTER",
+      "AGENT_PACKAGE",
+      "CHAT_TEMPLATE",
+      "CONTAINER_IMAGE",
+      "DEPLOYMENT_PACKAGE",
+      "EVALUATION_DATASET",
+      "LORA_ADAPTER",
+      "MODEL_CONFIG",
+      "MODEL_WEIGHTS",
+      "OTHER_DECLARED",
+      "POLICY_BUNDLE",
+      "PROMPT_TEMPLATE",
+      "RUNTIME_ENGINE",
+      "SECURITY_EVIDENCE_BUNDLE",
+      "TOKENIZER",
+      "TOOL_PACKAGE"
+    ],
+    "assertion_types": [
+      "RUNTIME_IDENTITY"
+    ],
+    "authority_digest": "de8bc5097b4a93ae2ff26bdff586efc43fc905a9d20057525728cba2fbcb71c4",
+    "authority_id": "runtime_authority_adb5472ff1c130437d9dac1fd5ebe46c",
+    "delegated_by_authority_id": null,
+    "limitations": [
+      "Authority is policy-scoped and does not prove the asserted fact."
+    ],
+    "maximum_delegation_depth": 0,
+    "object_types": [
+      "DEPLOYMENT_RECORD",
+      "RUNTIME_OBSERVATION"
+    ],
+    "schema": "omiv.assertion-authority-scope.v1",
+    "scope": {
+      "environment_scope": "environment.team",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "target_classes": [
+      "AIR_GAPPED_APPLIANCE",
+      "BATCH_INFERENCE_JOB",
+      "CLOUD_MANAGED_ENDPOINT",
+      "DESKTOP_RUNTIME",
+      "EDGE_DEVICE",
+      "INTERNAL_CLUSTER",
+      "KUBERNETES_WORKLOAD",
+      "LOCAL_CONTAINER",
+      "LOCAL_MODEL_SERVER",
+      "LOCAL_PROCESS",
+      "MOBILE_RUNTIME_RESERVED",
+      "OCI_RUNTIME",
+      "OTHER_DECLARED",
+      "SERVERLESS_INFERENCE",
+      "TEAM_INFERENCE_SERVICE"
+    ],
+    "valid_from_sequence": 1,
+    "valid_through_sequence": 100
+  },
+  "capabilities": [
+    "ARTIFACT_IDENTITY_OBSERVATION",
+    "ARTIFACT_SET_OBSERVATION",
+    "CONFIGURATION_IDENTITY_OBSERVATION",
+    "CONTAINER_IMAGE_OBSERVATION",
+    "ENDPOINT_LOGICAL_IDENTITY_OBSERVATION",
+    "ENGINE_BINARY_OBSERVATION",
+    "ENGINE_IDENTITY_OBSERVATION",
+    "ENVIRONMENT_IDENTITY_OBSERVATION",
+    "PROCESS_LOGICAL_IDENTITY_OBSERVATION",
+    "REGISTRY_REFERENCE_OBSERVATION",
+    "RUNTIME_HEALTH_OBSERVATION",
+    "STARTUP_MANIFEST_OBSERVATION"
+  ],
+  "configuration_digest": "15983879de3c21c262dda5f97856c8fd31d29cc35c880d51e10f3e529ac747d4",
+  "implementation_digest": "5179e398cec430f1b561a5bd6d55669ee8e9ee56c2416283866151c787cb3114",
+  "key_id": "key.runtime-observer",
+  "limitations": [
+    "Trusted observer identity does not prove observer correctness or host integrity."
+  ],
+  "name": "team-observer",
+  "observation_strength_ceiling": "INDEPENDENTLY_CORROBORATED",
+  "observer_digest": "cd1e5e440aada6149db3dfcb0b0ac7042e7e2395f650d894134dd49809a52bfd",
+  "observer_id": "runtime_observer_f69aee8f2aea0fa462a3538343161715",
+  "revision": "revision-1",
+  "schema": "omiv.runtime-observer-identity.v1",
+  "scope": {
+    "environment_scope": "environment.team",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.runtime",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  },
+  "signer_identity_id": "signer.runtime-observer",
+  "supported_artifact_classes": [
+    "ADAPTER",
+    "AGENT_PACKAGE",
+    "CHAT_TEMPLATE",
+    "CONTAINER_IMAGE",
+    "DEPLOYMENT_PACKAGE",
+    "EVALUATION_DATASET",
+    "LORA_ADAPTER",
+    "MODEL_CONFIG",
+    "MODEL_WEIGHTS",
+    "OTHER_DECLARED",
+    "POLICY_BUNDLE",
+    "PROMPT_TEMPLATE",
+    "RUNTIME_ENGINE",
+    "SECURITY_EVIDENCE_BUNDLE",
+    "TOKENIZER",
+    "TOOL_PACKAGE"
+  ],
+  "supported_target_types": [
+    "AIR_GAPPED_APPLIANCE",
+    "BATCH_INFERENCE_JOB",
+    "CLOUD_MANAGED_ENDPOINT",
+    "DESKTOP_RUNTIME",
+    "EDGE_DEVICE",
+    "INTERNAL_CLUSTER",
+    "KUBERNETES_WORKLOAD",
+    "LOCAL_CONTAINER",
+    "LOCAL_MODEL_SERVER",
+    "LOCAL_PROCESS",
+    "MOBILE_RUNTIME_RESERVED",
+    "OCI_RUNTIME",
+    "OTHER_DECLARED",
+    "SERVERLESS_INFERENCE",
+    "TEAM_INFERENCE_SERVICE"
+  ],
+  "trust_references": [
+    "trust-policy.runtime"
+  ],
+  "trust_root_id": "root.runtime-observer",
+  "version": "1.0"
+}

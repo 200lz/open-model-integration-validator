@@ -1,0 +1,14 @@
+{
+  "continuity": "NOT_EVALUATED",
+  "deployment": "NOT_PERFORMED",
+  "gap_report_digest": "85625f68925518b493a6de9b15f94a52ec29457b59861a69718093c225c7112a",
+  "gap_report_id": "runtime_gap_0ace56fbc7934596dab42f34638d556f",
+  "limitations": [
+    "Analysis-only gap report; not deployment or runtime evidence."
+  ],
+  "observer": "UNAVAILABLE",
+  "runtime_observation": "UNAVAILABLE",
+  "runtime_safety": "NOT_EVALUATED",
+  "schema": "omiv.runtime-gap-report.v1",
+  "subject": "kimi-k3-analysis-only"
+}

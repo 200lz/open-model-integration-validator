@@ -70,8 +70,6 @@ RESERVED_FUTURE_EVIDENCE = {
     EvidenceCategory.PAYLOAD_INTEGRITY,
     EvidenceCategory.QUANTIZATION_FIDELITY,
     EvidenceCategory.TOKENIZER_PARITY,
-    EvidenceCategory.DEPLOYMENT,
-    EvidenceCategory.RUNTIME_OBSERVATION,
 }
 
 
@@ -402,6 +400,27 @@ def _evaluate_requirement(
         reason = (
             "Security evidence was not produced by the strict Phase 5F governance adapter; "
             "declarations and approvals cannot satisfy it."
+        )
+        policy_evidence = []
+        accepted = []
+    elif requirement.category in {
+        EvidenceCategory.DEPLOYMENT,
+        EvidenceCategory.RUNTIME_OBSERVATION,
+    } and not any(
+        item.schema_id == "omiv.deployment-runtime-evidence.v1"
+        and item.object_id.startswith("runtime_evaluation_")
+        and len(item.object_id) == len("runtime_evaluation_") + 32
+        and item.governance_policy_id is not None
+        and item.governance_policy_id.startswith("omiv.continuity-policy.")
+        and item.verification_mode == VerificationMode.FULL
+        and item.source_phase == "5G"
+        for item in matches
+    ):
+        outcome = RequirementOutcome.UNAVAILABLE
+        reason = (
+            "Deployment/runtime evidence was not produced by the strict Phase 5G "
+            "governance adapter; declarations, manifests, approvals, and signatures "
+            "cannot satisfy it."
         )
         policy_evidence = []
         accepted = []

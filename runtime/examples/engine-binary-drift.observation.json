@@ -1,0 +1,189 @@
+{
+  "assertion": {
+    "acquisition_origin": "SYSTEM_OBSERVED",
+    "authority_status": "AUTHORIZED",
+    "corroboration_status": "INDEPENDENT",
+    "directly_observed": true,
+    "independently_corroborated": true,
+    "limitations": [
+      "Evidence strength and assertion authority are evaluated separately."
+    ],
+    "origin": "INDEPENDENTLY_CORROBORATED",
+    "signature_status": "VALID",
+    "structurally_verified": true,
+    "trust_status": "TRUSTED_BY_POLICY",
+    "verification_mode": "OFFLINE_NORMALIZED"
+  },
+  "coverage": {
+    "coverage_digest": "190ca978f4705312d7bad4ac938dccae8c408765ed31dc8c49d426eea441bff0",
+    "coverage_id": "runtime_coverage_d79fdf0df0d704c9c4ac53609b4e6c19",
+    "errored_dimensions": [],
+    "expected_dimensions": [
+      "ARTIFACT_SET_DIGEST",
+      "COMPANION_ARTIFACT_DIGESTS",
+      "ENGINE_BINARY_DIGEST",
+      "ENGINE_VERSION_REVISION",
+      "ENVIRONMENT_IDENTITY",
+      "PRIMARY_ARTIFACT_DIGEST",
+      "RUNTIME_CONFIG_DIGEST",
+      "TARGET_IDENTITY"
+    ],
+    "inaccessible_dimensions": [],
+    "independently_corroborated_dimensions": [],
+    "limitations": [
+      "Coverage is complete only for explicitly required dimensions."
+    ],
+    "observed_dimensions": [
+      "ARTIFACT_SET_DIGEST",
+      "COMPANION_ARTIFACT_DIGESTS",
+      "ENGINE_BINARY_DIGEST",
+      "ENGINE_VERSION_REVISION",
+      "ENVIRONMENT_IDENTITY",
+      "PRIMARY_ARTIFACT_DIGEST",
+      "RUNTIME_CONFIG_DIGEST",
+      "TARGET_IDENTITY"
+    ],
+    "proxy_only_dimensions": [],
+    "schema": "omiv.observation-coverage.v1",
+    "stale_dimensions": [],
+    "status": "COMPLETE_FOR_REQUIRED_DIMENSIONS",
+    "unsupported_dimensions": []
+  },
+  "deployment_record_id": "deployment_record_054c7ffc6c9043c6380fb48a376ce6cf",
+  "epoch": 1,
+  "evaluation_context_digest": "c137cf51424aef179c30708969aac71368c665c4f63b380b2d6f4f89c7e609e9",
+  "evidence_references": [],
+  "instance_id": "deployment_instance_49be802bee3afc1dbeaf3b6ccf614ca2",
+  "limitations": [
+    "Runtime observation is a point-in-time observer assertion, not continuous trust."
+  ],
+  "observation_digest": "df47d9a5a037aa9768b41c834bb48f0b92665a01e0520a137252efb42c53e45c",
+  "observation_id": "runtime_observation_4d68fa2de48288ff9059fcb71ccf518e",
+  "observed_artifact_set": {
+    "artifact_set_digest": "91586db6f9447406701de9681bd6509a7ab652dc82540c3fb797db2d533124ee",
+    "limitations": [
+      "Observed component identities are evaluated independently."
+    ],
+    "members": [
+      {
+        "evidence_strength": "INDEPENDENTLY_CORROBORATED",
+        "generation_provenance_digest": null,
+        "limitations": [],
+        "logical_name": "adapter.data",
+        "method": "DIRECT_BYTE_IDENTITY",
+        "observed_identity_digest": "fef0344f452d9dbc6f12bb08da46cafa5edf5b40dacff80e5f7cbd36d06a2ab5"
+      },
+      {
+        "evidence_strength": "INDEPENDENTLY_CORROBORATED",
+        "generation_provenance_digest": null,
+        "limitations": [],
+        "logical_name": "model.weights",
+        "method": "DIRECT_BYTE_IDENTITY",
+        "observed_identity_digest": "27d3bc660eddeb5705086d78683010f3e632c83a8a05f0a34aea9c3fc97f81f0"
+      },
+      {
+        "evidence_strength": "INDEPENDENTLY_CORROBORATED",
+        "generation_provenance_digest": null,
+        "limitations": [],
+        "logical_name": "prompt.template",
+        "method": "DIRECT_BYTE_IDENTITY",
+        "observed_identity_digest": "2bd3c8f8367718cdae9801efbeb948ed6fd1c5127f7ae999b060d9e52a08f468"
+      },
+      {
+        "evidence_strength": "INDEPENDENTLY_CORROBORATED",
+        "generation_provenance_digest": "33ae1e1b204bf718d88d933c6c3829879b47701c892e113109ec620a32b5af18",
+        "limitations": [],
+        "logical_name": "runtime.generated-index",
+        "method": "DIRECT_BYTE_IDENTITY",
+        "observed_identity_digest": "980f0fd39e429c5034a0dd4f3305d9af2ad1916d1efc7ff048a0fcd250b077f1"
+      },
+      {
+        "evidence_strength": "INDEPENDENTLY_CORROBORATED",
+        "generation_provenance_digest": null,
+        "limitations": [],
+        "logical_name": "tokenizer.data",
+        "method": "DIRECT_BYTE_IDENTITY",
+        "observed_identity_digest": "9d3362d55bc56804b937263e0860e48427f0b882d29e2cd07a16fb11ef8d3e1d"
+      }
+    ]
+  },
+  "observed_configuration_digest": "0e83869050ab2593fb6f855149055fdc30e698ee4d68ecbcf53be19738670903",
+  "observed_engine_binary_digest": "a502a0f7d6c7b0c9d1b6c8a4e68ee463c14cad4a8a6c45da25fb0ee35574fc43",
+  "observed_engine_digest": "20387f960d951eb0985963a1c4df738af2e2dacfc8bb19ead44fabf40f0b0479",
+  "observed_environment_digest": "d7ef9b775b799ba175049a103b164345f7ba5bb76fdcc3b26dbd22ed33447683",
+  "observed_target_id": "target.synthetic-runtime",
+  "observer_authority": {
+    "actions": [
+      "OBSERVE_RUNTIME"
+    ],
+    "actor_id": "actor.observer",
+    "artifact_classes": [
+      "ADAPTER",
+      "AGENT_PACKAGE",
+      "CHAT_TEMPLATE",
+      "CONTAINER_IMAGE",
+      "DEPLOYMENT_PACKAGE",
+      "EVALUATION_DATASET",
+      "LORA_ADAPTER",
+      "MODEL_CONFIG",
+      "MODEL_WEIGHTS",
+      "OTHER_DECLARED",
+      "POLICY_BUNDLE",
+      "PROMPT_TEMPLATE",
+      "RUNTIME_ENGINE",
+      "SECURITY_EVIDENCE_BUNDLE",
+      "TOKENIZER",
+      "TOOL_PACKAGE"
+    ],
+    "assertion_types": [
+      "RUNTIME_IDENTITY"
+    ],
+    "authority_digest": "de8bc5097b4a93ae2ff26bdff586efc43fc905a9d20057525728cba2fbcb71c4",
+    "authority_id": "runtime_authority_adb5472ff1c130437d9dac1fd5ebe46c",
+    "delegated_by_authority_id": null,
+    "limitations": [
+      "Authority is policy-scoped and does not prove the asserted fact."
+    ],
+    "maximum_delegation_depth": 0,
+    "object_types": [
+      "DEPLOYMENT_RECORD",
+      "RUNTIME_OBSERVATION"
+    ],
+    "schema": "omiv.assertion-authority-scope.v1",
+    "scope": {
+      "environment_scope": "environment.team",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "target_classes": [
+      "AIR_GAPPED_APPLIANCE",
+      "BATCH_INFERENCE_JOB",
+      "CLOUD_MANAGED_ENDPOINT",
+      "DESKTOP_RUNTIME",
+      "EDGE_DEVICE",
+      "INTERNAL_CLUSTER",
+      "KUBERNETES_WORKLOAD",
+      "LOCAL_CONTAINER",
+      "LOCAL_MODEL_SERVER",
+      "LOCAL_PROCESS",
+      "MOBILE_RUNTIME_RESERVED",
+      "OCI_RUNTIME",
+      "OTHER_DECLARED",
+      "SERVERLESS_INFERENCE",
+      "TEAM_INFERENCE_SERVICE"
+    ],
+    "valid_from_sequence": 1,
+    "valid_through_sequence": 100
+  },
+  "observer_id": "runtime_observer_f69aee8f2aea0fa462a3538343161715",
+  "plan_id": "runtime_plan_978fc00540bfa6325e0b3ec9b38b54eb",
+  "predecessor_observation_id": null,
+  "schema": "omiv.runtime-observation.v1",
+  "sequence": 1,
+  "sequence_namespace": "sequence.runtime-observer",
+  "status": "COMPLETED"
+}

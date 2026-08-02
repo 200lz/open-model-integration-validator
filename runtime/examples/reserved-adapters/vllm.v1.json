@@ -1,0 +1,73 @@
+{
+  "accepted_evidence_origins": [
+    "DECLARED",
+    "IMPORTED_UNVERIFIED",
+    "STRUCTURALLY_VERIFIED",
+    "EVIDENCE_LINKED"
+  ],
+  "adapter_digest": "472e0a60e46bd9097c933e5aa36a49eeba8a237555e1674d5f18f4b73f7a3b2a",
+  "adapter_id": "omiv.adapter.vllm.v1",
+  "adapter_schema_version": "v1",
+  "capabilities": [],
+  "implementation_digest": "c0732ec582fecd3ebab5de92fd8c287fef6241c1212c7d4c3b2780e497c433a2",
+  "implementation_version": "1.0",
+  "limitations": [
+    "Adapter normalizes explicit local JSON and performs no platform access."
+  ],
+  "normalization_policy_digest": "abaaf3176d846ae52b6e0001bce0269a5bb7fcffa21f6ae9e54f3a24f05567b3",
+  "observation_strength_ceiling": "STRUCTURALLY_VERIFIED",
+  "operational": false,
+  "schema": "omiv.runtime-adapter-identity.v1",
+  "scope": {
+    "environment_scope": "environment.team",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.runtime",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  },
+  "source_revision": "phase-5g-static-registry-v1",
+  "supported_input_schemas": [
+    "omiv.runtime-adapter-input.v1"
+  ],
+  "supported_output_schemas": [
+    "omiv.deployment-record.v1",
+    "omiv.runtime-observation.v1"
+  ],
+  "supported_subject_classes": [
+    "ADAPTER",
+    "AGENT_PACKAGE",
+    "CHAT_TEMPLATE",
+    "CONTAINER_IMAGE",
+    "DEPLOYMENT_PACKAGE",
+    "EVALUATION_DATASET",
+    "LORA_ADAPTER",
+    "MODEL_CONFIG",
+    "MODEL_WEIGHTS",
+    "OTHER_DECLARED",
+    "POLICY_BUNDLE",
+    "PROMPT_TEMPLATE",
+    "RUNTIME_ENGINE",
+    "SECURITY_EVIDENCE_BUNDLE",
+    "TOKENIZER",
+    "TOOL_PACKAGE"
+  ],
+  "supported_target_classes": [
+    "AIR_GAPPED_APPLIANCE",
+    "BATCH_INFERENCE_JOB",
+    "CLOUD_MANAGED_ENDPOINT",
+    "DESKTOP_RUNTIME",
+    "EDGE_DEVICE",
+    "INTERNAL_CLUSTER",
+    "KUBERNETES_WORKLOAD",
+    "LOCAL_CONTAINER",
+    "LOCAL_MODEL_SERVER",
+    "LOCAL_PROCESS",
+    "MOBILE_RUNTIME_RESERVED",
+    "OCI_RUNTIME",
+    "OTHER_DECLARED",
+    "SERVERLESS_INFERENCE",
+    "TEAM_INFERENCE_SERVICE"
+  ]
+}

@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Annotated
 
 import typer
-from pydantic import ValidationError
+from pydantic import BaseModel, ValidationError
 
 from omiv.article.builder import (
     CLAIM_PATH,
@@ -237,6 +237,30 @@ from omiv.remote.split_reporting import (
     split_report_integrity_matches,
 )
 from omiv.reporters.console import format_report
+from omiv.runtime.adapters import adapt_governance_runtime, build_custody_runtime_linkage
+from omiv.runtime.continuity import evaluate_continuity
+from omiv.runtime.models import (
+    ContinuityEvaluation,
+    ContinuityPolicy,
+    ContinuityVerdict,
+    DeploymentIntent,
+    DeploymentManifest,
+    DeploymentRecord,
+    DeploymentRuntimeReport,
+    ProductSubject,
+    RuntimeObservation,
+    RuntimeObservationPlan,
+    RuntimeObserverIdentity,
+)
+from omiv.runtime.reporting import (
+    LOADABLE_MODELS,
+    load_runtime,
+    render_runtime_markdown,
+    verify_runtime_report,
+)
+from omiv.runtime.reporting import (
+    pretty_json as pretty_runtime_json,
+)
 from omiv.safe_write import atomic_write_text, validate_output_path
 from omiv.schema.loader import load_schema
 from omiv.security.adapters import (
@@ -335,6 +359,7 @@ attestation_app = typer.Typer(no_args_is_help=True)
 trust_app = typer.Typer(no_args_is_help=True)
 governance_app = typer.Typer(no_args_is_help=True)
 security_app = typer.Typer(no_args_is_help=True)
+runtime_app = typer.Typer(no_args_is_help=True)
 app.add_typer(model_packs_app, name="model-packs")
 app.add_typer(passport_app, name="passport")
 app.add_typer(custody_app, name="custody")
@@ -342,6 +367,7 @@ app.add_typer(attestation_app, name="attestation")
 app.add_typer(trust_app, name="trust")
 app.add_typer(governance_app, name="governance")
 app.add_typer(security_app, name="security")
+app.add_typer(runtime_app, name="runtime")
 MAX_CANONICAL_INVENTORY_BYTES = 64 * 1024 * 1024
 REMOTE_REPORT_SCHEMAS = {
     "omiv.remote-snapshot-report.v1",
@@ -3150,5 +3176,286 @@ def security_custody_link(
     if evaluation is None:
         raise typer.Exit(code=1)
     code = _security_exit(evaluation.verdict)
+    if code:
+        raise typer.Exit(code=code)
+
+
+def _runtime_exit(verdict: ContinuityVerdict) -> int:
+    if verdict == ContinuityVerdict.PASS:
+        return 0
+    if verdict in {
+        ContinuityVerdict.PASS_WITH_LIMITATIONS,
+        ContinuityVerdict.PARTIAL_CONTINUITY,
+        ContinuityVerdict.IDENTITY_PROXY_MATCH,
+        ContinuityVerdict.STALE,
+        ContinuityVerdict.NOT_EVALUATED,
+    }:
+        return 1
+    return 2
+
+
+def _runtime_copy(input_path: Path, output: Path, model: type[BaseModel]) -> BaseModel:
+    value = load_runtime(input_path, model)
+    validate_output_path(output, forbidden_inputs=(input_path,))
+    atomic_write_text(output, pretty_runtime_json(value), forbidden_inputs=(input_path,))
+    return value
+
+
+def _runtime_create_command(input_path: Path, output: Path, model: type[BaseModel]) -> None:
+    try:
+        value = _runtime_copy(input_path, output, model)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR runtime record creation failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(f"CREATED schema={value.model_dump(mode='json', by_alias=True)['schema']}")
+
+
+@runtime_app.command("intent-create")
+def runtime_intent_create(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+) -> None:
+    """Validate and write an explicit local deployment intent; never deploy."""
+    _runtime_create_command(input_path, output, DeploymentIntent)
+
+
+@runtime_app.command("manifest-create")
+def runtime_manifest_create(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+) -> None:
+    """Validate and write explicit intended state; never contact a platform."""
+    _runtime_create_command(input_path, output, DeploymentManifest)
+
+
+@runtime_app.command("deployment-record-create")
+def runtime_deployment_record_create(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+) -> None:
+    """Normalize an explicit deployment record without performing deployment."""
+    _runtime_create_command(input_path, output, DeploymentRecord)
+
+
+@runtime_app.command("observation-plan-create")
+def runtime_observation_plan_create(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+) -> None:
+    """Validate an explicit offline observation plan."""
+    _runtime_create_command(input_path, output, RuntimeObservationPlan)
+
+
+@runtime_app.command("observation-create")
+def runtime_observation_create(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+) -> None:
+    """Normalize supplied local observation evidence without contacting a runtime."""
+    _runtime_create_command(input_path, output, RuntimeObservation)
+
+
+@runtime_app.command("deployment-verify")
+def runtime_deployment_verify(
+    record_path: Annotated[Path, typer.Option("--record", exists=True, dir_okay=False)],
+) -> None:
+    """Verify deployment-record structure while preserving its evidence origin."""
+    try:
+        record = load_runtime(record_path, DeploymentRecord)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR deployment record verification failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"VALID record={record.record_id} status={record.status.value} "
+        f"origin={record.assertion.origin.value} deployment_success=NOT_INFERRED"
+    )
+    if record.status.value.endswith("DECLARED") or record.status.value == "NOT_OBSERVED":
+        raise typer.Exit(code=1)
+
+
+@runtime_app.command("observation-verify")
+def runtime_observation_verify(
+    observation_path: Annotated[Path, typer.Option("--observation", exists=True, dir_okay=False)],
+) -> None:
+    """Verify observation structure without claiming observer correctness."""
+    try:
+        observation = load_runtime(observation_path, RuntimeObservation)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR runtime observation verification failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"VALID observation={observation.observation_id} status={observation.status.value} "
+        f"coverage={observation.coverage.status.value} observer_correctness=NOT_PROVEN"
+    )
+    if observation.status.value != "COMPLETED":
+        raise typer.Exit(code=1)
+
+
+@runtime_app.command("continuity-evaluate")
+def runtime_continuity_evaluate(
+    subject_path: Annotated[Path, typer.Option("--subject", exists=True, dir_okay=False)],
+    intent_path: Annotated[Path, typer.Option("--intent", exists=True, dir_okay=False)],
+    manifest_path: Annotated[Path, typer.Option("--manifest", exists=True, dir_okay=False)],
+    record_path: Annotated[Path, typer.Option("--record", exists=True, dir_okay=False)],
+    observer_path: Annotated[Path, typer.Option("--observer", exists=True, dir_okay=False)],
+    plan_path: Annotated[Path, typer.Option("--plan", exists=True, dir_okay=False)],
+    observation_path: Annotated[Path, typer.Option("--observation", exists=True, dir_okay=False)],
+    policy_path: Annotated[Path, typer.Option("--policy", exists=True, dir_okay=False)],
+    evaluation_sequence: Annotated[int, typer.Option("--evaluation-sequence")],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+) -> None:
+    """Evaluate point-in-time continuity from explicit local canonical records."""
+    inputs = (
+        subject_path,
+        intent_path,
+        manifest_path,
+        record_path,
+        observer_path,
+        plan_path,
+        observation_path,
+        policy_path,
+    )
+    try:
+        evaluation = evaluate_continuity(
+            load_runtime(subject_path, ProductSubject),
+            load_runtime(intent_path, DeploymentIntent),
+            load_runtime(manifest_path, DeploymentManifest),
+            load_runtime(record_path, DeploymentRecord),
+            load_runtime(observer_path, RuntimeObserverIdentity),
+            load_runtime(plan_path, RuntimeObservationPlan),
+            load_runtime(observation_path, RuntimeObservation),
+            load_runtime(policy_path, ContinuityPolicy),
+            evaluation_sequence=evaluation_sequence,
+        )
+        validate_output_path(output, forbidden_inputs=inputs)
+        atomic_write_text(output, pretty_runtime_json(evaluation), forbidden_inputs=inputs)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR continuity evaluation failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"{evaluation.verdict.value} evaluation={evaluation.evaluation_id} "
+        "snapshot=YES behavior=NOT_CHECKED runtime_safety=NOT_VERIFIED continuous=NO"
+    )
+    code = _runtime_exit(evaluation.verdict)
+    if code:
+        raise typer.Exit(code=code)
+
+
+@runtime_app.command("show")
+def runtime_show(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+) -> None:
+    """Display a canonical Phase 5G object without upgrading its claim."""
+    try:
+        raw, _ = load_bounded_json(input_path, max_bytes=16 * 1024 * 1024)
+        schema = raw.get("schema")
+        model = LOADABLE_MODELS.get(schema)
+        if model is None:
+            raise OmivInputError("unsupported runtime object schema")
+        value = load_runtime(input_path, model)
+        if isinstance(value, DeploymentRuntimeReport):
+            typer.echo(render_runtime_markdown(value))
+        else:
+            typer.echo(pretty_runtime_json(value))
+            typer.echo(
+                "Snapshot only: YES\nBehavioral parity: NOT_CHECKED\n"
+                "Runtime safety: NOT_VERIFIED\nContinuous continuity: NOT_ESTABLISHED"
+            )
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR runtime display failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+
+
+@runtime_app.command("report-verify")
+def runtime_report_verify(
+    report_path: Annotated[Path, typer.Option("--report", exists=True, dir_okay=False)],
+    subject_path: Annotated[Path, typer.Option("--subject", exists=True, dir_okay=False)],
+    manifest_path: Annotated[Path, typer.Option("--manifest", exists=True, dir_okay=False)],
+    record_path: Annotated[Path, typer.Option("--record", exists=True, dir_okay=False)],
+    observer_path: Annotated[Path, typer.Option("--observer", exists=True, dir_okay=False)],
+    observation_path: Annotated[Path, typer.Option("--observation", exists=True, dir_okay=False)],
+    evaluation_path: Annotated[Path, typer.Option("--evaluation", exists=True, dir_okay=False)],
+) -> None:
+    """Reconstruct a runtime report and reject altered summaries."""
+    try:
+        report = load_runtime(report_path, DeploymentRuntimeReport)
+        evaluation = load_runtime(evaluation_path, ContinuityEvaluation)
+        verify_runtime_report(
+            report,
+            load_runtime(subject_path, ProductSubject),
+            load_runtime(manifest_path, DeploymentManifest),
+            load_runtime(record_path, DeploymentRecord),
+            load_runtime(observer_path, RuntimeObserverIdentity),
+            load_runtime(observation_path, RuntimeObservation),
+            evaluation,
+        )
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR runtime report verification failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(f"VALID_REPORT report={report.report_id} verdict={evaluation.verdict.value}")
+    code = _runtime_exit(evaluation.verdict)
+    if code:
+        raise typer.Exit(code=code)
+
+
+@runtime_app.command("governance-adapt")
+def runtime_governance_adapt(
+    evaluation_path: Annotated[Path, typer.Option("--evaluation", exists=True, dir_okay=False)],
+    security_verdict: Annotated[str, typer.Option("--security-verdict")],
+    allow_limited_security: Annotated[bool, typer.Option("--allow-limited-security")] = False,
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)] = Path(
+        "governance-runtime-adapter.json"
+    ),
+) -> None:
+    """Map verified continuity while preserving source-security limitations."""
+    try:
+        evaluation = load_runtime(evaluation_path, ContinuityEvaluation)
+        adapter = adapt_governance_runtime(
+            evaluation,
+            source_security_verdict=security_verdict,
+            source_security_limitations=["Source security evidence remains policy-scoped."],
+            allow_limited_security=allow_limited_security,
+        )
+        validate_output_path(output, forbidden_inputs=(evaluation_path,))
+        atomic_write_text(output, pretty_runtime_json(adapter), forbidden_inputs=(evaluation_path,))
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR runtime governance adaptation failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"{adapter.continuity_outcome} adapter={adapter.adapter_id} "
+        f"source_security={adapter.source_security_verdict}"
+    )
+    code = _runtime_exit(evaluation.verdict)
+    if code:
+        raise typer.Exit(code=code)
+
+
+@runtime_app.command("custody-link")
+def runtime_custody_link(
+    chain_id: Annotated[str, typer.Option("--chain-id")],
+    ledger_digest: Annotated[str, typer.Option("--ledger-digest")],
+    record_path: Annotated[Path, typer.Option("--record", exists=True, dir_okay=False)],
+    observation_path: Annotated[Path, typer.Option("--observation", exists=True, dir_okay=False)],
+    evaluation_path: Annotated[Path, typer.Option("--evaluation", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+) -> None:
+    """Create a custody linkage without fabricating behavior, safety, or deployment."""
+    inputs = (record_path, observation_path, evaluation_path)
+    try:
+        evaluation = load_runtime(evaluation_path, ContinuityEvaluation)
+        linkage = build_custody_runtime_linkage(
+            chain_id,
+            ledger_digest,
+            load_runtime(record_path, DeploymentRecord),
+            load_runtime(observation_path, RuntimeObservation),
+            evaluation,
+        )
+        validate_output_path(output, forbidden_inputs=inputs)
+        atomic_write_text(output, pretty_runtime_json(linkage), forbidden_inputs=inputs)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR runtime custody linkage failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(f"RECORDED linkage={linkage.linkage_id} snapshot=YES behavior=NOT_CHECKED")
+    code = _runtime_exit(evaluation.verdict)
     if code:
         raise typer.Exit(code=code)

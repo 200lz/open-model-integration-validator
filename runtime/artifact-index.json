@@ -1,0 +1,699 @@
+{
+  "entries": [
+    {
+      "canonical_id": "runtime_report_1f030f9caaa1ada25371e74e8686af82",
+      "relative_path": "reports/runtime/companion-drift.runtime-report.json",
+      "schema_id": "omiv.deployment-runtime-report.v1",
+      "sha256": "e7c7ad101ca7a8b085a8df1f947263ac03c265583fcde72fc2448ea4e9375c20",
+      "size": 9205
+    },
+    {
+      "canonical_id": "runtime_markdown_0cbebb8630f4e78cc78e4ab798e194f5",
+      "relative_path": "reports/runtime/companion-drift.runtime-report.md",
+      "schema_id": "omiv.runtime-report-markdown.v1",
+      "sha256": "0cbebb8630f4e78cc78e4ab798e194f51da2d85bbe9088af888f099bd513f22b",
+      "size": 2106
+    },
+    {
+      "canonical_id": "runtime_report_2ed1bdc499722ccc435fe3f60f2c5de4",
+      "relative_path": "reports/runtime/container-proxy.runtime-report.json",
+      "schema_id": "omiv.deployment-runtime-report.v1",
+      "sha256": "9413642e386c42d621af9a0b1a37fff5de4687bf941fc4593ebea03231aee8a2",
+      "size": 8501
+    },
+    {
+      "canonical_id": "runtime_markdown_254ef9563f083f4a46a9e98e340e72f6",
+      "relative_path": "reports/runtime/container-proxy.runtime-report.md",
+      "schema_id": "omiv.runtime-report-markdown.v1",
+      "sha256": "254ef9563f083f4a46a9e98e340e72f60e54032f29344484003d2f553ecc87ed",
+      "size": 2219
+    },
+    {
+      "canonical_id": "runtime_report_ec7cb6fd3a0d47628232c07e960ba595",
+      "relative_path": "reports/runtime/enterprise.runtime-report.json",
+      "schema_id": "omiv.deployment-runtime-report.v1",
+      "sha256": "eddd469037f1be12f8dae7ef25833da4e9e9ee4a84099d2dc67faf9d019fafc2",
+      "size": 7875
+    },
+    {
+      "canonical_id": "runtime_gap_0ace56fbc7934596dab42f34638d556f",
+      "relative_path": "reports/runtime/kimi-k3.runtime-gap-report.json",
+      "schema_id": "omiv.runtime-gap-report.v1",
+      "sha256": "8c30ede96bd523b66f903c52b838db704a1bc29ce5f9567d66be525d698e9c58",
+      "size": 505
+    },
+    {
+      "canonical_id": "runtime_report_c3a976e359ee2bdbcc8a34b884030bc0",
+      "relative_path": "reports/runtime/local-self-observed.runtime-report.json",
+      "schema_id": "omiv.deployment-runtime-report.v1",
+      "sha256": "5f94289e231123be1e410a466a390d928f6410285dd6e65fa815d02a9e27247b",
+      "size": 7782
+    },
+    {
+      "canonical_id": "runtime_markdown_8e6918524e479230ed80b362b289ea52",
+      "relative_path": "reports/runtime/local-self-observed.runtime-report.md",
+      "schema_id": "omiv.runtime-report-markdown.v1",
+      "sha256": "8e6918524e479230ed80b362b289ea52042208899756bd34426e14ad6de1a03f",
+      "size": 2178
+    },
+    {
+      "canonical_id": "trust_report_f92681181fc3453ea2238de29bb64357",
+      "relative_path": "reports/runtime/signed-continuity-evaluation.signature-report.json",
+      "schema_id": "omiv.signature-report.v1",
+      "sha256": "c813f3f605586f11a385011ab18954a4e54530da42589a03baadbc3538da6553",
+      "size": 5003
+    },
+    {
+      "canonical_id": "trust_report_ce55eff20eb35916367c5072701cb610",
+      "relative_path": "reports/runtime/signed-deployment-intent.signature-report.json",
+      "schema_id": "omiv.signature-report.v1",
+      "sha256": "52c77a7c45d3c46385e98401453dc601deeac7c9aa6a5de8a08869a86ee97d8b",
+      "size": 5004
+    },
+    {
+      "canonical_id": "trust_report_853c7a5ce5fa2d4bc17da52d2332a7ed",
+      "relative_path": "reports/runtime/signed-deployment-manifest.signature-report.json",
+      "schema_id": "omiv.signature-report.v1",
+      "sha256": "ea6bd71dce7fae0c0d491482dfc6220440966db28eedeea4679d9e8352ffaf02",
+      "size": 5010
+    },
+    {
+      "canonical_id": "trust_report_9f74cbd6676c8f2bb89e17830954e0e0",
+      "relative_path": "reports/runtime/signed-deployment-record.signature-report.json",
+      "schema_id": "omiv.signature-report.v1",
+      "sha256": "f8f975453b0b87aa32461164819585c49e4a1be0c1f859aab8a26f4c0aeddeb7",
+      "size": 5012
+    },
+    {
+      "canonical_id": "trust_report_0738dadbfc7181f32ecc13aac6cad3dc",
+      "relative_path": "reports/runtime/signed-runtime-observation.signature-report.json",
+      "schema_id": "omiv.signature-report.v1",
+      "sha256": "16901c025dde12abe59616c1cd4917d568c5e7ddb2cfb8b8d25a7d0c4b407197",
+      "size": 5017
+    },
+    {
+      "canonical_id": "runtime_report_8445edd73007876091e63a96325fda02",
+      "relative_path": "reports/runtime/trusted-team.runtime-report.json",
+      "schema_id": "omiv.deployment-runtime-report.v1",
+      "sha256": "45a50f228ad5a071acd56fa21642d676eee03fb2cbc80aeb64d61c61dddb7fca",
+      "size": 7866
+    },
+    {
+      "canonical_id": "runtime_markdown_a614f7e4041d73683485d396c5b5e8f4",
+      "relative_path": "reports/runtime/trusted-team.runtime-report.md",
+      "schema_id": "omiv.runtime-report-markdown.v1",
+      "sha256": "a614f7e4041d73683485d396c5b5e8f47c0e285610d4dbca0b5c12753dc64b0a",
+      "size": 2103
+    },
+    {
+      "canonical_id": "runtime_evaluation_1e30c3a81d65729a11ac708ebdf6e8ed",
+      "relative_path": "runtime/examples/air-gapped.continuity-evaluation.json",
+      "schema_id": "omiv.continuity-evaluation.v1",
+      "sha256": "f42c4ec21d1165dffc5f7202b22349088500ecdeb1df662058b3c21563494dd1",
+      "size": 4166
+    },
+    {
+      "canonical_id": "runtime_observation_d41e0dcc1f3a1e4f6860cebe2cd95952",
+      "relative_path": "runtime/examples/air-gapped.observation.json",
+      "schema_id": "omiv.runtime-observation.v1",
+      "sha256": "06cba0b7e501240369c1ba87bd594cbde474b5e267a88e3a7d04d527da7ec3e2",
+      "size": 6921
+    },
+    {
+      "canonical_id": "deployment_artifact_set_cd68f234c89aca95a9edbd9cef3391cd",
+      "relative_path": "runtime/examples/artifact-set.json",
+      "schema_id": "omiv.deployment-artifact-set.v1",
+      "sha256": "09f9d29f3574b145ba341e3716470df41b24fbc5b88875be874ce43bcf283768",
+      "size": 6641
+    },
+    {
+      "canonical_id": "runtime_evaluation_41ebfc266918af9b56c351ccb1d0141b",
+      "relative_path": "runtime/examples/companion-drift.continuity-evaluation.json",
+      "schema_id": "omiv.continuity-evaluation.v1",
+      "sha256": "740a9f2dbe2ee5b2c560b894489b29bac31d7114f634dc53d365d698685cf0a0",
+      "size": 5282
+    },
+    {
+      "canonical_id": "runtime_drift_146eebcb400c49eee45aa75d9bab07e9",
+      "relative_path": "runtime/examples/companion-drift.drift-1.json",
+      "schema_id": "omiv.drift-finding.v1",
+      "sha256": "308db954c6d9df13073f54fd77864e02461334696384c6608646ff11346c7f7f",
+      "size": 1129
+    },
+    {
+      "canonical_id": "runtime_observation_02e02215657a0195b9042ea6f87ec5aa",
+      "relative_path": "runtime/examples/companion-drift.observation.json",
+      "schema_id": "omiv.runtime-observation.v1",
+      "sha256": "074a6f2b02895f157907b2637c9bfe1b3cc25640c3a6a76ca85b0c0625a4218e",
+      "size": 6921
+    },
+    {
+      "canonical_id": "runtime_evaluation_590355fd66b331ddd07bb7da817a5222",
+      "relative_path": "runtime/examples/configuration-drift.continuity-evaluation.json",
+      "schema_id": "omiv.continuity-evaluation.v1",
+      "sha256": "5414362e50ef46485ee4db4910064448cbfbdf0ea864cf236325c4b95b19c7d6",
+      "size": 5292
+    },
+    {
+      "canonical_id": "runtime_drift_9e121e90d8eda2933cc7c8e7cfa47b6c",
+      "relative_path": "runtime/examples/configuration-drift.drift-1.json",
+      "schema_id": "omiv.drift-finding.v1",
+      "sha256": "7b3f654b121f0bb900b681274dbf25955a290fdfa08dbcd22961de649aa0fbf1",
+      "size": 1132
+    },
+    {
+      "canonical_id": "runtime_observation_e67ab8778d403f1a3f1f372bb6d216a3",
+      "relative_path": "runtime/examples/configuration-drift.observation.json",
+      "schema_id": "omiv.runtime-observation.v1",
+      "sha256": "87379b8aa6361ec22895dd6c53a63313e11811e089414d192dce0f5dd3591d43",
+      "size": 6921
+    },
+    {
+      "canonical_id": "runtime_config_2fa873a745a4002dbd3395366548b901",
+      "relative_path": "runtime/examples/configuration.json",
+      "schema_id": "omiv.deployment-configuration-identity.v1",
+      "sha256": "a545a6360c46a0c3a7fda0dca91b3315c5b89a3b9bb22008e36fe84db9edb47f",
+      "size": 932
+    },
+    {
+      "canonical_id": "runtime_evaluation_e36c77f1120e47615a0585304593f297",
+      "relative_path": "runtime/examples/container-proxy.continuity-evaluation.json",
+      "schema_id": "omiv.continuity-evaluation.v1",
+      "sha256": "751713897d930f8c037af1958aa6b4b8b622a90c5936957300ad53c3001b63ab",
+      "size": 4477
+    },
+    {
+      "canonical_id": "runtime_observation_8c5f2fe37b8f0d7ea44c916366f56a76",
+      "relative_path": "runtime/examples/container-proxy.observation.json",
+      "schema_id": "omiv.runtime-observation.v1",
+      "sha256": "d12c44d146679562c2851f3122be19290e0aefe883bfdbab5c6cf0d17b12bb07",
+      "size": 7295
+    },
+    {
+      "canonical_id": "runtime_evaluation_b65c901c484ac2113951286527179343",
+      "relative_path": "runtime/examples/cross-tenant.continuity-evaluation.json",
+      "schema_id": "omiv.continuity-evaluation.v1",
+      "sha256": "0035a3b81bf012bf02bdbbc7e7c40af02c0e08488d14a9a1b6c68b36e25beec9",
+      "size": 4092
+    },
+    {
+      "canonical_id": "runtime_observation_4d35b20f6ce2e0b89ad331cd1b6782b6",
+      "relative_path": "runtime/examples/cross-tenant.observation.json",
+      "schema_id": "omiv.runtime-observation.v1",
+      "sha256": "8bb9e60d582266f6c317b69c6c8e7416cd3efa67a81fa77993ba90313ec641f9",
+      "size": 6917
+    },
+    {
+      "canonical_id": "runtime_evaluation_6e19ed6ba657faacac548ffff982a306",
+      "relative_path": "runtime/examples/declared-only.continuity-evaluation.json",
+      "schema_id": "omiv.continuity-evaluation.v1",
+      "sha256": "b0d237d6af2f8b6a4ae546d2179664699b24ca8d70309746d1df43d164df115b",
+      "size": 3988
+    },
+    {
+      "canonical_id": "runtime_observation_8576d2630d4b492e2e4bf1fa9349a4cd",
+      "relative_path": "runtime/examples/declared-only.observation.json",
+      "schema_id": "omiv.runtime-observation.v1",
+      "sha256": "6a10ce7735fd9e904c61bba5b78eadee1f7d68c576ce912bed5a4a2bc50ecd38",
+      "size": 6626
+    },
+    {
+      "canonical_id": "runtime_authority_31effe82adf928d3fbee9e6f5d064460",
+      "relative_path": "runtime/examples/deployer-authority.json",
+      "schema_id": "omiv.assertion-authority-scope.v1",
+      "sha256": "8171110754a9e00bb708a5005b7b167b0d9da7a496e4ecfd0ea8f7b0621da25a",
+      "size": 1749
+    },
+    {
+      "canonical_id": "deployment_record_054c7ffc6c9043c6380fb48a376ce6cf",
+      "relative_path": "runtime/examples/deployment-record.json",
+      "schema_id": "omiv.deployment-record.v1",
+      "sha256": "36d947d2834e024feb88d0a14fefaa81d842cb1417b4f527ab68ff5bc02bd87e",
+      "size": 13325
+    },
+    {
+      "canonical_id": "runtime_evaluation_7cb1acc388d4d7f832467309477ae653",
+      "relative_path": "runtime/examples/engine-binary-drift.continuity-evaluation.json",
+      "schema_id": "omiv.continuity-evaluation.v1",
+      "sha256": "86fdc481a1f5310534ed63d931f9c452e7bc24d52a45cd0a12c4965b42eff84d",
+      "size": 5284
+    },
+    {
+      "canonical_id": "runtime_drift_c0b042b726346842c3a706d30187ed1f",
+      "relative_path": "runtime/examples/engine-binary-drift.drift-1.json",
+      "schema_id": "omiv.drift-finding.v1",
+      "sha256": "0d407013156efc68bf7fb17c4c55b7046808d047b1346b86e0f2b673a1a90c32",
+      "size": 1124
+    },
+    {
+      "canonical_id": "runtime_observation_4d68fa2de48288ff9059fcb71ccf518e",
+      "relative_path": "runtime/examples/engine-binary-drift.observation.json",
+      "schema_id": "omiv.runtime-observation.v1",
+      "sha256": "d9bd25ba89f196747756228217b2cb6eedcba3ffd62baa98ca74a420ce374689",
+      "size": 6921
+    },
+    {
+      "canonical_id": "runtime_engine_f25c3d194c3da9b4737988999b064a08",
+      "relative_path": "runtime/examples/engine.json",
+      "schema_id": "omiv.runtime-engine-identity.v1",
+      "sha256": "b60f5f10ed0da2982919642b0ce3b6412a563be7932772c71e467328c0ea3ee6",
+      "size": 945
+    },
+    {
+      "canonical_id": "runtime_evaluation_c7c15ad94b42d3a3055bdef0eaff0b1a",
+      "relative_path": "runtime/examples/enterprise.continuity-evaluation.json",
+      "schema_id": "omiv.continuity-evaluation.v1",
+      "sha256": "471dd59ceee88d9ff805b3043d999432dece6d7666cf47b6f526a75ec843510e",
+      "size": 4010
+    },
+    {
+      "canonical_id": "runtime_observation_ebbc5da8a08382aaa9d946761c8e7f72",
+      "relative_path": "runtime/examples/enterprise.observation.json",
+      "schema_id": "omiv.runtime-observation.v1",
+      "sha256": "975ed97f45442ba1150b58b123e2991e1a48a336f6b6bec7974d255c904c346a",
+      "size": 6921
+    },
+    {
+      "canonical_id": "runtime_environment_8e879e5e31d8fbdf3f2105efa7951e14",
+      "relative_path": "runtime/examples/environment.json",
+      "schema_id": "omiv.runtime-environment-identity.v1",
+      "sha256": "a707a5914d48e060e86e36479b6f8a03da56b60c3c8d221ecaebe1c221d485d0",
+      "size": 974
+    },
+    {
+      "canonical_id": "deployment_instance_49be802bee3afc1dbeaf3b6ccf614ca2",
+      "relative_path": "runtime/examples/instance.json",
+      "schema_id": "omiv.deployment-instance-identity.v1",
+      "sha256": "86c69d12d4436186f8577a1b05afcf353955a9c446b987345b2d103b84064412",
+      "size": 1090
+    },
+    {
+      "canonical_id": "deployment_intent_caf9efc597b811fcf1cc84468dbfbf7b",
+      "relative_path": "runtime/examples/intent.json",
+      "schema_id": "omiv.deployment-intent.v1",
+      "sha256": "63e1763e77c3dc18a7412dbaf9cf2057a7c353abcc070661a1fec591fb0fd9dd",
+      "size": 5146
+    },
+    {
+      "canonical_id": "omiv.adapter.local-runtime.v1",
+      "relative_path": "runtime/examples/local-adapter.json",
+      "schema_id": "omiv.runtime-adapter-identity.v1",
+      "sha256": "ca58eeebb7219d0f5a62db7d1718bc608e300da7973fae9feda414814e0fa621",
+      "size": 2188
+    },
+    {
+      "canonical_id": "runtime_evaluation_7dc0ff14735654631bbcc507df25aacf",
+      "relative_path": "runtime/examples/local-self-observed.continuity-evaluation.json",
+      "schema_id": "omiv.continuity-evaluation.v1",
+      "sha256": "2e062bfb6a7055f98552e891f47962deccdbbb1919345ae71b22a31a5910d97d",
+      "size": 4044
+    },
+    {
+      "canonical_id": "runtime_plan_bd51c92f87ecd9854dbc4cd60942406f",
+      "relative_path": "runtime/examples/local-self-observed.observation-plan.json",
+      "schema_id": "omiv.runtime-observation-plan.v1",
+      "sha256": "0d91ee1cfd30bf834b216c12828fadb466f37fabdd0a10cd73a6bfc37c8607e1",
+      "size": 3003
+    },
+    {
+      "canonical_id": "runtime_observation_f905d8b0a193a47f30a45f5e7ddf7ea5",
+      "relative_path": "runtime/examples/local-self-observed.observation.json",
+      "schema_id": "omiv.runtime-observation.v1",
+      "sha256": "b83d1ed0c98f94984371ef225c899fd79b1cf63e7188a30d670dcdb855521e74",
+      "size": 6670
+    },
+    {
+      "canonical_id": "deployment_manifest_e5ba8f0041a8158811da86a3bd03e094",
+      "relative_path": "runtime/examples/manifest.json",
+      "schema_id": "omiv.deployment-manifest.v1",
+      "sha256": "3cc16ff631a7869925e548e570655deef6ca4e5c2820193786dcc5e1b698d4dc",
+      "size": 15554
+    },
+    {
+      "canonical_id": "runtime_authority_adb5472ff1c130437d9dac1fd5ebe46c",
+      "relative_path": "runtime/examples/observer-authority.json",
+      "schema_id": "omiv.assertion-authority-scope.v1",
+      "sha256": "67b889af61fea672723cced147308ad944e6eb80d171dd3afd2c4ea1f1464eae",
+      "size": 1757
+    },
+    {
+      "canonical_id": "runtime_observer_f69aee8f2aea0fa462a3538343161715",
+      "relative_path": "runtime/examples/observer.json",
+      "schema_id": "omiv.runtime-observer-identity.v1",
+      "sha256": "d65d0e493b1c9d153bc949c97d41e65698bd1b07794c119dd9b0446571e1cb0b",
+      "size": 4351
+    },
+    {
+      "canonical_id": "runtime_evaluation_afba86da100a580244ce17165a994726",
+      "relative_path": "runtime/examples/registry-proxy.continuity-evaluation.json",
+      "schema_id": "omiv.continuity-evaluation.v1",
+      "sha256": "3eaa67e2ad504b5e028a29059294b19466054b11c5aa64ebbe11c34109f03531",
+      "size": 4507
+    },
+    {
+      "canonical_id": "runtime_observation_0514d69f3796617d56179f1c6a12573e",
+      "relative_path": "runtime/examples/registry-proxy.observation.json",
+      "schema_id": "omiv.runtime-observation.v1",
+      "sha256": "4bd9cbb6b6bc4ab4f79a3f6d4c51c8616c1a8e4bc7e692e413643eccf40dfb65",
+      "size": 7325
+    },
+    {
+      "canonical_id": "runtime_evaluation_73c88c79fc82c887a57ce15752cf1194",
+      "relative_path": "runtime/examples/regulated.continuity-evaluation.json",
+      "schema_id": "omiv.continuity-evaluation.v1",
+      "sha256": "f2de36a3ce2797817816219f150d89d6f21233329a7021d3994e94e20ca85a95",
+      "size": 4501
+    },
+    {
+      "canonical_id": "runtime_observation_ed758581f5d347ff33e8d21972a17dc8",
+      "relative_path": "runtime/examples/regulated.observation.json",
+      "schema_id": "omiv.runtime-observation.v1",
+      "sha256": "5a40ed5471e49d313c5d1833e8d666f6daa9e6543de1b73f9566474574ce29d3",
+      "size": 6921
+    },
+    {
+      "canonical_id": "runtime_evaluation_6c7d721962f17afc242b62d3a378b212",
+      "relative_path": "runtime/examples/replayed-observation.continuity-evaluation.json",
+      "schema_id": "omiv.continuity-evaluation.v1",
+      "sha256": "d9a767659ea965289290422b9af2fc56eea39f4c24066291e60d52cafded07d7",
+      "size": 4101
+    },
+    {
+      "canonical_id": "runtime_observation_f799ed77fa5a917ff9ae72d5d3d0816b",
+      "relative_path": "runtime/examples/replayed-observation.observation.json",
+      "schema_id": "omiv.runtime-observation.v1",
+      "sha256": "6aa4ca30815f86d76571ab14528218cb1033a234a8e59e7d83220349526d14c8",
+      "size": 6921
+    },
+    {
+      "canonical_id": "omiv.adapter.air-gapped-appliance.v1",
+      "relative_path": "runtime/examples/reserved-adapters/air-gapped-appliance.v1.json",
+      "schema_id": "omiv.runtime-adapter-identity.v1",
+      "sha256": "6d53cdc19b2433464dfd526b13b55df4a1c959cff7c28cb8528198290a651dcb",
+      "size": 2162
+    },
+    {
+      "canonical_id": "omiv.adapter.cloud-endpoint.v1",
+      "relative_path": "runtime/examples/reserved-adapters/cloud-endpoint.v1.json",
+      "schema_id": "omiv.runtime-adapter-identity.v1",
+      "sha256": "0aa7b77dc68339e31f2e222ea795904e09b12a1e12a9bc7d83db4941d7bb1482",
+      "size": 2156
+    },
+    {
+      "canonical_id": "omiv.adapter.internal-platform.v1",
+      "relative_path": "runtime/examples/reserved-adapters/internal-platform.v1.json",
+      "schema_id": "omiv.runtime-adapter-identity.v1",
+      "sha256": "b5c7e32ee53f19f6b44282a9044f7619528291df7c9f43649b21aa21b62c79b2",
+      "size": 2159
+    },
+    {
+      "canonical_id": "omiv.adapter.kubernetes.v1",
+      "relative_path": "runtime/examples/reserved-adapters/kubernetes.v1.json",
+      "schema_id": "omiv.runtime-adapter-identity.v1",
+      "sha256": "7eebbb84d187bd6031caa668dcbffb77af237a5804b99a766a007ab8809b3e62",
+      "size": 2152
+    },
+    {
+      "canonical_id": "omiv.adapter.llama-cpp.v1",
+      "relative_path": "runtime/examples/reserved-adapters/llama-cpp.v1.json",
+      "schema_id": "omiv.runtime-adapter-identity.v1",
+      "sha256": "2cde5ce29375a156dd7a69839863814ce8ee2f1a56724500fb4f5a5be8b86523",
+      "size": 2151
+    },
+    {
+      "canonical_id": "omiv.adapter.lm-studio.v1",
+      "relative_path": "runtime/examples/reserved-adapters/lm-studio.v1.json",
+      "schema_id": "omiv.runtime-adapter-identity.v1",
+      "sha256": "603be937ebf6d593111426fb7eb472e9dd75fc03f82f5069f9d4a55b3f7f374f",
+      "size": 2151
+    },
+    {
+      "canonical_id": "omiv.adapter.mlx.v1",
+      "relative_path": "runtime/examples/reserved-adapters/mlx.v1.json",
+      "schema_id": "omiv.runtime-adapter-identity.v1",
+      "sha256": "d71190488dc67a6bee0142acb097b5489e09c1f51beceacd5387ae31a1970315",
+      "size": 2145
+    },
+    {
+      "canonical_id": "omiv.adapter.oci-runtime.v1",
+      "relative_path": "runtime/examples/reserved-adapters/oci-runtime.v1.json",
+      "schema_id": "omiv.runtime-adapter-identity.v1",
+      "sha256": "b3c3f056c2283c90643bac3a5699bd19c42ed3d24851adeaee6d1adedceb2fa2",
+      "size": 2153
+    },
+    {
+      "canonical_id": "omiv.adapter.ollama.v1",
+      "relative_path": "runtime/examples/reserved-adapters/ollama.v1.json",
+      "schema_id": "omiv.runtime-adapter-identity.v1",
+      "sha256": "8de1279e263009e47b5da57ca6045f75c19545016d8e61586a44b91da2410266",
+      "size": 2148
+    },
+    {
+      "canonical_id": "omiv.adapter.tensorrt-llm.v1",
+      "relative_path": "runtime/examples/reserved-adapters/tensorrt-llm.v1.json",
+      "schema_id": "omiv.runtime-adapter-identity.v1",
+      "sha256": "e8193687800f7f3a63071c92afe9daeab06a9bb5cbd443fcc65a254b526fce13",
+      "size": 2154
+    },
+    {
+      "canonical_id": "omiv.adapter.triton.v1",
+      "relative_path": "runtime/examples/reserved-adapters/triton.v1.json",
+      "schema_id": "omiv.runtime-adapter-identity.v1",
+      "sha256": "e320469311f147ece2fdde38c1dd98a9080c7a3bd3be300cb24585e031a151cd",
+      "size": 2148
+    },
+    {
+      "canonical_id": "omiv.adapter.vllm.v1",
+      "relative_path": "runtime/examples/reserved-adapters/vllm.v1.json",
+      "schema_id": "omiv.runtime-adapter-identity.v1",
+      "sha256": "244a6346a2d22e662ecb25bf32fda0d0c73aa3ab937558c6f4be0c8ce31cb238",
+      "size": 2146
+    },
+    {
+      "canonical_id": "tb_0d86637396b25b7444565c8752eda426",
+      "relative_path": "runtime/examples/runtime.trust-bundle.json",
+      "schema_id": "omiv.trust-bundle.v1",
+      "sha256": "4840cc932cc38edf733055896abc92f0e3f9cfb86e4c179ea1ef8013407deac7",
+      "size": 4194
+    },
+    {
+      "canonical_id": "omiv.trust-policy.team_release.v1",
+      "relative_path": "runtime/examples/runtime.trust-policy.json",
+      "schema_id": "omiv.trust-policy.v1",
+      "sha256": "13fb1dab0612c13339c54d4dfd16108d6ac374d80c3504193693c7d64849953a",
+      "size": 1480
+    },
+    {
+      "canonical_id": "soe_dac94f0fc436b708a5f8106e47948d4c",
+      "relative_path": "runtime/examples/signed-continuity-evaluation.envelope.json",
+      "schema_id": "omiv.signed-object-envelope.v1",
+      "sha256": "6275d9fcf2855abff51d7c1368bbbf84658ae1ea20d200a619b9a995febbe441",
+      "size": 7580
+    },
+    {
+      "canonical_id": "signed_runtime_f44e21eb60d02eb9b9d674686118776a",
+      "relative_path": "runtime/examples/signed-continuity-evaluation.linkage.json",
+      "schema_id": "omiv.signed-runtime-linkage.v1",
+      "sha256": "833edd18aa192b73a7fefc954e664cbc593d14e323d7eaccce2c56b9a5aeddb4",
+      "size": 917
+    },
+    {
+      "canonical_id": "soe_6255b048a6540508dea9b4778e4c690b",
+      "relative_path": "runtime/examples/signed-deployment-intent.envelope.json",
+      "schema_id": "omiv.signed-object-envelope.v1",
+      "sha256": "bb61eccf7edc626a7ca2843aba5d795262f661b9d8960b5076838fc6efa1e644",
+      "size": 8780
+    },
+    {
+      "canonical_id": "signed_runtime_1b2d3a827f61bac2b8d38cc69f18869f",
+      "relative_path": "runtime/examples/signed-deployment-intent.linkage.json",
+      "schema_id": "omiv.signed-runtime-linkage.v1",
+      "sha256": "7203ec9adcf7f45000975d8865b429cfd038a6f6454462ef1a1dcdefb84fac7a",
+      "size": 908
+    },
+    {
+      "canonical_id": "soe_3849a125cf7a48c285239e5a66c8200f",
+      "relative_path": "runtime/examples/signed-deployment-manifest.envelope.json",
+      "schema_id": "omiv.signed-object-envelope.v1",
+      "sha256": "305201d4892d2cc01895eb749ed5a502875aad0fb4179cb6be7cd9490bab4241",
+      "size": 19684
+    },
+    {
+      "canonical_id": "signed_runtime_70768cc2332cd9dad91bd8dde614a383",
+      "relative_path": "runtime/examples/signed-deployment-manifest.linkage.json",
+      "schema_id": "omiv.signed-runtime-linkage.v1",
+      "sha256": "04f45b41e24ff935617fb36b14a0ec194bdeb3adba65c3e552ac44c3ba59e890",
+      "size": 914
+    },
+    {
+      "canonical_id": "soe_86d39b8eb02497f1fb06efbc817775c2",
+      "relative_path": "runtime/examples/signed-deployment-record.envelope.json",
+      "schema_id": "omiv.signed-object-envelope.v1",
+      "sha256": "7db70606aecbfff29b7260ba120a6618b6385484192d9df6057105c983afbc92",
+      "size": 17383
+    },
+    {
+      "canonical_id": "signed_runtime_99aebe6c1226681164e5bba63bad80c9",
+      "relative_path": "runtime/examples/signed-deployment-record.linkage.json",
+      "schema_id": "omiv.signed-runtime-linkage.v1",
+      "sha256": "4dd3e80f113e30346f57a8ce79c8e79000130d374e2be25821c269aca6b9dddd",
+      "size": 908
+    },
+    {
+      "canonical_id": "soe_e7dfedafa20c5d9456278e6866c2f6ed",
+      "relative_path": "runtime/examples/signed-runtime-observation.envelope.json",
+      "schema_id": "omiv.signed-object-envelope.v1",
+      "sha256": "39f15379f618b65f8fa581aa5ee191494f6d1653838b9b946ed193628f0efd3d",
+      "size": 10671
+    },
+    {
+      "canonical_id": "signed_runtime_e23b242ca027c6026b1e1315ba706426",
+      "relative_path": "runtime/examples/signed-runtime-observation.linkage.json",
+      "schema_id": "omiv.signed-runtime-linkage.v1",
+      "sha256": "8ea12a9d3ada282a6cd0c6ecc5990f5d8f612e51b62ea63e5ac365674cc2f2eb",
+      "size": 914
+    },
+    {
+      "canonical_id": "runtime_evaluation_c6092dca419dd66d6aff03c63dd9bcf4",
+      "relative_path": "runtime/examples/stale-observation.continuity-evaluation.json",
+      "schema_id": "omiv.continuity-evaluation.v1",
+      "sha256": "16eeda12a22e62ea4930498e0a3b3e3eba19ed6038e12342f0e51cdffa781ab0",
+      "size": 4085
+    },
+    {
+      "canonical_id": "product_subject_2cb1fa6a8c4968f6d1ea3adc01896821",
+      "relative_path": "runtime/examples/subject.json",
+      "schema_id": "omiv.product-subject.v1",
+      "sha256": "d06a389bfed638cf7182e9af63d981918f8ab2c59126fea4edebae7ad335c9e3",
+      "size": 703
+    },
+    {
+      "canonical_id": "runtime_evaluation_9f0cbbfbeda0d366a6aadcec6983be56",
+      "relative_path": "runtime/examples/trusted-team.continuity-evaluation.json",
+      "schema_id": "omiv.continuity-evaluation.v1",
+      "sha256": "9e6b041994a82f5e6e45cda8f9a4adf36f341945a17e37462a9f21537953d077",
+      "size": 4001
+    },
+    {
+      "canonical_id": "custody_runtime_31269c127d16cf51a569d87dbc331cb1",
+      "relative_path": "runtime/examples/trusted-team.custody-runtime-linkage.json",
+      "schema_id": "omiv.custody-runtime-linkage.v1",
+      "sha256": "c1f628004f682f19e7dc99143a1242449331787346823dc24c821938d0ea065d",
+      "size": 1646
+    },
+    {
+      "canonical_id": "runtime_evidence_deployment_db1db47d1060065c34946a1f",
+      "relative_path": "runtime/examples/trusted-team.deployment-evidence-reference.json",
+      "schema_id": "omiv.deployment-runtime-evidence.v1",
+      "sha256": "6ab55f6025d289387f7e1328e8c7f540e1f294ac7791203afa1994e38e87fcc9",
+      "size": 1510
+    },
+    {
+      "canonical_id": "governance_runtime_1db8fe72c99b09ce79f612e4d58fc7b6",
+      "relative_path": "runtime/examples/trusted-team.governance-runtime-adapter.json",
+      "schema_id": "omiv.governance-runtime-adapter.v1",
+      "sha256": "56d3c29b5752512fc564d6c0c4586fda0b4489cfeaff215aa2f56c3fd1c0e974",
+      "size": 1639
+    },
+    {
+      "canonical_id": "runtime_plan_978fc00540bfa6325e0b3ec9b38b54eb",
+      "relative_path": "runtime/examples/trusted-team.observation-plan.json",
+      "schema_id": "omiv.runtime-observation-plan.v1",
+      "sha256": "b094c3b521aa86f5bdcf93d55574263e41a117b634a77aa7286ef9fe930c85f7",
+      "size": 3093
+    },
+    {
+      "canonical_id": "runtime_observation_ef4de78eb21c83dc7c28da10481842bf",
+      "relative_path": "runtime/examples/trusted-team.observation.json",
+      "schema_id": "omiv.runtime-observation.v1",
+      "sha256": "c5d6e5b1517fb8f2247db7a55e5860a5a00cb2373f03ed8815f7a2193d04ebb3",
+      "size": 6921
+    },
+    {
+      "canonical_id": "passport_runtime_76b194d8c2b9fa8a84d1c584dbfaa935",
+      "relative_path": "runtime/examples/trusted-team.passport-runtime-summary.json",
+      "schema_id": "omiv.passport-runtime-summary.v1",
+      "sha256": "f530b7b4ffea07220069a6b1938fb7a2a97e42dd23ba5d727e898d8eed052b68",
+      "size": 1971
+    },
+    {
+      "canonical_id": "runtime_evidence_runtime_observation_db1db47d1060065c34946a1f",
+      "relative_path": "runtime/examples/trusted-team.runtime-evidence-reference.json",
+      "schema_id": "omiv.deployment-runtime-evidence.v1",
+      "sha256": "9446e9952df3320012d1eac780bf44c594f9bd862a346ec66ee34af975da522b",
+      "size": 1528
+    },
+    {
+      "canonical_id": "runtime_evaluation_db03267c2e687f7b419f2b8052f6e3f8",
+      "relative_path": "runtime/examples/unauthorized-observer.continuity-evaluation.json",
+      "schema_id": "omiv.continuity-evaluation.v1",
+      "sha256": "89c4bea02c59e397a26d96c7aead27257157893c196a822dd5e521429e6e3c50",
+      "size": 4083
+    },
+    {
+      "canonical_id": "runtime_observation_170e51f877cc81bfcfa636dabab82657",
+      "relative_path": "runtime/examples/unauthorized-observer.observation.json",
+      "schema_id": "omiv.runtime-observation.v1",
+      "sha256": "4e4d0d444244f85d649add163cb9c093836508ad64145ab59ab21117ca1f1ce2",
+      "size": 6917
+    },
+    {
+      "canonical_id": "runtime_evaluation_47d2ee9b7dc736c658acc40a4ab17e09",
+      "relative_path": "runtime/examples/unknown-observer.continuity-evaluation.json",
+      "schema_id": "omiv.continuity-evaluation.v1",
+      "sha256": "3d72f1c81ada8a167cd251d9b421acacf706b3b51ee9ce389f9df49774e96c21",
+      "size": 4073
+    },
+    {
+      "canonical_id": "runtime_observation_129be3bb53478bf1d123773237200a72",
+      "relative_path": "runtime/examples/unknown-observer.observation.json",
+      "schema_id": "omiv.runtime-observation.v1",
+      "sha256": "718041342f6c6475224f74e633fa821af41ff45f4c5a158b0e35ab9601362c92",
+      "size": 6923
+    },
+    {
+      "canonical_id": "omiv.continuity-policy.air_gapped_runtime_continuity.v1",
+      "relative_path": "runtime/policies/air_gapped_runtime_continuity.json",
+      "schema_id": "omiv.continuity-policy.v1",
+      "sha256": "bde13c78dd852d526844071a4fb9b50c2f452198d852899159836575b83b1800",
+      "size": 2142
+    },
+    {
+      "canonical_id": "omiv.continuity-policy.enterprise_deployment_continuity.v1",
+      "relative_path": "runtime/policies/enterprise_deployment_continuity.json",
+      "schema_id": "omiv.continuity-policy.v1",
+      "sha256": "8ef64b979c2f1cd42a008591d9af6b399f5fb76dc8f1f02c9e149340941ce70c",
+      "size": 2148
+    },
+    {
+      "canonical_id": "omiv.continuity-policy.local_runtime_continuity.v1",
+      "relative_path": "runtime/policies/local_runtime_continuity.json",
+      "schema_id": "omiv.continuity-policy.v1",
+      "sha256": "406352d099ed9794c5f361c5328affa5b9eba50a78acf2bae1d8c631e363ba1c",
+      "size": 2182
+    },
+    {
+      "canonical_id": "omiv.continuity-policy.regulated_runtime_continuity.v1",
+      "relative_path": "runtime/policies/regulated_runtime_continuity.json",
+      "schema_id": "omiv.continuity-policy.v1",
+      "sha256": "865ee5823611ff08ed126047abebf370beecef0e1a19116d1d672cb9d2346891",
+      "size": 2139
+    },
+    {
+      "canonical_id": "omiv.continuity-policy.team_service_continuity.v1",
+      "relative_path": "runtime/policies/team_service_continuity.json",
+      "schema_id": "omiv.continuity-policy.v1",
+      "sha256": "b868f7e165be963fbe958bc64752015ae96892f49c41e5d60d80d51ccddd5109",
+      "size": 2131
+    }
+  ],
+  "generated_json_count": 94,
+  "generated_markdown_count": 4,
+  "index_digest": "440e81145c3d78f566d30eb28eb7f3be7406561b417b934c1b2c5102df89e083",
+  "index_id": "runtime_index_accbeecb2226c29f4f603b88bc6b6162",
+  "limitations": [
+    "Index inventories compact synthetic Phase 5G evidence; no payloads or deployments."
+  ],
+  "schema": "omiv.runtime-artifact-index.v1",
+  "total_size": 433443
+}
