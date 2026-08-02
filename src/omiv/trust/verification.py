@@ -21,6 +21,11 @@ from omiv.governance.models import (
     ReleaseCandidate,
 )
 from omiv.passport.models import ModelPassport
+from omiv.security.models import (
+    SecurityEvaluationResult,
+    SecurityEvidenceBundle,
+    SecurityScanExecutionRecord,
+)
 from omiv.trust.algorithms import public_key_from_raw, verify
 from omiv.trust.domain import delegation_bytes, signed_object_bytes
 from omiv.trust.models import (
@@ -281,6 +286,12 @@ def _validate_source_object(envelope: SignedObjectEnvelope) -> None:
         model = ReleaseCandidate
     elif envelope.signed_object_type == SignedObjectType.PROMOTION_DECISION:
         model = PromotionDecisionRecord
+    elif envelope.signed_object_type == SignedObjectType.SECURITY_SCAN_EXECUTION_RECORD:
+        model = SecurityScanExecutionRecord
+    elif envelope.signed_object_type == SignedObjectType.SECURITY_EVIDENCE_BUNDLE:
+        model = SecurityEvidenceBundle
+    elif envelope.signed_object_type == SignedObjectType.SECURITY_EVALUATION:
+        model = SecurityEvaluationResult
     elif envelope.signed_object_schema == "omiv.model-passport.v1":
         model = ModelPassport
     else:
@@ -303,6 +314,9 @@ def _validate_source_object(envelope: SignedObjectEnvelope) -> None:
         SignedObjectType.REJECTION_RECORD: "rejection_digest",
         SignedObjectType.RELEASE_CANDIDATE: "candidate_digest",
         SignedObjectType.PROMOTION_DECISION: "promotion_decision_digest",
+        SignedObjectType.SECURITY_SCAN_EXECUTION_RECORD: "execution_digest",
+        SignedObjectType.SECURITY_EVIDENCE_BUNDLE: "bundle_digest",
+        SignedObjectType.SECURITY_EVALUATION: "evaluation_digest",
     }[envelope.signed_object_type]
     digest_body.pop(digest_field)
     if object_digest != canonical_sha256(digest_body):
@@ -696,6 +710,19 @@ def _claim_summary(envelope: SignedObjectEnvelope) -> tuple[dict[str, Any], str]
             "promotion_outcome": value.get("gate_result", {}).get("outcome"),
             "promotion_performed": False,
             "deployment_performed": False,
+        }, "INCOMPLETE"
+    if envelope.signed_object_type in {
+        SignedObjectType.SECURITY_SCAN_EXECUTION_RECORD,
+        SignedObjectType.SECURITY_EVIDENCE_BUNDLE,
+        SignedObjectType.SECURITY_EVALUATION,
+    }:
+        return {
+            "security_verdict": value.get("verdict", "NOT_APPLICABLE"),
+            "coverage_status": value.get(
+                "coverage_result", value.get("coverage", {}).get("status")
+            ),
+            "signed_record_proves_scanner_correctness": False,
+            "signed_record_upgrades_coverage": False,
         }, "INCOMPLETE"
     return {
         "execution_result": value.get("execution_result"),

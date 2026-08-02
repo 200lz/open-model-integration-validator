@@ -1,0 +1,58 @@
+{
+  "capability": {
+    "archive_metadata_only": true,
+    "code_execution": false,
+    "finding_categories": [
+      "DEPENDENCY_MANIFEST_PRESENT",
+      "DESERIALIZATION_EXECUTION_PATTERN",
+      "DYNAMIC_IMPORT_PATTERN",
+      "INCONSISTENT_MANIFEST",
+      "INSTALL_OR_BUILD_SCRIPT_PRESENT",
+      "NATIVE_BINARY_PRESENT",
+      "PATH_TRAVERSAL_ENTRY",
+      "PRIVATE_KEY_MATERIAL_PATTERN",
+      "SCRIPT_CONTENT_PRESENT",
+      "SHELL_EXECUTION_PATTERN",
+      "SIGNED_URL_PATTERN",
+      "SUBPROCESS_EXECUTION_PATTERN",
+      "SUSPICIOUS_NETWORK_REFERENCE",
+      "SYMLINK_ENTRY",
+      "UNSAFE_SERIALIZATION_FORMAT"
+    ],
+    "limitations": [
+      "Pattern and format indicators are not semantic malware detection.",
+      "Archive inspection reads bounded entry metadata only and never extracts content."
+    ],
+    "methods": [
+      "ARCHIVE_STRUCTURE_INSPECTION",
+      "BOUNDED_PAYLOAD_INSPECTION",
+      "DEPENDENCY_MANIFEST_INSPECTION",
+      "EXECUTABLE_CONTENT_INSPECTION",
+      "FILE_NAME_POLICY_CHECK",
+      "FILE_TYPE_POLICY_CHECK",
+      "FORMAT_STRUCTURE_INSPECTION",
+      "MAGIC_BYTE_INSPECTION",
+      "MANIFEST_INSPECTION",
+      "METADATA_INSPECTION",
+      "SCRIPT_CONTENT_INSPECTION",
+      "SERIALIZATION_FORMAT_INSPECTION",
+      "STATIC_PATTERN_INSPECTION"
+    ],
+    "network_access": false,
+    "payload_bytes_read": true
+  },
+  "configuration_digest": "c9fd8ee36e588d8d64a79eadb91fde70177c15d542a2cfe79388fb165492145d",
+  "implementation_digest": "7674924b8936542f55c5ba50cc13449904217c5f48294d6cd3abc71012d36215",
+  "limitations": [
+    "Pattern and format indicators are not semantic malware detection.",
+    "Archive inspection reads bounded entry metadata only and never extracts content."
+  ],
+  "revision": "phase-5f-v1",
+  "scanner_digest": "af0a597071954c0da755a63f6b9b5749c3c160c32f8c4d7344cdadf4c56089ee",
+  "scanner_id": "scanner_aea44a66e9a2227c6dce5dc97d92bc67",
+  "scanner_name": "OMIV bounded static inspector",
+  "schema": "omiv.scanner-identity.v1",
+  "synthetic_builtin": true,
+  "trust_references": [],
+  "version": "1"
+}

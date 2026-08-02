@@ -1,0 +1,103 @@
+{
+  "behavioral_runtime_safety": "NOT_VERIFIED",
+  "blocking_findings": 1,
+  "bundle_digest": "4ce9f3e89242a7c1191b338198ef6f166b22a9b3b495b798e7e4f565235eac55",
+  "bundle_id": "security_bundle_c287bb079f6b0e27f3a43e662a874dc0",
+  "bytes_inspected": 63,
+  "bytes_not_inspected": 0,
+  "code_execution": false,
+  "declared_files": 1,
+  "declared_scope_coverage": "COMPLETE_FOR_DECLARED_SCOPE",
+  "declared_scope_paths": [
+    "archive-traversal.archive-manifest.json"
+  ],
+  "discovered_files": 1,
+  "evaluation": {
+    "blockers": [
+      "blocking security findings are present"
+    ],
+    "blocking_finding_ids": [
+      "security_finding_6c10354dc8450ec74cb063b46fffb84d"
+    ],
+    "bundle_digest": "4ce9f3e89242a7c1191b338198ef6f166b22a9b3b495b798e7e4f565235eac55",
+    "bundle_id": "security_bundle_c287bb079f6b0e27f3a43e662a874dc0",
+    "coverage_result": "COMPLETE",
+    "evaluation_context_digest": null,
+    "evaluation_digest": "8d3ad089fcd372846bdc86b13c0a96c07d894008ab7bee63ee7bdb0c46ec68d7",
+    "evaluation_id": "security_eval_bca9d0e45a0585094d5e602d0950c962",
+    "finding_result": "BLOCKING_FINDINGS_PRESENT",
+    "inspection_integrity": "VALID",
+    "limitations": [
+      "A policy PASS is scoped to supplied verified evidence and declared methods.",
+      "No findings does not prove absence of vulnerabilities.",
+      "Policy evaluation does not establish payload integrity, runtime safety, approval, or deployment.",
+      "Static inspection does not establish runtime safety, behavior, integrity, or fidelity."
+    ],
+    "policy_digest": "95f50d1a5a489ea325281094c4b2e41fc96111c13465f9cb4cccb7914f23d78d",
+    "policy_id": "omiv.security-policy.team_release_security_gate.v1",
+    "required_methods_satisfied": true,
+    "scan_execution_integrity": "VALID",
+    "scanner_correctness_independently_proven": "NOT_ESTABLISHED",
+    "scanner_identity_status": "KNOWN",
+    "scanner_trust": "TRUSTED_BY_POLICY",
+    "schema": "omiv.security-evaluation.v1",
+    "signature_trust": "NOT_EVALUATED",
+    "subject_identity_digest": "d94c3a861a237c084e086e718c2892be3c18e74dcde88449099e8516ad4427e0",
+    "uninspected_scope": [],
+    "unresolved_error_count": 0,
+    "verdict": "FAIL"
+  },
+  "execution_statuses": [
+    "COMPLETED"
+  ],
+  "files_inspected": 1,
+  "finding_counts": {
+    "CRITICAL": 0,
+    "HIGH": 1,
+    "INFO": 0,
+    "LOW": 0,
+    "MEDIUM": 0,
+    "UNKNOWN": 0
+  },
+  "limitations": [
+    "A policy PASS is scoped to supplied verified evidence and declared methods.",
+    "No findings does not prove absence of vulnerabilities.",
+    "Policy evaluation does not establish payload integrity, runtime safety, approval, or deployment.",
+    "Static inspection does not establish runtime safety, behavior, integrity, or fidelity."
+  ],
+  "methods": [
+    "ARCHIVE_STRUCTURE_INSPECTION",
+    "BOUNDED_PAYLOAD_INSPECTION",
+    "EXECUTABLE_CONTENT_INSPECTION",
+    "FILE_NAME_POLICY_CHECK",
+    "FILE_TYPE_POLICY_CHECK",
+    "FORMAT_STRUCTURE_INSPECTION",
+    "MAGIC_BYTE_INSPECTION",
+    "METADATA_INSPECTION",
+    "SCRIPT_CONTENT_INSPECTION",
+    "SERIALIZATION_FORMAT_INSPECTION",
+    "STATIC_PATTERN_INSPECTION"
+  ],
+  "network_access": false,
+  "next_required_actions": [
+    "Resolve blocking findings, unsupported scope, and scanner errors before strict promotion.",
+    "Obtain separate payload-integrity, approval, deployment, and runtime evidence where required."
+  ],
+  "no_findings_warning": "No findings does not prove safety or absence of vulnerabilities.",
+  "payload_bytes_read": true,
+  "payload_integrity": "NOT_VERIFIED",
+  "report_digest": "2b74412be96c2c191f33da109a64230e0d6b467ad8c190d35b5c81919f32cf23",
+  "report_id": "security_report_ddeaf8a47ca2b6f191387c0bbdc7573d",
+  "scan_errors": [],
+  "scanner_capability_coverage": "COMPLETE",
+  "scanner_correctness_independently_proven": "NOT_ESTABLISHED",
+  "scanner_ids": [
+    "scanner_aea44a66e9a2227c6dce5dc97d92bc67"
+  ],
+  "scanner_trust": "TRUSTED_BY_POLICY",
+  "schema": "omiv.security-report.v1",
+  "signature_status": "NOT_EVALUATED",
+  "total_declared_bytes": 63,
+  "total_discovered_bytes": 63,
+  "unsupported_items": []
+}

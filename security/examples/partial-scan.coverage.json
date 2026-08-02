@@ -1,0 +1,45 @@
+{
+  "archive_entries_considered": 0,
+  "archive_entries_inspected": 0,
+  "bytes_not_inspected": 34,
+  "coverage_digest": "72f8637ede66b5d27671ef436d65a7499c224fc014ae23f7ac8a734291b19f7c",
+  "coverage_id": "security_coverage_23c15014fb210dbc655a45090568fccf",
+  "declared_files": 1,
+  "discovered_files": 1,
+  "errored_files": 0,
+  "inspected_files": 1,
+  "items": [
+    {
+      "declared_bytes": 42,
+      "inspected_bytes": 8,
+      "logical_path": "partial-scan.gguf",
+      "methods": [
+        "BOUNDED_PAYLOAD_INSPECTION",
+        "EXECUTABLE_CONTENT_INSPECTION",
+        "FILE_NAME_POLICY_CHECK",
+        "FILE_TYPE_POLICY_CHECK",
+        "FORMAT_STRUCTURE_INSPECTION",
+        "MAGIC_BYTE_INSPECTION",
+        "METADATA_INSPECTION",
+        "SCRIPT_CONTENT_INSPECTION",
+        "SERIALIZATION_FORMAT_INSPECTION",
+        "STATIC_PATTERN_INSPECTION"
+      ],
+      "not_applicable_evidence": [],
+      "payload_read": true,
+      "rationale": "Only a bounded prefix was inspected.",
+      "status": "INSPECTED"
+    }
+  ],
+  "limitations": [
+    "Coverage is limited to the plan's declared files and methods."
+  ],
+  "schema": "omiv.security-coverage.v1",
+  "skipped_files": 0,
+  "status": "PARTIAL",
+  "subject_identity_digest": "6b5129a408f059382a4c76d47e4ed4d3fb04699dbad7c9d83c13888bc4ab8625",
+  "total_declared_bytes": 42,
+  "total_discovered_bytes": 42,
+  "total_inspected_bytes": 8,
+  "unsupported_files": 0
+}

@@ -1,0 +1,48 @@
+{
+  "approval_record_ids": [],
+  "approval_request_ids": [],
+  "evaluation_context": null,
+  "evidence": [
+    {
+      "availability": "UNAVAILABLE",
+      "category": "SECURITY_INSPECTION",
+      "custody_status": null,
+      "digest": "08db9229b08e09f89bd9bd13b257fa30082f92c2755cf639535c37e3b221f4de",
+      "evidence_id": "security_evidence_08db9229b08e09f89bd9bd13b257fa30",
+      "governance_policy_id": "omiv.security-policy.team_release_security_gate.v1",
+      "lifecycle_events": [],
+      "limitations": [
+        "A policy PASS is scoped to supplied verified evidence and declared methods.",
+        "No findings does not prove absence of vulnerabilities.",
+        "Policy evaluation does not establish payload integrity, runtime safety, approval, or deployment.",
+        "Static inspection does not establish runtime safety, behavior, integrity, or fidelity."
+      ],
+      "object_id": "security_eval_b5fb5de32f14cffbcdfd5d1cadf31f93",
+      "observed_at": null,
+      "provenance_strength": null,
+      "schema": "omiv.artifact-security-evidence.v1",
+      "signer_roles": [],
+      "source_phase": "5F",
+      "subject_id": "subject_4dc4e123387bdfb0699f6259c8e1b555",
+      "trust_status": "UNTRUSTED_BY_POLICY",
+      "valid_until": null,
+      "verification_mode": "NOT_VERIFIED"
+    }
+  ],
+  "policy_digest": "887fc97b6c0b720e5f9f943db573d498b797a06146c036a918906d6777f8ea21",
+  "policy_id": "omiv.governance-policy.team_release_candidate.v1",
+  "promotion_target_id": null,
+  "role_assignments": [],
+  "schema": "omiv.policy-evaluation-input.v1",
+  "subject": {
+    "artifact_digest": "411a485216e432ece6b9af94fa32154cf79a2a56d4f81266baa50063f45092bd",
+    "artifact_format": "safetensors",
+    "artifact_set_digest": null,
+    "immutable_revision": null,
+    "logical_locator": "synthetic/derived-untrusted-scanner",
+    "origin_type": "local",
+    "provider": null,
+    "subject_id": "subject_4dc4e123387bdfb0699f6259c8e1b555",
+    "variant": "synthetic"
+  }
+}

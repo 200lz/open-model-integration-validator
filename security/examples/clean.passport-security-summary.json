@@ -1,0 +1,55 @@
+{
+  "approval_status": "SEPARATE",
+  "blocking_finding_count": 0,
+  "coverage_result": "COMPLETE",
+  "deployment_status": "NOT_PERFORMED",
+  "evidence_availability": "AVAILABLE",
+  "finding_counts": {
+    "CRITICAL": 0,
+    "HIGH": 0,
+    "INFO": 0,
+    "LOW": 0,
+    "MEDIUM": 0,
+    "UNKNOWN": 0
+  },
+  "freshness_status": "NOT_EVALUATED",
+  "inspection_methods": [
+    "BOUNDED_PAYLOAD_INSPECTION",
+    "EXECUTABLE_CONTENT_INSPECTION",
+    "FILE_NAME_POLICY_CHECK",
+    "FILE_TYPE_POLICY_CHECK",
+    "FORMAT_STRUCTURE_INSPECTION",
+    "MAGIC_BYTE_INSPECTION",
+    "METADATA_INSPECTION",
+    "SCRIPT_CONTENT_INSPECTION",
+    "SERIALIZATION_FORMAT_INSPECTION",
+    "STATIC_PATTERN_INSPECTION"
+  ],
+  "limitations": [
+    "A policy PASS is scoped to supplied verified evidence and declared methods.",
+    "No findings does not prove absence of vulnerabilities.",
+    "Policy evaluation does not establish payload integrity, runtime safety, approval, or deployment.",
+    "Static inspection does not establish runtime safety, behavior, integrity, or fidelity."
+  ],
+  "next_required_evidence": [
+    "payload_integrity",
+    "runtime_verification"
+  ],
+  "passport_digest": "91fa5787b157c62e83d32e08265f96c65f5761d18863feaf3d8757d335aefdd3",
+  "passport_id": "mp_b7644143ea9fa95a123e0c6add1138a3",
+  "payload_integrity": "NOT_VERIFIED",
+  "policy_digest": "95f50d1a5a489ea325281094c4b2e41fc96111c13465f9cb4cccb7914f23d78d",
+  "policy_id": "omiv.security-policy.team_release_security_gate.v1",
+  "runtime_safety": "NOT_VERIFIED",
+  "scanner_ids": [
+    "scanner_aea44a66e9a2227c6dce5dc97d92bc67"
+  ],
+  "scanner_trust": "TRUSTED_BY_POLICY",
+  "schema": "omiv.passport-security-summary.v1",
+  "signed_evidence_status": "NOT_EVALUATED",
+  "subject_identity_digest": "2eb290be8a30fd43f2eb19bf59e834d838a002b3a7038421b6fdc9669bd66027",
+  "summary_digest": "0740154d708e6237c45b6b0528196d751d1722dded127a305373f3c4f1e5db6a",
+  "summary_id": "passport_security_96d985dee007784fdf5c268d482b8352",
+  "uninspected_scope": [],
+  "verdict": "PASS"
+}

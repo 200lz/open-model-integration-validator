@@ -1,0 +1,61 @@
+{
+  "requirement_set_digest": "12b7bd34ecff9cc26575c1d2407378a41b949e47844d8816ecc9c6d51aaddf7e",
+  "requirement_set_id": "requirement_set_dad10a5f42ae9a82e06c226e7c36a9cb",
+  "requirements": [
+    {
+      "accepted_schemas": [
+        "omiv.artifact-security-evidence.v1"
+      ],
+      "accepted_trust_statuses": [],
+      "accepted_verification_modes": [
+        "FULL"
+      ],
+      "allow_with_limitations": true,
+      "category": "SECURITY_INSPECTION",
+      "failure_severity": "BLOCKING",
+      "minimum_freshness_seconds": null,
+      "minimum_signature_count": 0,
+      "not_applicable_policy_evidence": [],
+      "optional": false,
+      "remediation": "Supply verified subject-matched Phase 5F security evidence.",
+      "required_custody_status": null,
+      "required_lifecycle_events": [],
+      "required_object_types": [],
+      "required_provenance_strength": null,
+      "required_signer_roles": [],
+      "requirement_digest": "0271be6813d5c8690aebc1ae5fb89e0052994afa6c30330a482fb4940dddfcb2",
+      "requirement_id": "requirement_692c311e8dc73df787d1308c1566cea5",
+      "reviewable": false,
+      "schema": "omiv.evidence-requirement.v1",
+      "source_phase": "5F"
+    },
+    {
+      "accepted_schemas": [
+        "omiv.payload-integrity-evidence.v1"
+      ],
+      "accepted_trust_statuses": [],
+      "accepted_verification_modes": [
+        "FULL"
+      ],
+      "allow_with_limitations": false,
+      "category": "PAYLOAD_INTEGRITY",
+      "failure_severity": "BLOCKING",
+      "minimum_freshness_seconds": null,
+      "minimum_signature_count": 0,
+      "not_applicable_policy_evidence": [],
+      "optional": false,
+      "remediation": "Supply separate verified payload-integrity evidence.",
+      "required_custody_status": null,
+      "required_lifecycle_events": [],
+      "required_object_types": [],
+      "required_provenance_strength": null,
+      "required_signer_roles": [],
+      "requirement_digest": "6f86dab870fc6af0097ba1fb4d9d81f4113994433350f0634e443b4e2c6442a8",
+      "requirement_id": "requirement_6e129e4ef405b2f854e44e0c39edbb48",
+      "reviewable": false,
+      "schema": "omiv.evidence-requirement.v1",
+      "source_phase": "5F"
+    }
+  ],
+  "schema": "omiv.evidence-requirement-set.v1"
+}

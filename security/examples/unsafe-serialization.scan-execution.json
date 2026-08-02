@@ -1,0 +1,62 @@
+{
+  "bytes_considered": 30,
+  "bytes_inspected": 30,
+  "code_execution_occurred": false,
+  "configuration_digest": "c9fd8ee36e588d8d64a79eadb91fde70177c15d542a2cfe79388fb165492145d",
+  "decompression_occurred": false,
+  "errors": [],
+  "execution_digest": "be4470fd3dbb6df7eb909654eaf4244fd1c6e68eb2d456c5d48aaca386bbce71",
+  "execution_id": "scan_exec_92c4d0f696326888ff2262c01f0deefa",
+  "files_considered": 1,
+  "files_inspected": 1,
+  "limitations": [
+    "Static bounded inspection does not establish runtime safety or universal artifact safety.",
+    "No artifact code was executed and no network access occurred."
+  ],
+  "methods_executed": [
+    "BOUNDED_PAYLOAD_INSPECTION",
+    "EXECUTABLE_CONTENT_INSPECTION",
+    "FILE_NAME_POLICY_CHECK",
+    "FILE_TYPE_POLICY_CHECK",
+    "MAGIC_BYTE_INSPECTION",
+    "METADATA_INSPECTION",
+    "SCRIPT_CONTENT_INSPECTION",
+    "SERIALIZATION_FORMAT_INSPECTION",
+    "STATIC_PATTERN_INSPECTION"
+  ],
+  "network_access_occurred": false,
+  "payload_bytes_read": true,
+  "plan_digest": "ce9c2f5e10f0c2bd489c9c08438d21ec3f690e68e3eb791bccba4b0b1e7d9794",
+  "plan_id": "inspection_plan_476557172d21b8b20e27546c9980808b",
+  "raw_result_references": [],
+  "scanner_digest": "af0a597071954c0da755a63f6b9b5749c3c160c32f8c4d7344cdadf4c56089ee",
+  "scanner_id": "scanner_aea44a66e9a2227c6dce5dc97d92bc67",
+  "schema": "omiv.security-scan-execution-record.v1",
+  "status": "COMPLETED_WITH_LIMITATIONS",
+  "subject": {
+    "architecture": null,
+    "artifact_set_digest": "38d60787549d2c5bfdde227fbb824c04a13ae179d89b2e423be54843ac69f3e8",
+    "content_digest": "919bb2d7cf62fe2f06af2d06bd47be508fb48cd2e5a4fa1cc1e555378d85ad33",
+    "file_count": 1,
+    "format": "generic-file",
+    "identity_digest": "f83a0160b2468d49c833bcc69b6147fd2c05cbd360a06160c9828a6444447dee",
+    "origin_type": "local",
+    "passport_digest": null,
+    "passport_id": null,
+    "provider": null,
+    "repository": null,
+    "repository_type": null,
+    "resolved_revision": null,
+    "selection": "unsafe-serialization.pkl",
+    "total_declared_bytes": 30,
+    "validation_inventory_digest": null,
+    "variant": "unsafe-serialization.pkl"
+  },
+  "unsupported_items": [
+    {
+      "logical_path": "unsafe-serialization.pkl",
+      "mandatory": true,
+      "reason": "Built-in scanner has no structure parser for this file type."
+    }
+  ]
+}

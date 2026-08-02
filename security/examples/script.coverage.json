@@ -1,0 +1,44 @@
+{
+  "archive_entries_considered": 0,
+  "archive_entries_inspected": 0,
+  "bytes_not_inspected": 0,
+  "coverage_digest": "53061f9b49a90f5f029d524c5486e0b507352ffae28973f45b58ee904f4bb5c9",
+  "coverage_id": "security_coverage_ab85bdcb285fd9cdf763b24976525218",
+  "declared_files": 1,
+  "discovered_files": 1,
+  "errored_files": 0,
+  "inspected_files": 1,
+  "items": [
+    {
+      "declared_bytes": 49,
+      "inspected_bytes": 49,
+      "logical_path": "script.py",
+      "methods": [
+        "BOUNDED_PAYLOAD_INSPECTION",
+        "EXECUTABLE_CONTENT_INSPECTION",
+        "FILE_NAME_POLICY_CHECK",
+        "FILE_TYPE_POLICY_CHECK",
+        "MAGIC_BYTE_INSPECTION",
+        "METADATA_INSPECTION",
+        "SCRIPT_CONTENT_INSPECTION",
+        "SERIALIZATION_FORMAT_INSPECTION",
+        "STATIC_PATTERN_INSPECTION"
+      ],
+      "not_applicable_evidence": [],
+      "payload_read": true,
+      "rationale": null,
+      "status": "INSPECTED"
+    }
+  ],
+  "limitations": [
+    "Coverage is limited to the plan's declared files and methods."
+  ],
+  "schema": "omiv.security-coverage.v1",
+  "skipped_files": 0,
+  "status": "COMPLETE_FOR_DECLARED_SCOPE",
+  "subject_identity_digest": "2b78a20c2eeae08388c6d09c18d061a002587f45a59f0cc126e3846c4d478512",
+  "total_declared_bytes": 49,
+  "total_discovered_bytes": 49,
+  "total_inspected_bytes": 49,
+  "unsupported_files": 0
+}

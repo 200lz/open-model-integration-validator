@@ -1,0 +1,67 @@
+{
+  "allow_code_execution": false,
+  "allow_decompression": false,
+  "allow_network_access": false,
+  "bounds": {
+    "maximum_archive_entry_count": 100,
+    "maximum_bytes_per_file": 1048576,
+    "maximum_evidence_snippet_length": 128,
+    "maximum_file_count": 100,
+    "maximum_finding_count": 100,
+    "maximum_metadata_bytes": 1048576,
+    "maximum_recursion_depth": 8,
+    "maximum_total_bytes_read": 8388608
+  },
+  "follow_symlinks": false,
+  "limitations": [
+    "Inspection is static and bounded; it does not establish runtime safety."
+  ],
+  "methods": [
+    "ARCHIVE_STRUCTURE_INSPECTION",
+    "BOUNDED_PAYLOAD_INSPECTION",
+    "DEPENDENCY_MANIFEST_INSPECTION",
+    "EXECUTABLE_CONTENT_INSPECTION",
+    "FILE_NAME_POLICY_CHECK",
+    "FILE_TYPE_POLICY_CHECK",
+    "FORMAT_STRUCTURE_INSPECTION",
+    "MAGIC_BYTE_INSPECTION",
+    "MANIFEST_INSPECTION",
+    "METADATA_INSPECTION",
+    "SCRIPT_CONTENT_INSPECTION",
+    "SERIALIZATION_FORMAT_INSPECTION",
+    "STATIC_PATTERN_INSPECTION"
+  ],
+  "plan_digest": "1520cc5b4d6094f6158cbf1abbdf9b17b2eeebc406484a230f794728a1af5e50",
+  "plan_id": "inspection_plan_d7e27f4a5e8502a3c7ad5eb054196237",
+  "schema": "omiv.security-inspection-plan.v1",
+  "scope": {
+    "declared_file_count": 1,
+    "declared_total_bytes": 47,
+    "include_archive_metadata": false,
+    "logical_paths": [
+      "signed-url-marker.txt"
+    ],
+    "mandatory_paths": [
+      "signed-url-marker.txt"
+    ]
+  },
+  "subject": {
+    "architecture": null,
+    "artifact_set_digest": "54a1726777c00b72f0b9babd75bbfa770f363d0b91df18e59a3a6b73ccb7ebd6",
+    "content_digest": "d12f63e64518c2a9b3cd5bca9d59d32d241b29c10a8af8ddc79021c4a6010543",
+    "file_count": 1,
+    "format": "generic-file",
+    "identity_digest": "124b6653c6c956a3814877d08b0398204bfa31aee517e9a8da55eef181b51f28",
+    "origin_type": "local",
+    "passport_digest": null,
+    "passport_id": null,
+    "provider": null,
+    "repository": null,
+    "repository_type": null,
+    "resolved_revision": null,
+    "selection": "signed-url-marker.txt",
+    "total_declared_bytes": 47,
+    "validation_inventory_digest": null,
+    "variant": "signed-url-marker.txt"
+  }
+}

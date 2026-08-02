@@ -1,0 +1,27 @@
+{
+  "configuration_digest": "c9fd8ee36e588d8d64a79eadb91fde70177c15d542a2cfe79388fb165492145d",
+  "plan_digest": "ce9c2f5e10f0c2bd489c9c08438d21ec3f690e68e3eb791bccba4b0b1e7d9794",
+  "plan_id": "inspection_plan_476557172d21b8b20e27546c9980808b",
+  "scanner_digest": "af0a597071954c0da755a63f6b9b5749c3c160c32f8c4d7344cdadf4c56089ee",
+  "scanner_id": "scanner_aea44a66e9a2227c6dce5dc97d92bc67",
+  "schema": "omiv.security-scan-execution-input.v1",
+  "subject": {
+    "architecture": null,
+    "artifact_set_digest": "38d60787549d2c5bfdde227fbb824c04a13ae179d89b2e423be54843ac69f3e8",
+    "content_digest": "919bb2d7cf62fe2f06af2d06bd47be508fb48cd2e5a4fa1cc1e555378d85ad33",
+    "file_count": 1,
+    "format": "generic-file",
+    "identity_digest": "f83a0160b2468d49c833bcc69b6147fd2c05cbd360a06160c9828a6444447dee",
+    "origin_type": "local",
+    "passport_digest": null,
+    "passport_id": null,
+    "provider": null,
+    "repository": null,
+    "repository_type": null,
+    "resolved_revision": null,
+    "selection": "unsafe-serialization.pkl",
+    "total_declared_bytes": 30,
+    "validation_inventory_digest": null,
+    "variant": "unsafe-serialization.pkl"
+  }
+}

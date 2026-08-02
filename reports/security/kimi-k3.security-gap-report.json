@@ -1,0 +1,16 @@
+{
+  "coverage": "NOT_ASSESSED",
+  "gap_report_digest": "8f3b5a5b2cc520eb86cad56056c67c9a504b5470b85ed7633e45551912e256a5",
+  "gap_report_id": "security_gap_9617ee7437b430200ddc51da799cd462",
+  "limitations": [
+    "No local Kimi payload was acquired or scanned.",
+    "No Kimi security PASS, malware-free claim, approval, or promotion is produced."
+  ],
+  "payload_acquired": false,
+  "scanner_run": false,
+  "schema": "omiv.security-gap-report.v1",
+  "security_inspection": "UNAVAILABLE",
+  "security_requirement": "UNSATISFIED",
+  "subject": "Kimi-K3 remote case study",
+  "verdict": "NOT_EVALUATED"
+}

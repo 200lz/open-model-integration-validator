@@ -1,0 +1,102 @@
+{
+  "behavioral_runtime_safety": "NOT_VERIFIED",
+  "blocking_findings": 0,
+  "bundle_digest": "822faaac4b2370b7c7207ea2f1461b7d0e9bd2a890ba7ec78ae974bd5137259f",
+  "bundle_id": "security_bundle_b2abf25cb35c65ac50439e8642689ed1",
+  "bytes_inspected": 8,
+  "bytes_not_inspected": 34,
+  "code_execution": false,
+  "declared_files": 1,
+  "declared_scope_coverage": "PARTIAL",
+  "declared_scope_paths": [
+    "partial-scan.gguf"
+  ],
+  "discovered_files": 1,
+  "evaluation": {
+    "blockers": [
+      "mandatory coverage is incomplete or unsupported"
+    ],
+    "blocking_finding_ids": [],
+    "bundle_digest": "822faaac4b2370b7c7207ea2f1461b7d0e9bd2a890ba7ec78ae974bd5137259f",
+    "bundle_id": "security_bundle_b2abf25cb35c65ac50439e8642689ed1",
+    "coverage_result": "INCOMPLETE",
+    "evaluation_context_digest": null,
+    "evaluation_digest": "805de1116754174a38c28017808ec1bb076591519b050ddfb8108bd0a9334939",
+    "evaluation_id": "security_eval_74898b96fa6accfc1c0cb3536e8ef35f",
+    "finding_result": "NO_BLOCKING_FINDINGS",
+    "inspection_integrity": "VALID",
+    "limitations": [
+      "A policy PASS is scoped to supplied verified evidence and declared methods.",
+      "No findings does not prove absence of vulnerabilities.",
+      "Policy evaluation does not establish payload integrity, runtime safety, approval, or deployment.",
+      "Static inspection does not establish runtime safety, behavior, integrity, or fidelity."
+    ],
+    "policy_digest": "95f50d1a5a489ea325281094c4b2e41fc96111c13465f9cb4cccb7914f23d78d",
+    "policy_id": "omiv.security-policy.team_release_security_gate.v1",
+    "required_methods_satisfied": true,
+    "scan_execution_integrity": "VALID",
+    "scanner_correctness_independently_proven": "NOT_ESTABLISHED",
+    "scanner_identity_status": "KNOWN",
+    "scanner_trust": "TRUSTED_BY_POLICY",
+    "schema": "omiv.security-evaluation.v1",
+    "signature_trust": "NOT_EVALUATED",
+    "subject_identity_digest": "6b5129a408f059382a4c76d47e4ed4d3fb04699dbad7c9d83c13888bc4ab8625",
+    "uninspected_scope": [
+      "partial-scan.gguf"
+    ],
+    "unresolved_error_count": 0,
+    "verdict": "COVERAGE_INCOMPLETE"
+  },
+  "execution_statuses": [
+    "LIMIT_EXCEEDED"
+  ],
+  "files_inspected": 1,
+  "finding_counts": {
+    "CRITICAL": 0,
+    "HIGH": 0,
+    "INFO": 0,
+    "LOW": 0,
+    "MEDIUM": 0,
+    "UNKNOWN": 0
+  },
+  "limitations": [
+    "A policy PASS is scoped to supplied verified evidence and declared methods.",
+    "No findings does not prove absence of vulnerabilities.",
+    "Policy evaluation does not establish payload integrity, runtime safety, approval, or deployment.",
+    "Static inspection does not establish runtime safety, behavior, integrity, or fidelity."
+  ],
+  "methods": [
+    "BOUNDED_PAYLOAD_INSPECTION",
+    "EXECUTABLE_CONTENT_INSPECTION",
+    "FILE_NAME_POLICY_CHECK",
+    "FILE_TYPE_POLICY_CHECK",
+    "FORMAT_STRUCTURE_INSPECTION",
+    "MAGIC_BYTE_INSPECTION",
+    "METADATA_INSPECTION",
+    "SCRIPT_CONTENT_INSPECTION",
+    "SERIALIZATION_FORMAT_INSPECTION",
+    "STATIC_PATTERN_INSPECTION"
+  ],
+  "network_access": false,
+  "next_required_actions": [
+    "Resolve blocking findings, unsupported scope, and scanner errors before strict promotion.",
+    "Obtain separate payload-integrity, approval, deployment, and runtime evidence where required."
+  ],
+  "no_findings_warning": "No findings does not prove safety or absence of vulnerabilities.",
+  "payload_bytes_read": true,
+  "payload_integrity": "NOT_VERIFIED",
+  "report_digest": "e3a7625a2f503f52a761c1a1d9dc6562ed7ce424ee65ff1c30f99981fb282efd",
+  "report_id": "security_report_805e3f70a5645f28bec83619cd9f419a",
+  "scan_errors": [],
+  "scanner_capability_coverage": "COMPLETE",
+  "scanner_correctness_independently_proven": "NOT_ESTABLISHED",
+  "scanner_ids": [
+    "scanner_aea44a66e9a2227c6dce5dc97d92bc67"
+  ],
+  "scanner_trust": "TRUSTED_BY_POLICY",
+  "schema": "omiv.security-report.v1",
+  "signature_status": "NOT_EVALUATED",
+  "total_declared_bytes": 42,
+  "total_discovered_bytes": 42,
+  "unsupported_items": []
+}

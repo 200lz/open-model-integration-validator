@@ -1,0 +1,892 @@
+{
+  "entries": [
+    {
+      "digest": "e851a2bf1cfa84d07a499f5131bee02b695a8f16f313dc4810610a279b58ab2d",
+      "object_id": "security_bundle_c287bb079f6b0e27f3a43e662a874dc0",
+      "relative_path": "reports/security/archive-traversal.security-report.json",
+      "schema": "omiv.security-report.v1",
+      "size_bytes": 4133
+    },
+    {
+      "digest": "e842140bc7cfb32d6f3a5252933edf954fc734158dbea3fff027ae7cb325daad",
+      "object_id": "security_markdown_e842140bc7cfb32d6f3a5252933edf95",
+      "relative_path": "reports/security/archive-traversal.security-report.md",
+      "schema": "omiv.security-report-markdown.v1",
+      "size_bytes": 2067
+    },
+    {
+      "digest": "6aca2bdb8573bd307d58d96d22a9496638994856eed373c6a31b49b9e93b7722",
+      "object_id": "security_bundle_b306a101f57a7513ff65bbb04d8aff72",
+      "relative_path": "reports/security/clean.security-report.json",
+      "schema": "omiv.security-report.v1",
+      "size_bytes": 4122
+    },
+    {
+      "digest": "55134a2d6dc5a67a7b4a61d2e4647e37dc3bd68b124f1207b09e151ed4eaba6a",
+      "object_id": "security_markdown_55134a2d6dc5a67a7b4a61d2e4647e37",
+      "relative_path": "reports/security/clean.security-report.md",
+      "schema": "omiv.security-report-markdown.v1",
+      "size_bytes": 2103
+    },
+    {
+      "digest": "57a26dc6e0f6a2c615814d3da955003ab1dcaed1686ffb7876ab4c0becca1dcd",
+      "object_id": "omiv.governance-policy.team_release_candidate.v1",
+      "relative_path": "reports/security/derived-enterprise-signed.governance-report.json",
+      "schema": "omiv.governance-report.v1",
+      "size_bytes": 3993
+    },
+    {
+      "digest": "71af54b75f0d01302fbb328bf65fc19f50d6fdad78dc12b39ad47e6f278f36bf",
+      "object_id": "omiv.governance-policy.team_release_candidate.v1",
+      "relative_path": "reports/security/derived-partial-scan.governance-report.json",
+      "schema": "omiv.governance-report.v1",
+      "size_bytes": 3893
+    },
+    {
+      "digest": "e25fe5bbaa4cac56c0b9c5e9c245490c92188d64c9de9e5b3df093fcaf5d3053",
+      "object_id": "omiv.governance-policy.team_release_candidate.v1",
+      "relative_path": "reports/security/derived-team-release.governance-report.json",
+      "schema": "omiv.governance-report.v1",
+      "size_bytes": 3988
+    },
+    {
+      "digest": "e2817cefbce1425ae0fde0a0cc44ea073cc159dcca33a2c2ac799fbe6dc29f71",
+      "object_id": "omiv.governance-policy.team_release_candidate.v1",
+      "relative_path": "reports/security/derived-unsafe-serialization.governance-report.json",
+      "schema": "omiv.governance-report.v1",
+      "size_bytes": 3909
+    },
+    {
+      "digest": "fb6ce88f299d33806742402ac6ef19152472554a01701b1eca0cd6622eab420c",
+      "object_id": "omiv.governance-policy.team_release_candidate.v1",
+      "relative_path": "reports/security/derived-untrusted-scanner.governance-report.json",
+      "schema": "omiv.governance-report.v1",
+      "size_bytes": 3905
+    },
+    {
+      "digest": "00d83faabfdfe32a2ce9ae086082f742beab505677283a74a01da456e7f38bf5",
+      "object_id": "security_gap_9617ee7437b430200ddc51da799cd462",
+      "relative_path": "reports/security/kimi-k3.security-gap-report.json",
+      "schema": "omiv.security-gap-report.v1",
+      "size_bytes": 604
+    },
+    {
+      "digest": "2a9834f41bf49454c39d6c12b00f3787735d70383b68024940d50db5c6a55d5b",
+      "object_id": "security_bundle_bbd9ebf58552e56a416d4079775fc8c3",
+      "relative_path": "reports/security/malformed-archive.security-report.json",
+      "schema": "omiv.security-report.v1",
+      "size_bytes": 4283
+    },
+    {
+      "digest": "432a06fc048ac4791daba54fdd797920c5327c7a05af6ed08e80417c842bed9e",
+      "object_id": "security_markdown_432a06fc048ac4791daba54fdd797920",
+      "relative_path": "reports/security/malformed-archive.security-report.md",
+      "schema": "omiv.security-report-markdown.v1",
+      "size_bytes": 2065
+    },
+    {
+      "digest": "d78b76156dd6368512943a5fc5f55fb50833e823ca9bf6f5704749b03c5a8abe",
+      "object_id": "security_bundle_b2abf25cb35c65ac50439e8642689ed1",
+      "relative_path": "reports/security/partial-scan.security-report.json",
+      "schema": "omiv.security-report.v1",
+      "size_bytes": 4049
+    },
+    {
+      "digest": "a385a363c8691115b83f028b9cf1acf4f15192018266fa3e5b775f72e7d4607e",
+      "object_id": "security_markdown_a385a363c8691115b83f028b9cf1acf4",
+      "relative_path": "reports/security/partial-scan.security-report.md",
+      "schema": "omiv.security-report-markdown.v1",
+      "size_bytes": 2012
+    },
+    {
+      "digest": "4ca828ab08fe2a77b424ae2fdc081afe800ab7a1ce4e161f820b90dfdc72d833",
+      "object_id": "security_bundle_39822c46f89d1b0a74f8ad6e469cd459",
+      "relative_path": "reports/security/private-marker.security-report.json",
+      "schema": "omiv.security-report.v1",
+      "size_bytes": 4225
+    },
+    {
+      "digest": "a07989d3f0e3fc490c4584d9cd214cdfca7f61f27e184eddfe5b770d4cd6d066",
+      "object_id": "security_markdown_a07989d3f0e3fc490c4584d9cd214cdf",
+      "relative_path": "reports/security/private-marker.security-report.md",
+      "schema": "omiv.security-report-markdown.v1",
+      "size_bytes": 2059
+    },
+    {
+      "digest": "8f381587ddb98b77d6303124bb7281070939ef441b6fe6de69c2bbeb02698c74",
+      "object_id": "security_bundle_583816cba7e93aaeb168f00d9deeac5c",
+      "relative_path": "reports/security/script.security-report.json",
+      "schema": "omiv.security-report.v1",
+      "size_bytes": 4207
+    },
+    {
+      "digest": "2d671a0fb69e0520a4ed2bb67911a7c99237e9de9acc57e068fa8e0256cf18c3",
+      "object_id": "security_markdown_2d671a0fb69e0520a4ed2bb67911a7c9",
+      "relative_path": "reports/security/script.security-report.md",
+      "schema": "omiv.security-report-markdown.v1",
+      "size_bytes": 2041
+    },
+    {
+      "digest": "49c23cb5b7a2b37478c36e0d6243b41fc3db28c082a25cd8128b8184fccb20f6",
+      "object_id": "security_bundle_1677a9b9347173a0d91ba4355b4802e1",
+      "relative_path": "reports/security/signed-url-marker.security-report.json",
+      "schema": "omiv.security-report.v1",
+      "size_bytes": 4231
+    },
+    {
+      "digest": "a31fc86c487b43b181c52c065d4f7bd763188b1d7003e460069e7512c0ab1b7b",
+      "object_id": "security_markdown_a31fc86c487b43b181c52c065d4f7bd7",
+      "relative_path": "reports/security/signed-url-marker.security-report.md",
+      "schema": "omiv.security-report-markdown.v1",
+      "size_bytes": 2065
+    },
+    {
+      "digest": "ea1faff5691b15b8e825fa4bd91cbea7f6dbfab59d8614714a5c9010ff836278",
+      "object_id": "omiv.trust-policy.team_release.v1",
+      "relative_path": "reports/security/trusted-clean.signature-report.json",
+      "schema": "omiv.signature-report.v1",
+      "size_bytes": 4896
+    },
+    {
+      "digest": "e3cb047d340dec83f6bed2f1446431b786747d1c83088446ccf56d7b908fedbe",
+      "object_id": "security_bundle_7fad63b99d4bc2e1e83586d4e588eb19",
+      "relative_path": "reports/security/unsafe-serialization.security-report.json",
+      "schema": "omiv.security-report.v1",
+      "size_bytes": 4237
+    },
+    {
+      "digest": "b774110619231246146604a4c6947bf193bb567358ff158077aa82e0bd8efd62",
+      "object_id": "security_markdown_b774110619231246146604a4c6947bf1",
+      "relative_path": "reports/security/unsafe-serialization.security-report.md",
+      "schema": "omiv.security-report-markdown.v1",
+      "size_bytes": 2071
+    },
+    {
+      "digest": "ff5d5ef9f47546a036fa441273b7457c6cefb7c2b642337bc511f9df417971ef",
+      "object_id": "omiv.trust-policy.team_release.v1",
+      "relative_path": "reports/security/untrusted-clean.signature-report.json",
+      "schema": "omiv.signature-report.v1",
+      "size_bytes": 4853
+    },
+    {
+      "digest": "2236417e7a938b0b0285a622fa3e2d6458fd810e663cd468785d0c59c469d658",
+      "object_id": "security_coverage_4cf6b7c184ab086eae5300ddbdf5d8bb",
+      "relative_path": "security/examples/archive-traversal.coverage.json",
+      "schema": "omiv.security-coverage.v1",
+      "size_bytes": 1472
+    },
+    {
+      "digest": "af566f5cecdb990363006526c9cdf70a9e0431ea2d738c71b3c5eda9f6c7cd34",
+      "object_id": "scanner_aea44a66e9a2227c6dce5dc97d92bc67",
+      "relative_path": "security/examples/archive-traversal.finding-1.json",
+      "schema": "omiv.security-finding.v1",
+      "size_bytes": 1267
+    },
+    {
+      "digest": "c69c323f3fef7b13b82a3a62479d214ef5289809fdc89c55cbbc07a7c421dfa8",
+      "object_id": "inspection_plan_2112b9cf584ee75d978ec434334df6d4",
+      "relative_path": "security/examples/archive-traversal.inspection-plan.json",
+      "schema": "omiv.security-inspection-plan.v1",
+      "size_bytes": 2214
+    },
+    {
+      "digest": "db468e1833a783acd9afa5fb51b8ac9c0c2dff932d576409cada31cc2f664f60",
+      "object_id": "inspection_plan_2112b9cf584ee75d978ec434334df6d4",
+      "relative_path": "security/examples/archive-traversal.scan-execution-input.json",
+      "schema": "omiv.security-scan-execution-input.v1",
+      "size_bytes": 1191
+    },
+    {
+      "digest": "ebdbf5bc31be36c6ab2757d15f0b6034a4f3098362f397db1e3935297e785c1b",
+      "object_id": "inspection_plan_2112b9cf584ee75d978ec434334df6d4",
+      "relative_path": "security/examples/archive-traversal.scan-execution.json",
+      "schema": "omiv.security-scan-execution-record.v1",
+      "size_bytes": 2262
+    },
+    {
+      "digest": "e4a65af7a2ad879de95f76cbbd3a8e73c664fdeb98852ef66e84cfe51ca769e5",
+      "object_id": "scanner_aea44a66e9a2227c6dce5dc97d92bc67",
+      "relative_path": "security/examples/archive-traversal.scanner-identity.json",
+      "schema": "omiv.scanner-identity.v1",
+      "size_bytes": 2079
+    },
+    {
+      "digest": "d8cabea9b58a87852ce2f99853e71b438ecac67ddc30ea39150b490a0385eb2c",
+      "object_id": "security_bundle_c287bb079f6b0e27f3a43e662a874dc0",
+      "relative_path": "security/examples/archive-traversal.security-bundle.json",
+      "schema": "omiv.security-evidence-bundle.v1",
+      "size_bytes": 11458
+    },
+    {
+      "digest": "cc5889f001ead79e02f73039d6da092971eadb64034e3b881f1dd9ec71ce3aaa",
+      "object_id": "security_bundle_c287bb079f6b0e27f3a43e662a874dc0",
+      "relative_path": "security/examples/archive-traversal.security-evaluation.json",
+      "schema": "omiv.security-evaluation.v1",
+      "size_bytes": 1625
+    },
+    {
+      "digest": "4eef14221b1ea2d6dc8de24b399ad806b32c71e864c57bdbb5a388f3cec5b144",
+      "object_id": "synthetic_fixture_4eef14221b1ea2d6dc8de24b399ad806",
+      "relative_path": "security/examples/artifacts/archive-traversal.archive-manifest.json",
+      "schema": "omiv.synthetic-security-fixture.v1",
+      "size_bytes": 63
+    },
+    {
+      "digest": "411a485216e432ece6b9af94fa32154cf79a2a56d4f81266baa50063f45092bd",
+      "object_id": "synthetic_fixture_411a485216e432ece6b9af94fa32154c",
+      "relative_path": "security/examples/artifacts/clean.safetensors",
+      "schema": "omiv.synthetic-security-fixture.v1",
+      "size_bytes": 10
+    },
+    {
+      "digest": "fc2e5ce941e07d3fda610608713184a19f3d134210b852499a6de7efba9b23b3",
+      "object_id": "synthetic_fixture_fc2e5ce941e07d3fda610608713184a1",
+      "relative_path": "security/examples/artifacts/malformed-archive.archive-manifest.json",
+      "schema": "omiv.synthetic-security-fixture.v1",
+      "size_bytes": 25
+    },
+    {
+      "digest": "7d6ab9acd56b8c4665d025001a33f4ab733b304c4db583aa26846d3c62b090ae",
+      "object_id": "synthetic_fixture_7d6ab9acd56b8c4665d025001a33f4ab",
+      "relative_path": "security/examples/artifacts/partial-scan.gguf",
+      "schema": "omiv.synthetic-security-fixture.v1",
+      "size_bytes": 42
+    },
+    {
+      "digest": "cc72c92818c909a18861a90d60b8da5228bab53fd031c3edac572350bd25e1bc",
+      "object_id": "synthetic_fixture_cc72c92818c909a18861a90d60b8da52",
+      "relative_path": "security/examples/artifacts/private-marker.txt",
+      "schema": "omiv.synthetic-security-fixture.v1",
+      "size_bytes": 56
+    },
+    {
+      "digest": "e5eeed458055b073c50d628ee235db27776e213f6ab8daedc13f6a9518807588",
+      "object_id": "synthetic_fixture_e5eeed458055b073c50d628ee235db27",
+      "relative_path": "security/examples/artifacts/script.py",
+      "schema": "omiv.synthetic-security-fixture.v1",
+      "size_bytes": 49
+    },
+    {
+      "digest": "d12f63e64518c2a9b3cd5bca9d59d32d241b29c10a8af8ddc79021c4a6010543",
+      "object_id": "synthetic_fixture_d12f63e64518c2a9b3cd5bca9d59d32d",
+      "relative_path": "security/examples/artifacts/signed-url-marker.txt",
+      "schema": "omiv.synthetic-security-fixture.v1",
+      "size_bytes": 47
+    },
+    {
+      "digest": "919bb2d7cf62fe2f06af2d06bd47be508fb48cd2e5a4fa1cc1e555378d85ad33",
+      "object_id": "synthetic_fixture_919bb2d7cf62fe2f06af2d06bd47be50",
+      "relative_path": "security/examples/artifacts/unsafe-serialization.pkl",
+      "schema": "omiv.synthetic-security-fixture.v1",
+      "size_bytes": 30
+    },
+    {
+      "digest": "c472a640c3f4eba858129adfa0620a076d240ed2f538e4d63d45eadba689b7ba",
+      "object_id": "security_coverage_d03dbbdc9222fb519871c7c6fd712717",
+      "relative_path": "security/examples/clean.coverage.json",
+      "schema": "omiv.security-coverage.v1",
+      "size_bytes": 1410
+    },
+    {
+      "digest": "3b66a2eae898068dd8bc2ef3f5a47d72d0ca146ff71193af6324158408099803",
+      "object_id": "security_bundle_b306a101f57a7513ff65bbb04d8aff72",
+      "relative_path": "security/examples/clean.custody-security-linkage.json",
+      "schema": "omiv.custody-security-linkage.v1",
+      "size_bytes": 1087
+    },
+    {
+      "digest": "ff75df5d28ecfebcf045f521dc5040c2050c65e347591cbc41ce50b2154360ae",
+      "object_id": "security_evidence_40aea6d5ec7d8e54dd0846cdf039ea99",
+      "relative_path": "security/examples/clean.governance-evidence-reference.json",
+      "schema": "omiv.artifact-security-evidence.v1",
+      "size_bytes": 1088
+    },
+    {
+      "digest": "0a41b96b11074f933caf7a16ffc94e318adc6f4b89ef0cdff0c5d063cf17a841",
+      "object_id": "omiv.security-policy.team_release_security_gate.v1",
+      "relative_path": "security/examples/clean.governance-security-adapter.json",
+      "schema": "omiv.governance-security-evidence-adapter.v1",
+      "size_bytes": 1365
+    },
+    {
+      "digest": "6c095033d644462d4a0454bae77cd0888a8063fd90f52c687c1a57cb46d57004",
+      "object_id": "inspection_plan_960537a6c07b62b50c50f375986b59ba",
+      "relative_path": "security/examples/clean.inspection-plan.json",
+      "schema": "omiv.security-inspection-plan.v1",
+      "size_bytes": 2134
+    },
+    {
+      "digest": "289e4adfe85cd1920aca5c3354132fec0661d6e0d04544076fce0a20b21e26d7",
+      "object_id": "omiv.security-policy.team_release_security_gate.v1",
+      "relative_path": "security/examples/clean.passport-security-summary.json",
+      "schema": "omiv.passport-security-summary.v1",
+      "size_bytes": 2037
+    },
+    {
+      "digest": "d8b96a430c00fdc0dc33367e1a245d916ca37d8c4e0456b3481a66b385c24408",
+      "object_id": "inspection_plan_960537a6c07b62b50c50f375986b59ba",
+      "relative_path": "security/examples/clean.scan-execution-input.json",
+      "schema": "omiv.security-scan-execution-input.v1",
+      "size_bytes": 1154
+    },
+    {
+      "digest": "931e8ff8fd1b4e83b3a5c12d8bfa4008c9887cc0859b94661f9219a65eb33631",
+      "object_id": "inspection_plan_960537a6c07b62b50c50f375986b59ba",
+      "relative_path": "security/examples/clean.scan-execution.json",
+      "schema": "omiv.security-scan-execution-record.v1",
+      "size_bytes": 2189
+    },
+    {
+      "digest": "e4a65af7a2ad879de95f76cbbd3a8e73c664fdeb98852ef66e84cfe51ca769e5",
+      "object_id": "scanner_aea44a66e9a2227c6dce5dc97d92bc67",
+      "relative_path": "security/examples/clean.scanner-identity.json",
+      "schema": "omiv.scanner-identity.v1",
+      "size_bytes": 2079
+    },
+    {
+      "digest": "6c4b7a910499e8819aba2a22bfab1e12c61d03f0d9bc028f2d35b718529603f4",
+      "object_id": "security_bundle_b306a101f57a7513ff65bbb04d8aff72",
+      "relative_path": "security/examples/clean.security-bundle.json",
+      "schema": "omiv.security-evidence-bundle.v1",
+      "size_bytes": 9802
+    },
+    {
+      "digest": "1a55d09460076c1f0a405e21d14503f0bc86d8e9a0cba606297b205de69f3b87",
+      "object_id": "security_bundle_b306a101f57a7513ff65bbb04d8aff72",
+      "relative_path": "security/examples/clean.security-evaluation.json",
+      "schema": "omiv.security-evaluation.v1",
+      "size_bytes": 1606
+    },
+    {
+      "digest": "69fa0900d2ba8f08ad72f4dd0f39b83c07e3b09a8f74d0dc4b68bfffd4f85b41",
+      "object_id": "omiv.security-policy.enterprise_artifact_security_gate.v1",
+      "relative_path": "security/examples/derived-enterprise-signed.governance-security-adapter.json",
+      "schema": "omiv.governance-security-evidence-adapter.v1",
+      "size_bytes": 1376
+    },
+    {
+      "digest": "b1c99f9161e3f51c37534fef8af45ca1ffb0dd00f0933be1ec2edd5c80b8af83",
+      "object_id": "omiv.governance-policy.team_release_candidate.v1",
+      "relative_path": "security/examples/derived-enterprise-signed.policy-decision.json",
+      "schema": "omiv.policy-decision-record.v1",
+      "size_bytes": 4139
+    },
+    {
+      "digest": "a0ad38f36802bc83ae9d0906da0a765784530a988e2c5a4f4ee823b7fc3a7fab",
+      "object_id": "omiv.governance-policy.team_release_candidate.v1",
+      "relative_path": "security/examples/derived-enterprise-signed.policy-evaluation-input.json",
+      "schema": "omiv.policy-evaluation-input.v1",
+      "size_bytes": 1981
+    },
+    {
+      "digest": "382a985bb9dfc6fd6b9ab0af612d762457f2d30d22e851c4bd0789d81340b0ab",
+      "object_id": "omiv.security-policy.team_release_security_gate.v1",
+      "relative_path": "security/examples/derived-partial-scan.governance-security-adapter.json",
+      "schema": "omiv.governance-security-evidence-adapter.v1",
+      "size_bytes": 1384
+    },
+    {
+      "digest": "09a5875e41ca414cf5b1f163d26cca8cba691c455e49dc74bbab21206cc1f3b6",
+      "object_id": "omiv.governance-policy.team_release_candidate.v1",
+      "relative_path": "security/examples/derived-partial-scan.policy-decision.json",
+      "schema": "omiv.policy-decision-record.v1",
+      "size_bytes": 4104
+    },
+    {
+      "digest": "693e08b46b774de645551a90125fe274aa3b2434d44a2f1ee6c789bf02a56a4b",
+      "object_id": "omiv.governance-policy.team_release_candidate.v1",
+      "relative_path": "security/examples/derived-partial-scan.policy-evaluation-input.json",
+      "schema": "omiv.policy-evaluation-input.v1",
+      "size_bytes": 1972
+    },
+    {
+      "digest": "c078187f9f0ad33df0bd86d83609c7234a74bd52ca9da63daf0d4f437efaf402",
+      "object_id": "omiv.governance-policy.team_release_candidate.v1",
+      "relative_path": "security/examples/derived-team-release.governance-policy.json",
+      "schema": "omiv.governance-policy.v1",
+      "size_bytes": 3453
+    },
+    {
+      "digest": "e6e7aba06f4263133bbb6b743b7077502d831d7b69741836d3004fa9de96c85a",
+      "object_id": "omiv.security-policy.team_release_security_gate.v1",
+      "relative_path": "security/examples/derived-team-release.governance-security-adapter.json",
+      "schema": "omiv.governance-security-evidence-adapter.v1",
+      "size_bytes": 1365
+    },
+    {
+      "digest": "673420f3ae0e0b6b9ac1c95efbf601f818ec978b03c4972ed4ce13df0a1e1f4c",
+      "object_id": "omiv.governance-policy.team_release_candidate.v1",
+      "relative_path": "security/examples/derived-team-release.policy-decision.json",
+      "schema": "omiv.policy-decision-record.v1",
+      "size_bytes": 4134
+    },
+    {
+      "digest": "69603badc72a9928b91efa91f3de00fe8c529cb0569e7508fd82e4f798c3d2fc",
+      "object_id": "omiv.governance-policy.team_release_candidate.v1",
+      "relative_path": "security/examples/derived-team-release.policy-evaluation-input.json",
+      "schema": "omiv.policy-evaluation-input.v1",
+      "size_bytes": 1969
+    },
+    {
+      "digest": "1d15215e77dbc90a034c96dbabf89be16d5947f4484a95a56f5b11e95de8b5c8",
+      "object_id": "requirement_set_dad10a5f42ae9a82e06c226e7c36a9cb",
+      "relative_path": "security/examples/derived-team-release.requirement-set.json",
+      "schema": "omiv.evidence-requirement-set.v1",
+      "size_bytes": 2247
+    },
+    {
+      "digest": "5eaaf9a7371997b2e5803f3302df1beb455314b8dd3b179d438878f59738b522",
+      "object_id": "omiv.security-policy.team_release_security_gate.v1",
+      "relative_path": "security/examples/derived-unsafe-serialization.governance-security-adapter.json",
+      "schema": "omiv.governance-security-evidence-adapter.v1",
+      "size_bytes": 1363
+    },
+    {
+      "digest": "3fa0183c8561a457457bf465c602b222a8c61cd76b92274b4be9fb0618578f48",
+      "object_id": "omiv.governance-policy.team_release_candidate.v1",
+      "relative_path": "security/examples/derived-unsafe-serialization.policy-decision.json",
+      "schema": "omiv.policy-decision-record.v1",
+      "size_bytes": 4120
+    },
+    {
+      "digest": "7ad320d17e19c152c1191bbf770634349ed716b4ca2c2909638bbcfbd702e9b1",
+      "object_id": "omiv.governance-policy.team_release_candidate.v1",
+      "relative_path": "security/examples/derived-unsafe-serialization.policy-evaluation-input.json",
+      "schema": "omiv.policy-evaluation-input.v1",
+      "size_bytes": 1988
+    },
+    {
+      "digest": "5911b5696b9d73b838baedd483569dfc2dba23b90cf690d5c5ad55f3e9b60a8b",
+      "object_id": "omiv.security-policy.team_release_security_gate.v1",
+      "relative_path": "security/examples/derived-untrusted-scanner.governance-security-adapter.json",
+      "schema": "omiv.governance-security-evidence-adapter.v1",
+      "size_bytes": 1378
+    },
+    {
+      "digest": "86c3756b5e875dd2a4c306c01919c809db9fab8e6d0c7eb026246594ac4548b2",
+      "object_id": "omiv.governance-policy.team_release_candidate.v1",
+      "relative_path": "security/examples/derived-untrusted-scanner.policy-decision.json",
+      "schema": "omiv.policy-decision-record.v1",
+      "size_bytes": 4116
+    },
+    {
+      "digest": "3e123ea195357f5064873d792be1ba400be9de321e9bb5fb532eee3f51e058a1",
+      "object_id": "omiv.governance-policy.team_release_candidate.v1",
+      "relative_path": "security/examples/derived-untrusted-scanner.policy-evaluation-input.json",
+      "schema": "omiv.policy-evaluation-input.v1",
+      "size_bytes": 1986
+    },
+    {
+      "digest": "5e4d5e66da98d2f3918dde1e03da9995bfa878dae488afbdefe5f2b5f7b0a73d",
+      "object_id": "security_coverage_345919a35a4ce78206825d366bb22c1d",
+      "relative_path": "security/examples/malformed-archive.coverage.json",
+      "schema": "omiv.security-coverage.v1",
+      "size_bytes": 1472
+    },
+    {
+      "digest": "1e9c11db2d6d42665315635f24da9f217013add35a1c32be606547161e3f512f",
+      "object_id": "inspection_plan_3f14d503011f217fd920313452aae3b5",
+      "relative_path": "security/examples/malformed-archive.inspection-plan.json",
+      "schema": "omiv.security-inspection-plan.v1",
+      "size_bytes": 2214
+    },
+    {
+      "digest": "46ef4fb2688b1eeb7c820e81f3a865164aefa7c8a0e6ea93dafc4c0f96a905e8",
+      "object_id": "inspection_plan_3f14d503011f217fd920313452aae3b5",
+      "relative_path": "security/examples/malformed-archive.scan-execution-input.json",
+      "schema": "omiv.security-scan-execution-input.v1",
+      "size_bytes": 1191
+    },
+    {
+      "digest": "c465d049589f758e640e663d293889267d9e245f3d5741607c883d502066969b",
+      "object_id": "inspection_plan_3f14d503011f217fd920313452aae3b5",
+      "relative_path": "security/examples/malformed-archive.scan-execution.json",
+      "schema": "omiv.security-scan-execution-record.v1",
+      "size_bytes": 2484
+    },
+    {
+      "digest": "e4a65af7a2ad879de95f76cbbd3a8e73c664fdeb98852ef66e84cfe51ca769e5",
+      "object_id": "scanner_aea44a66e9a2227c6dce5dc97d92bc67",
+      "relative_path": "security/examples/malformed-archive.scanner-identity.json",
+      "schema": "omiv.scanner-identity.v1",
+      "size_bytes": 2079
+    },
+    {
+      "digest": "59621147b1b11368a9395f8f5807bd8d1a13a1b6521b035340ef5051b49db61e",
+      "object_id": "security_bundle_bbd9ebf58552e56a416d4079775fc8c3",
+      "relative_path": "security/examples/malformed-archive.security-bundle.json",
+      "schema": "omiv.security-evidence-bundle.v1",
+      "size_bytes": 10535
+    },
+    {
+      "digest": "0e2e97c6d955baf902f13d40bf6ded7dec55ff44d07aabe2cec304481bfb2ef3",
+      "object_id": "security_bundle_bbd9ebf58552e56a416d4079775fc8c3",
+      "relative_path": "security/examples/malformed-archive.security-evaluation.json",
+      "schema": "omiv.security-evaluation.v1",
+      "size_bytes": 1557
+    },
+    {
+      "digest": "6562444fa246076e4ff06095c98ee962bc3578f98f3731c0710eb3d60e4102d3",
+      "object_id": "security_coverage_23c15014fb210dbc655a45090568fccf",
+      "relative_path": "security/examples/partial-scan.coverage.json",
+      "schema": "omiv.security-coverage.v1",
+      "size_bytes": 1423
+    },
+    {
+      "digest": "e5bdfad15229b7f96dfdbc4a518396319c5bdf608b4e6dda2321f30f1d87b66c",
+      "object_id": "inspection_plan_2c2c77a908d6c1859a1fc80cd2eee88c",
+      "relative_path": "security/examples/partial-scan.inspection-plan.json",
+      "schema": "omiv.security-inspection-plan.v1",
+      "size_bytes": 2121
+    },
+    {
+      "digest": "09c372b07d37285ed43b93015b01251157d056e9b4859214a90bcd0ffafe4a63",
+      "object_id": "inspection_plan_2c2c77a908d6c1859a1fc80cd2eee88c",
+      "relative_path": "security/examples/partial-scan.scan-execution-input.json",
+      "schema": "omiv.security-scan-execution-input.v1",
+      "size_bytes": 1147
+    },
+    {
+      "digest": "acd91d44d68364b2c9bdfbc1054376b7af139974830190c536d01957b78fdab1",
+      "object_id": "inspection_plan_2c2c77a908d6c1859a1fc80cd2eee88c",
+      "relative_path": "security/examples/partial-scan.scan-execution.json",
+      "schema": "omiv.security-scan-execution-record.v1",
+      "size_bytes": 2186
+    },
+    {
+      "digest": "e4a65af7a2ad879de95f76cbbd3a8e73c664fdeb98852ef66e84cfe51ca769e5",
+      "object_id": "scanner_aea44a66e9a2227c6dce5dc97d92bc67",
+      "relative_path": "security/examples/partial-scan.scanner-identity.json",
+      "schema": "omiv.scanner-identity.v1",
+      "size_bytes": 2079
+    },
+    {
+      "digest": "f91edad90d657c7800b83eff07839ed94d104b7db1f2ab0beae4fd059e269ef2",
+      "object_id": "security_bundle_b2abf25cb35c65ac50439e8642689ed1",
+      "relative_path": "security/examples/partial-scan.security-bundle.json",
+      "schema": "omiv.security-evidence-bundle.v1",
+      "size_bytes": 9792
+    },
+    {
+      "digest": "a656cd1dc56285bcf59fa8bef137e264cbfb03591a82664cbbff11d5086d32f5",
+      "object_id": "security_bundle_b2abf25cb35c65ac50439e8642689ed1",
+      "relative_path": "security/examples/partial-scan.security-evaluation.json",
+      "schema": "omiv.security-evaluation.v1",
+      "size_bytes": 1614
+    },
+    {
+      "digest": "5cceccca43f26efaacad28ea69a0b46d8c22b5a127a9e1cd7ee06a67455f527c",
+      "object_id": "security_coverage_5748555e1fbfc93421f00e97477a509c",
+      "relative_path": "security/examples/private-marker.coverage.json",
+      "schema": "omiv.security-coverage.v1",
+      "size_bytes": 1372
+    },
+    {
+      "digest": "d116100296952a3d7604f8fb17f88f8ec00bbc144f083d1511f802dbf4296ee7",
+      "object_id": "scanner_aea44a66e9a2227c6dce5dc97d92bc67",
+      "relative_path": "security/examples/private-marker.finding-1.json",
+      "schema": "omiv.security-finding.v1",
+      "size_bytes": 1291
+    },
+    {
+      "digest": "12e42797d35639f8deb9e1cbe974cb45306494490f576e79a4ed3ebec0dfb765",
+      "object_id": "inspection_plan_427966018ad8eefacf833c664fdb1594",
+      "relative_path": "security/examples/private-marker.inspection-plan.json",
+      "schema": "omiv.security-inspection-plan.v1",
+      "size_bytes": 2139
+    },
+    {
+      "digest": "027c17bae6e7096da87f0b845734a1756b6138363fd4a4d8616239649cd0f73c",
+      "object_id": "inspection_plan_427966018ad8eefacf833c664fdb1594",
+      "relative_path": "security/examples/private-marker.scan-execution-input.json",
+      "schema": "omiv.security-scan-execution-input.v1",
+      "size_bytes": 1157
+    },
+    {
+      "digest": "ec3765289cf96cf35acd4c6b9e3915deaca188d5af20e011adf41b389c2b533b",
+      "object_id": "inspection_plan_427966018ad8eefacf833c664fdb1594",
+      "relative_path": "security/examples/private-marker.scan-execution.json",
+      "schema": "omiv.security-scan-execution-record.v1",
+      "size_bytes": 2337
+    },
+    {
+      "digest": "e4a65af7a2ad879de95f76cbbd3a8e73c664fdeb98852ef66e84cfe51ca769e5",
+      "object_id": "scanner_aea44a66e9a2227c6dce5dc97d92bc67",
+      "relative_path": "security/examples/private-marker.scanner-identity.json",
+      "schema": "omiv.scanner-identity.v1",
+      "size_bytes": 2079
+    },
+    {
+      "digest": "7ed7aab5391634fcddaa54023066e3f7403259f71ed38df6b0a5320487b74f91",
+      "object_id": "security_bundle_39822c46f89d1b0a74f8ad6e469cd459",
+      "relative_path": "security/examples/private-marker.security-bundle.json",
+      "schema": "omiv.security-evidence-bundle.v1",
+      "size_bytes": 11523
+    },
+    {
+      "digest": "4ff5ee41fc326af7a3df7dbad6f2ce4e18bb1f5edc9e8f89c95968d401fa0776",
+      "object_id": "security_bundle_39822c46f89d1b0a74f8ad6e469cd459",
+      "relative_path": "security/examples/private-marker.security-evaluation.json",
+      "schema": "omiv.security-evaluation.v1",
+      "size_bytes": 1626
+    },
+    {
+      "digest": "362a3347818bc3800ab7ece732e9adae4531fc36c4d82b7ab83aff9ef73683eb",
+      "object_id": "security_coverage_ab85bdcb285fd9cdf763b24976525218",
+      "relative_path": "security/examples/script.coverage.json",
+      "schema": "omiv.security-coverage.v1",
+      "size_bytes": 1363
+    },
+    {
+      "digest": "0932341efedc5acb71b82a0b53ba8eb5b7bfa71c51a5a308e3aa48571311e777",
+      "object_id": "scanner_aea44a66e9a2227c6dce5dc97d92bc67",
+      "relative_path": "security/examples/script.finding-1.json",
+      "schema": "omiv.security-finding.v1",
+      "size_bytes": 1217
+    },
+    {
+      "digest": "9a30f591ac8e14fef4f734784558d2392b8fcaab6cb73d2cf73bf022be9b0395",
+      "object_id": "inspection_plan_387c13f127687d539ab761fe6f0b114e",
+      "relative_path": "security/examples/script.inspection-plan.json",
+      "schema": "omiv.security-inspection-plan.v1",
+      "size_bytes": 2103
+    },
+    {
+      "digest": "b3018422c813d8d8250dfb3ce6e88570e7d0220c19c3f864460dcca00529fc68",
+      "object_id": "inspection_plan_387c13f127687d539ab761fe6f0b114e",
+      "relative_path": "security/examples/script.scan-execution-input.json",
+      "schema": "omiv.security-scan-execution-input.v1",
+      "size_bytes": 1139
+    },
+    {
+      "digest": "e2960285c81f190c31539a3de390c512c2fc4bd4e5e4ab4cc8956ae88055924b",
+      "object_id": "inspection_plan_387c13f127687d539ab761fe6f0b114e",
+      "relative_path": "security/examples/script.scan-execution.json",
+      "schema": "omiv.security-scan-execution-record.v1",
+      "size_bytes": 2310
+    },
+    {
+      "digest": "e4a65af7a2ad879de95f76cbbd3a8e73c664fdeb98852ef66e84cfe51ca769e5",
+      "object_id": "scanner_aea44a66e9a2227c6dce5dc97d92bc67",
+      "relative_path": "security/examples/script.scanner-identity.json",
+      "schema": "omiv.scanner-identity.v1",
+      "size_bytes": 2079
+    },
+    {
+      "digest": "a0d05bf6556183d558585ba08399a9f59f720f22114d7ecb3e6fd7e7a358ad7e",
+      "object_id": "security_bundle_583816cba7e93aaeb168f00d9deeac5c",
+      "relative_path": "security/examples/script.security-bundle.json",
+      "schema": "omiv.security-evidence-bundle.v1",
+      "size_bytes": 11350
+    },
+    {
+      "digest": "08c656d53fd7bc8e1c8315c2a72aabce59755965dcb4514dc33952845f0026f1",
+      "object_id": "security_bundle_583816cba7e93aaeb168f00d9deeac5c",
+      "relative_path": "security/examples/script.security-evaluation.json",
+      "schema": "omiv.security-evaluation.v1",
+      "size_bytes": 1626
+    },
+    {
+      "digest": "02ebc860891fb0c6e2bda118be656a1cf0b20166a683c2f85ca4d0c738398d1b",
+      "object_id": "security_coverage_cd835bd3166fa2724552928f7ffccdcc",
+      "relative_path": "security/examples/signed-url-marker.coverage.json",
+      "schema": "omiv.security-coverage.v1",
+      "size_bytes": 1375
+    },
+    {
+      "digest": "ccc96e6a1b90893e53297d2f37ae08ede4e54633dc46e1e19f30f238267797c4",
+      "object_id": "scanner_aea44a66e9a2227c6dce5dc97d92bc67",
+      "relative_path": "security/examples/signed-url-marker.finding-1.json",
+      "schema": "omiv.security-finding.v1",
+      "size_bytes": 1280
+    },
+    {
+      "digest": "31238710c9bf1753676364ddac7acf67d73672bc12b031a961286b73702cbbb6",
+      "object_id": "inspection_plan_d7e27f4a5e8502a3c7ad5eb054196237",
+      "relative_path": "security/examples/signed-url-marker.inspection-plan.json",
+      "schema": "omiv.security-inspection-plan.v1",
+      "size_bytes": 2151
+    },
+    {
+      "digest": "cd420115b545c48f8b3466b9eb799c475fc868ba9a55fd53a4780b269cd3a0bb",
+      "object_id": "inspection_plan_d7e27f4a5e8502a3c7ad5eb054196237",
+      "relative_path": "security/examples/signed-url-marker.scan-execution-input.json",
+      "schema": "omiv.security-scan-execution-input.v1",
+      "size_bytes": 1163
+    },
+    {
+      "digest": "9e2e43396942f00a2cf7b723ec1199840329cdfcb1168b68243ef99addc4b12b",
+      "object_id": "inspection_plan_d7e27f4a5e8502a3c7ad5eb054196237",
+      "relative_path": "security/examples/signed-url-marker.scan-execution.json",
+      "schema": "omiv.security-scan-execution-record.v1",
+      "size_bytes": 2346
+    },
+    {
+      "digest": "e4a65af7a2ad879de95f76cbbd3a8e73c664fdeb98852ef66e84cfe51ca769e5",
+      "object_id": "scanner_aea44a66e9a2227c6dce5dc97d92bc67",
+      "relative_path": "security/examples/signed-url-marker.scanner-identity.json",
+      "schema": "omiv.scanner-identity.v1",
+      "size_bytes": 2079
+    },
+    {
+      "digest": "f942c42f8641f27b3045aa791fd95a14acbb6af2b1d543a7b34aae1d727f322a",
+      "object_id": "security_bundle_1677a9b9347173a0d91ba4355b4802e1",
+      "relative_path": "security/examples/signed-url-marker.security-bundle.json",
+      "schema": "omiv.security-evidence-bundle.v1",
+      "size_bytes": 11545
+    },
+    {
+      "digest": "a22448c6be1809187446fac54502721e4d1a56f44cbe5daaf2d748e9eb5a36de",
+      "object_id": "security_bundle_1677a9b9347173a0d91ba4355b4802e1",
+      "relative_path": "security/examples/signed-url-marker.security-evaluation.json",
+      "schema": "omiv.security-evaluation.v1",
+      "size_bytes": 1626
+    },
+    {
+      "digest": "b95152fa1d82f6cea52179a168a8630616ca569bb5d123f9b96bdaccc89a0bad",
+      "object_id": "security_bundle_b306a101f57a7513ff65bbb04d8aff72",
+      "relative_path": "security/examples/trusted-clean.enterprise-security-evaluation.json",
+      "schema": "omiv.security-evaluation.v1",
+      "size_bytes": 1524
+    },
+    {
+      "digest": "4119f01d51718f7a1c3dfe2a66abad04d0259f35314b7526d72be5031860295f",
+      "object_id": "soe_45a20b3a37a78f1f20c97ccc4f4f96b3",
+      "relative_path": "security/examples/trusted-clean.security-bundle.signed-envelope.json",
+      "schema": "omiv.signed-object-envelope.v1",
+      "size_bytes": 13433
+    },
+    {
+      "digest": "8e1832a9909d5811cd1ac979695ac0b58053f477001812237db7642253ffe0e0",
+      "object_id": "signed_security_61321ba60edfa991efbf3cdbb0a9f756",
+      "relative_path": "security/examples/trusted-clean.signed-security-linkage.json",
+      "schema": "omiv.signed-security-evidence-linkage.v1",
+      "size_bytes": 869
+    },
+    {
+      "digest": "86a477c051297f1fc92b68a62970cd771cfc7638840efd06eef311516f6f498d",
+      "object_id": "tb_0a5ccabef56e5cf37a48e76e73656972",
+      "relative_path": "security/examples/trusted-security.trust-bundle.json",
+      "schema": "omiv.trust-bundle.v1",
+      "size_bytes": 3524
+    },
+    {
+      "digest": "40f6d885e9fd805b08e8ecc5dad8e56dba4db59566bffaea3bee63140d907d60",
+      "object_id": "omiv.trust-policy.team_release.v1",
+      "relative_path": "security/examples/trusted-security.trust-policy.json",
+      "schema": "omiv.trust-policy.v1",
+      "size_bytes": 1235
+    },
+    {
+      "digest": "c496b7d09cec6e30844795adc677fe4f45445b67da53e6c2eb34288f95a51f0f",
+      "object_id": "security_coverage_d00cd54d200531d0b7db039937cda4d3",
+      "relative_path": "security/examples/unsafe-serialization.coverage.json",
+      "schema": "omiv.security-coverage.v1",
+      "size_bytes": 1378
+    },
+    {
+      "digest": "2456f69181593d1e6f2d70beb5cd15acef1881f9fc0912315b2d4dae53703b5c",
+      "object_id": "scanner_aea44a66e9a2227c6dce5dc97d92bc67",
+      "relative_path": "security/examples/unsafe-serialization.finding-1.json",
+      "schema": "omiv.security-finding.v1",
+      "size_bytes": 1243
+    },
+    {
+      "digest": "e28d52f858b12feac8adb887501d2754956f29c5cdfb8406f238873428b6298d",
+      "object_id": "inspection_plan_476557172d21b8b20e27546c9980808b",
+      "relative_path": "security/examples/unsafe-serialization.inspection-plan.json",
+      "schema": "omiv.security-inspection-plan.v1",
+      "size_bytes": 2163
+    },
+    {
+      "digest": "bb3da39ebaa59a6482fb20357b5c80ce27436e59571d8ce7023178a8b38e25da",
+      "object_id": "inspection_plan_476557172d21b8b20e27546c9980808b",
+      "relative_path": "security/examples/unsafe-serialization.scan-execution-input.json",
+      "schema": "omiv.security-scan-execution-input.v1",
+      "size_bytes": 1169
+    },
+    {
+      "digest": "0ce138e7b6acdcc39d7ca7106fd62b5ab494f1b0b7c8be1cedac6765ef6894da",
+      "object_id": "inspection_plan_476557172d21b8b20e27546c9980808b",
+      "relative_path": "security/examples/unsafe-serialization.scan-execution.json",
+      "schema": "omiv.security-scan-execution-record.v1",
+      "size_bytes": 2355
+    },
+    {
+      "digest": "e4a65af7a2ad879de95f76cbbd3a8e73c664fdeb98852ef66e84cfe51ca769e5",
+      "object_id": "scanner_aea44a66e9a2227c6dce5dc97d92bc67",
+      "relative_path": "security/examples/unsafe-serialization.scanner-identity.json",
+      "schema": "omiv.scanner-identity.v1",
+      "size_bytes": 2079
+    },
+    {
+      "digest": "65536e37e0218ea9c401f198cb48a81ecf05d5b3ee19c2a1a6981057cd34cbcc",
+      "object_id": "security_bundle_7fad63b99d4bc2e1e83586d4e588eb19",
+      "relative_path": "security/examples/unsafe-serialization.security-bundle.json",
+      "schema": "omiv.security-evidence-bundle.v1",
+      "size_bytes": 11541
+    },
+    {
+      "digest": "7f78b11c2e7a779833fe7809c123dd75a24c6b695a4f3e5f00e76dd6cf7ed8b3",
+      "object_id": "security_bundle_7fad63b99d4bc2e1e83586d4e588eb19",
+      "relative_path": "security/examples/unsafe-serialization.security-evaluation.json",
+      "schema": "omiv.security-evaluation.v1",
+      "size_bytes": 1626
+    },
+    {
+      "digest": "94237c468ec8234bf2bf1af580bcf33169e468e5a64df0036e1d9b9bd591dda3",
+      "object_id": "security_bundle_b306a101f57a7513ff65bbb04d8aff72",
+      "relative_path": "security/examples/untrusted-clean.enterprise-security-evaluation.json",
+      "schema": "omiv.security-evaluation.v1",
+      "size_bytes": 1593
+    },
+    {
+      "digest": "afaa6005e8f0854a7630e9616813b579a083a8c093b23769c7a0674b2e42886c",
+      "object_id": "soe_a5a8838dfa2cf73843db21e1e3be056e",
+      "relative_path": "security/examples/untrusted-clean.security-bundle.signed-envelope.json",
+      "schema": "omiv.signed-object-envelope.v1",
+      "size_bytes": 13395
+    },
+    {
+      "digest": "9f07a3fcb50eb2b35a1e5df35d4b8b6e3269141342c3787efd277dafc671f82e",
+      "object_id": "omiv.security-policy.enterprise_artifact_security_gate.v1",
+      "relative_path": "security/policies/enterprise_artifact_security_gate.json",
+      "schema": "omiv.security-evidence-policy.v1",
+      "size_bytes": 2208
+    },
+    {
+      "digest": "335f2bf4c30b2ac695952e34cb5d2999edadac79f02a12425b30d7ac914c3c15",
+      "object_id": "omiv.security-policy.personal_local_security_review.v1",
+      "relative_path": "security/policies/personal_local_security_review.json",
+      "schema": "omiv.security-evidence-policy.v1",
+      "size_bytes": 1955
+    },
+    {
+      "digest": "d2cbfed9c3061fb9085d36c746e77415acf334b064d7dd84732945031758e996",
+      "object_id": "omiv.security-policy.regulated_artifact_security_gate.v1",
+      "relative_path": "security/policies/regulated_artifact_security_gate.json",
+      "schema": "omiv.security-evidence-policy.v1",
+      "size_bytes": 2205
+    },
+    {
+      "digest": "23ec241f8bd7c5d52281f831694de8ee5c8eeedf853d7de86bdedfc21d8f9027",
+      "object_id": "omiv.security-policy.team_artifact_security_intake.v1",
+      "relative_path": "security/policies/team_artifact_security_intake.json",
+      "schema": "omiv.security-evidence-policy.v1",
+      "size_bytes": 1953
+    },
+    {
+      "digest": "4c3bdd4f8a2f70f1e37f56c07fe9d6e61637f48b03b6d19871c765a62356fe5f",
+      "object_id": "omiv.security-policy.team_release_security_gate.v1",
+      "relative_path": "security/policies/team_release_security_gate.json",
+      "schema": "omiv.security-evidence-policy.v1",
+      "size_bytes": 2195
+    }
+  ],
+  "index_digest": "9306eff7ae277b03073225c9899443cb524d79b988b1e2bc8187b5717b76037d",
+  "index_id": "security_index_b564e26cd87bdf36c887c16541588c4d",
+  "limitations": [
+    "The index covers canonical Phase 5F JSON records, not artifact safety or runtime state."
+  ],
+  "schema": "omiv.security-artifact-index.v1"
+}

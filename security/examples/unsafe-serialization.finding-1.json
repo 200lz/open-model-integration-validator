@@ -1,0 +1,32 @@
+{
+  "applicable_policy_ids": [],
+  "category": "UNSAFE_SERIALIZATION_FORMAT",
+  "confidence": "HIGH",
+  "evidence": {
+    "evidence_digest": "ad3655e171c76ac49d8981fc4cba6c6dff91c1f5c98510e9c0e6e51f0a13f9d8",
+    "indicator": "unsafe-serialization-format-indicator",
+    "redacted_fingerprint": null,
+    "role": "normalized_indicator",
+    "sensitive_value_redacted": false
+  },
+  "exploitability": "REQUIRES_UNSAFE_LOADER",
+  "finding_digest": "6b3ba9b32486cdd10401343d523c5e90034ef18cfbe03684652c50eb56a932e1",
+  "finding_id": "security_finding_42ef58a144323efbf2eb2c500cdbb88e",
+  "governance_evidence_ids": [],
+  "limitations": [
+    "Indicator does not by itself prove exploitability."
+  ],
+  "location": {
+    "archive_entry": null,
+    "byte_length": 16,
+    "byte_offset": 0,
+    "logical_path": "unsafe-serialization.pkl"
+  },
+  "remediation_guidance": "Review the bounded indicator and apply an artifact-specific policy.",
+  "scan_execution_id": "scan_exec_92c4d0f696326888ff2262c01f0deefa",
+  "scanner_id": "scanner_aea44a66e9a2227c6dce5dc97d92bc67",
+  "schema": "omiv.security-finding.v1",
+  "severity": "HIGH",
+  "status": "OPEN",
+  "subject_identity_digest": "f83a0160b2468d49c833bcc69b6147fd2c05cbd360a06160c9828a6444447dee"
+}

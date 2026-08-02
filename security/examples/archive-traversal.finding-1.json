@@ -1,0 +1,32 @@
+{
+  "applicable_policy_ids": [],
+  "category": "PATH_TRAVERSAL_ENTRY",
+  "confidence": "CONFIRMED",
+  "evidence": {
+    "evidence_digest": "2127aadc78659750e5e5f48c74deb12a1d818b6812b7080d7dff73235121d067",
+    "indicator": "archive-manifest-path-traversal",
+    "redacted_fingerprint": null,
+    "role": "normalized_indicator",
+    "sensitive_value_redacted": false
+  },
+  "exploitability": "REQUIRES_UNSAFE_LOADER",
+  "finding_digest": "a253e295fa8bc59f20d4f1303dba73a13c6e4fda5a0de120e4448a5f71f33f76",
+  "finding_id": "security_finding_6c10354dc8450ec74cb063b46fffb84d",
+  "governance_evidence_ids": [],
+  "limitations": [
+    "Indicator does not by itself prove exploitability."
+  ],
+  "location": {
+    "archive_entry": "redacted-entry",
+    "byte_length": null,
+    "byte_offset": null,
+    "logical_path": "archive-traversal.archive-manifest.json"
+  },
+  "remediation_guidance": "Review the bounded indicator and apply an artifact-specific policy.",
+  "scan_execution_id": "scan_exec_f792633fb4fdf54c8a69964bdaf4419b",
+  "scanner_id": "scanner_aea44a66e9a2227c6dce5dc97d92bc67",
+  "schema": "omiv.security-finding.v1",
+  "severity": "HIGH",
+  "status": "OPEN",
+  "subject_identity_digest": "d94c3a861a237c084e086e718c2892be3c18e74dcde88449099e8516ad4427e0"
+}

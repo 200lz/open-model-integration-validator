@@ -1,0 +1,46 @@
+{
+  "archive_entries_considered": 0,
+  "archive_entries_inspected": 0,
+  "bytes_not_inspected": 0,
+  "coverage_digest": "717581db258fb93b45faf125c42fd7a45f7d5233107d6b65d2452dc0a82114ca",
+  "coverage_id": "security_coverage_345919a35a4ce78206825d366bb22c1d",
+  "declared_files": 1,
+  "discovered_files": 1,
+  "errored_files": 0,
+  "inspected_files": 1,
+  "items": [
+    {
+      "declared_bytes": 25,
+      "inspected_bytes": 25,
+      "logical_path": "malformed-archive.archive-manifest.json",
+      "methods": [
+        "ARCHIVE_STRUCTURE_INSPECTION",
+        "BOUNDED_PAYLOAD_INSPECTION",
+        "EXECUTABLE_CONTENT_INSPECTION",
+        "FILE_NAME_POLICY_CHECK",
+        "FILE_TYPE_POLICY_CHECK",
+        "FORMAT_STRUCTURE_INSPECTION",
+        "MAGIC_BYTE_INSPECTION",
+        "METADATA_INSPECTION",
+        "SCRIPT_CONTENT_INSPECTION",
+        "SERIALIZATION_FORMAT_INSPECTION",
+        "STATIC_PATTERN_INSPECTION"
+      ],
+      "not_applicable_evidence": [],
+      "payload_read": true,
+      "rationale": null,
+      "status": "INSPECTED"
+    }
+  ],
+  "limitations": [
+    "Coverage is limited to the plan's declared files and methods."
+  ],
+  "schema": "omiv.security-coverage.v1",
+  "skipped_files": 0,
+  "status": "COMPLETE_FOR_DECLARED_SCOPE",
+  "subject_identity_digest": "7c690f07cd624e26080dcedea1daa533cc90e37f4e633553e2bda47997b21d18",
+  "total_declared_bytes": 25,
+  "total_discovered_bytes": 25,
+  "total_inspected_bytes": 25,
+  "unsupported_files": 0
+}

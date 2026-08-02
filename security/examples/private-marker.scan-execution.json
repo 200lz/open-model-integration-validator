@@ -1,0 +1,62 @@
+{
+  "bytes_considered": 56,
+  "bytes_inspected": 56,
+  "code_execution_occurred": false,
+  "configuration_digest": "c9fd8ee36e588d8d64a79eadb91fde70177c15d542a2cfe79388fb165492145d",
+  "decompression_occurred": false,
+  "errors": [],
+  "execution_digest": "b93588d2e6f181ea66deef70f158d062d6658c22306fc4b51de88ad9358cad36",
+  "execution_id": "scan_exec_f3aa537f22d84624bd551fd0cb6a5f59",
+  "files_considered": 1,
+  "files_inspected": 1,
+  "limitations": [
+    "Static bounded inspection does not establish runtime safety or universal artifact safety.",
+    "No artifact code was executed and no network access occurred."
+  ],
+  "methods_executed": [
+    "BOUNDED_PAYLOAD_INSPECTION",
+    "EXECUTABLE_CONTENT_INSPECTION",
+    "FILE_NAME_POLICY_CHECK",
+    "FILE_TYPE_POLICY_CHECK",
+    "MAGIC_BYTE_INSPECTION",
+    "METADATA_INSPECTION",
+    "SCRIPT_CONTENT_INSPECTION",
+    "SERIALIZATION_FORMAT_INSPECTION",
+    "STATIC_PATTERN_INSPECTION"
+  ],
+  "network_access_occurred": false,
+  "payload_bytes_read": true,
+  "plan_digest": "02b2485f230a75477c13b9d70b685d1bd0116f52e4115b08f7f1f0c3a7ab76af",
+  "plan_id": "inspection_plan_427966018ad8eefacf833c664fdb1594",
+  "raw_result_references": [],
+  "scanner_digest": "af0a597071954c0da755a63f6b9b5749c3c160c32f8c4d7344cdadf4c56089ee",
+  "scanner_id": "scanner_aea44a66e9a2227c6dce5dc97d92bc67",
+  "schema": "omiv.security-scan-execution-record.v1",
+  "status": "COMPLETED_WITH_LIMITATIONS",
+  "subject": {
+    "architecture": null,
+    "artifact_set_digest": "a4e560bdc4cd9b092139898895af17eb1cced1af263a677c7bcd5e99b80ca91d",
+    "content_digest": "cc72c92818c909a18861a90d60b8da5228bab53fd031c3edac572350bd25e1bc",
+    "file_count": 1,
+    "format": "generic-file",
+    "identity_digest": "4f41088f94ff56cb8caef6b3e5bed04064622cf85aa977794020c33baf58cab9",
+    "origin_type": "local",
+    "passport_digest": null,
+    "passport_id": null,
+    "provider": null,
+    "repository": null,
+    "repository_type": null,
+    "resolved_revision": null,
+    "selection": "private-marker.txt",
+    "total_declared_bytes": 56,
+    "validation_inventory_digest": null,
+    "variant": "private-marker.txt"
+  },
+  "unsupported_items": [
+    {
+      "logical_path": "private-marker.txt",
+      "mandatory": true,
+      "reason": "Built-in scanner has no structure parser for this file type."
+    }
+  ]
+}

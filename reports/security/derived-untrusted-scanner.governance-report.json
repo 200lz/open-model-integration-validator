@@ -1,0 +1,102 @@
+{
+  "approval_record_ids": [],
+  "approval_request_id": null,
+  "blockers": [
+    "requirement_692c311e8dc73df787d1308c1566cea5",
+    "requirement_6e129e4ef405b2f854e44e0c39edbb48"
+  ],
+  "decision_digest": "0a2e9c2c71c289ec826b8fa39b77cd80b73fd273a742ea250b77b8ef1340567e",
+  "decision_id": "decision_dec20d8c4700ed0912593c8a01f49579",
+  "decision_outcome": "DENY",
+  "deployment_status": "NOT_PERFORMED",
+  "limitations": [
+    "Approval status is scoped; it is not a security or deployment assertion.",
+    "Policy evaluation does not prove security, deployment, or runtime state.",
+    "Policy satisfaction does not independently prove underlying claims.",
+    "Promotion permission does not prove upload, deployment, or runtime observation."
+  ],
+  "missing_evidence": {
+    "items": [
+      {
+        "blocking": true,
+        "category": "SECURITY_INSPECTION",
+        "current_status": "UNAVAILABLE",
+        "decision_impact": "Blocks policy outcome",
+        "outside_current_phase": true,
+        "promotion_impact": "Blocks promotion",
+        "remediation": "Supply verified subject-matched Phase 5F security evidence.",
+        "required_status": "SATISFIED",
+        "requirement_id": "requirement_692c311e8dc73df787d1308c1566cea5",
+        "severity": "BLOCKING",
+        "source_phase": "5F"
+      },
+      {
+        "blocking": true,
+        "category": "PAYLOAD_INTEGRITY",
+        "current_status": "MISSING",
+        "decision_impact": "Blocks policy outcome",
+        "outside_current_phase": true,
+        "promotion_impact": "Blocks promotion",
+        "remediation": "Supply separate verified payload-integrity evidence.",
+        "required_status": "SATISFIED",
+        "requirement_id": "requirement_6e129e4ef405b2f854e44e0c39edbb48",
+        "severity": "BLOCKING",
+        "source_phase": "5F"
+      }
+    ]
+  },
+  "next_actions": [
+    "Supply separate verified payload-integrity evidence.",
+    "Supply verified subject-matched Phase 5F security evidence."
+  ],
+  "policy_digest": "887fc97b6c0b720e5f9f943db573d498b797a06146c036a918906d6777f8ea21",
+  "policy_id": "omiv.governance-policy.team_release_candidate.v1",
+  "promotion_conditions": [],
+  "promotion_outcome": null,
+  "promotion_performed": "NO",
+  "promotion_target_id": null,
+  "quorum_result": null,
+  "registry_write": "NOT_PERFORMED",
+  "rejection_record_ids": [],
+  "report_digest": "e06abdd0c7f23cbe6054447c3679f345f4416e9185912cd86b703f5c722a1934",
+  "report_id": "governance_report_a2dd2d8ea3b6d25495be396d191006c7",
+  "requirement_results": [
+    {
+      "blocking": true,
+      "category": "SECURITY_INSPECTION",
+      "limitations": [],
+      "matched_evidence_ids": [],
+      "outcome": "UNAVAILABLE",
+      "policy_evidence": [],
+      "reason": "Security evidence was not produced by the strict Phase 5F governance adapter; declarations and approvals cannot satisfy it.",
+      "requirement_id": "requirement_692c311e8dc73df787d1308c1566cea5",
+      "reviewable": false
+    },
+    {
+      "blocking": true,
+      "category": "PAYLOAD_INTEGRITY",
+      "limitations": [],
+      "matched_evidence_ids": [],
+      "outcome": "MISSING",
+      "policy_evidence": [],
+      "reason": "No evidence reference was supplied for this requirement.",
+      "requirement_id": "requirement_6e129e4ef405b2f854e44e0c39edbb48",
+      "reviewable": false
+    }
+  ],
+  "runtime_status": "NOT_CHECKED",
+  "schema": "omiv.governance-report.v1",
+  "security_status": "MISSING",
+  "separation_result": null,
+  "subject": {
+    "artifact_digest": "411a485216e432ece6b9af94fa32154cf79a2a56d4f81266baa50063f45092bd",
+    "artifact_format": "safetensors",
+    "artifact_set_digest": null,
+    "immutable_revision": null,
+    "logical_locator": "synthetic/derived-untrusted-scanner",
+    "origin_type": "local",
+    "provider": null,
+    "subject_id": "subject_4dc4e123387bdfb0699f6259c8e1b555",
+    "variant": "synthetic"
+  }
+}

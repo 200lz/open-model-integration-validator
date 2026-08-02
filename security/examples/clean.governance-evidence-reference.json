@@ -1,0 +1,25 @@
+{
+  "availability": "AVAILABLE",
+  "category": "SECURITY_INSPECTION",
+  "custody_status": null,
+  "digest": "40aea6d5ec7d8e54dd0846cdf039ea99c53f3c9f788317bcb35e349a815d4911",
+  "evidence_id": "security_evidence_40aea6d5ec7d8e54dd0846cdf039ea99",
+  "governance_policy_id": "omiv.security-policy.team_release_security_gate.v1",
+  "lifecycle_events": [],
+  "limitations": [
+    "A policy PASS is scoped to supplied verified evidence and declared methods.",
+    "No findings does not prove absence of vulnerabilities.",
+    "Policy evaluation does not establish payload integrity, runtime safety, approval, or deployment.",
+    "Static inspection does not establish runtime safety, behavior, integrity, or fidelity."
+  ],
+  "object_id": "security_eval_dddb0e00a0b9ecb42aa23460ae984cfe",
+  "observed_at": null,
+  "provenance_strength": null,
+  "schema": "omiv.artifact-security-evidence.v1",
+  "signer_roles": [],
+  "source_phase": "5F",
+  "subject_id": "subject_ea177110c965fa8c101ee9bb0d585d81",
+  "trust_status": "TRUSTED_BY_POLICY",
+  "valid_until": null,
+  "verification_mode": "FULL"
+}

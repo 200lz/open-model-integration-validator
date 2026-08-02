@@ -1,0 +1,307 @@
+{
+  "bundle_digest": "276e89d6e69072d7f3ff5b778709e8a8683b324d476f8af1314b719bb6007f29",
+  "bundle_id": "security_bundle_1677a9b9347173a0d91ba4355b4802e1",
+  "coverage": {
+    "archive_entries_considered": 0,
+    "archive_entries_inspected": 0,
+    "bytes_not_inspected": 0,
+    "coverage_digest": "703d4c0ceeddcd5e2ded59cb1372e46c3583c92d0e88bf028bf3cd2f27c245a9",
+    "coverage_id": "security_coverage_cd835bd3166fa2724552928f7ffccdcc",
+    "declared_files": 1,
+    "discovered_files": 1,
+    "errored_files": 0,
+    "inspected_files": 1,
+    "items": [
+      {
+        "declared_bytes": 47,
+        "inspected_bytes": 47,
+        "logical_path": "signed-url-marker.txt",
+        "methods": [
+          "BOUNDED_PAYLOAD_INSPECTION",
+          "EXECUTABLE_CONTENT_INSPECTION",
+          "FILE_NAME_POLICY_CHECK",
+          "FILE_TYPE_POLICY_CHECK",
+          "MAGIC_BYTE_INSPECTION",
+          "METADATA_INSPECTION",
+          "SCRIPT_CONTENT_INSPECTION",
+          "SERIALIZATION_FORMAT_INSPECTION",
+          "STATIC_PATTERN_INSPECTION"
+        ],
+        "not_applicable_evidence": [],
+        "payload_read": true,
+        "rationale": null,
+        "status": "INSPECTED"
+      }
+    ],
+    "limitations": [
+      "Coverage is limited to the plan's declared files and methods."
+    ],
+    "schema": "omiv.security-coverage.v1",
+    "skipped_files": 0,
+    "status": "COMPLETE_FOR_DECLARED_SCOPE",
+    "subject_identity_digest": "124b6653c6c956a3814877d08b0398204bfa31aee517e9a8da55eef181b51f28",
+    "total_declared_bytes": 47,
+    "total_discovered_bytes": 47,
+    "total_inspected_bytes": 47,
+    "unsupported_files": 0
+  },
+  "evidence_references": [],
+  "execution_records": [
+    {
+      "bytes_considered": 47,
+      "bytes_inspected": 47,
+      "code_execution_occurred": false,
+      "configuration_digest": "c9fd8ee36e588d8d64a79eadb91fde70177c15d542a2cfe79388fb165492145d",
+      "decompression_occurred": false,
+      "errors": [],
+      "execution_digest": "13b7c2d60cf1b0693bbc8b993b7836a36b4aa6754041fe7f30f5436518b7a401",
+      "execution_id": "scan_exec_00090397b363ac33232afa4ff4d4eac8",
+      "files_considered": 1,
+      "files_inspected": 1,
+      "limitations": [
+        "Static bounded inspection does not establish runtime safety or universal artifact safety.",
+        "No artifact code was executed and no network access occurred."
+      ],
+      "methods_executed": [
+        "BOUNDED_PAYLOAD_INSPECTION",
+        "EXECUTABLE_CONTENT_INSPECTION",
+        "FILE_NAME_POLICY_CHECK",
+        "FILE_TYPE_POLICY_CHECK",
+        "MAGIC_BYTE_INSPECTION",
+        "METADATA_INSPECTION",
+        "SCRIPT_CONTENT_INSPECTION",
+        "SERIALIZATION_FORMAT_INSPECTION",
+        "STATIC_PATTERN_INSPECTION"
+      ],
+      "network_access_occurred": false,
+      "payload_bytes_read": true,
+      "plan_digest": "1520cc5b4d6094f6158cbf1abbdf9b17b2eeebc406484a230f794728a1af5e50",
+      "plan_id": "inspection_plan_d7e27f4a5e8502a3c7ad5eb054196237",
+      "raw_result_references": [],
+      "scanner_digest": "af0a597071954c0da755a63f6b9b5749c3c160c32f8c4d7344cdadf4c56089ee",
+      "scanner_id": "scanner_aea44a66e9a2227c6dce5dc97d92bc67",
+      "schema": "omiv.security-scan-execution-record.v1",
+      "status": "COMPLETED_WITH_LIMITATIONS",
+      "subject": {
+        "architecture": null,
+        "artifact_set_digest": "54a1726777c00b72f0b9babd75bbfa770f363d0b91df18e59a3a6b73ccb7ebd6",
+        "content_digest": "d12f63e64518c2a9b3cd5bca9d59d32d241b29c10a8af8ddc79021c4a6010543",
+        "file_count": 1,
+        "format": "generic-file",
+        "identity_digest": "124b6653c6c956a3814877d08b0398204bfa31aee517e9a8da55eef181b51f28",
+        "origin_type": "local",
+        "passport_digest": null,
+        "passport_id": null,
+        "provider": null,
+        "repository": null,
+        "repository_type": null,
+        "resolved_revision": null,
+        "selection": "signed-url-marker.txt",
+        "total_declared_bytes": 47,
+        "validation_inventory_digest": null,
+        "variant": "signed-url-marker.txt"
+      },
+      "unsupported_items": [
+        {
+          "logical_path": "signed-url-marker.txt",
+          "mandatory": true,
+          "reason": "Built-in scanner has no structure parser for this file type."
+        }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "applicable_policy_ids": [],
+      "category": "SIGNED_URL_PATTERN",
+      "confidence": "HIGH",
+      "evidence": {
+        "evidence_digest": "779c3108d8ff3960cd22f31908264353ea30d12bc339d9c99be70c49c8265a90",
+        "indicator": "signed-url-marker-redacted",
+        "redacted_fingerprint": "779c3108d8ff3960cd22f31908264353ea30d12bc339d9c99be70c49c8265a90",
+        "role": "normalized_indicator",
+        "sensitive_value_redacted": true
+      },
+      "exploitability": "REQUIRES_USER_ACTION",
+      "finding_digest": "f5f7b227f1c8f4af180b6d12e0b3c6e01c3a9790ab82883ad2f77c7a7718cf06",
+      "finding_id": "security_finding_a6015d166974d218c086c614877a4cb7",
+      "governance_evidence_ids": [],
+      "limitations": [
+        "Indicator does not by itself prove exploitability."
+      ],
+      "location": {
+        "archive_entry": null,
+        "byte_length": 15,
+        "byte_offset": 22,
+        "logical_path": "signed-url-marker.txt"
+      },
+      "remediation_guidance": "Review the bounded indicator and apply an artifact-specific policy.",
+      "scan_execution_id": "scan_exec_00090397b363ac33232afa4ff4d4eac8",
+      "scanner_id": "scanner_aea44a66e9a2227c6dce5dc97d92bc67",
+      "schema": "omiv.security-finding.v1",
+      "severity": "HIGH",
+      "status": "OPEN",
+      "subject_identity_digest": "124b6653c6c956a3814877d08b0398204bfa31aee517e9a8da55eef181b51f28"
+    }
+  ],
+  "inspection_plan": {
+    "allow_code_execution": false,
+    "allow_decompression": false,
+    "allow_network_access": false,
+    "bounds": {
+      "maximum_archive_entry_count": 100,
+      "maximum_bytes_per_file": 1048576,
+      "maximum_evidence_snippet_length": 128,
+      "maximum_file_count": 100,
+      "maximum_finding_count": 100,
+      "maximum_metadata_bytes": 1048576,
+      "maximum_recursion_depth": 8,
+      "maximum_total_bytes_read": 8388608
+    },
+    "follow_symlinks": false,
+    "limitations": [
+      "Inspection is static and bounded; it does not establish runtime safety."
+    ],
+    "methods": [
+      "ARCHIVE_STRUCTURE_INSPECTION",
+      "BOUNDED_PAYLOAD_INSPECTION",
+      "DEPENDENCY_MANIFEST_INSPECTION",
+      "EXECUTABLE_CONTENT_INSPECTION",
+      "FILE_NAME_POLICY_CHECK",
+      "FILE_TYPE_POLICY_CHECK",
+      "FORMAT_STRUCTURE_INSPECTION",
+      "MAGIC_BYTE_INSPECTION",
+      "MANIFEST_INSPECTION",
+      "METADATA_INSPECTION",
+      "SCRIPT_CONTENT_INSPECTION",
+      "SERIALIZATION_FORMAT_INSPECTION",
+      "STATIC_PATTERN_INSPECTION"
+    ],
+    "plan_digest": "1520cc5b4d6094f6158cbf1abbdf9b17b2eeebc406484a230f794728a1af5e50",
+    "plan_id": "inspection_plan_d7e27f4a5e8502a3c7ad5eb054196237",
+    "schema": "omiv.security-inspection-plan.v1",
+    "scope": {
+      "declared_file_count": 1,
+      "declared_total_bytes": 47,
+      "include_archive_metadata": false,
+      "logical_paths": [
+        "signed-url-marker.txt"
+      ],
+      "mandatory_paths": [
+        "signed-url-marker.txt"
+      ]
+    },
+    "subject": {
+      "architecture": null,
+      "artifact_set_digest": "54a1726777c00b72f0b9babd75bbfa770f363d0b91df18e59a3a6b73ccb7ebd6",
+      "content_digest": "d12f63e64518c2a9b3cd5bca9d59d32d241b29c10a8af8ddc79021c4a6010543",
+      "file_count": 1,
+      "format": "generic-file",
+      "identity_digest": "124b6653c6c956a3814877d08b0398204bfa31aee517e9a8da55eef181b51f28",
+      "origin_type": "local",
+      "passport_digest": null,
+      "passport_id": null,
+      "provider": null,
+      "repository": null,
+      "repository_type": null,
+      "resolved_revision": null,
+      "selection": "signed-url-marker.txt",
+      "total_declared_bytes": 47,
+      "validation_inventory_digest": null,
+      "variant": "signed-url-marker.txt"
+    }
+  },
+  "limitations": [
+    "No findings does not prove absence of vulnerabilities.",
+    "Static inspection does not establish runtime safety, behavior, integrity, or fidelity."
+  ],
+  "policy_references": [],
+  "scan_errors": [],
+  "scanner_identities": [
+    {
+      "capability": {
+        "archive_metadata_only": true,
+        "code_execution": false,
+        "finding_categories": [
+          "DEPENDENCY_MANIFEST_PRESENT",
+          "DESERIALIZATION_EXECUTION_PATTERN",
+          "DYNAMIC_IMPORT_PATTERN",
+          "INCONSISTENT_MANIFEST",
+          "INSTALL_OR_BUILD_SCRIPT_PRESENT",
+          "NATIVE_BINARY_PRESENT",
+          "PATH_TRAVERSAL_ENTRY",
+          "PRIVATE_KEY_MATERIAL_PATTERN",
+          "SCRIPT_CONTENT_PRESENT",
+          "SHELL_EXECUTION_PATTERN",
+          "SIGNED_URL_PATTERN",
+          "SUBPROCESS_EXECUTION_PATTERN",
+          "SUSPICIOUS_NETWORK_REFERENCE",
+          "SYMLINK_ENTRY",
+          "UNSAFE_SERIALIZATION_FORMAT"
+        ],
+        "limitations": [
+          "Pattern and format indicators are not semantic malware detection.",
+          "Archive inspection reads bounded entry metadata only and never extracts content."
+        ],
+        "methods": [
+          "ARCHIVE_STRUCTURE_INSPECTION",
+          "BOUNDED_PAYLOAD_INSPECTION",
+          "DEPENDENCY_MANIFEST_INSPECTION",
+          "EXECUTABLE_CONTENT_INSPECTION",
+          "FILE_NAME_POLICY_CHECK",
+          "FILE_TYPE_POLICY_CHECK",
+          "FORMAT_STRUCTURE_INSPECTION",
+          "MAGIC_BYTE_INSPECTION",
+          "MANIFEST_INSPECTION",
+          "METADATA_INSPECTION",
+          "SCRIPT_CONTENT_INSPECTION",
+          "SERIALIZATION_FORMAT_INSPECTION",
+          "STATIC_PATTERN_INSPECTION"
+        ],
+        "network_access": false,
+        "payload_bytes_read": true
+      },
+      "configuration_digest": "c9fd8ee36e588d8d64a79eadb91fde70177c15d542a2cfe79388fb165492145d",
+      "implementation_digest": "7674924b8936542f55c5ba50cc13449904217c5f48294d6cd3abc71012d36215",
+      "limitations": [
+        "Pattern and format indicators are not semantic malware detection.",
+        "Archive inspection reads bounded entry metadata only and never extracts content."
+      ],
+      "revision": "phase-5f-v1",
+      "scanner_digest": "af0a597071954c0da755a63f6b9b5749c3c160c32f8c4d7344cdadf4c56089ee",
+      "scanner_id": "scanner_aea44a66e9a2227c6dce5dc97d92bc67",
+      "scanner_name": "OMIV bounded static inspector",
+      "schema": "omiv.scanner-identity.v1",
+      "synthetic_builtin": true,
+      "trust_references": [],
+      "version": "1"
+    }
+  ],
+  "schema": "omiv.security-evidence-bundle.v1",
+  "subject": {
+    "architecture": null,
+    "artifact_set_digest": "54a1726777c00b72f0b9babd75bbfa770f363d0b91df18e59a3a6b73ccb7ebd6",
+    "content_digest": "d12f63e64518c2a9b3cd5bca9d59d32d241b29c10a8af8ddc79021c4a6010543",
+    "file_count": 1,
+    "format": "generic-file",
+    "identity_digest": "124b6653c6c956a3814877d08b0398204bfa31aee517e9a8da55eef181b51f28",
+    "origin_type": "local",
+    "passport_digest": null,
+    "passport_id": null,
+    "provider": null,
+    "repository": null,
+    "repository_type": null,
+    "resolved_revision": null,
+    "selection": "signed-url-marker.txt",
+    "total_declared_bytes": 47,
+    "validation_inventory_digest": null,
+    "variant": "signed-url-marker.txt"
+  },
+  "unsupported_items": [
+    {
+      "logical_path": "signed-url-marker.txt",
+      "mandatory": true,
+      "reason": "Built-in scanner has no structure parser for this file type."
+    }
+  ]
+}

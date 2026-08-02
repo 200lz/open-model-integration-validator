@@ -1,0 +1,102 @@
+{
+  "approval_status": "NOT_EVALUATED",
+  "blocking_findings": [
+    "requirement_6e129e4ef405b2f854e44e0c39edbb48"
+  ],
+  "decision_digest": "0a68299bc69de38e3b812706b2349313c7f244485fd22ae88556158b4d009b9f",
+  "decision_id": "decision_c3b9ed10e29fc81b8bf871624e4a886f",
+  "decision_outcome": "DENY",
+  "decision_reasons": [
+    {
+      "blocking": false,
+      "code": "GOV-005",
+      "requirement_id": "requirement_692c311e8dc73df787d1308c1566cea5",
+      "summary": "Evidence satisfies the requirement with explicit limitations."
+    },
+    {
+      "blocking": true,
+      "code": "GOV-006",
+      "requirement_id": "requirement_6e129e4ef405b2f854e44e0c39edbb48",
+      "summary": "No evidence reference was supplied for this requirement."
+    }
+  ],
+  "evaluation_context_id": null,
+  "evaluation_result_digest": "56e0fdbb918914076e581ea408ea91b0690b577c2b366c4daf7257aa03f606e3",
+  "limitations": [
+    "A policy PASS is scoped to supplied verified evidence and declared methods.",
+    "No findings does not prove absence of vulnerabilities.",
+    "Policy evaluation does not establish payload integrity, runtime safety, approval, or deployment.",
+    "Policy evaluation does not prove security, deployment, or runtime state.",
+    "Policy satisfaction does not independently prove underlying claims.",
+    "Promotion permission does not prove upload, deployment, or runtime observation.",
+    "Static inspection does not establish runtime safety, behavior, integrity, or fidelity."
+  ],
+  "missing_evidence": {
+    "items": [
+      {
+        "blocking": true,
+        "category": "PAYLOAD_INTEGRITY",
+        "current_status": "MISSING",
+        "decision_impact": "Blocks policy outcome",
+        "outside_current_phase": true,
+        "promotion_impact": "Blocks promotion",
+        "remediation": "Supply separate verified payload-integrity evidence.",
+        "required_status": "SATISFIED",
+        "requirement_id": "requirement_6e129e4ef405b2f854e44e0c39edbb48",
+        "severity": "BLOCKING",
+        "source_phase": "5F"
+      }
+    ]
+  },
+  "next_required_actions": [
+    "Supply separate verified payload-integrity evidence."
+  ],
+  "policy_digest": "887fc97b6c0b720e5f9f943db573d498b797a06146c036a918906d6777f8ea21",
+  "policy_id": "omiv.governance-policy.team_release_candidate.v1",
+  "promotion_eligibility": "NOT_EVALUATED",
+  "requirement_results": [
+    {
+      "blocking": false,
+      "category": "SECURITY_INSPECTION",
+      "limitations": [
+        "A policy PASS is scoped to supplied verified evidence and declared methods.",
+        "No findings does not prove absence of vulnerabilities.",
+        "Policy evaluation does not establish payload integrity, runtime safety, approval, or deployment.",
+        "Static inspection does not establish runtime safety, behavior, integrity, or fidelity."
+      ],
+      "matched_evidence_ids": [
+        "security_evidence_de90c6bbc132f7d9d60112e727c813c5"
+      ],
+      "outcome": "SATISFIED_WITH_LIMITATIONS",
+      "policy_evidence": [],
+      "reason": "Evidence satisfies the requirement with explicit limitations.",
+      "requirement_id": "requirement_692c311e8dc73df787d1308c1566cea5",
+      "reviewable": false
+    },
+    {
+      "blocking": true,
+      "category": "PAYLOAD_INTEGRITY",
+      "limitations": [],
+      "matched_evidence_ids": [],
+      "outcome": "MISSING",
+      "policy_evidence": [],
+      "reason": "No evidence reference was supplied for this requirement.",
+      "requirement_id": "requirement_6e129e4ef405b2f854e44e0c39edbb48",
+      "reviewable": false
+    }
+  ],
+  "schema": "omiv.policy-decision-record.v1",
+  "separation_of_duties_status": "NOT_EVALUATED",
+  "subject": {
+    "artifact_digest": "411a485216e432ece6b9af94fa32154cf79a2a56d4f81266baa50063f45092bd",
+    "artifact_format": "safetensors",
+    "artifact_set_digest": null,
+    "immutable_revision": null,
+    "logical_locator": "synthetic/derived-enterprise-signed",
+    "origin_type": "local",
+    "provider": null,
+    "subject_id": "subject_b0f33e258bf2d4b66a08b0dcea90d63b",
+    "variant": "synthetic"
+  },
+  "trust_summary": "POLICY_SCOPED_EVIDENCE_EVALUATED"
+}

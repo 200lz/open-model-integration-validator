@@ -1,0 +1,27 @@
+{
+  "configuration_digest": "c9fd8ee36e588d8d64a79eadb91fde70177c15d542a2cfe79388fb165492145d",
+  "plan_digest": "3368c0ace5581b117c576c87e6ceabeebf28af14cca1b1d30dc0ebf322f2d03b",
+  "plan_id": "inspection_plan_960537a6c07b62b50c50f375986b59ba",
+  "scanner_digest": "af0a597071954c0da755a63f6b9b5749c3c160c32f8c4d7344cdadf4c56089ee",
+  "scanner_id": "scanner_aea44a66e9a2227c6dce5dc97d92bc67",
+  "schema": "omiv.security-scan-execution-input.v1",
+  "subject": {
+    "architecture": null,
+    "artifact_set_digest": "a132fdbb62939a57de6bbb3dc9233cec62654c69a8e67d8323f315d594acae7d",
+    "content_digest": "411a485216e432ece6b9af94fa32154cf79a2a56d4f81266baa50063f45092bd",
+    "file_count": 1,
+    "format": "safetensors",
+    "identity_digest": "2eb290be8a30fd43f2eb19bf59e834d838a002b3a7038421b6fdc9669bd66027",
+    "origin_type": "local",
+    "passport_digest": null,
+    "passport_id": null,
+    "provider": null,
+    "repository": null,
+    "repository_type": null,
+    "resolved_revision": null,
+    "selection": "clean.safetensors",
+    "total_declared_bytes": 10,
+    "validation_inventory_digest": null,
+    "variant": "clean.safetensors"
+  }
+}

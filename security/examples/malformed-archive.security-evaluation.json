@@ -1,0 +1,33 @@
+{
+  "blockers": [
+    "scanner errors exceed policy maximum"
+  ],
+  "blocking_finding_ids": [],
+  "bundle_digest": "be2a0661285e57a375d9b3f38cef230a9c1d589960fdd4aa934b19a44a9b69a6",
+  "bundle_id": "security_bundle_bbd9ebf58552e56a416d4079775fc8c3",
+  "coverage_result": "FAILED",
+  "evaluation_context_digest": null,
+  "evaluation_digest": "389792026a7068f6c6c79e6e914a32ee53b477d3da076b8c80306fec4ab41f69",
+  "evaluation_id": "security_eval_8005cfb22c8541a617685a315706acd0",
+  "finding_result": "NO_BLOCKING_FINDINGS",
+  "inspection_integrity": "VALID",
+  "limitations": [
+    "A policy PASS is scoped to supplied verified evidence and declared methods.",
+    "No findings does not prove absence of vulnerabilities.",
+    "Policy evaluation does not establish payload integrity, runtime safety, approval, or deployment.",
+    "Static inspection does not establish runtime safety, behavior, integrity, or fidelity."
+  ],
+  "policy_digest": "95f50d1a5a489ea325281094c4b2e41fc96111c13465f9cb4cccb7914f23d78d",
+  "policy_id": "omiv.security-policy.team_release_security_gate.v1",
+  "required_methods_satisfied": true,
+  "scan_execution_integrity": "VALID",
+  "scanner_correctness_independently_proven": "NOT_ESTABLISHED",
+  "scanner_identity_status": "KNOWN",
+  "scanner_trust": "TRUSTED_BY_POLICY",
+  "schema": "omiv.security-evaluation.v1",
+  "signature_trust": "NOT_EVALUATED",
+  "subject_identity_digest": "7c690f07cd624e26080dcedea1daa533cc90e37f4e633553e2bda47997b21d18",
+  "uninspected_scope": [],
+  "unresolved_error_count": 1,
+  "verdict": "FAIL"
+}

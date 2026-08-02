@@ -1775,3 +1775,163 @@ Generated examples live in `governance/examples/`, reports in
 `governance/artifact-index.json`. They use synthetic identities only. No Kimi
 approval, Kimi promotion, security pass, deployment authorization, or runtime
 authorization is generated.
+
+## Phase 5F: artifact security evidence
+
+Phase 5F adds the generic, deterministic, offline-first `omiv security` evidence
+layer. It binds an exact artifact identity to a bounded inspection plan, explicit
+scanner capabilities, an execution record, normalized findings, exact coverage,
+a policy evaluation, and a scope-limited verdict. It is an evidence and policy
+foundation, not an antivirus product or security certification.
+
+The dependency order is:
+
+```text
+artifact reference
+→ security inspection plan
+→ scanner identity and bounded execution
+→ normalized findings and coverage
+→ security evidence bundle
+→ security policy evaluation
+→ deterministic report
+→ separate governance, Passport, custody, and signed-envelope linkages
+```
+
+The core package is `src/omiv/security/` and imports no model pack. Generic local
+files and artifact sets use the existing custody `ArtifactReference`, whose
+origins include local, S3, OCI, internal registry, and air-gapped references.
+Safetensors-like, GGUF-like, ONNX-like, and archive-like artifacts are treated as
+formats, never as executable model implementations.
+
+### Safe inspection boundary
+
+The built-in scanner is named **OMIV bounded static inspector**. Its identity,
+configuration, methods, finding categories, and limitations are canonical. It
+performs bounded file enumeration, type and magic checks, static byte-pattern
+checks, unsafe-serialization indicators, script/native-binary indicators, and
+bounded ZIP central-directory or archive-entry-manifest name checks. The ZIP
+parser operates only on bytes already admitted by the file and total-byte bounds.
+Archive entries are never extracted and nested archives are not recursively
+inspected.
+
+Every plan bounds files, total and per-file bytes, archive entries, metadata,
+findings, evidence snippets, and recursion depth. Symlinks, traversal, devices,
+FIFOs, sockets, proc/sys traversal, unsupported dynamic analysis, and bound
+overruns fail closed. OMIV does not execute untrusted artifact code during Phase
+5F inspection. It performs no dynamic imports, deserialization, shell commands,
+plugin loading, external scanner processes, environment expansion, or network
+access.
+
+`CONTROLLED_DYNAMIC_ANALYSIS_RESERVED` is typed but cannot appear in an
+operational Phase 5F plan. Static inspection does not establish runtime safety,
+behavioral correctness, payload integrity, numerical fidelity, or tokenizer
+parity.
+
+### Schemas, policies, and verdicts
+
+The primary strict schemas are:
+
+- `omiv.security-inspection-plan.v1`
+- `omiv.scanner-identity.v1`
+- `omiv.security-scan-execution-input.v1`
+- `omiv.security-scan-execution-record.v1`
+- `omiv.security-finding.v1`
+- `omiv.security-coverage.v1`
+- `omiv.security-evidence-bundle.v1`
+- `omiv.security-evidence-policy.v1`
+- `omiv.security-evaluation.v1`
+- `omiv.security-report.v1`
+- `omiv.passport-security-summary.v1`
+- `omiv.custody-security-linkage.v1`
+- `omiv.security-artifact-index.v1`
+
+All records reject unknown fields. Canonical values reject absolute local paths,
+credentials, private material, signed URLs, UUID identities, and caller-supplied
+timestamps. Sensitive pattern matches retain only a category, digest, redacted
+fingerprint, and bounded normalized indicator—not the matched secret.
+
+Built-in policy profiles are `personal_local_security_review`,
+`team_artifact_security_intake`, `team_release_security_gate`,
+`enterprise_artifact_security_gate`, and
+`regulated_artifact_security_gate`. The regulated profile remains reserved and
+fails closed because Phase 5F does not provide runtime or continuous evidence.
+
+Verdict precedence is:
+
+```text
+EVIDENCE_BROKEN
+→ FAIL
+→ SCANNER_UNTRUSTED
+→ COVERAGE_INCOMPLETE
+→ NOT_EVALUATED
+→ REVIEW_REQUIRED
+→ PASS_WITH_LIMITATIONS
+→ PASS
+```
+
+A security PASS means that the supplied, verified evidence satisfies the
+selected security policy for the declared inspection scope. It does not prove
+that the artifact is universally safe.
+
+No findings does not prove absence of vulnerabilities, especially when coverage
+is partial or inspection methods are limited. Scan completion is not an artifact
+safety claim. A signed security record proves that a key signed the record. It
+does not prove that the scanner was correct, and it never upgrades findings,
+coverage, payload integrity, or runtime state.
+
+### Governance, Passport, and custody
+
+Mandatory security requirements in governance may be satisfied only by verified
+Phase 5F security evidence that matches subject, policy, coverage, and trust
+requirements. The strict adapter emits the reserved Phase 5E
+`omiv.artifact-security-evidence.v1` reference only from a reconstructed Phase 5F
+evaluation. Arbitrary text, approval records, Passport signatures, custody
+integrity, and generic signatures cannot substitute for that evaluation.
+`PASS_WITH_LIMITATIONS` is accepted only when the selected canonical security
+policy permits governance limitations; a CLI flag cannot upgrade it.
+
+Passport v1/v2 and custody ledgers remain unchanged. Separate
+`PassportSecuritySummary` and `CustodySecurityLinkage` records expose coverage,
+findings, scanner trust, verdict, and limitations while keeping payload integrity,
+approval, deployment, and runtime separate. Security custody events are evidence
+linkages only; they do not emit approval, promotion, deployment, or runtime
+events.
+
+The Kimi K3 case study has no local payload acquisition or security scan. Phase
+5F therefore generates only `reports/security/kimi-k3.security-gap-report.json`:
+inspection unavailable, coverage not assessed, and the security requirement
+unsatisfied. It generates no Kimi security PASS or malware-free claim.
+
+### Offline security CLI
+
+```bash
+omiv security plan-create \
+  --artifact ./artifact.safetensors \
+  --output /tmp/inspection-plan.json
+
+omiv security inspect \
+  --plan /tmp/inspection-plan.json \
+  --artifact ./artifact.safetensors \
+  --output /tmp/scan-execution.json \
+  --bundle-output /tmp/security-bundle.json \
+  --report-output /tmp/security-report.json \
+  --markdown-output /tmp/security-report.md
+
+omiv security evidence-verify --bundle /tmp/security-bundle.json
+
+omiv security evaluate \
+  --bundle /tmp/security-bundle.json \
+  --policy team_release_security_gate \
+  --output /tmp/security-evaluation.json
+```
+
+Additional commands are `show`, `report-verify`, `governance-adapt`, and
+`custody-link`. Exit `0` means the selected policy is satisfied with `PASS`; exit
+`1` means limitations or review remain; exit `2` means failure, broken evidence,
+mandatory incomplete coverage, an untrusted required scanner, unsafe input, or
+an operational error.
+
+Synthetic artifacts and canonical records live in `security/examples/`, static
+policies in `security/policies/`, reports in `reports/security/`, and their
+deterministic inventory in `security/artifact-index.json`. Regenerate all of them
+offline with `python -m omiv.security.examples`.

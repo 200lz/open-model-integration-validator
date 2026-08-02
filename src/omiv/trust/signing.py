@@ -81,6 +81,21 @@ OBJECT_METADATA: dict[SignedObjectType, tuple[set[str], str, str]] = {
         "promotion_decision_id",
         "promotion_decision_digest",
     ),
+    SignedObjectType.SECURITY_SCAN_EXECUTION_RECORD: (
+        {"omiv.security-scan-execution-record.v1"},
+        "execution_id",
+        "execution_digest",
+    ),
+    SignedObjectType.SECURITY_EVIDENCE_BUNDLE: (
+        {"omiv.security-evidence-bundle.v1"},
+        "bundle_id",
+        "bundle_digest",
+    ),
+    SignedObjectType.SECURITY_EVALUATION: (
+        {"omiv.security-evaluation.v1"},
+        "evaluation_id",
+        "evaluation_digest",
+    ),
 }
 EXPECTED_PURPOSE = {
     SignedObjectType.ARTIFACT_ATTESTATION: SignaturePurpose.ATTESTATION_ISSUANCE,
@@ -93,6 +108,9 @@ EXPECTED_PURPOSE = {
     SignedObjectType.REJECTION_RECORD: SignaturePurpose.REJECTION_RECORD_ISSUANCE,
     SignedObjectType.RELEASE_CANDIDATE: SignaturePurpose.RELEASE_CANDIDATE_ISSUANCE,
     SignedObjectType.PROMOTION_DECISION: SignaturePurpose.PROMOTION_DECISION_ISSUANCE,
+    SignedObjectType.SECURITY_SCAN_EXECUTION_RECORD: SignaturePurpose.SECURITY_SCAN_ISSUANCE,
+    SignedObjectType.SECURITY_EVIDENCE_BUNDLE: SignaturePurpose.SECURITY_EVIDENCE_ISSUANCE,
+    SignedObjectType.SECURITY_EVALUATION: SignaturePurpose.SECURITY_EVALUATION_ISSUANCE,
 }
 
 

@@ -1,0 +1,67 @@
+{
+  "allow_code_execution": false,
+  "allow_decompression": false,
+  "allow_network_access": false,
+  "bounds": {
+    "maximum_archive_entry_count": 100,
+    "maximum_bytes_per_file": 1048576,
+    "maximum_evidence_snippet_length": 128,
+    "maximum_file_count": 100,
+    "maximum_finding_count": 100,
+    "maximum_metadata_bytes": 1048576,
+    "maximum_recursion_depth": 8,
+    "maximum_total_bytes_read": 8388608
+  },
+  "follow_symlinks": false,
+  "limitations": [
+    "Inspection is static and bounded; it does not establish runtime safety."
+  ],
+  "methods": [
+    "ARCHIVE_STRUCTURE_INSPECTION",
+    "BOUNDED_PAYLOAD_INSPECTION",
+    "DEPENDENCY_MANIFEST_INSPECTION",
+    "EXECUTABLE_CONTENT_INSPECTION",
+    "FILE_NAME_POLICY_CHECK",
+    "FILE_TYPE_POLICY_CHECK",
+    "FORMAT_STRUCTURE_INSPECTION",
+    "MAGIC_BYTE_INSPECTION",
+    "MANIFEST_INSPECTION",
+    "METADATA_INSPECTION",
+    "SCRIPT_CONTENT_INSPECTION",
+    "SERIALIZATION_FORMAT_INSPECTION",
+    "STATIC_PATTERN_INSPECTION"
+  ],
+  "plan_digest": "3368c0ace5581b117c576c87e6ceabeebf28af14cca1b1d30dc0ebf322f2d03b",
+  "plan_id": "inspection_plan_960537a6c07b62b50c50f375986b59ba",
+  "schema": "omiv.security-inspection-plan.v1",
+  "scope": {
+    "declared_file_count": 1,
+    "declared_total_bytes": 10,
+    "include_archive_metadata": false,
+    "logical_paths": [
+      "clean.safetensors"
+    ],
+    "mandatory_paths": [
+      "clean.safetensors"
+    ]
+  },
+  "subject": {
+    "architecture": null,
+    "artifact_set_digest": "a132fdbb62939a57de6bbb3dc9233cec62654c69a8e67d8323f315d594acae7d",
+    "content_digest": "411a485216e432ece6b9af94fa32154cf79a2a56d4f81266baa50063f45092bd",
+    "file_count": 1,
+    "format": "safetensors",
+    "identity_digest": "2eb290be8a30fd43f2eb19bf59e834d838a002b3a7038421b6fdc9669bd66027",
+    "origin_type": "local",
+    "passport_digest": null,
+    "passport_id": null,
+    "provider": null,
+    "repository": null,
+    "repository_type": null,
+    "resolved_revision": null,
+    "selection": "clean.safetensors",
+    "total_declared_bytes": 10,
+    "validation_inventory_digest": null,
+    "variant": "clean.safetensors"
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "behavioral_runtime_safety": "NOT_VERIFIED",
+  "blocking_findings": 1,
+  "bundle_digest": "51201f4e48e148cd47c360ff0ccf35c78c0b7b0c93aed36a87ed9ff146f6ee79",
+  "bundle_id": "security_bundle_583816cba7e93aaeb168f00d9deeac5c",
+  "bytes_inspected": 49,
+  "bytes_not_inspected": 0,
+  "code_execution": false,
+  "declared_files": 1,
+  "declared_scope_coverage": "COMPLETE_FOR_DECLARED_SCOPE",
+  "declared_scope_paths": [
+    "script.py"
+  ],
+  "discovered_files": 1,
+  "evaluation": {
+    "blockers": [
+      "blocking security findings are present"
+    ],
+    "blocking_finding_ids": [
+      "security_finding_4aac6c1a9d0e9234089632af34e4c0ed"
+    ],
+    "bundle_digest": "51201f4e48e148cd47c360ff0ccf35c78c0b7b0c93aed36a87ed9ff146f6ee79",
+    "bundle_id": "security_bundle_583816cba7e93aaeb168f00d9deeac5c",
+    "coverage_result": "COMPLETE",
+    "evaluation_context_digest": null,
+    "evaluation_digest": "de5c8c7d1fb4cf52d7fe10926788ef45df91f9410efb1ad99bbfce4ee9575061",
+    "evaluation_id": "security_eval_10d39051170fc3b3534c95ff0ab84b7f",
+    "finding_result": "BLOCKING_FINDINGS_PRESENT",
+    "inspection_integrity": "VALID",
+    "limitations": [
+      "A policy PASS is scoped to supplied verified evidence and declared methods.",
+      "No findings does not prove absence of vulnerabilities.",
+      "Policy evaluation does not establish payload integrity, runtime safety, approval, or deployment.",
+      "Static inspection does not establish runtime safety, behavior, integrity, or fidelity."
+    ],
+    "policy_digest": "95f50d1a5a489ea325281094c4b2e41fc96111c13465f9cb4cccb7914f23d78d",
+    "policy_id": "omiv.security-policy.team_release_security_gate.v1",
+    "required_methods_satisfied": false,
+    "scan_execution_integrity": "VALID",
+    "scanner_correctness_independently_proven": "NOT_ESTABLISHED",
+    "scanner_identity_status": "KNOWN",
+    "scanner_trust": "TRUSTED_BY_POLICY",
+    "schema": "omiv.security-evaluation.v1",
+    "signature_trust": "NOT_EVALUATED",
+    "subject_identity_digest": "2b78a20c2eeae08388c6d09c18d061a002587f45a59f0cc126e3846c4d478512",
+    "uninspected_scope": [],
+    "unresolved_error_count": 0,
+    "verdict": "FAIL"
+  },
+  "execution_statuses": [
+    "COMPLETED_WITH_LIMITATIONS"
+  ],
+  "files_inspected": 1,
+  "finding_counts": {
+    "CRITICAL": 0,
+    "HIGH": 0,
+    "INFO": 0,
+    "LOW": 0,
+    "MEDIUM": 1,
+    "UNKNOWN": 0
+  },
+  "limitations": [
+    "A policy PASS is scoped to supplied verified evidence and declared methods.",
+    "No findings does not prove absence of vulnerabilities.",
+    "Policy evaluation does not establish payload integrity, runtime safety, approval, or deployment.",
+    "Static inspection does not establish runtime safety, behavior, integrity, or fidelity."
+  ],
+  "methods": [
+    "BOUNDED_PAYLOAD_INSPECTION",
+    "EXECUTABLE_CONTENT_INSPECTION",
+    "FILE_NAME_POLICY_CHECK",
+    "FILE_TYPE_POLICY_CHECK",
+    "MAGIC_BYTE_INSPECTION",
+    "METADATA_INSPECTION",
+    "SCRIPT_CONTENT_INSPECTION",
+    "SERIALIZATION_FORMAT_INSPECTION",
+    "STATIC_PATTERN_INSPECTION"
+  ],
+  "network_access": false,
+  "next_required_actions": [
+    "Resolve blocking findings, unsupported scope, and scanner errors before strict promotion.",
+    "Obtain separate payload-integrity, approval, deployment, and runtime evidence where required."
+  ],
+  "no_findings_warning": "No findings does not prove safety or absence of vulnerabilities.",
+  "payload_bytes_read": true,
+  "payload_integrity": "NOT_VERIFIED",
+  "report_digest": "edced98b2906d4cb30404958373eb9e2368402b9a364085b0c10794914ff56a9",
+  "report_id": "security_report_59c77949580cf83443b5503926f4893e",
+  "scan_errors": [],
+  "scanner_capability_coverage": "UNSUPPORTED",
+  "scanner_correctness_independently_proven": "NOT_ESTABLISHED",
+  "scanner_ids": [
+    "scanner_aea44a66e9a2227c6dce5dc97d92bc67"
+  ],
+  "scanner_trust": "TRUSTED_BY_POLICY",
+  "schema": "omiv.security-report.v1",
+  "signature_status": "NOT_EVALUATED",
+  "total_declared_bytes": 49,
+  "total_discovered_bytes": 49,
+  "unsupported_items": [
+    {
+      "logical_path": "script.py",
+      "mandatory": true,
+      "reason": "Built-in scanner has no structure parser for this file type."
+    }
+  ]
+}

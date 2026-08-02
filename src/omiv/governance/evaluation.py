@@ -68,7 +68,6 @@ PRECEDENCE = [
 # verifier capable of accepting evidence from their future implementation phases.
 RESERVED_FUTURE_EVIDENCE = {
     EvidenceCategory.PAYLOAD_INTEGRITY,
-    EvidenceCategory.SECURITY_INSPECTION,
     EvidenceCategory.QUANTIZATION_FIDELITY,
     EvidenceCategory.TOKENIZER_PARITY,
     EvidenceCategory.DEPLOYMENT,
@@ -387,6 +386,22 @@ def _evaluate_requirement(
         reason = (
             "This evidence category has no operational verifier in Phase 5E; "
             "caller-declared future evidence cannot satisfy it."
+        )
+        policy_evidence = []
+        accepted = []
+    elif requirement.category == EvidenceCategory.SECURITY_INSPECTION and not any(
+        item.schema_id == "omiv.artifact-security-evidence.v1"
+        and item.object_id.startswith("security_eval_")
+        and len(item.object_id) == len("security_eval_") + 32
+        and item.governance_policy_id is not None
+        and item.governance_policy_id.startswith("omiv.security-policy.")
+        and item.verification_mode == VerificationMode.FULL
+        for item in matches
+    ):
+        outcome = RequirementOutcome.UNAVAILABLE
+        reason = (
+            "Security evidence was not produced by the strict Phase 5F governance adapter; "
+            "declarations and approvals cannot satisfy it."
         )
         policy_evidence = []
         accepted = []

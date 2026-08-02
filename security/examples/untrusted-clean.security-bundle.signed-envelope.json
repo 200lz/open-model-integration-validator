@@ -1,0 +1,336 @@
+{
+  "envelope_digest": "d7da639ede3a2309805ebdd973824e14e1181759716728112c8534d723af705a",
+  "envelope_id": "soe_a5a8838dfa2cf73843db21e1e3be056e",
+  "key_records": [
+    {
+      "algorithm": "ED25519",
+      "allowed_key_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "allowed_object_types": [
+        "SECURITY_EVIDENCE_BUNDLE"
+      ],
+      "allowed_purposes": [
+        "SECURITY_EVIDENCE_ISSUANCE"
+      ],
+      "key_digest": "2f6e1f46711ca2e72039c41be7574f7a94c5bc42c791a8ffd0a516a52071c33f",
+      "key_id": "key_2c7cc02b798961d34b833438da169f72",
+      "limitations": [
+        "Public-key identity does not establish signer identity."
+      ],
+      "namespaces": [],
+      "provider_artifact_scopes": [],
+      "public_key": "22fc297792f0b6ffc0bfcfdb7edb0c0aa14e025a365ec0e342e86e3829cb74b6",
+      "public_key_digest": "2c7cc02b798961d34b833438da169f726405c5a5b406470e8e56f6d1ba3e0b39",
+      "public_key_encoding": "RAW_HEX",
+      "schema": "omiv.key-identity.v1",
+      "status": "ACTIVE",
+      "validity": null
+    }
+  ],
+  "limitations": [
+    "The canonical source object is unchanged; trust is reconstructed externally."
+  ],
+  "schema": "omiv.signed-object-envelope.v1",
+  "signatures": [
+    {
+      "algorithm": "ED25519",
+      "binding_id": null,
+      "detached_signature": "9d959bff0ba58b819878728f49d2abd34bb4eaf5710c25f7a0744171eb81b2634f7ed5bcf7bca5850543181bf18037020f74c2f8ad043e6dc89d21ccf5997008",
+      "key_id": "key_2c7cc02b798961d34b833438da169f72",
+      "limitations": [
+        "Signature integrity does not prove the underlying claim is true."
+      ],
+      "payload": {
+        "canonicalization_version": "omiv-json-v1",
+        "digest_algorithm": "SHA-256",
+        "domain": "OMIV-SIGNED-OBJECT-V1",
+        "key_usage": "SIGN_OMIV_OBJECT",
+        "namespace": null,
+        "provider_artifact_scope": null,
+        "schema": "omiv.signature-payload.v1",
+        "signature_purpose": "SECURITY_EVIDENCE_ISSUANCE",
+        "signed_object_digest": "acf72b287b019ea35ecb6b8af367ce1efd3ad4ddda9e2aaba0a3c0340da4d2c9",
+        "signed_object_id": "security_bundle_b306a101f57a7513ff65bbb04d8aff72",
+        "signed_object_schema": "omiv.security-evidence-bundle.v1",
+        "signed_object_type": "SECURITY_EVIDENCE_BUNDLE",
+        "trust_policy_id": "omiv.trust-policy.team_release.v1"
+      },
+      "purpose": "SECURITY_EVIDENCE_ISSUANCE",
+      "schema": "omiv.signature-record.v1",
+      "signature_digest": "b54d7ab1fd5cccb2ae6eb1fb5a7b5b1a59ad51ac91c52e546d311bae0c58755b",
+      "signature_encoding": "RAW_HEX",
+      "signature_id": "sig_cd399d72dff33abb3ef53fa693a3a687",
+      "trust_policy_id": "omiv.trust-policy.team_release.v1"
+    }
+  ],
+  "signed_object": {
+    "bundle_digest": "99421d30c2cf061fc71bec15b97e95a92cb752e2a4b32a5b21b9ec4b4a903200",
+    "bundle_id": "security_bundle_b306a101f57a7513ff65bbb04d8aff72",
+    "coverage": {
+      "archive_entries_considered": 0,
+      "archive_entries_inspected": 0,
+      "bytes_not_inspected": 0,
+      "coverage_digest": "25003a2496bc2e23ead71beeef460065ac4626e2eb963fdb0a12a6435d17290b",
+      "coverage_id": "security_coverage_d03dbbdc9222fb519871c7c6fd712717",
+      "declared_files": 1,
+      "discovered_files": 1,
+      "errored_files": 0,
+      "inspected_files": 1,
+      "items": [
+        {
+          "declared_bytes": 10,
+          "inspected_bytes": 10,
+          "logical_path": "clean.safetensors",
+          "methods": [
+            "BOUNDED_PAYLOAD_INSPECTION",
+            "EXECUTABLE_CONTENT_INSPECTION",
+            "FILE_NAME_POLICY_CHECK",
+            "FILE_TYPE_POLICY_CHECK",
+            "FORMAT_STRUCTURE_INSPECTION",
+            "MAGIC_BYTE_INSPECTION",
+            "METADATA_INSPECTION",
+            "SCRIPT_CONTENT_INSPECTION",
+            "SERIALIZATION_FORMAT_INSPECTION",
+            "STATIC_PATTERN_INSPECTION"
+          ],
+          "not_applicable_evidence": [],
+          "payload_read": true,
+          "rationale": null,
+          "status": "INSPECTED"
+        }
+      ],
+      "limitations": [
+        "Coverage is limited to the plan's declared files and methods."
+      ],
+      "schema": "omiv.security-coverage.v1",
+      "skipped_files": 0,
+      "status": "COMPLETE_FOR_DECLARED_SCOPE",
+      "subject_identity_digest": "2eb290be8a30fd43f2eb19bf59e834d838a002b3a7038421b6fdc9669bd66027",
+      "total_declared_bytes": 10,
+      "total_discovered_bytes": 10,
+      "total_inspected_bytes": 10,
+      "unsupported_files": 0
+    },
+    "evidence_references": [],
+    "execution_records": [
+      {
+        "bytes_considered": 10,
+        "bytes_inspected": 10,
+        "code_execution_occurred": false,
+        "configuration_digest": "c9fd8ee36e588d8d64a79eadb91fde70177c15d542a2cfe79388fb165492145d",
+        "decompression_occurred": false,
+        "errors": [],
+        "execution_digest": "c6e978f3aeb93901b23e0007980fe6cd0b1e1103c1ebb1a9db62a4b333415d4a",
+        "execution_id": "scan_exec_479106986d77200004ac2996e91fbcb7",
+        "files_considered": 1,
+        "files_inspected": 1,
+        "limitations": [
+          "Static bounded inspection does not establish runtime safety or universal artifact safety.",
+          "No artifact code was executed and no network access occurred."
+        ],
+        "methods_executed": [
+          "BOUNDED_PAYLOAD_INSPECTION",
+          "EXECUTABLE_CONTENT_INSPECTION",
+          "FILE_NAME_POLICY_CHECK",
+          "FILE_TYPE_POLICY_CHECK",
+          "FORMAT_STRUCTURE_INSPECTION",
+          "MAGIC_BYTE_INSPECTION",
+          "METADATA_INSPECTION",
+          "SCRIPT_CONTENT_INSPECTION",
+          "SERIALIZATION_FORMAT_INSPECTION",
+          "STATIC_PATTERN_INSPECTION"
+        ],
+        "network_access_occurred": false,
+        "payload_bytes_read": true,
+        "plan_digest": "3368c0ace5581b117c576c87e6ceabeebf28af14cca1b1d30dc0ebf322f2d03b",
+        "plan_id": "inspection_plan_960537a6c07b62b50c50f375986b59ba",
+        "raw_result_references": [],
+        "scanner_digest": "af0a597071954c0da755a63f6b9b5749c3c160c32f8c4d7344cdadf4c56089ee",
+        "scanner_id": "scanner_aea44a66e9a2227c6dce5dc97d92bc67",
+        "schema": "omiv.security-scan-execution-record.v1",
+        "status": "COMPLETED",
+        "subject": {
+          "architecture": null,
+          "artifact_set_digest": "a132fdbb62939a57de6bbb3dc9233cec62654c69a8e67d8323f315d594acae7d",
+          "content_digest": "411a485216e432ece6b9af94fa32154cf79a2a56d4f81266baa50063f45092bd",
+          "file_count": 1,
+          "format": "safetensors",
+          "identity_digest": "2eb290be8a30fd43f2eb19bf59e834d838a002b3a7038421b6fdc9669bd66027",
+          "origin_type": "local",
+          "passport_digest": null,
+          "passport_id": null,
+          "provider": null,
+          "repository": null,
+          "repository_type": null,
+          "resolved_revision": null,
+          "selection": "clean.safetensors",
+          "total_declared_bytes": 10,
+          "validation_inventory_digest": null,
+          "variant": "clean.safetensors"
+        },
+        "unsupported_items": []
+      }
+    ],
+    "findings": [],
+    "inspection_plan": {
+      "allow_code_execution": false,
+      "allow_decompression": false,
+      "allow_network_access": false,
+      "bounds": {
+        "maximum_archive_entry_count": 100,
+        "maximum_bytes_per_file": 1048576,
+        "maximum_evidence_snippet_length": 128,
+        "maximum_file_count": 100,
+        "maximum_finding_count": 100,
+        "maximum_metadata_bytes": 1048576,
+        "maximum_recursion_depth": 8,
+        "maximum_total_bytes_read": 8388608
+      },
+      "follow_symlinks": false,
+      "limitations": [
+        "Inspection is static and bounded; it does not establish runtime safety."
+      ],
+      "methods": [
+        "ARCHIVE_STRUCTURE_INSPECTION",
+        "BOUNDED_PAYLOAD_INSPECTION",
+        "DEPENDENCY_MANIFEST_INSPECTION",
+        "EXECUTABLE_CONTENT_INSPECTION",
+        "FILE_NAME_POLICY_CHECK",
+        "FILE_TYPE_POLICY_CHECK",
+        "FORMAT_STRUCTURE_INSPECTION",
+        "MAGIC_BYTE_INSPECTION",
+        "MANIFEST_INSPECTION",
+        "METADATA_INSPECTION",
+        "SCRIPT_CONTENT_INSPECTION",
+        "SERIALIZATION_FORMAT_INSPECTION",
+        "STATIC_PATTERN_INSPECTION"
+      ],
+      "plan_digest": "3368c0ace5581b117c576c87e6ceabeebf28af14cca1b1d30dc0ebf322f2d03b",
+      "plan_id": "inspection_plan_960537a6c07b62b50c50f375986b59ba",
+      "schema": "omiv.security-inspection-plan.v1",
+      "scope": {
+        "declared_file_count": 1,
+        "declared_total_bytes": 10,
+        "include_archive_metadata": false,
+        "logical_paths": [
+          "clean.safetensors"
+        ],
+        "mandatory_paths": [
+          "clean.safetensors"
+        ]
+      },
+      "subject": {
+        "architecture": null,
+        "artifact_set_digest": "a132fdbb62939a57de6bbb3dc9233cec62654c69a8e67d8323f315d594acae7d",
+        "content_digest": "411a485216e432ece6b9af94fa32154cf79a2a56d4f81266baa50063f45092bd",
+        "file_count": 1,
+        "format": "safetensors",
+        "identity_digest": "2eb290be8a30fd43f2eb19bf59e834d838a002b3a7038421b6fdc9669bd66027",
+        "origin_type": "local",
+        "passport_digest": null,
+        "passport_id": null,
+        "provider": null,
+        "repository": null,
+        "repository_type": null,
+        "resolved_revision": null,
+        "selection": "clean.safetensors",
+        "total_declared_bytes": 10,
+        "validation_inventory_digest": null,
+        "variant": "clean.safetensors"
+      }
+    },
+    "limitations": [
+      "No findings does not prove absence of vulnerabilities.",
+      "Static inspection does not establish runtime safety, behavior, integrity, or fidelity."
+    ],
+    "policy_references": [],
+    "scan_errors": [],
+    "scanner_identities": [
+      {
+        "capability": {
+          "archive_metadata_only": true,
+          "code_execution": false,
+          "finding_categories": [
+            "DEPENDENCY_MANIFEST_PRESENT",
+            "DESERIALIZATION_EXECUTION_PATTERN",
+            "DYNAMIC_IMPORT_PATTERN",
+            "INCONSISTENT_MANIFEST",
+            "INSTALL_OR_BUILD_SCRIPT_PRESENT",
+            "NATIVE_BINARY_PRESENT",
+            "PATH_TRAVERSAL_ENTRY",
+            "PRIVATE_KEY_MATERIAL_PATTERN",
+            "SCRIPT_CONTENT_PRESENT",
+            "SHELL_EXECUTION_PATTERN",
+            "SIGNED_URL_PATTERN",
+            "SUBPROCESS_EXECUTION_PATTERN",
+            "SUSPICIOUS_NETWORK_REFERENCE",
+            "SYMLINK_ENTRY",
+            "UNSAFE_SERIALIZATION_FORMAT"
+          ],
+          "limitations": [
+            "Pattern and format indicators are not semantic malware detection.",
+            "Archive inspection reads bounded entry metadata only and never extracts content."
+          ],
+          "methods": [
+            "ARCHIVE_STRUCTURE_INSPECTION",
+            "BOUNDED_PAYLOAD_INSPECTION",
+            "DEPENDENCY_MANIFEST_INSPECTION",
+            "EXECUTABLE_CONTENT_INSPECTION",
+            "FILE_NAME_POLICY_CHECK",
+            "FILE_TYPE_POLICY_CHECK",
+            "FORMAT_STRUCTURE_INSPECTION",
+            "MAGIC_BYTE_INSPECTION",
+            "MANIFEST_INSPECTION",
+            "METADATA_INSPECTION",
+            "SCRIPT_CONTENT_INSPECTION",
+            "SERIALIZATION_FORMAT_INSPECTION",
+            "STATIC_PATTERN_INSPECTION"
+          ],
+          "network_access": false,
+          "payload_bytes_read": true
+        },
+        "configuration_digest": "c9fd8ee36e588d8d64a79eadb91fde70177c15d542a2cfe79388fb165492145d",
+        "implementation_digest": "7674924b8936542f55c5ba50cc13449904217c5f48294d6cd3abc71012d36215",
+        "limitations": [
+          "Pattern and format indicators are not semantic malware detection.",
+          "Archive inspection reads bounded entry metadata only and never extracts content."
+        ],
+        "revision": "phase-5f-v1",
+        "scanner_digest": "af0a597071954c0da755a63f6b9b5749c3c160c32f8c4d7344cdadf4c56089ee",
+        "scanner_id": "scanner_aea44a66e9a2227c6dce5dc97d92bc67",
+        "scanner_name": "OMIV bounded static inspector",
+        "schema": "omiv.scanner-identity.v1",
+        "synthetic_builtin": true,
+        "trust_references": [],
+        "version": "1"
+      }
+    ],
+    "schema": "omiv.security-evidence-bundle.v1",
+    "subject": {
+      "architecture": null,
+      "artifact_set_digest": "a132fdbb62939a57de6bbb3dc9233cec62654c69a8e67d8323f315d594acae7d",
+      "content_digest": "411a485216e432ece6b9af94fa32154cf79a2a56d4f81266baa50063f45092bd",
+      "file_count": 1,
+      "format": "safetensors",
+      "identity_digest": "2eb290be8a30fd43f2eb19bf59e834d838a002b3a7038421b6fdc9669bd66027",
+      "origin_type": "local",
+      "passport_digest": null,
+      "passport_id": null,
+      "provider": null,
+      "repository": null,
+      "repository_type": null,
+      "resolved_revision": null,
+      "selection": "clean.safetensors",
+      "total_declared_bytes": 10,
+      "validation_inventory_digest": null,
+      "variant": "clean.safetensors"
+    },
+    "unsupported_items": []
+  },
+  "signed_object_digest": "acf72b287b019ea35ecb6b8af367ce1efd3ad4ddda9e2aaba0a3c0340da4d2c9",
+  "signed_object_id": "security_bundle_b306a101f57a7513ff65bbb04d8aff72",
+  "signed_object_schema": "omiv.security-evidence-bundle.v1",
+  "signed_object_type": "SECURITY_EVIDENCE_BUNDLE",
+  "trust_policy_id": "omiv.trust-policy.team_release.v1"
+}

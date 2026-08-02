@@ -94,7 +94,7 @@ from omiv.governance.evaluation import build_policy_decision as build_governance
 from omiv.governance.evaluation import (
     build_promotion_decision as build_governance_promotion_decision,
 )
-from omiv.governance.models import DecisionOutcome, PromotionOutcome
+from omiv.governance.models import DecisionOutcome, GovernanceSubject, PromotionOutcome
 from omiv.governance.reporting import load_approval as load_governance_approval
 from omiv.governance.reporting import (
     load_approval_input,
@@ -119,7 +119,7 @@ from omiv.governance.reporting import pretty_json as pretty_governance_json
 from omiv.governance.reporting import render_markdown as render_governance_markdown
 from omiv.governance.reporting import verify_report_file as verify_governance_report_file
 from omiv.governance.signing import approval_linkage, decision_linkage
-from omiv.hf.json_loader import parse_bounded_json_bytes
+from omiv.hf.json_loader import load_bounded_json, parse_bounded_json_bytes
 from omiv.hf.models import HFInventory
 from omiv.hf.reader import pretty_hf_inventory, read_hf_inventory
 from omiv.mapping.grouped_reporting import load_mapping_report, write_mapping_artifacts
@@ -239,6 +239,43 @@ from omiv.remote.split_reporting import (
 from omiv.reporters.console import format_report
 from omiv.safe_write import atomic_write_text, validate_output_path
 from omiv.schema.loader import load_schema
+from omiv.security.adapters import (
+    adapt_governance_security_evidence,
+    build_custody_security_linkage,
+)
+from omiv.security.building import build_plan, builtin_scanner_identity
+from omiv.security.evaluation import evaluate_security_bundle
+from omiv.security.models import (
+    InspectionBounds,
+    SecurityEvidencePolicy,
+    SecurityInspectionScope,
+    SecurityVerdict,
+)
+from omiv.security.policy import get_security_policy
+from omiv.security.reporting import (
+    build_security_report,
+    render_security_markdown,
+    verify_security_report,
+)
+from omiv.security.reporting import (
+    load_bundle as load_security_bundle,
+)
+from omiv.security.reporting import (
+    load_evaluation as load_security_evaluation,
+)
+from omiv.security.reporting import (
+    load_plan as load_security_plan,
+)
+from omiv.security.reporting import (
+    load_policy as load_security_policy,
+)
+from omiv.security.reporting import (
+    load_report as load_security_report,
+)
+from omiv.security.reporting import (
+    pretty_json as pretty_security_json,
+)
+from omiv.security.scanning import describe_local_artifact, inspect_local_artifact
 from omiv.trust.algorithms import load_private_key, load_public_key, raw_public_key
 from omiv.trust.models import (
     ACTIVE_PURPOSES,
@@ -267,6 +304,7 @@ from omiv.trust.verification import (
 from omiv.trust.verification import (
     load_policy as load_trust_policy,
 )
+from omiv.trust.verification import load_report as load_signature_report
 from omiv.trust.verification import load_revocation as load_revocation_record
 from omiv.trust.verification import (
     pretty_json as pretty_trust_json,
@@ -296,12 +334,14 @@ custody_app = typer.Typer(no_args_is_help=True)
 attestation_app = typer.Typer(no_args_is_help=True)
 trust_app = typer.Typer(no_args_is_help=True)
 governance_app = typer.Typer(no_args_is_help=True)
+security_app = typer.Typer(no_args_is_help=True)
 app.add_typer(model_packs_app, name="model-packs")
 app.add_typer(passport_app, name="passport")
 app.add_typer(custody_app, name="custody")
 app.add_typer(attestation_app, name="attestation")
 app.add_typer(trust_app, name="trust")
 app.add_typer(governance_app, name="governance")
+app.add_typer(security_app, name="security")
 MAX_CANONICAL_INVENTORY_BYTES = 64 * 1024 * 1024
 REMOTE_REPORT_SCHEMAS = {
     "omiv.remote-snapshot-report.v1",
@@ -2785,3 +2825,330 @@ def model_packs_show(
     payload = metadata.model_dump(mode="json")
     payload["metadata_sha256"] = metadata.digest
     typer.echo(json.dumps(payload, indent=2, sort_keys=True))
+
+
+def _security_exit(verdict: SecurityVerdict) -> int:
+    if verdict == SecurityVerdict.PASS:
+        return 0
+    if verdict in {
+        SecurityVerdict.PASS_WITH_LIMITATIONS,
+        SecurityVerdict.REVIEW_REQUIRED,
+        SecurityVerdict.NOT_EVALUATED,
+    }:
+        return 1
+    return 2
+
+
+@security_app.command("plan-create")
+def security_plan_create(
+    artifact: Annotated[Path, typer.Option("--artifact", exists=True)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    maximum_file_count: Annotated[int, typer.Option("--maximum-file-count")] = 10000,
+    maximum_total_bytes: Annotated[int, typer.Option("--maximum-total-bytes-read")] = 268435456,
+    maximum_bytes_per_file: Annotated[int, typer.Option("--maximum-bytes-per-file")] = 8388608,
+    maximum_archive_entries: Annotated[int, typer.Option("--maximum-archive-entry-count")] = 10000,
+    maximum_recursion_depth: Annotated[int, typer.Option("--maximum-recursion-depth")] = 16,
+) -> None:
+    """Create a deterministic bounded plan for an explicit local artifact."""
+    try:
+        bounds = InspectionBounds(
+            maximum_file_count=maximum_file_count,
+            maximum_total_bytes_read=maximum_total_bytes,
+            maximum_bytes_per_file=maximum_bytes_per_file,
+            maximum_archive_entry_count=maximum_archive_entries,
+            maximum_metadata_bytes=4 * 1024 * 1024,
+            maximum_finding_count=1000,
+            maximum_evidence_snippet_length=256,
+            maximum_recursion_depth=maximum_recursion_depth,
+        )
+        subject, items = describe_local_artifact(artifact)
+        if (
+            len(items) > bounds.maximum_file_count
+            or subject.total_declared_bytes > bounds.maximum_total_bytes_read
+        ):
+            raise OmivInputError("artifact exceeds requested inspection-plan bounds")
+        scope = SecurityInspectionScope(
+            logical_paths=sorted(item.logical_path for item in items),
+            mandatory_paths=sorted(item.logical_path for item in items),
+            declared_file_count=len(items),
+            declared_total_bytes=sum(item.size for item in items),
+            include_archive_metadata=any(item.path.suffix.lower() == ".zip" for item in items),
+        )
+        scanner = builtin_scanner_identity()
+        plan = build_plan(subject, scope, scanner.capability.methods, bounds)
+        validate_output_path(output, forbidden_inputs=(artifact,))
+        atomic_write_text(output, pretty_security_json(plan), forbidden_inputs=(artifact,))
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR security plan creation failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(f"PASS plan={plan.plan_id} subject={plan.subject.identity_digest}")
+
+
+@security_app.command("inspect")
+def security_inspect(
+    plan_path: Annotated[Path, typer.Option("--plan", exists=True, dir_okay=False)],
+    artifact: Annotated[Path, typer.Option("--artifact", exists=True)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    bundle_output: Annotated[Path, typer.Option("--bundle-output", dir_okay=False)],
+    report_output: Annotated[Path | None, typer.Option("--report-output", dir_okay=False)] = None,
+    markdown_output: Annotated[
+        Path | None, typer.Option("--markdown-output", dir_okay=False)
+    ] = None,
+) -> None:
+    """Run the bounded OMIV static inspector without executing artifact code."""
+    try:
+        plan = load_security_plan(plan_path)
+        scanner = builtin_scanner_identity()
+        bundle = inspect_local_artifact(artifact, plan, scanner)
+        execution = bundle.execution_records[0]
+        policy = get_security_policy("personal_local_security_review")
+        evaluation = evaluate_security_bundle(bundle, policy)
+        report = build_security_report(bundle, evaluation)
+        outputs = [output, bundle_output, *(x for x in (report_output, markdown_output) if x)]
+        if len({x.resolve(strict=False) for x in outputs}) != len(outputs):
+            raise OmivInputError("security outputs must use distinct paths")
+        inputs = (plan_path, artifact)
+        for target in outputs:
+            validate_output_path(target, forbidden_inputs=inputs)
+        atomic_write_text(output, pretty_security_json(execution), forbidden_inputs=inputs)
+        atomic_write_text(bundle_output, pretty_security_json(bundle), forbidden_inputs=inputs)
+        if report_output:
+            atomic_write_text(report_output, pretty_security_json(report), forbidden_inputs=inputs)
+        if markdown_output:
+            atomic_write_text(
+                markdown_output, render_security_markdown(report), forbidden_inputs=inputs
+            )
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR security inspection failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"{evaluation.verdict.value} execution={execution.execution_id} bundle={bundle.bundle_id} "
+        f"scope=DECLARED_ONLY coverage={evaluation.coverage_result.value} "
+        f"scanner_trust={evaluation.scanner_trust.value} code_execution=NO network=NO "
+        "payload_integrity=NOT_VERIFIED runtime_safety=NOT_VERIFIED"
+    )
+    code = _security_exit(evaluation.verdict)
+    if code:
+        raise typer.Exit(code=code)
+
+
+@security_app.command("evidence-verify")
+def security_evidence_verify(
+    bundle_path: Annotated[Path, typer.Option("--bundle", exists=True, dir_okay=False)],
+) -> None:
+    """Verify canonical bundle identity, links, findings, coverage, and limitations."""
+    try:
+        bundle = load_security_bundle(bundle_path)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR security evidence verification failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"VALID bundle={bundle.bundle_id} verdict=NOT_EVALUATED "
+        f"scope=DECLARED_ONLY coverage={bundle.coverage.status.value} "
+        "universal_safety=NOT_PROVEN"
+    )
+    raise typer.Exit(code=1)
+
+
+def _cli_security_policy(value: str) -> SecurityEvidencePolicy:
+    path = Path(value)
+    return load_security_policy(path) if path.is_file() else get_security_policy(value)
+
+
+@security_app.command("evaluate")
+def security_evaluate(
+    bundle_path: Annotated[Path, typer.Option("--bundle", exists=True, dir_okay=False)],
+    policy_value: Annotated[str, typer.Option("--policy")],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    evaluation_context: Annotated[
+        Path | None, typer.Option("--evaluation-context", exists=True, dir_okay=False)
+    ] = None,
+) -> None:
+    """Evaluate verified evidence against a static policy with fail-closed precedence."""
+    try:
+        bundle = load_security_bundle(bundle_path)
+        policy = _cli_security_policy(policy_value)
+        context_digest = None
+        if evaluation_context:
+            raw, _ = load_bounded_json(evaluation_context, max_bytes=1024 * 1024)
+            context_digest = canonical_sha256(raw)
+        evaluation = evaluate_security_bundle(
+            bundle,
+            policy,
+            evaluation_context_digest=context_digest,
+        )
+        inputs = tuple(
+            x
+            for x in (
+                bundle_path,
+                evaluation_context,
+                Path(policy_value) if Path(policy_value).is_file() else None,
+            )
+            if x
+        )
+        validate_output_path(output, forbidden_inputs=inputs)
+        atomic_write_text(output, pretty_security_json(evaluation), forbidden_inputs=inputs)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR security evaluation failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"{evaluation.verdict.value} evaluation={evaluation.evaluation_id} "
+        f"policy={evaluation.policy_id} scope=DECLARED_ONLY "
+        f"coverage={evaluation.coverage_result.value} "
+        f"scanner_trust={evaluation.scanner_trust.value} "
+        "payload_integrity=NOT_VERIFIED runtime_safety=NOT_VERIFIED"
+    )
+    code = _security_exit(evaluation.verdict)
+    if code:
+        raise typer.Exit(code=code)
+
+
+@security_app.command("show")
+def security_show(
+    input_path: Annotated[Path, typer.Option("--input", exists=True, dir_okay=False)],
+) -> None:
+    """Display a canonical security bundle, evaluation, or report without upgrading claims."""
+    try:
+        raw, _ = load_bounded_json(input_path, max_bytes=16 * 1024 * 1024)
+        schema = raw.get("schema")
+        if schema == "omiv.security-evidence-bundle.v1":
+            displayed_bundle = load_security_bundle(input_path)
+            typer.echo(
+                f"Bundle: {displayed_bundle.bundle_id}\n"
+                f"Coverage: {displayed_bundle.coverage.status.value}\n"
+                "Verdict: NOT_EVALUATED"
+            )
+        elif schema == "omiv.security-evaluation.v1":
+            displayed_evaluation = load_security_evaluation(input_path)
+            typer.echo(
+                f"Evaluation: {displayed_evaluation.evaluation_id}\n"
+                f"Verdict: {displayed_evaluation.verdict.value}\n"
+                f"Policy: {displayed_evaluation.policy_id}\n"
+                f"Coverage: {displayed_evaluation.coverage_result.value}\n"
+                f"Scanner trust: {displayed_evaluation.scanner_trust.value}\n"
+                "Scope: DECLARED_ONLY\n"
+                "Payload integrity: NOT_VERIFIED\n"
+                "Runtime safety: NOT_VERIFIED\n"
+                "Universal safety: NOT_PROVEN"
+            )
+        elif schema == "omiv.security-report.v1":
+            displayed_report = load_security_report(input_path)
+            typer.echo(render_security_markdown(displayed_report))
+        else:
+            raise OmivInputError("unsupported security object schema")
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR security display failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+
+
+@security_app.command("report-verify")
+def security_report_verify(
+    report_path: Annotated[Path, typer.Option("--report", exists=True, dir_okay=False)],
+    bundle_path: Annotated[Path, typer.Option("--bundle", exists=True, dir_okay=False)],
+    evaluation_path: Annotated[Path, typer.Option("--evaluation", exists=True, dir_okay=False)],
+) -> None:
+    """Reconstruct a JSON report and reject altered summaries."""
+    try:
+        report = load_security_report(report_path)
+        bundle = load_security_bundle(bundle_path)
+        evaluation = load_security_evaluation(evaluation_path)
+        verify_security_report(report, bundle, evaluation)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR security report verification failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"VALID_REPORT report={report.report_id} summary=reconstructed "
+        f"verdict={evaluation.verdict.value}"
+    )
+    code = _security_exit(evaluation.verdict)
+    if code:
+        raise typer.Exit(code=code)
+
+
+@security_app.command("governance-adapt")
+def security_governance_adapt(
+    bundle_path: Annotated[Path, typer.Option("--bundle", exists=True, dir_okay=False)],
+    evaluation_path: Annotated[Path, typer.Option("--evaluation", exists=True, dir_okay=False)],
+    policy_value: Annotated[str, typer.Option("--policy")],
+    governance_subject_path: Annotated[
+        Path, typer.Option("--governance-subject", exists=True, dir_okay=False)
+    ],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    evidence_output: Annotated[Path, typer.Option("--evidence-output", dir_okay=False)],
+    signature_report_path: Annotated[
+        Path | None, typer.Option("--signature-report", exists=True, dir_okay=False)
+    ] = None,
+) -> None:
+    """Create a strict Phase 5E security requirement adapter and evidence reference."""
+    try:
+        bundle = load_security_bundle(bundle_path)
+        evaluation = load_security_evaluation(evaluation_path)
+        policy = _cli_security_policy(policy_value)
+        signature_report = (
+            load_signature_report(signature_report_path) if signature_report_path else None
+        )
+        raw, _ = load_bounded_json(governance_subject_path, max_bytes=1024 * 1024)
+        subject = GovernanceSubject.model_validate(raw.get("subject", raw))
+        adapter, evidence = adapt_governance_security_evidence(
+            subject,
+            bundle,
+            evaluation,
+            policy,
+            signature_report=signature_report,
+        )
+        inputs = tuple(
+            item
+            for item in (
+                bundle_path,
+                evaluation_path,
+                governance_subject_path,
+                signature_report_path,
+                Path(policy_value) if Path(policy_value).is_file() else None,
+            )
+            if item is not None
+        )
+        validate_output_path(output, forbidden_inputs=inputs)
+        validate_output_path(evidence_output, forbidden_inputs=inputs)
+        atomic_write_text(output, pretty_security_json(adapter), forbidden_inputs=inputs)
+        atomic_write_text(evidence_output, pretty_security_json(evidence), forbidden_inputs=inputs)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR security governance adaptation failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(
+        f"{adapter.requirement_outcome} adapter={adapter.adapter_id} "
+        f"policy={adapter.policy_id} verdict={adapter.verdict.value} "
+        f"scope=DECLARED_ONLY limitations={len(adapter.limitations)}"
+    )
+    if adapter.requirement_outcome == "SATISFIED_WITH_LIMITATIONS":
+        raise typer.Exit(code=1)
+    if adapter.requirement_outcome != "SATISFIED":
+        raise typer.Exit(code=2)
+
+
+@security_app.command("custody-link")
+def security_custody_link(
+    ledger_path: Annotated[Path, typer.Option("--ledger", exists=True, dir_okay=False)],
+    bundle_path: Annotated[Path, typer.Option("--bundle", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    evaluation_path: Annotated[
+        Path | None, typer.Option("--evaluation", exists=True, dir_okay=False)
+    ] = None,
+) -> None:
+    """Link security evidence to custody without fabricating approval or deployment."""
+    try:
+        ledger = load_custody_ledger(ledger_path).model_dump(mode="json", by_alias=True)
+        bundle = load_security_bundle(bundle_path)
+        evaluation = load_security_evaluation(evaluation_path) if evaluation_path else None
+        linkage = build_custody_security_linkage(ledger, bundle, evaluation)
+        inputs = tuple(x for x in (ledger_path, bundle_path, evaluation_path) if x)
+        validate_output_path(output, forbidden_inputs=inputs)
+        atomic_write_text(output, pretty_security_json(linkage), forbidden_inputs=inputs)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR security custody linkage failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(f"RECORDED linkage={linkage.linkage_id} lifecycle=UNCHANGED_INCOMPLETE")
+    if evaluation is None:
+        raise typer.Exit(code=1)
+    code = _security_exit(evaluation.verdict)
+    if code:
+        raise typer.Exit(code=code)

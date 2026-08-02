@@ -1,0 +1,22 @@
+{
+  "bundle_digest": "99421d30c2cf061fc71bec15b97e95a92cb752e2a4b32a5b21b9ec4b4a903200",
+  "bundle_id": "security_bundle_b306a101f57a7513ff65bbb04d8aff72",
+  "coverage_result": "COMPLETE",
+  "custody_ledger_digest": "634a038d63ab088e2a10e983e54a8c2e7eba1cb7ad8eacff7f722832ce12a3a5",
+  "custody_ledger_id": "custody_b7644143ea9fa95a123e0c6add1138a3",
+  "evaluation_digest": "40aea6d5ec7d8e54dd0846cdf039ea99c53f3c9f788317bcb35e349a815d4911",
+  "evaluation_id": "security_eval_dddb0e00a0b9ecb42aa23460ae984cfe",
+  "event_type": "SECURITY_EVALUATION_RECORDED",
+  "lifecycle_completeness": "UNCHANGED_INCOMPLETE",
+  "limitations": [
+    "Security linkage records evidence only; approval, promotion, deployment, and runtime remain separate."
+  ],
+  "linkage_digest": "09841ed7b4d42a76abf77dcdee29b1f5817f6f69d3a9ea67efeeb39e88cfeb0d",
+  "linkage_id": "custody_security_8ff29c0d384901bb65116e2314cafc70",
+  "scanner_ids": [
+    "scanner_aea44a66e9a2227c6dce5dc97d92bc67"
+  ],
+  "schema": "omiv.custody-security-linkage.v1",
+  "signature_trust_summary": "NOT_EVALUATED",
+  "verdict": "PASS"
+}

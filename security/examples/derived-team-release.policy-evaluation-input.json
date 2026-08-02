@@ -1,0 +1,48 @@
+{
+  "approval_record_ids": [],
+  "approval_request_ids": [],
+  "evaluation_context": null,
+  "evidence": [
+    {
+      "availability": "AVAILABLE",
+      "category": "SECURITY_INSPECTION",
+      "custody_status": null,
+      "digest": "40aea6d5ec7d8e54dd0846cdf039ea99c53f3c9f788317bcb35e349a815d4911",
+      "evidence_id": "security_evidence_40aea6d5ec7d8e54dd0846cdf039ea99",
+      "governance_policy_id": "omiv.security-policy.team_release_security_gate.v1",
+      "lifecycle_events": [],
+      "limitations": [
+        "A policy PASS is scoped to supplied verified evidence and declared methods.",
+        "No findings does not prove absence of vulnerabilities.",
+        "Policy evaluation does not establish payload integrity, runtime safety, approval, or deployment.",
+        "Static inspection does not establish runtime safety, behavior, integrity, or fidelity."
+      ],
+      "object_id": "security_eval_dddb0e00a0b9ecb42aa23460ae984cfe",
+      "observed_at": null,
+      "provenance_strength": null,
+      "schema": "omiv.artifact-security-evidence.v1",
+      "signer_roles": [],
+      "source_phase": "5F",
+      "subject_id": "subject_b9ae2544db88c5c035060f06d04245e2",
+      "trust_status": "TRUSTED_BY_POLICY",
+      "valid_until": null,
+      "verification_mode": "FULL"
+    }
+  ],
+  "policy_digest": "887fc97b6c0b720e5f9f943db573d498b797a06146c036a918906d6777f8ea21",
+  "policy_id": "omiv.governance-policy.team_release_candidate.v1",
+  "promotion_target_id": null,
+  "role_assignments": [],
+  "schema": "omiv.policy-evaluation-input.v1",
+  "subject": {
+    "artifact_digest": "411a485216e432ece6b9af94fa32154cf79a2a56d4f81266baa50063f45092bd",
+    "artifact_format": "safetensors",
+    "artifact_set_digest": null,
+    "immutable_revision": null,
+    "logical_locator": "synthetic/derived-team-release",
+    "origin_type": "local",
+    "provider": null,
+    "subject_id": "subject_b9ae2544db88c5c035060f06d04245e2",
+    "variant": "synthetic"
+  }
+}

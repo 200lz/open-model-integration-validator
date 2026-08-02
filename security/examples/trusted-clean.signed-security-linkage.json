@@ -1,0 +1,17 @@
+{
+  "coverage_unchanged": true,
+  "envelope_digest": "5a96529452cbd95b9fdb5ed64f04413d0c1d51fe5853e3555094c72afea14212",
+  "envelope_id": "soe_45a20b3a37a78f1f20c97ccc4f4f96b3",
+  "limitations": [
+    "A signature proves a key signed the record; it does not prove scanner correctness.",
+    "Signing does not upgrade findings, coverage, payload integrity, or runtime safety."
+  ],
+  "linkage_digest": "3674fc025e7e6c326623a73598eeb5da99f0805012b267e90fd3d7321a014199",
+  "linkage_id": "signed_security_61321ba60edfa991efbf3cdbb0a9f756",
+  "object_digest": "acf72b287b019ea35ecb6b8af367ce1efd3ad4ddda9e2aaba0a3c0340da4d2c9",
+  "object_id": "security_bundle_b306a101f57a7513ff65bbb04d8aff72",
+  "schema": "omiv.signed-security-evidence-linkage.v1",
+  "signature_purpose": "SECURITY_EVIDENCE_ISSUANCE",
+  "trust_status": "TRUSTED_BY_POLICY",
+  "verdict_unchanged": true
+}

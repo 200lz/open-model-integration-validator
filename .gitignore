@@ -13,3 +13,7 @@ reports/raw/kimi_k3_tensors.json
 # External model artifacts
 *.safetensors
 *.safetensors.index.json
+
+# Tiny deterministic Phase 5F format fixtures; never real model payloads.
+!security/examples/artifacts/clean.safetensors
+!security/examples/artifacts/partial-scan.gguf

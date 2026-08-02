@@ -1,0 +1,107 @@
+{
+  "behavioral_runtime_safety": "NOT_VERIFIED",
+  "blocking_findings": 1,
+  "bundle_digest": "1b68078959bf9dde24593c97450d03c697b8cd48c9267d4828570cf1fe93d819",
+  "bundle_id": "security_bundle_39822c46f89d1b0a74f8ad6e469cd459",
+  "bytes_inspected": 56,
+  "bytes_not_inspected": 0,
+  "code_execution": false,
+  "declared_files": 1,
+  "declared_scope_coverage": "COMPLETE_FOR_DECLARED_SCOPE",
+  "declared_scope_paths": [
+    "private-marker.txt"
+  ],
+  "discovered_files": 1,
+  "evaluation": {
+    "blockers": [
+      "blocking security findings are present"
+    ],
+    "blocking_finding_ids": [
+      "security_finding_33b45cba2f7a2491c0c30f9b3b8c896e"
+    ],
+    "bundle_digest": "1b68078959bf9dde24593c97450d03c697b8cd48c9267d4828570cf1fe93d819",
+    "bundle_id": "security_bundle_39822c46f89d1b0a74f8ad6e469cd459",
+    "coverage_result": "COMPLETE",
+    "evaluation_context_digest": null,
+    "evaluation_digest": "6970f67943a99691f8a75bad6fa9d07001f57816878b9b8b4c953e44329455fe",
+    "evaluation_id": "security_eval_cfeed6db1cd5298c3c8882159cd6e815",
+    "finding_result": "BLOCKING_FINDINGS_PRESENT",
+    "inspection_integrity": "VALID",
+    "limitations": [
+      "A policy PASS is scoped to supplied verified evidence and declared methods.",
+      "No findings does not prove absence of vulnerabilities.",
+      "Policy evaluation does not establish payload integrity, runtime safety, approval, or deployment.",
+      "Static inspection does not establish runtime safety, behavior, integrity, or fidelity."
+    ],
+    "policy_digest": "95f50d1a5a489ea325281094c4b2e41fc96111c13465f9cb4cccb7914f23d78d",
+    "policy_id": "omiv.security-policy.team_release_security_gate.v1",
+    "required_methods_satisfied": false,
+    "scan_execution_integrity": "VALID",
+    "scanner_correctness_independently_proven": "NOT_ESTABLISHED",
+    "scanner_identity_status": "KNOWN",
+    "scanner_trust": "TRUSTED_BY_POLICY",
+    "schema": "omiv.security-evaluation.v1",
+    "signature_trust": "NOT_EVALUATED",
+    "subject_identity_digest": "4f41088f94ff56cb8caef6b3e5bed04064622cf85aa977794020c33baf58cab9",
+    "uninspected_scope": [],
+    "unresolved_error_count": 0,
+    "verdict": "FAIL"
+  },
+  "execution_statuses": [
+    "COMPLETED_WITH_LIMITATIONS"
+  ],
+  "files_inspected": 1,
+  "finding_counts": {
+    "CRITICAL": 1,
+    "HIGH": 0,
+    "INFO": 0,
+    "LOW": 0,
+    "MEDIUM": 0,
+    "UNKNOWN": 0
+  },
+  "limitations": [
+    "A policy PASS is scoped to supplied verified evidence and declared methods.",
+    "No findings does not prove absence of vulnerabilities.",
+    "Policy evaluation does not establish payload integrity, runtime safety, approval, or deployment.",
+    "Static inspection does not establish runtime safety, behavior, integrity, or fidelity."
+  ],
+  "methods": [
+    "BOUNDED_PAYLOAD_INSPECTION",
+    "EXECUTABLE_CONTENT_INSPECTION",
+    "FILE_NAME_POLICY_CHECK",
+    "FILE_TYPE_POLICY_CHECK",
+    "MAGIC_BYTE_INSPECTION",
+    "METADATA_INSPECTION",
+    "SCRIPT_CONTENT_INSPECTION",
+    "SERIALIZATION_FORMAT_INSPECTION",
+    "STATIC_PATTERN_INSPECTION"
+  ],
+  "network_access": false,
+  "next_required_actions": [
+    "Resolve blocking findings, unsupported scope, and scanner errors before strict promotion.",
+    "Obtain separate payload-integrity, approval, deployment, and runtime evidence where required."
+  ],
+  "no_findings_warning": "No findings does not prove safety or absence of vulnerabilities.",
+  "payload_bytes_read": true,
+  "payload_integrity": "NOT_VERIFIED",
+  "report_digest": "e7f04a9b6def1e7a0b425c9a57c452d6493525cea2b4e2e6c6eef817b625c632",
+  "report_id": "security_report_051e1d5a972c2220cd3990627234bf0a",
+  "scan_errors": [],
+  "scanner_capability_coverage": "UNSUPPORTED",
+  "scanner_correctness_independently_proven": "NOT_ESTABLISHED",
+  "scanner_ids": [
+    "scanner_aea44a66e9a2227c6dce5dc97d92bc67"
+  ],
+  "scanner_trust": "TRUSTED_BY_POLICY",
+  "schema": "omiv.security-report.v1",
+  "signature_status": "NOT_EVALUATED",
+  "total_declared_bytes": 56,
+  "total_discovered_bytes": 56,
+  "unsupported_items": [
+    {
+      "logical_path": "private-marker.txt",
+      "mandatory": true,
+      "reason": "Built-in scanner has no structure parser for this file type."
+    }
+  ]
+}

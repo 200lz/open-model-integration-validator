@@ -1,0 +1,75 @@
+{
+  "accepted_risk_behavior": "REVIEW",
+  "accepted_scanner_ids": [
+    "scanner_aea44a66e9a2227c6dce5dc97d92bc67"
+  ],
+  "accepted_scanner_trust_levels": [
+    "TRUSTED_BY_POLICY"
+  ],
+  "allowed_unsupported_items": 0,
+  "blocking_categories": [
+    "DESERIALIZATION_EXECUTION_PATTERN",
+    "DEVICE_OR_SPECIAL_FILE",
+    "EXECUTABLE_CODE_PRESENT",
+    "MALFORMED_CONTAINER",
+    "NATIVE_BINARY_PRESENT",
+    "PATH_TRAVERSAL_ENTRY",
+    "PRIVATE_KEY_MATERIAL_PATTERN",
+    "SCANNER_ERROR",
+    "SCRIPT_CONTENT_PRESENT",
+    "SHELL_EXECUTION_PATTERN",
+    "SIGNED_URL_PATTERN",
+    "UNSAFE_SERIALIZATION_FORMAT"
+  ],
+  "blocking_exploitability": [
+    "DIRECTLY_EXECUTABLE",
+    "NOT_ESTABLISHED",
+    "REQUIRES_EXTERNAL_COMPONENT",
+    "REQUIRES_UNSAFE_LOADER",
+    "REQUIRES_USER_ACTION",
+    "UNKNOWN"
+  ],
+  "blocking_severities": [
+    "CRITICAL",
+    "HIGH",
+    "MEDIUM"
+  ],
+  "decision_precedence": [
+    "EVIDENCE_BROKEN",
+    "FAIL",
+    "SCANNER_UNTRUSTED",
+    "COVERAGE_INCOMPLETE",
+    "NOT_EVALUATED",
+    "REVIEW_REQUIRED",
+    "PASS_WITH_LIMITATIONS",
+    "PASS"
+  ],
+  "fail_closed_reserved": true,
+  "freshness_seconds": null,
+  "governance_allow_limitations": false,
+  "incomplete_coverage_behavior": "FAIL",
+  "limitations": [
+    "A policy PASS is scoped to supplied verified evidence and declared methods.",
+    "Policy evaluation does not establish payload integrity, runtime safety, approval, or deployment."
+  ],
+  "maximum_scanner_errors": 0,
+  "minimum_blocking_confidence": "LOW",
+  "policy_digest": "c15cbb9166e939183d953f3302abada87d7b5b8c3f51dacb45467bcfbc1db14f",
+  "policy_id": "omiv.security-policy.regulated_artifact_security_gate.v1",
+  "profile": "regulated_artifact_security_gate",
+  "required_coverage": "COMPLETE_FOR_DECLARED_SCOPE",
+  "required_methods": [
+    "EXECUTABLE_CONTENT_INSPECTION",
+    "FILE_TYPE_POLICY_CHECK",
+    "FORMAT_STRUCTURE_INSPECTION",
+    "MAGIC_BYTE_INSPECTION",
+    "METADATA_INSPECTION",
+    "SCRIPT_CONTENT_INSPECTION",
+    "SERIALIZATION_FORMAT_INSPECTION",
+    "STATIC_PATTERN_INSPECTION"
+  ],
+  "schema": "omiv.security-evidence-policy.v1",
+  "signed_evidence_required": true,
+  "unknown_finding_behavior": "FAIL",
+  "version": 1
+}

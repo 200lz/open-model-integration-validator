@@ -1,0 +1,67 @@
+{
+  "accepted_risk_behavior": "REVIEW",
+  "accepted_scanner_ids": [
+    "scanner_aea44a66e9a2227c6dce5dc97d92bc67"
+  ],
+  "accepted_scanner_trust_levels": [
+    "TRUSTED_BY_POLICY"
+  ],
+  "allowed_unsupported_items": 0,
+  "blocking_categories": [
+    "DEVICE_OR_SPECIAL_FILE",
+    "EXECUTABLE_CODE_PRESENT",
+    "MALFORMED_CONTAINER",
+    "NATIVE_BINARY_PRESENT",
+    "PATH_TRAVERSAL_ENTRY",
+    "PRIVATE_KEY_MATERIAL_PATTERN",
+    "SCANNER_ERROR",
+    "UNSAFE_SERIALIZATION_FORMAT"
+  ],
+  "blocking_exploitability": [
+    "DIRECTLY_EXECUTABLE",
+    "NOT_ESTABLISHED",
+    "REQUIRES_EXTERNAL_COMPONENT",
+    "REQUIRES_UNSAFE_LOADER",
+    "REQUIRES_USER_ACTION",
+    "UNKNOWN"
+  ],
+  "blocking_severities": [
+    "CRITICAL",
+    "HIGH"
+  ],
+  "decision_precedence": [
+    "EVIDENCE_BROKEN",
+    "FAIL",
+    "SCANNER_UNTRUSTED",
+    "COVERAGE_INCOMPLETE",
+    "NOT_EVALUATED",
+    "REVIEW_REQUIRED",
+    "PASS_WITH_LIMITATIONS",
+    "PASS"
+  ],
+  "fail_closed_reserved": false,
+  "freshness_seconds": null,
+  "governance_allow_limitations": true,
+  "incomplete_coverage_behavior": "FAIL",
+  "limitations": [
+    "A policy PASS is scoped to supplied verified evidence and declared methods.",
+    "Policy evaluation does not establish payload integrity, runtime safety, approval, or deployment."
+  ],
+  "maximum_scanner_errors": 0,
+  "minimum_blocking_confidence": "LOW",
+  "policy_digest": "9fff780985e11098f3fd4b59b9543eaebfa7334aa1c90a77dcb7e90387ab2942",
+  "policy_id": "omiv.security-policy.team_artifact_security_intake.v1",
+  "profile": "team_artifact_security_intake",
+  "required_coverage": "COMPLETE_FOR_DECLARED_SCOPE",
+  "required_methods": [
+    "FILE_TYPE_POLICY_CHECK",
+    "MAGIC_BYTE_INSPECTION",
+    "METADATA_INSPECTION",
+    "SERIALIZATION_FORMAT_INSPECTION",
+    "STATIC_PATTERN_INSPECTION"
+  ],
+  "schema": "omiv.security-evidence-policy.v1",
+  "signed_evidence_required": false,
+  "unknown_finding_behavior": "FAIL",
+  "version": 1
+}

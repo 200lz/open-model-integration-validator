@@ -1,0 +1,32 @@
+{
+  "applicable_policy_ids": [],
+  "category": "SCRIPT_CONTENT_PRESENT",
+  "confidence": "CONFIRMED",
+  "evidence": {
+    "evidence_digest": "e5eeed458055b073c50d628ee235db27776e213f6ab8daedc13f6a9518807588",
+    "indicator": "script-file-type-indicator",
+    "redacted_fingerprint": null,
+    "role": "normalized_indicator",
+    "sensitive_value_redacted": false
+  },
+  "exploitability": "REQUIRES_USER_ACTION",
+  "finding_digest": "7123c42ec6985efd6748a6ebf6321d9772a0771a281ff4eee999f893aceadb96",
+  "finding_id": "security_finding_4aac6c1a9d0e9234089632af34e4c0ed",
+  "governance_evidence_ids": [],
+  "limitations": [
+    "Indicator does not by itself prove exploitability."
+  ],
+  "location": {
+    "archive_entry": null,
+    "byte_length": 49,
+    "byte_offset": 0,
+    "logical_path": "script.py"
+  },
+  "remediation_guidance": "Review the bounded indicator and apply an artifact-specific policy.",
+  "scan_execution_id": "scan_exec_f5672051e2ab3f83cb51f9bf3a792aaf",
+  "scanner_id": "scanner_aea44a66e9a2227c6dce5dc97d92bc67",
+  "schema": "omiv.security-finding.v1",
+  "severity": "MEDIUM",
+  "status": "OPEN",
+  "subject_identity_digest": "2b78a20c2eeae08388c6d09c18d061a002587f45a59f0cc126e3846c4d478512"
+}

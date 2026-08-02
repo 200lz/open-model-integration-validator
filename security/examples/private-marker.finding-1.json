@@ -1,0 +1,32 @@
+{
+  "applicable_policy_ids": [],
+  "category": "PRIVATE_KEY_MATERIAL_PATTERN",
+  "confidence": "HIGH",
+  "evidence": {
+    "evidence_digest": "4c8cdb131dec0121f48fa86e1c6cb70e49dda88de9c0e0be71d668e88b61712d",
+    "indicator": "private-key-marker-redacted",
+    "redacted_fingerprint": "4c8cdb131dec0121f48fa86e1c6cb70e49dda88de9c0e0be71d668e88b61712d",
+    "role": "normalized_indicator",
+    "sensitive_value_redacted": true
+  },
+  "exploitability": "REQUIRES_USER_ACTION",
+  "finding_digest": "24937dc662b6ccef8a2578a1aab76d060e596b50760ad7c19e1bdc05c595d83e",
+  "finding_id": "security_finding_33b45cba2f7a2491c0c30f9b3b8c896e",
+  "governance_evidence_ids": [],
+  "limitations": [
+    "Indicator does not by itself prove exploitability."
+  ],
+  "location": {
+    "archive_entry": null,
+    "byte_length": 17,
+    "byte_offset": 0,
+    "logical_path": "private-marker.txt"
+  },
+  "remediation_guidance": "Review the bounded indicator and apply an artifact-specific policy.",
+  "scan_execution_id": "scan_exec_f3aa537f22d84624bd551fd0cb6a5f59",
+  "scanner_id": "scanner_aea44a66e9a2227c6dce5dc97d92bc67",
+  "schema": "omiv.security-finding.v1",
+  "severity": "CRITICAL",
+  "status": "OPEN",
+  "subject_identity_digest": "4f41088f94ff56cb8caef6b3e5bed04064622cf85aa977794020c33baf58cab9"
+}

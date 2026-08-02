@@ -1,0 +1,25 @@
+{
+  "adapter_digest": "c4f76be351988bbee145357764c84b36b2d5e4ca8d070ae9e2ecd03fe6539739",
+  "adapter_id": "governance_security_b8f2e9406f65d477d759547cfeeb5158",
+  "blocking_findings": 0,
+  "coverage_result": "COMPLETE",
+  "evaluation_digest": "de90c6bbc132f7d9d60112e727c813c57333de044e049c2f906ac2f349a1e582",
+  "evaluation_id": "security_eval_f9243dd2819fb40702c4e0f50367965e",
+  "evidence_reference_id": "security_evidence_de90c6bbc132f7d9d60112e727c813c5",
+  "limitations": [
+    "A policy PASS is scoped to supplied verified evidence and declared methods.",
+    "No findings does not prove absence of vulnerabilities.",
+    "Policy evaluation does not establish payload integrity, runtime safety, approval, or deployment.",
+    "Static inspection does not establish runtime safety, behavior, integrity, or fidelity."
+  ],
+  "policy_digest": "7850ebf3db1c9d3501e2d0c0ba220b4d7235deb1f95bb27b61e57158ed3d7f79",
+  "policy_id": "omiv.security-policy.enterprise_artifact_security_gate.v1",
+  "requirement_outcome": "SATISFIED",
+  "scanner_trust": "TRUSTED_BY_POLICY",
+  "schema": "omiv.governance-security-evidence-adapter.v1",
+  "signature_trust": "TRUSTED_BY_POLICY",
+  "subject_id": "subject_b0f33e258bf2d4b66a08b0dcea90d63b",
+  "subject_identity_digest": "2eb290be8a30fd43f2eb19bf59e834d838a002b3a7038421b6fdc9669bd66027",
+  "unresolved_errors": 0,
+  "verdict": "PASS"
+}

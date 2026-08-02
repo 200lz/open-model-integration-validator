@@ -1,0 +1,98 @@
+{
+  "approval_record_ids": [],
+  "approval_request_id": null,
+  "blockers": [
+    "requirement_6e129e4ef405b2f854e44e0c39edbb48"
+  ],
+  "decision_digest": "19961f9671825e9986f48bf581032824b778e7d9c85801fb0074cdd3ba256383",
+  "decision_id": "decision_3ebd941ffa3d356ef3059778cac77a83",
+  "decision_outcome": "DENY",
+  "deployment_status": "NOT_PERFORMED",
+  "limitations": [
+    "A policy PASS is scoped to supplied verified evidence and declared methods.",
+    "Approval status is scoped; it is not a security or deployment assertion.",
+    "No findings does not prove absence of vulnerabilities.",
+    "Policy evaluation does not establish payload integrity, runtime safety, approval, or deployment.",
+    "Policy evaluation does not prove security, deployment, or runtime state.",
+    "Policy satisfaction does not independently prove underlying claims.",
+    "Promotion permission does not prove upload, deployment, or runtime observation.",
+    "Static inspection does not establish runtime safety, behavior, integrity, or fidelity."
+  ],
+  "missing_evidence": {
+    "items": [
+      {
+        "blocking": true,
+        "category": "PAYLOAD_INTEGRITY",
+        "current_status": "MISSING",
+        "decision_impact": "Blocks policy outcome",
+        "outside_current_phase": true,
+        "promotion_impact": "Blocks promotion",
+        "remediation": "Supply separate verified payload-integrity evidence.",
+        "required_status": "SATISFIED",
+        "requirement_id": "requirement_6e129e4ef405b2f854e44e0c39edbb48",
+        "severity": "BLOCKING",
+        "source_phase": "5F"
+      }
+    ]
+  },
+  "next_actions": [
+    "Supply separate verified payload-integrity evidence."
+  ],
+  "policy_digest": "887fc97b6c0b720e5f9f943db573d498b797a06146c036a918906d6777f8ea21",
+  "policy_id": "omiv.governance-policy.team_release_candidate.v1",
+  "promotion_conditions": [],
+  "promotion_outcome": null,
+  "promotion_performed": "NO",
+  "promotion_target_id": null,
+  "quorum_result": null,
+  "registry_write": "NOT_PERFORMED",
+  "rejection_record_ids": [],
+  "report_digest": "d3c4b9d09ae51bccc4c6450aa3c6f06e5813401c4bdec68d10e162d0b36bf675",
+  "report_id": "governance_report_60e3b6dbfdf60704a986f2e9af8b0a5b",
+  "requirement_results": [
+    {
+      "blocking": false,
+      "category": "SECURITY_INSPECTION",
+      "limitations": [
+        "A policy PASS is scoped to supplied verified evidence and declared methods.",
+        "No findings does not prove absence of vulnerabilities.",
+        "Policy evaluation does not establish payload integrity, runtime safety, approval, or deployment.",
+        "Static inspection does not establish runtime safety, behavior, integrity, or fidelity."
+      ],
+      "matched_evidence_ids": [
+        "security_evidence_40aea6d5ec7d8e54dd0846cdf039ea99"
+      ],
+      "outcome": "SATISFIED_WITH_LIMITATIONS",
+      "policy_evidence": [],
+      "reason": "Evidence satisfies the requirement with explicit limitations.",
+      "requirement_id": "requirement_692c311e8dc73df787d1308c1566cea5",
+      "reviewable": false
+    },
+    {
+      "blocking": true,
+      "category": "PAYLOAD_INTEGRITY",
+      "limitations": [],
+      "matched_evidence_ids": [],
+      "outcome": "MISSING",
+      "policy_evidence": [],
+      "reason": "No evidence reference was supplied for this requirement.",
+      "requirement_id": "requirement_6e129e4ef405b2f854e44e0c39edbb48",
+      "reviewable": false
+    }
+  ],
+  "runtime_status": "NOT_CHECKED",
+  "schema": "omiv.governance-report.v1",
+  "security_status": "NOT_CHECKED",
+  "separation_result": null,
+  "subject": {
+    "artifact_digest": "411a485216e432ece6b9af94fa32154cf79a2a56d4f81266baa50063f45092bd",
+    "artifact_format": "safetensors",
+    "artifact_set_digest": null,
+    "immutable_revision": null,
+    "logical_locator": "synthetic/derived-team-release",
+    "origin_type": "local",
+    "provider": null,
+    "subject_id": "subject_b9ae2544db88c5c035060f06d04245e2",
+    "variant": "synthetic"
+  }
+}

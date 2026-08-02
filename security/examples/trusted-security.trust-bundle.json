@@ -1,0 +1,106 @@
+{
+  "bundle_digest": "356d500d77c03e8f52a418dd64b6d2d283f059372de974a5089a5e64d5c7a189",
+  "bundle_id": "tb_0a5ccabef56e5cf37a48e76e73656972",
+  "delegations": [],
+  "keys": [
+    {
+      "algorithm": "ED25519",
+      "allowed_key_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "allowed_object_types": [
+        "SECURITY_EVIDENCE_BUNDLE"
+      ],
+      "allowed_purposes": [
+        "SECURITY_EVIDENCE_ISSUANCE"
+      ],
+      "key_digest": "6de4e2e41185fa2af316c6c275bfb38c747e7a42cea365372c81a333e79a7055",
+      "key_id": "key_27479a110700b22f5d524a2c0aeffbf2",
+      "limitations": [
+        "Public-key identity does not establish signer identity."
+      ],
+      "namespaces": [],
+      "provider_artifact_scopes": [],
+      "public_key": "2152f8d19b791d24453242e15f2eab6cb7cffa7b6a5ed30097960e069881db12",
+      "public_key_digest": "27479a110700b22f5d524a2c0aeffbf28628e7c2e3e8722953ccd0c44f7b8f02",
+      "public_key_encoding": "RAW_HEX",
+      "schema": "omiv.key-identity.v1",
+      "status": "ACTIVE",
+      "validity": null
+    }
+  ],
+  "limitations": [
+    "Static offline bundle; no online discovery or continuous reevaluation."
+  ],
+  "revocations": [],
+  "schema": "omiv.trust-bundle.v1",
+  "signer_identities": [
+    {
+      "display_label": "Synthetic offline security scanner",
+      "identity_digest": "b5349add6bc7be04b78b92765b7d25e231c8a2bf30caaee626e74e40c55ba9d1",
+      "identity_evidence": [
+        "0b2b30c6b757c8741f9d29945110b00352d5941c8d05942805508340923675fa"
+      ],
+      "identity_kind": "SERVICE_DECLARED",
+      "limitations": [
+        "Synthetic declared identity; no external identity proof."
+      ],
+      "namespace": null,
+      "organization_id": null,
+      "role": "SECURITY_SCANNER",
+      "schema": "omiv.signer-identity.v1",
+      "signer_identity_id": "signer_c7fe04f84351e357fae3b0fefd063166",
+      "verification_status": "EVIDENCE_LINKED"
+    }
+  ],
+  "signer_key_bindings": [
+    {
+      "allowed_object_types": [
+        "SECURITY_EVIDENCE_BUNDLE"
+      ],
+      "allowed_roles": [
+        "SECURITY_SCANNER"
+      ],
+      "allowed_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "binding_digest": "491d81b0f1d83c38f9378709f140fac128681f11e30bb35b57a28ffed54782c4",
+      "binding_id": "binding_12bdb7e00f5d25652981ba7cfdeff980",
+      "binding_origin": "TRUST_BUNDLE_DECLARED",
+      "evidence_references": [],
+      "key_id": "key_27479a110700b22f5d524a2c0aeffbf2",
+      "limitations": [
+        "Binding validity does not prove the underlying signed claim."
+      ],
+      "namespaces": [],
+      "schema": "omiv.signer-key-binding.v1",
+      "signer_identity_id": "signer_c7fe04f84351e357fae3b0fefd063166",
+      "validity": null,
+      "verification_status": "VERIFIED_BY_TRUST_BUNDLE"
+    }
+  ],
+  "trust_roots": [
+    {
+      "allowed_object_types": [
+        "SECURITY_EVIDENCE_BUNDLE"
+      ],
+      "allowed_purposes": [
+        "SECURITY_EVIDENCE_ISSUANCE"
+      ],
+      "delegation_allowed": false,
+      "key_id": "key_27479a110700b22f5d524a2c0aeffbf2",
+      "limitations": [
+        "Trust applies only under a selected policy and recorded constraints."
+      ],
+      "maximum_delegation_depth": 0,
+      "namespaces": [],
+      "provider_artifact_scopes": [],
+      "root_digest": "735ac5f5dc44e10a9c215864dcc5aee583b89f6c45cf846fd9b994263d0925a0",
+      "schema": "omiv.trust-root.v1",
+      "status": "ACTIVE",
+      "trust_root_id": "root_205583c203992efdea5b4fef3aa50fd5",
+      "validity": null
+    }
+  ],
+  "validity": null
+}
