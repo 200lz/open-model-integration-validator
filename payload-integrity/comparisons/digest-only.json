@@ -1,0 +1,30 @@
+{
+  "comparison_digest": "bd5f69f1a79a8ed136015ddeea7f1e6f1c817cff8ec9b6b74521580791531eb6",
+  "comparison_id": "payload_comparison_9f898135b3a4d95b0daa299b3308edf7",
+  "expectation_digest": "841c8ed1260d4b6e55060e19c74663cf4db3cfc371bb5825f0805b1047dcbd1a",
+  "expectation_id": "payload_expectation_2cf4b3dbe3cd53dc14d25b845e3195e0",
+  "expectation_scope": "COMPLETE_DECLARED_FILE_SET",
+  "extra_members": [],
+  "findings": [],
+  "limitations": [
+    "Comparison is factual only for the declared expectation scope; matching bytes do not prove semantics or authenticity."
+  ],
+  "logical_scope_compatible": true,
+  "matching_required_members": [],
+  "materialization_digest": null,
+  "materialization_id": null,
+  "materialization_state": "DIGEST_REFERENCE_ONLY",
+  "missing_members": [],
+  "observed_manifest_digest": "95d6eae48194e49e4f0d3c6df158d2299f4252868248ac9b4292ab20f55a0e11",
+  "observed_manifest_id": "observed_payload_741698e3c3671cbf3ccd3b4a4df7fa54",
+  "outside_scope_members": [],
+  "reference_expectation_digest": null,
+  "reference_expectation_id": null,
+  "representation_mode": "REFERENCED_EXPECTATION",
+  "root_mode_compatible": true,
+  "schema": "omiv.payload-manifest-comparison.v1",
+  "status": "DIGEST_REFERENCE_ONLY",
+  "subject_compatible": true,
+  "supplied_expectation_digest": null,
+  "supplied_expectation_id": null
+}

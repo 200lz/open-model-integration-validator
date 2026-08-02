@@ -1,0 +1,125 @@
+{
+  "envelope_digest": "e1f8a1e8681090737173a6c6f6c3b223b0d4e9d76a6641c8a0412bc4f6922305",
+  "envelope_id": "soe_46b21a82b261fe29c8eee206f590aee0",
+  "key_records": [
+    {
+      "algorithm": "ED25519",
+      "allowed_key_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "allowed_object_types": [
+        "OBSERVED_PAYLOAD_MANIFEST",
+        "PAYLOAD_EXPECTATION",
+        "PAYLOAD_INTEGRITY_EVIDENCE"
+      ],
+      "allowed_purposes": [
+        "OBSERVED_PAYLOAD_MANIFEST_ISSUANCE",
+        "PAYLOAD_EXPECTATION_ISSUANCE",
+        "PAYLOAD_INTEGRITY_EVIDENCE_ISSUANCE"
+      ],
+      "key_digest": "eb7b0fcd8c1e547f2b29aa16db0f0f36413c00834caecd54b1c4defb887f6b2d",
+      "key_id": "key_bf6998c15daf114495a7e4f601cc56be",
+      "limitations": [
+        "Public-key identity does not establish signer identity."
+      ],
+      "namespaces": [],
+      "provider_artifact_scopes": [],
+      "public_key": "4a72e4035bb435d0aa42d43b8873d9f07cb9bf476fe2ade0aba49983eebd425e",
+      "public_key_digest": "bf6998c15daf114495a7e4f601cc56be21d29e2f7c5c48396746bf9475060c6c",
+      "public_key_encoding": "RAW_HEX",
+      "schema": "omiv.key-identity.v1",
+      "status": "ACTIVE",
+      "validity": null
+    }
+  ],
+  "limitations": [
+    "The canonical source object is unchanged; trust is reconstructed externally."
+  ],
+  "schema": "omiv.signed-object-envelope.v1",
+  "signatures": [
+    {
+      "algorithm": "ED25519",
+      "binding_id": "binding_5ea5bbf32da43f5a25b19e4d4642cb14",
+      "detached_signature": "b95aedd03324de0da1874b0de1d0ce8813e6f8d92f113953cd74902aa3f4ab8903340bce863aa6b196050d0bafbcc17d3a00966331b7accdf010608ca0357602",
+      "key_id": "key_bf6998c15daf114495a7e4f601cc56be",
+      "limitations": [
+        "Signature integrity does not prove the underlying claim is true."
+      ],
+      "payload": {
+        "canonicalization_version": "omiv-json-v1",
+        "digest_algorithm": "SHA-256",
+        "domain": "OMIV-SIGNED-OBJECT-V1",
+        "key_usage": "SIGN_OMIV_OBJECT",
+        "namespace": null,
+        "provider_artifact_scope": null,
+        "schema": "omiv.signature-payload.v1",
+        "signature_purpose": "PAYLOAD_INTEGRITY_EVIDENCE_ISSUANCE",
+        "signed_object_digest": "7dd0f2502ab8cd31636f39eaad3f85d61a27e4611dabeeb01384b7f0cda255c8",
+        "signed_object_id": "payload_evidence_dcf938c439fe68aeb76141db463dafff",
+        "signed_object_schema": "omiv.payload-integrity-evidence.v1",
+        "signed_object_type": "PAYLOAD_INTEGRITY_EVIDENCE",
+        "trust_policy_id": "omiv.trust-policy.team_release.v1"
+      },
+      "purpose": "PAYLOAD_INTEGRITY_EVIDENCE_ISSUANCE",
+      "schema": "omiv.signature-record.v1",
+      "signature_digest": "b7c2b10e73bb3fb9442872bdb3a48274e792eb1e009e882b964856c7fa7bfadc",
+      "signature_encoding": "RAW_HEX",
+      "signature_id": "sig_0028769312b1c06f78d512831bfc13ca",
+      "trust_policy_id": "omiv.trust-policy.team_release.v1"
+    }
+  ],
+  "signed_object": {
+    "artifact_set_payload_digest": "b85773e014e48a694e6f5ea0173c3cb5f3ad051b0696d5883bbc0b2267b089ab",
+    "authority_evaluation_digest": "8f294082418acfa99e26d0dd05e9c4ca2acaa9b1e7001f5da6ced38d101ad4c6",
+    "authority_evaluation_id": "payload_authority_672a133716bb2cdd4f2b64d5b7d42513",
+    "available_at": "NOT_RECORDED",
+    "comparison_digest": "ef5a072ded09f9d97958a6b4728e818418016b6faaf5146227acbcbf7928deb2",
+    "comparison_id": "payload_comparison_07c3c0f3afd25b8af6fb9fcecbb044ba",
+    "comparison_status": "EXACT_MATCH_FOR_EXPECTATION_SCOPE",
+    "coverage": {
+      "discovered_bytes": 59,
+      "discovered_regular_files": 4,
+      "excluded_paths": [],
+      "hardlink_detection": "AVAILABLE",
+      "hashed_bytes": 59,
+      "hashed_files": 4,
+      "inaccessible_paths": [],
+      "rejected_hardlink_paths": [],
+      "unstable_paths": [],
+      "unsupported_paths": []
+    },
+    "evaluated_at": "NOT_RECORDED",
+    "evidence_digest": "8f9fa446bd26ca091d22189d10f167735c366aac5f19aaa22cd71e42e16783ac",
+    "evidence_id": "payload_evidence_dcf938c439fe68aeb76141db463dafff",
+    "execution_digest": "de390ee2d75c90174e58569d1ba194976f8393f37806d0c52527bb3a0b541bd8",
+    "execution_id": "payload_execution_f04a8cea3cd728a6b958d1aaeb6a19cc",
+    "expectation_digest": "4c5cd4c08049d9d350787adca7143497da23a30c7783d3ca48e90f0fc4acf16d",
+    "expectation_id": "payload_expectation_eefdd1dbbdacb0624747dbe3384eab31",
+    "expectation_scope": "COMPLETE_DECLARED_FILE_SET",
+    "limitations": [
+      "Payload byte identity does not establish provenance, semantic correctness, safety, approval, deployment, or runtime identity."
+    ],
+    "logical_root": "artifact.generic-package",
+    "manifest_digest": "95d6eae48194e49e4f0d3c6df158d2299f4252868248ac9b4292ab20f55a0e11",
+    "manifest_id": "observed_payload_741698e3c3671cbf3ccd3b4a4df7fa54",
+    "materialization_state": "FULL_EXPECTATION_AVAILABLE",
+    "observed_at": "NOT_RECORDED",
+    "outcome": "MATCHES_AUTHORIZED_COMPLETE_EXPECTATION",
+    "plan_digest": "809ef2e21fbf8f53288abe77e31bc35f45249eb4ec0215885ea4e0da765ec8cf",
+    "plan_id": "payload_plan_53eff5d14a0131d316762fa3371304bf",
+    "policy_digest": "d57be8930384daee1ea243e92e1f6ff4dc0640a1ece39213eda5b9d0d8fb6e66",
+    "policy_id": "payload-policy.enterprise-local.v1",
+    "policy_satisfied": true,
+    "provenance_strength": "SYSTEM_OBSERVED",
+    "publisher_authority_status": "AUTHORIZED_PUBLISHER",
+    "root_mode": "DIRECTORY_ROOT",
+    "schema": "omiv.payload-integrity-evidence.v1",
+    "subject_id": "product_subject_7b9869cba54b58ea4910e4a79bcc482f",
+    "subject_scope_digest": "a3c762c0d3e5fa1bcd80bbf6d3b685c08c33f4bfae7bc9294a23e0342f46e99a"
+  },
+  "signed_object_digest": "7dd0f2502ab8cd31636f39eaad3f85d61a27e4611dabeeb01384b7f0cda255c8",
+  "signed_object_id": "payload_evidence_dcf938c439fe68aeb76141db463dafff",
+  "signed_object_schema": "omiv.payload-integrity-evidence.v1",
+  "signed_object_type": "PAYLOAD_INTEGRITY_EVIDENCE",
+  "trust_policy_id": "omiv.trust-policy.team_release.v1"
+}

@@ -1,0 +1,116 @@
+{
+  "bundle_digest": "b127208dac266563202d9960c403cb91be2ab8decf82d59864f14356eeb11dff",
+  "bundle_id": "tb_3c56a5d2b1bdf3a02d621f745b056223",
+  "delegations": [],
+  "keys": [
+    {
+      "algorithm": "ED25519",
+      "allowed_key_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "allowed_object_types": [
+        "OBSERVED_PAYLOAD_MANIFEST",
+        "PAYLOAD_EXPECTATION",
+        "PAYLOAD_INTEGRITY_EVIDENCE"
+      ],
+      "allowed_purposes": [
+        "OBSERVED_PAYLOAD_MANIFEST_ISSUANCE",
+        "PAYLOAD_EXPECTATION_ISSUANCE",
+        "PAYLOAD_INTEGRITY_EVIDENCE_ISSUANCE"
+      ],
+      "key_digest": "eb7b0fcd8c1e547f2b29aa16db0f0f36413c00834caecd54b1c4defb887f6b2d",
+      "key_id": "key_bf6998c15daf114495a7e4f601cc56be",
+      "limitations": [
+        "Public-key identity does not establish signer identity."
+      ],
+      "namespaces": [],
+      "provider_artifact_scopes": [],
+      "public_key": "4a72e4035bb435d0aa42d43b8873d9f07cb9bf476fe2ade0aba49983eebd425e",
+      "public_key_digest": "bf6998c15daf114495a7e4f601cc56be21d29e2f7c5c48396746bf9475060c6c",
+      "public_key_encoding": "RAW_HEX",
+      "schema": "omiv.key-identity.v1",
+      "status": "ACTIVE",
+      "validity": null
+    }
+  ],
+  "limitations": [
+    "Static offline bundle; no online discovery or continuous reevaluation."
+  ],
+  "revocations": [],
+  "schema": "omiv.trust-bundle.v1",
+  "signer_identities": [
+    {
+      "display_label": "Synthetic payload evidence issuer",
+      "identity_digest": "aecd53ec3e8ddfa9d3d9ff7d4e4a4e058c478d1d154f6efad00991edcb4b5cca",
+      "identity_evidence": [
+        "5eaa02d77018016a34f66a6ab582c6b5806d195e74ccf9690d19a3d1de6cbea0"
+      ],
+      "identity_kind": "SERVICE_DECLARED",
+      "limitations": [
+        "Synthetic declared identity; no external identity proof."
+      ],
+      "namespace": null,
+      "organization_id": null,
+      "role": "PAYLOAD_EVIDENCE_ISSUER",
+      "schema": "omiv.signer-identity.v1",
+      "signer_identity_id": "signer_86fff3aaac8ff2071279af736e220096",
+      "verification_status": "EVIDENCE_LINKED"
+    }
+  ],
+  "signer_key_bindings": [
+    {
+      "allowed_object_types": [
+        "OBSERVED_PAYLOAD_MANIFEST",
+        "PAYLOAD_EXPECTATION",
+        "PAYLOAD_INTEGRITY_EVIDENCE"
+      ],
+      "allowed_roles": [
+        "PAYLOAD_EVIDENCE_ISSUER"
+      ],
+      "allowed_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "binding_digest": "62e7586e63614a492d28ab9ac098fdd9f8aae39f9eb3370086bb2766af0edb9d",
+      "binding_id": "binding_5ea5bbf32da43f5a25b19e4d4642cb14",
+      "binding_origin": "TRUST_BUNDLE_DECLARED",
+      "evidence_references": [],
+      "key_id": "key_bf6998c15daf114495a7e4f601cc56be",
+      "limitations": [
+        "Binding validity does not prove the underlying signed claim."
+      ],
+      "namespaces": [],
+      "schema": "omiv.signer-key-binding.v1",
+      "signer_identity_id": "signer_86fff3aaac8ff2071279af736e220096",
+      "validity": null,
+      "verification_status": "VERIFIED_BY_TRUST_BUNDLE"
+    }
+  ],
+  "trust_roots": [
+    {
+      "allowed_object_types": [
+        "OBSERVED_PAYLOAD_MANIFEST",
+        "PAYLOAD_EXPECTATION",
+        "PAYLOAD_INTEGRITY_EVIDENCE"
+      ],
+      "allowed_purposes": [
+        "OBSERVED_PAYLOAD_MANIFEST_ISSUANCE",
+        "PAYLOAD_EXPECTATION_ISSUANCE",
+        "PAYLOAD_INTEGRITY_EVIDENCE_ISSUANCE"
+      ],
+      "delegation_allowed": false,
+      "key_id": "key_bf6998c15daf114495a7e4f601cc56be",
+      "limitations": [
+        "Trust applies only under a selected policy and recorded constraints."
+      ],
+      "maximum_delegation_depth": 0,
+      "namespaces": [],
+      "provider_artifact_scopes": [],
+      "root_digest": "28e6ff641d19d5b2697a82441e6aced4bf2be6f5296ed550b325cff00a6ed4f4",
+      "schema": "omiv.trust-root.v1",
+      "status": "ACTIVE",
+      "trust_root_id": "root_28dd462d4c941c9cc1b57e6a71f05033",
+      "validity": null
+    }
+  ],
+  "validity": null
+}

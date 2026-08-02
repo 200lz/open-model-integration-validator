@@ -1,0 +1,32 @@
+{
+  "authority_evaluation_digest": "8f294082418acfa99e26d0dd05e9c4ca2acaa9b1e7001f5da6ced38d101ad4c6",
+  "authority_evaluation_id": "payload_authority_672a133716bb2cdd4f2b64d5b7d42513",
+  "authority_status": "AUTHORIZED_PUBLISHER",
+  "evaluated_at": "2026-01-02T00:00:00Z",
+  "expectation_digest": "4c5cd4c08049d9d350787adca7143497da23a30c7783d3ca48e90f0fc4acf16d",
+  "expectation_id": "payload_expectation_eefdd1dbbdacb0624747dbe3384eab31",
+  "expectation_scope": "COMPLETE_DECLARED_FILE_SET",
+  "key_id": "key_bf6998c15daf114495a7e4f601cc56be",
+  "limitations": [
+    "Authority is scoped to this exact expectation and does not prove it correct."
+  ],
+  "purpose": "payload.byte-identity",
+  "schema": "omiv.payload-publisher-authority-evaluation.v1",
+  "scope": {
+    "environment_scope": "environment.local",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.payload",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  },
+  "signature_trust": "TRUSTED",
+  "signer_binding_status": "VERIFIED_BY_TRUST_BUNDLE",
+  "signer_id": "signer_86fff3aaac8ff2071279af736e220096",
+  "source_namespace": "namespace.synthetic-model",
+  "source_provider": "provider.synthetic",
+  "subject_id": "product_subject_7b9869cba54b58ea4910e4a79bcc482f",
+  "trust_report_digest": "a3a2876685a2dc6c5788ffaab6111e99155ad5f59bd42cc8b41f949b9b1506f9",
+  "trust_report_id": "trust_report_f4b6e52df89af5b34c89f83e4ab10e66"
+}

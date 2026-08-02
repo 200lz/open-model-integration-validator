@@ -1,0 +1,18 @@
+{
+  "authority_transfer": "NOT_PERFORMED",
+  "evaluated_at": "2026-01-02T00:00:00Z",
+  "limitations": [
+    "Materialization verifies exact reference binding; authority and availability do not transfer."
+  ],
+  "materialization_digest": "dfaccf66c4d8824933d35ba415202adce2c7506fe8e70bf0371be70ede44977e",
+  "materialization_id": "payload_materialization_15ce926efb93df184e8f344a9f5deeeb",
+  "materialization_state": "FULL_EXPECTATION_AVAILABLE",
+  "reference_available_at": "2026-01-01T00:00:00Z",
+  "reference_expectation_digest": "841c8ed1260d4b6e55060e19c74663cf4db3cfc371bb5825f0805b1047dcbd1a",
+  "reference_expectation_id": "payload_expectation_2cf4b3dbe3cd53dc14d25b845e3195e0",
+  "schema": "omiv.payload-expectation-materialization.v1",
+  "supplied_available_at": "NOT_RECORDED",
+  "supplied_expectation_digest": "4c5cd4c08049d9d350787adca7143497da23a30c7783d3ca48e90f0fc4acf16d",
+  "supplied_expectation_id": "payload_expectation_eefdd1dbbdacb0624747dbe3384eab31",
+  "supplied_schema_id": "omiv.payload-expectation.v1"
+}

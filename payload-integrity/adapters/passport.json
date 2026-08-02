@@ -1,0 +1,30 @@
+{
+  "accepted": true,
+  "available_at": null,
+  "behavioral_correctness": null,
+  "coverage_status": null,
+  "deployment_status": null,
+  "evaluated_at": null,
+  "expected_runtime_payload_digest": null,
+  "integration_digest": "355159f0b374cecd5adaea2f6490ac007cf173fe8448c8acaea8dd4ab8e6a34f",
+  "integration_id": "payload_integration_c0e4597d5e4e207ef2726b80ac8df824",
+  "integration_type": "PASSPORT",
+  "known_as_of_cutoff_eligible": null,
+  "limitations": [
+    "Adapter preserves source scope and cannot upgrade payload evidence."
+  ],
+  "observed_at": null,
+  "observed_runtime_payload_digest": null,
+  "payload_digest": "b85773e014e48a694e6f5ea0173c3cb5f3ad051b0696d5883bbc0b2267b089ab",
+  "payload_evidence_digest": "8f9fa446bd26ca091d22189d10f167735c366aac5f19aaa22cd71e42e16783ac",
+  "payload_evidence_id": "payload_evidence_dcf938c439fe68aeb76141db463dafff",
+  "runtime_continuity": null,
+  "runtime_observer_assertion": null,
+  "schema": "omiv.payload-integrity-integration.v1",
+  "source_limitations": [],
+  "source_object_digest": null,
+  "source_object_id": null,
+  "source_scope_digest": null,
+  "source_status": "MATCHES_AUTHORIZED_COMPLETE_EXPECTATION",
+  "subject_id": "product_subject_7b9869cba54b58ea4910e4a79bcc482f"
+}

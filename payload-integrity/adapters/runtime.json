@@ -1,0 +1,30 @@
+{
+  "accepted": true,
+  "available_at": null,
+  "behavioral_correctness": "NOT_EVALUATED",
+  "coverage_status": null,
+  "deployment_status": "NOT_PERFORMED",
+  "evaluated_at": null,
+  "expected_runtime_payload_digest": "b85773e014e48a694e6f5ea0173c3cb5f3ad051b0696d5883bbc0b2267b089ab",
+  "integration_digest": "bae0fd6bac31c309395ed75ee167552e2b09346a9375655e8278d476fae3c510",
+  "integration_id": "payload_integration_69036e93ef6f8177d29e61f24ecabb93",
+  "integration_type": "RUNTIME",
+  "known_as_of_cutoff_eligible": null,
+  "limitations": [
+    "Adapter preserves source scope and cannot upgrade payload evidence."
+  ],
+  "observed_at": null,
+  "observed_runtime_payload_digest": null,
+  "payload_digest": "b85773e014e48a694e6f5ea0173c3cb5f3ad051b0696d5883bbc0b2267b089ab",
+  "payload_evidence_digest": "8f9fa446bd26ca091d22189d10f167735c366aac5f19aaa22cd71e42e16783ac",
+  "payload_evidence_id": "payload_evidence_dcf938c439fe68aeb76141db463dafff",
+  "runtime_continuity": "NOT_EVALUATED",
+  "runtime_observer_assertion": "NOT_CREATED",
+  "schema": "omiv.payload-integrity-integration.v1",
+  "source_limitations": [],
+  "source_object_digest": null,
+  "source_object_id": null,
+  "source_scope_digest": null,
+  "source_status": "EXPECTED_RUNTIME_IDENTITY_ONLY;OBSERVED_RUNTIME_IDENTITY_NOT_CREATED",
+  "subject_id": "product_subject_7b9869cba54b58ea4910e4a79bcc482f"
+}

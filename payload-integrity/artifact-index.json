@@ -1,0 +1,235 @@
+{
+  "entries": [
+    {
+      "canonical_id": "payload_integration_abba033d2ad31b6f3e01cdbb8e6a87a3",
+      "path": "payload-integrity/adapters/custody.json",
+      "schema_id": "omiv.payload-integrity-integration.v1",
+      "sha256": "6c67aceef2dadd1d4975ccae0c81dd2b5371df312bbc7a128dd45268754c9ae3",
+      "size": 1222
+    },
+    {
+      "canonical_id": "payload_integration_c954a095fe8a57afe45e3f200bd4be81",
+      "path": "payload-integrity/adapters/governance.json",
+      "schema_id": "omiv.payload-integrity-integration.v1",
+      "sha256": "7a65ffc6db26e7307e4ba903a180f0e4a62510e87ae20184e6ea7a93407cd9c4",
+      "size": 1244
+    },
+    {
+      "canonical_id": "payload_integration_925b086eb842fe8bf891186723f47b00",
+      "path": "payload-integrity/adapters/historical.json",
+      "schema_id": "omiv.payload-integrity-integration.v1",
+      "sha256": "442c4a181c078198ce913f5077b3a29ec63b1a4eba5ba6734e3091c32b134798",
+      "size": 1262
+    },
+    {
+      "canonical_id": "payload_integration_c0e4597d5e4e207ef2726b80ac8df824",
+      "path": "payload-integrity/adapters/passport.json",
+      "schema_id": "omiv.payload-integrity-integration.v1",
+      "sha256": "8405f584fe88964930802384c425da19ea673f0163394fe86a5f8b368c15c931",
+      "size": 1242
+    },
+    {
+      "canonical_id": "payload_integration_69036e93ef6f8177d29e61f24ecabb93",
+      "path": "payload-integrity/adapters/runtime.json",
+      "schema_id": "omiv.payload-integrity-integration.v1",
+      "sha256": "8892b5a92b17fb25eebef14968ca2691281f33f6ba8ff28656be69302b2d46c8",
+      "size": 1374
+    },
+    {
+      "canonical_id": "payload_integration_e425df86130fa57719c0c3a5c0e27b80",
+      "path": "payload-integrity/adapters/security.json",
+      "schema_id": "omiv.payload-integrity-integration.v1",
+      "sha256": "59b2489ceb27e8fb8373fec22c215e3303ba761c0e6f5620314c0de332e91210",
+      "size": 1433
+    },
+    {
+      "canonical_id": "payload_comparison_9f898135b3a4d95b0daa299b3308edf7",
+      "path": "payload-integrity/comparisons/digest-only.json",
+      "schema_id": "omiv.payload-manifest-comparison.v1",
+      "sha256": "142f9e34192c1171f915596199ace9499580822500b93499e5319e756dccc612",
+      "size": 1349
+    },
+    {
+      "canonical_id": "payload_comparison_07c3c0f3afd25b8af6fb9fcecbb044ba",
+      "path": "payload-integrity/comparisons/exact.json",
+      "schema_id": "omiv.payload-manifest-comparison.v1",
+      "sha256": "1c3b801584b9553216b1d3b0538ee0143d3dfe78badc9fb06fabece4a70ed843",
+      "size": 3280
+    },
+    {
+      "canonical_id": "payload_comparison_1cdea58cc4db3eb50e5e991fa5bef711",
+      "path": "payload-integrity/comparisons/mismatch.json",
+      "schema_id": "omiv.payload-manifest-comparison.v1",
+      "sha256": "ee739f276bcd22c00ec228a97505c5db4cdd81b5da82cc9c71055e7dca505a00",
+      "size": 3233
+    },
+    {
+      "canonical_id": "payload_comparison_be4ddcdf43167ce1bde70915395d5107",
+      "path": "payload-integrity/comparisons/referenced.json",
+      "schema_id": "omiv.payload-manifest-comparison.v1",
+      "sha256": "44e42634daa226edf9c9a0dc7dd9476cb90ab0ee0e6bea96a9054608cadc713d",
+      "size": 3622
+    },
+    {
+      "canonical_id": "payload_comparison_d95e934466880ec356f4d64b8269fdd5",
+      "path": "payload-integrity/comparisons/selected.json",
+      "schema_id": "omiv.payload-manifest-comparison.v1",
+      "sha256": "c794bbbc947384b9b147a54ddc5da9948132c7c0d926003eaf2194bb5093fb32",
+      "size": 3005
+    },
+    {
+      "canonical_id": "payload_evidence_dcf938c439fe68aeb76141db463dafff",
+      "path": "payload-integrity/evidence/authorized-complete.json",
+      "schema_id": "omiv.payload-integrity-evidence.v1",
+      "sha256": "e73c0925ec0e0ba874476ea9050e31a3298cfc3516a1e3557ba9d6d8b956c080",
+      "size": 2605
+    },
+    {
+      "canonical_id": "payload_execution_f04a8cea3cd728a6b958d1aaeb6a19cc",
+      "path": "payload-integrity/executions/local.execution.json",
+      "schema_id": "omiv.payload-hash-execution-record.v1",
+      "sha256": "ba4dd5097a203dc2acf6806b541860cfffce56fb46d8b925087eda52a52b86c6",
+      "size": 1657
+    },
+    {
+      "canonical_id": "payload_expectation_eefdd1dbbdacb0624747dbe3384eab31",
+      "path": "payload-integrity/expectations/complete.json",
+      "schema_id": "omiv.payload-expectation.v1",
+      "sha256": "920b95cc9f91950b266b8aee3833e13f76037852e4ad4d62530eb616d3482164",
+      "size": 3325
+    },
+    {
+      "canonical_id": "payload_materialization_15ce926efb93df184e8f344a9f5deeeb",
+      "path": "payload-integrity/expectations/materialization.json",
+      "schema_id": "omiv.payload-expectation-materialization.v1",
+      "sha256": "40a068e7190f2d3d6d1406ae9c6212e2e37e62df12e3fc66fed5ac4b931b581e",
+      "size": 1030
+    },
+    {
+      "canonical_id": "payload_expectation_cecb5359f3de6c9570f9ea0e596ca6fa",
+      "path": "payload-integrity/expectations/mismatch.json",
+      "schema_id": "omiv.payload-expectation.v1",
+      "sha256": "f5de1e7b344d080e18b62ff1c2e83fb48a9de6de750905e6bc01ad086d772952",
+      "size": 3317
+    },
+    {
+      "canonical_id": "payload_authority_672a133716bb2cdd4f2b64d5b7d42513",
+      "path": "payload-integrity/expectations/publisher-authority.json",
+      "schema_id": "omiv.payload-publisher-authority-evaluation.v1",
+      "sha256": "0cf35ca7f55cdb0ab51d19a73eca5dfbd3c6ef5eb4e650c1731d6a5f4a16a8e4",
+      "size": 1560
+    },
+    {
+      "canonical_id": "payload_expectation_2cf4b3dbe3cd53dc14d25b845e3195e0",
+      "path": "payload-integrity/expectations/referenced.json",
+      "schema_id": "omiv.payload-expectation.v1",
+      "sha256": "3d1cde65a88e1051aecbbaaaf561117bee5b54b3786455689207be598541b361",
+      "size": 1954
+    },
+    {
+      "canonical_id": "payload_expectation_4b6c7ee80d43abb7f09fc3e7e81c201a",
+      "path": "payload-integrity/expectations/selected.json",
+      "schema_id": "omiv.payload-expectation.v1",
+      "sha256": "c1f81fa16a0c42f84c0293f2cf8c120a6fdec2c461e885062fcf2d2e7ca651a0",
+      "size": 2546
+    },
+    {
+      "canonical_id": "observed_payload_741698e3c3671cbf3ccd3b4a4df7fa54",
+      "path": "payload-integrity/observations/local.manifest.json",
+      "schema_id": "omiv.observed-payload-manifest.v1",
+      "sha256": "d6c2ddbec5516d5ab57522af05aa16d9a4ce097b9370f6e4ecaeddd0d82f236c",
+      "size": 3712
+    },
+    {
+      "canonical_id": "payload_plan_53eff5d14a0131d316762fa3371304bf",
+      "path": "payload-integrity/plans/local.plan.json",
+      "schema_id": "omiv.payload-inventory-plan.v1",
+      "sha256": "bd00cb7d7bc8841dadccf028fbbe576966174d3f7819e9ce452abfbee90e729a",
+      "size": 1803
+    },
+    {
+      "canonical_id": "payload-policy.enterprise-local.v1",
+      "path": "payload-integrity/policies/enterprise-local.json",
+      "schema_id": "omiv.payload-integrity-policy.v1",
+      "sha256": "16844e616b363bab92086591beb233f4c0dcb9c501a33422405e23db2fedfddc",
+      "size": 952
+    },
+    {
+      "canonical_id": "soe_46b21a82b261fe29c8eee206f590aee0",
+      "path": "payload-integrity/signed/evidence.envelope.json",
+      "schema_id": "omiv.signed-object-envelope.v1",
+      "sha256": "318716d1136299554766651284cd0770b7bf3fba5369d899dc7249bbac7dba9a",
+      "size": 5999
+    },
+    {
+      "canonical_id": "soe_56c63dc3544e7a190eead5e4699be952",
+      "path": "payload-integrity/signed/expectation.envelope.json",
+      "schema_id": "omiv.signed-object-envelope.v1",
+      "sha256": "48337bdf9f8479bc2318553e55339ba895d92cac9cc75093dd849687372ede64",
+      "size": 6769
+    },
+    {
+      "canonical_id": "soe_48b9cf1a996a8c843ff9b3bf8db55651",
+      "path": "payload-integrity/signed/manifest.envelope.json",
+      "schema_id": "omiv.signed-object-envelope.v1",
+      "sha256": "279ec8dc8759a22c3d909e667d2120d169ef72ab0fb518fc93da01ad8d280e10",
+      "size": 7206
+    },
+    {
+      "canonical_id": "tb_3c56a5d2b1bdf3a02d621f745b056223",
+      "path": "payload-integrity/signed/trust-bundle.json",
+      "schema_id": "omiv.trust-bundle.v1",
+      "sha256": "68d10a66517a1047ab346b760b225170bc6e00e2796e17380f69753934022cc1",
+      "size": 3937
+    },
+    {
+      "canonical_id": "omiv.trust-policy.team_release.v1",
+      "path": "payload-integrity/signed/trust-policy.json",
+      "schema_id": "omiv.trust-policy.v1",
+      "sha256": "73ed65adc7714c347dd2b7535323c37a6494de45487eec2a566041c6456d5202",
+      "size": 1384
+    },
+    {
+      "canonical_id": "trust_report_00db47df2005b4c7ea6942ad7a4c264a",
+      "path": "reports/payload-integrity/evidence.signature-report.json",
+      "schema_id": "omiv.signature-report.v1",
+      "sha256": "3ae93d780b815255c64747bc68d1c6fb4eaa6f0f37b4c761da63a73f1d1a37b4",
+      "size": 4770
+    },
+    {
+      "canonical_id": "trust_report_f4b6e52df89af5b34c89f83e4ab10e66",
+      "path": "reports/payload-integrity/expectation.signature-report.json",
+      "schema_id": "omiv.signature-report.v1",
+      "sha256": "7039e477051aedcdaa808bdc58f4f2c03d68ec9004edc653c7ee039c5c280e9d",
+      "size": 4759
+    },
+    {
+      "canonical_id": "payload_report_cc56124a2146670bc1022c688716c57b",
+      "path": "reports/payload-integrity/local.payload-report.json",
+      "schema_id": "omiv.payload-integrity-report.v1",
+      "sha256": "d7516294c86cb755400310e652c20708dfe908d666f20ee10e4d6e673a1555c1",
+      "size": 6702
+    },
+    {
+      "canonical_id": "payload_markdown_3522acdd77898b34ac02b76fa2932878",
+      "path": "reports/payload-integrity/local.payload-report.md",
+      "schema_id": "omiv.payload-report-markdown.v1",
+      "sha256": "3522acdd77898b34ac02b76fa293287897f7395eeb47e982f2e0d6a34191a79f",
+      "size": 857
+    },
+    {
+      "canonical_id": "trust_report_7df6daaf347f2649a6c77df32c7e5cad",
+      "path": "reports/payload-integrity/manifest.signature-report.json",
+      "schema_id": "omiv.signature-report.v1",
+      "sha256": "c8fdab4a648598e57fc0382c6ef01510527d9e1988775c75d69c139a7ea1efc6",
+      "size": 4768
+    }
+  ],
+  "index_digest": "b8363aac19df566a3dec2a83f479b8abf75a30542c1c6c296bac5fe9da409b7a",
+  "index_id": "payload_index_8010962c9539ac66d2851a51dbd33997",
+  "limitations": [
+    "Index excludes itself and contains no payload bytes."
+  ],
+  "schema": "omiv.payload-artifact-index.v1",
+  "total_size": 93878
+}

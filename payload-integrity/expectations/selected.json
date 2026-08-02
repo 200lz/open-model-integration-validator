@@ -1,0 +1,68 @@
+{
+  "authority_status": "NOT_EVALUATED",
+  "available_at": "NOT_RECORDED",
+  "declaration_provenance": "DECLARED",
+  "declared_purpose": "payload.byte-identity",
+  "expectation_digest": "0f12c71564e113371f9fbd7ae0578eedecc98f018e3b1b342ed481d8a42466ea",
+  "expectation_id": "payload_expectation_4b6c7ee80d43abb7f09fc3e7e81c201a",
+  "expectation_scope": "SELECTED_REQUIRED_MEMBERS",
+  "expected_artifact_set_digest": "0a249fa3e4cafbaf06856044452885c7a2f27c1fed090b6dbdab02cc4ede7774",
+  "expected_records": [
+    {
+      "artifact_role": "MANDATORY_COMPANION",
+      "declared_role_detail": null,
+      "limitations": [],
+      "logical_file_kind": "regular.file",
+      "path": "config/settings.json",
+      "primary_content_digest": {
+        "algorithm": "SHA256",
+        "value": "d07dd7510d49937e693a03e2dd4d1cf19a581d3b5777a08ec556014d14ea08ed"
+      },
+      "size": 21
+    },
+    {
+      "artifact_role": "OPTIONAL_COMPANION",
+      "declared_role_detail": null,
+      "limitations": [],
+      "logical_file_kind": "regular.file",
+      "path": "notes/empty.txt",
+      "primary_content_digest": {
+        "algorithm": "SHA256",
+        "value": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "size": 0
+    }
+  ],
+  "limitations": [
+    "Expected bytes are declared; correctness and publisher authority are separate."
+  ],
+  "logical_root": "artifact.generic-package",
+  "materialization_state": "FULL_EXPECTATION_AVAILABLE",
+  "referenced_object_digest": null,
+  "referenced_object_id": null,
+  "referenced_schema_id": null,
+  "representation_mode": "EMBEDDED_EXPECTATION",
+  "root_mode": "DIRECTORY_ROOT",
+  "schema": "omiv.payload-expectation.v1",
+  "source_namespace": "namespace.declared",
+  "source_provider": "provider.declared",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "generic.payload-package",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.local",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.payload",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "2fa28bd1595149ed752a9b57c8593b100a846cc3cf5ae31302242b08f72f11f7",
+    "subject_id": "product_subject_7b9869cba54b58ea4910e4a79bcc482f"
+  }
+}

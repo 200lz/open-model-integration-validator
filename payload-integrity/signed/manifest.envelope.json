@@ -1,0 +1,178 @@
+{
+  "envelope_digest": "3608f95b516a4f75ebe63262bbe00d4ceae018f373bf08708be22620e77e7eeb",
+  "envelope_id": "soe_48b9cf1a996a8c843ff9b3bf8db55651",
+  "key_records": [
+    {
+      "algorithm": "ED25519",
+      "allowed_key_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "allowed_object_types": [
+        "OBSERVED_PAYLOAD_MANIFEST",
+        "PAYLOAD_EXPECTATION",
+        "PAYLOAD_INTEGRITY_EVIDENCE"
+      ],
+      "allowed_purposes": [
+        "OBSERVED_PAYLOAD_MANIFEST_ISSUANCE",
+        "PAYLOAD_EXPECTATION_ISSUANCE",
+        "PAYLOAD_INTEGRITY_EVIDENCE_ISSUANCE"
+      ],
+      "key_digest": "eb7b0fcd8c1e547f2b29aa16db0f0f36413c00834caecd54b1c4defb887f6b2d",
+      "key_id": "key_bf6998c15daf114495a7e4f601cc56be",
+      "limitations": [
+        "Public-key identity does not establish signer identity."
+      ],
+      "namespaces": [],
+      "provider_artifact_scopes": [],
+      "public_key": "4a72e4035bb435d0aa42d43b8873d9f07cb9bf476fe2ade0aba49983eebd425e",
+      "public_key_digest": "bf6998c15daf114495a7e4f601cc56be21d29e2f7c5c48396746bf9475060c6c",
+      "public_key_encoding": "RAW_HEX",
+      "schema": "omiv.key-identity.v1",
+      "status": "ACTIVE",
+      "validity": null
+    }
+  ],
+  "limitations": [
+    "The canonical source object is unchanged; trust is reconstructed externally."
+  ],
+  "schema": "omiv.signed-object-envelope.v1",
+  "signatures": [
+    {
+      "algorithm": "ED25519",
+      "binding_id": "binding_5ea5bbf32da43f5a25b19e4d4642cb14",
+      "detached_signature": "193c72b0d3b41425eb0b785d7414f85bef3bbd76ef123a77fa4931dea883022455ec7a038f412b2b7a7f3e4370023842afe87189165981fd9eaa6ad6b009e207",
+      "key_id": "key_bf6998c15daf114495a7e4f601cc56be",
+      "limitations": [
+        "Signature integrity does not prove the underlying claim is true."
+      ],
+      "payload": {
+        "canonicalization_version": "omiv-json-v1",
+        "digest_algorithm": "SHA-256",
+        "domain": "OMIV-SIGNED-OBJECT-V1",
+        "key_usage": "SIGN_OMIV_OBJECT",
+        "namespace": null,
+        "provider_artifact_scope": null,
+        "schema": "omiv.signature-payload.v1",
+        "signature_purpose": "OBSERVED_PAYLOAD_MANIFEST_ISSUANCE",
+        "signed_object_digest": "396d848fa3b02bdad03ed41e5382f9eacdf24b960ecdadffc831a2b4a8632274",
+        "signed_object_id": "observed_payload_741698e3c3671cbf3ccd3b4a4df7fa54",
+        "signed_object_schema": "omiv.observed-payload-manifest.v1",
+        "signed_object_type": "OBSERVED_PAYLOAD_MANIFEST",
+        "trust_policy_id": "omiv.trust-policy.team_release.v1"
+      },
+      "purpose": "OBSERVED_PAYLOAD_MANIFEST_ISSUANCE",
+      "schema": "omiv.signature-record.v1",
+      "signature_digest": "4825361efb7ac8adedcc1906607c69c0923758f9f9a93b3b722d7c8c11e9ea40",
+      "signature_encoding": "RAW_HEX",
+      "signature_id": "sig_43d807c733399e6e4cb023c47db00e11",
+      "trust_policy_id": "omiv.trust-policy.team_release.v1"
+    }
+  ],
+  "signed_object": {
+    "artifact_set_payload_digest": "b85773e014e48a694e6f5ea0173c3cb5f3ad051b0696d5883bbc0b2267b089ab",
+    "available_at": "NOT_RECORDED",
+    "completion_state": "COMPLETE_FOR_DECLARED_LOCAL_SCOPE",
+    "coverage": {
+      "discovered_bytes": 59,
+      "discovered_regular_files": 4,
+      "excluded_paths": [],
+      "hardlink_detection": "AVAILABLE",
+      "hashed_bytes": 59,
+      "hashed_files": 4,
+      "inaccessible_paths": [],
+      "rejected_hardlink_paths": [],
+      "unstable_paths": [],
+      "unsupported_paths": []
+    },
+    "execution_digest": "de390ee2d75c90174e58569d1ba194976f8393f37806d0c52527bb3a0b541bd8",
+    "execution_id": "payload_execution_f04a8cea3cd728a6b958d1aaeb6a19cc",
+    "files": [
+      {
+        "artifact_role": "MANDATORY_COMPANION",
+        "declared_role_detail": null,
+        "limitations": [],
+        "logical_file_kind": "regular.file",
+        "path": "config/settings.json",
+        "primary_content_digest": {
+          "algorithm": "SHA256",
+          "value": "d07dd7510d49937e693a03e2dd4d1cf19a581d3b5777a08ec556014d14ea08ed"
+        },
+        "size": 21
+      },
+      {
+        "artifact_role": "OPTIONAL_COMPANION",
+        "declared_role_detail": null,
+        "limitations": [],
+        "logical_file_kind": "regular.file",
+        "path": "notes/empty.txt",
+        "primary_content_digest": {
+          "algorithm": "SHA256",
+          "value": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "size": 0
+      },
+      {
+        "artifact_role": "PRIMARY",
+        "declared_role_detail": null,
+        "limitations": [],
+        "logical_file_kind": "regular.file",
+        "path": "weights/part-00001-of-00002.payload",
+        "primary_content_digest": {
+          "algorithm": "SHA256",
+          "value": "925becc6be360e71710ef6fb315ce2c1f79c9dbf98337a44764858a3ee363462"
+        },
+        "size": 19
+      },
+      {
+        "artifact_role": "MANDATORY_COMPANION",
+        "declared_role_detail": null,
+        "limitations": [],
+        "logical_file_kind": "regular.file",
+        "path": "weights/part-00002-of-00002.payload",
+        "primary_content_digest": {
+          "algorithm": "SHA256",
+          "value": "71072b26490829eb686a4b76144249d1c5c10f4003ad9656dfa4e868c66fd69e"
+        },
+        "size": 19
+      }
+    ],
+    "findings": [],
+    "limitations": [
+      "COMPLETE means complete only for the declared stable local inventory scope.",
+      "Local byte identity does not establish remote completeness, semantics, authenticity, or safety."
+    ],
+    "logical_root": "artifact.generic-package",
+    "manifest_digest": "95d6eae48194e49e4f0d3c6df158d2299f4252868248ac9b4292ab20f55a0e11",
+    "manifest_id": "observed_payload_741698e3c3671cbf3ccd3b4a4df7fa54",
+    "observation_provenance": "SYSTEM_OBSERVED",
+    "observed_at": "NOT_RECORDED",
+    "plan_digest": "809ef2e21fbf8f53288abe77e31bc35f45249eb4ec0215885ea4e0da765ec8cf",
+    "plan_id": "payload_plan_53eff5d14a0131d316762fa3371304bf",
+    "root_mode": "DIRECTORY_ROOT",
+    "schema": "omiv.observed-payload-manifest.v1",
+    "subject": {
+      "limitations": [
+        "Logical product subject identity does not prove artifact content."
+      ],
+      "logical_name": "generic.payload-package",
+      "schema": "omiv.product-subject.v1",
+      "scope": {
+        "environment_scope": "environment.local",
+        "organization_scope": "organization.synthetic",
+        "product_scope": "product.generic-inference",
+        "project_scope": "project.payload",
+        "target_scope": "target-scope.runtime",
+        "tenant_scope": "tenant.synthetic",
+        "trust_domain": "trust-domain.synthetic"
+      },
+      "subject_class": "DEPLOYMENT_PACKAGE",
+      "subject_digest": "2fa28bd1595149ed752a9b57c8593b100a846cc3cf5ae31302242b08f72f11f7",
+      "subject_id": "product_subject_7b9869cba54b58ea4910e4a79bcc482f"
+    }
+  },
+  "signed_object_digest": "396d848fa3b02bdad03ed41e5382f9eacdf24b960ecdadffc831a2b4a8632274",
+  "signed_object_id": "observed_payload_741698e3c3671cbf3ccd3b4a4df7fa54",
+  "signed_object_schema": "omiv.observed-payload-manifest.v1",
+  "signed_object_type": "OBSERVED_PAYLOAD_MANIFEST",
+  "trust_policy_id": "omiv.trust-policy.team_release.v1"
+}

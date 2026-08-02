@@ -1,0 +1,28 @@
+{
+  "accepted_algorithms": [
+    "SHA256"
+  ],
+  "accepted_completion_states": [
+    "COMPLETE_FOR_DECLARED_LOCAL_SCOPE"
+  ],
+  "allow_exclusions": false,
+  "allow_extra_files": false,
+  "allow_outside_scope": false,
+  "limitations": [
+    "Policy satisfaction does not prove expectation correctness or artifact safety."
+  ],
+  "policy_digest": "d57be8930384daee1ea243e92e1f6ff4dc0640a1ece39213eda5b9d0d8fb6e66",
+  "policy_id": "payload-policy.enterprise-local.v1",
+  "require_authorized_publisher": true,
+  "required_expectation_scope": "COMPLETE_DECLARED_FILE_SET",
+  "schema": "omiv.payload-integrity-policy.v1",
+  "scope": {
+    "environment_scope": "environment.local",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.payload",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  }
+}

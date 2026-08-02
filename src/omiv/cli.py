@@ -184,6 +184,38 @@ from omiv.passport.models import UsageOutcome, VerificationMode
 from omiv.passport.policy import selected_profile_result
 from omiv.passport.reporting import render_passport_markdown, write_passport
 from omiv.passport.verification import load_passport, verify_passport
+from omiv.payload_integrity.building import (
+    build_plan as build_payload_plan,
+)
+from omiv.payload_integrity.building import (
+    build_report as build_payload_report,
+)
+from omiv.payload_integrity.building import (
+    compare_manifests as compare_payload_manifests,
+)
+from omiv.payload_integrity.building import (
+    evaluate_evidence as evaluate_payload_evidence,
+)
+from omiv.payload_integrity.models import (
+    ComparisonStatus as PayloadComparisonStatus,
+)
+from omiv.payload_integrity.models import (
+    ObservedPayloadManifest,
+    PayloadExpectation,
+)
+from omiv.payload_integrity.models import (
+    RootMode as PayloadRootMode,
+)
+from omiv.payload_integrity.observation import observe_payload
+from omiv.payload_integrity.reporting import (
+    load_payload,
+)
+from omiv.payload_integrity.reporting import (
+    pretty_json as pretty_payload_json,
+)
+from omiv.payload_integrity.reporting import (
+    render_markdown as render_payload_markdown,
+)
 from omiv.provenance.adapters import load_inventory_evidence
 from omiv.provenance.capture import ConversionRunFailed, run_conversion
 from omiv.provenance.loading import load_provenance_envelope
@@ -385,6 +417,7 @@ governance_app = typer.Typer(no_args_is_help=True)
 security_app = typer.Typer(no_args_is_help=True)
 runtime_app = typer.Typer(no_args_is_help=True)
 audit_app = typer.Typer(no_args_is_help=True)
+payload_app = typer.Typer(no_args_is_help=True)
 app.add_typer(model_packs_app, name="model-packs")
 app.add_typer(passport_app, name="passport")
 app.add_typer(custody_app, name="custody")
@@ -394,6 +427,7 @@ app.add_typer(governance_app, name="governance")
 app.add_typer(security_app, name="security")
 app.add_typer(runtime_app, name="runtime")
 app.add_typer(audit_app, name="audit")
+app.add_typer(payload_app, name="payload")
 MAX_CANONICAL_INVENTORY_BYTES = 64 * 1024 * 1024
 REMOTE_REPORT_SCHEMAS = {
     "omiv.remote-snapshot-report.v1",
@@ -3724,3 +3758,130 @@ def audit_governance_adapt(
     output: Annotated[Path, typer.Option("--output", dir_okay=False)],
 ) -> None:
     _audit_create(input_path, output, GovernanceHistoricalAdapter)
+
+
+def _payload_failure(exc: Exception) -> None:
+    typer.echo(f"ERROR local payload operation failed: {exc}", err=True)
+    raise typer.Exit(code=2) from exc
+
+
+@payload_app.command("manifest")
+def payload_manifest(
+    local_path: Annotated[Path, typer.Argument(exists=True)],
+    subject_path: Annotated[Path, typer.Option("--subject", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    root_mode: Annotated[PayloadRootMode, typer.Option("--root-mode")],
+    logical_root: Annotated[str, typer.Option("--logical-root")],
+    logical_name: Annotated[str | None, typer.Option("--logical-name")] = None,
+    chunk_size: Annotated[int, typer.Option("--chunk-size")] = 1024 * 1024,
+) -> None:
+    """Observe local regular-file bytes without format parsing or network use."""
+    try:
+        subject = load_runtime(subject_path, ProductSubject)
+        plan = build_payload_plan(
+            subject,
+            root_mode,
+            logical_root,
+            logical_name=logical_name,
+            chunk_size=chunk_size,
+        )
+        manifest, _ = observe_payload(local_path, plan)
+        validate_output_path(output, forbidden_inputs=(local_path, subject_path))
+        atomic_write_text(
+            output,
+            pretty_payload_json(manifest),
+            forbidden_inputs=(local_path, subject_path),
+        )
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _payload_failure(exc)
+    typer.echo(
+        f"{manifest.completion_state.value} manifest={manifest.manifest_id} "
+        "network=NONE model_execution=NOT_PERFORMED"
+    )
+    if manifest.completion_state.value != "COMPLETE_FOR_DECLARED_LOCAL_SCOPE":
+        raise typer.Exit(code=1)
+
+
+@payload_app.command("compare")
+def payload_compare(
+    expected_path: Annotated[Path, typer.Option("--expected", exists=True, dir_okay=False)],
+    observed_path: Annotated[Path, typer.Option("--observed", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+) -> None:
+    """Compare canonical expected and observed local payload manifests."""
+    try:
+        expected = load_payload(expected_path, PayloadExpectation)
+        observed = load_payload(observed_path, ObservedPayloadManifest)
+        comparison = compare_payload_manifests(expected, observed)
+        validate_output_path(output, forbidden_inputs=(expected_path, observed_path))
+        atomic_write_text(
+            output,
+            pretty_payload_json(comparison),
+            forbidden_inputs=(expected_path, observed_path),
+        )
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _payload_failure(exc)
+    typer.echo(f"{comparison.status.value} comparison={comparison.comparison_id}")
+    if (
+        comparison.status != PayloadComparisonStatus.EXACT_MATCH_FOR_EXPECTATION_SCOPE
+        or comparison.expectation_scope.value != "COMPLETE_DECLARED_FILE_SET"
+    ):
+        raise typer.Exit(code=1)
+
+
+@payload_app.command("verify")
+def payload_verify(
+    local_path: Annotated[Path, typer.Argument(exists=True)],
+    subject_path: Annotated[Path, typer.Option("--subject", exists=True, dir_okay=False)],
+    expected_path: Annotated[Path, typer.Option("--expected", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    root_mode: Annotated[PayloadRootMode, typer.Option("--root-mode")],
+    logical_root: Annotated[str, typer.Option("--logical-root")],
+    logical_name: Annotated[str | None, typer.Option("--logical-name")] = None,
+    markdown: Annotated[Path | None, typer.Option("--markdown", dir_okay=False)] = None,
+) -> None:
+    """Observe and compare local bytes against an explicit local expectation."""
+    try:
+        subject = load_runtime(subject_path, ProductSubject)
+        expectation = load_payload(expected_path, PayloadExpectation)
+        plan = build_payload_plan(subject, root_mode, logical_root, logical_name=logical_name)
+        manifest, execution = observe_payload(local_path, plan)
+        comparison = compare_payload_manifests(expectation, manifest)
+        evidence = evaluate_payload_evidence(
+            manifest, execution.execution_id, comparison, expectation
+        )
+        report = build_payload_report(evidence, comparison)
+        forbidden = (local_path, subject_path, expected_path)
+        validate_output_path(output, forbidden_inputs=forbidden)
+        atomic_write_text(output, pretty_payload_json(report), forbidden_inputs=forbidden)
+        if markdown is not None:
+            validate_output_path(markdown, forbidden_inputs=forbidden)
+            atomic_write_text(markdown, render_payload_markdown(report), forbidden_inputs=forbidden)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _payload_failure(exc)
+    typer.echo(
+        f"{comparison.status.value}: LOCAL PAYLOAD BYTES MATCH ONLY THE DECLARED "
+        "EXPECTATION SCOPE WHEN STATUS IS EXACT; network=NONE"
+    )
+    if (
+        comparison.status != PayloadComparisonStatus.EXACT_MATCH_FOR_EXPECTATION_SCOPE
+        or expectation.expectation_scope.value != "COMPLETE_DECLARED_FILE_SET"
+    ):
+        raise typer.Exit(code=1)
+
+
+@payload_app.command("verify-manifest")
+def payload_verify_manifest(
+    manifest_path: Annotated[Path, typer.Argument(exists=True, dir_okay=False)],
+) -> None:
+    """Reconstruct a canonical observed-manifest identity without touching payload bytes."""
+    try:
+        manifest = load_payload(manifest_path, ObservedPayloadManifest)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _payload_failure(exc)
+    typer.echo(
+        f"VALID_LOCAL_OBSERVATION manifest={manifest.manifest_id} "
+        "semantic_correctness=NOT_EVALUATED"
+    )
+    if manifest.completion_state.value != "COMPLETE_FOR_DECLARED_LOCAL_SCOPE":
+        raise typer.Exit(code=1)

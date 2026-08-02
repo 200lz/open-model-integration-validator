@@ -28,6 +28,11 @@ from omiv.governance.models import (
     ReleaseCandidate,
 )
 from omiv.passport.models import ModelPassport
+from omiv.payload_integrity.models import (
+    ObservedPayloadManifest,
+    PayloadExpectation,
+    PayloadIntegrityEvidence,
+)
 from omiv.runtime.models import (
     ContinuityEvaluation,
     DeploymentIntent,
@@ -326,6 +331,12 @@ def _validate_source_object(envelope: SignedObjectEnvelope) -> None:
         model = AuditBundleManifest
     elif envelope.signed_object_type == SignedObjectType.AUDIT_BUNDLE_VERIFICATION_RESULT:
         model = AuditBundleVerificationResult
+    elif envelope.signed_object_type == SignedObjectType.PAYLOAD_EXPECTATION:
+        model = PayloadExpectation
+    elif envelope.signed_object_type == SignedObjectType.OBSERVED_PAYLOAD_MANIFEST:
+        model = ObservedPayloadManifest
+    elif envelope.signed_object_type == SignedObjectType.PAYLOAD_INTEGRITY_EVIDENCE:
+        model = PayloadIntegrityEvidence
     elif envelope.signed_object_schema == "omiv.model-passport.v1":
         model = ModelPassport
     else:
@@ -361,6 +372,9 @@ def _validate_source_object(envelope: SignedObjectEnvelope) -> None:
         SignedObjectType.HISTORICAL_EVALUATION_RESULT: "result_digest",
         SignedObjectType.AUDIT_BUNDLE_MANIFEST: "manifest_digest",
         SignedObjectType.AUDIT_BUNDLE_VERIFICATION_RESULT: "verification_digest",
+        SignedObjectType.PAYLOAD_EXPECTATION: "expectation_digest",
+        SignedObjectType.OBSERVED_PAYLOAD_MANIFEST: "manifest_digest",
+        SignedObjectType.PAYLOAD_INTEGRITY_EVIDENCE: "evidence_digest",
     }[envelope.signed_object_type]
     digest_body.pop(digest_field)
     if object_digest != canonical_sha256(digest_body):

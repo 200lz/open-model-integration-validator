@@ -1,0 +1,48 @@
+{
+  "chunk_size": 1048576,
+  "declared_context": "context.not-recorded",
+  "exclusions": [],
+  "hardlink_policy": "REJECT_HARDLINK_ALIASES",
+  "limitations": [
+    "Plan is a declaration and does not prove observation or execution."
+  ],
+  "limits": {
+    "maximum_component_length": 255,
+    "maximum_depth": 64,
+    "maximum_files": 100000,
+    "maximum_logical_bytes": null,
+    "maximum_metadata_bytes": 67108864,
+    "maximum_path_length": 1024
+  },
+  "logical_root": "artifact.generic-package",
+  "path_normalization_policy": "OMIV_PORTABLE_NFC_V1",
+  "plan_digest": "809ef2e21fbf8f53288abe77e31bc35f45249eb4ec0215885ea4e0da765ec8cf",
+  "plan_id": "payload_plan_53eff5d14a0131d316762fa3371304bf",
+  "primary_digest_algorithm": "SHA256",
+  "requested_coverage": "ALL_REGULAR_FILES_IN_DECLARED_LOCAL_SCOPE",
+  "root_mode": "DIRECTORY_ROOT",
+  "schema": "omiv.payload-inventory-plan.v1",
+  "single_file_logical_name": null,
+  "special_file_policy": "REJECT",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "generic.payload-package",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.local",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.payload",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "2fa28bd1595149ed752a9b57c8593b100a846cc3cf5ae31302242b08f72f11f7",
+    "subject_id": "product_subject_7b9869cba54b58ea4910e4a79bcc482f"
+  },
+  "symlink_policy": "REJECT",
+  "traversal_policy": "ITERATIVE_NO_FOLLOW"
+}

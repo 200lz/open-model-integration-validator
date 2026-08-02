@@ -1,0 +1,43 @@
+{
+  "authority_status": "NOT_EVALUATED",
+  "available_at": "2026-01-01T00:00:00Z",
+  "declaration_provenance": "DECLARED",
+  "declared_purpose": "payload.byte-identity",
+  "expectation_digest": "841c8ed1260d4b6e55060e19c74663cf4db3cfc371bb5825f0805b1047dcbd1a",
+  "expectation_id": "payload_expectation_2cf4b3dbe3cd53dc14d25b845e3195e0",
+  "expectation_scope": "COMPLETE_DECLARED_FILE_SET",
+  "expected_artifact_set_digest": "b85773e014e48a694e6f5ea0173c3cb5f3ad051b0696d5883bbc0b2267b089ab",
+  "expected_records": [],
+  "limitations": [
+    "Referenced expectation is usable only when the exact canonical object is supplied."
+  ],
+  "logical_root": "artifact.generic-package",
+  "materialization_state": "DIGEST_REFERENCE_ONLY",
+  "referenced_object_digest": "4c5cd4c08049d9d350787adca7143497da23a30c7783d3ca48e90f0fc4acf16d",
+  "referenced_object_id": "payload_expectation_eefdd1dbbdacb0624747dbe3384eab31",
+  "referenced_schema_id": "omiv.payload-expectation.v1",
+  "representation_mode": "REFERENCED_EXPECTATION",
+  "root_mode": "DIRECTORY_ROOT",
+  "schema": "omiv.payload-expectation.v1",
+  "source_namespace": "namespace.synthetic-model",
+  "source_provider": "provider.synthetic",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "generic.payload-package",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.local",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.payload",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "2fa28bd1595149ed752a9b57c8593b100a846cc3cf5ae31302242b08f72f11f7",
+    "subject_id": "product_subject_7b9869cba54b58ea4910e4a79bcc482f"
+  }
+}

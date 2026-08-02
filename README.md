@@ -2061,3 +2061,44 @@ Fixtures and the representative bundle live in `continuous-trust/`, reports in
 `reports/continuous-trust/`, and the deterministic inventory in
 `continuous-trust/artifact-index.json`. Detailed architecture and limitations
 are documented in `docs/phase-5h-continuous-trust-audit-bundles.md`.
+
+## Phase 6A: local payload integrity
+
+Phase 6 begins the Artifact Assurance and Model Fidelity product layer. Phase
+6A provides offline, bounded local byte observation for a declared single file
+or directory and comparison with an embedded or materialized referenced
+expectation. Declaration, observation, execution, factual comparison, policy,
+detached signature, and Phase 5 integration remain separate canonical layers.
+Referenced declarations, independently supplied expectation objects, and
+materialization results retain separate identities, availability, and authority.
+
+`omiv payload manifest`, `compare`, `verify`, and `verify-manifest` operate only
+on explicit local inputs. Single-file observation requires a stable logical
+member name. Directory traversal includes hidden files, rejects symlinks,
+special files and hardlink aliases, uses bounded SHA-256 streaming, and records
+detectable opened-file mutation, path rebinding, and root inventory changes.
+It does not claim portable TOCTOU elimination.
+
+Payload paths are relative NFC POSIX-style names. Unsafe, ambiguous,
+case-colliding, normalization-colliding, reserved Windows, surrogate, control,
+noncharacter, trailing-space, and trailing-dot names fail closed. Canonical
+records omit local absolute paths and host identity. Time is caller supplied or
+`NOT_RECORDED`; filesystem time is not evidence freshness.
+
+An exact result is always `EXACT_MATCH_FOR_EXPECTATION_SCOPE`. A digest-only
+reference is not materialized evidence, selected members are not a complete
+artifact expectation, and signatures do not create publisher authority.
+Payload digest match != model semantic correctness; local file-set completeness
+!= remote repository completeness; file-set completeness != tokenizer parity;
+payload integrity != quantization fidelity; payload integrity != behavioral
+safety; payload integrity != runtime safety; expected manifest != observed
+manifest; signed expected manifest != correct expected manifest; trusted signer
+!= authorized publisher; hashing completed != every intended byte was hashed;
+opened descriptor stability != stable path binding; local payload identity !=
+observed runtime identity; successful local verification != continuously
+verified artifact.
+
+Generated records live in `payload-integrity/`, reports in
+`reports/payload-integrity/`, and the external, self-excluding index in
+`payload-integrity/artifact-index.json`. See
+`docs/phase-6a-payload-integrity-manifests.md` for schemas, limits, and scope.

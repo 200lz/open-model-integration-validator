@@ -1,0 +1,32 @@
+{
+  "accepted": true,
+  "available_at": null,
+  "behavioral_correctness": null,
+  "coverage_status": "COMPLETE",
+  "deployment_status": null,
+  "evaluated_at": null,
+  "expected_runtime_payload_digest": null,
+  "integration_digest": "9d4c6ae0a245780ab3ff494e7c5e50c1ba443f2f17b6e73754e5f5329656a6ea",
+  "integration_id": "payload_integration_e425df86130fa57719c0c3a5c0e27b80",
+  "integration_type": "SECURITY",
+  "known_as_of_cutoff_eligible": null,
+  "limitations": [
+    "Adapter preserves source scope and cannot upgrade payload evidence."
+  ],
+  "observed_at": null,
+  "observed_runtime_payload_digest": null,
+  "payload_digest": "b85773e014e48a694e6f5ea0173c3cb5f3ad051b0696d5883bbc0b2267b089ab",
+  "payload_evidence_digest": "8f9fa446bd26ca091d22189d10f167735c366aac5f19aaa22cd71e42e16783ac",
+  "payload_evidence_id": "payload_evidence_dcf938c439fe68aeb76141db463dafff",
+  "runtime_continuity": null,
+  "runtime_observer_assertion": null,
+  "schema": "omiv.payload-integrity-integration.v1",
+  "source_limitations": [
+    "Synthetic security evidence linkage only."
+  ],
+  "source_object_digest": "54c46d89750185c2372fdeaacde8a68113e8f3b260003369bb3f088cc0aa7783",
+  "source_object_id": "security_evidence.synthetic.v1",
+  "source_scope_digest": "a3c762c0d3e5fa1bcd80bbf6d3b685c08c33f4bfae7bc9294a23e0342f46e99a",
+  "source_status": "EXACT_PAYLOAD_BINDING",
+  "subject_id": "product_subject_7b9869cba54b58ea4910e4a79bcc482f"
+}

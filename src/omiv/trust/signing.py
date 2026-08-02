@@ -138,6 +138,21 @@ OBJECT_METADATA: dict[SignedObjectType, tuple[set[str], str, str]] = {
         "verification_id",
         "verification_digest",
     ),
+    SignedObjectType.PAYLOAD_EXPECTATION: (
+        {"omiv.payload-expectation.v1"},
+        "expectation_id",
+        "expectation_digest",
+    ),
+    SignedObjectType.OBSERVED_PAYLOAD_MANIFEST: (
+        {"omiv.observed-payload-manifest.v1"},
+        "manifest_id",
+        "manifest_digest",
+    ),
+    SignedObjectType.PAYLOAD_INTEGRITY_EVIDENCE: (
+        {"omiv.payload-integrity-evidence.v1"},
+        "evidence_id",
+        "evidence_digest",
+    ),
 }
 EXPECTED_PURPOSE = {
     SignedObjectType.ARTIFACT_ATTESTATION: SignaturePurpose.ATTESTATION_ISSUANCE,
@@ -164,6 +179,13 @@ EXPECTED_PURPOSE = {
     SignedObjectType.AUDIT_BUNDLE_MANIFEST: SignaturePurpose.AUDIT_BUNDLE_ISSUANCE,
     SignedObjectType.AUDIT_BUNDLE_VERIFICATION_RESULT: (
         SignaturePurpose.AUDIT_BUNDLE_VERIFICATION_ISSUANCE
+    ),
+    SignedObjectType.PAYLOAD_EXPECTATION: SignaturePurpose.PAYLOAD_EXPECTATION_ISSUANCE,
+    SignedObjectType.OBSERVED_PAYLOAD_MANIFEST: (
+        SignaturePurpose.OBSERVED_PAYLOAD_MANIFEST_ISSUANCE
+    ),
+    SignedObjectType.PAYLOAD_INTEGRITY_EVIDENCE: (
+        SignaturePurpose.PAYLOAD_INTEGRITY_EVIDENCE_ISSUANCE
     ),
 }
 

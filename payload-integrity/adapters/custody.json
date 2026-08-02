@@ -1,0 +1,30 @@
+{
+  "accepted": true,
+  "available_at": null,
+  "behavioral_correctness": null,
+  "coverage_status": null,
+  "deployment_status": null,
+  "evaluated_at": null,
+  "expected_runtime_payload_digest": null,
+  "integration_digest": "da6a89ae08531a4d427e4f912ad4ff5904a691e4bd68a62bfb269e6a615bc1e3",
+  "integration_id": "payload_integration_abba033d2ad31b6f3e01cdbb8e6a87a3",
+  "integration_type": "CUSTODY",
+  "known_as_of_cutoff_eligible": null,
+  "limitations": [
+    "Adapter preserves source scope and cannot upgrade payload evidence."
+  ],
+  "observed_at": null,
+  "observed_runtime_payload_digest": null,
+  "payload_digest": "b85773e014e48a694e6f5ea0173c3cb5f3ad051b0696d5883bbc0b2267b089ab",
+  "payload_evidence_digest": "8f9fa446bd26ca091d22189d10f167735c366aac5f19aaa22cd71e42e16783ac",
+  "payload_evidence_id": "payload_evidence_dcf938c439fe68aeb76141db463dafff",
+  "runtime_continuity": null,
+  "runtime_observer_assertion": null,
+  "schema": "omiv.payload-integrity-integration.v1",
+  "source_limitations": [],
+  "source_object_digest": null,
+  "source_object_id": null,
+  "source_scope_digest": null,
+  "source_status": "APPEND_ONLY_RECORDED",
+  "subject_id": "product_subject_7b9869cba54b58ea4910e4a79bcc482f"
+}

@@ -1,0 +1,92 @@
+{
+  "comparison_digest": "dcdc02074d3f8ef3a003bc6fd8aed0ea1c648e2c600a2a4f276b543941b9ca8b",
+  "comparison_id": "payload_comparison_be4ddcdf43167ce1bde70915395d5107",
+  "expectation_digest": "4c5cd4c08049d9d350787adca7143497da23a30c7783d3ca48e90f0fc4acf16d",
+  "expectation_id": "payload_expectation_eefdd1dbbdacb0624747dbe3384eab31",
+  "expectation_scope": "COMPLETE_DECLARED_FILE_SET",
+  "extra_members": [],
+  "findings": [
+    {
+      "expected_digest": "d07dd7510d49937e693a03e2dd4d1cf19a581d3b5777a08ec556014d14ea08ed",
+      "expected_size": 21,
+      "findings": [
+        "PATH_MATCH",
+        "SIZE_MATCH",
+        "CONTENT_DIGEST_MATCH",
+        "ROLE_MATCH",
+        "TYPE_MATCH"
+      ],
+      "observed_digest": "d07dd7510d49937e693a03e2dd4d1cf19a581d3b5777a08ec556014d14ea08ed",
+      "observed_size": 21,
+      "path": "config/settings.json"
+    },
+    {
+      "expected_digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expected_size": 0,
+      "findings": [
+        "PATH_MATCH",
+        "SIZE_MATCH",
+        "CONTENT_DIGEST_MATCH",
+        "ROLE_MATCH",
+        "TYPE_MATCH"
+      ],
+      "observed_digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "observed_size": 0,
+      "path": "notes/empty.txt"
+    },
+    {
+      "expected_digest": "925becc6be360e71710ef6fb315ce2c1f79c9dbf98337a44764858a3ee363462",
+      "expected_size": 19,
+      "findings": [
+        "PATH_MATCH",
+        "SIZE_MATCH",
+        "CONTENT_DIGEST_MATCH",
+        "ROLE_MATCH",
+        "TYPE_MATCH"
+      ],
+      "observed_digest": "925becc6be360e71710ef6fb315ce2c1f79c9dbf98337a44764858a3ee363462",
+      "observed_size": 19,
+      "path": "weights/part-00001-of-00002.payload"
+    },
+    {
+      "expected_digest": "71072b26490829eb686a4b76144249d1c5c10f4003ad9656dfa4e868c66fd69e",
+      "expected_size": 19,
+      "findings": [
+        "PATH_MATCH",
+        "SIZE_MATCH",
+        "CONTENT_DIGEST_MATCH",
+        "ROLE_MATCH",
+        "TYPE_MATCH"
+      ],
+      "observed_digest": "71072b26490829eb686a4b76144249d1c5c10f4003ad9656dfa4e868c66fd69e",
+      "observed_size": 19,
+      "path": "weights/part-00002-of-00002.payload"
+    }
+  ],
+  "limitations": [
+    "Comparison is factual only for the declared expectation scope; matching bytes do not prove semantics or authenticity."
+  ],
+  "logical_scope_compatible": true,
+  "matching_required_members": [
+    "config/settings.json",
+    "notes/empty.txt",
+    "weights/part-00001-of-00002.payload",
+    "weights/part-00002-of-00002.payload"
+  ],
+  "materialization_digest": "dfaccf66c4d8824933d35ba415202adce2c7506fe8e70bf0371be70ede44977e",
+  "materialization_id": "payload_materialization_15ce926efb93df184e8f344a9f5deeeb",
+  "materialization_state": "FULL_EXPECTATION_AVAILABLE",
+  "missing_members": [],
+  "observed_manifest_digest": "95d6eae48194e49e4f0d3c6df158d2299f4252868248ac9b4292ab20f55a0e11",
+  "observed_manifest_id": "observed_payload_741698e3c3671cbf3ccd3b4a4df7fa54",
+  "outside_scope_members": [],
+  "reference_expectation_digest": "841c8ed1260d4b6e55060e19c74663cf4db3cfc371bb5825f0805b1047dcbd1a",
+  "reference_expectation_id": "payload_expectation_2cf4b3dbe3cd53dc14d25b845e3195e0",
+  "representation_mode": "REFERENCED_EXPECTATION",
+  "root_mode_compatible": true,
+  "schema": "omiv.payload-manifest-comparison.v1",
+  "status": "EXACT_MATCH_FOR_EXPECTATION_SCOPE",
+  "subject_compatible": true,
+  "supplied_expectation_digest": "4c5cd4c08049d9d350787adca7143497da23a30c7783d3ca48e90f0fc4acf16d",
+  "supplied_expectation_id": "payload_expectation_eefdd1dbbdacb0624747dbe3384eab31"
+}
