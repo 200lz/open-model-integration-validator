@@ -2102,3 +2102,20 @@ Generated records live in `payload-integrity/`, reports in
 `reports/payload-integrity/`, and the external, self-excluding index in
 `payload-integrity/artifact-index.json`. See
 `docs/phase-6a-payload-integrity-manifests.md` for schemas, limits, and scope.
+
+## Phase 6B: shard completeness and remote/local reconciliation
+
+Phase 6B adds provider-neutral remote artifact declarations, bounded collection execution records,
+typed remote members and digest semantics, explicit shard topology, qualified completeness, and
+comparison with the exact Phase 6A `ObservedPayloadManifest`. Requested and resolved revisions,
+provider observation, policy, publisher authority, detached signatures, and derived integrations
+remain separate layers.
+
+The core does not depend on Kimi/Moonshot, DeepSeek, or xAI profiles. Offline deterministic fixtures
+exercise exact payload-comparable, metadata-only, mismatch, and incomplete cases without network or
+model execution. Practice profiles preserve prior Kimi limitations and the explicit DeepSeek gap.
+Reviewed revision-specific Grok-1/Grok-2 public-provider metadata fixtures generate xAI practice
+evidence offline while preserving zero payload observation, unavailable topology, unestablished
+publisher authority/freshness/authenticity, and no xAI endorsement claim. See
+`docs/phase-6b-shard-reconciliation.md` for schemas, preservation methodology, CLI commands, limits,
+metadata boundaries, and the Phase 6C deferral.

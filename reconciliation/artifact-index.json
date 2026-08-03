@@ -1,0 +1,431 @@
+{
+  "entries": [
+    {
+      "canonical_id": "shard_assessment_9907bf72d1676990485a5000dcc1154c",
+      "path": "reconciliation/assessments/generic.completeness.json",
+      "schema_id": "omiv.shard-completeness-assessment.v1",
+      "sha256": "26d064122eaedb716f0bf88fbef7561544a49e288b9dfe5ab18b22bd90001d06",
+      "size": 1240
+    },
+    {
+      "canonical_id": "remote_local_comparison_69333c13546f442c55aa9a738fa7095d",
+      "path": "reconciliation/comparisons/exact.json",
+      "schema_id": "omiv.remote-local-reconciliation-comparison.v1",
+      "sha256": "3678f3dde18df89454db3749f125079be7bf614f09d6757e69380f3280566996",
+      "size": 3521
+    },
+    {
+      "canonical_id": "remote_local_comparison_e3f2d0410d3addf22e4806655d763bc7",
+      "path": "reconciliation/comparisons/incomplete.json",
+      "schema_id": "omiv.remote-local-reconciliation-comparison.v1",
+      "sha256": "cb9ddcdb68e99fce5c7a0448966dead5c35a5faae0645e08c4907217dfbcd413",
+      "size": 3469
+    },
+    {
+      "canonical_id": "remote_local_comparison_ef218fbe7f0a8f0e3504b16ab1118e95",
+      "path": "reconciliation/comparisons/metadata-only.json",
+      "schema_id": "omiv.remote-local-reconciliation-comparison.v1",
+      "sha256": "37a8d5cf49376490dd49ac0c58f8f5939673087b815143caacebfeee8dafbb97",
+      "size": 2983
+    },
+    {
+      "canonical_id": "remote_local_comparison_2d11abccb4e5c0eb1387e0dedb3deb48",
+      "path": "reconciliation/comparisons/mismatch.json",
+      "schema_id": "omiv.remote-local-reconciliation-comparison.v1",
+      "sha256": "882caacac2ccedc608122e8b1ee305b9c2b35a44920e5873bb0a78696e31d8ae",
+      "size": 3443
+    },
+    {
+      "canonical_id": "remote_locator_245ed7b6e3984b627b6096a00e4c2b78",
+      "path": "reconciliation/declarations/generic.locator.json",
+      "schema_id": "omiv.remote-artifact-locator.v1",
+      "sha256": "bad2169e4d73d60c1e43f649f59a054ae394abd57ecb3b78e977f0f5c8b4ebd2",
+      "size": 1422
+    },
+    {
+      "canonical_id": "remote_local_evidence_3a5be4cb1a2c1b73ff3a2ebd8e8251ce",
+      "path": "reconciliation/evidence/generic.json",
+      "schema_id": "omiv.remote-local-reconciliation-evidence.v1",
+      "sha256": "f78c2c190f40e51e7f6167652c8c7dfc882df7cee7deb7017684da2682c40fad",
+      "size": 3939
+    },
+    {
+      "canonical_id": "remote_execution_790286156307280c47003a96abd1d1a0",
+      "path": "reconciliation/executions/generic.execution.json",
+      "schema_id": "omiv.remote-collection-execution-record.v1",
+      "sha256": "676f780075f14cc0e0bcebd1f346bbed682f3d2f32e224428e0fd95b3ec04206",
+      "size": 1723
+    },
+    {
+      "canonical_id": "remote_expectation_c7081f8a740ebb5ca91307308a096886",
+      "path": "reconciliation/expectations/generic.expectation.json",
+      "schema_id": "omiv.remote-snapshot-expectation.v1",
+      "sha256": "8b6cdb5703f131a17b10f1409862db007c3e7c564cb4071dc68d0593779bb1f1",
+      "size": 5301
+    },
+    {
+      "canonical_id": "remote_expectation_e2f3a052907f3f27f4cc3a81336553ec",
+      "path": "reconciliation/expectations/metadata-only.expectation.json",
+      "schema_id": "omiv.remote-snapshot-expectation.v1",
+      "sha256": "b03bb53e8d19f6b20df23882c9e97f07a9390705dde6e1c768fe27674face2ae",
+      "size": 3291
+    },
+    {
+      "canonical_id": "remote_authority_0bf221610545c9d8bb46a1686e4b7a0f",
+      "path": "reconciliation/expectations/publisher-authority.json",
+      "schema_id": "omiv.remote-publisher-authority-evaluation.v1",
+      "sha256": "396612061baa9001dfc3d7cf6099671f6887f5a761d1912600ddbc5947ea21b1",
+      "size": 2523
+    },
+    {
+      "canonical_id": "shard_index_fixture_b24a3a071d68c1b7eb07683fb4fa846d",
+      "path": "reconciliation/indexes/generic.weights.index.json",
+      "schema_id": "omiv.supplied-shard-index-fixture.v1",
+      "sha256": "a0eca5a771e4bc028c887213ffeba07e50d3faa20cc0b4766de6b1ebcd02158b",
+      "size": 508
+    },
+    {
+      "canonical_id": "remote_local_integration_e1555cd63a858e8bb3db5609984cf757",
+      "path": "reconciliation/integrations/audit.json",
+      "schema_id": "omiv.remote-local-integration.v1",
+      "sha256": "96b4a4a5643aa0e7b252537af5cae42ac539ecd601c2bd678afc7522db0cc552",
+      "size": 818
+    },
+    {
+      "canonical_id": "remote_local_integration_acf7082aa489fb6c70b3207ba205d32f",
+      "path": "reconciliation/integrations/custody.json",
+      "schema_id": "omiv.remote-local-integration.v1",
+      "sha256": "67f1a9f72c9d79e9369a0b41b3a23f8ef2d682e7f24ab5b26a9ad12178188ad2",
+      "size": 817
+    },
+    {
+      "canonical_id": "remote_local_integration_dc4f7e05f07dd9235ad373b87dc45f54",
+      "path": "reconciliation/integrations/governance.json",
+      "schema_id": "omiv.remote-local-integration.v1",
+      "sha256": "f208680ce28986b54097daa4c1a8f2f3fdb68f744ac710daffcbd0c9b031ce81",
+      "size": 828
+    },
+    {
+      "canonical_id": "remote_local_integration_29099fcdf548b60bfa6509b551661279",
+      "path": "reconciliation/integrations/historical.json",
+      "schema_id": "omiv.remote-local-integration.v1",
+      "sha256": "2ed6a6e5a258949a17331d0689f0943121c4ed96ef7a25e3f41249a3826c21a6",
+      "size": 822
+    },
+    {
+      "canonical_id": "remote_local_integration_948eb5e1c3d4b3fe301dff1de69b99d9",
+      "path": "reconciliation/integrations/passport.json",
+      "schema_id": "omiv.remote-local-integration.v1",
+      "sha256": "9ef4c0fadb5646f61e7ed7d4cbb592ee17f5ab0811352ac09da0be03ae0c0543",
+      "size": 830
+    },
+    {
+      "canonical_id": "remote_local_integration_bccfd2e066400f4aee9aa7a0a8154752",
+      "path": "reconciliation/integrations/runtime.json",
+      "schema_id": "omiv.remote-local-integration.v1",
+      "sha256": "6ea02750a7dc75015c0895aa661a4204743b4c17a00edd0e8b3bafe317acc7c4",
+      "size": 816
+    },
+    {
+      "canonical_id": "remote_local_integration_109023a6231b7cb927a94ba97a152c3c",
+      "path": "reconciliation/integrations/security.json",
+      "schema_id": "omiv.remote-local-integration.v1",
+      "sha256": "a478cd8c577c7289483661905414de6a6584f668cf1d27dcdd9699c03787d7f8",
+      "size": 839
+    },
+    {
+      "canonical_id": "local_manifest_reference_d1c4c9063f6c43b1397dc184fbdc4c60",
+      "path": "reconciliation/local/phase-6a.manifest-reference.json",
+      "schema_id": "omiv.reconciliation-local-manifest-reference.v1",
+      "sha256": "d62bff59d739f963048caef85b7c45503d241b4302225a98624c9621e786299e",
+      "size": 766
+    },
+    {
+      "canonical_id": "remote_member_ec84834711e035804186a5c6d05f1022",
+      "path": "reconciliation/members/member-01.json",
+      "schema_id": "omiv.remote-member-record.v1",
+      "sha256": "899b1c1b1dcc400eef251dafb779f2316d0604d1267388c45d6be5481ad3997f",
+      "size": 1096
+    },
+    {
+      "canonical_id": "remote_member_742c74b9cd5300b754f59dc6c9d38ce6",
+      "path": "reconciliation/members/member-02.json",
+      "schema_id": "omiv.remote-member-record.v1",
+      "sha256": "801da1c7248e77ea8ce29c028867bd7a2c5635a98465e30fd8b25b624253406f",
+      "size": 1089
+    },
+    {
+      "canonical_id": "remote_member_8507aaf04cd220f86acc6d592ce38ca8",
+      "path": "reconciliation/members/member-03.json",
+      "schema_id": "omiv.remote-member-record.v1",
+      "sha256": "e4c48560f7ac00b2bfe18cffdbbcc45c6ea9e61c2f266956c1deedd5b69eb25e",
+      "size": 1105
+    },
+    {
+      "canonical_id": "remote_member_c6c070bb9b87d062ad75c9dbf338b8af",
+      "path": "reconciliation/members/member-04.json",
+      "schema_id": "omiv.remote-member-record.v1",
+      "sha256": "804d96b3ddbd7c875ca55424e2dc7a942dcc57e44e24a5862408145ccbeb0ad3",
+      "size": 1111
+    },
+    {
+      "canonical_id": "remote_plan_6bb84d8309daf06c3be384d4990b7015",
+      "path": "reconciliation/plans/generic.plan.json",
+      "schema_id": "omiv.remote-snapshot-plan.v1",
+      "sha256": "79ea04d5c3b4cd4dcd538993468dcdf772964903c6f22089a1a86264b7962c27",
+      "size": 1649
+    },
+    {
+      "canonical_id": "reconciliation-policy.synthetic.v1",
+      "path": "reconciliation/policies/synthetic.json",
+      "schema_id": "omiv.remote-local-reconciliation-policy.v1",
+      "sha256": "d8beebd13cca51ad0cd98669cf9bcc25b535c008f529e14d201bf89fd3a35c2d",
+      "size": 1618
+    },
+    {
+      "canonical_id": "shard_assessment_594f33d06a3703410d4aa967ffb985eb",
+      "path": "reconciliation/practice/xai/grok-1/completeness.json",
+      "schema_id": "omiv.shard-completeness-assessment.v1",
+      "sha256": "94b3d6ae4d077646811a0c779f0c0a5b893c263e3d5aa1d0264697adea43e4f5",
+      "size": 1097
+    },
+    {
+      "canonical_id": "xai_metadata_evidence_76c1b7de451447a9d4ea2fce97947943",
+      "path": "reconciliation/practice/xai/grok-1/evidence.json",
+      "schema_id": "omiv.xai-pinned-metadata-practice-evidence.v1",
+      "sha256": "7b151199ca9ad87a291a499f05d120643b47bac7bab1629dbdc07e09502e2f84",
+      "size": 4721
+    },
+    {
+      "canonical_id": "remote_execution_372f11e27a5ebd09c8a6e7d7ede9a80d",
+      "path": "reconciliation/practice/xai/grok-1/execution.json",
+      "schema_id": "omiv.remote-collection-execution-record.v1",
+      "sha256": "ebe73b8fe52f9e6f05ca4338a483e699c5af661ba25891620068898d6b018ee4",
+      "size": 1992
+    },
+    {
+      "canonical_id": "remote_expectation_08a3712f6991e50472d15392a69504ed",
+      "path": "reconciliation/practice/xai/grok-1/expectation.json",
+      "schema_id": "omiv.remote-snapshot-expectation.v1",
+      "sha256": "d7eeb9e807a8b57f7ae745580522b6898288e0ad8df9141d311cc9c35c0041e0",
+      "size": 245544
+    },
+    {
+      "canonical_id": "remote_locator_40903db16c710e9cf6078fc8cc9e75a5",
+      "path": "reconciliation/practice/xai/grok-1/locator.json",
+      "schema_id": "omiv.remote-artifact-locator.v1",
+      "sha256": "1e9edb36f44a955e4685c44cb20bb9de1071c945cf2e5c9bc5ed72b545f596e3",
+      "size": 1494
+    },
+    {
+      "canonical_id": "remote_plan_ae33ded6e4b5cc63bea989cc7d24b625",
+      "path": "reconciliation/practice/xai/grok-1/plan.json",
+      "schema_id": "omiv.remote-snapshot-plan.v1",
+      "sha256": "b6653d8605b1128e00cf6057ed0614ddf622f7dcb166d8d9b9e91647b85c1afd",
+      "size": 1687
+    },
+    {
+      "canonical_id": "remote_snapshot_3b193fda5165268adcdf1fcf7afd3600",
+      "path": "reconciliation/practice/xai/grok-1/snapshot.json",
+      "schema_id": "omiv.remote-snapshot-manifest.v1",
+      "sha256": "f7396e2b252cdffe9fa53b2e3c4b5c3a232c105d448277d34bcf8b91e47b1bf0",
+      "size": 2053682
+    },
+    {
+      "canonical_id": "shard_topology_c7e2231ebf9927b362d7f4b1eff544dd",
+      "path": "reconciliation/practice/xai/grok-1/topology.json",
+      "schema_id": "omiv.shard-topology.v1",
+      "sha256": "f2d27b0781106e1b6ac25e3f92723ac05de5101e5e024c212c7c3713e1506257",
+      "size": 2075
+    },
+    {
+      "canonical_id": "shard_assessment_2fd45a782dec0470323af36307318c3d",
+      "path": "reconciliation/practice/xai/grok-2/completeness.json",
+      "schema_id": "omiv.shard-completeness-assessment.v1",
+      "sha256": "327f52490ea2a1028fd8d5c8022204679c07c1e0c90d1406f3f1bd702eff7136",
+      "size": 1097
+    },
+    {
+      "canonical_id": "xai_metadata_evidence_c59fa3fb4d9f2aa4d6c1f4ed58a4f84f",
+      "path": "reconciliation/practice/xai/grok-2/evidence.json",
+      "schema_id": "omiv.xai-pinned-metadata-practice-evidence.v1",
+      "sha256": "101e812e4b5edeb577d563c25c0dfe3df3859c58deadab00854d4cbb2243e01f",
+      "size": 4716
+    },
+    {
+      "canonical_id": "remote_execution_ac3c89027e0a3febb83d3ba234f39fc8",
+      "path": "reconciliation/practice/xai/grok-2/execution.json",
+      "schema_id": "omiv.remote-collection-execution-record.v1",
+      "sha256": "1460072c19971b356b0520a49d48a5805c045a25c630f15010354062bf506655",
+      "size": 1991
+    },
+    {
+      "canonical_id": "remote_expectation_b41366fb600836179f35ebba87a46a97",
+      "path": "reconciliation/practice/xai/grok-2/expectation.json",
+      "schema_id": "omiv.remote-snapshot-expectation.v1",
+      "sha256": "6c97e0ed4a061d11480ac2cda18d416dfe42296a7fd1f227a08a569b9baff60d",
+      "size": 16555
+    },
+    {
+      "canonical_id": "remote_locator_0a2eae5cc0c7b308eaeadde8d0e7e73f",
+      "path": "reconciliation/practice/xai/grok-2/locator.json",
+      "schema_id": "omiv.remote-artifact-locator.v1",
+      "sha256": "b446bc46ce9ea5bc207e8a99fd403fdf1f981a332a64529ae411371c69d2bd1d",
+      "size": 1494
+    },
+    {
+      "canonical_id": "remote_plan_f0e077d58ffb7bdecfb18f1a7c46308c",
+      "path": "reconciliation/practice/xai/grok-2/plan.json",
+      "schema_id": "omiv.remote-snapshot-plan.v1",
+      "sha256": "53faf9543dcfd5e4402a3e0e31a767ab0a6dcaab2fd5081ce5c7adf0e79ef54a",
+      "size": 1687
+    },
+    {
+      "canonical_id": "remote_snapshot_21a21d44b977a38900cb5a16161432c9",
+      "path": "reconciliation/practice/xai/grok-2/snapshot.json",
+      "schema_id": "omiv.remote-snapshot-manifest.v1",
+      "sha256": "5fe4ac717bad63a8f233f02945b0f4a43b45c7c5cad1ec58e2c6dd91109afd86",
+      "size": 114082
+    },
+    {
+      "canonical_id": "shard_topology_0d3b2dbce7625d5d2a56dbee435a523c",
+      "path": "reconciliation/practice/xai/grok-2/topology.json",
+      "schema_id": "omiv.shard-topology.v1",
+      "sha256": "6295d7b93f0636f671d620987d2dd57362a75f905220eb400d36019eeb0cabbe",
+      "size": 2075
+    },
+    {
+      "canonical_id": "reconciliation_profile_fcc9435838dc10a5fa84d917227fa9f9",
+      "path": "reconciliation/profiles/deepseek.json",
+      "schema_id": "omiv.reconciliation-practice-profile.v1",
+      "sha256": "80c3052be8ce79bb4ee0070dbfb813662e0696bd0db40b44098812d0398df216",
+      "size": 779
+    },
+    {
+      "canonical_id": "reconciliation_profile_798f41764045be86a48745c86612ea61",
+      "path": "reconciliation/profiles/kimi.json",
+      "schema_id": "omiv.reconciliation-practice-profile.v1",
+      "sha256": "a784d99925559e7c5ce4a56a84af14529091f9ef6c17e614fbf07a90758e3056",
+      "size": 1022
+    },
+    {
+      "canonical_id": "reconciliation_profile_384d079c9bf5db9e094d982aa7bb4231",
+      "path": "reconciliation/profiles/xai.json",
+      "schema_id": "omiv.reconciliation-practice-profile.v1",
+      "sha256": "3a8ed2b59efaa6178b856d34f9d12848f438c5f03bce28cd01b008f7158a19b8",
+      "size": 1525
+    },
+    {
+      "canonical_id": "soe_b4007b212873dd61f73e1c6ed78b0987",
+      "path": "reconciliation/signed/evidence.envelope.json",
+      "schema_id": "omiv.signed-object-envelope.v1",
+      "sha256": "262de659911d6a52cca742f7c45243e782ccf5c756b033fff4d3a2443bd7c97a",
+      "size": 7513
+    },
+    {
+      "canonical_id": "soe_c1c0990af5499c844a8f65450c32d075",
+      "path": "reconciliation/signed/expectation.envelope.json",
+      "schema_id": "omiv.signed-object-envelope.v1",
+      "sha256": "c97174618ee984eb78fb9434d002becd16d75d7831ae4afbb106d09d260fa805",
+      "size": 8887
+    },
+    {
+      "canonical_id": "soe_da33917c2189b3e1619f45e9fc58ab65",
+      "path": "reconciliation/signed/snapshot.envelope.json",
+      "schema_id": "omiv.signed-object-envelope.v1",
+      "sha256": "9b884d419663ccfa6afc66e024e316e46f963267deab4b8189347aae5f98a14b",
+      "size": 11088
+    },
+    {
+      "canonical_id": "tb_faad0c9b60f1a9f71efbf7dd10ee8aaa",
+      "path": "reconciliation/signed/trust-bundle.json",
+      "schema_id": "omiv.trust-bundle.v1",
+      "sha256": "7c727674c9f477d218822c284a16878a1a54d73543bfa1505be4ed7861147e33",
+      "size": 4043
+    },
+    {
+      "canonical_id": "omiv.trust-policy.team_release.v1",
+      "path": "reconciliation/signed/trust-policy.json",
+      "schema_id": "omiv.trust-policy.v1",
+      "sha256": "1c6718eddda39e413d30c1193d1bbf9cfb0a4d5912fdb18bdb9b678d05784630",
+      "size": 1418
+    },
+    {
+      "canonical_id": "remote_snapshot_232b98bcf40f8c2a6778de64edec0da3",
+      "path": "reconciliation/snapshots/generic.snapshot.json",
+      "schema_id": "omiv.remote-snapshot-manifest.v1",
+      "sha256": "b8b3db8f251ae02b3d7ab9823e04902697f4f5f13ebc21d0d24eeac0a8667bf6",
+      "size": 7426
+    },
+    {
+      "canonical_id": "remote_snapshot_9fb71410ca7be0fe073a30b09cf89a32",
+      "path": "reconciliation/snapshots/metadata-only.snapshot.json",
+      "schema_id": "omiv.remote-snapshot-manifest.v1",
+      "sha256": "85f88da5f3cc5b3ff673c471a7b804528f9eae811e5ad9e4d01207ae5ef5d99e",
+      "size": 7044
+    },
+    {
+      "canonical_id": "shard_topology_0be5b462dd9a30a09fac908ee03eec21",
+      "path": "reconciliation/topology/generic.topology.json",
+      "schema_id": "omiv.shard-topology.v1",
+      "sha256": "a0ca054a2a398c8a0cb057eeef9d5b702864f52147fffea77906f03d1e78d409",
+      "size": 2534
+    },
+    {
+      "canonical_id": "trust_report_03a247d24f37979d94677a6e8efdad9a",
+      "path": "reports/reconciliation/evidence.signature-report.json",
+      "schema_id": "omiv.signature-report.v1",
+      "sha256": "8651f580bfa070b34d19862f1196f5a408f3a829672a75c69fb076cb100c0681",
+      "size": 4795
+    },
+    {
+      "canonical_id": "trust_report_9dbcdd8efb1754530aa461ea4b1cb558",
+      "path": "reports/reconciliation/expectation.signature-report.json",
+      "schema_id": "omiv.signature-report.v1",
+      "sha256": "858b26267860900c1e44d6fc91d03fcaa97113e14189bfad19f5c08cbf11ead8",
+      "size": 4774
+    },
+    {
+      "canonical_id": "remote_local_report_226727446200b1a63e2723df9fe54495",
+      "path": "reports/reconciliation/generic.reconciliation-report.json",
+      "schema_id": "omiv.remote-local-reconciliation-report.v1",
+      "sha256": "8e6df792cba506e09ed729cc117f3d8a6f99f8cae17a3ba1cba543dc45b01eaa",
+      "size": 8567
+    },
+    {
+      "canonical_id": "reconciliation_markdown_6370a4a4ca85a4250aa61a9fc9ef6d8c",
+      "path": "reports/reconciliation/generic.reconciliation-report.md",
+      "schema_id": "omiv.remote-local-reconciliation-report-markdown.v1",
+      "sha256": "6370a4a4ca85a4250aa61a9fc9ef6d8c91aaa622cb12abf029fbee2f8ae8cbb4",
+      "size": 874
+    },
+    {
+      "canonical_id": "trust_report_01bb0b956cb1f2962158c8525fdcf276",
+      "path": "reports/reconciliation/snapshot.signature-report.json",
+      "schema_id": "omiv.signature-report.v1",
+      "sha256": "7e2a46a7fc104f9ebb6345e36fea9069bc290200a00971fa87e5f9f825eab570",
+      "size": 4765
+    },
+    {
+      "canonical_id": "xai_case_study_5f800d60f19b52faf27137ad88c3c611",
+      "path": "reports/reconciliation/xai-public-metadata-case-study.json",
+      "schema_id": "omiv.xai-public-artifact-metadata-case-study.v1",
+      "sha256": "c1eda4072bfee2e706d210628542f1a9dbf1d10442e376607d44a8b5990ef1d6",
+      "size": 3364
+    },
+    {
+      "canonical_id": "reconciliation_markdown_43b28fb57ff616221d61182b20431417",
+      "path": "reports/reconciliation/xai-public-metadata-case-study.md",
+      "schema_id": "omiv.remote-local-reconciliation-report-markdown.v1",
+      "sha256": "43b28fb57ff616221d61182b20431417ab24cfe2cca1ce7a1e934626912dcc0f",
+      "size": 1864
+    }
+  ],
+  "index_digest": "78408a2a675b4d86adbf2909b924d7fcb0bb855f2dce1be8cef74ca5103adb33",
+  "index_id": "reconciliation_index_cf566fa873a8aa05076d4acf552e3d6e",
+  "limitations": [
+    "External index excludes itself and deterministic artifacts contain no model payload bytes."
+  ],
+  "schema": "omiv.reconciliation-artifact-index.v1",
+  "total_size": 2585838
+}

@@ -1,0 +1,36 @@
+{
+  "artifact_kind": "artifact.model-repository",
+  "artifact_name": "grok-2",
+  "limitations": [
+    "Locator is a declaration and does not prove repository or revision existence.",
+    "Pinned fixture import does not assert xAI publisher authority."
+  ],
+  "locator_digest": "4b0df78651d689cdcac6fd53a20ca0ce299cc29a20086f1d6324c59bbbf4d35d",
+  "locator_id": "remote_locator_0a2eae5cc0c7b308eaeadde8d0e7e73f",
+  "namespace": "xai-org",
+  "provider_instance": "huggingface.co",
+  "provider_kind": "HUGGING_FACE",
+  "requested_revision": "daf4395a80ad177386cfe39641b64fc12b1d70ed",
+  "requested_revision_kind": "COMMIT",
+  "schema": "omiv.remote-artifact-locator.v1",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "xai.grok-2.pinned-metadata",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.reconciliation-practice",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "MODEL_WEIGHTS",
+    "subject_digest": "af49252d82fab6651e4bdb0d3cd43c411342937089331ae0f0054d3fe3982609",
+    "subject_id": "product_subject_8a2ec2c391f33893d45f9dc0584827b2"
+  },
+  "trust_domain": "trust-domain.synthetic"
+}

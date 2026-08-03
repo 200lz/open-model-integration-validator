@@ -1,0 +1,48 @@
+{
+  "available_at": "NOT_RECORDED",
+  "collection_mode": "PREVIOUSLY_COLLECTED_SNAPSHOT",
+  "collector_id": "omiv.adapter.huggingface-pinned-metadata",
+  "collector_version": "version.v1",
+  "contacted_hosts": [
+    "huggingface.co"
+  ],
+  "coverage_summary": "BOUNDED_DECLARED_SCOPE",
+  "effective_limits": {
+    "maximum_archive_bytes": 0,
+    "maximum_executable_bytes": 0,
+    "maximum_index_bytes": 67108864,
+    "maximum_index_mappings": 500000,
+    "maximum_members": 100000,
+    "maximum_metadata_file_bytes": 2097152,
+    "maximum_payload_bytes": 0,
+    "maximum_redirects_per_request": 3,
+    "maximum_requests": 50,
+    "maximum_response_bytes": 16777216,
+    "maximum_total_response_bytes": 134217728
+  },
+  "errors": [],
+  "execution_digest": "79ba66b98eb43c436c15d2a31d3e70ea6ac00fe66001389900bee55622af2286",
+  "execution_id": "remote_execution_ac3c89027e0a3febb83d3ba234f39fc8",
+  "limitations": [
+    "Execution record does not contain a reverse reference to its resulting snapshot.",
+    "Collector trust does not establish publisher authority or response correctness."
+  ],
+  "locator_digest": "4b0df78651d689cdcac6fd53a20ca0ce299cc29a20086f1d6324c59bbbf4d35d",
+  "locator_id": "remote_locator_0a2eae5cc0c7b308eaeadde8d0e7e73f",
+  "network_use": "PUBLIC_METADATA_ONLY",
+  "observed_at": "NOT_RECORDED",
+  "payload_bytes_downloaded": 0,
+  "payload_download": "NOT_PERFORMED",
+  "plan_digest": "0c3b81ab0683eeb76d19ab7dce55410b2b5c49a7d87617a7274d1bdf0d8f1f06",
+  "plan_id": "remote_plan_f0e077d58ffb7bdecfb18f1a7c46308c",
+  "redirect_hosts": [],
+  "request_count": 2,
+  "requested_urls": [
+    "https://huggingface.co/api/models/xai-org/grok-2/revision/daf4395a80ad177386cfe39641b64fc12b1d70ed",
+    "https://huggingface.co/api/models/xai-org/grok-2/tree/daf4395a80ad177386cfe39641b64fc12b1d70ed"
+  ],
+  "response_bytes": 24003,
+  "response_count": 2,
+  "result_reference_status": "LINKED_DOWNSTREAM_BY_SNAPSHOT",
+  "schema": "omiv.remote-collection-execution-record.v1"
+}

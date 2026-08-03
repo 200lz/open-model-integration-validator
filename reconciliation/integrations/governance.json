@@ -1,0 +1,19 @@
+{
+  "accepted": false,
+  "available_at": "NOT_RECORDED",
+  "creates_approval": false,
+  "creates_security_pass": false,
+  "derived_status": "EVIDENCE_STATE_ONLY_NO_APPROVAL",
+  "integration_digest": "9463a00353a7645ed956a8d7d2e4803791d22e3722017489d10a41eae58d4c3b",
+  "integration_id": "remote_local_integration_dc4f7e05f07dd9235ad373b87dc45f54",
+  "integration_type": "GOVERNANCE",
+  "limitations": [
+    "Adapter cannot strengthen provenance, authority, completeness, or trust."
+  ],
+  "mutates_prior_artifact": false,
+  "observed_runtime_identity": false,
+  "reconciliation_evidence_digest": "98f7beb3dc0fc3c8f5d58a5debf96061a70bba4fa2d0b9595880571200b25b08",
+  "reconciliation_evidence_id": "remote_local_evidence_3a5be4cb1a2c1b73ff3a2ebd8e8251ce",
+  "schema": "omiv.remote-local-integration.v1",
+  "source_object": null
+}

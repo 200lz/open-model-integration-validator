@@ -1,8 +1,9 @@
 """Command-line interface."""
 
 import json
+from collections.abc import Callable
 from pathlib import Path
-from typing import Annotated
+from typing import Annotated, cast
 
 import typer
 from pydantic import BaseModel, ValidationError
@@ -233,6 +234,33 @@ from omiv.provenance.validator import (
     format_provenance_report,
     validate_provenance,
 )
+from omiv.reconciliation.building import (
+    build_locator as build_remote_locator,
+)
+from omiv.reconciliation.building import (
+    build_plan as build_remote_plan,
+)
+from omiv.reconciliation.building import (
+    compare_remote_to_local,
+)
+from omiv.reconciliation.indexes import build_topology_from_indexes, load_shard_index
+from omiv.reconciliation.models import (
+    CollectionMode as RemoteCollectionMode,
+)
+from omiv.reconciliation.models import (
+    ProviderKind as RemoteProviderKind,
+)
+from omiv.reconciliation.models import (
+    RemoteLocalReconciliationComparison,
+    RemoteSnapshotExpectation,
+    RemoteSnapshotManifest,
+)
+from omiv.reconciliation.models import (
+    RequestedRevisionKind as RemoteRequestedRevisionKind,
+)
+from omiv.reconciliation.reporting import pretty_json as pretty_reconciliation_json
+from omiv.reconciliation.schema import load_any_reconciliation, load_reconciliation
+from omiv.reconciliation_profiles.huggingface import collect_huggingface_metadata
 from omiv.remote.gguf_header import RemoteGGUFHeaderParser
 from omiv.remote.header_models import (
     HEADER_REPORT_SCHEMA,
@@ -418,6 +446,7 @@ security_app = typer.Typer(no_args_is_help=True)
 runtime_app = typer.Typer(no_args_is_help=True)
 audit_app = typer.Typer(no_args_is_help=True)
 payload_app = typer.Typer(no_args_is_help=True)
+reconcile_app = typer.Typer(no_args_is_help=True)
 app.add_typer(model_packs_app, name="model-packs")
 app.add_typer(passport_app, name="passport")
 app.add_typer(custody_app, name="custody")
@@ -428,6 +457,7 @@ app.add_typer(security_app, name="security")
 app.add_typer(runtime_app, name="runtime")
 app.add_typer(audit_app, name="audit")
 app.add_typer(payload_app, name="payload")
+app.add_typer(reconcile_app, name="reconcile")
 MAX_CANONICAL_INVENTORY_BYTES = 64 * 1024 * 1024
 REMOTE_REPORT_SCHEMAS = {
     "omiv.remote-snapshot-report.v1",
@@ -3885,3 +3915,223 @@ def payload_verify_manifest(
     )
     if manifest.completion_state.value != "COMPLETE_FOR_DECLARED_LOCAL_SCOPE":
         raise typer.Exit(code=1)
+
+
+def _reconciliation_failure(exc: Exception) -> None:
+    typer.echo(f"ERROR reconciliation operation failed: {exc}", err=True)
+    raise typer.Exit(code=2) from exc
+
+
+def _emit_reconciliation(value: BaseModel, output: Path | None, inputs: tuple[Path, ...]) -> None:
+    rendered = pretty_reconciliation_json(value)
+    if output is None:
+        typer.echo(rendered, nl=False)
+    else:
+        validate_output_path(output, forbidden_inputs=inputs)
+        atomic_write_text(output, rendered, forbidden_inputs=inputs)
+
+
+@reconcile_app.command("import-snapshot")
+def reconcile_import_snapshot(
+    snapshot_path: Annotated[Path, typer.Argument(exists=True, dir_okay=False)],
+    output: Annotated[Path | None, typer.Option("--output", dir_okay=False)] = None,
+) -> None:
+    """Validate and normalize an already collected provider-neutral snapshot."""
+    try:
+        snapshot = cast(
+            RemoteSnapshotManifest,
+            load_reconciliation(snapshot_path, RemoteSnapshotManifest),
+        )
+        _emit_reconciliation(snapshot, output, (snapshot_path,))
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _reconciliation_failure(exc)
+    if snapshot.resolved_revision_kind.value not in {
+        "IMMUTABLE_COMMIT",
+        "IMMUTABLE_CONTENT_DIGEST",
+        "PROVIDER_IMMUTABLE_SNAPSHOT",
+    }:
+        raise typer.Exit(code=1)
+
+
+@reconcile_app.command("inspect-index")
+def reconcile_inspect_index(
+    index_path: Annotated[Path, typer.Argument(exists=True, dir_okay=False)],
+) -> None:
+    """Safely inspect declarations in a bounded JSON shard index."""
+    try:
+        index = load_shard_index(index_path)
+        typer.echo(
+            json.dumps(
+                {
+                    "declared_shards": list(index.declared_shards),
+                    "logical_mapping_count": len(index.mappings),
+                    "metadata_present": index.metadata_present,
+                    "source_sha256": index.source_sha256,
+                    "limitations": [
+                        "Declarations only; shard contents and tensor keys were not opened or "
+                        "verified."
+                    ],
+                },
+                indent=2,
+                sort_keys=True,
+            )
+        )
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _reconciliation_failure(exc)
+
+
+@reconcile_app.command("shards")
+def reconcile_shards(
+    snapshot_path: Annotated[Path, typer.Option("--snapshot", exists=True, dir_okay=False)],
+    index_path: Annotated[Path, typer.Option("--index", exists=True, dir_okay=False)],
+    output: Annotated[Path | None, typer.Option("--output", dir_okay=False)] = None,
+) -> None:
+    """Build explicit shard topology without opening shard payloads."""
+    try:
+        snapshot = cast(
+            RemoteSnapshotManifest,
+            load_reconciliation(snapshot_path, RemoteSnapshotManifest),
+        )
+        topology = build_topology_from_indexes(snapshot, (load_shard_index(index_path),))
+        _emit_reconciliation(topology, output, (snapshot_path, index_path))
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _reconciliation_failure(exc)
+    if (
+        topology.status.value != "EXPLICIT_TOPOLOGY_AVAILABLE"
+        or topology.missing_referenced_remote_members
+    ):
+        raise typer.Exit(code=1)
+
+
+@reconcile_app.command("local")
+def reconcile_local(
+    expectation_path: Annotated[Path, typer.Option("--expectation", exists=True, dir_okay=False)],
+    local_manifest_path: Annotated[
+        Path, typer.Option("--local-manifest", exists=True, dir_okay=False)
+    ],
+    output: Annotated[Path | None, typer.Option("--output", dir_okay=False)] = None,
+) -> None:
+    """Compare one exact remote expectation with one Phase 6A local manifest."""
+    try:
+        expectation = cast(
+            RemoteSnapshotExpectation,
+            load_reconciliation(expectation_path, RemoteSnapshotExpectation),
+        )
+        local = load_payload(local_manifest_path, ObservedPayloadManifest)
+        comparison = compare_remote_to_local(expectation, local)
+        _emit_reconciliation(comparison, output, (expectation_path, local_manifest_path))
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _reconciliation_failure(exc)
+    typer.echo(
+        f"{comparison.status.value} payload_safety=NOT_ESTABLISHED",
+        err=True,
+    )
+    if comparison.status.value != "EXACT_MATCH_FOR_RECONCILIATION_SCOPE":
+        raise typer.Exit(code=1)
+
+
+@reconcile_app.command("verify")
+def reconcile_verify(
+    input_path: Annotated[Path, typer.Argument(exists=True, dir_okay=False)],
+) -> None:
+    """Reconstruct a canonical Phase 6B object identity offline."""
+    try:
+        value = load_any_reconciliation(input_path)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _reconciliation_failure(exc)
+    typer.echo(
+        f"VALID_CANONICAL_RECONCILIATION_OBJECT schema={value.model_dump(by_alias=True)['schema']} "
+        "model_safety=NOT_VERIFIED"
+    )
+    if isinstance(value, RemoteLocalReconciliationComparison) and (
+        value.status.value != "EXACT_MATCH_FOR_RECONCILIATION_SCOPE"
+    ):
+        raise typer.Exit(code=1)
+
+
+@reconcile_app.command("collect-hf-metadata")
+def reconcile_collect_hf_metadata(
+    repository: Annotated[str, typer.Option("--repo")],
+    revision: Annotated[str, typer.Option("--revision")],
+    subject_path: Annotated[Path, typer.Option("--subject", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    execution_output: Annotated[Path, typer.Option("--execution-output", dir_okay=False)],
+    observed_at: Annotated[str, typer.Option("--observed-at")],
+    raw_response_dir: Annotated[
+        Path | None, typer.Option("--raw-response-dir", file_okay=False)
+    ] = None,
+    revision_kind: Annotated[
+        RemoteRequestedRevisionKind, typer.Option("--revision-kind")
+    ] = RemoteRequestedRevisionKind.BRANCH,
+    allow_network: Annotated[bool, typer.Option("--allow-network")] = False,
+    metadata_only: Annotated[bool, typer.Option("--metadata-only")] = False,
+    no_payload: Annotated[bool, typer.Option("--no-payload")] = False,
+) -> None:
+    """Explicitly opt in to bounded public Hugging Face metadata collection."""
+    try:
+        if not allow_network:
+            raise OmivInputError("bounded live collection requires --allow-network")
+        if not metadata_only or not no_payload:
+            raise OmivInputError("live collection requires --metadata-only and --no-payload")
+        parts = repository.split("/")
+        if len(parts) != 2 or not all(parts):
+            raise OmivInputError("repository must be exactly namespace/name")
+        subject = load_runtime(subject_path, ProductSubject)
+        locator = build_remote_locator(
+            subject,
+            provider_kind=RemoteProviderKind.HUGGING_FACE,
+            provider_instance="huggingface.co",
+            namespace=parts[0],
+            artifact_name=parts[1],
+            artifact_kind="artifact.model-repository",
+            requested_revision=revision,
+            requested_revision_kind=revision_kind,
+        )
+        plan = build_remote_plan(
+            locator,
+            collection_mode=RemoteCollectionMode.BOUNDED_PUBLIC_METADATA_COLLECTION,
+            adapter_id="omiv.adapter.huggingface-metadata",
+            allowed_hosts=("huggingface.co",),
+            available_at=observed_at,
+            observed_at=observed_at,
+        )
+        raw_sink: Callable[[str, bytes], None] | None = None
+        if raw_response_dir is not None:
+
+            def write_raw(label: str, raw: bytes) -> None:
+                try:
+                    text = raw.decode("utf-8", errors="strict")
+                except UnicodeDecodeError as exc:
+                    raise OmivInputError("raw metadata response is not strict UTF-8") from exc
+                atomic_write_text(raw_response_dir / f"{label}.json", text)
+
+            raw_sink = write_raw
+        execution, snapshot = collect_huggingface_metadata(
+            locator,
+            plan,
+            observed_at=observed_at,
+            raw_response_sink=raw_sink,
+        )
+        forbidden = (subject_path,)
+        validate_output_path(output, forbidden_inputs=forbidden)
+        validate_output_path(execution_output, forbidden_inputs=forbidden)
+        if output == execution_output:
+            raise OmivInputError("snapshot and execution outputs must be distinct")
+        atomic_write_text(
+            execution_output,
+            pretty_reconciliation_json(execution),
+            forbidden_inputs=forbidden,
+        )
+        atomic_write_text(
+            output,
+            pretty_reconciliation_json(snapshot),
+            forbidden_inputs=forbidden,
+        )
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _reconciliation_failure(exc)
+    typer.echo(
+        "PUBLIC_METADATA_SNAPSHOT_OBSERVED_WITHOUT_PAYLOAD_DOWNLOAD "
+        f"revision={snapshot.resolved_revision} members={len(snapshot.members)} "
+        f"requests={execution.request_count} response_bytes={execution.response_bytes} "
+        "payload_bytes=0"
+    )

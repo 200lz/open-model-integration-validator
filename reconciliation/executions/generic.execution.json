@@ -1,0 +1,43 @@
+{
+  "available_at": "NOT_RECORDED",
+  "collection_mode": "IMPORTED_OFFLINE_SNAPSHOT",
+  "collector_id": "omiv.adapter.imported-snapshot",
+  "collector_version": "version.v1",
+  "contacted_hosts": [],
+  "coverage_summary": "BOUNDED_DECLARED_SCOPE",
+  "effective_limits": {
+    "maximum_archive_bytes": 0,
+    "maximum_executable_bytes": 0,
+    "maximum_index_bytes": 67108864,
+    "maximum_index_mappings": 500000,
+    "maximum_members": 100000,
+    "maximum_metadata_file_bytes": 2097152,
+    "maximum_payload_bytes": 0,
+    "maximum_redirects_per_request": 3,
+    "maximum_requests": 50,
+    "maximum_response_bytes": 16777216,
+    "maximum_total_response_bytes": 134217728
+  },
+  "errors": [],
+  "execution_digest": "97637d71d0c41f5e45a4535ff784ecdc152e99277c1f8d22ffdc0f70ef2061b0",
+  "execution_id": "remote_execution_790286156307280c47003a96abd1d1a0",
+  "limitations": [
+    "Execution record does not contain a reverse reference to its resulting snapshot.",
+    "Collector trust does not establish publisher authority or response correctness."
+  ],
+  "locator_digest": "a8fc590a77e9fe426e39b6eb4d737dfa602e7ca7fd3929f9db3b99dc73a0d564",
+  "locator_id": "remote_locator_245ed7b6e3984b627b6096a00e4c2b78",
+  "network_use": "NONE",
+  "observed_at": "NOT_RECORDED",
+  "payload_bytes_downloaded": 0,
+  "payload_download": "NOT_PERFORMED",
+  "plan_digest": "11d890f72cd8d68d4de212af0326d45e5c4935dbf486e2af0102fc01a4798ba3",
+  "plan_id": "remote_plan_6bb84d8309daf06c3be384d4990b7015",
+  "redirect_hosts": [],
+  "request_count": 0,
+  "requested_urls": [],
+  "response_bytes": 0,
+  "response_count": 0,
+  "result_reference_status": "LINKED_DOWNSTREAM_BY_SNAPSHOT",
+  "schema": "omiv.remote-collection-execution-record.v1"
+}

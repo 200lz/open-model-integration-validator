@@ -1,0 +1,56 @@
+{
+  "companion_artifacts": [],
+  "conflicting_references": [],
+  "coverage": "UNAVAILABLE",
+  "declared_index_files": [],
+  "duplicate_references": [],
+  "limitations": [
+    "No explicit topology evidence was supplied."
+  ],
+  "limits": {
+    "maximum_archive_bytes": 0,
+    "maximum_executable_bytes": 0,
+    "maximum_index_bytes": 67108864,
+    "maximum_index_mappings": 500000,
+    "maximum_members": 100000,
+    "maximum_metadata_file_bytes": 2097152,
+    "maximum_payload_bytes": 0,
+    "maximum_redirects_per_request": 3,
+    "maximum_requests": 50,
+    "maximum_response_bytes": 16777216,
+    "maximum_total_response_bytes": 134217728
+  },
+  "missing_referenced_remote_members": [],
+  "optional_shards": [],
+  "referenced_logical_key_count": 0,
+  "required_shards": [],
+  "schema": "omiv.shard-topology.v1",
+  "shard_groups": [],
+  "snapshot_digest": "42e1fa531d9e95da7158a650f7250bab8bea4439f6c26904c92768c51b6a3468",
+  "snapshot_id": "remote_snapshot_21a21d44b977a38900cb5a16161432c9",
+  "source_member_ids": [],
+  "status": "TOPOLOGY_UNAVAILABLE",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "xai.grok-2.pinned-metadata",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.reconciliation-practice",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "MODEL_WEIGHTS",
+    "subject_digest": "af49252d82fab6651e4bdb0d3cd43c411342937089331ae0f0054d3fe3982609",
+    "subject_id": "product_subject_8a2ec2c391f33893d45f9dc0584827b2"
+  },
+  "topology_digest": "f0eca704d52bee717162d9854216a2ae20557fdbed7d9e874abf4e69dc884d86",
+  "topology_id": "shard_topology_0d3b2dbce7625d5d2a56dbee435a523c",
+  "topology_source": "UNAVAILABLE",
+  "unreferenced_shard_like_members": []
+}

@@ -1,0 +1,23 @@
+{
+  "authority_inferred_from_namespace": false,
+  "declared_public_targets": [
+    "caller-supplied pinned snapshot"
+  ],
+  "family": "DeepSeek",
+  "limitations": [
+    "DEEPSEEK_PINNED_REMOTE_SNAPSHOT_NOT_SUPPLIED",
+    "Readiness contract is not operational evidence.",
+    "No revision, member, size, digest, or publisher authority was invented."
+  ],
+  "operational_evidence": false,
+  "payload_verified": false,
+  "prior_evidence": [],
+  "profile_digest": "9e9ddc6809c3bfc40f2895637f7c2c9f95253311e0b037c84cfa9ab8a9fb6106",
+  "profile_id": "reconciliation_profile_fcc9435838dc10a5fa84d917227fa9f9",
+  "provider_kinds": [
+    "GIT_REPOSITORY",
+    "HUGGING_FACE"
+  ],
+  "schema": "omiv.reconciliation-practice-profile.v1",
+  "status": "PINNED_REMOTE_SNAPSHOT_NOT_SUPPLIED"
+}

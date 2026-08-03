@@ -1,0 +1,121 @@
+{
+  "classification": "XAI_PUBLIC_PINNED_METADATA_SNAPSHOT_OBSERVED_WITHOUT_PAYLOAD_DOWNLOAD",
+  "completeness_assessment": {
+    "object_digest": "846ff96dd216c14991bad1f7f8910ea85277f9ffaf2f074e84af490db1466270",
+    "object_id": "shard_assessment_2fd45a782dec0470323af36307318c3d",
+    "schema_id": "omiv.shard-completeness-assessment.v1"
+  },
+  "declared_total_bytes": 539040431665,
+  "digest_distribution": {
+    "LFS_OID_SHA256": 39,
+    "PROVIDER_OPAQUE_ID": 44,
+    "XET_OBJECT_ID": 39
+  },
+  "evidence_digest": "41785ce09c3e6b06145c0b8acc1359cedea920eb5026109b90967753d5dfbcf1",
+  "evidence_id": "xai_metadata_evidence_c59fa3fb4d9f2aa4d6c1f4ed58a4f84f",
+  "execution": {
+    "object_digest": "79ba66b98eb43c436c15d2a31d3e70ea6ac00fe66001389900bee55622af2286",
+    "object_id": "remote_execution_ac3c89027e0a3febb83d3ba234f39fc8",
+    "schema_id": "omiv.remote-collection-execution-record.v1"
+  },
+  "expectation": {
+    "object_digest": "68311ce000966e37fc15b14cc87e3248cc68e4a5cd66e3f41e647e3d05171c06",
+    "object_id": "remote_expectation_b41366fb600836179f35ebba87a46a97",
+    "schema_id": "omiv.remote-snapshot-expectation.v1"
+  },
+  "freshness_current_state": "NOT_ESTABLISHED",
+  "integration_summaries": [
+    {
+      "accepted": false,
+      "creates_authority": false,
+      "derived_status": "PINNED_METADATA_AUDIT_REFERENCE_ONLY",
+      "integration_type": "AUDIT",
+      "limitations": [
+        "No signed audit-bundle member was created."
+      ],
+      "mutates_prior_artifact": false
+    },
+    {
+      "accepted": false,
+      "creates_authority": false,
+      "derived_status": "EVIDENCE_STATE_ONLY_NO_APPROVAL",
+      "integration_type": "GOVERNANCE",
+      "limitations": [
+        "No governance approval was created."
+      ],
+      "mutates_prior_artifact": false
+    },
+    {
+      "accepted": false,
+      "creates_authority": false,
+      "derived_status": "NOT_RECORDED_CANNOT_ESTABLISH_CUTOFF",
+      "integration_type": "HISTORICAL",
+      "limitations": [
+        "No historical availability time was inferred."
+      ],
+      "mutates_prior_artifact": false
+    },
+    {
+      "accepted": false,
+      "creates_authority": false,
+      "derived_status": "DERIVED_METADATA_SUMMARY_ONLY",
+      "integration_type": "PASSPORT",
+      "limitations": [
+        "No payload or publisher authority was added."
+      ],
+      "mutates_prior_artifact": false
+    }
+  ],
+  "limitations": [
+    "Complete pinned provider listing is not complete model topology.",
+    "All remote members listed is not all local members present or matching payload bytes.",
+    "Typed LFS, Xet, and provider object identifiers remain non-payload-comparable at metadata-only observation level."
+  ],
+  "local_byte_match": "NOT_EVALUATED",
+  "local_member_presence": "NOT_EVALUATED",
+  "locator": {
+    "object_digest": "4b0df78651d689cdcac6fd53a20ca0ce299cc29a20086f1d6324c59bbbf4d35d",
+    "object_id": "remote_locator_0a2eae5cc0c7b308eaeadde8d0e7e73f",
+    "schema_id": "omiv.remote-artifact-locator.v1"
+  },
+  "member_count": 44,
+  "model_authenticity": "NOT_ESTABLISHED",
+  "namespace": "xai-org",
+  "observation_time": "NOT_RECORDED",
+  "payload_bytes_observed": 0,
+  "payload_comparable_member_count": 0,
+  "payload_download": "NOT_PERFORMED",
+  "plan": {
+    "object_digest": "0c3b81ab0683eeb76d19ab7dce55410b2b5c49a7d87617a7274d1bdf0d8f1f06",
+    "object_id": "remote_plan_f0e077d58ffb7bdecfb18f1a7c46308c",
+    "schema_id": "omiv.remote-snapshot-plan.v1"
+  },
+  "provider_listing_completeness": "COMPLETE_FOR_DECLARED_RESPONSE_SCOPE",
+  "publisher_authority": "NOT_ESTABLISHED",
+  "repository": "grok-2",
+  "resolved_revision": "daf4395a80ad177386cfe39641b64fc12b1d70ed",
+  "runtime_identity": "NOT_OBSERVED",
+  "schema": "omiv.xai-pinned-metadata-practice-evidence.v1",
+  "security_safety": "NOT_EVALUATED",
+  "snapshot": {
+    "object_digest": "42e1fa531d9e95da7158a650f7250bab8bea4439f6c26904c92768c51b6a3468",
+    "object_id": "remote_snapshot_21a21d44b977a38900cb5a16161432c9",
+    "schema_id": "omiv.remote-snapshot-manifest.v1"
+  },
+  "source_fixture": {
+    "object_digest": "025b86c578058c99a5222e055d082a2f2fbf94e981634505be6843c6b6c97dd1",
+    "object_id": "pinned_provider_metadata_f5ff03da7987bc8410887bcdace9add3",
+    "schema_id": "omiv.pinned-public-provider-metadata-fixture.v1"
+  },
+  "storage_distribution": {
+    "DIRECT_FILE": 5,
+    "XET_BACKED_OBJECT": 39
+  },
+  "tokenizer_config_parity": "NOT_EVALUATED",
+  "topology": {
+    "object_digest": "f0eca704d52bee717162d9854216a2ae20557fdbed7d9e874abf4e69dc884d86",
+    "object_id": "shard_topology_0d3b2dbce7625d5d2a56dbee435a523c",
+    "schema_id": "omiv.shard-topology.v1"
+  },
+  "topology_status": "TOPOLOGY_UNAVAILABLE"
+}

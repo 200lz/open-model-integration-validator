@@ -1,0 +1,173 @@
+{
+  "artifact_name": "generic-multishard-package",
+  "available_at": "NOT_RECORDED",
+  "errors": [],
+  "execution_digest": "97637d71d0c41f5e45a4535ff784ecdc152e99277c1f8d22ffdc0f70ef2061b0",
+  "execution_id": "remote_execution_790286156307280c47003a96abd1d1a0",
+  "limitations": [
+    "Remote listing completeness is limited to the declared response or import scope.",
+    "Snapshot observation does not establish publisher authority, authenticity, or current state."
+  ],
+  "locator_digest": "a8fc590a77e9fe426e39b6eb4d737dfa602e7ca7fd3929f9db3b99dc73a0d564",
+  "locator_id": "remote_locator_245ed7b6e3984b627b6096a00e4c2b78",
+  "manifest_digest": "84f3a52466244cb3963afb79bd31b6ea660818faff3b7914d5d6412cdd35f2a7",
+  "manifest_id": "remote_snapshot_232b98bcf40f8c2a6778de64edec0da3",
+  "member_set_digest": "ff3184244ece2a0e5fe0598ddaba1469cccb01a58b305b1305bc6fa481843115",
+  "members": [
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "d07dd7510d49937e693a03e2dd4d1cf19a581d3b5777a08ec556014d14ea08ed",
+          "evidence_source": "source.imported-metadata",
+          "kind": "PAYLOAD_SHA256",
+          "limitations": [],
+          "observation_level": "PAYLOAD_DIGEST_DECLARED",
+          "payload_comparable": true,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PAYLOAD_BYTES"
+        }
+      ],
+      "limitations": [
+        "Digest was imported from a synthetic reviewed fixture."
+      ],
+      "logical_size": 21,
+      "member_digest": "4c9a1450a4747845b7f25418823c3a2a768e7b578b8c14ffadc02adacaeb09d7",
+      "member_id": "remote_member_ec84834711e035804186a5c6d05f1022",
+      "member_provenance": "source.imported-metadata",
+      "observation_level": "PAYLOAD_DIGEST_DECLARED",
+      "path": "config/settings.json",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "MANDATORY_COMPANION",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "DIRECT_FILE"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "evidence_source": "source.imported-metadata",
+          "kind": "PAYLOAD_SHA256",
+          "limitations": [],
+          "observation_level": "PAYLOAD_DIGEST_DECLARED",
+          "payload_comparable": true,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PAYLOAD_BYTES"
+        }
+      ],
+      "limitations": [
+        "Digest was imported from a synthetic reviewed fixture."
+      ],
+      "logical_size": 0,
+      "member_digest": "dd913b5e6d0ca08b925c1663ba2f2910c2c353640c086e07966b1be5dad80fc0",
+      "member_id": "remote_member_742c74b9cd5300b754f59dc6c9d38ce6",
+      "member_provenance": "source.imported-metadata",
+      "observation_level": "PAYLOAD_DIGEST_DECLARED",
+      "path": "notes/empty.txt",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "OPTIONAL_COMPANION",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "DIRECT_FILE"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "925becc6be360e71710ef6fb315ce2c1f79c9dbf98337a44764858a3ee363462",
+          "evidence_source": "source.imported-metadata",
+          "kind": "PAYLOAD_SHA256",
+          "limitations": [],
+          "observation_level": "PAYLOAD_DIGEST_DECLARED",
+          "payload_comparable": true,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PAYLOAD_BYTES"
+        }
+      ],
+      "limitations": [
+        "Digest was imported from a synthetic reviewed fixture."
+      ],
+      "logical_size": 19,
+      "member_digest": "0d108580a535af93a8fa64c8f296c26194951f0b8d5d7ab317bdf8a0d3bfe1fa",
+      "member_id": "remote_member_8507aaf04cd220f86acc6d592ce38ca8",
+      "member_provenance": "source.imported-metadata",
+      "observation_level": "PAYLOAD_DIGEST_DECLARED",
+      "path": "weights/part-00001-of-00002.payload",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "PRIMARY_SHARD",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "DIRECT_FILE"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "71072b26490829eb686a4b76144249d1c5c10f4003ad9656dfa4e868c66fd69e",
+          "evidence_source": "source.imported-metadata",
+          "kind": "PAYLOAD_SHA256",
+          "limitations": [],
+          "observation_level": "PAYLOAD_DIGEST_DECLARED",
+          "payload_comparable": true,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PAYLOAD_BYTES"
+        }
+      ],
+      "limitations": [
+        "Digest was imported from a synthetic reviewed fixture."
+      ],
+      "logical_size": 19,
+      "member_digest": "493e0cce2c358d60222115d4ac90ea4a5575c819c4c901d872a518d6ca7b50a7",
+      "member_id": "remote_member_c6c070bb9b87d062ad75c9dbf338b8af",
+      "member_provenance": "source.imported-metadata",
+      "observation_level": "PAYLOAD_DIGEST_DECLARED",
+      "path": "weights/part-00002-of-00002.payload",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "MANDATORY_COMPANION",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "DIRECT_FILE"
+    }
+  ],
+  "namespace": "namespace.synthetic",
+  "observation_coverage": "DECLARED_IMPORT_OR_RESPONSE_SCOPE_ONLY",
+  "observed_at": "NOT_RECORDED",
+  "plan_digest": "11d890f72cd8d68d4de212af0326d45e5c4935dbf486e2af0102fc01a4798ba3",
+  "plan_id": "remote_plan_6bb84d8309daf06c3be384d4990b7015",
+  "provenance_strength": "IMPORTED_UNVERIFIED",
+  "provider_instance": "artifacts.example.invalid",
+  "provider_kind": "IMPORTED_SNAPSHOT",
+  "provider_listing_completeness": "COMPLETE_FOR_DECLARED_RESPONSE_SCOPE",
+  "requested_revision": "fixture-v1",
+  "resolved_revision": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+  "resolved_revision_kind": "IMMUTABLE_CONTENT_DIGEST",
+  "revision_resolution_evidence": "EXPLICITLY_SUPPLIED_BY_COLLECTION_OR_IMPORT",
+  "schema": "omiv.remote-snapshot-manifest.v1",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "generic.payload-package",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.local",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.payload",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "2fa28bd1595149ed752a9b57c8593b100a846cc3cf5ae31302242b08f72f11f7",
+    "subject_id": "product_subject_7b9869cba54b58ea4910e4a79bcc482f"
+  },
+  "unavailable_members": [],
+  "unsupported_members": []
+}

@@ -1,0 +1,30 @@
+{
+  "available_at": "NOT_RECORDED",
+  "digests": [
+    {
+      "algorithm": "SHA256",
+      "canonical_value": "925becc6be360e71710ef6fb315ce2c1f79c9dbf98337a44764858a3ee363462",
+      "evidence_source": "source.imported-metadata",
+      "kind": "PAYLOAD_SHA256",
+      "limitations": [],
+      "observation_level": "PAYLOAD_DIGEST_DECLARED",
+      "payload_comparable": true,
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "schema": "omiv.remote-digest-descriptor.v1",
+      "semantic_target": "PAYLOAD_BYTES"
+    }
+  ],
+  "limitations": [
+    "Digest was imported from a synthetic reviewed fixture."
+  ],
+  "logical_size": 19,
+  "member_digest": "0d108580a535af93a8fa64c8f296c26194951f0b8d5d7ab317bdf8a0d3bfe1fa",
+  "member_id": "remote_member_8507aaf04cd220f86acc6d592ce38ca8",
+  "member_provenance": "source.imported-metadata",
+  "observation_level": "PAYLOAD_DIGEST_DECLARED",
+  "path": "weights/part-00001-of-00002.payload",
+  "provenance_strength": "IMPORTED_UNVERIFIED",
+  "role": "PRIMARY_SHARD",
+  "schema": "omiv.remote-member-record.v1",
+  "storage_representation": "DIRECT_FILE"
+}

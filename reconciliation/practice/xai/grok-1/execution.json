@@ -1,0 +1,48 @@
+{
+  "available_at": "NOT_RECORDED",
+  "collection_mode": "PREVIOUSLY_COLLECTED_SNAPSHOT",
+  "collector_id": "omiv.adapter.huggingface-pinned-metadata",
+  "collector_version": "version.v1",
+  "contacted_hosts": [
+    "huggingface.co"
+  ],
+  "coverage_summary": "BOUNDED_DECLARED_SCOPE",
+  "effective_limits": {
+    "maximum_archive_bytes": 0,
+    "maximum_executable_bytes": 0,
+    "maximum_index_bytes": 67108864,
+    "maximum_index_mappings": 500000,
+    "maximum_members": 100000,
+    "maximum_metadata_file_bytes": 2097152,
+    "maximum_payload_bytes": 0,
+    "maximum_redirects_per_request": 3,
+    "maximum_requests": 50,
+    "maximum_response_bytes": 16777216,
+    "maximum_total_response_bytes": 134217728
+  },
+  "errors": [],
+  "execution_digest": "203b440a97931e8ae6f1622832511a35449fb7a3b550b0315d372a1e56c8c8f4",
+  "execution_id": "remote_execution_372f11e27a5ebd09c8a6e7d7ede9a80d",
+  "limitations": [
+    "Execution record does not contain a reverse reference to its resulting snapshot.",
+    "Collector trust does not establish publisher authority or response correctness."
+  ],
+  "locator_digest": "a2c926173a3040c0021b16ff65cc39e3149980cfe8c2aedf91db135f5884bdfb",
+  "locator_id": "remote_locator_40903db16c710e9cf6078fc8cc9e75a5",
+  "network_use": "PUBLIC_METADATA_ONLY",
+  "observed_at": "NOT_RECORDED",
+  "payload_bytes_downloaded": 0,
+  "payload_download": "NOT_PERFORMED",
+  "plan_digest": "8e2ce7b303c4a8bf9457a6f03bfca2d1b409da3a2889c615b647822d4352b5e7",
+  "plan_id": "remote_plan_ae33ded6e4b5cc63bea989cc7d24b625",
+  "redirect_hosts": [],
+  "request_count": 2,
+  "requested_urls": [
+    "https://huggingface.co/api/models/xai-org/grok-1/revision/5de83eb225f49624b424f1c8aa74f96983b5885c",
+    "https://huggingface.co/api/models/xai-org/grok-1/tree/5de83eb225f49624b424f1c8aa74f96983b5885c"
+  ],
+  "response_bytes": 408080,
+  "response_count": 2,
+  "result_reference_status": "LINKED_DOWNSTREAM_BY_SNAPSHOT",
+  "schema": "omiv.remote-collection-execution-record.v1"
+}

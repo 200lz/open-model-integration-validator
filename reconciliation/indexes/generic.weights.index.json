@@ -1,0 +1,15 @@
+{
+  "fixture_digest": "4bf6f4e42f1e72da6165c9d6560bc242918a1a7b295cc9c74b523c362ec95ec8",
+  "fixture_id": "shard_index_fixture_b24a3a071d68c1b7eb07683fb4fa846d",
+  "limitations": [
+    "Synthetic declaration only; logical keys and shard payloads were not opened."
+  ],
+  "metadata": {
+    "total_size": 38
+  },
+  "schema": "omiv.supplied-shard-index-fixture.v1",
+  "weight_map": {
+    "layer.0.weight": "weights/part-00001-of-00002.payload",
+    "layer.1.weight": "weights/part-00002-of-00002.payload"
+  }
+}

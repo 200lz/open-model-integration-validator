@@ -1,0 +1,19 @@
+{
+  "accepted": false,
+  "available_at": "NOT_RECORDED",
+  "creates_approval": false,
+  "creates_security_pass": false,
+  "derived_status": "EXACT_LOCAL_PAYLOAD_BINDING_REQUIRED_NO_PASS",
+  "integration_digest": "a265fc59937f92cb8b239998092f2643bcc1b0a8a616075408f75e530dcd56c9",
+  "integration_id": "remote_local_integration_109023a6231b7cb927a94ba97a152c3c",
+  "integration_type": "SECURITY",
+  "limitations": [
+    "Adapter cannot strengthen provenance, authority, completeness, or trust."
+  ],
+  "mutates_prior_artifact": false,
+  "observed_runtime_identity": false,
+  "reconciliation_evidence_digest": "98f7beb3dc0fc3c8f5d58a5debf96061a70bba4fa2d0b9595880571200b25b08",
+  "reconciliation_evidence_id": "remote_local_evidence_3a5be4cb1a2c1b73ff3a2ebd8e8251ce",
+  "schema": "omiv.remote-local-integration.v1",
+  "source_object": null
+}

@@ -1,0 +1,35 @@
+{
+  "artifact_kind": "artifact.generic-package",
+  "artifact_name": "generic-multishard-package",
+  "limitations": [
+    "Locator is a declaration and does not prove repository or revision existence."
+  ],
+  "locator_digest": "a8fc590a77e9fe426e39b6eb4d737dfa602e7ca7fd3929f9db3b99dc73a0d564",
+  "locator_id": "remote_locator_245ed7b6e3984b627b6096a00e4c2b78",
+  "namespace": "namespace.synthetic",
+  "provider_instance": "artifacts.example.invalid",
+  "provider_kind": "IMPORTED_SNAPSHOT",
+  "requested_revision": "fixture-v1",
+  "requested_revision_kind": "TAG",
+  "schema": "omiv.remote-artifact-locator.v1",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "generic.payload-package",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.local",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.payload",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "2fa28bd1595149ed752a9b57c8593b100a846cc3cf5ae31302242b08f72f11f7",
+    "subject_id": "product_subject_7b9869cba54b58ea4910e4a79bcc482f"
+  },
+  "trust_domain": "trust-domain.synthetic"
+}

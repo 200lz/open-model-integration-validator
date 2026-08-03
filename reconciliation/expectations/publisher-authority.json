@@ -1,0 +1,53 @@
+{
+  "authority_evaluation_digest": "931cc76f271197483e3df0310201af6450d3e5b84695edcf23cda0166d80c899",
+  "authority_evaluation_id": "remote_authority_0bf221610545c9d8bb46a1686e4b7a0f",
+  "authority_outcome": "UNAUTHORIZED",
+  "delegation_context": "DIRECT_ROOT",
+  "expectation_digest": "26109b7f2db718ae8537d79efbc3339721b2ecba388ccba93358e52b6312ea65",
+  "expectation_id": "remote_expectation_c7081f8a740ebb5ca91307308a096886",
+  "expectation_scope": "COMPLETE_REMOTE_MEMBER_SET",
+  "key_id": "key_fe27cb9c1d9062b731b48f89185201bd",
+  "limitations": [
+    "Authority is scoped to the exact expectation, subject, provider, namespace, revision, purpose, and trust domain.",
+    "A trusted collector signature is not publisher authority unless explicitly authorized here."
+  ],
+  "namespace": "namespace.synthetic",
+  "provider_instance": "artifacts.example.invalid",
+  "purpose": "remote.snapshot-expectation",
+  "resolved_revision": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+  "revocation_context": "NOT_REVOKED",
+  "schema": "omiv.remote-publisher-authority-evaluation.v1",
+  "scope": {
+    "environment_scope": "environment.local",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.payload",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  },
+  "signer_binding_status": "VERIFIED_BY_TRUST_BUNDLE",
+  "signer_id": "signer_9e5dd2be19589064f1657571b3c51662",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "generic.payload-package",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.local",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.payload",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "2fa28bd1595149ed752a9b57c8593b100a846cc3cf5ae31302242b08f72f11f7",
+    "subject_id": "product_subject_7b9869cba54b58ea4910e4a79bcc482f"
+  },
+  "trust_report_digest": "468f41575d9526e58deb3e88f223ea2b3e30dbc4c46aea6a3844328ff3a26b9c",
+  "trust_report_id": "trust_report_9dbcdd8efb1754530aa461ea4b1cb558",
+  "validity_context": "UNAVAILABLE"
+}

@@ -1,0 +1,199 @@
+{
+  "envelope_digest": "83a4659293aae6985e9aa9b8ca4ece276ee4f2590359590f1d29590ee2ca2d31",
+  "envelope_id": "soe_c1c0990af5499c844a8f65450c32d075",
+  "key_records": [
+    {
+      "algorithm": "ED25519",
+      "allowed_key_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "allowed_object_types": [
+        "REMOTE_LOCAL_RECONCILIATION_EVIDENCE",
+        "REMOTE_SNAPSHOT_EXPECTATION",
+        "REMOTE_SNAPSHOT_MANIFEST"
+      ],
+      "allowed_purposes": [
+        "REMOTE_LOCAL_RECONCILIATION_EVIDENCE_ISSUANCE",
+        "REMOTE_SNAPSHOT_EXPECTATION_ISSUANCE",
+        "REMOTE_SNAPSHOT_MANIFEST_ISSUANCE"
+      ],
+      "key_digest": "379a84f980f4365024a4e5dd0e6d20eac4d35f07c3e7f554b93e36759d34159f",
+      "key_id": "key_fe27cb9c1d9062b731b48f89185201bd",
+      "limitations": [
+        "Public-key identity does not establish signer identity."
+      ],
+      "namespaces": [],
+      "provider_artifact_scopes": [],
+      "public_key": "8320a51977d8c38ca8a4927c670df5821e449761945e15e9efb26a1509d230ea",
+      "public_key_digest": "fe27cb9c1d9062b731b48f89185201bd8e0aeb1343da9cb45cbcbe81123c1a3f",
+      "public_key_encoding": "RAW_HEX",
+      "schema": "omiv.key-identity.v1",
+      "status": "ACTIVE",
+      "validity": null
+    }
+  ],
+  "limitations": [
+    "The canonical source object is unchanged; trust is reconstructed externally."
+  ],
+  "schema": "omiv.signed-object-envelope.v1",
+  "signatures": [
+    {
+      "algorithm": "ED25519",
+      "binding_id": "binding_63061ebdd30d36ab069bbc4d74d9d2e0",
+      "detached_signature": "62c19e02c68974b088ad0856c64defc47053b5a5cc77236abe029555d2ff43287095de98369e92b749ff94a19ad1d49e9f2acc89b0923a55870d294a89fd870e",
+      "key_id": "key_fe27cb9c1d9062b731b48f89185201bd",
+      "limitations": [
+        "Signature integrity does not prove the underlying claim is true."
+      ],
+      "payload": {
+        "canonicalization_version": "omiv-json-v1",
+        "digest_algorithm": "SHA-256",
+        "domain": "OMIV-SIGNED-OBJECT-V1",
+        "key_usage": "SIGN_OMIV_OBJECT",
+        "namespace": null,
+        "provider_artifact_scope": null,
+        "schema": "omiv.signature-payload.v1",
+        "signature_purpose": "REMOTE_SNAPSHOT_EXPECTATION_ISSUANCE",
+        "signed_object_digest": "28ae243dcc1b644085013ad8ea300bdff684e6555be096741163b18a095c7da7",
+        "signed_object_id": "remote_expectation_c7081f8a740ebb5ca91307308a096886",
+        "signed_object_schema": "omiv.remote-snapshot-expectation.v1",
+        "signed_object_type": "REMOTE_SNAPSHOT_EXPECTATION",
+        "trust_policy_id": "omiv.trust-policy.team_release.v1"
+      },
+      "purpose": "REMOTE_SNAPSHOT_EXPECTATION_ISSUANCE",
+      "schema": "omiv.signature-record.v1",
+      "signature_digest": "b631f5ba6260ca49e5dce42fcb7686defb042bdb0291c0db93cbe4df72a80c3e",
+      "signature_encoding": "RAW_HEX",
+      "signature_id": "sig_42616f4ad55bb33950e948e893467edd",
+      "trust_policy_id": "omiv.trust-policy.team_release.v1"
+    }
+  ],
+  "signed_object": {
+    "available_at": "NOT_RECORDED",
+    "expectation_digest": "26109b7f2db718ae8537d79efbc3339721b2ecba388ccba93358e52b6312ea65",
+    "expectation_id": "remote_expectation_c7081f8a740ebb5ca91307308a096886",
+    "expectation_scope": "COMPLETE_REMOTE_MEMBER_SET",
+    "limitations": [
+      "Remote observation becomes an expectation only for the explicitly selected scope.",
+      "Opaque or metadata-only digests do not create a local byte expectation.",
+      "Publisher authority remains a separate downstream evaluation."
+    ],
+    "logical_root": "artifact.generic-package",
+    "provenance_strength": "IMPORTED_UNVERIFIED",
+    "publisher_authority_evaluation_digest": null,
+    "publisher_authority_evaluation_id": null,
+    "remote_listing_completeness": "COMPLETE_FOR_DECLARED_RESPONSE_SCOPE",
+    "remote_unavailable_members": [],
+    "required_roles": [
+      "MANDATORY_COMPANION",
+      "PRIMARY_SHARD"
+    ],
+    "resolved_revision": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+    "resolved_revision_kind": "IMMUTABLE_CONTENT_DIGEST",
+    "schema": "omiv.remote-snapshot-expectation.v1",
+    "selected_members": [
+      {
+        "comparable_digest": {
+          "algorithm": "SHA256",
+          "canonical_value": "d07dd7510d49937e693a03e2dd4d1cf19a581d3b5777a08ec556014d14ea08ed",
+          "evidence_source": "source.imported-metadata",
+          "kind": "PAYLOAD_SHA256",
+          "limitations": [],
+          "observation_level": "PAYLOAD_DIGEST_DECLARED",
+          "payload_comparable": true,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PAYLOAD_BYTES"
+        },
+        "logical_size": 21,
+        "path": "config/settings.json",
+        "remote_member_digest": "4c9a1450a4747845b7f25418823c3a2a768e7b578b8c14ffadc02adacaeb09d7",
+        "remote_member_id": "remote_member_ec84834711e035804186a5c6d05f1022",
+        "role": "MANDATORY_COMPANION"
+      },
+      {
+        "comparable_digest": {
+          "algorithm": "SHA256",
+          "canonical_value": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "evidence_source": "source.imported-metadata",
+          "kind": "PAYLOAD_SHA256",
+          "limitations": [],
+          "observation_level": "PAYLOAD_DIGEST_DECLARED",
+          "payload_comparable": true,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PAYLOAD_BYTES"
+        },
+        "logical_size": 0,
+        "path": "notes/empty.txt",
+        "remote_member_digest": "dd913b5e6d0ca08b925c1663ba2f2910c2c353640c086e07966b1be5dad80fc0",
+        "remote_member_id": "remote_member_742c74b9cd5300b754f59dc6c9d38ce6",
+        "role": "OPTIONAL_COMPANION"
+      },
+      {
+        "comparable_digest": {
+          "algorithm": "SHA256",
+          "canonical_value": "925becc6be360e71710ef6fb315ce2c1f79c9dbf98337a44764858a3ee363462",
+          "evidence_source": "source.imported-metadata",
+          "kind": "PAYLOAD_SHA256",
+          "limitations": [],
+          "observation_level": "PAYLOAD_DIGEST_DECLARED",
+          "payload_comparable": true,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PAYLOAD_BYTES"
+        },
+        "logical_size": 19,
+        "path": "weights/part-00001-of-00002.payload",
+        "remote_member_digest": "0d108580a535af93a8fa64c8f296c26194951f0b8d5d7ab317bdf8a0d3bfe1fa",
+        "remote_member_id": "remote_member_8507aaf04cd220f86acc6d592ce38ca8",
+        "role": "PRIMARY_SHARD"
+      },
+      {
+        "comparable_digest": {
+          "algorithm": "SHA256",
+          "canonical_value": "71072b26490829eb686a4b76144249d1c5c10f4003ad9656dfa4e868c66fd69e",
+          "evidence_source": "source.imported-metadata",
+          "kind": "PAYLOAD_SHA256",
+          "limitations": [],
+          "observation_level": "PAYLOAD_DIGEST_DECLARED",
+          "payload_comparable": true,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PAYLOAD_BYTES"
+        },
+        "logical_size": 19,
+        "path": "weights/part-00002-of-00002.payload",
+        "remote_member_digest": "493e0cce2c358d60222115d4ac90ea4a5575c819c4c901d872a518d6ca7b50a7",
+        "remote_member_id": "remote_member_c6c070bb9b87d062ad75c9dbf338b8af",
+        "role": "MANDATORY_COMPANION"
+      }
+    ],
+    "snapshot_digest": "84f3a52466244cb3963afb79bd31b6ea660818faff3b7914d5d6412cdd35f2a7",
+    "snapshot_id": "remote_snapshot_232b98bcf40f8c2a6778de64edec0da3",
+    "subject": {
+      "limitations": [
+        "Logical product subject identity does not prove artifact content."
+      ],
+      "logical_name": "generic.payload-package",
+      "schema": "omiv.product-subject.v1",
+      "scope": {
+        "environment_scope": "environment.local",
+        "organization_scope": "organization.synthetic",
+        "product_scope": "product.generic-inference",
+        "project_scope": "project.payload",
+        "target_scope": "target-scope.runtime",
+        "tenant_scope": "tenant.synthetic",
+        "trust_domain": "trust-domain.synthetic"
+      },
+      "subject_class": "DEPLOYMENT_PACKAGE",
+      "subject_digest": "2fa28bd1595149ed752a9b57c8593b100a846cc3cf5ae31302242b08f72f11f7",
+      "subject_id": "product_subject_7b9869cba54b58ea4910e4a79bcc482f"
+    }
+  },
+  "signed_object_digest": "28ae243dcc1b644085013ad8ea300bdff684e6555be096741163b18a095c7da7",
+  "signed_object_id": "remote_expectation_c7081f8a740ebb5ca91307308a096886",
+  "signed_object_schema": "omiv.remote-snapshot-expectation.v1",
+  "signed_object_type": "REMOTE_SNAPSHOT_EXPECTATION",
+  "trust_policy_id": "omiv.trust-policy.team_release.v1"
+}

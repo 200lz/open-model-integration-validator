@@ -1,0 +1,396 @@
+{
+  "available_at": "NOT_RECORDED",
+  "expectation_digest": "68311ce000966e37fc15b14cc87e3248cc68e4a5cd66e3f41e647e3d05171c06",
+  "expectation_id": "remote_expectation_b41366fb600836179f35ebba87a46a97",
+  "expectation_scope": "COMPLETE_REMOTE_MEMBER_SET",
+  "limitations": [
+    "Remote observation becomes an expectation only for the explicitly selected scope.",
+    "Opaque or metadata-only digests do not create a local byte expectation.",
+    "Publisher authority remains a separate downstream evaluation."
+  ],
+  "logical_root": "artifact.xai-grok-2",
+  "provenance_strength": "IMPORTED_UNVERIFIED",
+  "publisher_authority_evaluation_digest": null,
+  "publisher_authority_evaluation_id": null,
+  "remote_listing_completeness": "COMPLETE_FOR_DECLARED_RESPONSE_SCOPE",
+  "remote_unavailable_members": [],
+  "required_roles": [],
+  "resolved_revision": "daf4395a80ad177386cfe39641b64fc12b1d70ed",
+  "resolved_revision_kind": "IMMUTABLE_COMMIT",
+  "schema": "omiv.remote-snapshot-expectation.v1",
+  "selected_members": [
+    {
+      "comparable_digest": null,
+      "logical_size": 1519,
+      "path": ".gitattributes",
+      "remote_member_digest": "b798308869016d1ce05903c7d6a1405b59a4054cde420183be75952a0dc5387d",
+      "remote_member_id": "remote_member_172f117ebbd21c8f93ef793e2725bef0",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 5467,
+      "path": "LICENSE",
+      "remote_member_digest": "06d025b5eba003adb01ebb5f64140bd0cc652de18dfacb6e753a8fe41500d791",
+      "remote_member_id": "remote_member_8f11d528e9a41f90f3f0d2b7a2becc2e",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 1583,
+      "path": "README.md",
+      "remote_member_digest": "e60c8f253d66fed5b13499f080097d5c5fea30ea18466210ad3647876fc12272",
+      "remote_member_id": "remote_member_d5c7f6ea53c6d20e54a162641dc7d32a",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 947,
+      "path": "config.json",
+      "remote_member_digest": "d4e38a7c239990761e94d2f52e1f15c0974169d254d116d30de777aea0a79960",
+      "remote_member_id": "remote_member_f5e2114197ac37ba4bfe0765b63cd70a",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 2147483760,
+      "path": "pytorch_model-00000-TP-common.safetensors",
+      "remote_member_digest": "b3b836d2621d7f5760cddd463acd85fc045f9ab4b2f3c66cc2cf2d978b8b6901",
+      "remote_member_id": "remote_member_31b285fa623f5e53377510ac73098ce1",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 2147483744,
+      "path": "pytorch_model-00001-TP-common.safetensors",
+      "remote_member_digest": "5760911f6dfe2d15c01ee947e18049be50b2c26b66dd53dec6aae84a2df7cb3f",
+      "remote_member_id": "remote_member_dcbfd0961064d1240ff6b15c89d63689",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 16472,
+      "path": "pytorch_model-00002-TP-common.safetensors",
+      "remote_member_digest": "16f1758a5ac800662d37c43c66dace3517f7a0345129c0ec18710d705d3a27a8",
+      "remote_member_id": "remote_member_537f6753a48c0969fd747abf28e6e263",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 34359745872,
+      "path": "pytorch_model-00003-TP-common.safetensors",
+      "remote_member_digest": "c6836aa9a249c4b785dceb5965f8f24176d210e3012579af78cf86eb34a5cfef",
+      "remote_member_id": "remote_member_f879f796bae789613f24661dc168b14c",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 34359745872,
+      "path": "pytorch_model-00004-TP-common.safetensors",
+      "remote_member_digest": "54ac33a5833f69132a85cde8aa5715a2ea38e6b155b5195970fd16cf5b5edc37",
+      "remote_member_id": "remote_member_b1f7d2d39200e0ebdbcf5952058eec82",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 34359745744,
+      "path": "pytorch_model-00005-TP-common.safetensors",
+      "remote_member_digest": "9755431df3533d2e4ab28cc9ddd901fcef1837e8022a17ec620815f49c7fe252",
+      "remote_member_id": "remote_member_61b12016fce7348a66a1f3957b014d4a",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 17179936544,
+      "path": "pytorch_model-00006-TP-000.safetensors",
+      "remote_member_digest": "eb84b128f021f11e9e1cedc9b337750b1bcc3816db4a389bb00db9b1474db5b7",
+      "remote_member_id": "remote_member_dcb3d72efa9437aaf04c88064078e3fb",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 17179936544,
+      "path": "pytorch_model-00006-TP-001.safetensors",
+      "remote_member_digest": "bcf69921ca27c6774d7eef58c7252fbfc0c3ad36d7485240326ec8a3959b3ac0",
+      "remote_member_id": "remote_member_85d412661fa58c417b257db103720b2d",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 17179936544,
+      "path": "pytorch_model-00006-TP-002.safetensors",
+      "remote_member_digest": "e1f3a78b2f3d2ac7f18aab17d16b5e7ff27cc5728902f5a2c851545a03c15c65",
+      "remote_member_id": "remote_member_edcc3470473e98941c549bda92fb2855",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 17179936544,
+      "path": "pytorch_model-00006-TP-003.safetensors",
+      "remote_member_digest": "a04477c6a003bad0c87e6d1334e6106428440127731a5a35bc6d5f560cf520b8",
+      "remote_member_id": "remote_member_dc527c98be8a555703a6df5765a24df8",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 17179936544,
+      "path": "pytorch_model-00006-TP-004.safetensors",
+      "remote_member_digest": "73cda8700b6360b724e84818e5bc7adee36122ae1d483fa4f4e4896ec0d7b06c",
+      "remote_member_id": "remote_member_1789685d08d41862aa51e7ccbf93eb8a",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 17179936544,
+      "path": "pytorch_model-00006-TP-005.safetensors",
+      "remote_member_digest": "47f3618e9a76d1f8f0075a20cf4f1bac6b5a956bc285b25535801b5b18ea1cc0",
+      "remote_member_id": "remote_member_ac204d112f700540eb20064562c61973",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 17179936544,
+      "path": "pytorch_model-00006-TP-006.safetensors",
+      "remote_member_digest": "ae94973147e8294cf37cd74ab7d85a47c79e0495ae7b510ac1429fc017e69366",
+      "remote_member_id": "remote_member_695a6ac43281af5297bcd2c061aeef08",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 17179936544,
+      "path": "pytorch_model-00006-TP-007.safetensors",
+      "remote_member_digest": "e8f0566d78cdbedd504b332511d3abab2008bc71b0481d914cf99db543e37ef8",
+      "remote_member_id": "remote_member_e775a0d4199ea5dfd451c00fd8fd1168",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 17179936544,
+      "path": "pytorch_model-00007-TP-000.safetensors",
+      "remote_member_digest": "7ad475644c584991456927a62653c09700c8039e98c88d9569fdcbec1b3b3f92",
+      "remote_member_id": "remote_member_c1b9fc5e1856a0204458c6fe23e7150e",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 17179936544,
+      "path": "pytorch_model-00007-TP-001.safetensors",
+      "remote_member_digest": "f56599ee0685b6acefd52ae9e6e1d0fddb0beb3d6efbb79a5b1da85eb3e7713a",
+      "remote_member_id": "remote_member_1bf512eb61f5538278c539ca7989b091",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 17179936544,
+      "path": "pytorch_model-00007-TP-002.safetensors",
+      "remote_member_digest": "3b0ca19708cba5e520f0a8d022d06435c0660bc7027250a460f1c667dd59a1a4",
+      "remote_member_id": "remote_member_c6609219d371b218b48ee5d6b9098715",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 17179936544,
+      "path": "pytorch_model-00007-TP-003.safetensors",
+      "remote_member_digest": "847125226b85b1e627714b6926f6d89989e5b3bfa4d4857009351e3cf6030426",
+      "remote_member_id": "remote_member_8759c67291f395e4adf506dab1fc80db",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 17179936544,
+      "path": "pytorch_model-00007-TP-004.safetensors",
+      "remote_member_digest": "0f03e74429a8523762631ca50770cfaa3000e2b760a8a2f8c49950a4e30d7f08",
+      "remote_member_id": "remote_member_5cceef00e54f51997e2d5c17e69ff3a3",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 17179936544,
+      "path": "pytorch_model-00007-TP-005.safetensors",
+      "remote_member_digest": "2d8fe783d6c3f6380c15eb0774a8657675377748a4cd9bcd6b533a99cecd6569",
+      "remote_member_id": "remote_member_424ed43ef5bbf4e3c4d3e5027dea9095",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 17179936544,
+      "path": "pytorch_model-00007-TP-006.safetensors",
+      "remote_member_digest": "73591ac037ad6365ca5bb77d635c42a17a4675fdaab6ad3bb1a99522c86074e5",
+      "remote_member_id": "remote_member_91f3c0de9bbbe035ba27f80c8c6dd433",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 17179936544,
+      "path": "pytorch_model-00007-TP-007.safetensors",
+      "remote_member_digest": "1e0daf822819e4b593d0cec3209332bae32285079d712cba512f3bcc2fceff50",
+      "remote_member_id": "remote_member_768570e1ae490855552a350e06e3d585",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 17179936544,
+      "path": "pytorch_model-00008-TP-000.safetensors",
+      "remote_member_digest": "3a0ef883a08c1d79bc688aa2b0cbec9377fc5aa404f9e87ff2fdbdb60a7444e2",
+      "remote_member_id": "remote_member_a97fd732af58573742234a280b885096",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 17179936544,
+      "path": "pytorch_model-00008-TP-001.safetensors",
+      "remote_member_digest": "59e0b44d27950460c3f54d0fe464a908d6d3ac72a03907c5027cf182e7c1ed97",
+      "remote_member_id": "remote_member_ab02890a6cc9cc6d9b2ac0e048412fa5",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 17179936544,
+      "path": "pytorch_model-00008-TP-002.safetensors",
+      "remote_member_digest": "7126ac9e4ee8bec2651144b7ac54f99138bb74eb362b6b3d3663d5d863e3f045",
+      "remote_member_id": "remote_member_36128f51a761bab427cbfacddb12f6b2",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 17179936544,
+      "path": "pytorch_model-00008-TP-003.safetensors",
+      "remote_member_digest": "8f57d26db6af2ac41037a524a6d8526017ff3a354119b6f8329b53074523f914",
+      "remote_member_id": "remote_member_c8564362f45349ce6e8e2e010a57c1bc",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 17179936544,
+      "path": "pytorch_model-00008-TP-004.safetensors",
+      "remote_member_digest": "67603aca933d909ed294edfdfd6872b82d11f9e715449b7affdf5baba3ea0357",
+      "remote_member_id": "remote_member_22d39abbc62b4278e7d1bddbb5472245",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 17179936544,
+      "path": "pytorch_model-00008-TP-005.safetensors",
+      "remote_member_digest": "2375df00225cd56fed1c7e10fde732fdc21f8baab7e30086209840d9b13c13b6",
+      "remote_member_id": "remote_member_61ca0734052050cbc9d7fc828bf5fdbc",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 17179936544,
+      "path": "pytorch_model-00008-TP-006.safetensors",
+      "remote_member_digest": "1e9cb1c1ca707f5fb4b84b43d2288c6eafab0bac9ace0091cbc5e83562bf6890",
+      "remote_member_id": "remote_member_f938719ca611ad790fe632619da25cc0",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 17179936544,
+      "path": "pytorch_model-00008-TP-007.safetensors",
+      "remote_member_digest": "2d0af0589352e08406ce3a8e290fe570185b2c08690bb7fe04be8c76417e251f",
+      "remote_member_id": "remote_member_e0cdf7f3d910d4568a78a0275cd70dbc",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 1073749240,
+      "path": "pytorch_model-00009-TP-common.safetensors",
+      "remote_member_digest": "20df556f7b8be114bb2c70543909417cd1fa339c7dacf75c859ce86ffcc6b0be",
+      "remote_member_id": "remote_member_5042c15377328a6913b4fbfc17864a40",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 8589942120,
+      "path": "pytorch_model-00010-TP-common.safetensors",
+      "remote_member_digest": "ae6b14b312d1e826fe37e1bc4c574a0e862736ce68d5637f9599014d6f6a78f5",
+      "remote_member_id": "remote_member_89c5ae16636589781906d91a161332d9",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 8589942120,
+      "path": "pytorch_model-00011-TP-common.safetensors",
+      "remote_member_digest": "7e643d46caedc6bf43f4d883740b60a8fbb736354114ec0a8930c819afef12b3",
+      "remote_member_id": "remote_member_32f10a178f0394f023623fdceba29aca",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 1073749240,
+      "path": "pytorch_model-00012-TP-common.safetensors",
+      "remote_member_digest": "0dfa3cf10c29763c7bbb360797bb9015d1efd5e3e02fe332039f29f05f946367",
+      "remote_member_id": "remote_member_cf6a0077ea4e76384e5fbd18968a93d5",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 1055096,
+      "path": "pytorch_model-00013-TP-common.safetensors",
+      "remote_member_digest": "82a940c30ad815acec4359eb5e2eecb557dfbc5e8053240eec287b719ffc6eb6",
+      "remote_member_id": "remote_member_c836753728cb16d7d251c8625854daeb",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 1055160,
+      "path": "pytorch_model-00014-TP-common.safetensors",
+      "remote_member_digest": "c0676a679f0507fa6240ac6d4ea71f4d332d71f83740f71aadfac9416b6b27f4",
+      "remote_member_id": "remote_member_71c2ae92f66a90a10579444c74abb0f4",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 1055032,
+      "path": "pytorch_model-00015-TP-common.safetensors",
+      "remote_member_digest": "230b5d43d5cbb4b6fd3a14a5eda7178e11fb0e49b76a09ef02ebc5c848a6a960",
+      "remote_member_id": "remote_member_e282bc5251710d93b2f06eb2ab3627d4",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 1055096,
+      "path": "pytorch_model-00016-TP-common.safetensors",
+      "remote_member_digest": "a276fd07bd97c4eeb8b1dc101c432a35a73dd8cd4ccbe8225a3d9fb866aad195",
+      "remote_member_id": "remote_member_2a87bc65c47634e59a4d1db6faad12e5",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 8395888,
+      "path": "pytorch_model-00017-TP-common.safetensors",
+      "remote_member_digest": "ac4e67af652b6ee798d9eaf2239c2e8ed9c111716737bb73bd8998952ac6fd1d",
+      "remote_member_id": "remote_member_8006018f1e529830ae7784751b4b5de3",
+      "role": "UNKNOWN"
+    },
+    {
+      "comparable_digest": null,
+      "logical_size": 7724637,
+      "path": "tokenizer.tok.json",
+      "remote_member_digest": "267179cd2d2e418fe637b3e7ca0f7a8974021ab159013433ac638dc4dfc9de00",
+      "remote_member_id": "remote_member_09a57f132c265d970540d79238f92b93",
+      "role": "UNKNOWN"
+    }
+  ],
+  "snapshot_digest": "42e1fa531d9e95da7158a650f7250bab8bea4439f6c26904c92768c51b6a3468",
+  "snapshot_id": "remote_snapshot_21a21d44b977a38900cb5a16161432c9",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "xai.grok-2.pinned-metadata",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.reconciliation-practice",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "MODEL_WEIGHTS",
+    "subject_digest": "af49252d82fab6651e4bdb0d3cd43c411342937089331ae0f0054d3fe3982609",
+    "subject_id": "product_subject_8a2ec2c391f33893d45f9dc0584827b2"
+  }
+}

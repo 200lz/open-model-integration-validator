@@ -1,0 +1,19 @@
+{
+  "accepted": false,
+  "available_at": "NOT_RECORDED",
+  "creates_approval": false,
+  "creates_security_pass": false,
+  "derived_status": "APPEND_ONLY_EVENT_INPUT",
+  "integration_digest": "20a9cf40a1dd22310258539bfd72d302aa65e0dfbc370f15b1941d43d7a6f8c3",
+  "integration_id": "remote_local_integration_acf7082aa489fb6c70b3207ba205d32f",
+  "integration_type": "CUSTODY",
+  "limitations": [
+    "Adapter cannot strengthen provenance, authority, completeness, or trust."
+  ],
+  "mutates_prior_artifact": false,
+  "observed_runtime_identity": false,
+  "reconciliation_evidence_digest": "98f7beb3dc0fc3c8f5d58a5debf96061a70bba4fa2d0b9595880571200b25b08",
+  "reconciliation_evidence_id": "remote_local_evidence_3a5be4cb1a2c1b73ff3a2ebd8e8251ce",
+  "schema": "omiv.remote-local-integration.v1",
+  "source_object": null
+}

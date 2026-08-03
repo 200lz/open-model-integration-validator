@@ -1,0 +1,28 @@
+{
+  "authority_inferred_from_namespace": false,
+  "declared_public_targets": [
+    "pinned prior remote evidence"
+  ],
+  "family": "Kimi/Moonshot",
+  "limitations": [
+    "Prior header-only evidence remains header-only.",
+    "Prior metadata-only and payload NOT_CHECKED states remain unchanged.",
+    "Remote evidence is not local payload-byte observation."
+  ],
+  "operational_evidence": false,
+  "payload_verified": false,
+  "prior_evidence": [
+    {
+      "object_digest": "9ee07f597ca618336875ce2e29cdc873a961d5bdc28d3fd0c7fbc7aeb90f0ad3",
+      "object_id": "legacy_snapshot_9ee07f597ca618336875ce2e29cdc873",
+      "schema_id": "omiv.remote-repository-snapshot-envelope.v1"
+    }
+  ],
+  "profile_digest": "a2570523c9f16565183bd925a9ff1f77a955b728b14637c203155eb18bd2b5ae",
+  "profile_id": "reconciliation_profile_798f41764045be86a48745c86612ea61",
+  "provider_kinds": [
+    "HUGGING_FACE"
+  ],
+  "schema": "omiv.reconciliation-practice-profile.v1",
+  "status": "COMPATIBILITY_EVIDENCE_AVAILABLE_WITH_LIMITATIONS"
+}

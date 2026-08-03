@@ -1,0 +1,23 @@
+{
+  "assessment_digest": "e183b165cdc95b965950dfc71ac742b9f70c6cb3b4c6b07c08bd43a10c12d7fa",
+  "assessment_id": "shard_assessment_9907bf72d1676990485a5000dcc1154c",
+  "digest_comparability": "ALL_REQUIRED_MEMBERS",
+  "index_declaration_coverage": "ALL_SUPPLIED_INDEX_MAPPINGS",
+  "limitations": [
+    "Completeness is qualified by explicit topology scope and does not establish tensor-semantic completeness."
+  ],
+  "local_byte_match": "ALL_COMPARABLE_MATCH",
+  "local_manifest_digest": "95d6eae48194e49e4f0d3c6df158d2299f4252868248ac9b4292ab20f55a0e11",
+  "local_manifest_id": "observed_payload_741698e3c3671cbf3ccd3b4a4df7fa54",
+  "local_member_presence": "COMPLETE",
+  "mandatory_companion_coverage": "COMPLETE",
+  "missing_local_members": [],
+  "missing_remote_members": [],
+  "remote_member_presence": "COMPLETE",
+  "schema": "omiv.shard-completeness-assessment.v1",
+  "snapshot_digest": "84f3a52466244cb3963afb79bd31b6ea660818faff3b7914d5d6412cdd35f2a7",
+  "snapshot_id": "remote_snapshot_232b98bcf40f8c2a6778de64edec0da3",
+  "status": "COMPLETE_FOR_EXPLICIT_TOPOLOGY_SCOPE",
+  "topology_digest": "82b43fd1b9139fda7bc3a1185cbf7643db82e472f8c866795d099ce0d0786223",
+  "topology_id": "shard_topology_0be5b462dd9a30a09fac908ee03eec21"
+}

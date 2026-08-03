@@ -1,0 +1,53 @@
+{
+  "accepted_digest_semantics": [
+    "PAYLOAD_SHA256",
+    "LFS_OID_SHA256",
+    "XET_DECLARED_PAYLOAD_SHA256"
+  ],
+  "accepted_expectation_scopes": [
+    "COMPLETE_REMOTE_MEMBER_SET",
+    "EXPLICIT_SHARD_SET",
+    "SELECTED_REQUIRED_MEMBERS"
+  ],
+  "accepted_local_coverage": [
+    "COMPLETE_FOR_DECLARED_LOCAL_SCOPE"
+  ],
+  "accepted_remote_listing_coverage": [
+    "COMPLETE_FOR_DECLARED_RESPONSE_SCOPE"
+  ],
+  "accepted_topology_sources": [
+    "EXPLICIT_INDEX",
+    "EXPLICIT_PROVIDER_MANIFEST",
+    "EXPLICIT_USER_DECLARATION"
+  ],
+  "allow_extra_members": false,
+  "allow_missing_members": false,
+  "allowed_providers": [
+    "GIT_REPOSITORY",
+    "HUGGING_FACE",
+    "IMPORTED_SNAPSHOT",
+    "OCI_REGISTRY",
+    "OTHER_DECLARED",
+    "PRIVATE_REGISTRY"
+  ],
+  "available_at_required": false,
+  "limitations": [
+    "Policy decides sufficiency; it cannot alter factual comparison findings or strengthen evidence."
+  ],
+  "policy_digest": "de51c9a20edc0395893980edb6af48859d84308b7b7f9d391a9d614e9053897f",
+  "policy_id": "reconciliation-policy.synthetic.v1",
+  "require_immutable_revision": true,
+  "require_mandatory_companions": true,
+  "require_publisher_authority": false,
+  "require_shard_completeness": true,
+  "schema": "omiv.remote-local-reconciliation-policy.v1",
+  "scope": {
+    "environment_scope": "environment.local",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.payload",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "authority_inferred_from_namespace": false,
+  "declared_public_targets": [
+    "xai-org/grok-1",
+    "xai-org/grok-2",
+    "xai-org/grok-prompts",
+    "xai-org/xai-cookbook",
+    "xai-org/xai-proto",
+    "xai-org/xai-sdk-python"
+  ],
+  "family": "xAI",
+  "limitations": [
+    "Pinned public-provider metadata evidence is revision-specific, metadata-only, and not publisher authorization.",
+    "No xAI endorsement, model authenticity, safety, freshness, runtime identity, or payload verification is asserted.",
+    "Namespace identity cannot create publisher authority."
+  ],
+  "operational_evidence": false,
+  "payload_verified": false,
+  "prior_evidence": [
+    {
+      "object_digest": "b2c09f424502063bb5fb23091121aa6ce59b48e9fbc2c7fe4118cef78b9b9ee1",
+      "object_id": "xai_metadata_evidence_76c1b7de451447a9d4ea2fce97947943",
+      "schema_id": "omiv.xai-pinned-metadata-practice-evidence.v1"
+    },
+    {
+      "object_digest": "41785ce09c3e6b06145c0b8acc1359cedea920eb5026109b90967753d5dfbcf1",
+      "object_id": "xai_metadata_evidence_c59fa3fb4d9f2aa4d6c1f4ed58a4f84f",
+      "schema_id": "omiv.xai-pinned-metadata-practice-evidence.v1"
+    }
+  ],
+  "profile_digest": "9e7a2a3e042fdc054d7458cec0bfe4f1f7ee501c43b0f0f27340deff72998816",
+  "profile_id": "reconciliation_profile_384d079c9bf5db9e094d982aa7bb4231",
+  "provider_kinds": [
+    "GIT_REPOSITORY",
+    "HUGGING_FACE"
+  ],
+  "schema": "omiv.reconciliation-practice-profile.v1",
+  "status": "PUBLIC_METADATA_SNAPSHOT_OBSERVED_WITHOUT_PAYLOAD_DOWNLOAD"
+}

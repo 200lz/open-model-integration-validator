@@ -1,0 +1,19 @@
+{
+  "accepted": false,
+  "available_at": "NOT_RECORDED",
+  "creates_approval": false,
+  "creates_security_pass": false,
+  "derived_status": "FUTURE_TYPED_BUNDLE_MEMBER",
+  "integration_digest": "8824f0168aa2f6fd617179420289a29d77f9853611eb2207b8ffbeb18f2bcbb6",
+  "integration_id": "remote_local_integration_e1555cd63a858e8bb3db5609984cf757",
+  "integration_type": "AUDIT",
+  "limitations": [
+    "Adapter cannot strengthen provenance, authority, completeness, or trust."
+  ],
+  "mutates_prior_artifact": false,
+  "observed_runtime_identity": false,
+  "reconciliation_evidence_digest": "98f7beb3dc0fc3c8f5d58a5debf96061a70bba4fa2d0b9595880571200b25b08",
+  "reconciliation_evidence_id": "remote_local_evidence_3a5be4cb1a2c1b73ff3a2ebd8e8251ce",
+  "schema": "omiv.remote-local-integration.v1",
+  "source_object": null
+}

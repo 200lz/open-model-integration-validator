@@ -1,0 +1,116 @@
+{
+  "bundle_digest": "23d066554297ee209c2852041964a8e7b52ef832c502deecf5419e0023f6fac8",
+  "bundle_id": "tb_faad0c9b60f1a9f71efbf7dd10ee8aaa",
+  "delegations": [],
+  "keys": [
+    {
+      "algorithm": "ED25519",
+      "allowed_key_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "allowed_object_types": [
+        "REMOTE_LOCAL_RECONCILIATION_EVIDENCE",
+        "REMOTE_SNAPSHOT_EXPECTATION",
+        "REMOTE_SNAPSHOT_MANIFEST"
+      ],
+      "allowed_purposes": [
+        "REMOTE_LOCAL_RECONCILIATION_EVIDENCE_ISSUANCE",
+        "REMOTE_SNAPSHOT_EXPECTATION_ISSUANCE",
+        "REMOTE_SNAPSHOT_MANIFEST_ISSUANCE"
+      ],
+      "key_digest": "379a84f980f4365024a4e5dd0e6d20eac4d35f07c3e7f554b93e36759d34159f",
+      "key_id": "key_fe27cb9c1d9062b731b48f89185201bd",
+      "limitations": [
+        "Public-key identity does not establish signer identity."
+      ],
+      "namespaces": [],
+      "provider_artifact_scopes": [],
+      "public_key": "8320a51977d8c38ca8a4927c670df5821e449761945e15e9efb26a1509d230ea",
+      "public_key_digest": "fe27cb9c1d9062b731b48f89185201bd8e0aeb1343da9cb45cbcbe81123c1a3f",
+      "public_key_encoding": "RAW_HEX",
+      "schema": "omiv.key-identity.v1",
+      "status": "ACTIVE",
+      "validity": null
+    }
+  ],
+  "limitations": [
+    "Static offline bundle; no online discovery or continuous reevaluation."
+  ],
+  "revocations": [],
+  "schema": "omiv.trust-bundle.v1",
+  "signer_identities": [
+    {
+      "display_label": "Synthetic reconciliation evidence issuer",
+      "identity_digest": "4493a805c97d4a062ba4d9a9be7dde08f5770e43d3f0716b44cff8b8580a0e45",
+      "identity_evidence": [
+        "9f116a6d95d709481f76dcfd1dbbe3d832aa43d6ac690447a56a57a4129cd261"
+      ],
+      "identity_kind": "SERVICE_DECLARED",
+      "limitations": [
+        "Synthetic declared identity; no external identity proof."
+      ],
+      "namespace": null,
+      "organization_id": null,
+      "role": "RECONCILIATION_EVIDENCE_ISSUER",
+      "schema": "omiv.signer-identity.v1",
+      "signer_identity_id": "signer_9e5dd2be19589064f1657571b3c51662",
+      "verification_status": "EVIDENCE_LINKED"
+    }
+  ],
+  "signer_key_bindings": [
+    {
+      "allowed_object_types": [
+        "REMOTE_LOCAL_RECONCILIATION_EVIDENCE",
+        "REMOTE_SNAPSHOT_EXPECTATION",
+        "REMOTE_SNAPSHOT_MANIFEST"
+      ],
+      "allowed_roles": [
+        "RECONCILIATION_EVIDENCE_ISSUER"
+      ],
+      "allowed_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "binding_digest": "2d1eea004ec2eb87659b77550d976cea1329c850e006ccc4290d838855654956",
+      "binding_id": "binding_63061ebdd30d36ab069bbc4d74d9d2e0",
+      "binding_origin": "TRUST_BUNDLE_DECLARED",
+      "evidence_references": [],
+      "key_id": "key_fe27cb9c1d9062b731b48f89185201bd",
+      "limitations": [
+        "Binding validity does not prove the underlying signed claim."
+      ],
+      "namespaces": [],
+      "schema": "omiv.signer-key-binding.v1",
+      "signer_identity_id": "signer_9e5dd2be19589064f1657571b3c51662",
+      "validity": null,
+      "verification_status": "VERIFIED_BY_TRUST_BUNDLE"
+    }
+  ],
+  "trust_roots": [
+    {
+      "allowed_object_types": [
+        "REMOTE_LOCAL_RECONCILIATION_EVIDENCE",
+        "REMOTE_SNAPSHOT_EXPECTATION",
+        "REMOTE_SNAPSHOT_MANIFEST"
+      ],
+      "allowed_purposes": [
+        "REMOTE_LOCAL_RECONCILIATION_EVIDENCE_ISSUANCE",
+        "REMOTE_SNAPSHOT_EXPECTATION_ISSUANCE",
+        "REMOTE_SNAPSHOT_MANIFEST_ISSUANCE"
+      ],
+      "delegation_allowed": false,
+      "key_id": "key_fe27cb9c1d9062b731b48f89185201bd",
+      "limitations": [
+        "Trust applies only under a selected policy and recorded constraints."
+      ],
+      "maximum_delegation_depth": 0,
+      "namespaces": [],
+      "provider_artifact_scopes": [],
+      "root_digest": "b1e2c7f4cd9dc7ccf6bb873c615f99c0ba0d6f7f0f6e896309eaf638370c2e72",
+      "schema": "omiv.trust-root.v1",
+      "status": "ACTIVE",
+      "trust_root_id": "root_c2e3d0c975f6a9ce71d9d62d19470b4c",
+      "validity": null
+    }
+  ],
+  "validity": null
+}

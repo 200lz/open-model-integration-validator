@@ -33,6 +33,11 @@ from omiv.payload_integrity.models import (
     PayloadExpectation,
     PayloadIntegrityEvidence,
 )
+from omiv.reconciliation.models import (
+    RemoteLocalReconciliationEvidence,
+    RemoteSnapshotExpectation,
+    RemoteSnapshotManifest,
+)
 from omiv.runtime.models import (
     ContinuityEvaluation,
     DeploymentIntent,
@@ -337,6 +342,12 @@ def _validate_source_object(envelope: SignedObjectEnvelope) -> None:
         model = ObservedPayloadManifest
     elif envelope.signed_object_type == SignedObjectType.PAYLOAD_INTEGRITY_EVIDENCE:
         model = PayloadIntegrityEvidence
+    elif envelope.signed_object_type == SignedObjectType.REMOTE_SNAPSHOT_MANIFEST:
+        model = RemoteSnapshotManifest
+    elif envelope.signed_object_type == SignedObjectType.REMOTE_SNAPSHOT_EXPECTATION:
+        model = RemoteSnapshotExpectation
+    elif envelope.signed_object_type == SignedObjectType.REMOTE_LOCAL_RECONCILIATION_EVIDENCE:
+        model = RemoteLocalReconciliationEvidence
     elif envelope.signed_object_schema == "omiv.model-passport.v1":
         model = ModelPassport
     else:
@@ -375,6 +386,9 @@ def _validate_source_object(envelope: SignedObjectEnvelope) -> None:
         SignedObjectType.PAYLOAD_EXPECTATION: "expectation_digest",
         SignedObjectType.OBSERVED_PAYLOAD_MANIFEST: "manifest_digest",
         SignedObjectType.PAYLOAD_INTEGRITY_EVIDENCE: "evidence_digest",
+        SignedObjectType.REMOTE_SNAPSHOT_MANIFEST: "manifest_digest",
+        SignedObjectType.REMOTE_SNAPSHOT_EXPECTATION: "expectation_digest",
+        SignedObjectType.REMOTE_LOCAL_RECONCILIATION_EVIDENCE: "evidence_digest",
     }[envelope.signed_object_type]
     digest_body.pop(digest_field)
     if object_digest != canonical_sha256(digest_body):

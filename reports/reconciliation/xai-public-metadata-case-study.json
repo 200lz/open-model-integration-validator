@@ -1,0 +1,79 @@
+{
+  "affiliation": "NO_XAI_ENDORSEMENT_OR_PUBLISHER_AUTHORIZATION_CLAIMED",
+  "cases": [
+    {
+      "declared_total_bytes": 318239889830,
+      "digest_distribution": {
+        "LFS_OID_SHA256": 770,
+        "PROVIDER_OPAQUE_ID": 773,
+        "XET_OBJECT_ID": 770
+      },
+      "evidence": {
+        "object_digest": "b2c09f424502063bb5fb23091121aa6ce59b48e9fbc2c7fe4118cef78b9b9ee1",
+        "object_id": "xai_metadata_evidence_76c1b7de451447a9d4ea2fce97947943",
+        "schema_id": "omiv.xai-pinned-metadata-practice-evidence.v1"
+      },
+      "member_count": 773,
+      "payload_bytes_downloaded": 0,
+      "payload_comparable_member_count": 0,
+      "repository": "xai-org/grok-1",
+      "request_count": 2,
+      "resolved_revision": "5de83eb225f49624b424f1c8aa74f96983b5885c",
+      "response_bytes": 408080,
+      "response_count": 2,
+      "storage_distribution": {
+        "DIRECT_FILE": 3,
+        "XET_BACKED_OBJECT": 770
+      }
+    },
+    {
+      "declared_total_bytes": 539040431665,
+      "digest_distribution": {
+        "LFS_OID_SHA256": 39,
+        "PROVIDER_OPAQUE_ID": 44,
+        "XET_OBJECT_ID": 39
+      },
+      "evidence": {
+        "object_digest": "41785ce09c3e6b06145c0b8acc1359cedea920eb5026109b90967753d5dfbcf1",
+        "object_id": "xai_metadata_evidence_c59fa3fb4d9f2aa4d6c1f4ed58a4f84f",
+        "schema_id": "omiv.xai-pinned-metadata-practice-evidence.v1"
+      },
+      "member_count": 44,
+      "payload_bytes_downloaded": 0,
+      "payload_comparable_member_count": 0,
+      "repository": "xai-org/grok-2",
+      "request_count": 2,
+      "resolved_revision": "daf4395a80ad177386cfe39641b64fc12b1d70ed",
+      "response_bytes": 24003,
+      "response_count": 2,
+      "storage_distribution": {
+        "DIRECT_FILE": 5,
+        "XET_BACKED_OBJECT": 39
+      }
+    }
+  ],
+  "classification": "XAI_PUBLIC_PINNED_METADATA_SNAPSHOT_OBSERVED_WITHOUT_PAYLOAD_DOWNLOAD",
+  "established": [
+    "Exact immutable repository revisions were pinned.",
+    "Canonical member paths, declared sizes, storage representations, and typed provider identifiers were reconstructed.",
+    "Bounded request/response accounting and zero payload download were preserved."
+  ],
+  "limitations": [
+    "Large public repository listings are useful supply-chain cases because path, size, storage, digest, topology, payload, authority, and freshness claims must remain separate.",
+    "The report derives from pinned fixtures and is not a source-evidence identity."
+  ],
+  "not_established": [
+    "Publisher authority, endorsement, model authenticity, and current state.",
+    "Payload-byte equality, security safety, tokenizer/config parity, and runtime identity.",
+    "Complete shard or tensor topology in the absence of an explicit parsed index."
+  ],
+  "provider_neutral_readiness": [
+    "The same core preserves Kimi evidence limitations without upgrading prior claims.",
+    "DeepSeek remains a readiness profile until a reviewed pinned snapshot is supplied.",
+    "Provider profiles import the core; the provider-neutral core imports no xAI profile."
+  ],
+  "report_digest": "eff7727e0e6fcdac81e795dfd76837a6cdcf01e1114fa53e37de4dc91e86d655",
+  "report_id": "xai_case_study_5f800d60f19b52faf27137ad88c3c611",
+  "schema": "omiv.xai-public-artifact-metadata-case-study.v1",
+  "title": "OMIV xAI Public Artifact Metadata Assurance Case Study"
+}

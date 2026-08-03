@@ -1,0 +1,200 @@
+{
+  "comparison": {
+    "comparison_digest": "be2dccae3c07fcf2b66db808762e95ddd897e6d1a84ac3b6a6e7f615a1cabef7",
+    "comparison_id": "remote_local_comparison_69333c13546f442c55aa9a738fa7095d",
+    "digest_comparable_members": [
+      "config/settings.json",
+      "notes/empty.txt",
+      "weights/part-00001-of-00002.payload",
+      "weights/part-00002-of-00002.payload"
+    ],
+    "digest_matching_members": [
+      "config/settings.json",
+      "notes/empty.txt",
+      "weights/part-00001-of-00002.payload",
+      "weights/part-00002-of-00002.payload"
+    ],
+    "expectation_digest": "26109b7f2db718ae8537d79efbc3339721b2ecba388ccba93358e52b6312ea65",
+    "expectation_id": "remote_expectation_c7081f8a740ebb5ca91307308a096886",
+    "expectation_scope": "COMPLETE_REMOTE_MEMBER_SET",
+    "extra_local_members": [],
+    "findings": [
+      {
+        "findings": [
+          "PATH_MATCH",
+          "SIZE_MATCH",
+          "ROLE_MATCH",
+          "DIGEST_MATCH"
+        ],
+        "local_payload_sha256": "d07dd7510d49937e693a03e2dd4d1cf19a581d3b5777a08ec556014d14ea08ed",
+        "local_size": 21,
+        "path": "config/settings.json",
+        "remote_digest": "d07dd7510d49937e693a03e2dd4d1cf19a581d3b5777a08ec556014d14ea08ed",
+        "remote_digest_kind": "PAYLOAD_SHA256",
+        "remote_size": 21
+      },
+      {
+        "findings": [
+          "PATH_MATCH",
+          "SIZE_MATCH",
+          "ROLE_MATCH",
+          "DIGEST_MATCH"
+        ],
+        "local_payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "local_size": 0,
+        "path": "notes/empty.txt",
+        "remote_digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "remote_digest_kind": "PAYLOAD_SHA256",
+        "remote_size": 0
+      },
+      {
+        "findings": [
+          "PATH_MATCH",
+          "SIZE_MATCH",
+          "ROLE_MATCH",
+          "DIGEST_MATCH"
+        ],
+        "local_payload_sha256": "925becc6be360e71710ef6fb315ce2c1f79c9dbf98337a44764858a3ee363462",
+        "local_size": 19,
+        "path": "weights/part-00001-of-00002.payload",
+        "remote_digest": "925becc6be360e71710ef6fb315ce2c1f79c9dbf98337a44764858a3ee363462",
+        "remote_digest_kind": "PAYLOAD_SHA256",
+        "remote_size": 19
+      },
+      {
+        "findings": [
+          "PATH_MATCH",
+          "SIZE_MATCH",
+          "ROLE_MATCH",
+          "DIGEST_MATCH"
+        ],
+        "local_payload_sha256": "71072b26490829eb686a4b76144249d1c5c10f4003ad9656dfa4e868c66fd69e",
+        "local_size": 19,
+        "path": "weights/part-00002-of-00002.payload",
+        "remote_digest": "71072b26490829eb686a4b76144249d1c5c10f4003ad9656dfa4e868c66fd69e",
+        "remote_digest_kind": "PAYLOAD_SHA256",
+        "remote_size": 19
+      }
+    ],
+    "limitations": [
+      "Comparison is factual; policy allowances do not remove findings.",
+      "Exact local reconciliation does not establish authenticity, safety, semantic correctness, or runtime identity."
+    ],
+    "local_manifest_digest": "95d6eae48194e49e4f0d3c6df158d2299f4252868248ac9b4292ab20f55a0e11",
+    "local_manifest_id": "observed_payload_741698e3c3671cbf3ccd3b4a4df7fa54",
+    "logical_root": "artifact.generic-package",
+    "matching_members": [
+      "config/settings.json",
+      "notes/empty.txt",
+      "weights/part-00001-of-00002.payload",
+      "weights/part-00002-of-00002.payload"
+    ],
+    "missing_local_members": [],
+    "schema": "omiv.remote-local-reconciliation-comparison.v1",
+    "status": "EXACT_MATCH_FOR_RECONCILIATION_SCOPE",
+    "subject_id": "product_subject_7b9869cba54b58ea4910e4a79bcc482f",
+    "subject_scope_digest": "a3c762c0d3e5fa1bcd80bbf6d3b685c08c33f4bfae7bc9294a23e0342f46e99a"
+  },
+  "completeness_status": "COMPLETE_FOR_EXPLICIT_TOPOLOGY_SCOPE",
+  "evidence": {
+    "available_at": "NOT_RECORDED",
+    "comparison": {
+      "object_digest": "be2dccae3c07fcf2b66db808762e95ddd897e6d1a84ac3b6a6e7f615a1cabef7",
+      "object_id": "remote_local_comparison_69333c13546f442c55aa9a738fa7095d",
+      "schema_id": "omiv.remote-local-reconciliation-comparison.v1"
+    },
+    "completeness_assessment": {
+      "object_digest": "e183b165cdc95b965950dfc71ac742b9f70c6cb3b4c6b07c08bd43a10c12d7fa",
+      "object_id": "shard_assessment_9907bf72d1676990485a5000dcc1154c",
+      "schema_id": "omiv.shard-completeness-assessment.v1"
+    },
+    "evaluated_at": "NOT_RECORDED",
+    "evidence_digest": "98f7beb3dc0fc3c8f5d58a5debf96061a70bba4fa2d0b9595880571200b25b08",
+    "evidence_id": "remote_local_evidence_3a5be4cb1a2c1b73ff3a2ebd8e8251ce",
+    "execution": {
+      "object_digest": "97637d71d0c41f5e45a4535ff784ecdc152e99277c1f8d22ffdc0f70ef2061b0",
+      "object_id": "remote_execution_790286156307280c47003a96abd1d1a0",
+      "schema_id": "omiv.remote-collection-execution-record.v1"
+    },
+    "expectation": {
+      "object_digest": "26109b7f2db718ae8537d79efbc3339721b2ecba388ccba93358e52b6312ea65",
+      "object_id": "remote_expectation_c7081f8a740ebb5ca91307308a096886",
+      "schema_id": "omiv.remote-snapshot-expectation.v1"
+    },
+    "limitations": [
+      "Evidence binds exact inputs but does not establish authenticity, semantic correctness, safety, or runtime identity."
+    ],
+    "local_manifest": {
+      "object_digest": "95d6eae48194e49e4f0d3c6df158d2299f4252868248ac9b4292ab20f55a0e11",
+      "object_id": "observed_payload_741698e3c3671cbf3ccd3b4a4df7fa54",
+      "schema_id": "omiv.observed-payload-manifest.v1"
+    },
+    "locator": {
+      "object_digest": "a8fc590a77e9fe426e39b6eb4d737dfa602e7ca7fd3929f9db3b99dc73a0d564",
+      "object_id": "remote_locator_245ed7b6e3984b627b6096a00e4c2b78",
+      "schema_id": "omiv.remote-artifact-locator.v1"
+    },
+    "observed_at": "NOT_RECORDED",
+    "outcome": "LOCAL_BYTES_MATCH_COMPARABLE_REMOTE_EXPECTATION",
+    "plan": {
+      "object_digest": "11d890f72cd8d68d4de212af0326d45e5c4935dbf486e2af0102fc01a4798ba3",
+      "object_id": "remote_plan_6bb84d8309daf06c3be384d4990b7015",
+      "schema_id": "omiv.remote-snapshot-plan.v1"
+    },
+    "policy": {
+      "object_digest": "de51c9a20edc0395893980edb6af48859d84308b7b7f9d391a9d614e9053897f",
+      "object_id": "reconciliation-policy.synthetic.v1",
+      "schema_id": "omiv.remote-local-reconciliation-policy.v1"
+    },
+    "policy_satisfied": true,
+    "publisher_authority": {
+      "object_digest": "931cc76f271197483e3df0310201af6450d3e5b84695edcf23cda0166d80c899",
+      "object_id": "remote_authority_0bf221610545c9d8bb46a1686e4b7a0f",
+      "schema_id": "omiv.remote-publisher-authority-evaluation.v1"
+    },
+    "schema": "omiv.remote-local-reconciliation-evidence.v1",
+    "snapshot": {
+      "object_digest": "84f3a52466244cb3963afb79bd31b6ea660818faff3b7914d5d6412cdd35f2a7",
+      "object_id": "remote_snapshot_232b98bcf40f8c2a6778de64edec0da3",
+      "schema_id": "omiv.remote-snapshot-manifest.v1"
+    },
+    "subject": {
+      "limitations": [
+        "Logical product subject identity does not prove artifact content."
+      ],
+      "logical_name": "generic.payload-package",
+      "schema": "omiv.product-subject.v1",
+      "scope": {
+        "environment_scope": "environment.local",
+        "organization_scope": "organization.synthetic",
+        "product_scope": "product.generic-inference",
+        "project_scope": "project.payload",
+        "target_scope": "target-scope.runtime",
+        "tenant_scope": "tenant.synthetic",
+        "trust_domain": "trust-domain.synthetic"
+      },
+      "subject_class": "DEPLOYMENT_PACKAGE",
+      "subject_digest": "2fa28bd1595149ed752a9b57c8593b100a846cc3cf5ae31302242b08f72f11f7",
+      "subject_id": "product_subject_7b9869cba54b58ea4910e4a79bcc482f"
+    },
+    "topology": {
+      "object_digest": "82b43fd1b9139fda7bc3a1185cbf7643db82e472f8c866795d099ce0d0786223",
+      "object_id": "shard_topology_0be5b462dd9a30a09fac908ee03eec21",
+      "schema_id": "omiv.shard-topology.v1"
+    }
+  },
+  "limitations": [
+    "Report derives only from bound evidence and is not itself an evidence source."
+  ],
+  "model_authenticity": "NOT_ESTABLISHED",
+  "model_safety": "NOT_VERIFIED",
+  "model_semantic_correctness": "NOT_EVALUATED",
+  "network_use": "NONE",
+  "payload_download": "NOT_PERFORMED",
+  "publisher_authority": "UNAUTHORIZED",
+  "report_digest": "da49f4d205c41fd6e74392f594ac3ce9d21269333d6491a3c49b30d08102ef12",
+  "report_id": "remote_local_report_226727446200b1a63e2723df9fe54495",
+  "runtime_identity": "NOT_OBSERVED",
+  "schema": "omiv.remote-local-reconciliation-report.v1",
+  "topology_status": "EXPLICIT_TOPOLOGY_AVAILABLE"
+}

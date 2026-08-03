@@ -1,0 +1,2600 @@
+{
+  "artifact_name": "grok-2",
+  "available_at": "NOT_RECORDED",
+  "errors": [],
+  "execution_digest": "79ba66b98eb43c436c15d2a31d3e70ea6ac00fe66001389900bee55622af2286",
+  "execution_id": "remote_execution_ac3c89027e0a3febb83d3ba234f39fc8",
+  "limitations": [
+    "Remote listing completeness is limited to the declared response or import scope.",
+    "Snapshot observation does not establish publisher authority, authenticity, or current state.",
+    "Snapshot was reconstructed offline from a reviewed pinned public-provider metadata fixture.",
+    "Complete pinned provider listing does not establish complete model topology.",
+    "Availability, observation time, publisher authority, freshness, and payload observation remain explicitly unestablished."
+  ],
+  "locator_digest": "4b0df78651d689cdcac6fd53a20ca0ce299cc29a20086f1d6324c59bbbf4d35d",
+  "locator_id": "remote_locator_0a2eae5cc0c7b308eaeadde8d0e7e73f",
+  "manifest_digest": "42e1fa531d9e95da7158a650f7250bab8bea4439f6c26904c92768c51b6a3468",
+  "manifest_id": "remote_snapshot_21a21d44b977a38900cb5a16161432c9",
+  "member_set_digest": "145d712fdc03c5be54cbc773d0e0c17542f8fec3e6b0e76840c72463369b0880",
+  "members": [
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "a6344aac8c09253b3b630fb776ae94478aa0275b",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 1519,
+      "member_digest": "b798308869016d1ce05903c7d6a1405b59a4054cde420183be75952a0dc5387d",
+      "member_id": "remote_member_172f117ebbd21c8f93ef793e2725bef0",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": ".gitattributes",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "DIRECT_FILE"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "7627e72ce67023380bbe40def9bb5212bce8904e",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 5467,
+      "member_digest": "06d025b5eba003adb01ebb5f64140bd0cc652de18dfacb6e753a8fe41500d791",
+      "member_id": "remote_member_8f11d528e9a41f90f3f0d2b7a2becc2e",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "LICENSE",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "DIRECT_FILE"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "301613dffbe7c3404f59e722f2143ef9201b7114",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 1583,
+      "member_digest": "e60c8f253d66fed5b13499f080097d5c5fea30ea18466210ad3647876fc12272",
+      "member_id": "remote_member_d5c7f6ea53c6d20e54a162641dc7d32a",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "README.md",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "DIRECT_FILE"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "59452e14adc665103a85fa9683cf280af893bdea",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 947,
+      "member_digest": "d4e38a7c239990761e94d2f52e1f15c0974169d254d116d30de777aea0a79960",
+      "member_id": "remote_member_f5e2114197ac37ba4bfe0765b63cd70a",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "config.json",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "DIRECT_FILE"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "315d2eb626636477b35a19c60b481ae43b70fc7b9d24645255ded00cecf2a6bb",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "6db88495a8a029ede7712de3ffad0c6caf1cb012",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "44cc2f187480c02ced7b2d86f2825dfaf3402eca5d8d1be1fc0cd7ed83ac64b0",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 2147483760,
+      "member_digest": "b3b836d2621d7f5760cddd463acd85fc045f9ab4b2f3c66cc2cf2d978b8b6901",
+      "member_id": "remote_member_31b285fa623f5e53377510ac73098ce1",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00000-TP-common.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "3f8001b2d7baaee0bd5bce3ad41d117148c591e485dc8a838b8abccb650ef9bb",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "f825c1013431a59bb01162e610aa9aeece8520dd",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "68a287489f056725e380fc586e33ea74dfa44b64578746d542e08262bb3804de",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 2147483744,
+      "member_digest": "5760911f6dfe2d15c01ee947e18049be50b2c26b66dd53dec6aae84a2df7cb3f",
+      "member_id": "remote_member_dcbfd0961064d1240ff6b15c89d63689",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00001-TP-common.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "e41eeadefc5da657bac925e752dab11672d7ccee729ed60df8c32df60c6fcd6e",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "ac69b441f2ab679a14168744a06657b05d041d83",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "e2168073bf4fea0e570c1f5cea00a009394ee597b18d637e9462ed70e84b07e5",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 16472,
+      "member_digest": "16f1758a5ac800662d37c43c66dace3517f7a0345129c0ec18710d705d3a27a8",
+      "member_id": "remote_member_537f6753a48c0969fd747abf28e6e263",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00002-TP-common.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "5117eeb28c1447403df924fa93c62a9ea09d2d6fa773e27367fc5e6687b10b99",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "9f38077656e0673c0e1ae31252d865fa4bd234cf",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "3cd37b5ab691fe82919e9d0895a198c1e3562698f24c25220efce78fa436b269",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 34359745872,
+      "member_digest": "c6836aa9a249c4b785dceb5965f8f24176d210e3012579af78cf86eb34a5cfef",
+      "member_id": "remote_member_f879f796bae789613f24661dc168b14c",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00003-TP-common.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "6921cc3380cfbd783a3b52bccf81bc5c7c645548f9f2f1b86279649edbba3cf0",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "f3c9d66cf57e14f57567655f2aa73806d17eea77",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "f2963996399a8f3a1672684c70990d51ef700d8a33306da3cd778315af5042a3",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 34359745872,
+      "member_digest": "54ac33a5833f69132a85cde8aa5715a2ea38e6b155b5195970fd16cf5b5edc37",
+      "member_id": "remote_member_b1f7d2d39200e0ebdbcf5952058eec82",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00004-TP-common.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "90bb1c9d09d31b58becb2cf13f1694166708a52cd97315185c6a7ddbcc64f1ca",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "d1d7715d6b07d5cfed908730b4a0ebabaca2332e",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "d1ee090814f0009cdbd33ef7bd3909e715f90a131e34800dd2a4fa92ae392067",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 34359745744,
+      "member_digest": "9755431df3533d2e4ab28cc9ddd901fcef1837e8022a17ec620815f49c7fe252",
+      "member_id": "remote_member_61b12016fce7348a66a1f3957b014d4a",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00005-TP-common.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "f5128445f49d89ed53463d6e454ef9f466ca65e2607a006761a558f9fd60754d",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "17da3f1c6febdadd86a8763b8d3010589a0b0c42",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "ff9603621f4613ac9c849409a959f8da33ebd6a105bfe8e6c191dd93155df7fb",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 17179936544,
+      "member_digest": "eb84b128f021f11e9e1cedc9b337750b1bcc3816db4a389bb00db9b1474db5b7",
+      "member_id": "remote_member_dcb3d72efa9437aaf04c88064078e3fb",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00006-TP-000.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "e9f0869351c7a2baac725b2b2903dec79b9afb0f49f2004ce3a1f35763708e40",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "e2073452575f100590ce64f722f806628b85b698",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "196ebc094dd9c57c82ca51c93c7992a8c80de799c3234e5d50985d36bff39d7a",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 17179936544,
+      "member_digest": "bcf69921ca27c6774d7eef58c7252fbfc0c3ad36d7485240326ec8a3959b3ac0",
+      "member_id": "remote_member_85d412661fa58c417b257db103720b2d",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00006-TP-001.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "930f397a72ed323783e3f029bc1252beb9f2d2bce69610fa0f094e361547d1dc",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "0220dae5e9ba8f96a125e88e8d16bfe34afd2224",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "2131cace93ca64d1e87fa00f839bb018ac5c23e6bf9949d3f779bc39be815525",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 17179936544,
+      "member_digest": "e1f3a78b2f3d2ac7f18aab17d16b5e7ff27cc5728902f5a2c851545a03c15c65",
+      "member_id": "remote_member_edcc3470473e98941c549bda92fb2855",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00006-TP-002.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "b266d9293692e69cc2decbf1914916cde492de8b485e7ad670447674e5170e49",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "c30e39c9ebb5e90a6d60b72b4ad1d91eb23b8588",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "f5de3500a458f1d09d4f702a6fe8bbccb794385cc3eeedcde5f9ee2b220993a0",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 17179936544,
+      "member_digest": "a04477c6a003bad0c87e6d1334e6106428440127731a5a35bc6d5f560cf520b8",
+      "member_id": "remote_member_dc527c98be8a555703a6df5765a24df8",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00006-TP-003.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "be0f2daffdc5a7c031ce685cc5bd89fe9058eedb14a107855ea45e272b7022c0",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "48e263c6fcb70d7465ce8fda85779ce1b2d018f9",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "96730222057ca81474a764cebb77a177f1c898d401160a8528fca6f18e8bd13f",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 17179936544,
+      "member_digest": "73cda8700b6360b724e84818e5bc7adee36122ae1d483fa4f4e4896ec0d7b06c",
+      "member_id": "remote_member_1789685d08d41862aa51e7ccbf93eb8a",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00006-TP-004.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "4697b87056edc930ec836528985fb25a40040417226e47a9c483786b81b56a7d",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "6011873317168a6c7829e8aee383d0a4242375be",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "69a1444254f1727374082b0653a36366c87c3b58186a7d1dd2fe0fd92bef2925",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 17179936544,
+      "member_digest": "47f3618e9a76d1f8f0075a20cf4f1bac6b5a956bc285b25535801b5b18ea1cc0",
+      "member_id": "remote_member_ac204d112f700540eb20064562c61973",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00006-TP-005.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "2d572dc1910937e16be0017118daca90734af892ea019581584c738abd74975d",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "6d1a688aa2b11c5a508b9560329e19ac767a161f",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "a28db925fe4ebae7bfbe65ccc074fc35e9db866355fbc220b3aa23dc4e5aa2bd",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 17179936544,
+      "member_digest": "ae94973147e8294cf37cd74ab7d85a47c79e0495ae7b510ac1429fc017e69366",
+      "member_id": "remote_member_695a6ac43281af5297bcd2c061aeef08",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00006-TP-006.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "cddca91357cc76894e1704d0bba02dcddeb7e063329f30198a26f3eec98f1ca1",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "dc994ea66e1084dc303a96db6e7015d9c9108d27",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "d821fc8ef1f38ecd5069cc5d50f0659058bb4c7f78fcdb7653db914246758d9a",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 17179936544,
+      "member_digest": "e8f0566d78cdbedd504b332511d3abab2008bc71b0481d914cf99db543e37ef8",
+      "member_id": "remote_member_e775a0d4199ea5dfd451c00fd8fd1168",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00006-TP-007.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "5ca76131b44751d11ba6abafa0567939812c83af63ff3ed91771e5a03b28e395",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "184f2a6c0b44d954e823293e17e2b3e1bf2bbcc8",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "910e2502fd64e080d87dfd0dc2e8441c67269189c1bb01c5bc2cc4d346369c68",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 17179936544,
+      "member_digest": "7ad475644c584991456927a62653c09700c8039e98c88d9569fdcbec1b3b3f92",
+      "member_id": "remote_member_c1b9fc5e1856a0204458c6fe23e7150e",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00007-TP-000.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "6689603a91fec740d69a67512a7d6c3d4176a2068fcc88e08a79646c7bc9a4ec",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "5054f4e4d30dc5fbfb647ee53be19f3e3cae658f",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "db95a5c2dbfe605bfaf1e4da4987c3368ad1628c656c788d340755a70da254bd",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 17179936544,
+      "member_digest": "f56599ee0685b6acefd52ae9e6e1d0fddb0beb3d6efbb79a5b1da85eb3e7713a",
+      "member_id": "remote_member_1bf512eb61f5538278c539ca7989b091",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00007-TP-001.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "91c5af3bc69e126adf09cf066b5554fd55a804cb246e48c769725044bf6c2482",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "57ff3b383b8abc25b58a720a74311acb85e98f2d",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "245cc161a52edbc88eca2c450f5a40c78c83ca8e5bf838e8c005b4a3183939fe",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 17179936544,
+      "member_digest": "3b0ca19708cba5e520f0a8d022d06435c0660bc7027250a460f1c667dd59a1a4",
+      "member_id": "remote_member_c6609219d371b218b48ee5d6b9098715",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00007-TP-002.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "1643a8a743dd135e3aa082cb732ade54c624e188e264ce2ca29818eca4579129",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "bd38ef5210741c3274f1a78d31ba770cff0882ef",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "d9411dab409a9af67bcc4732df73e1b3bd6a5a82a6b9339fb96310c993d1e0df",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 17179936544,
+      "member_digest": "847125226b85b1e627714b6926f6d89989e5b3bfa4d4857009351e3cf6030426",
+      "member_id": "remote_member_8759c67291f395e4adf506dab1fc80db",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00007-TP-003.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "1cce342c135799ea961f7c7335e1bd485190e7ed4511f1a4b25792af856b702b",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "8e095f9934864a7ff47e88ba5a3f132bef8cb4de",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "b4388ebf70d58ee9d95e46c43797faa15c97eed2f9c8779c7af25e4a6edc52c7",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 17179936544,
+      "member_digest": "0f03e74429a8523762631ca50770cfaa3000e2b760a8a2f8c49950a4e30d7f08",
+      "member_id": "remote_member_5cceef00e54f51997e2d5c17e69ff3a3",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00007-TP-004.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "ecb1e412e72be6acf5a94300d20b922440710dbc3ff655081e14fde52dead193",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "8b125adc07702e889f70a7e968b45328a3149fa7",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "509cc8204e3e4e980114ab6f37f36c9977dfdf36135527583c03d113eff00552",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 17179936544,
+      "member_digest": "2d8fe783d6c3f6380c15eb0774a8657675377748a4cd9bcd6b533a99cecd6569",
+      "member_id": "remote_member_424ed43ef5bbf4e3c4d3e5027dea9095",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00007-TP-005.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "ff8c1dc7ba5222e7e88eeaa8c71f9bcc6c72abb2642cd53708e89c3bb29e9a5e",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "e5469089ca222f2c0ba477da114ec28e21f1f863",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "ebde36be3cc1d7b2b7e1fccc4d25ae56eabcac5866c8b4f4f73bc94444520ed9",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 17179936544,
+      "member_digest": "73591ac037ad6365ca5bb77d635c42a17a4675fdaab6ad3bb1a99522c86074e5",
+      "member_id": "remote_member_91f3c0de9bbbe035ba27f80c8c6dd433",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00007-TP-006.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "d890e53bae6eb64606791a70ec4055a0909eb75d704bc505050f87a8f4304776",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "33c129a3a7873f6bfc9f7dd1f435c3eb66476332",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "e5e4ab011dd9cd0ce713dedb9d2e9308394d121c2ceb9c8024b48d1db507c575",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 17179936544,
+      "member_digest": "1e0daf822819e4b593d0cec3209332bae32285079d712cba512f3bcc2fceff50",
+      "member_id": "remote_member_768570e1ae490855552a350e06e3d585",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00007-TP-007.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "f6023ef14f89644bba6dea2b3cd268ef90a603a724e58e6f25fa4b35e09da805",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "f97a7f3c0a01daddd4c54f6ac31e12df47fc24f6",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "5a441f48273e402a6d83c746c7685cdbd9592adb0764edfe3fcbeb2b4bb9421f",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 17179936544,
+      "member_digest": "3a0ef883a08c1d79bc688aa2b0cbec9377fc5aa404f9e87ff2fdbdb60a7444e2",
+      "member_id": "remote_member_a97fd732af58573742234a280b885096",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00008-TP-000.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "adf26b682c3898af5f1ab6fe106579d29aea00ab661e8d164988b6e8093f6412",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "f2b3e539512437d3688ad63c4e4eb625bb214657",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "56b5af58397946bbb6bce51cbd2efb2cede60f2682ad954cf0d58dcd3076f63d",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 17179936544,
+      "member_digest": "59e0b44d27950460c3f54d0fe464a908d6d3ac72a03907c5027cf182e7c1ed97",
+      "member_id": "remote_member_ab02890a6cc9cc6d9b2ac0e048412fa5",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00008-TP-001.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "8381e5ff848f33a2a715155aec5303309d1044bb105d0267bbbbd702e2ea4181",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "d81edc81a4424399f184b0df925389f36e893b6e",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "b483413ddd6c8bdabffe7e1df234ed1d67f0018bae870fa31437aeb1f6492020",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 17179936544,
+      "member_digest": "7126ac9e4ee8bec2651144b7ac54f99138bb74eb362b6b3d3663d5d863e3f045",
+      "member_id": "remote_member_36128f51a761bab427cbfacddb12f6b2",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00008-TP-002.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "38471f261ce898dc7d1266fbabbacd922248767d4e909a0f431d2adaf77c9d1f",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "661e2c789603aab76a756237b59ce0151a752a13",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "c36a203c82f4a3e92c311989258cb21bfbcfe953d232dfe817fac293be24f68f",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 17179936544,
+      "member_digest": "8f57d26db6af2ac41037a524a6d8526017ff3a354119b6f8329b53074523f914",
+      "member_id": "remote_member_c8564362f45349ce6e8e2e010a57c1bc",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00008-TP-003.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "22d33701fa88dff2ecadb388238a12c7a5d63c6de2dae120ae98ffacca109683",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "d066e4a7bcdf8f6d3df06c4f8b77814c63cd700f",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "7bf2e6730e83ac22019ebac66d0aac0e1b49dadfb0062c97893efcc2c564e47e",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 17179936544,
+      "member_digest": "67603aca933d909ed294edfdfd6872b82d11f9e715449b7affdf5baba3ea0357",
+      "member_id": "remote_member_22d39abbc62b4278e7d1bddbb5472245",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00008-TP-004.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "abdaa52c585fe182cd82918bde1ec3fa2b12033a1c9c11cebd753a2b3db88355",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "6a3535bd92d1f346b6870ae1ab24f105a9e0e32c",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "96e909bbf46fd22d655b2d37b360e5d368096a863e02411997ac111323041e93",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 17179936544,
+      "member_digest": "2375df00225cd56fed1c7e10fde732fdc21f8baab7e30086209840d9b13c13b6",
+      "member_id": "remote_member_61ca0734052050cbc9d7fc828bf5fdbc",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00008-TP-005.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "f50b318ba532e0032bd6f25b59b54852029e6a026ef19852baa7851b6d5d7004",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "37211f9df3b8ea78171de4143a10297cf651275b",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "b95b7b1ee48b05028049524e3fcf238eca22cad60b54adf1276e369fe50bace4",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 17179936544,
+      "member_digest": "1e9cb1c1ca707f5fb4b84b43d2288c6eafab0bac9ace0091cbc5e83562bf6890",
+      "member_id": "remote_member_f938719ca611ad790fe632619da25cc0",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00008-TP-006.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "7846ffc97ad222ca88bb38771a97409e8a80b62ce3573c096378a76f97c54578",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "b4b98bc18c0364ed88a34fb288614cc1545c2c6e",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "0be954f81d646cd3f28443cb7cdb3323124f95764d6fcf414112ce71ecd7490d",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 17179936544,
+      "member_digest": "2d0af0589352e08406ce3a8e290fe570185b2c08690bb7fe04be8c76417e251f",
+      "member_id": "remote_member_e0cdf7f3d910d4568a78a0275cd70dbc",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00008-TP-007.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "cebb4ddcdb6520cb50dabdb0a5568e83de081dbebb00208e2a44afd82fd3c352",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "cf5a8971467ce8c337b5394fa0eb4ae7b81aa111",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "067e2931da6127d7d4b47c243fe6bd7986b2c6d0fdf0066112d6cf94e79280c8",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 1073749240,
+      "member_digest": "20df556f7b8be114bb2c70543909417cd1fa339c7dacf75c859ce86ffcc6b0be",
+      "member_id": "remote_member_5042c15377328a6913b4fbfc17864a40",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00009-TP-common.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "db9376f06a12092da29d028c2ebfe1206b1c85c50513d5138e7442f02ede635c",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "983881f26c24132e610ae2063a7fa5ee25c0ea00",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "5f5fb3a7b8fb674ee248708d6022f4165c7334315d29d3be12882f386e2d4de6",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 8589942120,
+      "member_digest": "ae6b14b312d1e826fe37e1bc4c574a0e862736ce68d5637f9599014d6f6a78f5",
+      "member_id": "remote_member_89c5ae16636589781906d91a161332d9",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00010-TP-common.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "1306ca738a956652a3d6bea2df5f3899d0c42dd96f22d75c62f72792f236d7a7",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "ecb74844f5b2286adf6a705747d50f17338f7bfd",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "0eb1b2bce97994e0e8729d3110d7a1fc8537721dc969b95cb28addf81fdbe30c",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 8589942120,
+      "member_digest": "7e643d46caedc6bf43f4d883740b60a8fbb736354114ec0a8930c819afef12b3",
+      "member_id": "remote_member_32f10a178f0394f023623fdceba29aca",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00011-TP-common.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "88ca01f2876be5a7b268f0cd068a8e49bc9daae48426322bb420eacfcf308703",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "0ee9607b1b6a53d42c6c53e897e67427870a02f9",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "5db13f4c8e56b8c7b65342c8b1102e22bf549d400ebb6be1ee8432b875ea61e0",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 1073749240,
+      "member_digest": "0dfa3cf10c29763c7bbb360797bb9015d1efd5e3e02fe332039f29f05f946367",
+      "member_id": "remote_member_cf6a0077ea4e76384e5fbd18968a93d5",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00012-TP-common.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "924822ee882d55ac56938342ca435bcd2c4e71a7116dba90e6301845ab19f509",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "57ff5b37738ba7df184bc167949c1f09c9afbfc2",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "2603b0ed55d5e121a08b3e25fae1334eef1634e74ec62ef9b5530b361c3d1db8",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 1055096,
+      "member_digest": "82a940c30ad815acec4359eb5e2eecb557dfbc5e8053240eec287b719ffc6eb6",
+      "member_id": "remote_member_c836753728cb16d7d251c8625854daeb",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00013-TP-common.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "658fddf97d85edcd527861c7785d9d4a7801d09799819f9de85aa7b2d29ecf9e",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "528b31a88a867babc2c99c50eb73ac8b2dd801dd",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "860c37996fc4576800a8fb08a43da0bf40c824834556ac9af22a26bf5daf5d8c",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 1055160,
+      "member_digest": "c0676a679f0507fa6240ac6d4ea71f4d332d71f83740f71aadfac9416b6b27f4",
+      "member_id": "remote_member_71c2ae92f66a90a10579444c74abb0f4",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00014-TP-common.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "dc94f4dff86cad956d7eae017ff7219d55e2d902d45378fb5502729020376c30",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "91deca41c206d3d27c764fc0d97f07b2891745e2",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "d47837449f61b31e55c1bf461fbfaf229f0c53a5debe6762eb8988587606bf06",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 1055032,
+      "member_digest": "230b5d43d5cbb4b6fd3a14a5eda7178e11fb0e49b76a09ef02ebc5c848a6a960",
+      "member_id": "remote_member_e282bc5251710d93b2f06eb2ab3627d4",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00015-TP-common.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "63b443a0a63169c76e6342304583351a50a571ce45070f32650ec0da0f8de08b",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "768e4a00dcc34dc1d75996f74c2927af71a4a92f",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "5346601beb38ed41bd6f300430a8f50bc37a30225c9a162422f572dcd18dc88e",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 1055096,
+      "member_digest": "a276fd07bd97c4eeb8b1dc101c432a35a73dd8cd4ccbe8225a3d9fb866aad195",
+      "member_id": "remote_member_2a87bc65c47634e59a4d1db6faad12e5",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00016-TP-common.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "SHA256",
+          "canonical_value": "49021a8d7c657eedb8bb83de222fe9d8015cb1db2388ee2e02ad017b1d289f32",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "LFS_OID_SHA256",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "6a9dc3772e9a9811f722ddbe04e1b174ce908b12",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        },
+        {
+          "algorithm": "PROVIDER_OPAQUE",
+          "canonical_value": "027f5bd59cdcef7597c694ba66d2a4f9ffad3ff19817e6a8e072e372366ee8c2",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "XET_OBJECT_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "PROVIDER_OBJECT"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 8395888,
+      "member_digest": "ac4e67af652b6ee798d9eaf2239c2e8ed9c111716737bb73bd8998952ac6fd1d",
+      "member_id": "remote_member_8006018f1e529830ae7784751b4b5de3",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "pytorch_model-00017-TP-common.safetensors",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "XET_BACKED_OBJECT"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "e7b48bde186413ecb80cc8cf74a9eb88e5774e81",
+          "evidence_source": "source.pinned-public-provider-metadata-fixture",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [
+            "Provider object metadata was imported without payload-byte observation."
+          ],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        }
+      ],
+      "limitations": [
+        "Member role and shard topology were not inferred from the filename.",
+        "No payload bytes were downloaded or hashed."
+      ],
+      "logical_size": 7724637,
+      "member_digest": "267179cd2d2e418fe637b3e7ca0f7a8974021ab159013433ac638dc4dfc9de00",
+      "member_id": "remote_member_09a57f132c265d970540d79238f92b93",
+      "member_provenance": "source.pinned-public-provider-metadata-fixture",
+      "observation_level": "METADATA_ONLY",
+      "path": "tokenizer.tok.json",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "UNKNOWN",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "DIRECT_FILE"
+    }
+  ],
+  "namespace": "xai-org",
+  "observation_coverage": "DECLARED_IMPORT_OR_RESPONSE_SCOPE_ONLY",
+  "observed_at": "NOT_RECORDED",
+  "plan_digest": "0c3b81ab0683eeb76d19ab7dce55410b2b5c49a7d87617a7274d1bdf0d8f1f06",
+  "plan_id": "remote_plan_f0e077d58ffb7bdecfb18f1a7c46308c",
+  "provenance_strength": "IMPORTED_UNVERIFIED",
+  "provider_instance": "huggingface.co",
+  "provider_kind": "HUGGING_FACE",
+  "provider_listing_completeness": "COMPLETE_FOR_DECLARED_RESPONSE_SCOPE",
+  "requested_revision": "daf4395a80ad177386cfe39641b64fc12b1d70ed",
+  "resolved_revision": "daf4395a80ad177386cfe39641b64fc12b1d70ed",
+  "resolved_revision_kind": "IMMUTABLE_COMMIT",
+  "revision_resolution_evidence": "EXPLICITLY_SUPPLIED_BY_COLLECTION_OR_IMPORT",
+  "schema": "omiv.remote-snapshot-manifest.v1",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "xai.grok-2.pinned-metadata",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.reconciliation-practice",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "MODEL_WEIGHTS",
+    "subject_digest": "af49252d82fab6651e4bdb0d3cd43c411342937089331ae0f0054d3fe3982609",
+    "subject_id": "product_subject_8a2ec2c391f33893d45f9dc0584827b2"
+  },
+  "unavailable_members": [],
+  "unsupported_members": []
+}

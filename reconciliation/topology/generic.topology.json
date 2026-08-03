@@ -1,0 +1,73 @@
+{
+  "companion_artifacts": [
+    "config/settings.json"
+  ],
+  "conflicting_references": [],
+  "coverage": "ALL_SUPPLIED_INDEX_MAPPINGS",
+  "declared_index_files": [
+    "generic.weights.index.json"
+  ],
+  "duplicate_references": [],
+  "limitations": [
+    "Index declares logical-key-to-shard relationships only; keys and tensors were not opened or verified."
+  ],
+  "limits": {
+    "maximum_archive_bytes": 0,
+    "maximum_executable_bytes": 0,
+    "maximum_index_bytes": 67108864,
+    "maximum_index_mappings": 500000,
+    "maximum_members": 100000,
+    "maximum_metadata_file_bytes": 2097152,
+    "maximum_payload_bytes": 0,
+    "maximum_redirects_per_request": 3,
+    "maximum_requests": 50,
+    "maximum_response_bytes": 16777216,
+    "maximum_total_response_bytes": 134217728
+  },
+  "missing_referenced_remote_members": [],
+  "optional_shards": [],
+  "referenced_logical_key_count": 2,
+  "required_shards": [
+    "weights/part-00001-of-00002.payload",
+    "weights/part-00002-of-00002.payload"
+  ],
+  "schema": "omiv.shard-topology.v1",
+  "shard_groups": [
+    {
+      "group_id": "group.primary",
+      "logical_key_count": 2,
+      "optional_shards": [],
+      "required_shards": [
+        "weights/part-00001-of-00002.payload",
+        "weights/part-00002-of-00002.payload"
+      ]
+    }
+  ],
+  "snapshot_digest": "84f3a52466244cb3963afb79bd31b6ea660818faff3b7914d5d6412cdd35f2a7",
+  "snapshot_id": "remote_snapshot_232b98bcf40f8c2a6778de64edec0da3",
+  "source_member_ids": [],
+  "status": "EXPLICIT_TOPOLOGY_AVAILABLE",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "generic.payload-package",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.local",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.payload",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "2fa28bd1595149ed752a9b57c8593b100a846cc3cf5ae31302242b08f72f11f7",
+    "subject_id": "product_subject_7b9869cba54b58ea4910e4a79bcc482f"
+  },
+  "topology_digest": "82b43fd1b9139fda7bc3a1185cbf7643db82e472f8c866795d099ce0d0786223",
+  "topology_id": "shard_topology_0be5b462dd9a30a09fac908ee03eec21",
+  "topology_source": "EXPLICIT_INDEX",
+  "unreferenced_shard_like_members": []
+}

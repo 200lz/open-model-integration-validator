@@ -1,0 +1,14 @@
+{
+  "limitations": [
+    "Reference preserves the exact Phase 6A identity and does not duplicate byte observation."
+  ],
+  "local_manifest_digest": "95d6eae48194e49e4f0d3c6df158d2299f4252868248ac9b4292ab20f55a0e11",
+  "local_manifest_id": "observed_payload_741698e3c3671cbf3ccd3b4a4df7fa54",
+  "logical_root": "artifact.generic-package",
+  "reference_digest": "c44179fb70a7e42fe339020c9df5baa7a880b1ba4ff026823faaa12f368cc2a2",
+  "reference_id": "local_manifest_reference_d1c4c9063f6c43b1397dc184fbdc4c60",
+  "schema": "omiv.reconciliation-local-manifest-reference.v1",
+  "source_path": "payload-integrity/observations/local.manifest.json",
+  "source_schema": "omiv.observed-payload-manifest.v1",
+  "subject_id": "product_subject_7b9869cba54b58ea4910e4a79bcc482f"
+}

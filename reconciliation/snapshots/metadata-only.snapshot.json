@@ -1,0 +1,166 @@
+{
+  "artifact_name": "generic-multishard-package",
+  "available_at": "NOT_RECORDED",
+  "errors": [],
+  "execution_digest": "97637d71d0c41f5e45a4535ff784ecdc152e99277c1f8d22ffdc0f70ef2061b0",
+  "execution_id": "remote_execution_790286156307280c47003a96abd1d1a0",
+  "limitations": [
+    "Remote listing completeness is limited to the declared response or import scope.",
+    "Snapshot observation does not establish publisher authority, authenticity, or current state.",
+    "Digest identifiers are provider-opaque and not payload-comparable."
+  ],
+  "locator_digest": "a8fc590a77e9fe426e39b6eb4d737dfa602e7ca7fd3929f9db3b99dc73a0d564",
+  "locator_id": "remote_locator_245ed7b6e3984b627b6096a00e4c2b78",
+  "manifest_digest": "e803f35197ec48260150a3863f564cd7fa5d3b4d6dcd810a3919e8706495a0e9",
+  "manifest_id": "remote_snapshot_9fb71410ca7be0fe073a30b09cf89a32",
+  "member_set_digest": "8e20130aa757f156f984ce7811330366d43fd11f5812852e77b808b5714a2825",
+  "members": [
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "opaque-5da14bcb6749400e654ac84aa1454310",
+          "evidence_source": "source.imported-metadata",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        }
+      ],
+      "limitations": [],
+      "logical_size": 21,
+      "member_digest": "e0149833ec34d3a611b4de7084823ea227cda7bb10e0475d7d7415b3bb5ccbb7",
+      "member_id": "remote_member_e183bf6ea81cc7be3220b00ea425ef90",
+      "member_provenance": "source.imported-metadata",
+      "observation_level": "METADATA_ONLY",
+      "path": "config/settings.json",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "MANDATORY_COMPANION",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "PROVIDER_OPAQUE"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "opaque-0b38a5164d85a267b13947ce689f9679",
+          "evidence_source": "source.imported-metadata",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        }
+      ],
+      "limitations": [],
+      "logical_size": 0,
+      "member_digest": "90827c1a50d29793202ab082bed52cc3455e97992e2b7c9c4f01239875913cfe",
+      "member_id": "remote_member_cf2547fa15131f87d78859ac70f3aa5d",
+      "member_provenance": "source.imported-metadata",
+      "observation_level": "METADATA_ONLY",
+      "path": "notes/empty.txt",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "OPTIONAL_COMPANION",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "PROVIDER_OPAQUE"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "opaque-13d7ad78758055ecd1c81be70b3d6848",
+          "evidence_source": "source.imported-metadata",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        }
+      ],
+      "limitations": [],
+      "logical_size": 19,
+      "member_digest": "8eb6247756a15d796d59a83c0c3f241bcb35a411b118289fea21d2e17dbbb129",
+      "member_id": "remote_member_e91139202f57c52d11c1446dc4d6780a",
+      "member_provenance": "source.imported-metadata",
+      "observation_level": "METADATA_ONLY",
+      "path": "weights/part-00001-of-00002.payload",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "PRIMARY_SHARD",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "PROVIDER_OPAQUE"
+    },
+    {
+      "available_at": "NOT_RECORDED",
+      "digests": [
+        {
+          "algorithm": "OPAQUE",
+          "canonical_value": "opaque-d59976c2c6f7834e0c5f664c575e8093",
+          "evidence_source": "source.imported-metadata",
+          "kind": "PROVIDER_OPAQUE_ID",
+          "limitations": [],
+          "observation_level": "METADATA_ONLY",
+          "payload_comparable": false,
+          "provenance_strength": "IMPORTED_UNVERIFIED",
+          "schema": "omiv.remote-digest-descriptor.v1",
+          "semantic_target": "UNKNOWN"
+        }
+      ],
+      "limitations": [],
+      "logical_size": 19,
+      "member_digest": "f0c3b24bcbc0626d07619f16bbe1a4aa7a6db5479882e6cba276bf29487e8232",
+      "member_id": "remote_member_5d3458bd77abd812a43d7440f396c4ee",
+      "member_provenance": "source.imported-metadata",
+      "observation_level": "METADATA_ONLY",
+      "path": "weights/part-00002-of-00002.payload",
+      "provenance_strength": "IMPORTED_UNVERIFIED",
+      "role": "MANDATORY_COMPANION",
+      "schema": "omiv.remote-member-record.v1",
+      "storage_representation": "PROVIDER_OPAQUE"
+    }
+  ],
+  "namespace": "namespace.synthetic",
+  "observation_coverage": "DECLARED_IMPORT_OR_RESPONSE_SCOPE_ONLY",
+  "observed_at": "NOT_RECORDED",
+  "plan_digest": "11d890f72cd8d68d4de212af0326d45e5c4935dbf486e2af0102fc01a4798ba3",
+  "plan_id": "remote_plan_6bb84d8309daf06c3be384d4990b7015",
+  "provenance_strength": "IMPORTED_UNVERIFIED",
+  "provider_instance": "artifacts.example.invalid",
+  "provider_kind": "IMPORTED_SNAPSHOT",
+  "provider_listing_completeness": "COMPLETE_FOR_DECLARED_RESPONSE_SCOPE",
+  "requested_revision": "fixture-v1",
+  "resolved_revision": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+  "resolved_revision_kind": "IMMUTABLE_CONTENT_DIGEST",
+  "revision_resolution_evidence": "EXPLICITLY_SUPPLIED_BY_COLLECTION_OR_IMPORT",
+  "schema": "omiv.remote-snapshot-manifest.v1",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "generic.payload-package",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.local",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.payload",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "2fa28bd1595149ed752a9b57c8593b100a846cc3cf5ae31302242b08f72f11f7",
+    "subject_id": "product_subject_7b9869cba54b58ea4910e4a79bcc482f"
+  },
+  "unavailable_members": [],
+  "unsupported_members": []
+}

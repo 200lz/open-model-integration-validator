@@ -153,6 +153,21 @@ OBJECT_METADATA: dict[SignedObjectType, tuple[set[str], str, str]] = {
         "evidence_id",
         "evidence_digest",
     ),
+    SignedObjectType.REMOTE_SNAPSHOT_MANIFEST: (
+        {"omiv.remote-snapshot-manifest.v1"},
+        "manifest_id",
+        "manifest_digest",
+    ),
+    SignedObjectType.REMOTE_SNAPSHOT_EXPECTATION: (
+        {"omiv.remote-snapshot-expectation.v1"},
+        "expectation_id",
+        "expectation_digest",
+    ),
+    SignedObjectType.REMOTE_LOCAL_RECONCILIATION_EVIDENCE: (
+        {"omiv.remote-local-reconciliation-evidence.v1"},
+        "evidence_id",
+        "evidence_digest",
+    ),
 }
 EXPECTED_PURPOSE = {
     SignedObjectType.ARTIFACT_ATTESTATION: SignaturePurpose.ATTESTATION_ISSUANCE,
@@ -186,6 +201,13 @@ EXPECTED_PURPOSE = {
     ),
     SignedObjectType.PAYLOAD_INTEGRITY_EVIDENCE: (
         SignaturePurpose.PAYLOAD_INTEGRITY_EVIDENCE_ISSUANCE
+    ),
+    SignedObjectType.REMOTE_SNAPSHOT_MANIFEST: (SignaturePurpose.REMOTE_SNAPSHOT_MANIFEST_ISSUANCE),
+    SignedObjectType.REMOTE_SNAPSHOT_EXPECTATION: (
+        SignaturePurpose.REMOTE_SNAPSHOT_EXPECTATION_ISSUANCE
+    ),
+    SignedObjectType.REMOTE_LOCAL_RECONCILIATION_EVIDENCE: (
+        SignaturePurpose.REMOTE_LOCAL_RECONCILIATION_EVIDENCE_ISSUANCE
     ),
 }
 

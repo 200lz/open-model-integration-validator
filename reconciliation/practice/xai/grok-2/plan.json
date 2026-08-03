@@ -1,0 +1,51 @@
+{
+  "allowed_hosts": [
+    "huggingface.co"
+  ],
+  "collection_mode": "PREVIOUSLY_COLLECTED_SNAPSHOT",
+  "limitations": [
+    "Collection is bounded and completeness is limited to its declared response or import scope.",
+    "Payload download is forbidden."
+  ],
+  "limits": {
+    "maximum_archive_bytes": 0,
+    "maximum_executable_bytes": 0,
+    "maximum_index_bytes": 67108864,
+    "maximum_index_mappings": 500000,
+    "maximum_members": 100000,
+    "maximum_metadata_file_bytes": 2097152,
+    "maximum_payload_bytes": 0,
+    "maximum_redirects_per_request": 3,
+    "maximum_requests": 50,
+    "maximum_response_bytes": 16777216,
+    "maximum_total_response_bytes": 134217728
+  },
+  "locator_digest": "4b0df78651d689cdcac6fd53a20ca0ce299cc29a20086f1d6324c59bbbf4d35d",
+  "locator_id": "remote_locator_0a2eae5cc0c7b308eaeadde8d0e7e73f",
+  "payload_download_policy": "FORBIDDEN",
+  "plan_digest": "0c3b81ab0683eeb76d19ab7dce55410b2b5c49a7d87617a7274d1bdf0d8f1f06",
+  "plan_id": "remote_plan_f0e077d58ffb7bdecfb18f1a7c46308c",
+  "provider_adapter_id": "omiv.adapter.huggingface-pinned-metadata",
+  "provider_adapter_version": "version.v1",
+  "redirect_policy": "ALLOWLIST_ONLY",
+  "requested_available_at": "NOT_RECORDED",
+  "requested_digest_semantics": [
+    "PAYLOAD_SHA256",
+    "LFS_OID_SHA256",
+    "XET_OBJECT_ID",
+    "XET_DECLARED_PAYLOAD_SHA256",
+    "GIT_BLOB_SHA1",
+    "GIT_BLOB_SHA256",
+    "OCI_CONTENT_DIGEST",
+    "HTTP_ETAG",
+    "PROVIDER_OPAQUE_ID",
+    "UNAVAILABLE"
+  ],
+  "requested_metadata_scope": [
+    "member.names",
+    "member.sizes",
+    "typed.digest.metadata"
+  ],
+  "requested_observed_at": "NOT_RECORDED",
+  "schema": "omiv.remote-snapshot-plan.v1"
+}

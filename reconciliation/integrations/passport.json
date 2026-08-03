@@ -1,0 +1,19 @@
+{
+  "accepted": false,
+  "available_at": "NOT_RECORDED",
+  "creates_approval": false,
+  "creates_security_pass": false,
+  "derived_status": "DERIVED_RECONCILIATION_SUMMARY_ONLY",
+  "integration_digest": "4b6050265934f6ff817a3901d7b62b0025aac26c429c6b6af3ae1b8013b0a5dd",
+  "integration_id": "remote_local_integration_948eb5e1c3d4b3fe301dff1de69b99d9",
+  "integration_type": "PASSPORT",
+  "limitations": [
+    "Adapter cannot strengthen provenance, authority, completeness, or trust."
+  ],
+  "mutates_prior_artifact": false,
+  "observed_runtime_identity": false,
+  "reconciliation_evidence_digest": "98f7beb3dc0fc3c8f5d58a5debf96061a70bba4fa2d0b9595880571200b25b08",
+  "reconciliation_evidence_id": "remote_local_evidence_3a5be4cb1a2c1b73ff3a2ebd8e8251ce",
+  "schema": "omiv.remote-local-integration.v1",
+  "source_object": null
+}
