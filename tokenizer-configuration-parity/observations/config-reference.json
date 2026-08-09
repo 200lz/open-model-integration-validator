@@ -1,0 +1,184 @@
+{
+  "artifact": {
+    "artifact_set_identity": "638bd9b01c7fda0279dd26056d3f0cf72b2d23060e2c86b60201147f7a84461e",
+    "asset_kind": "MODEL_CONFIG",
+    "asset_path": "config-reference.json",
+    "availability": "EXACT_LOCAL_PAYLOAD_IDENTITY_AVAILABLE",
+    "coverage": "complete.declared-local-file-scope",
+    "file_size": 88,
+    "limitations": [
+      "Synthetic local fixture; not publisher evidence."
+    ],
+    "logical_root": "tokenizer-fixture.config-reference",
+    "namespace": "tokenizer-parity-fixtures",
+    "payload_sha256": "78e0e786f850fc8b67e98ea6cb77db596d25d3f14221919fe958ca0400bfda4b",
+    "phase6a_manifest": {
+      "object_digest": "65f1c5ec84a5b99832c32e6077494aa597f2426eea0b144351a3e62d70e4e551",
+      "object_id": "observed_payload_a9c41e9bb89aa217feeb8e08b3bc535c",
+      "schema_id": "omiv.observed-payload-manifest.v1"
+    },
+    "phase6b_snapshot": null,
+    "phase6c_evidence": null,
+    "provider": "omiv-synthetic",
+    "requested_revision": "fixture-v1",
+    "resolved_revision": "fixture-v1",
+    "role": "REFERENCE",
+    "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+  },
+  "canonical_json_sha256": "fa02047f0de68fbfddf072b9ffee04a5d4b9d5f202c7dc8f2fc0947243d2d2c8",
+  "coverage": [
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "CONFIGURATION_FILES",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_CONFIGURATION"
+    }
+  ],
+  "execution": {
+    "object_digest": "f7295f09300ab250aa90848f2264c34bd39f1265d8e95e0286c86b93eaa73afd",
+    "object_id": "tokenizer_execution_90298ea32d070a5ceeaffab3969dc32c",
+    "schema_id": "omiv.tokenizer-configuration-execution-record.v1"
+  },
+  "fields": [
+    {
+      "field_path": "bos_token_id",
+      "presence": "EXPLICIT_VALUE",
+      "provenance": "observed.strict-json.value",
+      "scope": "SELECTED_REQUIRED_FIELDS",
+      "semantic_role": "declared.model_config",
+      "source_asset": {
+        "object_digest": "7d10f8db96480ed4c09c232abbf4b66a3aee4fccbd78e1c7a739200869b29c44",
+        "object_id": "tokenizer_asset_c7bc5bce077bc3f4bddabb07aee5ec87",
+        "schema_id": "omiv.tokenizer-asset-observation.v1"
+      },
+      "value": {
+        "boolean_value": null,
+        "decimal_value": null,
+        "integer_list": null,
+        "integer_value": 1,
+        "object_digest": null,
+        "string_list": null,
+        "string_value": null,
+        "value_type": "INTEGER"
+      }
+    },
+    {
+      "field_path": "eos_token_id",
+      "presence": "EXPLICIT_VALUE",
+      "provenance": "observed.strict-json.value",
+      "scope": "SELECTED_REQUIRED_FIELDS",
+      "semantic_role": "declared.model_config",
+      "source_asset": {
+        "object_digest": "7d10f8db96480ed4c09c232abbf4b66a3aee4fccbd78e1c7a739200869b29c44",
+        "object_id": "tokenizer_asset_c7bc5bce077bc3f4bddabb07aee5ec87",
+        "schema_id": "omiv.tokenizer-asset-observation.v1"
+      },
+      "value": {
+        "boolean_value": null,
+        "decimal_value": null,
+        "integer_list": null,
+        "integer_value": 2,
+        "object_digest": null,
+        "string_list": null,
+        "string_value": null,
+        "value_type": "INTEGER"
+      }
+    },
+    {
+      "field_path": "rope_scaling",
+      "presence": "EXPLICIT_NULL",
+      "provenance": "observed.strict-json.value",
+      "scope": "SELECTED_REQUIRED_FIELDS",
+      "semantic_role": "declared.model_config",
+      "source_asset": {
+        "object_digest": "7d10f8db96480ed4c09c232abbf4b66a3aee4fccbd78e1c7a739200869b29c44",
+        "object_id": "tokenizer_asset_c7bc5bce077bc3f4bddabb07aee5ec87",
+        "schema_id": "omiv.tokenizer-asset-observation.v1"
+      },
+      "value": {
+        "boolean_value": null,
+        "decimal_value": null,
+        "integer_list": null,
+        "integer_value": null,
+        "object_digest": null,
+        "string_list": null,
+        "string_value": null,
+        "value_type": "EXPLICIT_NULL"
+      }
+    },
+    {
+      "field_path": "use_cache",
+      "presence": "EXPLICIT_VALUE",
+      "provenance": "observed.strict-json.value",
+      "scope": "SELECTED_REQUIRED_FIELDS",
+      "semantic_role": "declared.model_config",
+      "source_asset": {
+        "object_digest": "7d10f8db96480ed4c09c232abbf4b66a3aee4fccbd78e1c7a739200869b29c44",
+        "object_id": "tokenizer_asset_c7bc5bce077bc3f4bddabb07aee5ec87",
+        "schema_id": "omiv.tokenizer-asset-observation.v1"
+      },
+      "value": {
+        "boolean_value": true,
+        "decimal_value": null,
+        "integer_list": null,
+        "integer_value": null,
+        "object_digest": null,
+        "string_list": null,
+        "string_value": null,
+        "value_type": "BOOLEAN"
+      }
+    },
+    {
+      "field_path": "vocab_size",
+      "presence": "EXPLICIT_VALUE",
+      "provenance": "observed.strict-json.value",
+      "scope": "SELECTED_REQUIRED_FIELDS",
+      "semantic_role": "declared.model_config",
+      "source_asset": {
+        "object_digest": "7d10f8db96480ed4c09c232abbf4b66a3aee4fccbd78e1c7a739200869b29c44",
+        "object_id": "tokenizer_asset_c7bc5bce077bc3f4bddabb07aee5ec87",
+        "schema_id": "omiv.tokenizer-asset-observation.v1"
+      },
+      "value": {
+        "boolean_value": null,
+        "decimal_value": null,
+        "integer_list": null,
+        "integer_value": 5,
+        "object_digest": null,
+        "string_list": null,
+        "string_value": null,
+        "value_type": "INTEGER"
+      }
+    }
+  ],
+  "limitations": [
+    "No framework or runtime defaults were applied implicitly."
+  ],
+  "observation_digest": "5ce52e2f2911bc8b9d5a62bdf01e6d757fb5659bacce9a353b95f992977625db",
+  "observation_id": "config_observation_519bc36a76ed951664efdc034f253f78",
+  "projection_sha256": "938061f4043cf4b318385eb08b398f9bba35051f484da79728b83e9324cba4ef",
+  "race_findings": [],
+  "raw_sha256": "78e0e786f850fc8b67e98ea6cb77db596d25d3f14221919fe958ca0400bfda4b",
+  "schema": "omiv.configuration-observation.v1",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "tokenizer.phase6d-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.tokenizer-parity",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "TOKENIZER",
+    "subject_digest": "19930fd9f7f84f61da2d8821221d46e8533fa4c068179f84c0958563030b7c0d",
+    "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+  }
+}

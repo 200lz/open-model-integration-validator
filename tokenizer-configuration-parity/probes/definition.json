@@ -1,0 +1,754 @@
+{
+  "limitations": [
+    "Finite supplied probes cannot establish complete tokenizer equivalence."
+  ],
+  "limits": {
+    "maximum_added_tokens": 100000,
+    "maximum_asset_files": 256,
+    "maximum_bytes_per_asset": 67108864,
+    "maximum_chat_template_bytes": 1048576,
+    "maximum_component_parameters": 4096,
+    "maximum_configuration_fields": 10000,
+    "maximum_dependency_depth": 128,
+    "maximum_dependency_edges": 1000000,
+    "maximum_dependency_nodes": 250000,
+    "maximum_field_path_length": 512,
+    "maximum_findings": 250000,
+    "maximum_generated_files": 160,
+    "maximum_generated_metadata_bytes": 67108864,
+    "maximum_json_bytes": 67108864,
+    "maximum_json_members": 500000,
+    "maximum_json_nesting": 64,
+    "maximum_merge_operand_size": 4096,
+    "maximum_merge_records": 250000,
+    "maximum_numeric_digits": 100,
+    "maximum_numeric_exponent": 308,
+    "maximum_pipeline_components": 256,
+    "maximum_probe_definitions": 10000,
+    "maximum_probe_input_bytes": 1048576,
+    "maximum_probe_output_bytes": 4194304,
+    "maximum_report_nodes": 250000,
+    "maximum_special_tokens": 4096,
+    "maximum_string_length": 8192,
+    "maximum_token_content_units": 4096,
+    "maximum_token_id": 2147483647,
+    "maximum_token_ids_per_probe": 100000,
+    "maximum_total_asset_bytes": 268435456,
+    "maximum_total_probe_token_ids": 1000000,
+    "maximum_vocabulary_entries": 250000
+  },
+  "probe_set_digest": "e4a61e88bf91fefbf37c2edc12b8212923d26bcdd6e40d03f5235470cff5d5b4",
+  "probe_set_id": "tokenizer_probe_set_7aed0bb304fe3c740e50d5d5e678db68",
+  "probes": [
+    {
+      "execution_context": "offline.synthetic.supplied-results",
+      "expected_output_form": "token.ids",
+      "inline_input": {
+        "bytes_hex": null,
+        "encoding": "UNICODE_TEXT",
+        "unicode_text": "<s></s>"
+      },
+      "input_availability": "INLINE_SYNTHETIC_INPUT",
+      "input_digest": "0aacfdeb97b2e570d36402f646022634a766a07a330500969d2d5f4f7cea725c",
+      "limitations": [
+        "Harmless synthetic input special-looking; tokenizer was not executed by OMIV."
+      ],
+      "probe_id": "tokenizer_probe_03660a75578f56bb5377fee1acdc7b41",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "scope": "SELECTED_REQUIRED_PROBES",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e",
+      "tokenizer_identities": [
+        {
+          "object_digest": "dc9a61e6e0c039e898991a141a7b7b767d481003cc96a717a0d19147d925887b",
+          "object_id": "vocabulary_observation_3ca2fced55df54712ade694ed397feb5",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        },
+        {
+          "object_digest": "197a85f4a1556caace5e74bfe5860060052db17f76f6e6bc590cd451a9ff8b1e",
+          "object_id": "vocabulary_observation_57b2706812989c206942c8dc85dc9202",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        }
+      ]
+    },
+    {
+      "execution_context": "offline.synthetic.supplied-results",
+      "expected_output_form": "token.ids",
+      "inline_input": {
+        "bytes_hex": null,
+        "encoding": "UNICODE_TEXT",
+        "unicode_text": "a b"
+      },
+      "input_availability": "INLINE_SYNTHETIC_INPUT",
+      "input_digest": "6ee6f84ab971064e64e1bcc12d22225e6f89877399b4d94312c968e3b55c56e5",
+      "limitations": [
+        "Harmless synthetic input nbsp; tokenizer was not executed by OMIV."
+      ],
+      "probe_id": "tokenizer_probe_1f77f97def1cce2ec2e527574ddf2d97",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "scope": "SELECTED_REQUIRED_PROBES",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e",
+      "tokenizer_identities": [
+        {
+          "object_digest": "dc9a61e6e0c039e898991a141a7b7b767d481003cc96a717a0d19147d925887b",
+          "object_id": "vocabulary_observation_3ca2fced55df54712ade694ed397feb5",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        },
+        {
+          "object_digest": "197a85f4a1556caace5e74bfe5860060052db17f76f6e6bc590cd451a9ff8b1e",
+          "object_id": "vocabulary_observation_57b2706812989c206942c8dc85dc9202",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        }
+      ]
+    },
+    {
+      "execution_context": "offline.synthetic.supplied-results",
+      "expected_output_form": "token.ids",
+      "inline_input": {
+        "bytes_hex": null,
+        "encoding": "UNICODE_TEXT",
+        "unicode_text": "ä"
+      },
+      "input_availability": "INLINE_SYNTHETIC_INPUT",
+      "input_digest": "93373bdf80b42601559c25c513a3f14b191fe1846ae95b76f41af3b72552af1a",
+      "limitations": [
+        "Harmless synthetic input combining; tokenizer was not executed by OMIV."
+      ],
+      "probe_id": "tokenizer_probe_4976d779a562256bc3da1fd4302c26bd",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "scope": "SELECTED_REQUIRED_PROBES",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e",
+      "tokenizer_identities": [
+        {
+          "object_digest": "dc9a61e6e0c039e898991a141a7b7b767d481003cc96a717a0d19147d925887b",
+          "object_id": "vocabulary_observation_3ca2fced55df54712ade694ed397feb5",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        },
+        {
+          "object_digest": "197a85f4a1556caace5e74bfe5860060052db17f76f6e6bc590cd451a9ff8b1e",
+          "object_id": "vocabulary_observation_57b2706812989c206942c8dc85dc9202",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        }
+      ]
+    },
+    {
+      "execution_context": "offline.synthetic.supplied-results",
+      "expected_output_form": "token.ids",
+      "inline_input": {
+        "bytes_hex": null,
+        "encoding": "UNICODE_TEXT",
+        "unicode_text": "🙂"
+      },
+      "input_availability": "INLINE_SYNTHETIC_INPUT",
+      "input_digest": "cf904ce0233c3a785cd7304bac2e343da5be3d9906d67bd612e629aff2ede639",
+      "limitations": [
+        "Harmless synthetic input emoji; tokenizer was not executed by OMIV."
+      ],
+      "probe_id": "tokenizer_probe_55cebb25cb42ce562fcc41a386e8bc5b",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "scope": "SELECTED_REQUIRED_PROBES",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e",
+      "tokenizer_identities": [
+        {
+          "object_digest": "dc9a61e6e0c039e898991a141a7b7b767d481003cc96a717a0d19147d925887b",
+          "object_id": "vocabulary_observation_3ca2fced55df54712ade694ed397feb5",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        },
+        {
+          "object_digest": "197a85f4a1556caace5e74bfe5860060052db17f76f6e6bc590cd451a9ff8b1e",
+          "object_id": "vocabulary_observation_57b2706812989c206942c8dc85dc9202",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        }
+      ]
+    },
+    {
+      "execution_context": "offline.synthetic.supplied-results",
+      "expected_output_form": "token.ids",
+      "inline_input": {
+        "bytes_hex": null,
+        "encoding": "UNICODE_TEXT",
+        "unicode_text": "漢字"
+      },
+      "input_availability": "INLINE_SYNTHETIC_INPUT",
+      "input_digest": "601bd37c0de9ff609e5314d91dc543d03608cf82b45042b2e10cd7f5ec571562",
+      "limitations": [
+        "Harmless synthetic input cjk; tokenizer was not executed by OMIV."
+      ],
+      "probe_id": "tokenizer_probe_5c2e0a1d666e9fc2a6e2708c7b57537d",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "scope": "SELECTED_REQUIRED_PROBES",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e",
+      "tokenizer_identities": [
+        {
+          "object_digest": "dc9a61e6e0c039e898991a141a7b7b767d481003cc96a717a0d19147d925887b",
+          "object_id": "vocabulary_observation_3ca2fced55df54712ade694ed397feb5",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        },
+        {
+          "object_digest": "197a85f4a1556caace5e74bfe5860060052db17f76f6e6bc590cd451a9ff8b1e",
+          "object_id": "vocabulary_observation_57b2706812989c206942c8dc85dc9202",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        }
+      ]
+    },
+    {
+      "execution_context": "offline.synthetic.supplied-results",
+      "expected_output_form": "token.ids",
+      "inline_input": {
+        "bytes_hex": null,
+        "encoding": "UNICODE_TEXT",
+        "unicode_text": "é"
+      },
+      "input_availability": "INLINE_SYNTHETIC_INPUT",
+      "input_digest": "916b9a8d63613fe5178e2ae8d666bab2f10c0dc498d9c0b299386d8266cf95ae",
+      "limitations": [
+        "Harmless synthetic input nfd; tokenizer was not executed by OMIV."
+      ],
+      "probe_id": "tokenizer_probe_5ca1832d160f0759282f27c6e660e90c",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "scope": "SELECTED_REQUIRED_PROBES",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e",
+      "tokenizer_identities": [
+        {
+          "object_digest": "dc9a61e6e0c039e898991a141a7b7b767d481003cc96a717a0d19147d925887b",
+          "object_id": "vocabulary_observation_3ca2fced55df54712ade694ed397feb5",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        },
+        {
+          "object_digest": "197a85f4a1556caace5e74bfe5860060052db17f76f6e6bc590cd451a9ff8b1e",
+          "object_id": "vocabulary_observation_57b2706812989c206942c8dc85dc9202",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        }
+      ]
+    },
+    {
+      "execution_context": "offline.synthetic.supplied-results",
+      "expected_output_form": "token.ids",
+      "inline_input": {
+        "bytes_hex": null,
+        "encoding": "UNICODE_TEXT",
+        "unicode_text": " leading  trailing "
+      },
+      "input_availability": "INLINE_SYNTHETIC_INPUT",
+      "input_digest": "36d1c0d8cc40ba02fedff8794c14790f2011dda9262411a8319521bb66560e4f",
+      "limitations": [
+        "Harmless synthetic input whitespace; tokenizer was not executed by OMIV."
+      ],
+      "probe_id": "tokenizer_probe_711a01e4413940eefc61693570f59b9a",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "scope": "SELECTED_REQUIRED_PROBES",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e",
+      "tokenizer_identities": [
+        {
+          "object_digest": "dc9a61e6e0c039e898991a141a7b7b767d481003cc96a717a0d19147d925887b",
+          "object_id": "vocabulary_observation_3ca2fced55df54712ade694ed397feb5",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        },
+        {
+          "object_digest": "197a85f4a1556caace5e74bfe5860060052db17f76f6e6bc590cd451a9ff8b1e",
+          "object_id": "vocabulary_observation_57b2706812989c206942c8dc85dc9202",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        }
+      ]
+    },
+    {
+      "execution_context": "offline.synthetic.supplied-results",
+      "expected_output_form": "token.ids",
+      "inline_input": {
+        "bytes_hex": null,
+        "encoding": "UNICODE_TEXT",
+        "unicode_text": "✈️"
+      },
+      "input_availability": "INLINE_SYNTHETIC_INPUT",
+      "input_digest": "43dc248a9aab347c9002ec1188df619c8060966568c70f16f7345e49962af281",
+      "limitations": [
+        "Harmless synthetic input variation; tokenizer was not executed by OMIV."
+      ],
+      "probe_id": "tokenizer_probe_803d63d991dec9b4c1377a1ccd7c7a2f",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "scope": "SELECTED_REQUIRED_PROBES",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e",
+      "tokenizer_identities": [
+        {
+          "object_digest": "dc9a61e6e0c039e898991a141a7b7b767d481003cc96a717a0d19147d925887b",
+          "object_id": "vocabulary_observation_3ca2fced55df54712ade694ed397feb5",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        },
+        {
+          "object_digest": "197a85f4a1556caace5e74bfe5860060052db17f76f6e6bc590cd451a9ff8b1e",
+          "object_id": "vocabulary_observation_57b2706812989c206942c8dc85dc9202",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        }
+      ]
+    },
+    {
+      "execution_context": "offline.synthetic.supplied-results",
+      "expected_output_form": "token.ids",
+      "inline_input": {
+        "bytes_hex": null,
+        "encoding": "UNICODE_TEXT",
+        "unicode_text": "a\u0000b"
+      },
+      "input_availability": "INLINE_SYNTHETIC_INPUT",
+      "input_digest": "e6afdcb0d1495879eee26ffce328aeebbd62197260d8a36ff43fe958c0ecb0eb",
+      "limitations": [
+        "Harmless synthetic input nul; tokenizer was not executed by OMIV."
+      ],
+      "probe_id": "tokenizer_probe_83b492bb8392c8379a7ba35b314ec8a8",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "scope": "SELECTED_REQUIRED_PROBES",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e",
+      "tokenizer_identities": [
+        {
+          "object_digest": "dc9a61e6e0c039e898991a141a7b7b767d481003cc96a717a0d19147d925887b",
+          "object_id": "vocabulary_observation_3ca2fced55df54712ade694ed397feb5",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        },
+        {
+          "object_digest": "197a85f4a1556caace5e74bfe5860060052db17f76f6e6bc590cd451a9ff8b1e",
+          "object_id": "vocabulary_observation_57b2706812989c206942c8dc85dc9202",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        }
+      ]
+    },
+    {
+      "execution_context": "offline.synthetic.supplied-results",
+      "expected_output_form": "token.ids",
+      "inline_input": {
+        "bytes_hex": null,
+        "encoding": "UNICODE_TEXT",
+        "unicode_text": "👩‍💻"
+      },
+      "input_availability": "INLINE_SYNTHETIC_INPUT",
+      "input_digest": "97b0a7fd0dd2439cf8339df556227f0299b468ad50a336a482a6dd97f53a86b2",
+      "limitations": [
+        "Harmless synthetic input zwj; tokenizer was not executed by OMIV."
+      ],
+      "probe_id": "tokenizer_probe_850817752b4133b77a82f588465a3074",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "scope": "SELECTED_REQUIRED_PROBES",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e",
+      "tokenizer_identities": [
+        {
+          "object_digest": "dc9a61e6e0c039e898991a141a7b7b767d481003cc96a717a0d19147d925887b",
+          "object_id": "vocabulary_observation_3ca2fced55df54712ade694ed397feb5",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        },
+        {
+          "object_digest": "197a85f4a1556caace5e74bfe5860060052db17f76f6e6bc590cd451a9ff8b1e",
+          "object_id": "vocabulary_observation_57b2706812989c206942c8dc85dc9202",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        }
+      ]
+    },
+    {
+      "execution_context": "offline.synthetic.supplied-results",
+      "expected_output_form": "token.ids",
+      "inline_input": {
+        "bytes_hex": null,
+        "encoding": "UNICODE_TEXT",
+        "unicode_text": "مرحبا"
+      },
+      "input_availability": "INLINE_SYNTHETIC_INPUT",
+      "input_digest": "8af069de640ae7f67dc649c849c0b7cfe7e1eff047c1854f680851fbcb5f3944",
+      "limitations": [
+        "Harmless synthetic input rtl; tokenizer was not executed by OMIV."
+      ],
+      "probe_id": "tokenizer_probe_8981fdcd411cfa0f6809073575d770fa",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "scope": "SELECTED_REQUIRED_PROBES",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e",
+      "tokenizer_identities": [
+        {
+          "object_digest": "dc9a61e6e0c039e898991a141a7b7b767d481003cc96a717a0d19147d925887b",
+          "object_id": "vocabulary_observation_3ca2fced55df54712ade694ed397feb5",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        },
+        {
+          "object_digest": "197a85f4a1556caace5e74bfe5860060052db17f76f6e6bc590cd451a9ff8b1e",
+          "object_id": "vocabulary_observation_57b2706812989c206942c8dc85dc9202",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        }
+      ]
+    },
+    {
+      "execution_context": "offline.synthetic.supplied-results",
+      "expected_output_form": "token.ids",
+      "inline_input": {
+        "bytes_hex": null,
+        "encoding": "UNICODE_TEXT",
+        "unicode_text": ""
+      },
+      "input_availability": "INLINE_SYNTHETIC_INPUT",
+      "input_digest": "f962981876bff2d0baa20721630b7396c3da68b2ff3323e9e97f3e538e629ca4",
+      "limitations": [
+        "Harmless synthetic input empty; tokenizer was not executed by OMIV."
+      ],
+      "probe_id": "tokenizer_probe_999e6cd8070390c914ec5386a5b78e38",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "scope": "SELECTED_REQUIRED_PROBES",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e",
+      "tokenizer_identities": [
+        {
+          "object_digest": "dc9a61e6e0c039e898991a141a7b7b767d481003cc96a717a0d19147d925887b",
+          "object_id": "vocabulary_observation_3ca2fced55df54712ade694ed397feb5",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        },
+        {
+          "object_digest": "197a85f4a1556caace5e74bfe5860060052db17f76f6e6bc590cd451a9ff8b1e",
+          "object_id": "vocabulary_observation_57b2706812989c206942c8dc85dc9202",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        }
+      ]
+    },
+    {
+      "execution_context": "offline.synthetic.supplied-results",
+      "expected_output_form": "token.ids",
+      "inline_input": {
+        "bytes_hex": null,
+        "encoding": "UNICODE_TEXT",
+        "unicode_text": "é"
+      },
+      "input_availability": "INLINE_SYNTHETIC_INPUT",
+      "input_digest": "6358a7c0beebcde4dddbe5b03a1adde801ce6b02c67a7937254a3d23b590a2be",
+      "limitations": [
+        "Harmless synthetic input nfc; tokenizer was not executed by OMIV."
+      ],
+      "probe_id": "tokenizer_probe_9a7abc69f53f90a043c068aa6fb2be20",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "scope": "SELECTED_REQUIRED_PROBES",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e",
+      "tokenizer_identities": [
+        {
+          "object_digest": "dc9a61e6e0c039e898991a141a7b7b767d481003cc96a717a0d19147d925887b",
+          "object_id": "vocabulary_observation_3ca2fced55df54712ade694ed397feb5",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        },
+        {
+          "object_digest": "197a85f4a1556caace5e74bfe5860060052db17f76f6e6bc590cd451a9ff8b1e",
+          "object_id": "vocabulary_observation_57b2706812989c206942c8dc85dc9202",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        }
+      ]
+    },
+    {
+      "execution_context": "offline.synthetic.supplied-results",
+      "expected_output_form": "token.ids",
+      "inline_input": {
+        "bytes_hex": null,
+        "encoding": "UNICODE_TEXT",
+        "unicode_text": "hello"
+      },
+      "input_availability": "INLINE_SYNTHETIC_INPUT",
+      "input_digest": "27509c7a9d59e5690618b3ecba163367e86d42f5449d2ec0e1b1db98c5a1665a",
+      "limitations": [
+        "Harmless synthetic input ascii; tokenizer was not executed by OMIV."
+      ],
+      "probe_id": "tokenizer_probe_9c7f534ed8090027be54abb6917f85db",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "scope": "SELECTED_REQUIRED_PROBES",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e",
+      "tokenizer_identities": [
+        {
+          "object_digest": "dc9a61e6e0c039e898991a141a7b7b767d481003cc96a717a0d19147d925887b",
+          "object_id": "vocabulary_observation_3ca2fced55df54712ade694ed397feb5",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        },
+        {
+          "object_digest": "197a85f4a1556caace5e74bfe5860060052db17f76f6e6bc590cd451a9ff8b1e",
+          "object_id": "vocabulary_observation_57b2706812989c206942c8dc85dc9202",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        }
+      ]
+    },
+    {
+      "execution_context": "offline.synthetic.supplied-results",
+      "expected_output_form": "decoded.text",
+      "inline_input": [
+        1,
+        2
+      ],
+      "input_availability": "INLINE_SYNTHETIC_INPUT",
+      "input_digest": "153fdc60e11e63a509756053771d1619ae5d82f920cc9079a9196bae048a2b19",
+      "limitations": [
+        "Harmless synthetic input decode; tokenizer was not executed by OMIV."
+      ],
+      "probe_id": "tokenizer_probe_a2d6fd0d6da4a97a0a3b65bab40bb952",
+      "probe_kind": "DECODE_TOKEN_IDS_TO_TEXT",
+      "scope": "SELECTED_REQUIRED_PROBES",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e",
+      "tokenizer_identities": [
+        {
+          "object_digest": "dc9a61e6e0c039e898991a141a7b7b767d481003cc96a717a0d19147d925887b",
+          "object_id": "vocabulary_observation_3ca2fced55df54712ade694ed397feb5",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        },
+        {
+          "object_digest": "197a85f4a1556caace5e74bfe5860060052db17f76f6e6bc590cd451a9ff8b1e",
+          "object_id": "vocabulary_observation_57b2706812989c206942c8dc85dc9202",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        }
+      ]
+    },
+    {
+      "execution_context": "offline.synthetic.supplied-results",
+      "expected_output_form": "token.ids",
+      "inline_input": {
+        "bytes_hex": null,
+        "encoding": "UNICODE_TEXT",
+        "unicode_text": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      },
+      "input_availability": "INLINE_SYNTHETIC_INPUT",
+      "input_digest": "559f80523e0f560e9963b9ab06d23f47b5a009e14b5d4bfaf8f72a52409ccdd2",
+      "limitations": [
+        "Harmless synthetic input bounded-long; tokenizer was not executed by OMIV."
+      ],
+      "probe_id": "tokenizer_probe_bbed04f8ead286e0b61553343ff7b899",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "scope": "SELECTED_REQUIRED_PROBES",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e",
+      "tokenizer_identities": [
+        {
+          "object_digest": "dc9a61e6e0c039e898991a141a7b7b767d481003cc96a717a0d19147d925887b",
+          "object_id": "vocabulary_observation_3ca2fced55df54712ade694ed397feb5",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        },
+        {
+          "object_digest": "197a85f4a1556caace5e74bfe5860060052db17f76f6e6bc590cd451a9ff8b1e",
+          "object_id": "vocabulary_observation_57b2706812989c206942c8dc85dc9202",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        }
+      ]
+    },
+    {
+      "execution_context": "offline.synthetic.supplied-results",
+      "expected_output_form": "token.ids",
+      "inline_input": {
+        "bytes_hex": null,
+        "encoding": "UNICODE_TEXT",
+        "unicode_text": "こんにちは"
+      },
+      "input_availability": "INLINE_SYNTHETIC_INPUT",
+      "input_digest": "50809ad56be9ae0bc22956b040813fe7e4a4541753300fc5f06575b6a56c804f",
+      "limitations": [
+        "Harmless synthetic input japanese; tokenizer was not executed by OMIV."
+      ],
+      "probe_id": "tokenizer_probe_bd25c85fcf6ee1e99573a6dbe4dd1eaa",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "scope": "SELECTED_REQUIRED_PROBES",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e",
+      "tokenizer_identities": [
+        {
+          "object_digest": "dc9a61e6e0c039e898991a141a7b7b767d481003cc96a717a0d19147d925887b",
+          "object_id": "vocabulary_observation_3ca2fced55df54712ade694ed397feb5",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        },
+        {
+          "object_digest": "197a85f4a1556caace5e74bfe5860060052db17f76f6e6bc590cd451a9ff8b1e",
+          "object_id": "vocabulary_observation_57b2706812989c206942c8dc85dc9202",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        }
+      ]
+    },
+    {
+      "execution_context": "offline.synthetic.supplied-results",
+      "expected_output_form": "token.ids",
+      "inline_input": {
+        "bytes_hex": "00ff20",
+        "encoding": "BYTE_SEQUENCE",
+        "unicode_text": null
+      },
+      "input_availability": "INLINE_SYNTHETIC_INPUT",
+      "input_digest": "45141c20393f1f4bee6c79c9521bf752ba705cef6de52ce12692fdc7625fbf61",
+      "limitations": [
+        "Harmless synthetic input byte-sequence; tokenizer was not executed by OMIV."
+      ],
+      "probe_id": "tokenizer_probe_bd3a40d5b8c57ced9e9f28047341b010",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "scope": "SELECTED_REQUIRED_PROBES",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e",
+      "tokenizer_identities": [
+        {
+          "object_digest": "dc9a61e6e0c039e898991a141a7b7b767d481003cc96a717a0d19147d925887b",
+          "object_id": "vocabulary_observation_3ca2fced55df54712ade694ed397feb5",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        },
+        {
+          "object_digest": "197a85f4a1556caace5e74bfe5860060052db17f76f6e6bc590cd451a9ff8b1e",
+          "object_id": "vocabulary_observation_57b2706812989c206942c8dc85dc9202",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        }
+      ]
+    },
+    {
+      "execution_context": "offline.synthetic.supplied-results",
+      "expected_output_form": "token.ids",
+      "inline_input": {
+        "bytes_hex": null,
+        "encoding": "UNICODE_TEXT",
+        "unicode_text": "a\tb"
+      },
+      "input_availability": "INLINE_SYNTHETIC_INPUT",
+      "input_digest": "ee1da66d5342364b9a208d5cba9de333805a48febbd2285e81f16b137d80adab",
+      "limitations": [
+        "Harmless synthetic input tab; tokenizer was not executed by OMIV."
+      ],
+      "probe_id": "tokenizer_probe_c259cdf256c6e1e0fe1a941334b7d685",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "scope": "SELECTED_REQUIRED_PROBES",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e",
+      "tokenizer_identities": [
+        {
+          "object_digest": "dc9a61e6e0c039e898991a141a7b7b767d481003cc96a717a0d19147d925887b",
+          "object_id": "vocabulary_observation_3ca2fced55df54712ade694ed397feb5",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        },
+        {
+          "object_digest": "197a85f4a1556caace5e74bfe5860060052db17f76f6e6bc590cd451a9ff8b1e",
+          "object_id": "vocabulary_observation_57b2706812989c206942c8dc85dc9202",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        }
+      ]
+    },
+    {
+      "execution_context": "offline.synthetic.supplied-results",
+      "expected_output_form": "token.ids",
+      "inline_input": {
+        "bytes_hex": null,
+        "encoding": "UNICODE_TEXT",
+        "unicode_text": "<unknown-synthetic>"
+      },
+      "input_availability": "INLINE_SYNTHETIC_INPUT",
+      "input_digest": "98b085d0d057df4be2485e3e8e56f59da497108acd92117b654751c972fc3f83",
+      "limitations": [
+        "Harmless synthetic input unknown; tokenizer was not executed by OMIV."
+      ],
+      "probe_id": "tokenizer_probe_cb866d6aa2d9537c5f8d56db83e1f2f4",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "scope": "SELECTED_REQUIRED_PROBES",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e",
+      "tokenizer_identities": [
+        {
+          "object_digest": "dc9a61e6e0c039e898991a141a7b7b767d481003cc96a717a0d19147d925887b",
+          "object_id": "vocabulary_observation_3ca2fced55df54712ade694ed397feb5",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        },
+        {
+          "object_digest": "197a85f4a1556caace5e74bfe5860060052db17f76f6e6bc590cd451a9ff8b1e",
+          "object_id": "vocabulary_observation_57b2706812989c206942c8dc85dc9202",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        }
+      ]
+    },
+    {
+      "execution_context": "offline.synthetic.supplied-results",
+      "expected_output_form": "token.ids",
+      "inline_input": {
+        "bytes_hex": null,
+        "encoding": "UNICODE_TEXT",
+        "unicode_text": "a\r\nb"
+      },
+      "input_availability": "INLINE_SYNTHETIC_INPUT",
+      "input_digest": "0eb41e0258627b38c9b8045f857660bbc1c260f4f14f2ba4e971ccc661978f7d",
+      "limitations": [
+        "Harmless synthetic input crlf; tokenizer was not executed by OMIV."
+      ],
+      "probe_id": "tokenizer_probe_d1f4885d5ff3a21ac50ef99341bc3f88",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "scope": "SELECTED_REQUIRED_PROBES",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e",
+      "tokenizer_identities": [
+        {
+          "object_digest": "dc9a61e6e0c039e898991a141a7b7b767d481003cc96a717a0d19147d925887b",
+          "object_id": "vocabulary_observation_3ca2fced55df54712ade694ed397feb5",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        },
+        {
+          "object_digest": "197a85f4a1556caace5e74bfe5860060052db17f76f6e6bc590cd451a9ff8b1e",
+          "object_id": "vocabulary_observation_57b2706812989c206942c8dc85dc9202",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        }
+      ]
+    },
+    {
+      "execution_context": "offline.synthetic.supplied-results",
+      "expected_output_form": "token.ids",
+      "inline_input": {
+        "bytes_hex": null,
+        "encoding": "UNICODE_TEXT",
+        "unicode_text": "!?—…"
+      },
+      "input_availability": "INLINE_SYNTHETIC_INPUT",
+      "input_digest": "02ab95d53dace101172c25201943ec940be8efbebfa8ba767d868a3c791ef506",
+      "limitations": [
+        "Harmless synthetic input punctuation; tokenizer was not executed by OMIV."
+      ],
+      "probe_id": "tokenizer_probe_d6f231ac0dbadb225bb5902945ae2b64",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "scope": "SELECTED_REQUIRED_PROBES",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e",
+      "tokenizer_identities": [
+        {
+          "object_digest": "dc9a61e6e0c039e898991a141a7b7b767d481003cc96a717a0d19147d925887b",
+          "object_id": "vocabulary_observation_3ca2fced55df54712ade694ed397feb5",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        },
+        {
+          "object_digest": "197a85f4a1556caace5e74bfe5860060052db17f76f6e6bc590cd451a9ff8b1e",
+          "object_id": "vocabulary_observation_57b2706812989c206942c8dc85dc9202",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        }
+      ]
+    },
+    {
+      "execution_context": "offline.synthetic.supplied-results",
+      "expected_output_form": "token.ids",
+      "inline_input": {
+        "bytes_hex": null,
+        "encoding": "UNICODE_TEXT",
+        "unicode_text": "a\nb"
+      },
+      "input_availability": "INLINE_SYNTHETIC_INPUT",
+      "input_digest": "b3fd96767fd85200d67e6658dfcad953ca3f8c8abcc107869b40ba3217989f20",
+      "limitations": [
+        "Harmless synthetic input lf; tokenizer was not executed by OMIV."
+      ],
+      "probe_id": "tokenizer_probe_f7240c04015b92393b7b7396fe3c916e",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "scope": "SELECTED_REQUIRED_PROBES",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e",
+      "tokenizer_identities": [
+        {
+          "object_digest": "dc9a61e6e0c039e898991a141a7b7b767d481003cc96a717a0d19147d925887b",
+          "object_id": "vocabulary_observation_3ca2fced55df54712ade694ed397feb5",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        },
+        {
+          "object_digest": "197a85f4a1556caace5e74bfe5860060052db17f76f6e6bc590cd451a9ff8b1e",
+          "object_id": "vocabulary_observation_57b2706812989c206942c8dc85dc9202",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        }
+      ]
+    }
+  ],
+  "schema": "omiv.tokenizer-probe-set-definition.v1",
+  "scope": "SELECTED_REQUIRED_PROBES",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "tokenizer.phase6d-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.tokenizer-parity",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "TOKENIZER",
+    "subject_digest": "19930fd9f7f84f61da2d8821221d46e8533fa4c068179f84c0958563030b7c0d",
+    "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+  }
+}

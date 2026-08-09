@@ -1,0 +1,21 @@
+{
+  "case_id": "pipeline-order",
+  "exercised_invariant": "Pipeline component order is preserved.",
+  "findings": [
+    "COMPONENT_ORDER_MISMATCH"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "mismatch",
+  "result_digest": "a963fc61a79ed36fff54f3900f0a565d208b416ac3c43c91045b572918b39eb2",
+  "result_id": "tokenizer_scenario_347feacae0175af8634463b511f75d1e",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "dc9a61e6e0c039e898991a141a7b7b767d481003cc96a717a0d19147d925887b",
+      "object_id": "vocabulary_observation_3ca2fced55df54712ade694ed397feb5",
+      "schema_id": "omiv.vocabulary-observation.v1"
+    }
+  ]
+}

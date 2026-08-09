@@ -1,0 +1,21 @@
+{
+  "case_id": "token-id-mismatch",
+  "exercised_invariant": "Token ID mismatch is preserved.",
+  "findings": [
+    "TOKEN_ID_MISMATCH"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "mismatch",
+  "result_digest": "1669e64b7e0a940a5232d75a1966b1e36a62a81a0da293918789dd704c5b4ee9",
+  "result_id": "tokenizer_scenario_79e2788fb59d25aefa418f30b2f4748e",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "59de0864e58c3936e5dffe05119aee410ca7c1242251346874f8b44d5dbcd817",
+      "object_id": "special_token_observation_e23fd0623eb1a52541922d8d5a9fa2ad",
+      "schema_id": "omiv.special-token-observation.v1"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "case_id": "policy-default-versus-absent",
+  "exercised_invariant": "Policy defaults are explicit and identity-bearing.",
+  "findings": [
+    "DEFAULT_PROVENANCE_MISMATCH"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "mismatch",
+  "result_digest": "f95c263ff861f4b5471ae97a53694f8b8010328377c0c3196294c0865a0c8376",
+  "result_id": "tokenizer_scenario_3276a7da3c14614eac65372cd7f54456",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "92baa45e9af9c49a758042de9e8940b0b47dfa3e9345caf3809a596f57905b94",
+      "object_id": "merge_observation_c3901de4a1a6609438cdf7e611e9b632",
+      "schema_id": "omiv.merge-table-observation.v1"
+    }
+  ]
+}

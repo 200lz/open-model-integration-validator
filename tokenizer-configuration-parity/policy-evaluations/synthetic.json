@@ -1,0 +1,179 @@
+{
+  "authority": {
+    "object_digest": "14002c25e6ae14123581404b57b0e9b6d86ae0547b8b34f64783582316717755",
+    "object_id": "tokenizer_authority_75d10ac34f2498ad9387c8ba767041e9",
+    "schema_id": "omiv.tokenizer-configuration-authority-evaluation.v1"
+  },
+  "comparison": {
+    "object_digest": "d0ed571ec109e2bccb7c7dd67434c7744360b8439f8035023af76c48e987a606",
+    "object_id": "tokenizer_comparison_613c905dd48096fa0c39059674444646",
+    "schema_id": "omiv.tokenizer-configuration-comparison.v1"
+  },
+  "evaluated_at": "NOT_RECORDED",
+  "evaluation_digest": "95646bd33cf528af5ca4ec77a45fdc070a4d2ef3d6bf2ba4dc4fbba0c62fbf2c",
+  "evaluation_id": "tokenizer_policy_evaluation_d29d54fc60adec8e761cbda2ae701e90",
+  "limitations": [
+    "All failed policy dimensions are retained; evaluation does not stop at the first failure."
+  ],
+  "policy": {
+    "object_digest": "6cbfba5780afbefa87ee93d802c7f5316f000aa82900b43c454d24d4e5677e58",
+    "object_id": "tokenizer_policy_8c7b859414c6169e7a45799bca0b9934",
+    "schema_id": "omiv.tokenizer-configuration-policy.v1"
+  },
+  "requirements": [
+    {
+      "detail": "Coverage denominator must be available, nonzero, and complete.",
+      "observed": "1/1",
+      "required": "complete.nonempty",
+      "requirement": "coverage.added_tokens",
+      "status": "POLICY_REQUIREMENT_SATISFIED"
+    },
+    {
+      "detail": "Coverage denominator must be available, nonzero, and complete.",
+      "observed": "1/1",
+      "required": "complete.nonempty",
+      "requirement": "coverage.authority_coverage",
+      "status": "POLICY_REQUIREMENT_SATISFIED"
+    },
+    {
+      "detail": "Coverage denominator must be available, nonzero, and complete.",
+      "observed": "1/1",
+      "required": "complete.nonempty",
+      "requirement": "coverage.byte_coverage",
+      "status": "POLICY_REQUIREMENT_SATISFIED"
+    },
+    {
+      "detail": "Coverage denominator must be available, nonzero, and complete.",
+      "observed": "1/1",
+      "required": "complete.nonempty",
+      "requirement": "coverage.candidate_artifact_assets",
+      "status": "POLICY_REQUIREMENT_SATISFIED"
+    },
+    {
+      "detail": "Coverage denominator must be available, nonzero, and complete.",
+      "observed": "1/1",
+      "required": "complete.nonempty",
+      "requirement": "coverage.chat_templates",
+      "status": "POLICY_REQUIREMENT_SATISFIED"
+    },
+    {
+      "detail": "Coverage denominator must be available, nonzero, and complete.",
+      "observed": "1/1",
+      "required": "complete.nonempty",
+      "requirement": "coverage.configuration_files",
+      "status": "POLICY_REQUIREMENT_SATISFIED"
+    },
+    {
+      "detail": "Coverage denominator must be available, nonzero, and complete.",
+      "observed": "1/1",
+      "required": "complete.nonempty",
+      "requirement": "coverage.decode_outputs",
+      "status": "POLICY_REQUIREMENT_SATISFIED"
+    },
+    {
+      "detail": "Coverage denominator must be available, nonzero, and complete.",
+      "observed": "23/23",
+      "required": "complete.nonempty",
+      "requirement": "coverage.executed_probes",
+      "status": "POLICY_REQUIREMENT_SATISFIED"
+    },
+    {
+      "detail": "Coverage denominator must be available, nonzero, and complete.",
+      "observed": "1/1",
+      "required": "complete.nonempty",
+      "requirement": "coverage.merge_records",
+      "status": "POLICY_REQUIREMENT_SATISFIED"
+    },
+    {
+      "detail": "Coverage denominator must be available, nonzero, and complete.",
+      "observed": "23/23",
+      "required": "complete.nonempty",
+      "requirement": "coverage.probe_definitions",
+      "status": "POLICY_REQUIREMENT_SATISFIED"
+    },
+    {
+      "detail": "Coverage denominator must be available, nonzero, and complete.",
+      "observed": "1/1",
+      "required": "complete.nonempty",
+      "requirement": "coverage.reference_artifact_assets",
+      "status": "POLICY_REQUIREMENT_SATISFIED"
+    },
+    {
+      "detail": "Coverage denominator must be available, nonzero, and complete.",
+      "observed": "1/1",
+      "required": "complete.nonempty",
+      "requirement": "coverage.required_configuration_fields",
+      "status": "POLICY_REQUIREMENT_SATISFIED"
+    },
+    {
+      "detail": "Coverage denominator must be available, nonzero, and complete.",
+      "observed": "1/1",
+      "required": "complete.nonempty",
+      "requirement": "coverage.special_token_roles",
+      "status": "POLICY_REQUIREMENT_SATISFIED"
+    },
+    {
+      "detail": "Coverage denominator must be available, nonzero, and complete.",
+      "observed": "1/1",
+      "required": "complete.nonempty",
+      "requirement": "coverage.token_id_outputs",
+      "status": "POLICY_REQUIREMENT_SATISFIED"
+    },
+    {
+      "detail": "Coverage denominator must be available, nonzero, and complete.",
+      "observed": "1/1",
+      "required": "complete.nonempty",
+      "requirement": "coverage.tokenizer_pipeline_components",
+      "status": "POLICY_REQUIREMENT_SATISFIED"
+    },
+    {
+      "detail": "Coverage denominator must be available, nonzero, and complete.",
+      "observed": "1/1",
+      "required": "complete.nonempty",
+      "requirement": "coverage.vocabulary_entries",
+      "status": "POLICY_REQUIREMENT_SATISFIED"
+    },
+    {
+      "detail": "Coverage denominator must be available, nonzero, and complete.",
+      "observed": "1/1",
+      "required": "complete.nonempty",
+      "requirement": "coverage.vocabulary_ids",
+      "status": "POLICY_REQUIREMENT_SATISFIED"
+    },
+    {
+      "detail": "Raw comparison must establish exact scope-qualified parity.",
+      "observed": "PARITY_ESTABLISHED_FOR_DECLARED_SCOPE",
+      "required": "PARITY_ESTABLISHED_FOR_DECLARED_SCOPE",
+      "requirement": "declared.scope.parity",
+      "status": "POLICY_REQUIREMENT_SATISFIED"
+    },
+    {
+      "detail": "Every explicitly required supplied probe must match, without creating complete-model equivalence.",
+      "observed": "EXACT_FOR_DECLARED_PROBES",
+      "required": "EXACT_FOR_DECLARED_PROBES",
+      "requirement": "required.probes",
+      "status": "POLICY_REQUIREMENT_SATISFIED"
+    }
+  ],
+  "result": "POLICY_REQUIREMENT_SATISFIED",
+  "schema": "omiv.tokenizer-configuration-policy-evaluation.v1",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "tokenizer.phase6d-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.tokenizer-parity",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "TOKENIZER",
+    "subject_digest": "19930fd9f7f84f61da2d8821221d46e8533fa4c068179f84c0958563030b7c0d",
+    "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+  }
+}

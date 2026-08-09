@@ -1,0 +1,191 @@
+{
+  "catalog_digest": "b657c462aed442c7e0868a31ccf14b9a19983c61217cf2b9c186b68f8ad14c84",
+  "catalog_id": "tokenizer_catalog_209ca50acba452130cbf0799d779bb80",
+  "classification": "COMPLETE_AS_PROVIDER_NEUTRAL_TOKENIZER_AND_CONFIGURATION_PARITY_EVIDENCE_FOUNDATION_WITH_EXPLICIT_FORMAT_PROBE_AND_RUNTIME_LIMITATIONS",
+  "limitations": [
+    "Foundation supports declared exact-identity scopes; it does not establish behavioral equivalence."
+  ],
+  "scenarios": [
+    {
+      "object_digest": "b85671bf6c5f7e83121ed8fc80b2447da3881be80bbbe7874e8cfe4c07bf2fa5",
+      "object_id": "tokenizer_scenario_05394cc76e9a7d753ce329b581d7156b",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "dde9a0324168ca9b8d11ddea75a626d4e96916a51d59c96fc3414472e28df7d3",
+      "object_id": "tokenizer_scenario_112acebd973415187d1e2992592e6726",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "c7257cabc71d2942a54574651873c6b25cfcb7b8adb3f85a4b38e1f0f2075ca2",
+      "object_id": "tokenizer_scenario_12db87d2a2c564919f4809c3d4f6a181",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "357e9d7961d2c3fadc0844e41bac55c5b30e404316e76f9bc65517790b01f322",
+      "object_id": "tokenizer_scenario_1ce39c65acb1b75ccbe7b9c5772e504f",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "a21a64cb6f30c1ac817e57df8bcc36d60ecd9f05128311fd5dab5b546c60c0de",
+      "object_id": "tokenizer_scenario_25cf4ee11064df944648024c9af4be7b",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "ee8c6af15e877ab380ad6e9d145f7f758d64875ef3e3775c84e13306fcbaaa57",
+      "object_id": "tokenizer_scenario_2d52f7da0825407019ac7a06fdb662a1",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "f95c263ff861f4b5471ae97a53694f8b8010328377c0c3196294c0865a0c8376",
+      "object_id": "tokenizer_scenario_3276a7da3c14614eac65372cd7f54456",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "a963fc61a79ed36fff54f3900f0a565d208b416ac3c43c91045b572918b39eb2",
+      "object_id": "tokenizer_scenario_347feacae0175af8634463b511f75d1e",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "df4b4ea5a0418e332c04b5727f22581edad4c1ece0c511257e364b52dde571ce",
+      "object_id": "tokenizer_scenario_3ccb1ba395e6ae4e1aee441972d9c102",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "00c2a78a549e18d4d48320ece5a4aff99fb4f166a89896ab35635371d3728f0e",
+      "object_id": "tokenizer_scenario_40e57ab06e20ae9ddc30cd2da1c0f625",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "ae504dcdc157aa3193994f750c71ec92c55d2ef9063b90fac9d48eabe3d37d8b",
+      "object_id": "tokenizer_scenario_5071cf3e4b3807194272e8e29b59c055",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "be07cac7de45795793fe79c16ef37b3f1f3714d8aa4c9a779274db3d17f3d18c",
+      "object_id": "tokenizer_scenario_5f1a1588274a2c91dbbb7448fa6c8438",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "ef91c0ba3c8739401d37ddcfc05877d5aae3dc3a2e23abc42dcea9d11c60fe16",
+      "object_id": "tokenizer_scenario_673c593f3646fbfa5649d9b53b6bb6d9",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "73baf6be0b05ca3e895f87fbb9d68f4ce143e8a1388a964f0d990eccdd398773",
+      "object_id": "tokenizer_scenario_69f0ad79fffda81914edeb21ed14cb6a",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "1669e64b7e0a940a5232d75a1966b1e36a62a81a0da293918789dd704c5b4ee9",
+      "object_id": "tokenizer_scenario_79e2788fb59d25aefa418f30b2f4748e",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "b5e357d677470887c57f387b9d3dc528739cc391e99decfc6e674c24ccec1cb8",
+      "object_id": "tokenizer_scenario_7efd17e30ec1066c1b2aaae5687e57ae",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "a258d490faedfb71635f5495df7f9ab0a1da8e7fdaa1d58d3f15ad09873297ec",
+      "object_id": "tokenizer_scenario_89be24cc809a229a5282255a79ef02f7",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "640033aa70c00f5dd2f69d9c95179e22c1ef8ebee30fa1db6baedd94ca4b65c0",
+      "object_id": "tokenizer_scenario_9040dfce6a9f85c631be18007739c074",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "05d0f9725ad1644740260353a7c501bf0a6e74bde155bfa996c1f07750a75ab2",
+      "object_id": "tokenizer_scenario_a00540afefc61fde2389f87328ca72ba",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "7b8d64caf71bb4429fc7460e3f805e8123f056397c8256527ede225ad15bfcfa",
+      "object_id": "tokenizer_scenario_a1b931176f1bfb8f28fa912446719b52",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "dd027876c7c27718380f1dafdb6183cd39aa3e9f6dddca4075099bcd73f612db",
+      "object_id": "tokenizer_scenario_a3abd1bddf4941b4c1b97527d42d3dd0",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "7a6c084ace83c58c31d333cbe51183c55542efc4486528d8782982f0b84b4a47",
+      "object_id": "tokenizer_scenario_a508d48b875a464801d781ede3a8ef0a",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "d7c713b6e8b06b5a735726828762b84bfd6c7ac4c2fad5896f7c01f2aef568ae",
+      "object_id": "tokenizer_scenario_a708db6070d5714f4bc3c3c6ce8240ee",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "fb1146ea00723348df41cb25b20f3d94c7478b3e677974ace387cbfa5912cdb5",
+      "object_id": "tokenizer_scenario_aae4d8d4136f190857a01fa84c070954",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "65988f0d694d14a6d1fd3c9a7e88d4cc3838d00256628b63c82f6a58d771e3b5",
+      "object_id": "tokenizer_scenario_ab42a51c0e652273df84fe25e51e429a",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "c45a4876b6d67729f2ebd0715ac90da0273b6dce6e9cb0c13bb09ea1bf2f9785",
+      "object_id": "tokenizer_scenario_b595bb39a78656bca35f2b0a3cc57b25",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "37fcb869beec9eb49e053471538633144f2fd9e20b21b4909c9c22d5b680dbbf",
+      "object_id": "tokenizer_scenario_b630494f797e2cf1346893fe053269fd",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "e081c2d0a12c1313327d7a9d5cd65f1cfbca7db013c5f42aeabaadbee6a62f6c",
+      "object_id": "tokenizer_scenario_cb63d813c9e0499bd6dbafb6184aaa8e",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "3943941d829625b9cb1317714c0f31f271450f675a3611daace5eb5d125e9334",
+      "object_id": "tokenizer_scenario_cc4ae67eb08019c28a84aa4a35f9c99d",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "b510bafc1b586d265ebb9c77465b28c95aab9730212802467dfe64a4cc0a7ee7",
+      "object_id": "tokenizer_scenario_d176991b70b59d0c6f5327b6b7b06917",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "223567e3379671c41edf3935971d66e23b3d607e91b3083873ea5474840c9960",
+      "object_id": "tokenizer_scenario_d41a75ae1b510322c5ec721f450ce798",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "74a0ad38aa479ccb23088ab322b1fc6091cfbb9f3da22aade7ebe85fbf041b63",
+      "object_id": "tokenizer_scenario_dd5c900a5dfbc38554b33c508bf54493",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "d7f27d28c43254e73ead6c72abc12556c63355b69efee1ff9a2abe0353c023f5",
+      "object_id": "tokenizer_scenario_f1a9e4a8e75c5db83c66d8571b6fe327",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "4816bb3bc1612f995f0430e64aa7efca9a0179a7b55ce4cd902db138d14b82d4",
+      "object_id": "tokenizer_scenario_f55c392529225a06378e7faf2ccceeb3",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "e41246d1161738af4d32193f9a52c1db16eab617d01002e32b29815c97478095",
+      "object_id": "tokenizer_scenario_f64ec64d5e39e1269282fdd604bcb09e",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    },
+    {
+      "object_digest": "ac39bc1c71ede061f25c6ad1b34b71cb48fe91b95b70dad5242caac3d2a2832e",
+      "object_id": "tokenizer_scenario_ff81772849df038a61c46ae076048c43",
+      "schema_id": "omiv.tokenizer-configuration-scenario-result.v1"
+    }
+  ],
+  "schema": "omiv.tokenizer-configuration-scenario-catalog.v1"
+}

@@ -1,0 +1,75 @@
+{
+  "alias_rules": [],
+  "allow_duplicate_id": false,
+  "allow_duplicate_token": false,
+  "digest_only_probes_acceptable": false,
+  "evaluation_context": {
+    "environment_scope": "environment.offline",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.tokenizer-parity",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  },
+  "limitations": [
+    "Policy PASS remains scope-qualified and cannot create governance approval."
+  ],
+  "minimum_probe_coverage": "1",
+  "minimum_vocabulary_coverage": "1",
+  "missing_input_behavior": "NOT_EVALUATED",
+  "opaque_component_behavior": "NOT_EVALUATED",
+  "policy_digest": "6cbfba5780afbefa87ee93d802c7f5316f000aa82900b43c454d24d4e5677e58",
+  "policy_id": "tokenizer_policy_8c7b859414c6169e7a45799bca0b9934",
+  "require_authority": false,
+  "require_chat_template": false,
+  "require_merge_order": true,
+  "required_assets": [
+    "CHAT_TEMPLATE",
+    "MERGE_TABLE",
+    "MODEL_CONFIG",
+    "VOCABULARY"
+  ],
+  "required_fields": [
+    "bos_token_id",
+    "eos_token_id",
+    "rope_scaling",
+    "use_cache",
+    "vocab_size"
+  ],
+  "required_identity": "EXACT_LOCAL_PAYLOAD_IDENTITY_AVAILABLE",
+  "required_pipeline_components": [
+    "MODEL"
+  ],
+  "required_probe_kinds": [
+    "DECODE_TOKEN_IDS_TO_TEXT",
+    "ENCODE_TEXT_TO_TOKEN_IDS"
+  ],
+  "required_special_roles": [
+    "BOS",
+    "EOS"
+  ],
+  "schema": "omiv.tokenizer-configuration-policy.v1",
+  "scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "tokenizer.phase6d-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.tokenizer-parity",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "TOKENIZER",
+    "subject_digest": "19930fd9f7f84f61da2d8821221d46e8533fa4c068179f84c0958563030b7c0d",
+    "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+  },
+  "transformation_rules": [],
+  "unsupported_format_behavior": "NOT_EVALUATED"
+}

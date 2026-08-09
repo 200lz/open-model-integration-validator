@@ -1,0 +1,21 @@
+{
+  "case_id": "exact-vocabulary",
+  "exercised_invariant": "Token-to-ID and ID-to-token parity are separate.",
+  "findings": [
+    "TOKEN_TO_ID_MATCH"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "pass",
+  "result_digest": "74a0ad38aa479ccb23088ab322b1fc6091cfbb9f3da22aade7ebe85fbf041b63",
+  "result_id": "tokenizer_scenario_dd5c900a5dfbc38554b33c508bf54493",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "75fadc239feec4aa7bc71a4f6139078de24909b94042403e984ee43dd0dfeda3",
+      "object_id": "special_token_observation_6e2d67fa2fa3dccbcfade5f56fdf7139",
+      "schema_id": "omiv.special-token-observation.v1"
+    }
+  ]
+}

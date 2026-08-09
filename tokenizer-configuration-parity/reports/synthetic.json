@@ -1,0 +1,342 @@
+{
+  "evidence": {
+    "object_digest": "8cd5c5b79467959c9f6b8859fed805e99bd40d071f17ef6481299f3c8a704846",
+    "object_id": "tokenizer_evidence_f290ada7bb4a2cc746a6bd807b0a39da",
+    "schema_id": "omiv.tokenizer-configuration-parity-evidence.v1"
+  },
+  "findings": [
+    {
+      "code": "ADDED_TOKEN_PROPERTIES_MATCH",
+      "detail": "All explicitly present added-token properties match.",
+      "dimension": "ADDED_TOKEN_PROPERTIES",
+      "status": "OBSERVED",
+      "subject": "0a9e17495c2b01c218ace9f38dab95fad3a57702f408a66412098f17cf588706"
+    },
+    {
+      "code": "FIELD_PATH_MATCH",
+      "detail": "Presence, type, and canonical value match for the selected field.",
+      "dimension": "CONFIGURATION_FIELDS",
+      "status": "OBSERVED",
+      "subject": "bos_token_id"
+    },
+    {
+      "code": "FIELD_PATH_MATCH",
+      "detail": "Presence, type, and canonical value match for the selected field.",
+      "dimension": "CONFIGURATION_FIELDS",
+      "status": "OBSERVED",
+      "subject": "eos_token_id"
+    },
+    {
+      "code": "FIELD_PATH_MATCH",
+      "detail": "Presence, type, and canonical value match for the selected field.",
+      "dimension": "CONFIGURATION_FIELDS",
+      "status": "OBSERVED",
+      "subject": "rope_scaling"
+    },
+    {
+      "code": "FIELD_PATH_MATCH",
+      "detail": "Presence, type, and canonical value match for the selected field.",
+      "dimension": "CONFIGURATION_FIELDS",
+      "status": "OBSERVED",
+      "subject": "use_cache"
+    },
+    {
+      "code": "FIELD_PATH_MATCH",
+      "detail": "Presence, type, and canonical value match for the selected field.",
+      "dimension": "CONFIGURATION_FIELDS",
+      "status": "OBSERVED",
+      "subject": "vocab_size"
+    },
+    {
+      "code": "MERGE_RECORD_MATCH",
+      "detail": "Merge operands and rank match.",
+      "dimension": "MERGE_ORDER",
+      "status": "OBSERVED",
+      "subject": "0"
+    },
+    {
+      "code": "MERGE_RECORD_MATCH",
+      "detail": "Merge operands and rank match.",
+      "dimension": "MERGE_ORDER",
+      "status": "OBSERVED",
+      "subject": "1"
+    },
+    {
+      "code": "MERGE_RECORD_MATCH",
+      "detail": "Merge operands and rank match.",
+      "dimension": "MERGE_ORDER",
+      "status": "OBSERVED",
+      "subject": "2"
+    },
+    {
+      "code": "PIPELINE_NOT_BEHAVIORALLY_EVALUATED",
+      "detail": "No component implementation was imported or executed.",
+      "dimension": "TOKENIZER_PIPELINE",
+      "status": "NOT_EVALUATED",
+      "subject": "pipeline"
+    },
+    {
+      "code": "PIPELINE_STRUCTURE_MATCH",
+      "detail": "Ordered structural component descriptor matches.",
+      "dimension": "TOKENIZER_PIPELINE",
+      "status": "OBSERVED",
+      "subject": "0"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_03660a75578f56bb5377fee1acdc7b41"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_1f77f97def1cce2ec2e527574ddf2d97"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_4976d779a562256bc3da1fd4302c26bd"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_55cebb25cb42ce562fcc41a386e8bc5b"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_5c2e0a1d666e9fc2a6e2708c7b57537d"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_5ca1832d160f0759282f27c6e660e90c"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_711a01e4413940eefc61693570f59b9a"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_803d63d991dec9b4c1377a1ccd7c7a2f"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_83b492bb8392c8379a7ba35b314ec8a8"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_850817752b4133b77a82f588465a3074"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_8981fdcd411cfa0f6809073575d770fa"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_999e6cd8070390c914ec5386a5b78e38"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_9a7abc69f53f90a043c068aa6fb2be20"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_9c7f534ed8090027be54abb6917f85db"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "DECODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_a2d6fd0d6da4a97a0a3b65bab40bb952"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_bbed04f8ead286e0b61553343ff7b899"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_bd25c85fcf6ee1e99573a6dbe4dd1eaa"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_bd3a40d5b8c57ced9e9f28047341b010"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_c259cdf256c6e1e0fe1a941334b7d685"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_cb866d6aa2d9537c5f8d56db83e1f2f4"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_d1f4885d5ff3a21ac50ef99341bc3f88"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_d6f231ac0dbadb225bb5902945ae2b64"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_f7240c04015b92393b7b7396fe3c916e"
+    },
+    {
+      "code": "SPECIAL_TOKEN_ROLE_MATCH",
+      "detail": "Role, content, ID, and presence match.",
+      "dimension": "SPECIAL_TOKEN_ROLES",
+      "status": "OBSERVED",
+      "subject": "BOS"
+    },
+    {
+      "code": "SPECIAL_TOKEN_ROLE_MATCH",
+      "detail": "Role, content, ID, and presence match.",
+      "dimension": "SPECIAL_TOKEN_ROLES",
+      "status": "OBSERVED",
+      "subject": "EOS"
+    },
+    {
+      "code": "TEMPLATE_EXACT_CONTENT_MATCH",
+      "detail": "Exact supplied template text bytes match.",
+      "dimension": "CHAT_TEMPLATE",
+      "status": "OBSERVED",
+      "subject": "template"
+    },
+    {
+      "code": "TEMPLATE_PRESENT_NOT_EXECUTED",
+      "detail": "Template was treated as untrusted data and not rendered.",
+      "dimension": "CHAT_TEMPLATE",
+      "status": "NOT_EVALUATED",
+      "subject": "template"
+    },
+    {
+      "code": "TOKEN_TO_ID_MATCH",
+      "detail": "Exact token content encoding maps to the same token ID.",
+      "dimension": "VOCABULARY_TOKEN_TO_ID",
+      "status": "OBSERVED",
+      "subject": "0a9e17495c2b01c218ace9f38dab95fad3a57702f408a66412098f17cf588706"
+    },
+    {
+      "code": "TOKEN_TO_ID_MATCH",
+      "detail": "Exact token content encoding maps to the same token ID.",
+      "dimension": "VOCABULARY_TOKEN_TO_ID",
+      "status": "OBSERVED",
+      "subject": "20be04f2f1fb040d244bbfa38e3814fd3b7fbcc8a827644cf755e0afbee8b899"
+    },
+    {
+      "code": "TOKEN_TO_ID_MATCH",
+      "detail": "Exact token content encoding maps to the same token ID.",
+      "dimension": "VOCABULARY_TOKEN_TO_ID",
+      "status": "OBSERVED",
+      "subject": "5d7f8e2319d28387045cd0e6f97149483f40279681f3b3929fd210874b3bb001"
+    },
+    {
+      "code": "TOKEN_TO_ID_MATCH",
+      "detail": "Exact token content encoding maps to the same token ID.",
+      "dimension": "VOCABULARY_TOKEN_TO_ID",
+      "status": "OBSERVED",
+      "subject": "9e158a00a33d0ec4b45d5d9db13d2a74ce8bf267ac97980294a7905501b1a9f8"
+    },
+    {
+      "code": "TOKEN_TO_ID_MATCH",
+      "detail": "Exact token content encoding maps to the same token ID.",
+      "dimension": "VOCABULARY_TOKEN_TO_ID",
+      "status": "OBSERVED",
+      "subject": "d2c4c345abc8abb363ac0f893615168594fb13a4e1619942e0217259b92e9adf"
+    }
+  ],
+  "included_findings": 43,
+  "inclusion_rule": "lexicographic.code.subject.detail",
+  "limitations": [
+    "Report is derived and never feeds canonical evidence identity."
+  ],
+  "omitted_findings": 0,
+  "overall_status": "PARITY_ESTABLISHED_FOR_DECLARED_SCOPE",
+  "report_digest": "33e1342966497f78a13893f9dd92b51bee38f95cf7592f5c6b3771f0484f65f6",
+  "report_id": "tokenizer_report_f30b5fc8db6ede0bdc4cd18fc79e999f",
+  "schema": "omiv.tokenizer-configuration-report.v1",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "tokenizer.phase6d-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.tokenizer-parity",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "TOKENIZER",
+    "subject_digest": "19930fd9f7f84f61da2d8821221d46e8533fa4c068179f84c0958563030b7c0d",
+    "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+  },
+  "title": "OMIV Tokenizer and Configuration Parity Evidence",
+  "total_findings": 43,
+  "truncation_status": "NOT_TRUNCATED"
+}

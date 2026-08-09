@@ -1,0 +1,28 @@
+{
+  "affiliation": "NO_XAI_ENDORSEMENT_AFFILIATION_OR_APPROVAL_CLAIM",
+  "case_study_digest": "6bd0baf7a2c3febb4ccda1f94e6282b647707d8628faba7880300cf109049208",
+  "case_study_id": "xai_tokenizer_case_study_86038efbda0984d43433c4b246297d87",
+  "established": [
+    "Immutable historical Phase 6B repository revisions and pinned response-scope member metadata.",
+    "Zero payload-comparable members and zero downloaded tokenizer/configuration content."
+  ],
+  "future_phase6a_binding": "Future local assets must bind exact Phase 6A manifests, members, sizes, payload digests, paths, and race-safe reads.",
+  "limitations": [
+    "No current repository state, publisher authority, authenticity, runtime compatibility, safety, or behavior is claimed."
+  ],
+  "phase6b_context": "Pinned Phase 6B snapshots remain historical listing provenance; member names and provider IDs are not content.",
+  "phase6c_independence": "A future quantized candidate may bind exact Phase 6C evidence, but weight fidelity cannot establish tokenizer/configuration parity.",
+  "readiness": {
+    "object_digest": "4dce2e824abeaf5f34935e8f3c99c9c379fa48b20eb604f3c4ae066cada1c4c3",
+    "object_id": "xai_tokenizer_readiness_c9e3b0d06501a452c233e9342ff31b83",
+    "schema_id": "omiv.xai-tokenizer-configuration-readiness.v1"
+  },
+  "runtime_boundary": "Static assets and supplied results do not establish observed runtime-loaded tokenizer identity.",
+  "schema": "omiv.xai-tokenizer-configuration-case-study.v1",
+  "supplied_probes_boundary": "Finite supplied probes remain probe-scoped and do not establish complete tokenizer equivalence.",
+  "title": "OMIV xAI Tokenizer and Configuration Parity Readiness Case Study",
+  "unavailable": [
+    "Vocabulary, merge, added-token, special-token, pipeline, chat-template, and configuration field contents.",
+    "Any supplied tokenization, decode, or template-render probe result."
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "bundle_digest": "34b4f3a3ff4087a65d8d8bc6dee70a9cd76018276725f7882cd5b85120fcd1b2",
+  "bundle_id": "tb_9bc965eb03768c3caf24aa9d40e7ad10",
+  "delegations": [],
+  "keys": [
+    {
+      "algorithm": "ED25519",
+      "allowed_key_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "allowed_object_types": [
+        "TOKENIZER_ASSET_OBSERVATION",
+        "TOKENIZER_CONFIGURATION_EXPECTATION",
+        "TOKENIZER_CONFIGURATION_PARITY_EVIDENCE"
+      ],
+      "allowed_purposes": [
+        "TOKENIZER_ASSET_OBSERVATION_ISSUANCE",
+        "TOKENIZER_CONFIGURATION_EXPECTATION_ISSUANCE",
+        "TOKENIZER_CONFIGURATION_PARITY_EVIDENCE_ISSUANCE"
+      ],
+      "key_digest": "429a827240fb18930e53241bf7fc871ef90e9f43a0b4479d069412ea1864bcff",
+      "key_id": "key_dae729a16735c244e96e489de9a1c985",
+      "limitations": [
+        "Public-key identity does not establish signer identity."
+      ],
+      "namespaces": [],
+      "provider_artifact_scopes": [],
+      "public_key": "8b237d788e8eaaef550c6d125823fa45f1fd5fc29b2c88bdf871119471fc1312",
+      "public_key_digest": "dae729a16735c244e96e489de9a1c98527f1c5fd090a787b22ca88130e2ec8a7",
+      "public_key_encoding": "RAW_HEX",
+      "schema": "omiv.key-identity.v1",
+      "status": "ACTIVE",
+      "validity": null
+    }
+  ],
+  "limitations": [
+    "Static offline bundle; no online discovery or continuous reevaluation."
+  ],
+  "revocations": [],
+  "schema": "omiv.trust-bundle.v1",
+  "signer_identities": [
+    {
+      "display_label": "Synthetic tokenizer parity evidence issuer",
+      "identity_digest": "305a01eaafdb7c1bb88a428a0e0bb078aeea4a2db80b0b85cea406eb0bc6ed9f",
+      "identity_evidence": [
+        "d407c2dff02999a8bbbaea8264a399798a810541267366ca60315d74aac2a2bc"
+      ],
+      "identity_kind": "SERVICE_DECLARED",
+      "limitations": [
+        "Synthetic declared identity; no external identity proof."
+      ],
+      "namespace": null,
+      "organization_id": null,
+      "role": "TOKENIZER_PARITY_EVIDENCE_ISSUER",
+      "schema": "omiv.signer-identity.v1",
+      "signer_identity_id": "signer_b6aa86b946ffcb71cea03fb637c643cc",
+      "verification_status": "EVIDENCE_LINKED"
+    }
+  ],
+  "signer_key_bindings": [
+    {
+      "allowed_object_types": [
+        "TOKENIZER_ASSET_OBSERVATION",
+        "TOKENIZER_CONFIGURATION_EXPECTATION",
+        "TOKENIZER_CONFIGURATION_PARITY_EVIDENCE"
+      ],
+      "allowed_roles": [
+        "TOKENIZER_PARITY_EVIDENCE_ISSUER"
+      ],
+      "allowed_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "binding_digest": "2cdd79009894eb72e2ecd8b27bb837ba7cef63b95f2a329612052385915aff39",
+      "binding_id": "binding_e3190b581d5a5fbd25227d3804916c8e",
+      "binding_origin": "TRUST_BUNDLE_DECLARED",
+      "evidence_references": [],
+      "key_id": "key_dae729a16735c244e96e489de9a1c985",
+      "limitations": [
+        "Binding validity does not prove the underlying signed claim."
+      ],
+      "namespaces": [],
+      "schema": "omiv.signer-key-binding.v1",
+      "signer_identity_id": "signer_b6aa86b946ffcb71cea03fb637c643cc",
+      "validity": null,
+      "verification_status": "VERIFIED_BY_TRUST_BUNDLE"
+    }
+  ],
+  "trust_roots": [
+    {
+      "allowed_object_types": [
+        "TOKENIZER_ASSET_OBSERVATION",
+        "TOKENIZER_CONFIGURATION_EXPECTATION",
+        "TOKENIZER_CONFIGURATION_PARITY_EVIDENCE"
+      ],
+      "allowed_purposes": [
+        "TOKENIZER_ASSET_OBSERVATION_ISSUANCE",
+        "TOKENIZER_CONFIGURATION_EXPECTATION_ISSUANCE",
+        "TOKENIZER_CONFIGURATION_PARITY_EVIDENCE_ISSUANCE"
+      ],
+      "delegation_allowed": false,
+      "key_id": "key_dae729a16735c244e96e489de9a1c985",
+      "limitations": [
+        "Trust applies only under a selected policy and recorded constraints."
+      ],
+      "maximum_delegation_depth": 0,
+      "namespaces": [],
+      "provider_artifact_scopes": [],
+      "root_digest": "c03e782b7b03fe32242364f7355fd040043847afa6518df0952e82339f1d0076",
+      "schema": "omiv.trust-root.v1",
+      "status": "ACTIVE",
+      "trust_root_id": "root_1a99c7c73f419a755145799cce40ad99",
+      "validity": null
+    }
+  ],
+  "validity": null
+}

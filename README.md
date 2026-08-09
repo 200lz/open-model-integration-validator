@@ -2148,3 +2148,30 @@ limitations.
 Offline bounded quantization-representation and numerical reconstruction fidelity
 foundation—complete for the declared exact-identity scope, with explicit format, coverage,
 sampling, authority, filesystem-race, and behavioral limitations.
+
+## Phase 6D: tokenizer and configuration parity
+
+Phase 6D adds an offline, bounded, provider-neutral foundation for exact tokenizer-asset and
+configuration comparison. It preserves raw bytes, canonical JSON, selected typed fields,
+vocabulary token-to-ID and ID-to-token mappings, merge order, added-token properties,
+special-token roles, ordered pipeline descriptors, unexecuted chat-template text, and explicitly
+supplied probe results as separate evidence dimensions. Expectations, observations, comparisons,
+policy, authority, integrations, signatures, reports, and the external self-excluding index remain
+separate canonical layers.
+
+OMIV does not import model code, execute a tokenizer, render a chat template, infer runtime or
+framework defaults, or upgrade remote repository metadata into payload content. Finite probe
+success remains probe-scoped. Tokenizer/configuration parity does not establish weight fidelity,
+behavioral or semantic equivalence, safety, authenticity, runtime compatibility, publisher
+authority, or production readiness.
+
+The xAI practice profile consumes only the unchanged Phase 6B pinned Grok repository-tree evidence
+and records readiness without required payload assets. Generated records live in
+`tokenizer-configuration-parity/`, reports in `reports/tokenizer-configuration-parity/`, and the
+external index in `tokenizer-configuration-parity/artifact-index.json`. See
+`docs/phase-6d-tokenizer-configuration-parity.md` for schemas, limits, CLI commands, integration
+boundaries, and exact limitations.
+
+Offline bounded tokenizer-asset, configuration-field, and supplied-probe parity
+foundation—complete for the declared exact-identity scope, with explicit format, coverage,
+authority, execution, and runtime limitations.

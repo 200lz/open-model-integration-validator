@@ -1,0 +1,21 @@
+{
+  "case_id": "phase6c-independent",
+  "exercised_invariant": "Weight fidelity cannot establish tokenizer parity.",
+  "findings": [
+    "QUANTIZATION_FIDELITY_INDEPENDENT"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "not.evaluated",
+  "result_digest": "65988f0d694d14a6d1fd3c9a7e88d4cc3838d00256628b63c82f6a58d771e3b5",
+  "result_id": "tokenizer_scenario_ab42a51c0e652273df84fe25e51e429a",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "0c305e21b3e9f79a19d5a66467fedf6f383736e1f74d582b671bc7c4c9447a82",
+      "object_id": "config_observation_1bd2a02521ca418f8908448dd82772c9",
+      "schema_id": "omiv.configuration-observation.v1"
+    }
+  ]
+}

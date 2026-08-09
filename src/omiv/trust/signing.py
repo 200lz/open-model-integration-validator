@@ -183,6 +183,21 @@ OBJECT_METADATA: dict[SignedObjectType, tuple[set[str], str, str]] = {
         "evidence_id",
         "evidence_digest",
     ),
+    SignedObjectType.TOKENIZER_CONFIGURATION_EXPECTATION: (
+        {"omiv.tokenizer-configuration-expectation.v1"},
+        "expectation_id",
+        "expectation_digest",
+    ),
+    SignedObjectType.TOKENIZER_ASSET_OBSERVATION: (
+        {"omiv.tokenizer-asset-observation.v1"},
+        "observation_id",
+        "observation_digest",
+    ),
+    SignedObjectType.TOKENIZER_CONFIGURATION_PARITY_EVIDENCE: (
+        {"omiv.tokenizer-configuration-parity-evidence.v1"},
+        "evidence_id",
+        "evidence_digest",
+    ),
 }
 EXPECTED_PURPOSE = {
     SignedObjectType.ARTIFACT_ATTESTATION: SignaturePurpose.ATTESTATION_ISSUANCE,
@@ -232,6 +247,15 @@ EXPECTED_PURPOSE = {
     ),
     SignedObjectType.QUANTIZATION_FIDELITY_EVIDENCE: (
         SignaturePurpose.QUANTIZATION_FIDELITY_EVIDENCE_ISSUANCE
+    ),
+    SignedObjectType.TOKENIZER_CONFIGURATION_EXPECTATION: (
+        SignaturePurpose.TOKENIZER_CONFIGURATION_EXPECTATION_ISSUANCE
+    ),
+    SignedObjectType.TOKENIZER_ASSET_OBSERVATION: (
+        SignaturePurpose.TOKENIZER_ASSET_OBSERVATION_ISSUANCE
+    ),
+    SignedObjectType.TOKENIZER_CONFIGURATION_PARITY_EVIDENCE: (
+        SignaturePurpose.TOKENIZER_CONFIGURATION_PARITY_EVIDENCE_ISSUANCE
     ),
 }
 

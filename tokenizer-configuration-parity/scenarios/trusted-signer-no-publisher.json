@@ -1,0 +1,21 @@
+{
+  "case_id": "trusted-signer-no-publisher",
+  "exercised_invariant": "Signer trust does not create publisher authority.",
+  "findings": [
+    "PUBLISHER_NOT_ESTABLISHED"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "not.evaluated",
+  "result_digest": "b85671bf6c5f7e83121ed8fc80b2447da3881be80bbbe7874e8cfe4c07bf2fa5",
+  "result_id": "tokenizer_scenario_05394cc76e9a7d753ce329b581d7156b",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "4dce2e824abeaf5f34935e8f3c99c9c379fa48b20eb604f3c4ae066cada1c4c3",
+      "object_id": "xai_tokenizer_readiness_c9e3b0d06501a452c233e9342ff31b83",
+      "schema_id": "omiv.xai-tokenizer-configuration-readiness.v1"
+    }
+  ]
+}

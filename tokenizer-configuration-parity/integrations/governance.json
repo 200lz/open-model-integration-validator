@@ -1,0 +1,39 @@
+{
+  "creates_approval": false,
+  "creates_runtime_observation": false,
+  "creates_security_pass": false,
+  "derived_state": "evidence.not.approval",
+  "evidence": {
+    "object_digest": "8cd5c5b79467959c9f6b8859fed805e99bd40d071f17ef6481299f3c8a704846",
+    "object_id": "tokenizer_evidence_f290ada7bb4a2cc746a6bd807b0a39da",
+    "schema_id": "omiv.tokenizer-configuration-parity-evidence.v1"
+  },
+  "identity_match": true,
+  "integration_digest": "d4bec5b642996967ec374d7078e2d06449007b39e7e41c59f99157ddc893552c",
+  "integration_id": "tokenizer_integration_9aa61e657274eb43b014d085d9b9f346",
+  "integration_kind": "GOVERNANCE",
+  "limitations": [
+    "Cross-phase linkage preserves the original evidence boundary."
+  ],
+  "linked_object": null,
+  "schema": "omiv.tokenizer-configuration-integration-summary.v1",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "tokenizer.phase6d-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.tokenizer-parity",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "TOKENIZER",
+    "subject_digest": "19930fd9f7f84f61da2d8821221d46e8533fa4c068179f84c0958563030b7c0d",
+    "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+  }
+}

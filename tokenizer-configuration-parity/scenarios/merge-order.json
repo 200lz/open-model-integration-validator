@@ -1,0 +1,21 @@
+{
+  "case_id": "merge-order",
+  "exercised_invariant": "BPE merge order is semantic.",
+  "findings": [
+    "MERGE_ORDER_MISMATCH"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "mismatch",
+  "result_digest": "b5e357d677470887c57f387b9d3dc528739cc391e99decfc6e674c24ccec1cb8",
+  "result_id": "tokenizer_scenario_7efd17e30ec1066c1b2aaae5687e57ae",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "8cd5c5b79467959c9f6b8859fed805e99bd40d071f17ef6481299f3c8a704846",
+      "object_id": "tokenizer_evidence_f290ada7bb4a2cc746a6bd807b0a39da",
+      "schema_id": "omiv.tokenizer-configuration-parity-evidence.v1"
+    }
+  ]
+}

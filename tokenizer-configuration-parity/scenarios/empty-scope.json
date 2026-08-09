@@ -1,0 +1,21 @@
+{
+  "case_id": "empty-scope",
+  "exercised_invariant": "Empty scope cannot pass vacuously.",
+  "findings": [
+    "EMPTY_SCOPE_REJECTED"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "invalid",
+  "result_digest": "a258d490faedfb71635f5495df7f9ab0a1da8e7fdaa1d58d3f15ad09873297ec",
+  "result_id": "tokenizer_scenario_89be24cc809a229a5282255a79ef02f7",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "4f389d622446e74e7eadbd636430d8897bc098d27460a55b364767392a16eaca",
+      "object_id": "pipeline_observation_74b6c9e3d1273c73e036dcb5c010505f",
+      "schema_id": "omiv.tokenizer-pipeline-observation.v1"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "case_id": "phase6a-binding-mismatch",
+  "exercised_invariant": "Mismatched local bytes fail closed.",
+  "findings": [
+    "PHASE6A_IDENTITY_MISMATCH"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "invalid",
+  "result_digest": "d7c713b6e8b06b5a735726828762b84bfd6c7ac4c2fad5896f7c01f2aef568ae",
+  "result_id": "tokenizer_scenario_a708db6070d5714f4bc3c3c6ce8240ee",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "8cd5c5b79467959c9f6b8859fed805e99bd40d071f17ef6481299f3c8a704846",
+      "object_id": "tokenizer_evidence_f290ada7bb4a2cc746a6bd807b0a39da",
+      "schema_id": "omiv.tokenizer-configuration-parity-evidence.v1"
+    }
+  ]
+}

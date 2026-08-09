@@ -1,0 +1,679 @@
+{
+  "comparison_digest": "d0ed571ec109e2bccb7c7dd67434c7744360b8439f8035023af76c48e987a606",
+  "comparison_id": "tokenizer_comparison_613c905dd48096fa0c39059674444646",
+  "configuration_status": "CANONICAL_JSON_EQUAL_FOR_SCOPE",
+  "coverage": [
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "ADDED_TOKENS",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "AUTHORITY_COVERAGE",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "BYTE_COVERAGE",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "CANDIDATE_ARTIFACT_ASSETS",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "CHAT_TEMPLATES",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "CONFIGURATION_FILES",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "DECODE_OUTPUTS",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 23,
+      "denominator_state": "AVAILABLE",
+      "dimension": "EXECUTED_PROBES",
+      "incomplete_reason": null,
+      "numerator": 23,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "MERGE_RECORDS",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 23,
+      "denominator_state": "AVAILABLE",
+      "dimension": "PROBE_DEFINITIONS",
+      "incomplete_reason": null,
+      "numerator": 23,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "REFERENCE_ARTIFACT_ASSETS",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "REQUIRED_CONFIGURATION_FIELDS",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "SPECIAL_TOKEN_ROLES",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "TOKENIZER_PIPELINE_COMPONENTS",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "TOKEN_ID_OUTPUTS",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "VOCABULARY_ENTRIES",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "VOCABULARY_IDS",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    }
+  ],
+  "cross_asset_results": [
+    {
+      "detail": "Explicit RECORD_COUNT basis compared configuration value 5 with observed cardinality 5.",
+      "inputs": [
+        {
+          "object_digest": "5ce52e2f2911bc8b9d5a62bdf01e6d757fb5659bacce9a353b95f992977625db",
+          "object_id": "config_observation_519bc36a76ed951664efdc034f253f78",
+          "schema_id": "omiv.configuration-observation.v1"
+        },
+        {
+          "object_digest": "dc9a61e6e0c039e898991a141a7b7b767d481003cc96a717a0d19147d925887b",
+          "object_id": "vocabulary_observation_3ca2fced55df54712ade694ed397feb5",
+          "schema_id": "omiv.vocabulary-observation.v1"
+        }
+      ],
+      "rule_id": "config.vocabulary-size.record_count",
+      "status": "CONSISTENT_FOR_DECLARED_RULE"
+    }
+  ],
+  "declaration": {
+    "object_digest": "b54785b99d319333716ac9484775add4aaca60795b1e38df9824d1f59735778a",
+    "object_id": "tokenizer_declaration_ecac23d875c63f43b79445b33712f483",
+    "schema_id": "omiv.tokenizer-configuration-parity-declaration.v1"
+  },
+  "dimension_results": [
+    {
+      "compared_count": 1,
+      "dimension": "ADDED_TOKEN_PROPERTIES",
+      "limitations": [
+        "Absent property and explicit false remain distinct."
+      ],
+      "mismatch_count": 0,
+      "status": "OBSERVED"
+    },
+    {
+      "compared_count": 1,
+      "dimension": "CHAT_TEMPLATE",
+      "limitations": [
+        "Text equality does not establish runtime render equivalence."
+      ],
+      "mismatch_count": 0,
+      "status": "OBSERVED"
+    },
+    {
+      "compared_count": 5,
+      "dimension": "CONFIGURATION_FIELDS",
+      "limitations": [
+        "Raw bytes, canonical JSON, and field projection parity remain distinct."
+      ],
+      "mismatch_count": 0,
+      "status": "OBSERVED"
+    },
+    {
+      "compared_count": 1,
+      "dimension": "DECODE_PROBES",
+      "limitations": [
+        "Finite probe success remains selected-probe scope."
+      ],
+      "mismatch_count": 0,
+      "status": "OBSERVED"
+    },
+    {
+      "compared_count": 22,
+      "dimension": "ENCODE_PROBES",
+      "limitations": [
+        "Finite probe success remains selected-probe scope."
+      ],
+      "mismatch_count": 0,
+      "status": "OBSERVED"
+    },
+    {
+      "compared_count": 3,
+      "dimension": "MERGE_ORDER",
+      "limitations": [
+        "Merge order is semantic and was not sorted before comparison."
+      ],
+      "mismatch_count": 0,
+      "status": "OBSERVED"
+    },
+    {
+      "compared_count": 2,
+      "dimension": "SPECIAL_TOKEN_ROLES",
+      "limitations": [
+        "Token spelling does not infer role meaning."
+      ],
+      "mismatch_count": 0,
+      "status": "OBSERVED"
+    },
+    {
+      "compared_count": 0,
+      "dimension": "TEMPLATE_RENDER_PROBES",
+      "limitations": [
+        "Finite probe success remains selected-probe scope."
+      ],
+      "mismatch_count": 0,
+      "status": "NOT_EVALUATED"
+    },
+    {
+      "compared_count": 1,
+      "dimension": "TOKENIZER_PIPELINE",
+      "limitations": [
+        "Structural pipeline parity is not behavioral equivalence."
+      ],
+      "mismatch_count": 0,
+      "status": "OBSERVED"
+    },
+    {
+      "compared_count": 5,
+      "dimension": "VOCABULARY_ID_TO_TOKEN",
+      "limitations": [
+        "Sparse IDs are compared exactly and are not densified."
+      ],
+      "mismatch_count": 0,
+      "status": "OBSERVED"
+    },
+    {
+      "compared_count": 5,
+      "dimension": "VOCABULARY_TOKEN_TO_ID",
+      "limitations": [],
+      "mismatch_count": 0,
+      "status": "OBSERVED"
+    }
+  ],
+  "expectation": {
+    "object_digest": "85896c45f632ad9c8b948ace9e7e2bab5e2fcc03a765123116aa2cd8c3ddac79",
+    "object_id": "tokenizer_expectation_9f64a9cc14674c8d58942906bdcbcccc",
+    "schema_id": "omiv.tokenizer-configuration-expectation.v1"
+  },
+  "findings": [
+    {
+      "code": "ADDED_TOKEN_PROPERTIES_MATCH",
+      "detail": "All explicitly present added-token properties match.",
+      "dimension": "ADDED_TOKEN_PROPERTIES",
+      "status": "OBSERVED",
+      "subject": "0a9e17495c2b01c218ace9f38dab95fad3a57702f408a66412098f17cf588706"
+    },
+    {
+      "code": "FIELD_PATH_MATCH",
+      "detail": "Presence, type, and canonical value match for the selected field.",
+      "dimension": "CONFIGURATION_FIELDS",
+      "status": "OBSERVED",
+      "subject": "bos_token_id"
+    },
+    {
+      "code": "FIELD_PATH_MATCH",
+      "detail": "Presence, type, and canonical value match for the selected field.",
+      "dimension": "CONFIGURATION_FIELDS",
+      "status": "OBSERVED",
+      "subject": "eos_token_id"
+    },
+    {
+      "code": "FIELD_PATH_MATCH",
+      "detail": "Presence, type, and canonical value match for the selected field.",
+      "dimension": "CONFIGURATION_FIELDS",
+      "status": "OBSERVED",
+      "subject": "rope_scaling"
+    },
+    {
+      "code": "FIELD_PATH_MATCH",
+      "detail": "Presence, type, and canonical value match for the selected field.",
+      "dimension": "CONFIGURATION_FIELDS",
+      "status": "OBSERVED",
+      "subject": "use_cache"
+    },
+    {
+      "code": "FIELD_PATH_MATCH",
+      "detail": "Presence, type, and canonical value match for the selected field.",
+      "dimension": "CONFIGURATION_FIELDS",
+      "status": "OBSERVED",
+      "subject": "vocab_size"
+    },
+    {
+      "code": "MERGE_RECORD_MATCH",
+      "detail": "Merge operands and rank match.",
+      "dimension": "MERGE_ORDER",
+      "status": "OBSERVED",
+      "subject": "0"
+    },
+    {
+      "code": "MERGE_RECORD_MATCH",
+      "detail": "Merge operands and rank match.",
+      "dimension": "MERGE_ORDER",
+      "status": "OBSERVED",
+      "subject": "1"
+    },
+    {
+      "code": "MERGE_RECORD_MATCH",
+      "detail": "Merge operands and rank match.",
+      "dimension": "MERGE_ORDER",
+      "status": "OBSERVED",
+      "subject": "2"
+    },
+    {
+      "code": "PIPELINE_NOT_BEHAVIORALLY_EVALUATED",
+      "detail": "No component implementation was imported or executed.",
+      "dimension": "TOKENIZER_PIPELINE",
+      "status": "NOT_EVALUATED",
+      "subject": "pipeline"
+    },
+    {
+      "code": "PIPELINE_STRUCTURE_MATCH",
+      "detail": "Ordered structural component descriptor matches.",
+      "dimension": "TOKENIZER_PIPELINE",
+      "status": "OBSERVED",
+      "subject": "0"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_03660a75578f56bb5377fee1acdc7b41"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_1f77f97def1cce2ec2e527574ddf2d97"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_4976d779a562256bc3da1fd4302c26bd"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_55cebb25cb42ce562fcc41a386e8bc5b"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_5c2e0a1d666e9fc2a6e2708c7b57537d"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_5ca1832d160f0759282f27c6e660e90c"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_711a01e4413940eefc61693570f59b9a"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_803d63d991dec9b4c1377a1ccd7c7a2f"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_83b492bb8392c8379a7ba35b314ec8a8"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_850817752b4133b77a82f588465a3074"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_8981fdcd411cfa0f6809073575d770fa"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_999e6cd8070390c914ec5386a5b78e38"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_9a7abc69f53f90a043c068aa6fb2be20"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_9c7f534ed8090027be54abb6917f85db"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "DECODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_a2d6fd0d6da4a97a0a3b65bab40bb952"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_bbed04f8ead286e0b61553343ff7b899"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_bd25c85fcf6ee1e99573a6dbe4dd1eaa"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_bd3a40d5b8c57ced9e9f28047341b010"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_c259cdf256c6e1e0fe1a941334b7d685"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_cb866d6aa2d9537c5f8d56db83e1f2f4"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_d1f4885d5ff3a21ac50ef99341bc3f88"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_d6f231ac0dbadb225bb5902945ae2b64"
+    },
+    {
+      "code": "PROBE_OUTPUT_EXACT",
+      "detail": "Supplied probe outputs match exactly.",
+      "dimension": "ENCODE_PROBES",
+      "status": "OBSERVED",
+      "subject": "tokenizer_probe_f7240c04015b92393b7b7396fe3c916e"
+    },
+    {
+      "code": "SPECIAL_TOKEN_ROLE_MATCH",
+      "detail": "Role, content, ID, and presence match.",
+      "dimension": "SPECIAL_TOKEN_ROLES",
+      "status": "OBSERVED",
+      "subject": "BOS"
+    },
+    {
+      "code": "SPECIAL_TOKEN_ROLE_MATCH",
+      "detail": "Role, content, ID, and presence match.",
+      "dimension": "SPECIAL_TOKEN_ROLES",
+      "status": "OBSERVED",
+      "subject": "EOS"
+    },
+    {
+      "code": "TEMPLATE_EXACT_CONTENT_MATCH",
+      "detail": "Exact supplied template text bytes match.",
+      "dimension": "CHAT_TEMPLATE",
+      "status": "OBSERVED",
+      "subject": "template"
+    },
+    {
+      "code": "TEMPLATE_PRESENT_NOT_EXECUTED",
+      "detail": "Template was treated as untrusted data and not rendered.",
+      "dimension": "CHAT_TEMPLATE",
+      "status": "NOT_EVALUATED",
+      "subject": "template"
+    },
+    {
+      "code": "TOKEN_TO_ID_MATCH",
+      "detail": "Exact token content encoding maps to the same token ID.",
+      "dimension": "VOCABULARY_TOKEN_TO_ID",
+      "status": "OBSERVED",
+      "subject": "0a9e17495c2b01c218ace9f38dab95fad3a57702f408a66412098f17cf588706"
+    },
+    {
+      "code": "TOKEN_TO_ID_MATCH",
+      "detail": "Exact token content encoding maps to the same token ID.",
+      "dimension": "VOCABULARY_TOKEN_TO_ID",
+      "status": "OBSERVED",
+      "subject": "20be04f2f1fb040d244bbfa38e3814fd3b7fbcc8a827644cf755e0afbee8b899"
+    },
+    {
+      "code": "TOKEN_TO_ID_MATCH",
+      "detail": "Exact token content encoding maps to the same token ID.",
+      "dimension": "VOCABULARY_TOKEN_TO_ID",
+      "status": "OBSERVED",
+      "subject": "5d7f8e2319d28387045cd0e6f97149483f40279681f3b3929fd210874b3bb001"
+    },
+    {
+      "code": "TOKEN_TO_ID_MATCH",
+      "detail": "Exact token content encoding maps to the same token ID.",
+      "dimension": "VOCABULARY_TOKEN_TO_ID",
+      "status": "OBSERVED",
+      "subject": "9e158a00a33d0ec4b45d5d9db13d2a74ce8bf267ac97980294a7905501b1a9f8"
+    },
+    {
+      "code": "TOKEN_TO_ID_MATCH",
+      "detail": "Exact token content encoding maps to the same token ID.",
+      "dimension": "VOCABULARY_TOKEN_TO_ID",
+      "status": "OBSERVED",
+      "subject": "d2c4c345abc8abb363ac0f893615168594fb13a4e1619942e0217259b92e9adf"
+    }
+  ],
+  "limitations": [
+    "Finite probes, metadata, or partial scopes cannot create complete tokenizer equivalence."
+  ],
+  "observations": [
+    {
+      "object_digest": "c91a39454edb7d21fc95011c77f88a24e17d3a36db1729dfc090991f6bec9dfd",
+      "object_id": "added_token_observation_2e97993fe8b2413f855fbf03bd60f266",
+      "schema_id": "omiv.added-token-observation.v1"
+    },
+    {
+      "object_digest": "336cbc0139769d78d9e79d71e2e0e86c3e94b96da3c1a2da133a75d5cf0a8cc8",
+      "object_id": "added_token_observation_f2706a7784ecce19e0afd93ab876304f",
+      "schema_id": "omiv.added-token-observation.v1"
+    },
+    {
+      "object_digest": "c282dd9750f8e59f2971baa942db211e2727d525e6fa51f231d23adf743da571",
+      "object_id": "template_observation_b99660b8457fb087b0cd9d89c9370325",
+      "schema_id": "omiv.chat-template-observation.v1"
+    },
+    {
+      "object_digest": "50e7f5b19a99a9b12c27e2ce0b66cf2bbecf88a9cfe29746c9d41c51fda3337f",
+      "object_id": "template_observation_c7f2c99ae3f4edfdf8069427a0c68304",
+      "schema_id": "omiv.chat-template-observation.v1"
+    },
+    {
+      "object_digest": "0c305e21b3e9f79a19d5a66467fedf6f383736e1f74d582b671bc7c4c9447a82",
+      "object_id": "config_observation_1bd2a02521ca418f8908448dd82772c9",
+      "schema_id": "omiv.configuration-observation.v1"
+    },
+    {
+      "object_digest": "5ce52e2f2911bc8b9d5a62bdf01e6d757fb5659bacce9a353b95f992977625db",
+      "object_id": "config_observation_519bc36a76ed951664efdc034f253f78",
+      "schema_id": "omiv.configuration-observation.v1"
+    },
+    {
+      "object_digest": "9828f89897da1cf8ba1629e070e7ea962dac531ef41a6889c87c1fee4a44d654",
+      "object_id": "merge_observation_69f9048dd95ff53d317487355816cf3b",
+      "schema_id": "omiv.merge-table-observation.v1"
+    },
+    {
+      "object_digest": "92baa45e9af9c49a758042de9e8940b0b47dfa3e9345caf3809a596f57905b94",
+      "object_id": "merge_observation_c3901de4a1a6609438cdf7e611e9b632",
+      "schema_id": "omiv.merge-table-observation.v1"
+    },
+    {
+      "object_digest": "75fadc239feec4aa7bc71a4f6139078de24909b94042403e984ee43dd0dfeda3",
+      "object_id": "special_token_observation_6e2d67fa2fa3dccbcfade5f56fdf7139",
+      "schema_id": "omiv.special-token-observation.v1"
+    },
+    {
+      "object_digest": "59de0864e58c3936e5dffe05119aee410ca7c1242251346874f8b44d5dbcd817",
+      "object_id": "special_token_observation_e23fd0623eb1a52541922d8d5a9fa2ad",
+      "schema_id": "omiv.special-token-observation.v1"
+    },
+    {
+      "object_digest": "40cfaf9d68324dcf570f6d5f5aab9bb2f45ed866dea579566818737784152fb0",
+      "object_id": "pipeline_observation_2116182d635d9d60b46214b8b75b4403",
+      "schema_id": "omiv.tokenizer-pipeline-observation.v1"
+    },
+    {
+      "object_digest": "4f389d622446e74e7eadbd636430d8897bc098d27460a55b364767392a16eaca",
+      "object_id": "pipeline_observation_74b6c9e3d1273c73e036dcb5c010505f",
+      "schema_id": "omiv.tokenizer-pipeline-observation.v1"
+    },
+    {
+      "object_digest": "dc9a61e6e0c039e898991a141a7b7b767d481003cc96a717a0d19147d925887b",
+      "object_id": "vocabulary_observation_3ca2fced55df54712ade694ed397feb5",
+      "schema_id": "omiv.vocabulary-observation.v1"
+    },
+    {
+      "object_digest": "197a85f4a1556caace5e74bfe5860060052db17f76f6e6bc590cd451a9ff8b1e",
+      "object_id": "vocabulary_observation_57b2706812989c206942c8dc85dc9202",
+      "schema_id": "omiv.vocabulary-observation.v1"
+    }
+  ],
+  "probe_results": [
+    {
+      "object_digest": "61ec458432b9d8b0db6f66f23f6b0b5ac9980fbd156e6996922687e4f7beef6e",
+      "object_id": "tokenizer_probe_results_ff0c35a7c5f2b86b6d289eaf8fdb3aba",
+      "schema_id": "omiv.tokenizer-probe-result-observation.v1"
+    }
+  ],
+  "probe_status": "EXACT_FOR_DECLARED_PROBES",
+  "raw_status": "PARITY_ESTABLISHED_FOR_DECLARED_SCOPE",
+  "schema": "omiv.tokenizer-configuration-comparison.v1",
+  "scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "tokenizer.phase6d-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.tokenizer-parity",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "TOKENIZER",
+    "subject_digest": "19930fd9f7f84f61da2d8821221d46e8533fa4c068179f84c0958563030b7c0d",
+    "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+  }
+}

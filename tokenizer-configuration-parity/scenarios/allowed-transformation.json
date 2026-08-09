@@ -1,0 +1,21 @@
+{
+  "case_id": "allowed-transformation",
+  "exercised_invariant": "Allowed differences retain raw mismatch.",
+  "findings": [
+    "EXPECTED_TRANSFORMATION_DIFFERENCE"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "pass",
+  "result_digest": "00c2a78a549e18d4d48320ece5a4aff99fb4f166a89896ab35635371d3728f0e",
+  "result_id": "tokenizer_scenario_40e57ab06e20ae9ddc30cd2da1c0f625",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "c91a39454edb7d21fc95011c77f88a24e17d3a36db1729dfc090991f6bec9dfd",
+      "object_id": "added_token_observation_2e97993fe8b2413f855fbf03bd60f266",
+      "schema_id": "omiv.added-token-observation.v1"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "case_id": "added-token-property",
+  "exercised_invariant": "Absent and false properties differ.",
+  "findings": [
+    "ADDED_TOKEN_PROPERTY_MISMATCH"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "mismatch",
+  "result_digest": "ac39bc1c71ede061f25c6ad1b34b71cb48fe91b95b70dad5242caac3d2a2832e",
+  "result_id": "tokenizer_scenario_ff81772849df038a61c46ae076048c43",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "4dce2e824abeaf5f34935e8f3c99c9c379fa48b20eb604f3c4ae066cada1c4c3",
+      "object_id": "xai_tokenizer_readiness_c9e3b0d06501a452c233e9342ff31b83",
+      "schema_id": "omiv.xai-tokenizer-configuration-readiness.v1"
+    }
+  ]
+}

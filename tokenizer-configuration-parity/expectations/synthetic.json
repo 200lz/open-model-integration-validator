@@ -1,0 +1,52 @@
+{
+  "authority_status": "NOT_ESTABLISHED",
+  "available_at": "NOT_RECORDED",
+  "expectation_digest": "85896c45f632ad9c8b948ace9e7e2bab5e2fcc03a765123116aa2cd8c3ddac79",
+  "expectation_id": "tokenizer_expectation_9f64a9cc14674c8d58942906bdcbcccc",
+  "limitations": [
+    "Expectation presence does not establish publisher authority."
+  ],
+  "publisher": null,
+  "required_assets": [
+    "CHAT_TEMPLATE",
+    "MERGE_TABLE",
+    "MODEL_CONFIG",
+    "VOCABULARY"
+  ],
+  "required_fields": [
+    "bos_token_id",
+    "eos_token_id",
+    "rope_scaling",
+    "use_cache",
+    "vocab_size"
+  ],
+  "required_probe_kinds": [
+    "DECODE_TOKEN_IDS_TO_TEXT",
+    "ENCODE_TEXT_TO_TOKEN_IDS"
+  ],
+  "required_special_roles": [
+    "BOS",
+    "EOS"
+  ],
+  "schema": "omiv.tokenizer-configuration-expectation.v1",
+  "scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "tokenizer.phase6d-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.tokenizer-parity",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "TOKENIZER",
+    "subject_digest": "19930fd9f7f84f61da2d8821221d46e8533fa4c068179f84c0958563030b7c0d",
+    "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+  }
+}

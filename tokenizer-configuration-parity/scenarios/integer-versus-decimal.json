@@ -1,0 +1,21 @@
+{
+  "case_id": "integer-versus-decimal",
+  "exercised_invariant": "Typed integer and decimal values differ.",
+  "findings": [
+    "VALUE_TYPE_MISMATCH"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "mismatch",
+  "result_digest": "e081c2d0a12c1313327d7a9d5cd65f1cfbca7db013c5f42aeabaadbee6a62f6c",
+  "result_id": "tokenizer_scenario_cb63d813c9e0499bd6dbafb6184aaa8e",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "9828f89897da1cf8ba1629e070e7ea962dac531ef41a6889c87c1fee4a44d654",
+      "object_id": "merge_observation_69f9048dd95ff53d317487355816cf3b",
+      "schema_id": "omiv.merge-table-observation.v1"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "case_id": "exact-template-text",
+  "exercised_invariant": "Template text equality is content-scoped.",
+  "findings": [
+    "TEMPLATE_EXACT_CONTENT_MATCH"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "pass",
+  "result_digest": "ae504dcdc157aa3193994f750c71ec92c55d2ef9063b90fac9d48eabe3d37d8b",
+  "result_id": "tokenizer_scenario_5071cf3e4b3807194272e8e29b59c055",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "92baa45e9af9c49a758042de9e8940b0b47dfa3e9345caf3809a596f57905b94",
+      "object_id": "merge_observation_c3901de4a1a6609438cdf7e611e9b632",
+      "schema_id": "omiv.merge-table-observation.v1"
+    }
+  ]
+}

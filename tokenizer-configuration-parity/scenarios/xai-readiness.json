@@ -1,0 +1,21 @@
+{
+  "case_id": "xai-readiness",
+  "exercised_invariant": "Pinned metadata records readiness without contents.",
+  "findings": [
+    "XAI_REQUIRED_PAYLOAD_ASSETS_UNAVAILABLE"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "not.evaluated",
+  "result_digest": "37fcb869beec9eb49e053471538633144f2fd9e20b21b4909c9c22d5b680dbbf",
+  "result_id": "tokenizer_scenario_b630494f797e2cf1346893fe053269fd",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "dc9a61e6e0c039e898991a141a7b7b767d481003cc96a717a0d19147d925887b",
+      "object_id": "vocabulary_observation_3ca2fced55df54712ade694ed397feb5",
+      "schema_id": "omiv.vocabulary-observation.v1"
+    }
+  ]
+}

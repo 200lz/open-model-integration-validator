@@ -1,0 +1,21 @@
+{
+  "case_id": "duplicate-id",
+  "exercised_invariant": "Duplicate ID ambiguity is explicit.",
+  "findings": [
+    "DUPLICATE_ID"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "not.comparable",
+  "result_digest": "7b8d64caf71bb4429fc7460e3f805e8123f056397c8256527ede225ad15bfcfa",
+  "result_id": "tokenizer_scenario_a1b931176f1bfb8f28fa912446719b52",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "40cfaf9d68324dcf570f6d5f5aab9bb2f45ed866dea579566818737784152fb0",
+      "object_id": "pipeline_observation_2116182d635d9d60b46214b8b75b4403",
+      "schema_id": "omiv.tokenizer-pipeline-observation.v1"
+    }
+  ]
+}

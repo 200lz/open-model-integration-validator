@@ -1,0 +1,64 @@
+{
+  "artifact": {
+    "artifact_set_identity": "6adc005718afc42963ab75b7c38eed6aa2fe2bdd99bad09a4443f777326cd73a",
+    "asset_kind": "VOCABULARY",
+    "asset_path": "vocab-reference.json",
+    "availability": "EXACT_LOCAL_PAYLOAD_IDENTITY_AVAILABLE",
+    "coverage": "complete.declared-local-file-scope",
+    "file_size": 40,
+    "limitations": [
+      "Synthetic local fixture; not publisher evidence."
+    ],
+    "logical_root": "tokenizer-fixture.vocab-reference",
+    "namespace": "tokenizer-parity-fixtures",
+    "payload_sha256": "234a920f3eb8aa4f52626e0bb94cabf6e7987c63bb986bb8afb64eaf48eb6a99",
+    "phase6a_manifest": {
+      "object_digest": "db34aa38e19b6798fa83802a8ff26a6511b0f74fd2f41704f2f5e70da1eaca40",
+      "object_id": "observed_payload_79f07aa9a6812b394e76a8e1e3b23723",
+      "schema_id": "omiv.observed-payload-manifest.v1"
+    },
+    "phase6b_snapshot": null,
+    "phase6c_evidence": null,
+    "provider": "omiv-synthetic",
+    "requested_revision": "fixture-v1",
+    "resolved_revision": "fixture-v1",
+    "role": "REFERENCE",
+    "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+  },
+  "content_executed": false,
+  "execution": {
+    "object_digest": "f7295f09300ab250aa90848f2264c34bd39f1265d8e95e0286c86b93eaa73afd",
+    "object_id": "tokenizer_execution_90298ea32d070a5ceeaffab3969dc32c",
+    "schema_id": "omiv.tokenizer-configuration-execution-record.v1"
+  },
+  "format_identifier": "token-to-id.json.v1",
+  "format_supported": true,
+  "limitations": [
+    "Observed bytes were treated as non-executing data."
+  ],
+  "observation_digest": "52b6f6e23e2e6db1dd95641c6a828d8d425452f86b3513649a58c966266db3e9",
+  "observation_id": "tokenizer_asset_a0f83265a74c42aa71c84ec99b3ef6c5",
+  "race_findings": [],
+  "raw_sha256": "234a920f3eb8aa4f52626e0bb94cabf6e7987c63bb986bb8afb64eaf48eb6a99",
+  "raw_size": 40,
+  "schema": "omiv.tokenizer-asset-observation.v1",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "tokenizer.phase6d-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.tokenizer-parity",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "TOKENIZER",
+    "subject_digest": "19930fd9f7f84f61da2d8821221d46e8533fa4c068179f84c0958563030b7c0d",
+    "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "case_id": "nfc-versus-nfd",
+  "exercised_invariant": "Unicode code points are not normalized implicitly.",
+  "findings": [
+    "UNICODE_NORMALIZATION_DISTINCTION"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "mismatch",
+  "result_digest": "dde9a0324168ca9b8d11ddea75a626d4e96916a51d59c96fc3414472e28df7d3",
+  "result_id": "tokenizer_scenario_112acebd973415187d1e2992592e6726",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "50e7f5b19a99a9b12c27e2ce0b66cf2bbecf88a9cfe29746c9d41c51fda3337f",
+      "object_id": "template_observation_c7f2c99ae3f4edfdf8069427a0c68304",
+      "schema_id": "omiv.chat-template-observation.v1"
+    }
+  ]
+}

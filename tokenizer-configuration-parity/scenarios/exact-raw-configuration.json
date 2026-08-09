@@ -1,0 +1,21 @@
+{
+  "case_id": "exact-raw-configuration",
+  "exercised_invariant": "Raw bytes are identity-bearing.",
+  "findings": [
+    "EXACT_RAW_BYTES_FOR_SCOPE"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "pass",
+  "result_digest": "df4b4ea5a0418e332c04b5727f22581edad4c1ece0c511257e364b52dde571ce",
+  "result_id": "tokenizer_scenario_3ccb1ba395e6ae4e1aee441972d9c102",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "5ce52e2f2911bc8b9d5a62bdf01e6d757fb5659bacce9a353b95f992977625db",
+      "object_id": "config_observation_519bc36a76ed951664efdc034f253f78",
+      "schema_id": "omiv.configuration-observation.v1"
+    }
+  ]
+}

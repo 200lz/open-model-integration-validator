@@ -1,0 +1,21 @@
+{
+  "case_id": "opaque-pipeline",
+  "exercised_invariant": "Opaque components are not executed.",
+  "findings": [
+    "OPAQUE_COMPONENT_PRESENT"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "not.evaluated",
+  "result_digest": "ee8c6af15e877ab380ad6e9d145f7f758d64875ef3e3775c84e13306fcbaaa57",
+  "result_id": "tokenizer_scenario_2d52f7da0825407019ac7a06fdb662a1",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "197a85f4a1556caace5e74bfe5860060052db17f76f6e6bc590cd451a9ff8b1e",
+      "object_id": "vocabulary_observation_57b2706812989c206942c8dc85dc9202",
+      "schema_id": "omiv.vocabulary-observation.v1"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "case_id": "exact-encode-probes",
+  "exercised_invariant": "Supplied encode results can match exactly.",
+  "findings": [
+    "EXACT_FOR_DECLARED_PROBES"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "pass",
+  "result_digest": "b510bafc1b586d265ebb9c77465b28c95aab9730212802467dfe64a4cc0a7ee7",
+  "result_id": "tokenizer_scenario_d176991b70b59d0c6f5327b6b7b06917",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "c91a39454edb7d21fc95011c77f88a24e17d3a36db1729dfc090991f6bec9dfd",
+      "object_id": "added_token_observation_2e97993fe8b2413f855fbf03bd60f266",
+      "schema_id": "omiv.added-token-observation.v1"
+    }
+  ]
+}

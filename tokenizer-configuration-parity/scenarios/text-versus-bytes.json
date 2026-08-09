@@ -1,0 +1,21 @@
+{
+  "case_id": "text-versus-bytes",
+  "exercised_invariant": "Unicode text and byte sequences differ.",
+  "findings": [
+    "TOKEN_CONTENT_ENCODING_MISMATCH"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "mismatch",
+  "result_digest": "a21a64cb6f30c1ac817e57df8bcc36d60ecd9f05128311fd5dab5b546c60c0de",
+  "result_id": "tokenizer_scenario_25cf4ee11064df944648024c9af4be7b",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "c282dd9750f8e59f2971baa942db211e2727d525e6fa51f231d23adf743da571",
+      "object_id": "template_observation_b99660b8457fb087b0cd9d89c9370325",
+      "schema_id": "omiv.chat-template-observation.v1"
+    }
+  ]
+}

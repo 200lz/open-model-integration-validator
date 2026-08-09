@@ -1,0 +1,120 @@
+{
+  "declaration": {
+    "object_digest": "b54785b99d319333716ac9484775add4aaca60795b1e38df9824d1f59735778a",
+    "object_id": "tokenizer_declaration_ecac23d875c63f43b79445b33712f483",
+    "schema_id": "omiv.tokenizer-configuration-parity-declaration.v1"
+  },
+  "expectation": {
+    "object_digest": "85896c45f632ad9c8b948ace9e7e2bab5e2fcc03a765123116aa2cd8c3ddac79",
+    "object_id": "tokenizer_expectation_9f64a9cc14674c8d58942906bdcbcccc",
+    "schema_id": "omiv.tokenizer-configuration-expectation.v1"
+  },
+  "limitations": [
+    "Plan contains no future execution or result identity."
+  ],
+  "limits": {
+    "maximum_added_tokens": 100000,
+    "maximum_asset_files": 256,
+    "maximum_bytes_per_asset": 67108864,
+    "maximum_chat_template_bytes": 1048576,
+    "maximum_component_parameters": 4096,
+    "maximum_configuration_fields": 10000,
+    "maximum_dependency_depth": 128,
+    "maximum_dependency_edges": 1000000,
+    "maximum_dependency_nodes": 250000,
+    "maximum_field_path_length": 512,
+    "maximum_findings": 250000,
+    "maximum_generated_files": 160,
+    "maximum_generated_metadata_bytes": 67108864,
+    "maximum_json_bytes": 67108864,
+    "maximum_json_members": 500000,
+    "maximum_json_nesting": 64,
+    "maximum_merge_operand_size": 4096,
+    "maximum_merge_records": 250000,
+    "maximum_numeric_digits": 100,
+    "maximum_numeric_exponent": 308,
+    "maximum_pipeline_components": 256,
+    "maximum_probe_definitions": 10000,
+    "maximum_probe_input_bytes": 1048576,
+    "maximum_probe_output_bytes": 4194304,
+    "maximum_report_nodes": 250000,
+    "maximum_special_tokens": 4096,
+    "maximum_string_length": 8192,
+    "maximum_token_content_units": 4096,
+    "maximum_token_id": 2147483647,
+    "maximum_token_ids_per_probe": 100000,
+    "maximum_total_asset_bytes": 268435456,
+    "maximum_total_probe_token_ids": 1000000,
+    "maximum_vocabulary_entries": 250000
+  },
+  "network_use": "NONE",
+  "plan_digest": "af4f3a62acd6d65d667260dafb50997105922ad6b7f2725c063bb0f8568438dc",
+  "plan_id": "tokenizer_plan_400da410efe952df38f1e42b49875fa8",
+  "requested_at": "NOT_RECORDED",
+  "schema": "omiv.tokenizer-configuration-inspection-plan.v1",
+  "selected_asset_paths": [
+    "chat-template-reference.txt",
+    "config-candidate.json",
+    "config-reference.json",
+    "merges-reference.txt",
+    "vocab-candidate.json",
+    "vocab-reference.json"
+  ],
+  "selected_scopes": [
+    "COMPLETE_DECLARED_TOKENIZER_ASSET_SET",
+    "SELECTED_REQUIRED_PROBES"
+  ],
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "tokenizer.phase6d-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.tokenizer-parity",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "TOKENIZER",
+    "subject_digest": "19930fd9f7f84f61da2d8821221d46e8533fa4c068179f84c0958563030b7c0d",
+    "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+  },
+  "supplied_inputs": [
+    {
+      "object_digest": "a35cd01a7a6c3fa933b9398b771fb5a2f7d3149404b69990ca3ef80efcd7fd33",
+      "object_id": "observed_payload_36fb4727ad391f547e359cafed9cf7f9",
+      "schema_id": "omiv.observed-payload-manifest.v1"
+    },
+    {
+      "object_digest": "461b11a287711f2ee8f7a42cc5bf2861e405b0c714ea4eb7581e78b71c7be334",
+      "object_id": "observed_payload_5c03403d18a31183e89bf3ca15900d5d",
+      "schema_id": "omiv.observed-payload-manifest.v1"
+    },
+    {
+      "object_digest": "7f8fc425dd0874222cee27938666fe2669de90a859caa3d72aa0b0bb46160486",
+      "object_id": "observed_payload_6005ef83d75e6997a4ccd69754305138",
+      "schema_id": "omiv.observed-payload-manifest.v1"
+    },
+    {
+      "object_digest": "db34aa38e19b6798fa83802a8ff26a6511b0f74fd2f41704f2f5e70da1eaca40",
+      "object_id": "observed_payload_79f07aa9a6812b394e76a8e1e3b23723",
+      "schema_id": "omiv.observed-payload-manifest.v1"
+    },
+    {
+      "object_digest": "b2980d966ddd0daa67d6b64cd063563bf6fb668361b010508753fc1482ed2ba0",
+      "object_id": "observed_payload_9b6e26457f433b0d8129722400b66af2",
+      "schema_id": "omiv.observed-payload-manifest.v1"
+    },
+    {
+      "object_digest": "65f1c5ec84a5b99832c32e6077494aa597f2426eea0b144351a3e62d70e4e551",
+      "object_id": "observed_payload_a9c41e9bb89aa217feeb8e08b3bc535c",
+      "schema_id": "omiv.observed-payload-manifest.v1"
+    }
+  ],
+  "template_execution": "NOT_PERFORMED",
+  "tokenizer_execution": "NOT_PERFORMED"
+}

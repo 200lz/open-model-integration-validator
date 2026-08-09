@@ -1,0 +1,188 @@
+{
+  "authenticity": "NOT_ESTABLISHED",
+  "authority_evaluation": {
+    "object_digest": "14002c25e6ae14123581404b57b0e9b6d86ae0547b8b34f64783582316717755",
+    "object_id": "tokenizer_authority_75d10ac34f2498ad9387c8ba767041e9",
+    "schema_id": "omiv.tokenizer-configuration-authority-evaluation.v1"
+  },
+  "authority_status": "NOT_ESTABLISHED",
+  "behavioral_equivalence": "NOT_ESTABLISHED",
+  "comparison": {
+    "object_digest": "d0ed571ec109e2bccb7c7dd67434c7744360b8439f8035023af76c48e987a606",
+    "object_id": "tokenizer_comparison_613c905dd48096fa0c39059674444646",
+    "schema_id": "omiv.tokenizer-configuration-comparison.v1"
+  },
+  "coverage": [
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "ADDED_TOKENS",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "AUTHORITY_COVERAGE",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "BYTE_COVERAGE",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "CANDIDATE_ARTIFACT_ASSETS",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "CHAT_TEMPLATES",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "CONFIGURATION_FILES",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "DECODE_OUTPUTS",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 23,
+      "denominator_state": "AVAILABLE",
+      "dimension": "EXECUTED_PROBES",
+      "incomplete_reason": null,
+      "numerator": 23,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "MERGE_RECORDS",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 23,
+      "denominator_state": "AVAILABLE",
+      "dimension": "PROBE_DEFINITIONS",
+      "incomplete_reason": null,
+      "numerator": 23,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "REFERENCE_ARTIFACT_ASSETS",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "REQUIRED_CONFIGURATION_FIELDS",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "SPECIAL_TOKEN_ROLES",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "TOKENIZER_PIPELINE_COMPONENTS",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "TOKEN_ID_OUTPUTS",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "VOCABULARY_ENTRIES",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    },
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "VOCABULARY_IDS",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET"
+    }
+  ],
+  "evaluated_at": "NOT_RECORDED",
+  "evidence_digest": "8cd5c5b79467959c9f6b8859fed805e99bd40d071f17ef6481299f3c8a704846",
+  "evidence_id": "tokenizer_evidence_f290ada7bb4a2cc746a6bd807b0a39da",
+  "limitations": [
+    "Parity is scope-qualified and does not establish model behavior, safety, authenticity, or runtime compatibility."
+  ],
+  "overall_status": "PARITY_ESTABLISHED_FOR_DECLARED_SCOPE",
+  "policy_evaluation": {
+    "object_digest": "95646bd33cf528af5ca4ec77a45fdc070a4d2ef3d6bf2ba4dc4fbba0c62fbf2c",
+    "object_id": "tokenizer_policy_evaluation_d29d54fc60adec8e761cbda2ae701e90",
+    "schema_id": "omiv.tokenizer-configuration-policy-evaluation.v1"
+  },
+  "runtime_compatibility": "NOT_ESTABLISHED",
+  "schema": "omiv.tokenizer-configuration-parity-evidence.v1",
+  "scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET",
+  "security_status": "NOT_EVALUATED",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "tokenizer.phase6d-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.tokenizer-parity",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "TOKENIZER",
+    "subject_digest": "19930fd9f7f84f61da2d8821221d46e8533fa4c068179f84c0958563030b7c0d",
+    "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "case_id": "digest-only-probe",
+  "exercised_invariant": "Digest-only input is not reproducible.",
+  "findings": [
+    "DIGEST_ONLY_NOT_REPRODUCIBLE"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "not.comparable",
+  "result_digest": "fb1146ea00723348df41cb25b20f3d94c7478b3e677974ace387cbfa5912cdb5",
+  "result_id": "tokenizer_scenario_aae4d8d4136f190857a01fa84c070954",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "59de0864e58c3936e5dffe05119aee410ca7c1242251346874f8b44d5dbcd817",
+      "object_id": "special_token_observation_e23fd0623eb1a52541922d8d5a9fa2ad",
+      "schema_id": "omiv.special-token-observation.v1"
+    }
+  ]
+}

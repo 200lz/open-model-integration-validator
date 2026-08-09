@@ -1,0 +1,21 @@
+{
+  "case_id": "required-field-mismatch",
+  "exercised_invariant": "Required field mismatches remain visible.",
+  "findings": [
+    "VALUE_MISMATCH"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "mismatch",
+  "result_digest": "4816bb3bc1612f995f0430e64aa7efca9a0179a7b55ce4cd902db138d14b82d4",
+  "result_id": "tokenizer_scenario_f55c392529225a06378e7faf2ccceeb3",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "dc9a61e6e0c039e898991a141a7b7b767d481003cc96a717a0d19147d925887b",
+      "object_id": "vocabulary_observation_3ca2fced55df54712ade694ed397feb5",
+      "schema_id": "omiv.vocabulary-observation.v1"
+    }
+  ]
+}

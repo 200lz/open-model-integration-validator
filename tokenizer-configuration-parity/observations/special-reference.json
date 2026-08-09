@@ -1,0 +1,97 @@
+{
+  "consistency_findings": [],
+  "coverage": [
+    {
+      "denominator": 1,
+      "denominator_state": "AVAILABLE",
+      "dimension": "CONFIGURATION_FILES",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "COMPLETE_DECLARED_CONFIGURATION"
+    }
+  ],
+  "execution": {
+    "object_digest": "f7295f09300ab250aa90848f2264c34bd39f1265d8e95e0286c86b93eaa73afd",
+    "object_id": "tokenizer_execution_90298ea32d070a5ceeaffab3969dc32c",
+    "schema_id": "omiv.tokenizer-configuration-execution-record.v1"
+  },
+  "limitations": [
+    "Special-token meaning was not inferred from token spelling."
+  ],
+  "observation_digest": "75fadc239feec4aa7bc71a4f6139078de24909b94042403e984ee43dd0dfeda3",
+  "observation_id": "special_token_observation_6e2d67fa2fa3dccbcfade5f56fdf7139",
+  "records": [
+    {
+      "added_properties": null,
+      "availability": "EXACT_LOCAL_PAYLOAD_IDENTITY_AVAILABLE",
+      "content": {
+        "bytes_hex": null,
+        "encoding": "UNICODE_TEXT",
+        "unicode_text": "<s>"
+      },
+      "content_presence": "EXPLICIT_VALUE",
+      "declared_behavior": "declared.special-token-role",
+      "provenance": "caller.supplied.synthetic",
+      "role": "BOS",
+      "source_asset": {
+        "object_digest": "52b6f6e23e2e6db1dd95641c6a828d8d425452f86b3513649a58c966266db3e9",
+        "object_id": "tokenizer_asset_a0f83265a74c42aa71c84ec99b3ef6c5",
+        "schema_id": "omiv.tokenizer-asset-observation.v1"
+      },
+      "token_id": 1,
+      "token_id_presence": "EXPLICIT_VALUE"
+    },
+    {
+      "added_properties": null,
+      "availability": "EXACT_LOCAL_PAYLOAD_IDENTITY_AVAILABLE",
+      "content": {
+        "bytes_hex": null,
+        "encoding": "UNICODE_TEXT",
+        "unicode_text": "</s>"
+      },
+      "content_presence": "EXPLICIT_VALUE",
+      "declared_behavior": "declared.special-token-role",
+      "provenance": "caller.supplied.synthetic",
+      "role": "EOS",
+      "source_asset": {
+        "object_digest": "52b6f6e23e2e6db1dd95641c6a828d8d425452f86b3513649a58c966266db3e9",
+        "object_id": "tokenizer_asset_a0f83265a74c42aa71c84ec99b3ef6c5",
+        "schema_id": "omiv.tokenizer-asset-observation.v1"
+      },
+      "token_id": 2,
+      "token_id_presence": "EXPLICIT_VALUE"
+    }
+  ],
+  "schema": "omiv.special-token-observation.v1",
+  "source_assets": [
+    {
+      "object_digest": "52b6f6e23e2e6db1dd95641c6a828d8d425452f86b3513649a58c966266db3e9",
+      "object_id": "tokenizer_asset_a0f83265a74c42aa71c84ec99b3ef6c5",
+      "schema_id": "omiv.tokenizer-asset-observation.v1"
+    },
+    {
+      "object_digest": "7d10f8db96480ed4c09c232abbf4b66a3aee4fccbd78e1c7a739200869b29c44",
+      "object_id": "tokenizer_asset_c7bc5bce077bc3f4bddabb07aee5ec87",
+      "schema_id": "omiv.tokenizer-asset-observation.v1"
+    }
+  ],
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "tokenizer.phase6d-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.tokenizer-parity",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "TOKENIZER",
+    "subject_digest": "19930fd9f7f84f61da2d8821221d46e8533fa4c068179f84c0958563030b7c0d",
+    "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+  }
+}

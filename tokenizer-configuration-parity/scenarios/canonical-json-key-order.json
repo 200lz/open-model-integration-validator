@@ -1,0 +1,21 @@
+{
+  "case_id": "canonical-json-key-order",
+  "exercised_invariant": "Canonical JSON is distinct from raw bytes.",
+  "findings": [
+    "CANONICAL_JSON_EQUAL_FOR_SCOPE"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "pass",
+  "result_digest": "ef91c0ba3c8739401d37ddcfc05877d5aae3dc3a2e23abc42dcea9d11c60fe16",
+  "result_id": "tokenizer_scenario_673c593f3646fbfa5649d9b53b6bb6d9",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "0c305e21b3e9f79a19d5a66467fedf6f383736e1f74d582b671bc7c4c9447a82",
+      "object_id": "config_observation_1bd2a02521ca418f8908448dd82772c9",
+      "schema_id": "omiv.configuration-observation.v1"
+    }
+  ]
+}

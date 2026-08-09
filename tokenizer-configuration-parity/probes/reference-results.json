@@ -1,0 +1,533 @@
+{
+  "coverage": [
+    {
+      "denominator": 23,
+      "denominator_state": "AVAILABLE",
+      "dimension": "EXECUTED_PROBES",
+      "incomplete_reason": null,
+      "numerator": 23,
+      "selected_scope": "SELECTED_REQUIRED_PROBES"
+    }
+  ],
+  "execution": {
+    "object_digest": "cf9f5caf633ccec5c524023497c34ecb86f6f919f306e293357afb46b2c95de5",
+    "object_id": "tokenizer_probe_execution_6172aa520e82cefc940ad187d84cd942",
+    "schema_id": "omiv.tokenizer-probe-execution-record.v1"
+  },
+  "limitations": [
+    "Supplied results were compared without executing a tokenizer."
+  ],
+  "observation_digest": "61ec458432b9d8b0db6f66f23f6b0b5ac9980fbd156e6996922687e4f7beef6e",
+  "observation_id": "tokenizer_probe_results_ff0c35a7c5f2b86b6d289eaf8fdb3aba",
+  "probe_set": {
+    "object_digest": "e4a61e88bf91fefbf37c2edc12b8212923d26bcdd6e40d03f5235470cff5d5b4",
+    "object_id": "tokenizer_probe_set_7aed0bb304fe3c740e50d5d5e678db68",
+    "schema_id": "omiv.tokenizer-probe-set-definition.v1"
+  },
+  "results": [
+    {
+      "attention_mask": null,
+      "limitations": [
+        "Supplied synthetic result; OMIV did not execute a tokenizer."
+      ],
+      "offsets": null,
+      "output_availability": "INLINE_SYNTHETIC_OUTPUT",
+      "output_digest": "b3eed9d2fb7a52107546ced76a90da743d2531821c7f8079354bb18e9c56a7b3",
+      "output_interpretation": "canonical.synthetic.probe-result.v1",
+      "output_length": 2,
+      "output_text": null,
+      "probe_id": "tokenizer_probe_03660a75578f56bb5377fee1acdc7b41",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "special_token_mask": null,
+      "status": "EXACT_FOR_DECLARED_PROBES",
+      "token_contents": null,
+      "token_ids": [
+        17,
+        18
+      ]
+    },
+    {
+      "attention_mask": null,
+      "limitations": [
+        "Supplied synthetic result; OMIV did not execute a tokenizer."
+      ],
+      "offsets": null,
+      "output_availability": "INLINE_SYNTHETIC_OUTPUT",
+      "output_digest": "040c44c2699e21d7790f84b0d34a0416b2d323eb0125c02edb8a583370b59096",
+      "output_interpretation": "canonical.synthetic.probe-result.v1",
+      "output_length": 2,
+      "output_text": null,
+      "probe_id": "tokenizer_probe_1f77f97def1cce2ec2e527574ddf2d97",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "special_token_mask": null,
+      "status": "EXACT_FOR_DECLARED_PROBES",
+      "token_contents": null,
+      "token_ids": [
+        6,
+        7
+      ]
+    },
+    {
+      "attention_mask": null,
+      "limitations": [
+        "Supplied synthetic result; OMIV did not execute a tokenizer."
+      ],
+      "offsets": null,
+      "output_availability": "INLINE_SYNTHETIC_OUTPUT",
+      "output_digest": "8ea0ef3c69a0bd823970193e4e2fadb49ca881f0314cbc8e147598aac04621b2",
+      "output_interpretation": "canonical.synthetic.probe-result.v1",
+      "output_length": 2,
+      "output_text": null,
+      "probe_id": "tokenizer_probe_4976d779a562256bc3da1fd4302c26bd",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "special_token_mask": null,
+      "status": "EXACT_FOR_DECLARED_PROBES",
+      "token_contents": null,
+      "token_ids": [
+        9,
+        10
+      ]
+    },
+    {
+      "attention_mask": null,
+      "limitations": [
+        "Supplied synthetic result; OMIV did not execute a tokenizer."
+      ],
+      "offsets": null,
+      "output_availability": "INLINE_SYNTHETIC_OUTPUT",
+      "output_digest": "f340437a5dba0763d46f7d643f51def6f1d5d1c2f38dc64de4ba7b3eeaa4a0bb",
+      "output_interpretation": "canonical.synthetic.probe-result.v1",
+      "output_length": 2,
+      "output_text": null,
+      "probe_id": "tokenizer_probe_55cebb25cb42ce562fcc41a386e8bc5b",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "special_token_mask": null,
+      "status": "EXACT_FOR_DECLARED_PROBES",
+      "token_contents": null,
+      "token_ids": [
+        12,
+        13
+      ]
+    },
+    {
+      "attention_mask": null,
+      "limitations": [
+        "Supplied synthetic result; OMIV did not execute a tokenizer."
+      ],
+      "offsets": null,
+      "output_availability": "INLINE_SYNTHETIC_OUTPUT",
+      "output_digest": "9899af0c157041358855cffee984d3c7061b682f448cc44e7a372e84ca1913c4",
+      "output_interpretation": "canonical.synthetic.probe-result.v1",
+      "output_length": 2,
+      "output_text": null,
+      "probe_id": "tokenizer_probe_5c2e0a1d666e9fc2a6e2708c7b57537d",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "special_token_mask": null,
+      "status": "EXACT_FOR_DECLARED_PROBES",
+      "token_contents": null,
+      "token_ids": [
+        10,
+        11
+      ]
+    },
+    {
+      "attention_mask": null,
+      "limitations": [
+        "Supplied synthetic result; OMIV did not execute a tokenizer."
+      ],
+      "offsets": null,
+      "output_availability": "INLINE_SYNTHETIC_OUTPUT",
+      "output_digest": "f823012974f880eceab5e254194bba43be19e48c8932b28b329e349fc6412acd",
+      "output_interpretation": "canonical.synthetic.probe-result.v1",
+      "output_length": 2,
+      "output_text": null,
+      "probe_id": "tokenizer_probe_5ca1832d160f0759282f27c6e660e90c",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "special_token_mask": null,
+      "status": "EXACT_FOR_DECLARED_PROBES",
+      "token_contents": null,
+      "token_ids": [
+        8,
+        9
+      ]
+    },
+    {
+      "attention_mask": null,
+      "limitations": [
+        "Supplied synthetic result; OMIV did not execute a tokenizer."
+      ],
+      "offsets": null,
+      "output_availability": "INLINE_SYNTHETIC_OUTPUT",
+      "output_digest": "5229f592d24c293699a94e06124ec4afcf4780dbff139b46650b0dc007b2eaed",
+      "output_interpretation": "canonical.synthetic.probe-result.v1",
+      "output_length": 2,
+      "output_text": null,
+      "probe_id": "tokenizer_probe_711a01e4413940eefc61693570f59b9a",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "special_token_mask": null,
+      "status": "EXACT_FOR_DECLARED_PROBES",
+      "token_contents": null,
+      "token_ids": [
+        2,
+        3
+      ]
+    },
+    {
+      "attention_mask": null,
+      "limitations": [
+        "Supplied synthetic result; OMIV did not execute a tokenizer."
+      ],
+      "offsets": null,
+      "output_availability": "INLINE_SYNTHETIC_OUTPUT",
+      "output_digest": "8abbc12b4c19f6aa5ab91d80dba7a9955dff16587e433964ba7abb72990e679a",
+      "output_interpretation": "canonical.synthetic.probe-result.v1",
+      "output_length": 2,
+      "output_text": null,
+      "probe_id": "tokenizer_probe_803d63d991dec9b4c1377a1ccd7c7a2f",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "special_token_mask": null,
+      "status": "EXACT_FOR_DECLARED_PROBES",
+      "token_contents": null,
+      "token_ids": [
+        13,
+        14
+      ]
+    },
+    {
+      "attention_mask": null,
+      "limitations": [
+        "Supplied synthetic result; OMIV did not execute a tokenizer."
+      ],
+      "offsets": null,
+      "output_availability": "INLINE_SYNTHETIC_OUTPUT",
+      "output_digest": "f5e218291a9858f43f84c54104043bb073b78b718818e74491727769e3a5e88b",
+      "output_interpretation": "canonical.synthetic.probe-result.v1",
+      "output_length": 2,
+      "output_text": null,
+      "probe_id": "tokenizer_probe_83b492bb8392c8379a7ba35b314ec8a8",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "special_token_mask": null,
+      "status": "EXACT_FOR_DECLARED_PROBES",
+      "token_contents": null,
+      "token_ids": [
+        18,
+        19
+      ]
+    },
+    {
+      "attention_mask": null,
+      "limitations": [
+        "Supplied synthetic result; OMIV did not execute a tokenizer."
+      ],
+      "offsets": null,
+      "output_availability": "INLINE_SYNTHETIC_OUTPUT",
+      "output_digest": "87f91c4d6f94c91fa4d655213cc390478741114aa57e89e3a22b29aee75f3813",
+      "output_interpretation": "canonical.synthetic.probe-result.v1",
+      "output_length": 2,
+      "output_text": null,
+      "probe_id": "tokenizer_probe_850817752b4133b77a82f588465a3074",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "special_token_mask": null,
+      "status": "EXACT_FOR_DECLARED_PROBES",
+      "token_contents": null,
+      "token_ids": [
+        14,
+        15
+      ]
+    },
+    {
+      "attention_mask": null,
+      "limitations": [
+        "Supplied synthetic result; OMIV did not execute a tokenizer."
+      ],
+      "offsets": null,
+      "output_availability": "INLINE_SYNTHETIC_OUTPUT",
+      "output_digest": "ba42c2c83acdc6252026ce854ad8a121e8193b4707055daa94e17c42b4c715e4",
+      "output_interpretation": "canonical.synthetic.probe-result.v1",
+      "output_length": 2,
+      "output_text": null,
+      "probe_id": "tokenizer_probe_8981fdcd411cfa0f6809073575d770fa",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "special_token_mask": null,
+      "status": "EXACT_FOR_DECLARED_PROBES",
+      "token_contents": null,
+      "token_ids": [
+        15,
+        16
+      ]
+    },
+    {
+      "attention_mask": null,
+      "limitations": [
+        "Supplied synthetic result; OMIV did not execute a tokenizer."
+      ],
+      "offsets": null,
+      "output_availability": "INLINE_SYNTHETIC_OUTPUT",
+      "output_digest": "7d52c12ba4d03b2de337dee9185d1283e52648481a23fc4699f55947e70b48e9",
+      "output_interpretation": "canonical.synthetic.probe-result.v1",
+      "output_length": 2,
+      "output_text": null,
+      "probe_id": "tokenizer_probe_999e6cd8070390c914ec5386a5b78e38",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "special_token_mask": null,
+      "status": "EXACT_FOR_DECLARED_PROBES",
+      "token_contents": null,
+      "token_ids": [
+        0,
+        1
+      ]
+    },
+    {
+      "attention_mask": null,
+      "limitations": [
+        "Supplied synthetic result; OMIV did not execute a tokenizer."
+      ],
+      "offsets": null,
+      "output_availability": "INLINE_SYNTHETIC_OUTPUT",
+      "output_digest": "e8f5bbe19c02fb51b5322218081539bd15b77f70593a21843b93fd1b08300009",
+      "output_interpretation": "canonical.synthetic.probe-result.v1",
+      "output_length": 2,
+      "output_text": null,
+      "probe_id": "tokenizer_probe_9a7abc69f53f90a043c068aa6fb2be20",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "special_token_mask": null,
+      "status": "EXACT_FOR_DECLARED_PROBES",
+      "token_contents": null,
+      "token_ids": [
+        7,
+        8
+      ]
+    },
+    {
+      "attention_mask": null,
+      "limitations": [
+        "Supplied synthetic result; OMIV did not execute a tokenizer."
+      ],
+      "offsets": null,
+      "output_availability": "INLINE_SYNTHETIC_OUTPUT",
+      "output_digest": "c16252a231757e7f8a9238d4e388bfddaed8d3936fadaf54ecc91bfd4af160bf",
+      "output_interpretation": "canonical.synthetic.probe-result.v1",
+      "output_length": 2,
+      "output_text": null,
+      "probe_id": "tokenizer_probe_9c7f534ed8090027be54abb6917f85db",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "special_token_mask": null,
+      "status": "EXACT_FOR_DECLARED_PROBES",
+      "token_contents": null,
+      "token_ids": [
+        1,
+        2
+      ]
+    },
+    {
+      "attention_mask": null,
+      "limitations": [
+        "Supplied synthetic result; OMIV did not execute a tokenizer."
+      ],
+      "offsets": null,
+      "output_availability": "INLINE_SYNTHETIC_OUTPUT",
+      "output_digest": "5fc0c81ec768b9f324d6c724ab95346b65902319768ef2fecc25e29432dfceb4",
+      "output_interpretation": "canonical.synthetic.probe-result.v1",
+      "output_length": 7,
+      "output_text": {
+        "bytes_hex": null,
+        "encoding": "UNICODE_TEXT",
+        "unicode_text": "<s></s>"
+      },
+      "probe_id": "tokenizer_probe_a2d6fd0d6da4a97a0a3b65bab40bb952",
+      "probe_kind": "DECODE_TOKEN_IDS_TO_TEXT",
+      "special_token_mask": null,
+      "status": "EXACT_FOR_DECLARED_PROBES",
+      "token_contents": null,
+      "token_ids": null
+    },
+    {
+      "attention_mask": null,
+      "limitations": [
+        "Supplied synthetic result; OMIV did not execute a tokenizer."
+      ],
+      "offsets": null,
+      "output_availability": "INLINE_SYNTHETIC_OUTPUT",
+      "output_digest": "4627fcec605d6c80ff1021c5890ac42b44cdd720b7428f9cbcdad4d85635d343",
+      "output_interpretation": "canonical.synthetic.probe-result.v1",
+      "output_length": 2,
+      "output_text": null,
+      "probe_id": "tokenizer_probe_bbed04f8ead286e0b61553343ff7b899",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "special_token_mask": null,
+      "status": "EXACT_FOR_DECLARED_PROBES",
+      "token_contents": null,
+      "token_ids": [
+        19,
+        20
+      ]
+    },
+    {
+      "attention_mask": null,
+      "limitations": [
+        "Supplied synthetic result; OMIV did not execute a tokenizer."
+      ],
+      "offsets": null,
+      "output_availability": "INLINE_SYNTHETIC_OUTPUT",
+      "output_digest": "2d1d98736d350b059ad195adf125742b621b4847a2813b342a674239b8d55c2f",
+      "output_interpretation": "canonical.synthetic.probe-result.v1",
+      "output_length": 2,
+      "output_text": null,
+      "probe_id": "tokenizer_probe_bd25c85fcf6ee1e99573a6dbe4dd1eaa",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "special_token_mask": null,
+      "status": "EXACT_FOR_DECLARED_PROBES",
+      "token_contents": null,
+      "token_ids": [
+        11,
+        12
+      ]
+    },
+    {
+      "attention_mask": null,
+      "limitations": [
+        "Supplied synthetic result; OMIV did not execute a tokenizer."
+      ],
+      "offsets": null,
+      "output_availability": "INLINE_SYNTHETIC_OUTPUT",
+      "output_digest": "70eff297515e4ed90a5cc2f195baa58bee3e134aef69ab332be1413ce3c37c54",
+      "output_interpretation": "canonical.synthetic.probe-result.v1",
+      "output_length": 2,
+      "output_text": null,
+      "probe_id": "tokenizer_probe_bd3a40d5b8c57ced9e9f28047341b010",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "special_token_mask": null,
+      "status": "EXACT_FOR_DECLARED_PROBES",
+      "token_contents": null,
+      "token_ids": [
+        21,
+        22
+      ]
+    },
+    {
+      "attention_mask": null,
+      "limitations": [
+        "Supplied synthetic result; OMIV did not execute a tokenizer."
+      ],
+      "offsets": null,
+      "output_availability": "INLINE_SYNTHETIC_OUTPUT",
+      "output_digest": "98c1f7431945af09192e6edf0ada0f616155cdcc170e6e85e4d56a98437f8524",
+      "output_interpretation": "canonical.synthetic.probe-result.v1",
+      "output_length": 2,
+      "output_text": null,
+      "probe_id": "tokenizer_probe_c259cdf256c6e1e0fe1a941334b7d685",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "special_token_mask": null,
+      "status": "EXACT_FOR_DECLARED_PROBES",
+      "token_contents": null,
+      "token_ids": [
+        3,
+        4
+      ]
+    },
+    {
+      "attention_mask": null,
+      "limitations": [
+        "Supplied synthetic result; OMIV did not execute a tokenizer."
+      ],
+      "offsets": null,
+      "output_availability": "INLINE_SYNTHETIC_OUTPUT",
+      "output_digest": "7e991531b67ddf77b68dccb2618390807d32b2eaa2751e7ca45a6dd4b9e8e2d8",
+      "output_interpretation": "canonical.synthetic.probe-result.v1",
+      "output_length": 2,
+      "output_text": null,
+      "probe_id": "tokenizer_probe_cb866d6aa2d9537c5f8d56db83e1f2f4",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "special_token_mask": null,
+      "status": "EXACT_FOR_DECLARED_PROBES",
+      "token_contents": null,
+      "token_ids": [
+        20,
+        21
+      ]
+    },
+    {
+      "attention_mask": null,
+      "limitations": [
+        "Supplied synthetic result; OMIV did not execute a tokenizer."
+      ],
+      "offsets": null,
+      "output_availability": "INLINE_SYNTHETIC_OUTPUT",
+      "output_digest": "75e55b2f3a983a45960474a80abbe16acd309b635a2fee7c4fb785a259fb132d",
+      "output_interpretation": "canonical.synthetic.probe-result.v1",
+      "output_length": 2,
+      "output_text": null,
+      "probe_id": "tokenizer_probe_d1f4885d5ff3a21ac50ef99341bc3f88",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "special_token_mask": null,
+      "status": "EXACT_FOR_DECLARED_PROBES",
+      "token_contents": null,
+      "token_ids": [
+        5,
+        6
+      ]
+    },
+    {
+      "attention_mask": null,
+      "limitations": [
+        "Supplied synthetic result; OMIV did not execute a tokenizer."
+      ],
+      "offsets": null,
+      "output_availability": "INLINE_SYNTHETIC_OUTPUT",
+      "output_digest": "bb5f2b13dc6a5f0342d5b1b77711b05d37f3e3d05c97c6f5915ee3447d8f44e5",
+      "output_interpretation": "canonical.synthetic.probe-result.v1",
+      "output_length": 2,
+      "output_text": null,
+      "probe_id": "tokenizer_probe_d6f231ac0dbadb225bb5902945ae2b64",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "special_token_mask": null,
+      "status": "EXACT_FOR_DECLARED_PROBES",
+      "token_contents": null,
+      "token_ids": [
+        16,
+        17
+      ]
+    },
+    {
+      "attention_mask": null,
+      "limitations": [
+        "Supplied synthetic result; OMIV did not execute a tokenizer."
+      ],
+      "offsets": null,
+      "output_availability": "INLINE_SYNTHETIC_OUTPUT",
+      "output_digest": "1fc361e31e9870321cbb0a681c7c94cf5707487cdd8eb0a2b8c067e9d0704eb0",
+      "output_interpretation": "canonical.synthetic.probe-result.v1",
+      "output_length": 2,
+      "output_text": null,
+      "probe_id": "tokenizer_probe_f7240c04015b92393b7b7396fe3c916e",
+      "probe_kind": "ENCODE_TEXT_TO_TOKEN_IDS",
+      "special_token_mask": null,
+      "status": "EXACT_FOR_DECLARED_PROBES",
+      "token_contents": null,
+      "token_ids": [
+        4,
+        5
+      ]
+    }
+  ],
+  "schema": "omiv.tokenizer-probe-result-observation.v1",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "tokenizer.phase6d-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.tokenizer-parity",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "TOKENIZER",
+    "subject_digest": "19930fd9f7f84f61da2d8821221d46e8533fa4c068179f84c0958563030b7c0d",
+    "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+  }
+}

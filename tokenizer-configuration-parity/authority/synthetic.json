@@ -1,0 +1,62 @@
+{
+  "authority_evaluation_digest": "14002c25e6ae14123581404b57b0e9b6d86ae0547b8b34f64783582316717755",
+  "authority_evaluation_id": "tokenizer_authority_75d10ac34f2498ad9387c8ba767041e9",
+  "candidate_publisher_authority": "NOT_ESTABLISHED",
+  "dimensions": [
+    {
+      "detail": "Signature and scope are evaluated independently.",
+      "purpose": "observation.signing",
+      "purpose_authority": "ESTABLISHED",
+      "signature_state": "signature.valid",
+      "signer_trust": "ESTABLISHED",
+      "subject_scope": "ESTABLISHED"
+    },
+    {
+      "detail": "Trusted signing does not create publisher authority.",
+      "purpose": "publisher.authorization",
+      "purpose_authority": "NOT_ESTABLISHED",
+      "signature_state": "signature.valid",
+      "signer_trust": "ESTABLISHED",
+      "subject_scope": "ESTABLISHED"
+    }
+  ],
+  "limitations": [
+    "Signature validity, signer trust, purpose, publisher, and transformer authority remain separate."
+  ],
+  "observation_signer_authority": "ESTABLISHED",
+  "overall_status": "NOT_ESTABLISHED",
+  "policy_authority": "NOT_ESTABLISHED",
+  "probe_executor_authority": "NOT_ESTABLISHED",
+  "reference_expectation_authority": "NOT_ESTABLISHED",
+  "schema": "omiv.tokenizer-configuration-authority-evaluation.v1",
+  "scope": {
+    "environment_scope": "environment.offline",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.tokenizer-parity",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  },
+  "source_publisher_authority": "NOT_ESTABLISHED",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "tokenizer.phase6d-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.tokenizer-parity",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "TOKENIZER",
+    "subject_digest": "19930fd9f7f84f61da2d8821221d46e8533fa4c068179f84c0958563030b7c0d",
+    "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+  },
+  "transformation_authority": "NOT_ESTABLISHED"
+}

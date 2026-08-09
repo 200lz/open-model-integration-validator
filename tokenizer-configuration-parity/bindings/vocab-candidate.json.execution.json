@@ -1,0 +1,44 @@
+{
+  "available_at": "NOT_RECORDED",
+  "chunk_size": 1048576,
+  "coverage": {
+    "discovered_bytes": 40,
+    "discovered_regular_files": 1,
+    "excluded_paths": [],
+    "hardlink_detection": "AVAILABLE",
+    "hashed_bytes": 40,
+    "hashed_files": 1,
+    "inaccessible_paths": [],
+    "rejected_hardlink_paths": [],
+    "unstable_paths": [],
+    "unsupported_paths": []
+  },
+  "execution_digest": "83b0a242a6d482338fae4a60a14b2a9abadf4e1309752079dd75fffb2c67ffe2",
+  "execution_id": "payload_execution_c56533fcbb7f8fb120dc2deb6e92c0dc",
+  "implementation_digest": "c243cd135587a01f103a8624f5bca517b4e1d0d044a06c497140d46237fa75f6",
+  "limitations": [
+    "Filesystem race resistance is strongest available locally; verification is not continuously TOCTOU-free."
+  ],
+  "limits": {
+    "maximum_component_length": 255,
+    "maximum_depth": 64,
+    "maximum_files": 100000,
+    "maximum_logical_bytes": null,
+    "maximum_metadata_bytes": 67108864,
+    "maximum_path_length": 1024
+  },
+  "local_path_disclosure": "OMITTED_FROM_CANONICAL_RECORD",
+  "model_deserialization": "NOT_PERFORMED",
+  "model_execution": "NOT_PERFORMED",
+  "network_use": "NONE",
+  "observed_at": "NOT_RECORDED",
+  "plan_digest": "64beccb2840be98562c0cfd5beacd1a9d18ed81665001c035d77cb304ee45714",
+  "plan_id": "payload_plan_a6210564570908665089746ec24e2d06",
+  "primary_digest_algorithm": "SHA256",
+  "result_reference_status": "LINKED_DOWNSTREAM_BY_MANIFEST",
+  "root_mode": "SINGLE_FILE_ROOT",
+  "schema": "omiv.payload-hash-execution-record.v1",
+  "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e",
+  "tool_id": "omiv.payload.local-hasher.v1",
+  "tool_version": "1"
+}

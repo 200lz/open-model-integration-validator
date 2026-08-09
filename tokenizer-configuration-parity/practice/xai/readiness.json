@@ -1,0 +1,67 @@
+{
+  "added_tokens": "NOT_OBSERVED",
+  "affiliation": "NO_XAI_ENDORSEMENT_AFFILIATION_OR_APPROVAL_CLAIM",
+  "authenticity": "NOT_ESTABLISHED",
+  "chat_template": "NOT_OBSERVED",
+  "classification": "XAI_TOKENIZER_AND_CONFIGURATION_PARITY_READINESS_RECORDED_WITHOUT_REQUIRED_PAYLOAD_ASSETS",
+  "configuration_fields": "NOT_OBSERVED",
+  "freshness": "NOT_ESTABLISHED",
+  "future_evidence_required": [
+    "Exact locally observed Phase 6A tokenizer and configuration asset manifests.",
+    "Explicit expectation covering fields, vocabulary, merges, special tokens, pipeline, and templates.",
+    "Supplied probe definitions, execution records, results, limits, and exact tokenizer identities."
+  ],
+  "historical_revisions": "AVAILABLE",
+  "limitations": [
+    "Phase 6B member names and provider object IDs do not establish file contents.",
+    "No listed filename is interpreted as observed tokenizer/configuration content.",
+    "This record makes no xAI endorsement, affiliation, approval, authenticity, or current-state claim."
+  ],
+  "merge_table": "NOT_OBSERVED",
+  "model_behavior": "NOT_EVALUATED",
+  "observation_time": "NOT_RECORDED",
+  "parity": "NOT_EVALUATED",
+  "payload_comparable_members": 0,
+  "pinned_metadata": [
+    {
+      "declared_total_bytes": 318239889830,
+      "fixture_sha256": "645ea0fbd09c85a1d69d4fd217bae43e580a04fcd484308d1cd71b528658ae78",
+      "fixture_size": 466308,
+      "member_count": 773,
+      "namespace": "xai-org",
+      "remote_snapshot": {
+        "object_digest": "b592d5b801785e970d41aa7980a001b757456c25fd88b533318110ad2b01baf0",
+        "object_id": "remote_snapshot_3b193fda5165268adcdf1fcf7afd3600",
+        "schema_id": "omiv.remote-snapshot-manifest.v1"
+      },
+      "repository": "grok-1",
+      "resolved_revision": "5de83eb225f49624b424f1c8aa74f96983b5885c"
+    },
+    {
+      "declared_total_bytes": 539040431665,
+      "fixture_sha256": "ad495d2fbb3daaed25ddf8d351647254f2d7020d2d4492b89f90aea486c3a60b",
+      "fixture_size": 27473,
+      "member_count": 44,
+      "namespace": "xai-org",
+      "remote_snapshot": {
+        "object_digest": "42e1fa531d9e95da7158a650f7250bab8bea4439f6c26904c92768c51b6a3468",
+        "object_id": "remote_snapshot_21a21d44b977a38900cb5a16161432c9",
+        "schema_id": "omiv.remote-snapshot-manifest.v1"
+      },
+      "repository": "grok-2",
+      "resolved_revision": "daf4395a80ad177386cfe39641b64fc12b1d70ed"
+    }
+  ],
+  "pinned_repository_tree_metadata": "AVAILABLE",
+  "probes": "NOT_EXECUTED",
+  "publisher_authority": "NOT_ESTABLISHED",
+  "readiness_digest": "4dce2e824abeaf5f34935e8f3c99c9c379fa48b20eb604f3c4ae066cada1c4c3",
+  "readiness_id": "xai_tokenizer_readiness_c9e3b0d06501a452c233e9342ff31b83",
+  "runtime_identity": "NOT_OBSERVED",
+  "schema": "omiv.xai-tokenizer-configuration-readiness.v1",
+  "security": "NOT_EVALUATED",
+  "special_tokens": "NOT_OBSERVED",
+  "tokenizer_configuration_asset_contents": "NOT_DOWNLOADED",
+  "tokenizer_pipeline": "NOT_OBSERVED",
+  "vocabulary": "NOT_OBSERVED"
+}

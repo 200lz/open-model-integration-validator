@@ -1,0 +1,21 @@
+{
+  "case_id": "model-a-authority-model-b",
+  "exercised_invariant": "Authority is subject scoped.",
+  "findings": [
+    "AUTHORITY_SCOPE_MISMATCH"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "invalid",
+  "result_digest": "d7f27d28c43254e73ead6c72abc12556c63355b69efee1ff9a2abe0353c023f5",
+  "result_id": "tokenizer_scenario_f1a9e4a8e75c5db83c66d8571b6fe327",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "5ce52e2f2911bc8b9d5a62bdf01e6d757fb5659bacce9a353b95f992977625db",
+      "object_id": "config_observation_519bc36a76ed951664efdc034f253f78",
+      "schema_id": "omiv.configuration-observation.v1"
+    }
+  ]
+}

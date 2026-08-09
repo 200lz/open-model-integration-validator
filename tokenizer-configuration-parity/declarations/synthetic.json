@@ -1,0 +1,268 @@
+{
+  "candidate_artifacts": [
+    {
+      "artifact_set_identity": "6e7453a84e2b4b435de2bb4a7e52f801c69e844396be2c612cf058650f4ca0ed",
+      "asset_kind": "MODEL_CONFIG",
+      "asset_path": "config-candidate.json",
+      "availability": "EXACT_LOCAL_PAYLOAD_IDENTITY_AVAILABLE",
+      "coverage": "complete.declared-local-file-scope",
+      "file_size": 88,
+      "limitations": [
+        "Synthetic local fixture; not publisher evidence."
+      ],
+      "logical_root": "tokenizer-fixture.config-candidate",
+      "namespace": "tokenizer-parity-fixtures",
+      "payload_sha256": "3cf5b4ff277180abd0d990975febadfe103fa548cbca559bb4315be313fed2b3",
+      "phase6a_manifest": {
+        "object_digest": "a35cd01a7a6c3fa933b9398b771fb5a2f7d3149404b69990ca3ef80efcd7fd33",
+        "object_id": "observed_payload_36fb4727ad391f547e359cafed9cf7f9",
+        "schema_id": "omiv.observed-payload-manifest.v1"
+      },
+      "phase6b_snapshot": null,
+      "phase6c_evidence": null,
+      "provider": "omiv-synthetic",
+      "requested_revision": "fixture-v1",
+      "resolved_revision": "fixture-v1",
+      "role": "CANDIDATE",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+    },
+    {
+      "artifact_set_identity": "059591842f6de94a04ec015c74f8e3d6d3535d2f3f34dcef29e531b39ab10b6d",
+      "asset_kind": "VOCABULARY",
+      "asset_path": "vocab-candidate.json",
+      "availability": "EXACT_LOCAL_PAYLOAD_IDENTITY_AVAILABLE",
+      "coverage": "complete.declared-local-file-scope",
+      "file_size": 40,
+      "limitations": [
+        "Synthetic local fixture; not publisher evidence."
+      ],
+      "logical_root": "tokenizer-fixture.vocab-candidate",
+      "namespace": "tokenizer-parity-fixtures",
+      "payload_sha256": "cef40761d48726f76370df6079d70eba342d04a7969fda1ecb958055429a9b6d",
+      "phase6a_manifest": {
+        "object_digest": "461b11a287711f2ee8f7a42cc5bf2861e405b0c714ea4eb7581e78b71c7be334",
+        "object_id": "observed_payload_5c03403d18a31183e89bf3ca15900d5d",
+        "schema_id": "omiv.observed-payload-manifest.v1"
+      },
+      "phase6b_snapshot": null,
+      "phase6c_evidence": null,
+      "provider": "omiv-synthetic",
+      "requested_revision": "fixture-v1",
+      "resolved_revision": "fixture-v1",
+      "role": "CANDIDATE",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+    },
+    {
+      "artifact_set_identity": "2f9ed8479356f285fab73e28a9795a7496dece34c3a5b61126078001c50a3e6a",
+      "asset_kind": "MERGE_TABLE",
+      "asset_path": "merges-reference.txt",
+      "availability": "EXACT_LOCAL_PAYLOAD_IDENTITY_AVAILABLE",
+      "coverage": "complete.declared-local-file-scope",
+      "file_size": 34,
+      "limitations": [
+        "Synthetic local fixture; not publisher evidence."
+      ],
+      "logical_root": "tokenizer-fixture.merges-reference",
+      "namespace": "tokenizer-parity-fixtures",
+      "payload_sha256": "86a6843af0449b7adfde4d99a30ea6191ad956529bc8d6a8a9dfeffe9b2c53a7",
+      "phase6a_manifest": {
+        "object_digest": "7f8fc425dd0874222cee27938666fe2669de90a859caa3d72aa0b0bb46160486",
+        "object_id": "observed_payload_6005ef83d75e6997a4ccd69754305138",
+        "schema_id": "omiv.observed-payload-manifest.v1"
+      },
+      "phase6b_snapshot": null,
+      "phase6c_evidence": null,
+      "provider": "omiv-synthetic",
+      "requested_revision": "fixture-v1",
+      "resolved_revision": "fixture-v1",
+      "role": "CANDIDATE",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+    },
+    {
+      "artifact_set_identity": "3e1842519be9d1d515aa6bdb082828ab05d03a8d17bb5975a7d2450cb571de76",
+      "asset_kind": "CHAT_TEMPLATE",
+      "asset_path": "chat-template-reference.txt",
+      "availability": "EXACT_LOCAL_PAYLOAD_IDENTITY_AVAILABLE",
+      "coverage": "complete.declared-local-file-scope",
+      "file_size": 90,
+      "limitations": [
+        "Synthetic local fixture; not publisher evidence."
+      ],
+      "logical_root": "tokenizer-fixture.chat-template-reference",
+      "namespace": "tokenizer-parity-fixtures",
+      "payload_sha256": "25fd558d612c7e7a1a20c9dbace31ebbd13822f443b2662eca7cbe0fc7fffd29",
+      "phase6a_manifest": {
+        "object_digest": "b2980d966ddd0daa67d6b64cd063563bf6fb668361b010508753fc1482ed2ba0",
+        "object_id": "observed_payload_9b6e26457f433b0d8129722400b66af2",
+        "schema_id": "omiv.observed-payload-manifest.v1"
+      },
+      "phase6b_snapshot": null,
+      "phase6c_evidence": null,
+      "provider": "omiv-synthetic",
+      "requested_revision": "fixture-v1",
+      "resolved_revision": "fixture-v1",
+      "role": "CANDIDATE",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+    }
+  ],
+  "declaration_digest": "b54785b99d319333716ac9484775add4aaca60795b1e38df9824d1f59735778a",
+  "declaration_id": "tokenizer_declaration_ecac23d875c63f43b79445b33712f483",
+  "declared_at": "NOT_RECORDED",
+  "expectation": {
+    "authority_status": "NOT_ESTABLISHED",
+    "availability": "FULL_EXPECTATION_AVAILABLE",
+    "limitations": [
+      "Digest-only or unavailable expectations cannot create parity."
+    ],
+    "namespace": null,
+    "object_supplied_and_verified": true,
+    "provider": null,
+    "reference": {
+      "object_digest": "85896c45f632ad9c8b948ace9e7e2bab5e2fcc03a765123116aa2cd8c3ddac79",
+      "object_id": "tokenizer_expectation_9f64a9cc14674c8d58942906bdcbcccc",
+      "schema_id": "omiv.tokenizer-configuration-expectation.v1"
+    },
+    "scope": "COMPLETE_DECLARED_TOKENIZER_ASSET_SET",
+    "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+  },
+  "expectation_mode": "EMBEDDED_EXPECTATION",
+  "limitations": [
+    "Declaration is not observation or proof of parity."
+  ],
+  "provenance": "caller.declared",
+  "reference_artifacts": [
+    {
+      "artifact_set_identity": "638bd9b01c7fda0279dd26056d3f0cf72b2d23060e2c86b60201147f7a84461e",
+      "asset_kind": "MODEL_CONFIG",
+      "asset_path": "config-reference.json",
+      "availability": "EXACT_LOCAL_PAYLOAD_IDENTITY_AVAILABLE",
+      "coverage": "complete.declared-local-file-scope",
+      "file_size": 88,
+      "limitations": [
+        "Synthetic local fixture; not publisher evidence."
+      ],
+      "logical_root": "tokenizer-fixture.config-reference",
+      "namespace": "tokenizer-parity-fixtures",
+      "payload_sha256": "78e0e786f850fc8b67e98ea6cb77db596d25d3f14221919fe958ca0400bfda4b",
+      "phase6a_manifest": {
+        "object_digest": "65f1c5ec84a5b99832c32e6077494aa597f2426eea0b144351a3e62d70e4e551",
+        "object_id": "observed_payload_a9c41e9bb89aa217feeb8e08b3bc535c",
+        "schema_id": "omiv.observed-payload-manifest.v1"
+      },
+      "phase6b_snapshot": null,
+      "phase6c_evidence": null,
+      "provider": "omiv-synthetic",
+      "requested_revision": "fixture-v1",
+      "resolved_revision": "fixture-v1",
+      "role": "REFERENCE",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+    },
+    {
+      "artifact_set_identity": "6adc005718afc42963ab75b7c38eed6aa2fe2bdd99bad09a4443f777326cd73a",
+      "asset_kind": "VOCABULARY",
+      "asset_path": "vocab-reference.json",
+      "availability": "EXACT_LOCAL_PAYLOAD_IDENTITY_AVAILABLE",
+      "coverage": "complete.declared-local-file-scope",
+      "file_size": 40,
+      "limitations": [
+        "Synthetic local fixture; not publisher evidence."
+      ],
+      "logical_root": "tokenizer-fixture.vocab-reference",
+      "namespace": "tokenizer-parity-fixtures",
+      "payload_sha256": "234a920f3eb8aa4f52626e0bb94cabf6e7987c63bb986bb8afb64eaf48eb6a99",
+      "phase6a_manifest": {
+        "object_digest": "db34aa38e19b6798fa83802a8ff26a6511b0f74fd2f41704f2f5e70da1eaca40",
+        "object_id": "observed_payload_79f07aa9a6812b394e76a8e1e3b23723",
+        "schema_id": "omiv.observed-payload-manifest.v1"
+      },
+      "phase6b_snapshot": null,
+      "phase6c_evidence": null,
+      "provider": "omiv-synthetic",
+      "requested_revision": "fixture-v1",
+      "resolved_revision": "fixture-v1",
+      "role": "REFERENCE",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+    },
+    {
+      "artifact_set_identity": "2f9ed8479356f285fab73e28a9795a7496dece34c3a5b61126078001c50a3e6a",
+      "asset_kind": "MERGE_TABLE",
+      "asset_path": "merges-reference.txt",
+      "availability": "EXACT_LOCAL_PAYLOAD_IDENTITY_AVAILABLE",
+      "coverage": "complete.declared-local-file-scope",
+      "file_size": 34,
+      "limitations": [
+        "Synthetic local fixture; not publisher evidence."
+      ],
+      "logical_root": "tokenizer-fixture.merges-reference",
+      "namespace": "tokenizer-parity-fixtures",
+      "payload_sha256": "86a6843af0449b7adfde4d99a30ea6191ad956529bc8d6a8a9dfeffe9b2c53a7",
+      "phase6a_manifest": {
+        "object_digest": "7f8fc425dd0874222cee27938666fe2669de90a859caa3d72aa0b0bb46160486",
+        "object_id": "observed_payload_6005ef83d75e6997a4ccd69754305138",
+        "schema_id": "omiv.observed-payload-manifest.v1"
+      },
+      "phase6b_snapshot": null,
+      "phase6c_evidence": null,
+      "provider": "omiv-synthetic",
+      "requested_revision": "fixture-v1",
+      "resolved_revision": "fixture-v1",
+      "role": "REFERENCE",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+    },
+    {
+      "artifact_set_identity": "3e1842519be9d1d515aa6bdb082828ab05d03a8d17bb5975a7d2450cb571de76",
+      "asset_kind": "CHAT_TEMPLATE",
+      "asset_path": "chat-template-reference.txt",
+      "availability": "EXACT_LOCAL_PAYLOAD_IDENTITY_AVAILABLE",
+      "coverage": "complete.declared-local-file-scope",
+      "file_size": 90,
+      "limitations": [
+        "Synthetic local fixture; not publisher evidence."
+      ],
+      "logical_root": "tokenizer-fixture.chat-template-reference",
+      "namespace": "tokenizer-parity-fixtures",
+      "payload_sha256": "25fd558d612c7e7a1a20c9dbace31ebbd13822f443b2662eca7cbe0fc7fffd29",
+      "phase6a_manifest": {
+        "object_digest": "b2980d966ddd0daa67d6b64cd063563bf6fb668361b010508753fc1482ed2ba0",
+        "object_id": "observed_payload_9b6e26457f433b0d8129722400b66af2",
+        "schema_id": "omiv.observed-payload-manifest.v1"
+      },
+      "phase6b_snapshot": null,
+      "phase6c_evidence": null,
+      "provider": "omiv-synthetic",
+      "requested_revision": "fixture-v1",
+      "resolved_revision": "fixture-v1",
+      "role": "REFERENCE",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+    }
+  ],
+  "schema": "omiv.tokenizer-configuration-parity-declaration.v1",
+  "scope": {
+    "environment_scope": "environment.offline",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.tokenizer-parity",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  },
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "tokenizer.phase6d-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.tokenizer-parity",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "TOKENIZER",
+    "subject_digest": "19930fd9f7f84f61da2d8821221d46e8533fa4c068179f84c0958563030b7c0d",
+    "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "case_id": "phase6a-exact-binding",
+  "exercised_invariant": "Phase 6A is local byte authority.",
+  "findings": [
+    "EXACT_LOCAL_PAYLOAD_IDENTITY_AVAILABLE"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "pass",
+  "result_digest": "e41246d1161738af4d32193f9a52c1db16eab617d01002e32b29815c97478095",
+  "result_id": "tokenizer_scenario_f64ec64d5e39e1269282fdd604bcb09e",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "c282dd9750f8e59f2971baa942db211e2727d525e6fa51f231d23adf743da571",
+      "object_id": "template_observation_b99660b8457fb087b0cd9d89c9370325",
+      "schema_id": "omiv.chat-template-observation.v1"
+    }
+  ]
+}

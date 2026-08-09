@@ -1,0 +1,21 @@
+{
+  "case_id": "unexpected-transformation",
+  "exercised_invariant": "Unlisted transformation differences fail.",
+  "findings": [
+    "UNEXPECTED_TRANSFORMATION_DIFFERENCE"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "mismatch",
+  "result_digest": "3943941d829625b9cb1317714c0f31f271450f675a3611daace5eb5d125e9334",
+  "result_id": "tokenizer_scenario_cc4ae67eb08019c28a84aa4a35f9c99d",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "336cbc0139769d78d9e79d71e2e0e86c3e94b96da3c1a2da133a75d5cf0a8cc8",
+      "object_id": "added_token_observation_f2706a7784ecce19e0afd93ab876304f",
+      "schema_id": "omiv.added-token-observation.v1"
+    }
+  ]
+}

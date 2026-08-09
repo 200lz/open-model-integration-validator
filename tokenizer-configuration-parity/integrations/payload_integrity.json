@@ -1,0 +1,43 @@
+{
+  "creates_approval": false,
+  "creates_runtime_observation": false,
+  "creates_security_pass": false,
+  "derived_state": "phase6a.authoritative",
+  "evidence": {
+    "object_digest": "8cd5c5b79467959c9f6b8859fed805e99bd40d071f17ef6481299f3c8a704846",
+    "object_id": "tokenizer_evidence_f290ada7bb4a2cc746a6bd807b0a39da",
+    "schema_id": "omiv.tokenizer-configuration-parity-evidence.v1"
+  },
+  "identity_match": true,
+  "integration_digest": "ebb48ebcc3d5713b19f38ba5a7e07b6d5c2d7234764159e52f9786a0a3fb69a7",
+  "integration_id": "tokenizer_integration_91a44e3dc84d26d1ad50af1e3a1e5b04",
+  "integration_kind": "PAYLOAD_INTEGRITY",
+  "limitations": [
+    "Cross-phase linkage preserves the original evidence boundary."
+  ],
+  "linked_object": {
+    "object_digest": "65f1c5ec84a5b99832c32e6077494aa597f2426eea0b144351a3e62d70e4e551",
+    "object_id": "observed_payload_a9c41e9bb89aa217feeb8e08b3bc535c",
+    "schema_id": "omiv.observed-payload-manifest.v1"
+  },
+  "schema": "omiv.tokenizer-configuration-integration-summary.v1",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "tokenizer.phase6d-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.tokenizer-parity",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "TOKENIZER",
+    "subject_digest": "19930fd9f7f84f61da2d8821221d46e8533fa4c068179f84c0958563030b7c0d",
+    "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+  }
+}

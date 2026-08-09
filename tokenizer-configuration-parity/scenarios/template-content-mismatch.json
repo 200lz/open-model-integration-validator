@@ -1,0 +1,21 @@
+{
+  "case_id": "template-content-mismatch",
+  "exercised_invariant": "Templates are compared without rendering.",
+  "findings": [
+    "TEMPLATE_CONTENT_MISMATCH"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "mismatch",
+  "result_digest": "c7257cabc71d2942a54574651873c6b25cfcb7b8adb3f85a4b38e1f0f2075ca2",
+  "result_id": "tokenizer_scenario_12db87d2a2c564919f4809c3d4f6a181",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "9828f89897da1cf8ba1629e070e7ea962dac531ef41a6889c87c1fee4a44d654",
+      "object_id": "merge_observation_69f9048dd95ff53d317487355816cf3b",
+      "schema_id": "omiv.merge-table-observation.v1"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "case_id": "absent-versus-null",
+  "exercised_invariant": "Absent and explicit null are distinct.",
+  "findings": [
+    "EXPLICIT_NULL_MISMATCH"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "mismatch",
+  "result_digest": "c45a4876b6d67729f2ebd0715ac90da0273b6dce6e9cb0c13bb09ea1bf2f9785",
+  "result_id": "tokenizer_scenario_b595bb39a78656bca35f2b0a3cc57b25",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "197a85f4a1556caace5e74bfe5860060052db17f76f6e6bc590cd451a9ff8b1e",
+      "object_id": "vocabulary_observation_57b2706812989c206942c8dc85dc9202",
+      "schema_id": "omiv.vocabulary-observation.v1"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "case_id": "phase6b-nonpayload",
+  "exercised_invariant": "Remote object IDs are not payload content.",
+  "findings": [
+    "REMOTE_NON_PAYLOAD_IDENTITY_ONLY"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "not.evaluated",
+  "result_digest": "be07cac7de45795793fe79c16ef37b3f1f3714d8aa4c9a779274db3d17f3d18c",
+  "result_id": "tokenizer_scenario_5f1a1588274a2c91dbbb7448fa6c8438",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "50e7f5b19a99a9b12c27e2ce0b66cf2bbecf88a9cfe29746c9d41c51fda3337f",
+      "object_id": "template_observation_c7f2c99ae3f4edfdf8069427a0c68304",
+      "schema_id": "omiv.chat-template-observation.v1"
+    }
+  ]
+}

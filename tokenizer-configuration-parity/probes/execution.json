@@ -1,0 +1,53 @@
+{
+  "completion_status": "COMPLETED",
+  "execution_context": "offline.synthetic.supplied-results",
+  "execution_digest": "cf9f5caf633ccec5c524023497c34ecb86f6f919f306e293357afb46b2c95de5",
+  "execution_id": "tokenizer_probe_execution_6172aa520e82cefc940ad187d84cd942",
+  "inspection_plan": {
+    "object_digest": "af4f3a62acd6d65d667260dafb50997105922ad6b7f2725c063bb0f8568438dc",
+    "object_id": "tokenizer_plan_400da410efe952df38f1e42b49875fa8",
+    "schema_id": "omiv.tokenizer-configuration-inspection-plan.v1"
+  },
+  "limitations": [
+    "Execution record contains no resulting probe-result reference."
+  ],
+  "probe_set": {
+    "object_digest": "e4a61e88bf91fefbf37c2edc12b8212923d26bcdd6e40d03f5235470cff5d5b4",
+    "object_id": "tokenizer_probe_set_7aed0bb304fe3c740e50d5d5e678db68",
+    "schema_id": "omiv.tokenizer-probe-set-definition.v1"
+  },
+  "schema": "omiv.tokenizer-probe-execution-record.v1",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "tokenizer.phase6d-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.tokenizer-parity",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "TOKENIZER",
+    "subject_digest": "19930fd9f7f84f61da2d8821221d46e8533fa4c068179f84c0958563030b7c0d",
+    "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+  },
+  "time_context": "NOT_RECORDED",
+  "tokenizer_identities": [
+    {
+      "object_digest": "dc9a61e6e0c039e898991a141a7b7b767d481003cc96a717a0d19147d925887b",
+      "object_id": "vocabulary_observation_3ca2fced55df54712ade694ed397feb5",
+      "schema_id": "omiv.vocabulary-observation.v1"
+    },
+    {
+      "object_digest": "197a85f4a1556caace5e74bfe5860060052db17f76f6e6bc590cd451a9ff8b1e",
+      "object_id": "vocabulary_observation_57b2706812989c206942c8dc85dc9202",
+      "schema_id": "omiv.vocabulary-observation.v1"
+    }
+  ],
+  "tool_identity": "omiv.synthetic.supplied-probe-adapter.v1"
+}

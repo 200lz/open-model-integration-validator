@@ -1,0 +1,21 @@
+{
+  "case_id": "limit-exceeded",
+  "exercised_invariant": "Resource bounds fail without truncation.",
+  "findings": [
+    "LIMIT_EXCEEDED"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "limit.exceeded",
+  "result_digest": "7a6c084ace83c58c31d333cbe51183c55542efc4486528d8782982f0b84b4a47",
+  "result_id": "tokenizer_scenario_a508d48b875a464801d781ede3a8ef0a",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "197a85f4a1556caace5e74bfe5860060052db17f76f6e6bc590cd451a9ff8b1e",
+      "object_id": "vocabulary_observation_57b2706812989c206942c8dc85dc9202",
+      "schema_id": "omiv.vocabulary-observation.v1"
+    }
+  ]
+}

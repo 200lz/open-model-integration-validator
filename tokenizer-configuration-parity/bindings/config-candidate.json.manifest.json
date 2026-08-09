@@ -1,0 +1,66 @@
+{
+  "artifact_set_payload_digest": "6e7453a84e2b4b435de2bb4a7e52f801c69e844396be2c612cf058650f4ca0ed",
+  "available_at": "NOT_RECORDED",
+  "completion_state": "COMPLETE_FOR_DECLARED_LOCAL_SCOPE",
+  "coverage": {
+    "discovered_bytes": 88,
+    "discovered_regular_files": 1,
+    "excluded_paths": [],
+    "hardlink_detection": "AVAILABLE",
+    "hashed_bytes": 88,
+    "hashed_files": 1,
+    "inaccessible_paths": [],
+    "rejected_hardlink_paths": [],
+    "unstable_paths": [],
+    "unsupported_paths": []
+  },
+  "execution_digest": "e448053ec2594a1f784fadc85259eb77fd4baa27499ac48082a6206fcc7e2f54",
+  "execution_id": "payload_execution_4ea5c4c7467786d8c4d204d5d5d66416",
+  "files": [
+    {
+      "artifact_role": "ABSENT_ROLE",
+      "declared_role_detail": null,
+      "limitations": [],
+      "logical_file_kind": "regular.file",
+      "path": "config-candidate.json",
+      "primary_content_digest": {
+        "algorithm": "SHA256",
+        "value": "3cf5b4ff277180abd0d990975febadfe103fa548cbca559bb4315be313fed2b3"
+      },
+      "size": 88
+    }
+  ],
+  "findings": [],
+  "limitations": [
+    "COMPLETE means complete only for the declared stable local inventory scope.",
+    "Local byte identity does not establish remote completeness, semantics, authenticity, or safety."
+  ],
+  "logical_root": "tokenizer-fixture.config-candidate",
+  "manifest_digest": "a35cd01a7a6c3fa933b9398b771fb5a2f7d3149404b69990ca3ef80efcd7fd33",
+  "manifest_id": "observed_payload_36fb4727ad391f547e359cafed9cf7f9",
+  "observation_provenance": "SYSTEM_OBSERVED",
+  "observed_at": "NOT_RECORDED",
+  "plan_digest": "3e80338b12e992592247b885ea345d30d5ad766e187bb8083be0d5bd58c30dad",
+  "plan_id": "payload_plan_8aead40afe39fca036ac7b9dd7df9c7a",
+  "root_mode": "SINGLE_FILE_ROOT",
+  "schema": "omiv.observed-payload-manifest.v1",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "tokenizer.phase6d-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.tokenizer-parity",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "TOKENIZER",
+    "subject_digest": "19930fd9f7f84f61da2d8821221d46e8533fa4c068179f84c0958563030b7c0d",
+    "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+  }
+}

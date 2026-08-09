@@ -399,6 +399,26 @@ from omiv.security.reporting import (
     pretty_json as pretty_security_json,
 )
 from omiv.security.scanning import describe_local_artifact, inspect_local_artifact
+from omiv.tokenizer_parity.artifact_index import (
+    verify_tokenizer_configuration_artifact_index,
+)
+from omiv.tokenizer_parity.models import (
+    OverallParityStatus as TokenizerParityStatus,
+)
+from omiv.tokenizer_parity.models import (
+    TokenizerConfigurationArtifactIndex,
+    TokenizerConfigurationComparison,
+    TokenizerConfigurationParityEvidence,
+    TokenizerConfigurationReport,
+)
+from omiv.tokenizer_parity.reporting import pretty_json as pretty_tokenizer_configuration_json
+from omiv.tokenizer_parity.reporting import (
+    render_markdown as render_tokenizer_configuration_markdown,
+)
+from omiv.tokenizer_parity.schema import load_tokenizer_configuration
+from omiv.tokenizer_parity_profiles.xai import (
+    build_xai_readiness as build_xai_tokenizer_configuration_readiness,
+)
 from omiv.trust.algorithms import load_private_key, load_public_key, raw_public_key
 from omiv.trust.models import (
     ACTIVE_PURPOSES,
@@ -463,6 +483,7 @@ audit_app = typer.Typer(no_args_is_help=True)
 payload_app = typer.Typer(no_args_is_help=True)
 reconcile_app = typer.Typer(no_args_is_help=True)
 quantization_app = typer.Typer(no_args_is_help=True)
+tokenizer_configuration_app = typer.Typer(no_args_is_help=True)
 app.add_typer(model_packs_app, name="model-packs")
 app.add_typer(passport_app, name="passport")
 app.add_typer(custody_app, name="custody")
@@ -475,6 +496,7 @@ app.add_typer(audit_app, name="audit")
 app.add_typer(payload_app, name="payload")
 app.add_typer(reconcile_app, name="reconcile")
 app.add_typer(quantization_app, name="quantization")
+app.add_typer(tokenizer_configuration_app, name="tokenizer-config")
 MAX_CANONICAL_INVENTORY_BYTES = 64 * 1024 * 1024
 REMOTE_REPORT_SCHEMAS = {
     "omiv.remote-snapshot-report.v1",
@@ -4293,6 +4315,115 @@ def quantization_practice_xai(
         _quantization_failure(exc)
     typer.echo(
         f"{readiness.classification} payload_comparable_members=0 numerical_fidelity=NOT_EVALUATED",
+        err=True,
+    )
+    raise typer.Exit(code=1)
+
+
+def _tokenizer_configuration_failure(exc: Exception) -> None:
+    typer.echo(f"ERROR tokenizer/configuration operation failed: {exc}", err=True)
+    raise typer.Exit(code=2) from exc
+
+
+@tokenizer_configuration_app.command("inspect")
+def tokenizer_configuration_inspect(
+    input_path: Annotated[Path, typer.Argument(exists=True, dir_okay=False)],
+    output: Annotated[Path | None, typer.Option("--output", dir_okay=False)] = None,
+) -> None:
+    """Strictly validate and canonically render one offline Phase 6D object."""
+    try:
+        value = load_tokenizer_configuration(input_path)
+        rendered = pretty_tokenizer_configuration_json(value)
+        if output is None:
+            typer.echo(rendered, nl=False)
+        else:
+            validate_output_path(output, forbidden_inputs=(input_path,))
+            atomic_write_text(output, rendered, forbidden_inputs=(input_path,))
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _tokenizer_configuration_failure(exc)
+
+
+@tokenizer_configuration_app.command("verify")
+def tokenizer_configuration_verify(
+    input_path: Annotated[Path, typer.Argument(exists=True, dir_okay=False)],
+) -> None:
+    """Verify canonical identity and return a scope-qualified semantic exit status."""
+    try:
+        value = load_tokenizer_configuration(input_path)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _tokenizer_configuration_failure(exc)
+    if isinstance(value, TokenizerConfigurationParityEvidence):
+        typer.echo(
+            f"{value.overall_status.value} evidence={value.evidence_id} scope={value.scope.value}"
+        )
+        if value.overall_status != TokenizerParityStatus.PARITY_ESTABLISHED_FOR_DECLARED_SCOPE:
+            raise typer.Exit(code=1)
+    elif isinstance(value, TokenizerConfigurationComparison):
+        typer.echo(f"{value.raw_status.value} scope={value.scope.value}")
+        if value.raw_status != TokenizerParityStatus.PARITY_ESTABLISHED_FOR_DECLARED_SCOPE:
+            raise typer.Exit(code=1)
+    else:
+        schema = value.model_dump(by_alias=True)["schema"]
+        typer.echo(f"VALID_CANONICAL_TOKENIZER_CONFIGURATION_OBJECT schema={schema}")
+
+
+@tokenizer_configuration_app.command("report")
+def tokenizer_configuration_report(
+    input_path: Annotated[Path, typer.Argument(exists=True, dir_okay=False)],
+    output: Annotated[Path | None, typer.Option("--output", dir_okay=False)] = None,
+) -> None:
+    """Render a bounded derived report without executing assets or probes."""
+    try:
+        report = cast(
+            TokenizerConfigurationReport,
+            load_tokenizer_configuration(input_path, TokenizerConfigurationReport),
+        )
+        rendered = render_tokenizer_configuration_markdown(report)
+        if output is None:
+            typer.echo(rendered, nl=False)
+        else:
+            validate_output_path(output, forbidden_inputs=(input_path,))
+            atomic_write_text(output, rendered, forbidden_inputs=(input_path,))
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _tokenizer_configuration_failure(exc)
+    if report.overall_status != TokenizerParityStatus.PARITY_ESTABLISHED_FOR_DECLARED_SCOPE:
+        raise typer.Exit(code=1)
+
+
+@tokenizer_configuration_app.command("verify-index")
+def tokenizer_configuration_verify_index(
+    index_path: Annotated[Path, typer.Option("--index", exists=True, dir_okay=False)],
+    root: Annotated[Path, typer.Option("--root", exists=True, file_okay=False)] = Path("."),
+) -> None:
+    """Verify the external self-excluding Phase 6D artifact index."""
+    try:
+        index = cast(
+            TokenizerConfigurationArtifactIndex,
+            load_tokenizer_configuration(index_path, TokenizerConfigurationArtifactIndex),
+        )
+        verify_tokenizer_configuration_artifact_index(root, index)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _tokenizer_configuration_failure(exc)
+    typer.echo(f"VALID_EXTERNAL_INDEX indexed_artifacts={len(index.entries)} self_inclusion=0")
+
+
+@tokenizer_configuration_app.command("practice-xai")
+def tokenizer_configuration_practice_xai(
+    output: Annotated[Path | None, typer.Option("--output", dir_okay=False)] = None,
+) -> None:
+    """Reconstruct xAI readiness solely from committed Phase 6B evidence."""
+    try:
+        readiness, _case_study = build_xai_tokenizer_configuration_readiness(Path.cwd())
+        rendered = pretty_tokenizer_configuration_json(readiness)
+        if output is None:
+            typer.echo(rendered, nl=False)
+        else:
+            validate_output_path(output)
+            atomic_write_text(output, rendered)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _tokenizer_configuration_failure(exc)
+    typer.echo(
+        f"{readiness.classification} payload_comparable_members=0 parity=NOT_EVALUATED",
         err=True,
     )
     raise typer.Exit(code=1)

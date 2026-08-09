@@ -1,0 +1,81 @@
+{
+  "completion_status": "COMPLETED",
+  "counters": [
+    [
+      "asset_files",
+      8
+    ],
+    [
+      "payload_bytes",
+      504
+    ]
+  ],
+  "executed_tokenizers": 0,
+  "execution_digest": "f7295f09300ab250aa90848f2264c34bd39f1265d8e95e0286c86b93eaa73afd",
+  "execution_id": "tokenizer_execution_90298ea32d070a5ceeaffab3969dc32c",
+  "failure_class": null,
+  "limitations": [
+    "Execution record contains no resulting observation or evidence identity."
+  ],
+  "network_requests": 0,
+  "plan": {
+    "object_digest": "af4f3a62acd6d65d667260dafb50997105922ad6b7f2725c063bb0f8568438dc",
+    "object_id": "tokenizer_plan_400da410efe952df38f1e42b49875fa8",
+    "schema_id": "omiv.tokenizer-configuration-inspection-plan.v1"
+  },
+  "rendered_templates": 0,
+  "schema": "omiv.tokenizer-configuration-execution-record.v1",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "tokenizer.phase6d-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.tokenizer-parity",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "TOKENIZER",
+    "subject_digest": "19930fd9f7f84f61da2d8821221d46e8533fa4c068179f84c0958563030b7c0d",
+    "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+  },
+  "supplied_inputs": [
+    {
+      "object_digest": "a35cd01a7a6c3fa933b9398b771fb5a2f7d3149404b69990ca3ef80efcd7fd33",
+      "object_id": "observed_payload_36fb4727ad391f547e359cafed9cf7f9",
+      "schema_id": "omiv.observed-payload-manifest.v1"
+    },
+    {
+      "object_digest": "461b11a287711f2ee8f7a42cc5bf2861e405b0c714ea4eb7581e78b71c7be334",
+      "object_id": "observed_payload_5c03403d18a31183e89bf3ca15900d5d",
+      "schema_id": "omiv.observed-payload-manifest.v1"
+    },
+    {
+      "object_digest": "7f8fc425dd0874222cee27938666fe2669de90a859caa3d72aa0b0bb46160486",
+      "object_id": "observed_payload_6005ef83d75e6997a4ccd69754305138",
+      "schema_id": "omiv.observed-payload-manifest.v1"
+    },
+    {
+      "object_digest": "db34aa38e19b6798fa83802a8ff26a6511b0f74fd2f41704f2f5e70da1eaca40",
+      "object_id": "observed_payload_79f07aa9a6812b394e76a8e1e3b23723",
+      "schema_id": "omiv.observed-payload-manifest.v1"
+    },
+    {
+      "object_digest": "b2980d966ddd0daa67d6b64cd063563bf6fb668361b010508753fc1482ed2ba0",
+      "object_id": "observed_payload_9b6e26457f433b0d8129722400b66af2",
+      "schema_id": "omiv.observed-payload-manifest.v1"
+    },
+    {
+      "object_digest": "65f1c5ec84a5b99832c32e6077494aa597f2426eea0b144351a3e62d70e4e551",
+      "object_id": "observed_payload_a9c41e9bb89aa217feeb8e08b3bc535c",
+      "schema_id": "omiv.observed-payload-manifest.v1"
+    }
+  ],
+  "time_context": "NOT_RECORDED",
+  "tool_identity": "omiv.phase6d.offline-inspector.v1"
+}

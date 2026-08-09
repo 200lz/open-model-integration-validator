@@ -1,0 +1,21 @@
+{
+  "case_id": "duplicate-token",
+  "exercised_invariant": "Duplicate token ambiguity is explicit.",
+  "findings": [
+    "DUPLICATE_TOKEN"
+  ],
+  "limitations": [
+    "Synthetic scenario is not real model or tokenizer evidence."
+  ],
+  "outcome": "not.comparable",
+  "result_digest": "73baf6be0b05ca3e895f87fbb9d68f4ce143e8a1388a964f0d990eccdd398773",
+  "result_id": "tokenizer_scenario_69f0ad79fffda81914edeb21ed14cb6a",
+  "schema": "omiv.tokenizer-configuration-scenario-result.v1",
+  "upstream_objects": [
+    {
+      "object_digest": "4f389d622446e74e7eadbd636430d8897bc098d27460a55b364767392a16eaca",
+      "object_id": "pipeline_observation_74b6c9e3d1273c73e036dcb5c010505f",
+      "schema_id": "omiv.tokenizer-pipeline-observation.v1"
+    }
+  ]
+}

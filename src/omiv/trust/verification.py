@@ -55,6 +55,11 @@ from omiv.security.models import (
     SecurityEvidenceBundle,
     SecurityScanExecutionRecord,
 )
+from omiv.tokenizer_parity.models import (
+    TokenizerAssetObservation,
+    TokenizerConfigurationExpectation,
+    TokenizerConfigurationParityEvidence,
+)
 from omiv.trust.algorithms import public_key_from_raw, verify
 from omiv.trust.domain import delegation_bytes, signed_object_bytes
 from omiv.trust.models import (
@@ -359,6 +364,12 @@ def _validate_source_object(envelope: SignedObjectEnvelope) -> None:
         model = RepresentationObservation
     elif envelope.signed_object_type == SignedObjectType.QUANTIZATION_FIDELITY_EVIDENCE:
         model = QuantizationFidelityEvidence
+    elif envelope.signed_object_type == SignedObjectType.TOKENIZER_CONFIGURATION_EXPECTATION:
+        model = TokenizerConfigurationExpectation
+    elif envelope.signed_object_type == SignedObjectType.TOKENIZER_ASSET_OBSERVATION:
+        model = TokenizerAssetObservation
+    elif envelope.signed_object_type == SignedObjectType.TOKENIZER_CONFIGURATION_PARITY_EVIDENCE:
+        model = TokenizerConfigurationParityEvidence
     elif envelope.signed_object_schema == "omiv.model-passport.v1":
         model = ModelPassport
     else:
@@ -403,6 +414,9 @@ def _validate_source_object(envelope: SignedObjectEnvelope) -> None:
         SignedObjectType.QUANTIZATION_RELATIONSHIP_DECLARATION: "declaration_digest",
         SignedObjectType.REPRESENTATION_OBSERVATION: "observation_digest",
         SignedObjectType.QUANTIZATION_FIDELITY_EVIDENCE: "evidence_digest",
+        SignedObjectType.TOKENIZER_CONFIGURATION_EXPECTATION: "expectation_digest",
+        SignedObjectType.TOKENIZER_ASSET_OBSERVATION: "observation_digest",
+        SignedObjectType.TOKENIZER_CONFIGURATION_PARITY_EVIDENCE: "evidence_digest",
     }[envelope.signed_object_type]
     digest_body.pop(digest_field)
     if object_digest != canonical_sha256(digest_body):
@@ -753,6 +767,19 @@ def _claim_summary(envelope: SignedObjectEnvelope) -> tuple[dict[str, Any], str]
             "numerical_status": value.get("numerical_status", "NOT_EVALUATED"),
             "publisher_authority_created_by_signature": False,
             "transformation_authority_created_by_signature": False,
+            "behavioral_parity_proven": False,
+        }, "INCOMPLETE"
+    if envelope.signed_object_type in {
+        SignedObjectType.TOKENIZER_CONFIGURATION_EXPECTATION,
+        SignedObjectType.TOKENIZER_ASSET_OBSERVATION,
+        SignedObjectType.TOKENIZER_CONFIGURATION_PARITY_EVIDENCE,
+    }:
+        return {
+            "tokenizer_configuration_parity": value.get("overall_status", "NOT_EVALUATED"),
+            "declared_scope": value.get("scope", "NOT_RECORDED"),
+            "publisher_authority_created_by_signature": False,
+            "probe_executor_authority_created_by_signature": False,
+            "runtime_identity_created_by_signature": False,
             "behavioral_parity_proven": False,
         }, "INCOMPLETE"
     if envelope.signed_object_type == SignedObjectType.ARTIFACT_ATTESTATION:

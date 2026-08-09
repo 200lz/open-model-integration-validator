@@ -1,0 +1,140 @@
+{
+  "envelope_digest": "22c4cb8aa678555e4aa9295e741ca0f40c11293be784c93edddae5ecf2117da2",
+  "envelope_id": "soe_f69d138971cdeeeb697402da78880316",
+  "key_records": [
+    {
+      "algorithm": "ED25519",
+      "allowed_key_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "allowed_object_types": [
+        "TOKENIZER_ASSET_OBSERVATION",
+        "TOKENIZER_CONFIGURATION_EXPECTATION",
+        "TOKENIZER_CONFIGURATION_PARITY_EVIDENCE"
+      ],
+      "allowed_purposes": [
+        "TOKENIZER_ASSET_OBSERVATION_ISSUANCE",
+        "TOKENIZER_CONFIGURATION_EXPECTATION_ISSUANCE",
+        "TOKENIZER_CONFIGURATION_PARITY_EVIDENCE_ISSUANCE"
+      ],
+      "key_digest": "429a827240fb18930e53241bf7fc871ef90e9f43a0b4479d069412ea1864bcff",
+      "key_id": "key_dae729a16735c244e96e489de9a1c985",
+      "limitations": [
+        "Public-key identity does not establish signer identity."
+      ],
+      "namespaces": [],
+      "provider_artifact_scopes": [],
+      "public_key": "8b237d788e8eaaef550c6d125823fa45f1fd5fc29b2c88bdf871119471fc1312",
+      "public_key_digest": "dae729a16735c244e96e489de9a1c98527f1c5fd090a787b22ca88130e2ec8a7",
+      "public_key_encoding": "RAW_HEX",
+      "schema": "omiv.key-identity.v1",
+      "status": "ACTIVE",
+      "validity": null
+    }
+  ],
+  "limitations": [
+    "The canonical source object is unchanged; trust is reconstructed externally."
+  ],
+  "schema": "omiv.signed-object-envelope.v1",
+  "signatures": [
+    {
+      "algorithm": "ED25519",
+      "binding_id": "binding_e3190b581d5a5fbd25227d3804916c8e",
+      "detached_signature": "c1e328cdda1fc622c2314f84103bd1d8ae7893c247673a94576ff695327963ff02733ec7208e1df858e7afb90b1490557a52cc86d7689fff6e7e6f0097c4330a",
+      "key_id": "key_dae729a16735c244e96e489de9a1c985",
+      "limitations": [
+        "Signature integrity does not prove the underlying claim is true."
+      ],
+      "payload": {
+        "canonicalization_version": "omiv-json-v1",
+        "digest_algorithm": "SHA-256",
+        "domain": "OMIV-SIGNED-OBJECT-V1",
+        "key_usage": "SIGN_OMIV_OBJECT",
+        "namespace": null,
+        "provider_artifact_scope": null,
+        "schema": "omiv.signature-payload.v1",
+        "signature_purpose": "TOKENIZER_ASSET_OBSERVATION_ISSUANCE",
+        "signed_object_digest": "db58e006bafbf323fa55512a20056a83958dc362dc3702889abfd1b21550228c",
+        "signed_object_id": "tokenizer_asset_c7bc5bce077bc3f4bddabb07aee5ec87",
+        "signed_object_schema": "omiv.tokenizer-asset-observation.v1",
+        "signed_object_type": "TOKENIZER_ASSET_OBSERVATION",
+        "trust_policy_id": "omiv.trust-policy.team_release.v1"
+      },
+      "purpose": "TOKENIZER_ASSET_OBSERVATION_ISSUANCE",
+      "schema": "omiv.signature-record.v1",
+      "signature_digest": "e7a8f3e688265ee3d2985fd149c7208a21505cef92632945730c124dec982e32",
+      "signature_encoding": "RAW_HEX",
+      "signature_id": "sig_8ffe3c54f279a57bf9979cf5e902344c",
+      "trust_policy_id": "omiv.trust-policy.team_release.v1"
+    }
+  ],
+  "signed_object": {
+    "artifact": {
+      "artifact_set_identity": "638bd9b01c7fda0279dd26056d3f0cf72b2d23060e2c86b60201147f7a84461e",
+      "asset_kind": "MODEL_CONFIG",
+      "asset_path": "config-reference.json",
+      "availability": "EXACT_LOCAL_PAYLOAD_IDENTITY_AVAILABLE",
+      "coverage": "complete.declared-local-file-scope",
+      "file_size": 88,
+      "limitations": [
+        "Synthetic local fixture; not publisher evidence."
+      ],
+      "logical_root": "tokenizer-fixture.config-reference",
+      "namespace": "tokenizer-parity-fixtures",
+      "payload_sha256": "78e0e786f850fc8b67e98ea6cb77db596d25d3f14221919fe958ca0400bfda4b",
+      "phase6a_manifest": {
+        "object_digest": "65f1c5ec84a5b99832c32e6077494aa597f2426eea0b144351a3e62d70e4e551",
+        "object_id": "observed_payload_a9c41e9bb89aa217feeb8e08b3bc535c",
+        "schema_id": "omiv.observed-payload-manifest.v1"
+      },
+      "phase6b_snapshot": null,
+      "phase6c_evidence": null,
+      "provider": "omiv-synthetic",
+      "requested_revision": "fixture-v1",
+      "resolved_revision": "fixture-v1",
+      "role": "REFERENCE",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+    },
+    "content_executed": false,
+    "execution": {
+      "object_digest": "f7295f09300ab250aa90848f2264c34bd39f1265d8e95e0286c86b93eaa73afd",
+      "object_id": "tokenizer_execution_90298ea32d070a5ceeaffab3969dc32c",
+      "schema_id": "omiv.tokenizer-configuration-execution-record.v1"
+    },
+    "format_identifier": "strict.json.configuration.v1",
+    "format_supported": true,
+    "limitations": [
+      "Observed bytes were treated as non-executing data."
+    ],
+    "observation_digest": "7d10f8db96480ed4c09c232abbf4b66a3aee4fccbd78e1c7a739200869b29c44",
+    "observation_id": "tokenizer_asset_c7bc5bce077bc3f4bddabb07aee5ec87",
+    "race_findings": [],
+    "raw_sha256": "78e0e786f850fc8b67e98ea6cb77db596d25d3f14221919fe958ca0400bfda4b",
+    "raw_size": 88,
+    "schema": "omiv.tokenizer-asset-observation.v1",
+    "subject": {
+      "limitations": [
+        "Logical product subject identity does not prove artifact content."
+      ],
+      "logical_name": "tokenizer.phase6d-synthetic",
+      "schema": "omiv.product-subject.v1",
+      "scope": {
+        "environment_scope": "environment.offline",
+        "organization_scope": "organization.synthetic",
+        "product_scope": "product.generic-inference",
+        "project_scope": "project.tokenizer-parity",
+        "target_scope": "target-scope.runtime",
+        "tenant_scope": "tenant.synthetic",
+        "trust_domain": "trust-domain.synthetic"
+      },
+      "subject_class": "TOKENIZER",
+      "subject_digest": "19930fd9f7f84f61da2d8821221d46e8533fa4c068179f84c0958563030b7c0d",
+      "subject_id": "product_subject_80f3a957056f765bddcd7792702b4a0e"
+    }
+  },
+  "signed_object_digest": "db58e006bafbf323fa55512a20056a83958dc362dc3702889abfd1b21550228c",
+  "signed_object_id": "tokenizer_asset_c7bc5bce077bc3f4bddabb07aee5ec87",
+  "signed_object_schema": "omiv.tokenizer-asset-observation.v1",
+  "signed_object_type": "TOKENIZER_ASSET_OBSERVATION",
+  "trust_policy_id": "omiv.trust-policy.team_release.v1"
+}
