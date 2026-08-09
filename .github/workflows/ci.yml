@@ -24,6 +24,19 @@ jobs:
       # actions/checkout v7.0.1
       - name: Check out source
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Verify readiness audit history
+        shell: bash
+        run: |
+          set -eu
+          git cat-file -e 'ffa57d385ffe465b6418daaa8a2530ff8d76e5fa^{commit}'
+          test "$(git rev-list --count ffa57d385ffe465b6418daaa8a2530ff8d76e5fa)" -eq 36
+          for tag in v0.1.0 v0.2.0 v0.3.0 v0.4.0 v0.5.0 v0.6.0 v0.7.0 v0.8.0 v0.9.0; do
+            git cat-file -e "refs/tags/${tag}^{tag}"
+          done
 
       # actions/setup-python v7.0.0
       - name: Set up Python
