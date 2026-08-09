@@ -1,0 +1,23 @@
+{
+  "case_id": "shape-and-numerical-mismatch",
+  "exercised_invariant": "Shape and numerical findings are simultaneous.",
+  "limitations": [
+    "Synthetic bounded result; invalid inputs are retained as deterministic rejection outcomes."
+  ],
+  "numerical_status": "OUTSIDE_POLICY_FOR_EVALUATED_SCOPE",
+  "observed_findings": [
+    "SHAPE_AND_NUMERICAL_MISMATCH"
+  ],
+  "outcome": "FAIL",
+  "result_digest": "e62d9f4aed5d14f0d67ce60aafcb0cdad5cbade3da9daa13a81ef86e4c3657a4",
+  "result_id": "quantization_example_result_f40d63e3f563d363c59bc555937677e1",
+  "schema": "omiv.quantization-example-result.v1",
+  "structural_status": "STRUCTURAL_MISMATCH",
+  "upstream_objects": [
+    {
+      "object_digest": "364c5ec6d133800c965d70ce9e3c885bd04997e57f35873968dc9203748537d7",
+      "object_id": "quantization_evidence_b53047f4587acad7a5f38b1a645f1d6b",
+      "schema_id": "omiv.quantization-fidelity-evidence.v1"
+    }
+  ]
+}

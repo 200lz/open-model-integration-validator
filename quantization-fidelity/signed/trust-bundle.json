@@ -1,0 +1,116 @@
+{
+  "bundle_digest": "f270df7160df206bf8067b98d35c1bef07ab8a83168b7fa35c0bbc95e9a1ad75",
+  "bundle_id": "tb_74b916f2b11137db3e4a781ebbbd8e3e",
+  "delegations": [],
+  "keys": [
+    {
+      "algorithm": "ED25519",
+      "allowed_key_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "allowed_object_types": [
+        "QUANTIZATION_FIDELITY_EVIDENCE",
+        "QUANTIZATION_RELATIONSHIP_DECLARATION",
+        "REPRESENTATION_OBSERVATION"
+      ],
+      "allowed_purposes": [
+        "QUANTIZATION_FIDELITY_EVIDENCE_ISSUANCE",
+        "QUANTIZATION_RELATIONSHIP_DECLARATION_ISSUANCE",
+        "REPRESENTATION_OBSERVATION_ISSUANCE"
+      ],
+      "key_digest": "f55dcd7ecbf69ee007693e49ba1b246f125961ec2c9a359f7b35973a3be43357",
+      "key_id": "key_58424df53f1a92823facb1f77270bce1",
+      "limitations": [
+        "Public-key identity does not establish signer identity."
+      ],
+      "namespaces": [],
+      "provider_artifact_scopes": [],
+      "public_key": "6d44f939f829d43598bcdedda90de01db69faa50caa33e8c6c328a4b900d4dac",
+      "public_key_digest": "58424df53f1a92823facb1f77270bce1da39bd484b56dd28814e9c707a3ec2fb",
+      "public_key_encoding": "RAW_HEX",
+      "schema": "omiv.key-identity.v1",
+      "status": "ACTIVE",
+      "validity": null
+    }
+  ],
+  "limitations": [
+    "Static offline bundle; no online discovery or continuous reevaluation."
+  ],
+  "revocations": [],
+  "schema": "omiv.trust-bundle.v1",
+  "signer_identities": [
+    {
+      "display_label": "Synthetic quantization evidence issuer",
+      "identity_digest": "8edfa3d2fac813672bfaa2fac991e848068a89e53f9603619900c1de7e2b5658",
+      "identity_evidence": [
+        "b38051f9616cfee2c26283ca6ac437d95c437f3176e0714664f60055cfe502d7"
+      ],
+      "identity_kind": "SERVICE_DECLARED",
+      "limitations": [
+        "Synthetic declared identity; no external identity proof."
+      ],
+      "namespace": null,
+      "organization_id": null,
+      "role": "QUANTIZATION_EVIDENCE_ISSUER",
+      "schema": "omiv.signer-identity.v1",
+      "signer_identity_id": "signer_5c78ffa063a27fa60ad1e51332a324c8",
+      "verification_status": "EVIDENCE_LINKED"
+    }
+  ],
+  "signer_key_bindings": [
+    {
+      "allowed_object_types": [
+        "QUANTIZATION_FIDELITY_EVIDENCE",
+        "QUANTIZATION_RELATIONSHIP_DECLARATION",
+        "REPRESENTATION_OBSERVATION"
+      ],
+      "allowed_roles": [
+        "QUANTIZATION_EVIDENCE_ISSUER"
+      ],
+      "allowed_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "binding_digest": "faaafb7931312be56bd0f396038e0c239ee7fc003551f243f2573402e1893e9f",
+      "binding_id": "binding_466d761f2e2e35360089808f8ecd3a30",
+      "binding_origin": "TRUST_BUNDLE_DECLARED",
+      "evidence_references": [],
+      "key_id": "key_58424df53f1a92823facb1f77270bce1",
+      "limitations": [
+        "Binding validity does not prove the underlying signed claim."
+      ],
+      "namespaces": [],
+      "schema": "omiv.signer-key-binding.v1",
+      "signer_identity_id": "signer_5c78ffa063a27fa60ad1e51332a324c8",
+      "validity": null,
+      "verification_status": "VERIFIED_BY_TRUST_BUNDLE"
+    }
+  ],
+  "trust_roots": [
+    {
+      "allowed_object_types": [
+        "QUANTIZATION_FIDELITY_EVIDENCE",
+        "QUANTIZATION_RELATIONSHIP_DECLARATION",
+        "REPRESENTATION_OBSERVATION"
+      ],
+      "allowed_purposes": [
+        "QUANTIZATION_FIDELITY_EVIDENCE_ISSUANCE",
+        "QUANTIZATION_RELATIONSHIP_DECLARATION_ISSUANCE",
+        "REPRESENTATION_OBSERVATION_ISSUANCE"
+      ],
+      "delegation_allowed": false,
+      "key_id": "key_58424df53f1a92823facb1f77270bce1",
+      "limitations": [
+        "Trust applies only under a selected policy and recorded constraints."
+      ],
+      "maximum_delegation_depth": 0,
+      "namespaces": [],
+      "provider_artifact_scopes": [],
+      "root_digest": "c0df3b88505a1afb96c2e24ca128d1080731bf23518320335bdcfbfaf028e717",
+      "schema": "omiv.trust-root.v1",
+      "status": "ACTIVE",
+      "trust_root_id": "root_a10a73545069f65f10ea96e306bd45e9",
+      "validity": null
+    }
+  ],
+  "validity": null
+}

@@ -1,0 +1,37 @@
+{
+  "authority_evaluation": {
+    "object_digest": "0ce227cb4668a4faa8a33fff56079d7e1c8724966cf5fabfd8be8911ca730358",
+    "object_id": "quantization_authority_dfbb36e119061aa4341885c625b812b0",
+    "schema_id": "omiv.quantization-authority-evaluation.v1"
+  },
+  "comparison": {
+    "object_digest": "7f7c8b78cf3a14be889bcb652b434afa3d976efb5d0f2e55d8be1d7000dbabd3",
+    "object_id": "quantization_comparison_55fff28532e091720b3348bf688ac2b8",
+    "schema_id": "omiv.quantization-fidelity-comparison.v1"
+  },
+  "evidence": {
+    "object_digest": "861e5ccb7d57885486f9ac5e11b7dafbd0fef480262d0da3134d195caa47fece",
+    "object_id": "quantization_evidence_e6d2b534a1398275c86f0b51a3373e69",
+    "schema_id": "omiv.quantization-fidelity-evidence.v1"
+  },
+  "expectation_scope": "DETERMINISTIC_SAMPLE_SCOPE",
+  "finding_selection_rule": "CANONICAL_ORDER_PREFIX",
+  "included_finding_count": 23,
+  "limitations": [
+    "Report presentation is derived and does not feed canonical evidence identity."
+  ],
+  "numerical_status": "SAMPLED_WITHIN_POLICY",
+  "omitted_finding_count": 0,
+  "overall_status": "CONFORMS_FOR_DECLARED_SCOPE",
+  "policy_evaluation": {
+    "object_digest": "02a972a9d9d57d4f1daa40e482e2fce5cbbac4ae19c3b58f1212e2cc72300885",
+    "object_id": "quantization_policy_evaluation_4e733c04e440bf9fbe73633dc3c1b677",
+    "schema_id": "omiv.quantization-policy-evaluation.v1"
+  },
+  "report_digest": "2a66f1173eb50865eef0ccc5a38d309b981937e1d6826fec492438f7ceb1402e",
+  "report_id": "quantization_report_352af221df59bf8d4a1084e67c891be9",
+  "schema": "omiv.quantization-fidelity-report.v1",
+  "structural_status": "STRUCTURALLY_CONSISTENT_FOR_SCOPE",
+  "total_finding_count": 23,
+  "truncation_status": "NOT_TRUNCATED"
+}

@@ -1,0 +1,219 @@
+{
+  "envelope_digest": "87787b7bd2850d278db15af7ed492f2d3cc54be8985e8db8f389b35ea18a24a4",
+  "envelope_id": "soe_0638095a64d8cce3c1154df22d22dfc3",
+  "key_records": [
+    {
+      "algorithm": "ED25519",
+      "allowed_key_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "allowed_object_types": [
+        "QUANTIZATION_FIDELITY_EVIDENCE",
+        "QUANTIZATION_RELATIONSHIP_DECLARATION",
+        "REPRESENTATION_OBSERVATION"
+      ],
+      "allowed_purposes": [
+        "QUANTIZATION_FIDELITY_EVIDENCE_ISSUANCE",
+        "QUANTIZATION_RELATIONSHIP_DECLARATION_ISSUANCE",
+        "REPRESENTATION_OBSERVATION_ISSUANCE"
+      ],
+      "key_digest": "f55dcd7ecbf69ee007693e49ba1b246f125961ec2c9a359f7b35973a3be43357",
+      "key_id": "key_58424df53f1a92823facb1f77270bce1",
+      "limitations": [
+        "Public-key identity does not establish signer identity."
+      ],
+      "namespaces": [],
+      "provider_artifact_scopes": [],
+      "public_key": "6d44f939f829d43598bcdedda90de01db69faa50caa33e8c6c328a4b900d4dac",
+      "public_key_digest": "58424df53f1a92823facb1f77270bce1da39bd484b56dd28814e9c707a3ec2fb",
+      "public_key_encoding": "RAW_HEX",
+      "schema": "omiv.key-identity.v1",
+      "status": "ACTIVE",
+      "validity": null
+    }
+  ],
+  "limitations": [
+    "The canonical source object is unchanged; trust is reconstructed externally."
+  ],
+  "schema": "omiv.signed-object-envelope.v1",
+  "signatures": [
+    {
+      "algorithm": "ED25519",
+      "binding_id": "binding_466d761f2e2e35360089808f8ecd3a30",
+      "detached_signature": "d4b02a1108ddaa6bf05b6d1bdd96cfe0e879fcc9fc5f9960ed3c40590a7dd5b8e129c41fa017a1747e3fa74c23786b52c09dd2595eb028edcbed386b464dfe01",
+      "key_id": "key_58424df53f1a92823facb1f77270bce1",
+      "limitations": [
+        "Signature integrity does not prove the underlying claim is true."
+      ],
+      "payload": {
+        "canonicalization_version": "omiv-json-v1",
+        "digest_algorithm": "SHA-256",
+        "domain": "OMIV-SIGNED-OBJECT-V1",
+        "key_usage": "SIGN_OMIV_OBJECT",
+        "namespace": null,
+        "provider_artifact_scope": null,
+        "schema": "omiv.signature-payload.v1",
+        "signature_purpose": "QUANTIZATION_FIDELITY_EVIDENCE_ISSUANCE",
+        "signed_object_digest": "e8ea0c6daf15082c31eb11db605d740791baddec3180988b5cc3668c0e4f477b",
+        "signed_object_id": "quantization_evidence_72e90a1686f2c695d8fc6d50199a6d4d",
+        "signed_object_schema": "omiv.quantization-fidelity-evidence.v1",
+        "signed_object_type": "QUANTIZATION_FIDELITY_EVIDENCE",
+        "trust_policy_id": "omiv.trust-policy.team_release.v1"
+      },
+      "purpose": "QUANTIZATION_FIDELITY_EVIDENCE_ISSUANCE",
+      "schema": "omiv.signature-record.v1",
+      "signature_digest": "520d094e8ccf885a92bafd8afaa92722d56b09631edf9eb49b114689fadeaf9c",
+      "signature_encoding": "RAW_HEX",
+      "signature_id": "sig_941830759bd88b8254d5d938a9e7fe6f",
+      "trust_policy_id": "omiv.trust-policy.team_release.v1"
+    }
+  ],
+  "signed_object": {
+    "authority_established": false,
+    "authority_evaluation": {
+      "object_digest": "0ce227cb4668a4faa8a33fff56079d7e1c8724966cf5fabfd8be8911ca730358",
+      "object_id": "quantization_authority_dfbb36e119061aa4341885c625b812b0",
+      "schema_id": "omiv.quantization-authority-evaluation.v1"
+    },
+    "available_at": "NOT_RECORDED",
+    "behavioral_parity": "NOT_EVALUATED",
+    "comparison": {
+      "object_digest": "49a5a60906a3e649ef3b0be84c5232187a1497081d94de2ef4c82f105e3cc512",
+      "object_id": "quantization_comparison_64a04779a8d3d3453bde8d909866c455",
+      "schema_id": "omiv.quantization-fidelity-comparison.v1"
+    },
+    "coverage": [
+      {
+        "denominator": 1,
+        "dimension": "SOURCE_ARTIFACT",
+        "incomplete_reason": null,
+        "numerator": 1,
+        "status": "COMPLETE"
+      },
+      {
+        "denominator": 1,
+        "dimension": "CANDIDATE_ARTIFACT",
+        "incomplete_reason": null,
+        "numerator": 1,
+        "status": "COMPLETE"
+      },
+      {
+        "denominator": 1,
+        "dimension": "SOURCE_TENSOR",
+        "incomplete_reason": null,
+        "numerator": 1,
+        "status": "COMPLETE"
+      },
+      {
+        "denominator": 1,
+        "dimension": "CANDIDATE_TENSOR",
+        "incomplete_reason": null,
+        "numerator": 1,
+        "status": "COMPLETE"
+      },
+      {
+        "denominator": 1,
+        "dimension": "MAPPED_TENSOR",
+        "incomplete_reason": null,
+        "numerator": 1,
+        "status": "COMPLETE"
+      },
+      {
+        "denominator": 1,
+        "dimension": "MANDATORY_ROLE",
+        "incomplete_reason": null,
+        "numerator": 1,
+        "status": "COMPLETE"
+      },
+      {
+        "denominator": 1,
+        "dimension": "NUMERICAL_TENSOR",
+        "incomplete_reason": null,
+        "numerator": 1,
+        "status": "COMPLETE"
+      },
+      {
+        "denominator": 4,
+        "dimension": "NUMERICAL_ELEMENT",
+        "incomplete_reason": null,
+        "numerator": 4,
+        "status": "COMPLETE"
+      },
+      {
+        "denominator": 1,
+        "dimension": "QUANTIZATION_PARAMETER",
+        "incomplete_reason": null,
+        "numerator": 1,
+        "status": "COMPLETE"
+      },
+      {
+        "denominator": null,
+        "dimension": "BYTE",
+        "incomplete_reason": "Tensor byte range was not separately measured.",
+        "numerator": 0,
+        "status": "UNAVAILABLE"
+      },
+      {
+        "denominator": 4,
+        "dimension": "SAMPLING",
+        "incomplete_reason": null,
+        "numerator": 4,
+        "status": "COMPLETE"
+      }
+    ],
+    "evaluated_at": "NOT_RECORDED",
+    "evidence_digest": "3d47aa9301116134bf1426918ef843ff3c86ca5922a1892fe832bbacf235cd03",
+    "evidence_id": "quantization_evidence_72e90a1686f2c695d8fc6d50199a6d4d",
+    "expectation_scope": "SELECTED_REQUIRED_TENSORS",
+    "limitations": [
+      "Numerical fidelity is not model correctness or behavioral parity."
+    ],
+    "model_correctness": "NOT_ESTABLISHED",
+    "numerical_status": "EXACT_FOR_EVALUATED_SCOPE",
+    "observed_at": "NOT_RECORDED",
+    "overall_status": "CONFORMS_FOR_DECLARED_SCOPE",
+    "policy_evaluation": {
+      "object_digest": "3c16b80fb069b6e4cc4a8371c7bdec5ea79024e5e0c0c9fca04c8fa17251fc50",
+      "object_id": "quantization_policy_evaluation_1ee03c6dc273fa8f031e76ca3b9cc37c",
+      "schema_id": "omiv.quantization-policy-evaluation.v1"
+    },
+    "policy_satisfied_for_declared_scope": true,
+    "runtime_identity": "NOT_OBSERVED",
+    "schema": "omiv.quantization-fidelity-evidence.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.quantization",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "security_safety": "NOT_EVALUATED",
+    "structural_status": "STRUCTURALLY_CONSISTENT_FOR_SCOPE",
+    "subject": {
+      "limitations": [
+        "Logical product subject identity does not prove artifact content."
+      ],
+      "logical_name": "model.quantization-synthetic",
+      "schema": "omiv.product-subject.v1",
+      "scope": {
+        "environment_scope": "environment.offline",
+        "organization_scope": "organization.synthetic",
+        "product_scope": "product.generic-inference",
+        "project_scope": "project.quantization",
+        "target_scope": "target-scope.runtime",
+        "tenant_scope": "tenant.synthetic",
+        "trust_domain": "trust-domain.synthetic"
+      },
+      "subject_class": "MODEL_WEIGHTS",
+      "subject_digest": "eb01a7e4bd6121bfa6e364f1fe9b1b48210b81114339097f547f3e554c66713e",
+      "subject_id": "product_subject_15a44f47d7c28c392be4b014eca26bdc"
+    }
+  },
+  "signed_object_digest": "e8ea0c6daf15082c31eb11db605d740791baddec3180988b5cc3668c0e4f477b",
+  "signed_object_id": "quantization_evidence_72e90a1686f2c695d8fc6d50199a6d4d",
+  "signed_object_schema": "omiv.quantization-fidelity-evidence.v1",
+  "signed_object_type": "QUANTIZATION_FIDELITY_EVIDENCE",
+  "trust_policy_id": "omiv.trust-policy.team_release.v1"
+}

@@ -1,0 +1,163 @@
+{
+  "behavioral_equivalence_claimed": false,
+  "candidate_observation": {
+    "object_digest": "31f1379da67f4fec057901f5d8ae6d3157a9999591a54aea228503f44ae06d43",
+    "object_id": "representation_observation_bf7495bd42a5d60df60af2bba4d92503",
+    "schema_id": "omiv.representation-observation.v1"
+  },
+  "comparison_digest": "563f8e068e4eda23503462c4add6c497bcef079cc04669f433799215d8fd8248",
+  "comparison_id": "quantization_comparison_2f3d6a81b477240f964d74cc2b1dffad",
+  "complete_model_equivalence_claimed": false,
+  "correspondence": {
+    "object_digest": "e80b43452c0b2d22dfda7fa720b445e487d089f352715311f79c5bb6da47ef71",
+    "object_id": "tensor_correspondence_ff5f383353c0c27d8bcf97d60449614c",
+    "schema_id": "omiv.tensor-correspondence.v1"
+  },
+  "coverage": [
+    {
+      "denominator": 1,
+      "dimension": "SOURCE_ARTIFACT",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": 1,
+      "dimension": "CANDIDATE_ARTIFACT",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": 1,
+      "dimension": "SOURCE_TENSOR",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": 1,
+      "dimension": "CANDIDATE_TENSOR",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": 1,
+      "dimension": "MAPPED_TENSOR",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": 1,
+      "dimension": "MANDATORY_ROLE",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": 1,
+      "dimension": "NUMERICAL_TENSOR",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": 4,
+      "dimension": "NUMERICAL_ELEMENT",
+      "incomplete_reason": null,
+      "numerator": 4,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": 1,
+      "dimension": "QUANTIZATION_PARAMETER",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": null,
+      "dimension": "BYTE",
+      "incomplete_reason": "Tensor byte range was not separately measured.",
+      "numerator": 0,
+      "status": "UNAVAILABLE"
+    },
+    {
+      "denominator": 4,
+      "dimension": "SAMPLING",
+      "incomplete_reason": null,
+      "numerator": 4,
+      "status": "COMPLETE"
+    }
+  ],
+  "declaration": {
+    "object_digest": "ec8c16d9fd937ee863b2a26ac5444b76d45ffd804ec34baaa3965bb836651229",
+    "object_id": "quantization_declaration_75dbfbd8240f8f98b648722c611b64f4",
+    "schema_id": "omiv.quantization-relationship-declaration.v1"
+  },
+  "expectation_scope": "SELECTED_REQUIRED_TENSORS",
+  "findings": [
+    {
+      "detail": "A numerical difference was observed; policy evaluates it.",
+      "kind": "NUMERICAL_DIFFERENCE_OBSERVED",
+      "status": "OBSERVED",
+      "tensor_ids": [
+        "quantization_tensor_849fe5140805a21403d29be274e841ce",
+        "quantization_tensor_6aa7fcb9d1a7a6d9a850e4b31c3f275a"
+      ]
+    }
+  ],
+  "limitations": [],
+  "measurements": [
+    {
+      "object_digest": "689f3eb7c66859c17adaa48e29f2de75b4159dc703f6080d0b575298be5aba39",
+      "object_id": "quantization_measurement_187b55f89a9edcc9855b4dec3ccfa25e",
+      "schema_id": "omiv.numerical-fidelity-measurement.v1"
+    }
+  ],
+  "numerical_status": "NUMERICALLY_EVALUATED_FOR_SCOPE",
+  "parameter_observations": [
+    {
+      "object_digest": "e2a7e35913debedf5dc0115ac6f9a3fde68a8da0a8208af80b02e84a7c09c89c",
+      "object_id": "quantization_parameters_ea4d188f83fa729ef27836e1fd910801",
+      "schema_id": "omiv.quantization-parameter-observation.v1"
+    }
+  ],
+  "schema": "omiv.quantization-fidelity-comparison.v1",
+  "scope": {
+    "environment_scope": "environment.offline",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.quantization",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  },
+  "source_observation": {
+    "object_digest": "0a3914e629e2aa221b828c07538d288171e3491f7fdfe269f80178ee21897c39",
+    "object_id": "representation_observation_1925fb79225ead8924d63b53e54a7604",
+    "schema_id": "omiv.representation-observation.v1"
+  },
+  "structural_status": "STRUCTURALLY_CONSISTENT_FOR_SCOPE",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "model.quantization-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.quantization",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "MODEL_WEIGHTS",
+    "subject_digest": "eb01a7e4bd6121bfa6e364f1fe9b1b48210b81114339097f547f3e554c66713e",
+    "subject_id": "product_subject_15a44f47d7c28c392be4b014eca26bdc"
+  }
+}

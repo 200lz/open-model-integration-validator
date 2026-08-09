@@ -1,0 +1,167 @@
+{
+  "artifact": {
+    "artifact_name": "source-values",
+    "artifact_set_identity": "39b0d3f25070311f25da3f5b2d3d0cb7e683da5923b8ee62d8e0dea6233c91e4",
+    "availability": "EXACT_LOCAL_PAYLOAD_IDENTITY_AVAILABLE",
+    "coverage": "complete.declared-local-file-scope",
+    "identity_semantics": "phase6a.observed-payload-manifest",
+    "limitations": [
+      "Synthetic fixture identity is not a real model artifact."
+    ],
+    "local_payload_manifest": {
+      "object_digest": "6bc84a8e210fbf181e9450247d4f2c4f2b4059c8d260c64cae97438fed542e3a",
+      "object_id": "observed_payload_76389812ea122dc14f6cec05955f4a20",
+      "schema_id": "omiv.observed-payload-manifest.v1"
+    },
+    "namespace": "quantization-fixtures",
+    "provider": "omiv-synthetic",
+    "remote_snapshot": null,
+    "requested_revision": "fixture-v1",
+    "resolved_revision": "fixture-v1",
+    "role": "SOURCE",
+    "subject_id": "product_subject_15a44f47d7c28c392be4b014eca26bdc"
+  },
+  "available_at": "NOT_RECORDED",
+  "coverage": [
+    {
+      "denominator": 1,
+      "dimension": "SOURCE_ARTIFACT",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": 1,
+      "dimension": "CANDIDATE_ARTIFACT",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": 1,
+      "dimension": "SOURCE_TENSOR",
+      "incomplete_reason": "Selected tensor scope.",
+      "numerator": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "denominator": 1,
+      "dimension": "CANDIDATE_TENSOR",
+      "incomplete_reason": "Selected tensor scope.",
+      "numerator": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "denominator": 1,
+      "dimension": "MAPPED_TENSOR",
+      "incomplete_reason": "Selected tensor scope.",
+      "numerator": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "denominator": 1,
+      "dimension": "MANDATORY_ROLE",
+      "incomplete_reason": "Mandatory tensor unavailable.",
+      "numerator": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "denominator": 1,
+      "dimension": "NUMERICAL_TENSOR",
+      "incomplete_reason": "Numerical tensor coverage is selected.",
+      "numerator": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "denominator": 4,
+      "dimension": "NUMERICAL_ELEMENT",
+      "incomplete_reason": "Deterministic sample only.",
+      "numerator": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "denominator": 1,
+      "dimension": "QUANTIZATION_PARAMETER",
+      "incomplete_reason": "Parameter observation incomplete.",
+      "numerator": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "denominator": null,
+      "dimension": "BYTE",
+      "incomplete_reason": "Tensor byte range was not separately measured.",
+      "numerator": 0,
+      "status": "UNAVAILABLE"
+    },
+    {
+      "denominator": 4,
+      "dimension": "SAMPLING",
+      "incomplete_reason": "Deterministic sample is not complete numerical coverage.",
+      "numerator": 0,
+      "status": "PARTIAL"
+    }
+  ],
+  "execution": {
+    "object_digest": "5d7474049314f96e47f593a715cd4259768bb827ce0a91352d9e56fbd5da180e",
+    "object_id": "quantization_execution_a6ced17fae96ea577799d91913f6a062",
+    "schema_id": "omiv.quantization-execution-record.v1"
+  },
+  "format_descriptor": {
+    "bit_width": null,
+    "block_size": null,
+    "byte_order": "UNKNOWN",
+    "clipping_behavior": null,
+    "codebook_identity": null,
+    "exceptional_value_handling": null,
+    "format_identifier": "metadata-only-source",
+    "format_version": null,
+    "group_size": null,
+    "logical_reconstructed_dtype": null,
+    "numerical_codec": "UNAVAILABLE",
+    "observation_level": "METADATA_ONLY",
+    "packing_order": null,
+    "parameter_provenance": "UNAVAILABLE",
+    "quantization_axis": null,
+    "rounding_mode": null,
+    "scale_representation": null,
+    "scheme_family": "UNKNOWN",
+    "signed": null,
+    "storage_dtype": null,
+    "zero_point_representation": null
+  },
+  "limitations": [],
+  "observation_digest": "5e6fa386044f02eb726ea263bea968acbc2f44150fcb0b796ec1b2629a409db3",
+  "observation_id": "representation_observation_4145abb69078b04391d25947409b86ca",
+  "observed_at": "NOT_RECORDED",
+  "representation_role": "SOURCE",
+  "schema": "omiv.representation-observation.v1",
+  "scope": {
+    "environment_scope": "environment.offline",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.quantization",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  },
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "model.quantization-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.quantization",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "MODEL_WEIGHTS",
+    "subject_digest": "eb01a7e4bd6121bfa6e364f1fe9b1b48210b81114339097f547f3e554c66713e",
+    "subject_id": "product_subject_15a44f47d7c28c392be4b014eca26bdc"
+  },
+  "tensors": []
+}

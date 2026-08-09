@@ -1,0 +1,37 @@
+{
+  "authority_evaluation": {
+    "object_digest": "470f19873df75a28c8939672be7ec13bc830e52086a3df98c45e0581a8008960",
+    "object_id": "quantization_authority_52cb5096d40ab0de1d856f92c67dcbe9",
+    "schema_id": "omiv.quantization-authority-evaluation.v1"
+  },
+  "comparison": {
+    "object_digest": "aa1d35a0d758c762e6c31a687a54162f9d2a8210c2edd4c1b3ed345da1ac6bb7",
+    "object_id": "quantization_comparison_14e5bfc6e02747529eca15fc9497e28f",
+    "schema_id": "omiv.quantization-fidelity-comparison.v1"
+  },
+  "evidence": {
+    "object_digest": "e0062a85aecac69ee4004473f185cb3bd53cd05dcf1d8b9ded166928d869baca",
+    "object_id": "quantization_evidence_c3cc2d76e4c7b793627054e49d494697",
+    "schema_id": "omiv.quantization-fidelity-evidence.v1"
+  },
+  "expectation_scope": "PARTIAL_REFERENCE_SET",
+  "finding_selection_rule": "CANONICAL_ORDER_PREFIX",
+  "included_finding_count": 22,
+  "limitations": [
+    "Report presentation is derived and does not feed canonical evidence identity."
+  ],
+  "numerical_status": "PAYLOAD_VALUES_UNAVAILABLE",
+  "omitted_finding_count": 0,
+  "overall_status": "NOT_EVALUATED",
+  "policy_evaluation": {
+    "object_digest": "59ade1450d476063eaa4df0d0fc698af59d4aafc47f04f78ca4fb6a641c95d7a",
+    "object_id": "quantization_policy_evaluation_420e06b8c1ba23d1464ea5926b11be61",
+    "schema_id": "omiv.quantization-policy-evaluation.v1"
+  },
+  "report_digest": "ff8422101b01132263a48b0fb0f74ef09e929058a57ce29748c9643063c20c07",
+  "report_id": "quantization_report_ef4d270eb80289050cf3bcdebc75ca75",
+  "schema": "omiv.quantization-fidelity-report.v1",
+  "structural_status": "STRUCTURAL_INFORMATION_INCOMPLETE",
+  "total_finding_count": 22,
+  "truncation_status": "NOT_TRUNCATED"
+}

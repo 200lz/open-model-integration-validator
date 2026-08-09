@@ -1,0 +1,23 @@
+{
+  "case_id": "affine-outside-policy",
+  "exercised_invariant": "All threshold failures remain visible.",
+  "limitations": [
+    "Synthetic bounded result; invalid inputs are retained as deterministic rejection outcomes."
+  ],
+  "numerical_status": "OUTSIDE_POLICY_FOR_EVALUATED_SCOPE",
+  "observed_findings": [
+    "AFFINE_OUTSIDE_POLICY"
+  ],
+  "outcome": "FAIL",
+  "result_digest": "48a6833a4a0a2dad5b761e46c2125ead318010437abce666ff6fa5288536206b",
+  "result_id": "quantization_example_result_b61306fd255f3d59772c8b100857490f",
+  "schema": "omiv.quantization-example-result.v1",
+  "structural_status": "STRUCTURALLY_CONSISTENT_FOR_SCOPE",
+  "upstream_objects": [
+    {
+      "object_digest": "364c5ec6d133800c965d70ce9e3c885bd04997e57f35873968dc9203748537d7",
+      "object_id": "quantization_evidence_b53047f4587acad7a5f38b1a645f1d6b",
+      "schema_id": "omiv.quantization-fidelity-evidence.v1"
+    }
+  ]
+}

@@ -1,0 +1,620 @@
+{
+  "entries": [
+    {
+      "canonical_id": "quantization_authority_dfbb36e119061aa4341885c625b812b0",
+      "path": "quantization-fidelity/authority/synthetic.json",
+      "schema_id": "omiv.quantization-authority-evaluation.v1",
+      "sha256": "f2f011ff016ba4172653336bf8c082d29c3fd0f4aa72ba6d419386adedf48bc9",
+      "size": 2257
+    },
+    {
+      "canonical_id": "payload_execution_5ecef2873706b830e8009495b3266e45",
+      "path": "quantization-fidelity/bindings/candidate-values.json.execution.json",
+      "schema_id": "omiv.payload-hash-execution-record.v1",
+      "sha256": "3b029611f15169bc22e8939941faa7d30d0189cd06f48120fa590a2b39c676aa",
+      "size": 1661
+    },
+    {
+      "canonical_id": "observed_payload_b5abd0fec66ba22e6e2600f003ab12f2",
+      "path": "quantization-fidelity/bindings/candidate-values.json.manifest.json",
+      "schema_id": "omiv.observed-payload-manifest.v1",
+      "sha256": "270f20c4f2789e0911a116454cb285f51d12e967b832f9ed93a2e5c9df83774b",
+      "size": 2591
+    },
+    {
+      "canonical_id": "payload_execution_5409361ed25e8ebd21a1702ac3f0cca8",
+      "path": "quantization-fidelity/bindings/source-values.json.execution.json",
+      "schema_id": "omiv.payload-hash-execution-record.v1",
+      "sha256": "5b5c4be440a639626fae98992a69fbe657674ac7c3e057e7743c7deef1404dc8",
+      "size": 1661
+    },
+    {
+      "canonical_id": "observed_payload_76389812ea122dc14f6cec05955f4a20",
+      "path": "quantization-fidelity/bindings/source-values.json.manifest.json",
+      "schema_id": "omiv.observed-payload-manifest.v1",
+      "sha256": "308bd706794dcfe8a5444b33ed90b67c59b66db00cbe601f7111b37047e85851",
+      "size": 2585
+    },
+    {
+      "canonical_id": "quantization_comparison_64a04779a8d3d3453bde8d909866c455",
+      "path": "quantization-fidelity/comparisons/exact.json",
+      "schema_id": "omiv.quantization-fidelity-comparison.v1",
+      "sha256": "4c558f7e4d18d383e92579055cca5a31c4ce2e2c3e0ca2c7474f7be2ce801a17",
+      "size": 5045
+    },
+    {
+      "canonical_id": "quantization_comparison_2f3d6a81b477240f964d74cc2b1dffad",
+      "path": "quantization-fidelity/comparisons/outside-policy.json",
+      "schema_id": "omiv.quantization-fidelity-comparison.v1",
+      "sha256": "0a04509ddd958e1c214ef01f4a68a88e6b2b76d1fb629bb3d1543975f6db5cff",
+      "size": 5309
+    },
+    {
+      "canonical_id": "quantization_comparison_55fff28532e091720b3348bf688ac2b8",
+      "path": "quantization-fidelity/comparisons/sampled.json",
+      "schema_id": "omiv.quantization-fidelity-comparison.v1",
+      "sha256": "99020d5e3605184faa109cb142c018e8131ebd86c6d5667948c6f0dd39dfb025",
+      "size": 5060
+    },
+    {
+      "canonical_id": "tensor_correspondence_ff5f383353c0c27d8bcf97d60449614c",
+      "path": "quantization-fidelity/correspondence/one-to-one.json",
+      "schema_id": "omiv.tensor-correspondence.v1",
+      "sha256": "f29d245c04a17e12a23c5a208ba8ebad025f19acd9c76be9feb60683b092eb1d",
+      "size": 2458
+    },
+    {
+      "canonical_id": "quantization_declaration_75dbfbd8240f8f98b648722c611b64f4",
+      "path": "quantization-fidelity/declarations/synthetic.json",
+      "schema_id": "omiv.quantization-relationship-declaration.v1",
+      "sha256": "0b79f29fe9078796b8ebbd9ae990f2a5e63438c12798cfae9d8a092c4a20fcde",
+      "size": 3599
+    },
+    {
+      "canonical_id": "quantization_evidence_72e90a1686f2c695d8fc6d50199a6d4d",
+      "path": "quantization-fidelity/evidence/exact.json",
+      "schema_id": "omiv.quantization-fidelity-evidence.v1",
+      "sha256": "0c889247ccc7c3cbe2d5a0776c49c5b7e749d33b08a807fccb541b6c68d31fa3",
+      "size": 4542
+    },
+    {
+      "canonical_id": "quantization_evidence_b53047f4587acad7a5f38b1a645f1d6b",
+      "path": "quantization-fidelity/evidence/outside-policy.json",
+      "schema_id": "omiv.quantization-fidelity-evidence.v1",
+      "sha256": "a864d4e1e6df32f4a2fa01ad48a35d265718e32d1086a3c065de53db0625e53f",
+      "size": 4485
+    },
+    {
+      "canonical_id": "quantization_evidence_e6d2b534a1398275c86f0b51a3373e69",
+      "path": "quantization-fidelity/evidence/sampled.json",
+      "schema_id": "omiv.quantization-fidelity-evidence.v1",
+      "sha256": "2d2742074e5e76f08c9ed4e9c13a4911ba02d0620dceb4733ceac988ffcf0f95",
+      "size": 4540
+    },
+    {
+      "canonical_id": "quantization_catalog_cc02d92cf219c80939936ab9b4cb108e",
+      "path": "quantization-fidelity/examples/case-catalog.json",
+      "schema_id": "omiv.quantization-example-catalog.v1",
+      "sha256": "6d4ae345778fc3205053d9552bb68ab41efd67ddfd20741aaa08f96a73476e96",
+      "size": 14273
+    },
+    {
+      "canonical_id": "quantization_example_result_b61306fd255f3d59772c8b100857490f",
+      "path": "quantization-fidelity/examples/cases/affine-outside-policy.json",
+      "schema_id": "omiv.quantization-example-result.v1",
+      "sha256": "214c5d3453071c7ce755aa3bf8c3e9b1045810f6175c1dcf631278940a079b27",
+      "size": 914
+    },
+    {
+      "canonical_id": "quantization_example_result_21950799ee51a5ae56bc89c01187ea86",
+      "path": "quantization-fidelity/examples/cases/affine-within-policy.json",
+      "schema_id": "omiv.quantization-example-result.v1",
+      "sha256": "6a7c7da753cdcecea967119ffb92c8884db2a5b2cf5d22f35a8b08c8d8396b68",
+      "size": 913
+    },
+    {
+      "canonical_id": "quantization_example_result_eb89bb956fb22d990368d7c80579a2ed",
+      "path": "quantization-fidelity/examples/cases/ambiguous-mapping.json",
+      "schema_id": "omiv.quantization-example-result.v1",
+      "sha256": "e9231b97bf5865b670f7e2cdfc1ad9227f87ae44226952f7a8f46403d2b510c1",
+      "size": 901
+    },
+    {
+      "canonical_id": "quantization_example_result_2febacf5974622b4fd6c8e4014829faa",
+      "path": "quantization-fidelity/examples/cases/deterministic-sample.json",
+      "schema_id": "omiv.quantization-example-result.v1",
+      "sha256": "107decc21a32a098f176da65cb424859384a73a662a3187342879dee4dc31376",
+      "size": 901
+    },
+    {
+      "canonical_id": "quantization_example_result_6c0a62d5894792aaf434a71d1da0747c",
+      "path": "quantization-fidelity/examples/cases/exact-phase6a-binding.json",
+      "schema_id": "omiv.quantization-example-result.v1",
+      "sha256": "32c24dbc46503763e9f772e4c5c1902c4a2574e8c054468301aa0b6006c42b23",
+      "size": 911
+    },
+    {
+      "canonical_id": "quantization_example_result_5c018bc7943c61bd020061245393d152",
+      "path": "quantization-fidelity/examples/cases/exact-unquantized-identity.json",
+      "schema_id": "omiv.quantization-example-result.v1",
+      "sha256": "5ad5f7cfe5516979ee18232468eccc19b2d26064db9369534927cf02d25847c7",
+      "size": 927
+    },
+    {
+      "canonical_id": "quantization_example_result_30ec067ca227194440ee3876526bf3b3",
+      "path": "quantization-fidelity/examples/cases/invalid-zero-point.json",
+      "schema_id": "omiv.quantization-example-result.v1",
+      "sha256": "d257efa3f2cc4d5b512bff1a0eea5f5ff13b8debb28957975794cca2b14e4ceb",
+      "size": 855
+    },
+    {
+      "canonical_id": "quantization_example_result_8b0a48bc36c2f7f34eab46825e5528fd",
+      "path": "quantization-fidelity/examples/cases/limit-exceeded.json",
+      "schema_id": "omiv.quantization-example-result.v1",
+      "sha256": "343fe68a229a789df78d1775c5597b7d8359a1e57e2ac2cbec46d742ff3b766b",
+      "size": 877
+    },
+    {
+      "canonical_id": "quantization_example_result_6644a4ab2a1dab2a8d12ede336d7bad0",
+      "path": "quantization-fidelity/examples/cases/metadata-only.json",
+      "schema_id": "omiv.quantization-example-result.v1",
+      "sha256": "af109f6edcc55c98f61a05ce5dced827f5d5c3290a7ccf59353e1521c4032cdc",
+      "size": 905
+    },
+    {
+      "canonical_id": "quantization_example_result_1aab6bda04d8335c09be8f344c1e0559",
+      "path": "quantization-fidelity/examples/cases/missing-mandatory-tensor.json",
+      "schema_id": "omiv.quantization-example-result.v1",
+      "sha256": "9b40c547321dbeddf8e40e6c7860af6e1616ed00ca3990d3b291ff39f82ecb7f",
+      "size": 910
+    },
+    {
+      "canonical_id": "quantization_example_result_5e3723242d9922800ee1c46590a2733b",
+      "path": "quantization-fidelity/examples/cases/missing-scale.json",
+      "schema_id": "omiv.quantization-example-result.v1",
+      "sha256": "4286bb07e90d2e0e39ec90129fc77ee5debcb1b21de5d2d791ce8178b916e95a",
+      "size": 883
+    },
+    {
+      "canonical_id": "quantization_example_result_23e3a3fdc4793af0f37ca9d95d53c602",
+      "path": "quantization-fidelity/examples/cases/model-a-authority-not-model-b.json",
+      "schema_id": "omiv.quantization-example-result.v1",
+      "sha256": "7ea7aeb0c7fd1569ee54389022fe993125551dc09d91c61cab51706daaeead37",
+      "size": 917
+    },
+    {
+      "canonical_id": "quantization_example_result_26b464f0f92935276088f6ef31a493b2",
+      "path": "quantization-fidelity/examples/cases/non-finite-rejected.json",
+      "schema_id": "omiv.quantization-example-result.v1",
+      "sha256": "f8462efaa48de7521dc14d5f7ce344f425b531d22fd118aa57041d095f2845a9",
+      "size": 874
+    },
+    {
+      "canonical_id": "quantization_example_result_1319815302818b46d6af9c58bbc927ab",
+      "path": "quantization-fidelity/examples/cases/one-to-many-no-recipe.json",
+      "schema_id": "omiv.quantization-example-result.v1",
+      "sha256": "fdab75249e2fc8455ec52c2e1abe4db9a9cf9d24e6cfaa5c09b2becffaac891f",
+      "size": 923
+    },
+    {
+      "canonical_id": "quantization_example_result_9a073ce4c2bfe938cee0859f17e64fba",
+      "path": "quantization-fidelity/examples/cases/phase6a-identity-mismatch.json",
+      "schema_id": "omiv.quantization-example-result.v1",
+      "sha256": "291902fa77ac48af76aa7a7a08b7d0d599b64ebf9b52f8f9d4f127341eb55333",
+      "size": 899
+    },
+    {
+      "canonical_id": "quantization_example_result_987919d0a23280bd3d25c807f9b4508f",
+      "path": "quantization-fidelity/examples/cases/phase6b-noncomparable-digest.json",
+      "schema_id": "omiv.quantization-example-result.v1",
+      "sha256": "757ff208152525e3f8972b98f31252771728a8b34afe4c7c2edba2d58d8f5e86",
+      "size": 942
+    },
+    {
+      "canonical_id": "quantization_example_result_79147e7c93cf5bfeb06fbe0d3793f520",
+      "path": "quantization-fidelity/examples/cases/sample-not-complete.json",
+      "schema_id": "omiv.quantization-example-result.v1",
+      "sha256": "7e8aa4e80369b97d813142ef201d83785065ace02c6947f7e07c9780791de9fd",
+      "size": 904
+    },
+    {
+      "canonical_id": "quantization_example_result_f40d63e3f563d363c59bc555937677e1",
+      "path": "quantization-fidelity/examples/cases/shape-and-numerical-mismatch.json",
+      "schema_id": "omiv.quantization-example-result.v1",
+      "sha256": "a03376093875f92addb5466047fd345ff3f49c8ce796d806369cf7dae63798d3",
+      "size": 922
+    },
+    {
+      "canonical_id": "quantization_example_result_0585f8bffd63d1239924487e68f73570",
+      "path": "quantization-fidelity/examples/cases/trusted-signer-no-transformer-authority.json",
+      "schema_id": "omiv.quantization-example-result.v1",
+      "sha256": "623a5cfcab78a651b9d36d9ed317b2e51c55d650ba77535fc5829e8084764414",
+      "size": 957
+    },
+    {
+      "canonical_id": "quantization_example_result_2b496504e2e580f5aaba09ac6a71f396",
+      "path": "quantization-fidelity/examples/cases/unsupported-opaque-format.json",
+      "schema_id": "omiv.quantization-example-result.v1",
+      "sha256": "97652da4b4082b6ac95234daa1694a57be6f528be7ba02638d4e26ff8213efd8",
+      "size": 926
+    },
+    {
+      "canonical_id": "quantization_example_result_75fe7773d7b7f3e359adf0d1d9545945",
+      "path": "quantization-fidelity/examples/cases/xai-readiness-no-payload-candidate.json",
+      "schema_id": "omiv.quantization-example-result.v1",
+      "sha256": "a40af2c95855c0459d22f41ce17ed3a01354236dcdbeeabf203dfe54191ba4fe",
+      "size": 941
+    },
+    {
+      "canonical_id": "quantization_example_result_57b05213ceba493736705d3bad12ab67",
+      "path": "quantization-fidelity/examples/cases/zero-norm-semantics.json",
+      "schema_id": "omiv.quantization-example-result.v1",
+      "sha256": "77e1071327f91f7971a70923a2b0cc220bc4f358eef58948c13f6f258468406a",
+      "size": 920
+    },
+    {
+      "canonical_id": "quantization_execution_2e0487dcc3019d046fd7dbea9b2becf5",
+      "path": "quantization-fidelity/executions/synthetic.json",
+      "schema_id": "omiv.quantization-execution-record.v1",
+      "sha256": "3499c98f4d412c90184d59741728e3767d25f5e879299476f7ebe3a8ce0bdf06",
+      "size": 3924
+    },
+    {
+      "canonical_id": "quantization_integration_c19349b645d292ff388e5016e90a4a13",
+      "path": "quantization-fidelity/integrations/attestation.json",
+      "schema_id": "omiv.quantization-integration-summary.v1",
+      "sha256": "07181d78f094905325340efa9eb1172cb8808f479a31b1cbf16efa1850328d77",
+      "size": 1010
+    },
+    {
+      "canonical_id": "quantization_integration_f9b2719f2e5d7a631e5bb180a3b5f3dd",
+      "path": "quantization-fidelity/integrations/custody.json",
+      "schema_id": "omiv.quantization-integration-summary.v1",
+      "sha256": "65640518376732801a65883feef1e5446fc22026c6e6f50defacf1f1f5539c9a",
+      "size": 1009
+    },
+    {
+      "canonical_id": "quantization_integration_268f1ebd5e7099f5dfc9a05182a15484",
+      "path": "quantization-fidelity/integrations/governance.json",
+      "schema_id": "omiv.quantization-integration-summary.v1",
+      "sha256": "1f8d413ecb7f2e241687783282263f4be78ef09177ccddf4d46fadc79fa0410a",
+      "size": 1003
+    },
+    {
+      "canonical_id": "quantization_integration_b4ad05262261028d50b014d1cfcf592c",
+      "path": "quantization-fidelity/integrations/historical.json",
+      "schema_id": "omiv.quantization-integration-summary.v1",
+      "sha256": "72a8fe89f30e5bf98144dc93755bff5861f4687519e342422be05771db847fa7",
+      "size": 1007
+    },
+    {
+      "canonical_id": "quantization_integration_11f2593828881fd574ed460bbf85e632",
+      "path": "quantization-fidelity/integrations/passport.json",
+      "schema_id": "omiv.quantization-integration-summary.v1",
+      "sha256": "c003b0d724f73f45fd8a443d4306cb7b6556d532750568421b9c1cbfb5198b21",
+      "size": 1007
+    },
+    {
+      "canonical_id": "quantization_integration_ff321b0acb17b3815706a2b4977790b8",
+      "path": "quantization-fidelity/integrations/payload_integrity.json",
+      "schema_id": "omiv.quantization-integration-summary.v1",
+      "sha256": "af1464f2a7fa8571376a1f9efef1475fbe036be6b3e3b82a3b3ceef90adcddf6",
+      "size": 1223
+    },
+    {
+      "canonical_id": "quantization_integration_8692d48d1f40acd4a018e2b3f654fe33",
+      "path": "quantization-fidelity/integrations/reconciliation.json",
+      "schema_id": "omiv.quantization-integration-summary.v1",
+      "sha256": "ff6da8fe4152e0317a35a3e8bd9c0a9021c852bff340822b1443f114d0e3bf0c",
+      "size": 1231
+    },
+    {
+      "canonical_id": "quantization_integration_5008d3237ffe25ac73bae8011d9e350c",
+      "path": "quantization-fidelity/integrations/runtime.json",
+      "schema_id": "omiv.quantization-integration-summary.v1",
+      "sha256": "86a566e7f91d2603e6c6a3a5e1a09fdb1ba18ca7743a6e258226b3064397fcc5",
+      "size": 1004
+    },
+    {
+      "canonical_id": "quantization_integration_45926564dc4a8fe34a65033e36ec16d7",
+      "path": "quantization-fidelity/integrations/security.json",
+      "schema_id": "omiv.quantization-integration-summary.v1",
+      "sha256": "c9ad84dd189d0da66b24327ec3af99aa8339810a36618ee23e9e65d4483a89c3",
+      "size": 994
+    },
+    {
+      "canonical_id": "quantization_measurement_3ba740207ed6ba487cc15ebc84422c8d",
+      "path": "quantization-fidelity/measurements/exact.json",
+      "schema_id": "omiv.numerical-fidelity-measurement.v1",
+      "sha256": "8effd294c06b2f7d70b850d8d176c78a25b1b9257191f4ffcc8981b13bbfac8e",
+      "size": 6057
+    },
+    {
+      "canonical_id": "quantization_measurement_187b55f89a9edcc9855b4dec3ccfa25e",
+      "path": "quantization-fidelity/measurements/outside-policy.json",
+      "schema_id": "omiv.numerical-fidelity-measurement.v1",
+      "sha256": "8c464cc4892f12f5e77e20c868ac18520b3f50bd13209d617cb9137f7e6e8ec5",
+      "size": 6328
+    },
+    {
+      "canonical_id": "quantization_measurement_ba2fe454b839b9c645ab342926893bf3",
+      "path": "quantization-fidelity/measurements/sampled.json",
+      "schema_id": "omiv.numerical-fidelity-measurement.v1",
+      "sha256": "89cc44f8ccb59ff306614ec74be715f0ce25d5f2d7449fed602e932507b7b3f0",
+      "size": 6379
+    },
+    {
+      "canonical_id": "quantization_authority_52cb5096d40ab0de1d856f92c67dcbe9",
+      "path": "quantization-fidelity/metadata-only/authority.json",
+      "schema_id": "omiv.quantization-authority-evaluation.v1",
+      "sha256": "7d0abc8b9886c544a3dc8ee60521a19387597aeefafa42fdad6b1d5e6ae75ea8",
+      "size": 2175
+    },
+    {
+      "canonical_id": "representation_observation_fd86b44e7823fb25617e6f1195b67aee",
+      "path": "quantization-fidelity/metadata-only/candidate-observation.json",
+      "schema_id": "omiv.representation-observation.v1",
+      "sha256": "0ca1c80799ede2cfe8655bd4871a6c70c407fd611ecaf48e120dd34b8e7b706b",
+      "size": 5106
+    },
+    {
+      "canonical_id": "quantization_comparison_14e5bfc6e02747529eca15fc9497e28f",
+      "path": "quantization-fidelity/metadata-only/comparison.json",
+      "schema_id": "omiv.quantization-fidelity-comparison.v1",
+      "sha256": "0e9178868eeb4a5a55f4d100ff912f72f7d1b39983ba9f5618a81577048d1229",
+      "size": 5095
+    },
+    {
+      "canonical_id": "tensor_correspondence_31e7fd102cd7d69e0d387e5ad81c263d",
+      "path": "quantization-fidelity/metadata-only/correspondence.json",
+      "schema_id": "omiv.tensor-correspondence.v1",
+      "sha256": "024f68364ea11661932c24c64c5fcc2e5be55740f4383380b611c18e0b1ade8a",
+      "size": 2308
+    },
+    {
+      "canonical_id": "quantization_declaration_14b103a17e091f1490ae12df034ea964",
+      "path": "quantization-fidelity/metadata-only/declaration.json",
+      "schema_id": "omiv.quantization-relationship-declaration.v1",
+      "sha256": "0ea94bd506121f4a97d11fbd8acb3bdd3f8f9687889eaa542337914d276c8ea6",
+      "size": 3198
+    },
+    {
+      "canonical_id": "quantization_evidence_c3cc2d76e4c7b793627054e49d494697",
+      "path": "quantization-fidelity/metadata-only/evidence.json",
+      "schema_id": "omiv.quantization-fidelity-evidence.v1",
+      "sha256": "0cd4ed9f7be65aa212481de3dcb256433bd211fede95378a907956cc51c20d14",
+      "size": 4675
+    },
+    {
+      "canonical_id": "quantization_execution_a6ced17fae96ea577799d91913f6a062",
+      "path": "quantization-fidelity/metadata-only/execution.json",
+      "schema_id": "omiv.quantization-execution-record.v1",
+      "sha256": "21b91d65e1a8c950668e4d1677e7173755ace63d8f53ad335ee5363146f413fe",
+      "size": 3231
+    },
+    {
+      "canonical_id": "quantization_plan_6991f26ceeacf9f23f42eeda1a7299f1",
+      "path": "quantization-fidelity/metadata-only/plan.json",
+      "schema_id": "omiv.quantization-observation-plan.v1",
+      "sha256": "616fd96e4b5e7889f6c5ab4e8e83ebf26cc612d7ce2b3c7c578b78d0f116762a",
+      "size": 3053
+    },
+    {
+      "canonical_id": "quantization_policy_evaluation_420e06b8c1ba23d1464ea5926b11be61",
+      "path": "quantization-fidelity/metadata-only/policy-evaluation.json",
+      "schema_id": "omiv.quantization-policy-evaluation.v1",
+      "sha256": "a13579b332b5262e50bab649eeac25bd3a0250801047b362fadb4f0ec48586de",
+      "size": 8450
+    },
+    {
+      "canonical_id": "quantization_report_ef4d270eb80289050cf3bcdebc75ca75",
+      "path": "quantization-fidelity/metadata-only/report.json",
+      "schema_id": "omiv.quantization-fidelity-report.v1",
+      "sha256": "429b41c0c39b11c45d91e6a8438c35d92da835fff10a9d8a7b137037788431ee",
+      "size": 1715
+    },
+    {
+      "canonical_id": "representation_observation_4145abb69078b04391d25947409b86ca",
+      "path": "quantization-fidelity/metadata-only/source-observation.json",
+      "schema_id": "omiv.representation-observation.v1",
+      "sha256": "9472b817cb25bc38a941b31870273e9af5b5f5e69bd0fff80569b201394998a0",
+      "size": 5407
+    },
+    {
+      "canonical_id": "representation_observation_bf7495bd42a5d60df60af2bba4d92503",
+      "path": "quantization-fidelity/observations/candidate.json",
+      "schema_id": "omiv.representation-observation.v1",
+      "sha256": "19457436614831a11fae7b86296ae3093ca724fe2a2a4b9d945c4bfd997efc42",
+      "size": 7226
+    },
+    {
+      "canonical_id": "representation_observation_1925fb79225ead8924d63b53e54a7604",
+      "path": "quantization-fidelity/observations/source.json",
+      "schema_id": "omiv.representation-observation.v1",
+      "sha256": "ddcd36029f9593fbc557c0e595a0f97b551505aa8070de5d0a608dccbce67e5a",
+      "size": 7113
+    },
+    {
+      "canonical_id": "quantization_parameters_ea4d188f83fa729ef27836e1fd910801",
+      "path": "quantization-fidelity/parameters/affine.json",
+      "schema_id": "omiv.quantization-parameter-observation.v1",
+      "sha256": "f0e33e891b87c315748f519f50cb2b9ba66e23119c630f3665ee17343e6d1f60",
+      "size": 982
+    },
+    {
+      "canonical_id": "quantization_plan_7771e7b466e6a233342f4c99e5011301",
+      "path": "quantization-fidelity/plans/synthetic.json",
+      "schema_id": "omiv.quantization-observation-plan.v1",
+      "sha256": "01443ee13cac165c6cd47ddd27df0d11875bb301795d10cd7698831587e117ac",
+      "size": 3719
+    },
+    {
+      "canonical_id": "quantization_policy_75c91137685ec8afcdad7fcfa6cec014",
+      "path": "quantization-fidelity/policies/sampling.json",
+      "schema_id": "omiv.quantization-fidelity-policy.v1",
+      "sha256": "be3515fc6bf8bc250708c770fc96a2e3673df1fa6d49fbe63d7d733b8d8185b0",
+      "size": 1970
+    },
+    {
+      "canonical_id": "quantization_policy_db8ca0897a7f849bd1a25518709202d4",
+      "path": "quantization-fidelity/policies/synthetic.json",
+      "schema_id": "omiv.quantization-fidelity-policy.v1",
+      "sha256": "4707b69a5de3e57fbd0d5b9cfbeecac66ebd1e92f894c34f842d07fedd3a0620",
+      "size": 1968
+    },
+    {
+      "canonical_id": "quantization_policy_evaluation_1ee03c6dc273fa8f031e76ca3b9cc37c",
+      "path": "quantization-fidelity/policy-evaluations/exact.json",
+      "schema_id": "omiv.quantization-policy-evaluation.v1",
+      "sha256": "71cd498f3b9ef97893c8a0b5ac8d92c5196b5971342a13d721d540205a3c9a3c",
+      "size": 9192
+    },
+    {
+      "canonical_id": "quantization_policy_evaluation_33671c5fdd1216ded53b200e76bc845f",
+      "path": "quantization-fidelity/policy-evaluations/outside-policy.json",
+      "schema_id": "omiv.quantization-policy-evaluation.v1",
+      "sha256": "9579c10530c3ceec19d9ea65b5347163295260e37cbbf8c7b26bb66bf1275538",
+      "size": 9263
+    },
+    {
+      "canonical_id": "quantization_policy_evaluation_4e733c04e440bf9fbe73633dc3c1b677",
+      "path": "quantization-fidelity/policy-evaluations/sampled.json",
+      "schema_id": "omiv.quantization-policy-evaluation.v1",
+      "sha256": "ef7878fce3f5bc69082f3907f2825f294f356dd75b958f486e60c815e28d6025",
+      "size": 9765
+    },
+    {
+      "canonical_id": "xai_quantization_readiness_0b315b0f09a5462149f35801bbda5ff2",
+      "path": "quantization-fidelity/practice/xai/readiness.json",
+      "schema_id": "omiv.xai-quantization-readiness.v1",
+      "sha256": "d7f259eef183f44e660f7034f2bbd5ab91a759abe4b0bde9303c330f47ae6119",
+      "size": 3246
+    },
+    {
+      "canonical_id": "quantization_report_b09598e4689b3def22673032b4c01aea",
+      "path": "quantization-fidelity/reports/exact.json",
+      "schema_id": "omiv.quantization-fidelity-report.v1",
+      "sha256": "8f6f856724c1df47184f3c3d471fb8191cc22e08849881d73bfa45d0670e4c89",
+      "size": 1732
+    },
+    {
+      "canonical_id": "quantization_report_5c5bb0b88f0fdf8f1b18c887b468820a",
+      "path": "quantization-fidelity/reports/outside-policy.json",
+      "schema_id": "omiv.quantization-fidelity-report.v1",
+      "sha256": "1463e4e72ce1a379f001c189d7c53299b93b1f38baa8c8466a5cd7daefc1f5a9",
+      "size": 1749
+    },
+    {
+      "canonical_id": "quantization_report_352af221df59bf8d4a1084e67c891be9",
+      "path": "quantization-fidelity/reports/sampled.json",
+      "schema_id": "omiv.quantization-fidelity-report.v1",
+      "sha256": "bf896e87f09ae676a9d09479d1d1b2314ebf18a841fd14db8bc911a467a457b7",
+      "size": 1729
+    },
+    {
+      "canonical_id": "quantization_sample_9f1baa398d27d9d021613f0a7d4b4408",
+      "path": "quantization-fidelity/sampling/deterministic.json",
+      "schema_id": "omiv.deterministic-sample-definition.v1",
+      "sha256": "23203b90483085f2ae4185c0fe3c1d805122857c3e925caceaad7661f346c591",
+      "size": 1287
+    },
+    {
+      "canonical_id": "soe_6ecbb48aadd07904e680e8d1607a8b74",
+      "path": "quantization-fidelity/signed/declaration.envelope.json",
+      "schema_id": "omiv.signed-object-envelope.v1",
+      "sha256": "2694a036ed34b8cc0bba1afa49cd98d5d6a8d02f5da2c7dc02379be2377a0261",
+      "size": 7193
+    },
+    {
+      "canonical_id": "trust_report_048bd25ac673e839a35fbd68c710e31f",
+      "path": "quantization-fidelity/signed/declaration.signature-report.json",
+      "schema_id": "omiv.signature-report.v1",
+      "sha256": "f573ba7f2045487b45c4a4c41d2511aa8ddc7b427004788b7e93642916832019",
+      "size": 5037
+    },
+    {
+      "canonical_id": "soe_0638095a64d8cce3c1154df22d22dfc3",
+      "path": "quantization-fidelity/signed/evidence.envelope.json",
+      "schema_id": "omiv.signed-object-envelope.v1",
+      "sha256": "15bdc820edde9147eec7eb6d06bf5f7d5d2579ec3e073278dc369a93e26560a4",
+      "size": 8204
+    },
+    {
+      "canonical_id": "trust_report_6574d592c4e5dd4656aa9613f4d1b783",
+      "path": "quantization-fidelity/signed/evidence.signature-report.json",
+      "schema_id": "omiv.signature-report.v1",
+      "sha256": "b59ec6f4ef15352a6a71b25bd8a3aac3e456eb2a42216eb07ceb4052436d136b",
+      "size": 5037
+    },
+    {
+      "canonical_id": "soe_e8d9bbe56926f52cfc12dc58fda0f8ad",
+      "path": "quantization-fidelity/signed/observation.envelope.json",
+      "schema_id": "omiv.signed-object-envelope.v1",
+      "sha256": "96c48b71ecb4ea5350ba125c7faa5504775e44ccf5f292b3122bf339a91aa9ce",
+      "size": 10905
+    },
+    {
+      "canonical_id": "trust_report_1802c07aa8573d11e1d14c072c58fd8a",
+      "path": "quantization-fidelity/signed/observation.signature-report.json",
+      "schema_id": "omiv.signature-report.v1",
+      "sha256": "22f71929a206b25d81029b08e6c15b214b7a3c0cfef4ab2b574aa9ac6a7d21ea",
+      "size": 5002
+    },
+    {
+      "canonical_id": "tb_74b916f2b11137db3e4a781ebbbd8e3e",
+      "path": "quantization-fidelity/signed/trust-bundle.json",
+      "schema_id": "omiv.trust-bundle.v1",
+      "sha256": "c24e70469e042728eaea440e87895e9349227292dce1b9bb58c05c721144af45",
+      "size": 4067
+    },
+    {
+      "canonical_id": "omiv.trust-policy.team_release.v1",
+      "path": "quantization-fidelity/signed/trust-policy.json",
+      "schema_id": "omiv.trust-policy.v1",
+      "sha256": "2224a18ae695ecd2c1d7c3dd1340642f322b6901c67068526baf288aaf41d5cf",
+      "size": 1430
+    },
+    {
+      "canonical_id": "quantization_tensor_6aa7fcb9d1a7a6d9a850e4b31c3f275a",
+      "path": "quantization-fidelity/tensors/candidate.json",
+      "schema_id": "omiv.tensor-representation-record.v1",
+      "sha256": "63ed1d86f5fc60bbf0b47dbf6b08ca721b1d2f9c11170bd70b9b67c695ffcb6a",
+      "size": 1658
+    },
+    {
+      "canonical_id": "quantization_tensor_849fe5140805a21403d29be274e841ce",
+      "path": "quantization-fidelity/tensors/source.json",
+      "schema_id": "omiv.tensor-representation-record.v1",
+      "sha256": "0a424637288f74bc5eceec6a182b8c4930c85c201b56bf63ad545c3b4f208365",
+      "size": 1606
+    },
+    {
+      "canonical_id": "quantization_markdown_6a749e0562b7200c690ebd0f84be5bde",
+      "path": "reports/quantization-fidelity/synthetic-fidelity-report.md",
+      "schema_id": "omiv.quantization-markdown-report.v1",
+      "sha256": "6a749e0562b7200c690ebd0f84be5bde7e7fda1a55556d416568908ad92658e7",
+      "size": 746
+    },
+    {
+      "canonical_id": "xai_quantization_case_study_020d5c9a56340e5d8f66439952b6321d",
+      "path": "reports/quantization-fidelity/xai-quantization-readiness-case-study.json",
+      "schema_id": "omiv.xai-quantization-case-study.v1",
+      "sha256": "13794ce95cdceb42c00b817f922778ceb369dd3110cbd82a0aece3d48c1de692",
+      "size": 1747
+    },
+    {
+      "canonical_id": "quantization_markdown_3cb7ef3156323065ae5d845821531c77",
+      "path": "reports/quantization-fidelity/xai-quantization-readiness-case-study.md",
+      "schema_id": "omiv.quantization-markdown-report.v1",
+      "sha256": "3cb7ef3156323065ae5d845821531c77c42351c7a1a9217c21dbacfc3c73cdad",
+      "size": 1141
+    }
+  ],
+  "index_digest": "776f2d46492b9bb4aff99f8d8524e8b5236a25e56bbd1af20cf3a19f7083a11d",
+  "index_id": "quantization_index_35c3259eb5fa415fbc0dc3d8abc2e97f",
+  "limitations": [
+    "External index excludes itself; generated values are small synthetic fixtures, not model payloads."
+  ],
+  "schema": "omiv.quantization-artifact-index.v1",
+  "total_size": 271391
+}

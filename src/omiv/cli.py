@@ -234,6 +234,21 @@ from omiv.provenance.validator import (
     format_provenance_report,
     validate_provenance,
 )
+from omiv.quantization.artifact_index import verify_quantization_artifact_index
+from omiv.quantization.models import (
+    NumericalStatus as QuantizationNumericalStatus,
+)
+from omiv.quantization.models import (
+    QuantizationArtifactIndex,
+    QuantizationFidelityComparison,
+    QuantizationFidelityEvidence,
+    QuantizationFidelityReport,
+)
+from omiv.quantization.reporting import pretty_json as pretty_quantization_json
+from omiv.quantization.reporting import render_markdown as render_quantization_markdown
+from omiv.quantization.sampling import build_sample_definition
+from omiv.quantization.schema import load_quantization
+from omiv.quantization_profiles.xai import build_xai_readiness
 from omiv.reconciliation.building import (
     build_locator as build_remote_locator,
 )
@@ -447,6 +462,7 @@ runtime_app = typer.Typer(no_args_is_help=True)
 audit_app = typer.Typer(no_args_is_help=True)
 payload_app = typer.Typer(no_args_is_help=True)
 reconcile_app = typer.Typer(no_args_is_help=True)
+quantization_app = typer.Typer(no_args_is_help=True)
 app.add_typer(model_packs_app, name="model-packs")
 app.add_typer(passport_app, name="passport")
 app.add_typer(custody_app, name="custody")
@@ -458,6 +474,7 @@ app.add_typer(runtime_app, name="runtime")
 app.add_typer(audit_app, name="audit")
 app.add_typer(payload_app, name="payload")
 app.add_typer(reconcile_app, name="reconcile")
+app.add_typer(quantization_app, name="quantization")
 MAX_CANONICAL_INVENTORY_BYTES = 64 * 1024 * 1024
 REMOTE_REPORT_SCHEMAS = {
     "omiv.remote-snapshot-report.v1",
@@ -4135,3 +4152,147 @@ def reconcile_collect_hf_metadata(
         f"requests={execution.request_count} response_bytes={execution.response_bytes} "
         "payload_bytes=0"
     )
+
+
+def _quantization_failure(exc: Exception) -> None:
+    typer.echo(f"ERROR quantization operation failed: {exc}", err=True)
+    raise typer.Exit(code=2) from exc
+
+
+@quantization_app.command("inspect")
+def quantization_inspect(
+    input_path: Annotated[Path, typer.Argument(exists=True, dir_okay=False)],
+    output: Annotated[Path | None, typer.Option("--output", dir_okay=False)] = None,
+) -> None:
+    """Strictly validate and canonically render one offline Phase 6C object."""
+    try:
+        value = load_quantization(input_path)
+        rendered = pretty_quantization_json(value)
+        if output is None:
+            typer.echo(rendered, nl=False)
+        else:
+            validate_output_path(output, forbidden_inputs=(input_path,))
+            atomic_write_text(output, rendered, forbidden_inputs=(input_path,))
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _quantization_failure(exc)
+
+
+@quantization_app.command("sample")
+def quantization_sample(
+    source_tensor_id: Annotated[str, typer.Option("--source-tensor-id")],
+    candidate_tensor_id: Annotated[str, typer.Option("--candidate-tensor-id")],
+    population: Annotated[int, typer.Option("--population", min=0)],
+    count: Annotated[int, typer.Option("--count", min=0)],
+    seed: Annotated[str, typer.Option("--seed")],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    maximum_count: Annotated[int, typer.Option("--maximum-count", min=0)] = 100_000,
+) -> None:
+    """Build a deterministic identity-bound sample without payload or network access."""
+    try:
+        sample = build_sample_definition(
+            seed=seed,
+            source_tensor_id=source_tensor_id,
+            candidate_tensor_id=candidate_tensor_id,
+            population_count=population,
+            requested_count=count,
+            maximum_count=maximum_count,
+        )
+        validate_output_path(output)
+        atomic_write_text(output, pretty_quantization_json(sample))
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _quantization_failure(exc)
+    typer.echo(f"{sample.status} sample={sample.sample_id} actual={sample.actual_sample_count}")
+    if sample.status == "LIMIT_EXCEEDED":
+        raise typer.Exit(code=2)
+
+
+@quantization_app.command("verify")
+def quantization_verify(
+    input_path: Annotated[Path, typer.Argument(exists=True, dir_okay=False)],
+) -> None:
+    """Verify canonical identity and return a scope-qualified semantic exit status."""
+    try:
+        value = load_quantization(input_path)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _quantization_failure(exc)
+    if isinstance(value, QuantizationFidelityEvidence):
+        typer.echo(
+            f"{value.overall_status.value} evidence={value.evidence_id} "
+            f"numerical={value.numerical_status.value}"
+        )
+        if value.overall_status.value != "CONFORMS_FOR_DECLARED_SCOPE":
+            raise typer.Exit(code=1)
+    elif isinstance(value, QuantizationFidelityComparison):
+        typer.echo(
+            f"{value.structural_status.value} numerical={value.numerical_status.value} "
+            f"scope={value.expectation_scope.value}"
+        )
+        if value.numerical_status not in {
+            QuantizationNumericalStatus.EXACT_FOR_EVALUATED_SCOPE,
+            QuantizationNumericalStatus.WITHIN_POLICY_FOR_EVALUATED_SCOPE,
+            QuantizationNumericalStatus.SAMPLED_WITHIN_POLICY,
+        }:
+            raise typer.Exit(code=1)
+    else:
+        schema = value.model_dump(by_alias=True)["schema"]
+        typer.echo(f"VALID_CANONICAL_QUANTIZATION_OBJECT schema={schema}")
+
+
+@quantization_app.command("report")
+def quantization_report(
+    input_path: Annotated[Path, typer.Argument(exists=True, dir_okay=False)],
+    output: Annotated[Path | None, typer.Option("--output", dir_okay=False)] = None,
+) -> None:
+    """Render a bounded derived report without changing canonical evidence identity."""
+    try:
+        value = load_quantization(input_path, QuantizationFidelityReport)
+        report = cast(QuantizationFidelityReport, value)
+        rendered = render_quantization_markdown(report)
+        if output is None:
+            typer.echo(rendered, nl=False)
+        else:
+            validate_output_path(output, forbidden_inputs=(input_path,))
+            atomic_write_text(output, rendered, forbidden_inputs=(input_path,))
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _quantization_failure(exc)
+    if report.overall_status.value != "CONFORMS_FOR_DECLARED_SCOPE":
+        raise typer.Exit(code=1)
+
+
+@quantization_app.command("verify-index")
+def quantization_verify_index(
+    index_path: Annotated[Path, typer.Option("--index", exists=True, dir_okay=False)],
+    root: Annotated[Path, typer.Option("--root", exists=True, file_okay=False)] = Path("."),
+) -> None:
+    """Verify the external self-excluding Phase 6C artifact index."""
+    try:
+        index = cast(
+            QuantizationArtifactIndex,
+            load_quantization(index_path, QuantizationArtifactIndex),
+        )
+        verify_quantization_artifact_index(root, index)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _quantization_failure(exc)
+    typer.echo(f"VALID_EXTERNAL_INDEX indexed_artifacts={len(index.entries)} self_inclusion=0")
+
+
+@quantization_app.command("practice-xai")
+def quantization_practice_xai(
+    output: Annotated[Path | None, typer.Option("--output", dir_okay=False)] = None,
+) -> None:
+    """Reconstruct xAI readiness solely from committed Phase 6B fixtures."""
+    try:
+        readiness, _case_study = build_xai_readiness(Path.cwd())
+        rendered = pretty_quantization_json(readiness)
+        if output is None:
+            typer.echo(rendered, nl=False)
+        else:
+            validate_output_path(output)
+            atomic_write_text(output, rendered)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _quantization_failure(exc)
+    typer.echo(
+        f"{readiness.classification} payload_comparable_members=0 numerical_fidelity=NOT_EVALUATED",
+        err=True,
+    )
+    raise typer.Exit(code=1)

@@ -1,0 +1,58 @@
+{
+  "allowed_logical_dtypes": [
+    "float32"
+  ],
+  "allowed_scheme_families": [
+    "UNQUANTIZED",
+    "UNIFORM_AFFINE_INTEGER"
+  ],
+  "allowed_storage_dtypes": [
+    "float32",
+    "int8",
+    "uint8"
+  ],
+  "candidate_publisher_authority_required": false,
+  "default_thresholds": {
+    "maximum_absolute_error": "0.25",
+    "maximum_bias": "0.1",
+    "maximum_mean_absolute_error": "0.1",
+    "maximum_quantization_bound_rate": null,
+    "maximum_relative_l2_error": "0.1",
+    "maximum_rmse": "0.15",
+    "minimum_cosine_similarity": "0.99"
+  },
+  "deterministic_sampling_permitted": true,
+  "evaluation_context": {
+    "environment_scope": "environment.offline",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.quantization",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  },
+  "limitations": [
+    "Policy success is limited to the declared exact-identity and numerical scope."
+  ],
+  "maximum_sampling_gap": "0.99",
+  "minimum_byte_coverage": "0",
+  "minimum_element_coverage": "1",
+  "minimum_parameter_coverage": "1",
+  "minimum_tensor_coverage": "1",
+  "missing_candidate_behavior": "INDETERMINATE",
+  "missing_source_behavior": "INDETERMINATE",
+  "non_finite_value_policy": "FAIL",
+  "per_role_thresholds": [],
+  "per_tensor_overrides": [],
+  "policy_digest": "ced09961833ab4e93ea108a951ee8f991eccbbbbc9bed708a858475311251dfe",
+  "policy_id": "quantization_policy_db8ca0897a7f849bd1a25518709202d4",
+  "policy_name": "quantization.synthetic-fidelity-policy",
+  "required_artifact_availability": "EXACT_LOCAL_PAYLOAD_IDENTITY_AVAILABLE",
+  "required_tensor_roles": [
+    "PRIMARY_WEIGHT"
+  ],
+  "schema": "omiv.quantization-fidelity-policy.v1",
+  "source_publisher_authority_required": false,
+  "transformation_authority_required": false,
+  "unsupported_format_behavior": "INDETERMINATE"
+}

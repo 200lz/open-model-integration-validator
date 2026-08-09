@@ -1,0 +1,66 @@
+{
+  "artifact_set_payload_digest": "41965b8734abe34841c25f18eb25266b9a7ea6e3800506adf7e94c0ee8821c12",
+  "available_at": "NOT_RECORDED",
+  "completion_state": "COMPLETE_FOR_DECLARED_LOCAL_SCOPE",
+  "coverage": {
+    "discovered_bytes": 146,
+    "discovered_regular_files": 1,
+    "excluded_paths": [],
+    "hardlink_detection": "AVAILABLE",
+    "hashed_bytes": 146,
+    "hashed_files": 1,
+    "inaccessible_paths": [],
+    "rejected_hardlink_paths": [],
+    "unstable_paths": [],
+    "unsupported_paths": []
+  },
+  "execution_digest": "e72338e0cc6d30718a8447a8c4fdafbfc4f1ac247cd84f0e54138355bb373eff",
+  "execution_id": "payload_execution_5ecef2873706b830e8009495b3266e45",
+  "files": [
+    {
+      "artifact_role": "ABSENT_ROLE",
+      "declared_role_detail": null,
+      "limitations": [],
+      "logical_file_kind": "regular.file",
+      "path": "candidate-values.json",
+      "primary_content_digest": {
+        "algorithm": "SHA256",
+        "value": "7acb9338c0816e3ebfd3c1fe56848494d0e375f399686170f709881c3dad5884"
+      },
+      "size": 146
+    }
+  ],
+  "findings": [],
+  "limitations": [
+    "COMPLETE means complete only for the declared stable local inventory scope.",
+    "Local byte identity does not establish remote completeness, semantics, authenticity, or safety."
+  ],
+  "logical_root": "quantization-fixture.candidate-values",
+  "manifest_digest": "96c1a06384d2f65d7b4e347d5b65c81f382d4c3a1913199cb40aade6abc64b8f",
+  "manifest_id": "observed_payload_b5abd0fec66ba22e6e2600f003ab12f2",
+  "observation_provenance": "SYSTEM_OBSERVED",
+  "observed_at": "NOT_RECORDED",
+  "plan_digest": "91b1ff55df8447680cc3795cae48b951dd89425875c0b3ecb673ca5452a97173",
+  "plan_id": "payload_plan_e0a013aefd017bc8d9baa29b0a390513",
+  "root_mode": "SINGLE_FILE_ROOT",
+  "schema": "omiv.observed-payload-manifest.v1",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "model.quantization-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.quantization",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "MODEL_WEIGHTS",
+    "subject_digest": "eb01a7e4bd6121bfa6e364f1fe9b1b48210b81114339097f547f3e554c66713e",
+    "subject_id": "product_subject_15a44f47d7c28c392be4b014eca26bdc"
+  }
+}

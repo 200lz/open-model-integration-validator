@@ -1,0 +1,28 @@
+{
+  "affiliation": "NO_XAI_ENDORSEMENT_AFFILIATION_APPROVAL_OR_PRODUCTION_CLAIM",
+  "available_evidence": [
+    "Exact immutable Phase 6B revisions and complete pinned provider-listing scopes.",
+    "Member paths, declared sizes, storage representations, and typed non-payload identifiers."
+  ],
+  "case_study_digest": "9499f4d446a813d7d8c67716837ad792986bfce248541d30aee463b2828ee90e",
+  "case_study_id": "xai_quantization_case_study_020d5c9a56340e5d8f66439952b6321d",
+  "limitations": [
+    "Neither Grok repository is classified as quantized or unquantized.",
+    "No current provider state, behavioral parity, safety, loadability, or runtime identity is claimed."
+  ],
+  "phase6a_future_binding": "A future local pair must bind each exact payload manifest, artifact-set identity, member digest, size, and race-safe observation.",
+  "phase6b_provenance_context": "The pinned revisions remain immutable metadata provenance; their non-comparable identifiers do not become payload digests.",
+  "provider_neutral_architecture": true,
+  "readiness": {
+    "object_digest": "26923d8467bf08c7849e5f911ae9ca371c3778fdd7cb4faeba91790f25f10f08",
+    "object_id": "xai_quantization_readiness_0b315b0f09a5462149f35801bbda5ff2",
+    "schema_id": "omiv.xai-quantization-readiness.v1"
+  },
+  "sampled_vs_full_evaluation": "A deterministic sample remains sample-scoped; complete numerical coverage requires every declared required tensor and element.",
+  "schema": "omiv.xai-quantization-case-study.v1",
+  "title": "OMIV xAI Quantization Fidelity Readiness Case Study",
+  "unavailable_evidence": [
+    "Source tensor values and exact Phase 6A source binding.",
+    "Candidate quantized artifact, codec, parameters, correspondence, and numerical values."
+  ]
+}

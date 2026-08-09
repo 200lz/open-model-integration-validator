@@ -1,0 +1,29 @@
+{
+  "available_at": "NOT_RECORDED",
+  "creates_governance_approval": false,
+  "creates_observed_runtime_identity": false,
+  "creates_security_pass": false,
+  "derived_status": "PHASE6B_NON_PAYLOAD_IDENTIFIERS_NOT_UPGRADED",
+  "evaluated_at": "NOT_RECORDED",
+  "evidence": {
+    "object_digest": "3d47aa9301116134bf1426918ef843ff3c86ca5922a1892fe832bbacf235cd03",
+    "object_id": "quantization_evidence_72e90a1686f2c695d8fc6d50199a6d4d",
+    "schema_id": "omiv.quantization-fidelity-evidence.v1"
+  },
+  "integration_digest": "a0fc6ecb4b54e958d34c0e1b2caeb9ea2197df6a448dbb55ab02d69e6182b27d",
+  "integration_id": "quantization_integration_8692d48d1f40acd4a018e2b3f654fe33",
+  "integration_type": "RECONCILIATION",
+  "limitations": [
+    "Integration does not mutate or strengthen prior evidence."
+  ],
+  "mutates_prior_artifact": false,
+  "observed_at": "NOT_RECORDED",
+  "payload_identity_match": null,
+  "schema": "omiv.quantization-integration-summary.v1",
+  "source_object": {
+    "object_digest": "84f3a52466244cb3963afb79bd31b6ea660818faff3b7914d5d6412cdd35f2a7",
+    "object_id": "remote_snapshot_232b98bcf40f8c2a6778de64edec0da3",
+    "schema_id": "omiv.remote-snapshot-manifest.v1"
+  },
+  "subject_identity_match": true
+}

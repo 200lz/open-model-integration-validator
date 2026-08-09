@@ -1,0 +1,52 @@
+{
+  "authority_evaluation_digest": "0ce227cb4668a4faa8a33fff56079d7e1c8724966cf5fabfd8be8911ca730358",
+  "authority_evaluation_id": "quantization_authority_dfbb36e119061aa4341885c625b812b0",
+  "candidate_publisher_authority": "NOT_ESTABLISHED",
+  "declaration": {
+    "object_digest": "ec8c16d9fd937ee863b2a26ac5444b76d45ffd804ec34baaa3965bb836651229",
+    "object_id": "quantization_declaration_75dbfbd8240f8f98b648722c611b64f4",
+    "schema_id": "omiv.quantization-relationship-declaration.v1"
+  },
+  "expectation_publisher_authority": "NOT_ESTABLISHED",
+  "limitations": [
+    "Synthetic signing does not establish publisher or transformer authority."
+  ],
+  "measurement_signature_status": "SIGNATURE_NOT_SUPPLIED",
+  "measurement_signer_authorized": "NOT_EVALUATED",
+  "measurement_signer_trust": "NOT_EVALUATED",
+  "namespace_creates_authority": false,
+  "policy_authority": "NOT_EVALUATED",
+  "schema": "omiv.quantization-authority-evaluation.v1",
+  "scope": {
+    "environment_scope": "environment.offline",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.quantization",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  },
+  "signature_creates_publisher_authority": false,
+  "source_publisher_authority": "NOT_ESTABLISHED",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "model.quantization-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.quantization",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "MODEL_WEIGHTS",
+    "subject_digest": "eb01a7e4bd6121bfa6e364f1fe9b1b48210b81114339097f547f3e554c66713e",
+    "subject_id": "product_subject_15a44f47d7c28c392be4b014eca26bdc"
+  },
+  "subject_scope_authorized": false,
+  "transformation_authority": "NOT_ESTABLISHED"
+}

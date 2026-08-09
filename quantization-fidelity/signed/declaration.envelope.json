@@ -1,0 +1,161 @@
+{
+  "envelope_digest": "977d82b219bf561759af75c7ed0b9e726e936b7a31adac20132d0675424a9962",
+  "envelope_id": "soe_6ecbb48aadd07904e680e8d1607a8b74",
+  "key_records": [
+    {
+      "algorithm": "ED25519",
+      "allowed_key_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "allowed_object_types": [
+        "QUANTIZATION_FIDELITY_EVIDENCE",
+        "QUANTIZATION_RELATIONSHIP_DECLARATION",
+        "REPRESENTATION_OBSERVATION"
+      ],
+      "allowed_purposes": [
+        "QUANTIZATION_FIDELITY_EVIDENCE_ISSUANCE",
+        "QUANTIZATION_RELATIONSHIP_DECLARATION_ISSUANCE",
+        "REPRESENTATION_OBSERVATION_ISSUANCE"
+      ],
+      "key_digest": "f55dcd7ecbf69ee007693e49ba1b246f125961ec2c9a359f7b35973a3be43357",
+      "key_id": "key_58424df53f1a92823facb1f77270bce1",
+      "limitations": [
+        "Public-key identity does not establish signer identity."
+      ],
+      "namespaces": [],
+      "provider_artifact_scopes": [],
+      "public_key": "6d44f939f829d43598bcdedda90de01db69faa50caa33e8c6c328a4b900d4dac",
+      "public_key_digest": "58424df53f1a92823facb1f77270bce1da39bd484b56dd28814e9c707a3ec2fb",
+      "public_key_encoding": "RAW_HEX",
+      "schema": "omiv.key-identity.v1",
+      "status": "ACTIVE",
+      "validity": null
+    }
+  ],
+  "limitations": [
+    "The canonical source object is unchanged; trust is reconstructed externally."
+  ],
+  "schema": "omiv.signed-object-envelope.v1",
+  "signatures": [
+    {
+      "algorithm": "ED25519",
+      "binding_id": "binding_466d761f2e2e35360089808f8ecd3a30",
+      "detached_signature": "738497ff2a9ac420ed14f3a76582d1e87686bee19e8b03c5f44e001e714d78f5bd7b06ef0e2a8919938ca2d0eac1d2389584015ebb8df55c6c3118d07070c10c",
+      "key_id": "key_58424df53f1a92823facb1f77270bce1",
+      "limitations": [
+        "Signature integrity does not prove the underlying claim is true."
+      ],
+      "payload": {
+        "canonicalization_version": "omiv-json-v1",
+        "digest_algorithm": "SHA-256",
+        "domain": "OMIV-SIGNED-OBJECT-V1",
+        "key_usage": "SIGN_OMIV_OBJECT",
+        "namespace": null,
+        "provider_artifact_scope": null,
+        "schema": "omiv.signature-payload.v1",
+        "signature_purpose": "QUANTIZATION_RELATIONSHIP_DECLARATION_ISSUANCE",
+        "signed_object_digest": "e432a014d57532ccfebe3a538adf34c2c840dad5c2879f5d7dc057605919c30f",
+        "signed_object_id": "quantization_declaration_75dbfbd8240f8f98b648722c611b64f4",
+        "signed_object_schema": "omiv.quantization-relationship-declaration.v1",
+        "signed_object_type": "QUANTIZATION_RELATIONSHIP_DECLARATION",
+        "trust_policy_id": "omiv.trust-policy.team_release.v1"
+      },
+      "purpose": "QUANTIZATION_RELATIONSHIP_DECLARATION_ISSUANCE",
+      "schema": "omiv.signature-record.v1",
+      "signature_digest": "4083dcb256682ea67d95fecd82e9ed0587dc6442787d01adcb4bf43e27da748a",
+      "signature_encoding": "RAW_HEX",
+      "signature_id": "sig_f57d8e920788dea3fc10f9da2e406892",
+      "trust_policy_id": "omiv.trust-policy.team_release.v1"
+    }
+  ],
+  "signed_object": {
+    "authority_status": "NOT_ESTABLISHED",
+    "candidate_artifact": {
+      "artifact_name": "candidate-values",
+      "artifact_set_identity": "41965b8734abe34841c25f18eb25266b9a7ea6e3800506adf7e94c0ee8821c12",
+      "availability": "EXACT_LOCAL_PAYLOAD_IDENTITY_AVAILABLE",
+      "coverage": "complete.declared-local-file-scope",
+      "identity_semantics": "phase6a.observed-payload-manifest",
+      "limitations": [
+        "Synthetic fixture identity is not a real model artifact."
+      ],
+      "local_payload_manifest": {
+        "object_digest": "96c1a06384d2f65d7b4e347d5b65c81f382d4c3a1913199cb40aade6abc64b8f",
+        "object_id": "observed_payload_b5abd0fec66ba22e6e2600f003ab12f2",
+        "schema_id": "omiv.observed-payload-manifest.v1"
+      },
+      "namespace": "quantization-fixtures",
+      "provider": "omiv-synthetic",
+      "remote_snapshot": null,
+      "requested_revision": "fixture-v1",
+      "resolved_revision": "fixture-v1",
+      "role": "CANDIDATE",
+      "subject_id": "product_subject_15a44f47d7c28c392be4b014eca26bdc"
+    },
+    "declaration_digest": "ec8c16d9fd937ee863b2a26ac5444b76d45ffd804ec34baaa3965bb836651229",
+    "declaration_id": "quantization_declaration_75dbfbd8240f8f98b648722c611b64f4",
+    "declared_at": "NOT_RECORDED",
+    "limitations": [
+      "Caller declaration does not prove the observed candidate implements it."
+    ],
+    "provenance": "CALLER_DECLARED",
+    "relationship_mode": "SOURCE_TO_QUANTIZED_CANDIDATE",
+    "schema": "omiv.quantization-relationship-declaration.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.quantization",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "source_artifact": {
+      "artifact_name": "source-values",
+      "artifact_set_identity": "39b0d3f25070311f25da3f5b2d3d0cb7e683da5923b8ee62d8e0dea6233c91e4",
+      "availability": "EXACT_LOCAL_PAYLOAD_IDENTITY_AVAILABLE",
+      "coverage": "complete.declared-local-file-scope",
+      "identity_semantics": "phase6a.observed-payload-manifest",
+      "limitations": [
+        "Synthetic fixture identity is not a real model artifact."
+      ],
+      "local_payload_manifest": {
+        "object_digest": "6bc84a8e210fbf181e9450247d4f2c4f2b4059c8d260c64cae97438fed542e3a",
+        "object_id": "observed_payload_76389812ea122dc14f6cec05955f4a20",
+        "schema_id": "omiv.observed-payload-manifest.v1"
+      },
+      "namespace": "quantization-fixtures",
+      "provider": "omiv-synthetic",
+      "remote_snapshot": null,
+      "requested_revision": "fixture-v1",
+      "resolved_revision": "fixture-v1",
+      "role": "SOURCE",
+      "subject_id": "product_subject_15a44f47d7c28c392be4b014eca26bdc"
+    },
+    "subject": {
+      "limitations": [
+        "Logical product subject identity does not prove artifact content."
+      ],
+      "logical_name": "model.quantization-synthetic",
+      "schema": "omiv.product-subject.v1",
+      "scope": {
+        "environment_scope": "environment.offline",
+        "organization_scope": "organization.synthetic",
+        "product_scope": "product.generic-inference",
+        "project_scope": "project.quantization",
+        "target_scope": "target-scope.runtime",
+        "tenant_scope": "tenant.synthetic",
+        "trust_domain": "trust-domain.synthetic"
+      },
+      "subject_class": "MODEL_WEIGHTS",
+      "subject_digest": "eb01a7e4bd6121bfa6e364f1fe9b1b48210b81114339097f547f3e554c66713e",
+      "subject_id": "product_subject_15a44f47d7c28c392be4b014eca26bdc"
+    },
+    "transformation_attestation": null
+  },
+  "signed_object_digest": "e432a014d57532ccfebe3a538adf34c2c840dad5c2879f5d7dc057605919c30f",
+  "signed_object_id": "quantization_declaration_75dbfbd8240f8f98b648722c611b64f4",
+  "signed_object_schema": "omiv.quantization-relationship-declaration.v1",
+  "signed_object_type": "QUANTIZATION_RELATIONSHIP_DECLARATION",
+  "trust_policy_id": "omiv.trust-policy.team_release.v1"
+}

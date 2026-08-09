@@ -1,0 +1,23 @@
+{
+  "case_id": "missing-scale",
+  "exercised_invariant": "Missing affine scale fails closed.",
+  "limitations": [
+    "Synthetic bounded result; invalid inputs are retained as deterministic rejection outcomes."
+  ],
+  "numerical_status": "NOT_EVALUATED",
+  "observed_findings": [
+    "MISSING_SCALE"
+  ],
+  "outcome": "NOT_EVALUATED",
+  "result_digest": "be1ff3836da27e3da0d53b85c7a9ac5c5d5068f01d348fdb365d1c3367551217",
+  "result_id": "quantization_example_result_5e3723242d9922800ee1c46590a2733b",
+  "schema": "omiv.quantization-example-result.v1",
+  "structural_status": "QUANTIZATION_PARAMETERS_INCOMPLETE",
+  "upstream_objects": [
+    {
+      "object_digest": "e0062a85aecac69ee4004473f185cb3bd53cd05dcf1d8b9ded166928d869baca",
+      "object_id": "quantization_evidence_c3cc2d76e4c7b793627054e49d494697",
+      "schema_id": "omiv.quantization-fidelity-evidence.v1"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "accept_local_declarative_revocation": true,
+  "allow_delegation": false,
+  "allowed_object_types": [
+    "QUANTIZATION_FIDELITY_EVIDENCE",
+    "QUANTIZATION_RELATIONSHIP_DECLARATION",
+    "REPRESENTATION_OBSERVATION"
+  ],
+  "allowed_signature_purposes": [
+    "QUANTIZATION_FIDELITY_EVIDENCE_ISSUANCE",
+    "QUANTIZATION_RELATIONSHIP_DECLARATION_ISSUANCE",
+    "REPRESENTATION_OBSERVATION_ISSUANCE"
+  ],
+  "claim_strength_preservation": true,
+  "digest_only_behavior": "PARTIAL",
+  "forbidden_trust_escalations": [
+    "DECLARED_PROVENANCE_TO_ARTIFACT_SPECIFIC_PROVENANCE",
+    "NOT_CHECKED_TO_PASS",
+    "UNATTESTED_TO_EXECUTION_VERIFIED",
+    "INCOMPLETE_TO_COMPLETE"
+  ],
+  "limitations": [
+    "Policy trust does not prove claim content, safety, approval, deployment, or runtime."
+  ],
+  "maximum_delegation_depth": 0,
+  "minimum_binding_status": "VERIFIED_BY_TRUST_BUNDLE",
+  "minimum_signature_count": 1,
+  "namespaces": [],
+  "policy_digest": "7903b293d1bc50583338df1b95251d5c2e1c0181d6a1e2d315225eb5fbdfb88e",
+  "policy_id": "omiv.trust-policy.team_release.v1",
+  "profile": "team_release",
+  "provider_artifact_scopes": [],
+  "require_expiration_evaluation": false,
+  "require_revocation_evaluation": true,
+  "required_key_usage": "SIGN_OMIV_OBJECT",
+  "schema": "omiv.trust-policy.v1",
+  "supported_algorithms": [
+    "ED25519"
+  ],
+  "unknown_identity_behavior": "PARTIAL",
+  "unknown_key_behavior": "UNTRUSTED"
+}

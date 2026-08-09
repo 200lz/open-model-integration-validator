@@ -1,0 +1,11 @@
+{
+  "dtype": "int8",
+  "schema": "omiv.synthetic-quantized-values.v1",
+  "tensor": "model/weight",
+  "values": [
+    0,
+    2,
+    4,
+    6
+  ]
+}

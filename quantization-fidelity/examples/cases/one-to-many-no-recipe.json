@@ -1,0 +1,23 @@
+{
+  "case_id": "one-to-many-no-recipe",
+  "exercised_invariant": "Structural mapping needs an explicit reconstruction recipe.",
+  "limitations": [
+    "Synthetic bounded result; invalid inputs are retained as deterministic rejection outcomes."
+  ],
+  "numerical_status": "NOT_EVALUATED",
+  "observed_findings": [
+    "ONE_TO_MANY_NO_RECIPE"
+  ],
+  "outcome": "NOT_EVALUATED",
+  "result_digest": "1121fce491d94e231d9dab6a0c0c2982ad0214c00ff8b636ca3f0ea4cffc7fd8",
+  "result_id": "quantization_example_result_1319815302818b46d6af9c58bbc927ab",
+  "schema": "omiv.quantization-example-result.v1",
+  "structural_status": "STRUCTURAL_INFORMATION_INCOMPLETE",
+  "upstream_objects": [
+    {
+      "object_digest": "e0062a85aecac69ee4004473f185cb3bd53cd05dcf1d8b9ded166928d869baca",
+      "object_id": "quantization_evidence_c3cc2d76e4c7b793627054e49d494697",
+      "schema_id": "omiv.quantization-fidelity-evidence.v1"
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "available_at": "NOT_RECORDED",
+  "completion_state": "INCOMPLETE",
+  "effective_limits": {
+    "maximum_artifact_members": 100000,
+    "maximum_canonical_string_length": 1024,
+    "maximum_correspondence_records": 100000,
+    "maximum_dependency_graph_edges": 1000000,
+    "maximum_dependency_graph_nodes": 200000,
+    "maximum_dimensions_per_tensor": 16,
+    "maximum_findings": 200000,
+    "maximum_fully_compared_elements": 10000000,
+    "maximum_generated_artifact_count": 140,
+    "maximum_generated_metadata_bytes": 67108864,
+    "maximum_json_bytes": 67108864,
+    "maximum_json_nesting": 64,
+    "maximum_logical_elements_per_tensor": 100000000,
+    "maximum_mapping_fan_in": 64,
+    "maximum_mapping_fan_out": 64,
+    "maximum_payload_bytes_per_file": 268435456,
+    "maximum_quantization_parameter_records": 100000,
+    "maximum_report_reconstruction_nodes": 200000,
+    "maximum_sample_elements_per_tensor": 100000,
+    "maximum_streaming_chunk_size": 4194304,
+    "maximum_tensor_rank": 16,
+    "maximum_tensor_records": 100000,
+    "maximum_total_logical_elements": 1000000000,
+    "maximum_total_payload_bytes": 1073741824,
+    "maximum_total_sampled_elements": 1000000,
+    "maximum_traversal_depth": 128
+  },
+  "evaluated_at": "NOT_RECORDED",
+  "execution_digest": "5d7474049314f96e47f593a715cd4259768bb827ce0a91352d9e56fbd5da180e",
+  "execution_id": "quantization_execution_a6ced17fae96ea577799d91913f6a062",
+  "failure_class": "NONE",
+  "limitations": [],
+  "model_execution": "NOT_PERFORMED",
+  "network_use": "NONE",
+  "observed_at": "NOT_RECORDED",
+  "payload_bytes_read": 0,
+  "plan": {
+    "object_digest": "a9f9aee68034a1147c3dbb0234b82c96f57271a12b940b90560b5b222b512423",
+    "object_id": "quantization_plan_6991f26ceeacf9f23f42eeda1a7299f1",
+    "schema_id": "omiv.quantization-observation-plan.v1"
+  },
+  "result_reference_status": "LINKED_DOWNSTREAM_BY_OBSERVATIONS",
+  "schema": "omiv.quantization-execution-record.v1",
+  "scope": {
+    "environment_scope": "environment.offline",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.quantization",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  },
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "model.quantization-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.quantization",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "MODEL_WEIGHTS",
+    "subject_digest": "eb01a7e4bd6121bfa6e364f1fe9b1b48210b81114339097f547f3e554c66713e",
+    "subject_id": "product_subject_15a44f47d7c28c392be4b014eca26bdc"
+  },
+  "supplied_inputs": [],
+  "tensor_records_processed": 0,
+  "tool_id": "omiv.quantization.offline-v1",
+  "tool_version": "phase-6c-v1",
+  "values_processed": 0
+}

@@ -1,0 +1,23 @@
+{
+  "case_id": "phase6b-noncomparable-digest",
+  "exercised_invariant": "Provider object identities are not payload digests.",
+  "limitations": [
+    "Synthetic bounded result; invalid inputs are retained as deterministic rejection outcomes."
+  ],
+  "numerical_status": "PAYLOAD_VALUES_UNAVAILABLE",
+  "observed_findings": [
+    "PHASE6B_NONCOMPARABLE_DIGEST"
+  ],
+  "outcome": "NOT_EVALUATED",
+  "result_digest": "0e8f1035862eaabb4647d62296cc07dfde49dee81f3432f768f34ef923643466",
+  "result_id": "quantization_example_result_987919d0a23280bd3d25c807f9b4508f",
+  "schema": "omiv.quantization-example-result.v1",
+  "structural_status": "STRUCTURAL_INFORMATION_INCOMPLETE",
+  "upstream_objects": [
+    {
+      "object_digest": "e0062a85aecac69ee4004473f185cb3bd53cd05dcf1d8b9ded166928d869baca",
+      "object_id": "quantization_evidence_c3cc2d76e4c7b793627054e49d494697",
+      "schema_id": "omiv.quantization-fidelity-evidence.v1"
+    }
+  ]
+}

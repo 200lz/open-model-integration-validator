@@ -1,0 +1,23 @@
+{
+  "case_id": "trusted-signer-no-transformer-authority",
+  "exercised_invariant": "Signature trust does not create transformer authority.",
+  "limitations": [
+    "Synthetic bounded result; invalid inputs are retained as deterministic rejection outcomes."
+  ],
+  "numerical_status": "EXACT_FOR_EVALUATED_SCOPE",
+  "observed_findings": [
+    "TRUSTED_SIGNER_NO_TRANSFORMER_AUTHORITY"
+  ],
+  "outcome": "PASS",
+  "result_digest": "08ea6ed03aea7b06573469e673beabc1987f6f0aa0f8e9e493de92ca63c17cf5",
+  "result_id": "quantization_example_result_0585f8bffd63d1239924487e68f73570",
+  "schema": "omiv.quantization-example-result.v1",
+  "structural_status": "STRUCTURALLY_CONSISTENT_FOR_SCOPE",
+  "upstream_objects": [
+    {
+      "object_digest": "3d47aa9301116134bf1426918ef843ff3c86ca5922a1892fe832bbacf235cd03",
+      "object_id": "quantization_evidence_72e90a1686f2c695d8fc6d50199a6d4d",
+      "schema_id": "omiv.quantization-fidelity-evidence.v1"
+    }
+  ]
+}

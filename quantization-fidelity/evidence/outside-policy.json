@@ -1,0 +1,141 @@
+{
+  "authority_established": false,
+  "authority_evaluation": {
+    "object_digest": "0ce227cb4668a4faa8a33fff56079d7e1c8724966cf5fabfd8be8911ca730358",
+    "object_id": "quantization_authority_dfbb36e119061aa4341885c625b812b0",
+    "schema_id": "omiv.quantization-authority-evaluation.v1"
+  },
+  "available_at": "NOT_RECORDED",
+  "behavioral_parity": "NOT_EVALUATED",
+  "comparison": {
+    "object_digest": "563f8e068e4eda23503462c4add6c497bcef079cc04669f433799215d8fd8248",
+    "object_id": "quantization_comparison_2f3d6a81b477240f964d74cc2b1dffad",
+    "schema_id": "omiv.quantization-fidelity-comparison.v1"
+  },
+  "coverage": [
+    {
+      "denominator": 1,
+      "dimension": "SOURCE_ARTIFACT",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": 1,
+      "dimension": "CANDIDATE_ARTIFACT",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": 1,
+      "dimension": "SOURCE_TENSOR",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": 1,
+      "dimension": "CANDIDATE_TENSOR",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": 1,
+      "dimension": "MAPPED_TENSOR",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": 1,
+      "dimension": "MANDATORY_ROLE",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": 1,
+      "dimension": "NUMERICAL_TENSOR",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": 4,
+      "dimension": "NUMERICAL_ELEMENT",
+      "incomplete_reason": null,
+      "numerator": 4,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": 1,
+      "dimension": "QUANTIZATION_PARAMETER",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": null,
+      "dimension": "BYTE",
+      "incomplete_reason": "Tensor byte range was not separately measured.",
+      "numerator": 0,
+      "status": "UNAVAILABLE"
+    },
+    {
+      "denominator": 4,
+      "dimension": "SAMPLING",
+      "incomplete_reason": null,
+      "numerator": 4,
+      "status": "COMPLETE"
+    }
+  ],
+  "evaluated_at": "NOT_RECORDED",
+  "evidence_digest": "364c5ec6d133800c965d70ce9e3c885bd04997e57f35873968dc9203748537d7",
+  "evidence_id": "quantization_evidence_b53047f4587acad7a5f38b1a645f1d6b",
+  "expectation_scope": "SELECTED_REQUIRED_TENSORS",
+  "limitations": [],
+  "model_correctness": "NOT_ESTABLISHED",
+  "numerical_status": "OUTSIDE_POLICY_FOR_EVALUATED_SCOPE",
+  "observed_at": "NOT_RECORDED",
+  "overall_status": "DOES_NOT_CONFORM_FOR_DECLARED_SCOPE",
+  "policy_evaluation": {
+    "object_digest": "511dd7b0ee71dd527daa88d50871b8cccda6b95483aba9fc4058041e57ac7acb",
+    "object_id": "quantization_policy_evaluation_33671c5fdd1216ded53b200e76bc845f",
+    "schema_id": "omiv.quantization-policy-evaluation.v1"
+  },
+  "policy_satisfied_for_declared_scope": false,
+  "runtime_identity": "NOT_OBSERVED",
+  "schema": "omiv.quantization-fidelity-evidence.v1",
+  "scope": {
+    "environment_scope": "environment.offline",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.quantization",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  },
+  "security_safety": "NOT_EVALUATED",
+  "structural_status": "STRUCTURALLY_CONSISTENT_FOR_SCOPE",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "model.quantization-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.quantization",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "MODEL_WEIGHTS",
+    "subject_digest": "eb01a7e4bd6121bfa6e364f1fe9b1b48210b81114339097f547f3e554c66713e",
+    "subject_id": "product_subject_15a44f47d7c28c392be4b014eca26bdc"
+  }
+}

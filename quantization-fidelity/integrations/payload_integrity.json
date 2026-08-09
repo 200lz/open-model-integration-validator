@@ -1,0 +1,29 @@
+{
+  "available_at": "NOT_RECORDED",
+  "creates_governance_approval": false,
+  "creates_observed_runtime_identity": false,
+  "creates_security_pass": false,
+  "derived_status": "EXACT_PHASE6A_BINDING_PRESERVED",
+  "evaluated_at": "NOT_RECORDED",
+  "evidence": {
+    "object_digest": "3d47aa9301116134bf1426918ef843ff3c86ca5922a1892fe832bbacf235cd03",
+    "object_id": "quantization_evidence_72e90a1686f2c695d8fc6d50199a6d4d",
+    "schema_id": "omiv.quantization-fidelity-evidence.v1"
+  },
+  "integration_digest": "a34560a4cf022d6dca99ea5a3bc0a92ff4c8e12f99afaa95fa7ac665aef22507",
+  "integration_id": "quantization_integration_ff321b0acb17b3815706a2b4977790b8",
+  "integration_type": "PAYLOAD_INTEGRITY",
+  "limitations": [
+    "Integration does not mutate or strengthen prior evidence."
+  ],
+  "mutates_prior_artifact": false,
+  "observed_at": "NOT_RECORDED",
+  "payload_identity_match": true,
+  "schema": "omiv.quantization-integration-summary.v1",
+  "source_object": {
+    "object_digest": "6bc84a8e210fbf181e9450247d4f2c4f2b4059c8d260c64cae97438fed542e3a",
+    "object_id": "observed_payload_76389812ea122dc14f6cec05955f4a20",
+    "schema_id": "omiv.observed-payload-manifest.v1"
+  },
+  "subject_identity_match": true
+}

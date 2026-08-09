@@ -1,0 +1,23 @@
+{
+  "case_id": "exact-unquantized-identity",
+  "exercised_invariant": "Exact identity semantics are supported and tested.",
+  "limitations": [
+    "Synthetic bounded result; invalid inputs are retained as deterministic rejection outcomes."
+  ],
+  "numerical_status": "EXACT_FOR_EVALUATED_SCOPE",
+  "observed_findings": [
+    "EXACT_UNQUANTIZED_IDENTITY"
+  ],
+  "outcome": "PASS",
+  "result_digest": "d2e7b2e6f8483f4b496a66a8030d8e0e6791e428cac27ea71c560c530cfeab32",
+  "result_id": "quantization_example_result_5c018bc7943c61bd020061245393d152",
+  "schema": "omiv.quantization-example-result.v1",
+  "structural_status": "STRUCTURALLY_CONSISTENT_FOR_SCOPE",
+  "upstream_objects": [
+    {
+      "object_digest": "3d47aa9301116134bf1426918ef843ff3c86ca5922a1892fe832bbacf235cd03",
+      "object_id": "quantization_evidence_72e90a1686f2c695d8fc6d50199a6d4d",
+      "schema_id": "omiv.quantization-fidelity-evidence.v1"
+    }
+  ]
+}

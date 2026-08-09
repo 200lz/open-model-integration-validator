@@ -1,0 +1,57 @@
+{
+  "candidate_observation": {
+    "object_digest": "7f46feaff8294a567f9d5eda0c5fe1c157833ff69adb3c18776c9043c1adaae2",
+    "object_id": "representation_observation_fd86b44e7823fb25617e6f1195b67aee",
+    "schema_id": "omiv.representation-observation.v1"
+  },
+  "correspondence_digest": "6b45102a6648bdcfabbcca2d65fda9ec1db6c90cc07fea9b4bae01818bd2fc09",
+  "correspondence_id": "tensor_correspondence_31e7fd102cd7d69e0d387e5ad81c263d",
+  "limitations": [],
+  "mapping_semantics": "EXPLICIT_ONLY",
+  "mappings": [
+    {
+      "candidate_tensor_ids": [],
+      "cardinality": "UNSUPPORTED",
+      "limitations": [],
+      "mapping_digest": "35c6953cde96bd6c551e349bb4ef15ebd4b90417f50e5a8df7dabdde294e8b34",
+      "mapping_id": "tensor_mapping_10e25a568303c097973d65b12843211f",
+      "numerical_status": "NOT_MAPPED",
+      "reconstruction_recipe": null,
+      "source_tensor_ids": []
+    }
+  ],
+  "schema": "omiv.tensor-correspondence.v1",
+  "scope": {
+    "environment_scope": "environment.offline",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.quantization",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  },
+  "source_observation": {
+    "object_digest": "5e6fa386044f02eb726ea263bea968acbc2f44150fcb0b796ec1b2629a409db3",
+    "object_id": "representation_observation_4145abb69078b04391d25947409b86ca",
+    "schema_id": "omiv.representation-observation.v1"
+  },
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "model.quantization-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.quantization",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "MODEL_WEIGHTS",
+    "subject_digest": "eb01a7e4bd6121bfa6e364f1fe9b1b48210b81114339097f547f3e554c66713e",
+    "subject_id": "product_subject_15a44f47d7c28c392be4b014eca26bdc"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "case_id": "exact-phase6a-binding",
+  "exercised_invariant": "Local byte identity is supplied by Phase 6A.",
+  "limitations": [
+    "Synthetic bounded result; invalid inputs are retained as deterministic rejection outcomes."
+  ],
+  "numerical_status": "EXACT_FOR_EVALUATED_SCOPE",
+  "observed_findings": [
+    "EXACT_PHASE6A_BINDING"
+  ],
+  "outcome": "PASS",
+  "result_digest": "6682b5bdc384dbfd62c3c75886fd4c6f7e80aac4e39283045f1f2505700490ac",
+  "result_id": "quantization_example_result_6c0a62d5894792aaf434a71d1da0747c",
+  "schema": "omiv.quantization-example-result.v1",
+  "structural_status": "STRUCTURALLY_CONSISTENT_FOR_SCOPE",
+  "upstream_objects": [
+    {
+      "object_digest": "3d47aa9301116134bf1426918ef843ff3c86ca5922a1892fe832bbacf235cd03",
+      "object_id": "quantization_evidence_72e90a1686f2c695d8fc6d50199a6d4d",
+      "schema_id": "omiv.quantization-fidelity-evidence.v1"
+    }
+  ]
+}

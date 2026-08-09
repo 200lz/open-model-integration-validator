@@ -1,0 +1,23 @@
+{
+  "case_id": "limit-exceeded",
+  "exercised_invariant": "Bound violations return LIMIT_EXCEEDED without truncation.",
+  "limitations": [
+    "Synthetic bounded result; invalid inputs are retained as deterministic rejection outcomes."
+  ],
+  "numerical_status": "INVALID",
+  "observed_findings": [
+    "LIMIT_EXCEEDED"
+  ],
+  "outcome": "LIMIT_EXCEEDED",
+  "result_digest": "4d42eb5180f1d5fdc461a6bf7ebb14cfad83e151f996f10838171cf21f4f9b3b",
+  "result_id": "quantization_example_result_8b0a48bc36c2f7f34eab46825e5528fd",
+  "schema": "omiv.quantization-example-result.v1",
+  "structural_status": "INVALID",
+  "upstream_objects": [
+    {
+      "object_digest": "e0062a85aecac69ee4004473f185cb3bd53cd05dcf1d8b9ded166928d869baca",
+      "object_id": "quantization_evidence_c3cc2d76e4c7b793627054e49d494697",
+      "schema_id": "omiv.quantization-fidelity-evidence.v1"
+    }
+  ]
+}

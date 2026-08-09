@@ -1,0 +1,23 @@
+{
+  "case_id": "invalid-zero-point",
+  "exercised_invariant": "Unrepresentable zero point is invalid.",
+  "limitations": [
+    "Synthetic bounded result; invalid inputs are retained as deterministic rejection outcomes."
+  ],
+  "numerical_status": "INVALID",
+  "observed_findings": [
+    "INVALID_ZERO_POINT"
+  ],
+  "outcome": "FAIL",
+  "result_digest": "e3d68f15d247cf4e786d46db427c0571d2ee73773a8ddc07c8fa89fe72387ae9",
+  "result_id": "quantization_example_result_30ec067ca227194440ee3876526bf3b3",
+  "schema": "omiv.quantization-example-result.v1",
+  "structural_status": "INVALID",
+  "upstream_objects": [
+    {
+      "object_digest": "e0062a85aecac69ee4004473f185cb3bd53cd05dcf1d8b9ded166928d869baca",
+      "object_id": "quantization_evidence_c3cc2d76e4c7b793627054e49d494697",
+      "schema_id": "omiv.quantization-fidelity-evidence.v1"
+    }
+  ]
+}

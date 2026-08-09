@@ -1,0 +1,23 @@
+{
+  "case_id": "sample-not-complete",
+  "exercised_invariant": "A successful sample is not complete coverage.",
+  "limitations": [
+    "Synthetic bounded result; invalid inputs are retained as deterministic rejection outcomes."
+  ],
+  "numerical_status": "SAMPLED_WITHIN_POLICY",
+  "observed_findings": [
+    "SAMPLE_NOT_COMPLETE"
+  ],
+  "outcome": "PASS",
+  "result_digest": "8765f7b263eb9dd61b8905b9fdfb816632fcca28034ddd8a2f735036e005e143",
+  "result_id": "quantization_example_result_79147e7c93cf5bfeb06fbe0d3793f520",
+  "schema": "omiv.quantization-example-result.v1",
+  "structural_status": "STRUCTURALLY_CONSISTENT_FOR_SCOPE",
+  "upstream_objects": [
+    {
+      "object_digest": "861e5ccb7d57885486f9ac5e11b7dafbd0fef480262d0da3134d195caa47fece",
+      "object_id": "quantization_evidence_e6d2b534a1398275c86f0b51a3373e69",
+      "schema_id": "omiv.quantization-fidelity-evidence.v1"
+    }
+  ]
+}

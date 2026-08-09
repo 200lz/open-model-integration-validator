@@ -1,0 +1,33 @@
+{
+  "actual_sample_count": 2,
+  "algorithm": "SHA256_REJECTION_V1",
+  "candidate_tensor_id": "quantization_tensor_6aa7fcb9d1a7a6d9a850e4b31c3f275a",
+  "domain_separated_seed": "omiv.synthetic.sample.seed-v1",
+  "exclusion_rules": [
+    "DUPLICATE_DERIVED_INDICES_REJECTED"
+  ],
+  "hash_attempt_count": 3,
+  "inclusion_rules": [
+    "IDENTITY_BOUND_HASH_DERIVATION"
+  ],
+  "limitations": [
+    "Deterministic selection is reproducible but is not claimed statistically representative. Rejection sampling stores at most 100000 candidates and performs at most 12800000 hashes; full population traversal is limited to 100000 elements."
+  ],
+  "maximum_hash_attempts": 12800000,
+  "maximum_population_count": 1000000000,
+  "maximum_population_traversal_count": 100000,
+  "maximum_sample_count": 4,
+  "maximum_stored_candidates": 100000,
+  "ordering": "ASCENDING_INDEX",
+  "population_element_count": 4,
+  "requested_sample_count": 2,
+  "sample_digest": "03156795f07d73d1ebe04e4ef56312733325c16d4c40dfd2870f66001ae40d90",
+  "sample_id": "quantization_sample_9f1baa398d27d9d021613f0a7d4b4408",
+  "schema": "omiv.deterministic-sample-definition.v1",
+  "selected_indices": [
+    1,
+    3
+  ],
+  "source_tensor_id": "quantization_tensor_849fe5140805a21403d29be274e841ce",
+  "status": "AVAILABLE"
+}

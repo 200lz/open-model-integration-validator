@@ -1,0 +1,23 @@
+{
+  "case_id": "xai-readiness-no-payload-candidate",
+  "exercised_invariant": "Pinned metadata records readiness without invented quantization facts.",
+  "limitations": [
+    "Synthetic bounded result; invalid inputs are retained as deterministic rejection outcomes."
+  ],
+  "numerical_status": "NOT_EVALUATED",
+  "observed_findings": [
+    "XAI_READINESS_NO_PAYLOAD_CANDIDATE"
+  ],
+  "outcome": "NOT_EVALUATED",
+  "result_digest": "4831190f034ae02e17c240bce6edabc2817699ebb244cd85ee8d9200e9b1b2f6",
+  "result_id": "quantization_example_result_75fe7773d7b7f3e359adf0d1d9545945",
+  "schema": "omiv.quantization-example-result.v1",
+  "structural_status": "NOT_EVALUATED",
+  "upstream_objects": [
+    {
+      "object_digest": "26923d8467bf08c7849e5f911ae9ca371c3778fdd7cb4faeba91790f25f10f08",
+      "object_id": "xai_quantization_readiness_0b315b0f09a5462149f35801bbda5ff2",
+      "schema_id": "omiv.xai-quantization-readiness.v1"
+    }
+  ]
+}

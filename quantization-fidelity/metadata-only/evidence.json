@@ -1,0 +1,141 @@
+{
+  "authority_established": false,
+  "authority_evaluation": {
+    "object_digest": "470f19873df75a28c8939672be7ec13bc830e52086a3df98c45e0581a8008960",
+    "object_id": "quantization_authority_52cb5096d40ab0de1d856f92c67dcbe9",
+    "schema_id": "omiv.quantization-authority-evaluation.v1"
+  },
+  "available_at": "NOT_RECORDED",
+  "behavioral_parity": "NOT_EVALUATED",
+  "comparison": {
+    "object_digest": "aa1d35a0d758c762e6c31a687a54162f9d2a8210c2edd4c1b3ed345da1ac6bb7",
+    "object_id": "quantization_comparison_14e5bfc6e02747529eca15fc9497e28f",
+    "schema_id": "omiv.quantization-fidelity-comparison.v1"
+  },
+  "coverage": [
+    {
+      "denominator": 1,
+      "dimension": "SOURCE_ARTIFACT",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": 1,
+      "dimension": "CANDIDATE_ARTIFACT",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": 1,
+      "dimension": "SOURCE_TENSOR",
+      "incomplete_reason": "Selected tensor scope.",
+      "numerator": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "denominator": 1,
+      "dimension": "CANDIDATE_TENSOR",
+      "incomplete_reason": "Selected tensor scope.",
+      "numerator": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "denominator": 1,
+      "dimension": "MAPPED_TENSOR",
+      "incomplete_reason": "Selected tensor scope.",
+      "numerator": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "denominator": 1,
+      "dimension": "MANDATORY_ROLE",
+      "incomplete_reason": "Mandatory tensor unavailable.",
+      "numerator": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "denominator": 1,
+      "dimension": "NUMERICAL_TENSOR",
+      "incomplete_reason": "Numerical tensor coverage is selected.",
+      "numerator": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "denominator": 4,
+      "dimension": "NUMERICAL_ELEMENT",
+      "incomplete_reason": "Deterministic sample only.",
+      "numerator": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "denominator": 1,
+      "dimension": "QUANTIZATION_PARAMETER",
+      "incomplete_reason": "Parameter observation incomplete.",
+      "numerator": 0,
+      "status": "PARTIAL"
+    },
+    {
+      "denominator": null,
+      "dimension": "BYTE",
+      "incomplete_reason": "Tensor byte range was not separately measured.",
+      "numerator": 0,
+      "status": "UNAVAILABLE"
+    },
+    {
+      "denominator": 4,
+      "dimension": "SAMPLING",
+      "incomplete_reason": "Deterministic sample is not complete numerical coverage.",
+      "numerator": 0,
+      "status": "PARTIAL"
+    }
+  ],
+  "evaluated_at": "NOT_RECORDED",
+  "evidence_digest": "e0062a85aecac69ee4004473f185cb3bd53cd05dcf1d8b9ded166928d869baca",
+  "evidence_id": "quantization_evidence_c3cc2d76e4c7b793627054e49d494697",
+  "expectation_scope": "PARTIAL_REFERENCE_SET",
+  "limitations": [],
+  "model_correctness": "NOT_ESTABLISHED",
+  "numerical_status": "PAYLOAD_VALUES_UNAVAILABLE",
+  "observed_at": "NOT_RECORDED",
+  "overall_status": "NOT_EVALUATED",
+  "policy_evaluation": {
+    "object_digest": "59ade1450d476063eaa4df0d0fc698af59d4aafc47f04f78ca4fb6a641c95d7a",
+    "object_id": "quantization_policy_evaluation_420e06b8c1ba23d1464ea5926b11be61",
+    "schema_id": "omiv.quantization-policy-evaluation.v1"
+  },
+  "policy_satisfied_for_declared_scope": false,
+  "runtime_identity": "NOT_OBSERVED",
+  "schema": "omiv.quantization-fidelity-evidence.v1",
+  "scope": {
+    "environment_scope": "environment.offline",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.quantization",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  },
+  "security_safety": "NOT_EVALUATED",
+  "structural_status": "STRUCTURAL_INFORMATION_INCOMPLETE",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "model.quantization-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.quantization",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "MODEL_WEIGHTS",
+    "subject_digest": "eb01a7e4bd6121bfa6e364f1fe9b1b48210b81114339097f547f3e554c66713e",
+    "subject_id": "product_subject_15a44f47d7c28c392be4b014eca26bdc"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "case_id": "ambiguous-mapping",
+  "exercised_invariant": "Ambiguous correspondence is not numerically evaluated.",
+  "limitations": [
+    "Synthetic bounded result; invalid inputs are retained as deterministic rejection outcomes."
+  ],
+  "numerical_status": "NOT_EVALUATED",
+  "observed_findings": [
+    "AMBIGUOUS_MAPPING"
+  ],
+  "outcome": "NOT_EVALUATED",
+  "result_digest": "926dfe6cc7dcb158feac53849e6d236be9c3f0d4e3a0ec21c8d4dcf78831095f",
+  "result_id": "quantization_example_result_eb89bb956fb22d990368d7c80579a2ed",
+  "schema": "omiv.quantization-example-result.v1",
+  "structural_status": "TENSOR_MAPPING_AMBIGUOUS",
+  "upstream_objects": [
+    {
+      "object_digest": "e0062a85aecac69ee4004473f185cb3bd53cd05dcf1d8b9ded166928d869baca",
+      "object_id": "quantization_evidence_c3cc2d76e4c7b793627054e49d494697",
+      "schema_id": "omiv.quantization-fidelity-evidence.v1"
+    }
+  ]
+}

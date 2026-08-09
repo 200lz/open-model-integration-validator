@@ -1,0 +1,11 @@
+{
+  "dtype": "float32",
+  "schema": "omiv.synthetic-tensor-values.v1",
+  "tensor": "model/weight",
+  "values": [
+    "-1",
+    "0",
+    "1",
+    "2"
+  ]
+}

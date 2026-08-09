@@ -1,0 +1,24 @@
+{
+  "block_size": null,
+  "candidate_observation": {
+    "object_digest": "31f1379da67f4fec057901f5d8ae6d3157a9999591a54aea228503f44ae06d43",
+    "object_id": "representation_observation_bf7495bd42a5d60df60af2bba4d92503",
+    "schema_id": "omiv.representation-observation.v1"
+  },
+  "complete_for_supported_codec": true,
+  "group_size": null,
+  "limitations": [],
+  "numerical_codec": "UNIFORM_AFFINE_INTEGER",
+  "observation_level": "FULL_TENSOR_VALUES",
+  "parameter_observation_digest": "e2a7e35913debedf5dc0115ac6f9a3fde68a8da0a8208af80b02e84a7c09c89c",
+  "parameter_observation_id": "quantization_parameters_ea4d188f83fa729ef27836e1fd910801",
+  "provenance": "OBSERVED_FROM_PAYLOAD",
+  "quantization_axis": null,
+  "scale": "0.5",
+  "schema": "omiv.quantization-parameter-observation.v1",
+  "scheme_family": "UNIFORM_AFFINE_INTEGER",
+  "storage_bit_width": 8,
+  "storage_signed": true,
+  "tensor_id": "quantization_tensor_6aa7fcb9d1a7a6d9a850e4b31c3f275a",
+  "zero_point": 2
+}

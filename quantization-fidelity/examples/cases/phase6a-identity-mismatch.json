@@ -1,0 +1,23 @@
+{
+  "case_id": "phase6a-identity-mismatch",
+  "exercised_invariant": "Mismatched payload identity fails closed.",
+  "limitations": [
+    "Synthetic bounded result; invalid inputs are retained as deterministic rejection outcomes."
+  ],
+  "numerical_status": "NOT_EVALUATED",
+  "observed_findings": [
+    "PHASE6A_IDENTITY_MISMATCH"
+  ],
+  "outcome": "NOT_EVALUATED",
+  "result_digest": "a2954dbc7b82758987d14d4b2adee09f723d35bfdc43d8d34a2b0b22ca03603c",
+  "result_id": "quantization_example_result_9a073ce4c2bfe938cee0859f17e64fba",
+  "schema": "omiv.quantization-example-result.v1",
+  "structural_status": "STRUCTURAL_MISMATCH",
+  "upstream_objects": [
+    {
+      "object_digest": "e0062a85aecac69ee4004473f185cb3bd53cd05dcf1d8b9ded166928d869baca",
+      "object_id": "quantization_evidence_c3cc2d76e4c7b793627054e49d494697",
+      "schema_id": "omiv.quantization-fidelity-evidence.v1"
+    }
+  ]
+}

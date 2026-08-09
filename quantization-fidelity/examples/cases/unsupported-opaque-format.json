@@ -1,0 +1,23 @@
+{
+  "case_id": "unsupported-opaque-format",
+  "exercised_invariant": "Opaque codecs never fall back to affine semantics.",
+  "limitations": [
+    "Synthetic bounded result; invalid inputs are retained as deterministic rejection outcomes."
+  ],
+  "numerical_status": "FORMAT_NOT_NUMERICALLY_SUPPORTED",
+  "observed_findings": [
+    "UNSUPPORTED_OPAQUE_FORMAT"
+  ],
+  "outcome": "NOT_EVALUATED",
+  "result_digest": "80e3b62cb4e0a99f868e45035f0765337b9af7d38d0a8700d0eeabbaca44f5a0",
+  "result_id": "quantization_example_result_2b496504e2e580f5aaba09ac6a71f396",
+  "schema": "omiv.quantization-example-result.v1",
+  "structural_status": "FORMAT_UNSUPPORTED",
+  "upstream_objects": [
+    {
+      "object_digest": "e0062a85aecac69ee4004473f185cb3bd53cd05dcf1d8b9ded166928d869baca",
+      "object_id": "quantization_evidence_c3cc2d76e4c7b793627054e49d494697",
+      "schema_id": "omiv.quantization-fidelity-evidence.v1"
+    }
+  ]
+}

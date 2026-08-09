@@ -1,0 +1,203 @@
+{
+  "candidate_observation": {
+    "object_digest": "31f1379da67f4fec057901f5d8ae6d3157a9999591a54aea228503f44ae06d43",
+    "object_id": "representation_observation_bf7495bd42a5d60df60af2bba4d92503",
+    "schema_id": "omiv.representation-observation.v1"
+  },
+  "correspondence": {
+    "object_digest": "e80b43452c0b2d22dfda7fa720b445e487d089f352715311f79c5bb6da47ef71",
+    "object_id": "tensor_correspondence_ff5f383353c0c27d8bcf97d60449614c",
+    "schema_id": "omiv.tensor-correspondence.v1"
+  },
+  "coverage": [
+    {
+      "denominator": 1,
+      "dimension": "SOURCE_ARTIFACT",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": 1,
+      "dimension": "CANDIDATE_ARTIFACT",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": 1,
+      "dimension": "SOURCE_TENSOR",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": 1,
+      "dimension": "CANDIDATE_TENSOR",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": 1,
+      "dimension": "MAPPED_TENSOR",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": 1,
+      "dimension": "MANDATORY_ROLE",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": 1,
+      "dimension": "NUMERICAL_TENSOR",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": 4,
+      "dimension": "NUMERICAL_ELEMENT",
+      "incomplete_reason": null,
+      "numerator": 4,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": 1,
+      "dimension": "QUANTIZATION_PARAMETER",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "status": "COMPLETE"
+    },
+    {
+      "denominator": null,
+      "dimension": "BYTE",
+      "incomplete_reason": "Tensor byte range was not separately measured.",
+      "numerator": 0,
+      "status": "UNAVAILABLE"
+    },
+    {
+      "denominator": 4,
+      "dimension": "SAMPLING",
+      "incomplete_reason": null,
+      "numerator": 4,
+      "status": "COMPLETE"
+    }
+  ],
+  "decimal_precision": 50,
+  "decimal_rounding": "ROUND_HALF_EVEN",
+  "failed_tensor_ids": [
+    "quantization_tensor_6aa7fcb9d1a7a6d9a850e4b31c3f275a"
+  ],
+  "limitations": [],
+  "measurement_digest": "689f3eb7c66859c17adaa48e29f2de75b4159dc703f6080d0b575298be5aba39",
+  "measurement_id": "quantization_measurement_187b55f89a9edcc9855b4dec3ccfa25e",
+  "metrics": [
+    {
+      "at_quantization_bound_count": null,
+      "candidate_tensor_id": "quantization_tensor_6aa7fcb9d1a7a6d9a850e4b31c3f275a",
+      "clipping_status": "CLIPPING_NOT_EVALUATED",
+      "compared_element_count": 4,
+      "cosine_similarity": {
+        "state": "AVAILABLE",
+        "value": "0.99493667632618202672604275135791708982174540829946"
+      },
+      "dot_product": {
+        "state": "AVAILABLE",
+        "value": "7"
+      },
+      "error_l2_norm": {
+        "state": "AVAILABLE",
+        "value": "0.5"
+      },
+      "exact_equality_count": 3,
+      "findings": [
+        "NUMERICAL_DIFFERENCE_OBSERVED"
+      ],
+      "maximum_absolute_error": {
+        "state": "AVAILABLE",
+        "value": "0.5"
+      },
+      "mean_absolute_error": {
+        "state": "AVAILABLE",
+        "value": "0.125"
+      },
+      "mean_squared_error": {
+        "state": "AVAILABLE",
+        "value": "0.0625"
+      },
+      "non_finite_reconstructed_count": 0,
+      "non_finite_source_count": 0,
+      "relative_l2_error": {
+        "state": "AVAILABLE",
+        "value": "0.20412414523193150818310700622549094933049562338806"
+      },
+      "root_mean_squared_error": {
+        "state": "AVAILABLE",
+        "value": "0.25"
+      },
+      "signed_mean_error": {
+        "state": "AVAILABLE",
+        "value": "0.125"
+      },
+      "source_l2_norm": {
+        "state": "AVAILABLE",
+        "value": "2.4494897427831780981972840747058913919659474806567"
+      },
+      "source_tensor_id": "quantization_tensor_849fe5140805a21403d29be274e841ce"
+    }
+  ],
+  "observation_level": "FULL_TENSOR_VALUES",
+  "parameter_observations": [
+    {
+      "object_digest": "e2a7e35913debedf5dc0115ac6f9a3fde68a8da0a8208af80b02e84a7c09c89c",
+      "object_id": "quantization_parameters_ea4d188f83fa729ef27836e1fd910801",
+      "schema_id": "omiv.quantization-parameter-observation.v1"
+    }
+  ],
+  "sample_definition": null,
+  "schema": "omiv.numerical-fidelity-measurement.v1",
+  "scope": {
+    "environment_scope": "environment.offline",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.quantization",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  },
+  "source_observation": {
+    "object_digest": "0a3914e629e2aa221b828c07538d288171e3491f7fdfe269f80178ee21897c39",
+    "object_id": "representation_observation_1925fb79225ead8924d63b53e54a7604",
+    "schema_id": "omiv.representation-observation.v1"
+  },
+  "status": "NUMERICALLY_EVALUATED_FOR_SCOPE",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "model.quantization-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.quantization",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "MODEL_WEIGHTS",
+    "subject_digest": "eb01a7e4bd6121bfa6e364f1fe9b1b48210b81114339097f547f3e554c66713e",
+    "subject_id": "product_subject_15a44f47d7c28c392be4b014eca26bdc"
+  },
+  "total_evaluated_elements": 4,
+  "unweighted_aggregate_semantics": "No aggregate average suppresses a tensor finding.",
+  "weighted_aggregate_semantics": "Element-count weighting; per-tensor failures retained.",
+  "worst_metric_name": "maximum_absolute_error",
+  "worst_metric_value": "0.5"
+}

@@ -1,0 +1,23 @@
+{
+  "case_id": "deterministic-sample",
+  "exercised_invariant": "Identity-bound sampling is reproducible.",
+  "limitations": [
+    "Synthetic bounded result; invalid inputs are retained as deterministic rejection outcomes."
+  ],
+  "numerical_status": "SAMPLED_WITHIN_POLICY",
+  "observed_findings": [
+    "DETERMINISTIC_SAMPLE"
+  ],
+  "outcome": "PASS",
+  "result_digest": "c991557cd8d818ab33828f43c37afdf967b617a82392c272e767c30efaeb8316",
+  "result_id": "quantization_example_result_2febacf5974622b4fd6c8e4014829faa",
+  "schema": "omiv.quantization-example-result.v1",
+  "structural_status": "STRUCTURALLY_CONSISTENT_FOR_SCOPE",
+  "upstream_objects": [
+    {
+      "object_digest": "861e5ccb7d57885486f9ac5e11b7dafbd0fef480262d0da3134d195caa47fece",
+      "object_id": "quantization_evidence_e6d2b534a1398275c86f0b51a3373e69",
+      "schema_id": "omiv.quantization-fidelity-evidence.v1"
+    }
+  ]
+}

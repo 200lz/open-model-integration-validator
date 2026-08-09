@@ -1,0 +1,291 @@
+{
+  "envelope_digest": "cc862d405226407cc9e444f8ec25865b5f143c9cc31b464c40c3825ae9a38c59",
+  "envelope_id": "soe_e8d9bbe56926f52cfc12dc58fda0f8ad",
+  "key_records": [
+    {
+      "algorithm": "ED25519",
+      "allowed_key_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "allowed_object_types": [
+        "QUANTIZATION_FIDELITY_EVIDENCE",
+        "QUANTIZATION_RELATIONSHIP_DECLARATION",
+        "REPRESENTATION_OBSERVATION"
+      ],
+      "allowed_purposes": [
+        "QUANTIZATION_FIDELITY_EVIDENCE_ISSUANCE",
+        "QUANTIZATION_RELATIONSHIP_DECLARATION_ISSUANCE",
+        "REPRESENTATION_OBSERVATION_ISSUANCE"
+      ],
+      "key_digest": "f55dcd7ecbf69ee007693e49ba1b246f125961ec2c9a359f7b35973a3be43357",
+      "key_id": "key_58424df53f1a92823facb1f77270bce1",
+      "limitations": [
+        "Public-key identity does not establish signer identity."
+      ],
+      "namespaces": [],
+      "provider_artifact_scopes": [],
+      "public_key": "6d44f939f829d43598bcdedda90de01db69faa50caa33e8c6c328a4b900d4dac",
+      "public_key_digest": "58424df53f1a92823facb1f77270bce1da39bd484b56dd28814e9c707a3ec2fb",
+      "public_key_encoding": "RAW_HEX",
+      "schema": "omiv.key-identity.v1",
+      "status": "ACTIVE",
+      "validity": null
+    }
+  ],
+  "limitations": [
+    "The canonical source object is unchanged; trust is reconstructed externally."
+  ],
+  "schema": "omiv.signed-object-envelope.v1",
+  "signatures": [
+    {
+      "algorithm": "ED25519",
+      "binding_id": "binding_466d761f2e2e35360089808f8ecd3a30",
+      "detached_signature": "6a65de69e75d5d820d62e006de7564306675f9c534f74e5d70ef9a8d38beee96d68eb81469ca6a1859cb9837bf1ea7e6e8ec2c5ef7fc140c750704142c43d104",
+      "key_id": "key_58424df53f1a92823facb1f77270bce1",
+      "limitations": [
+        "Signature integrity does not prove the underlying claim is true."
+      ],
+      "payload": {
+        "canonicalization_version": "omiv-json-v1",
+        "digest_algorithm": "SHA-256",
+        "domain": "OMIV-SIGNED-OBJECT-V1",
+        "key_usage": "SIGN_OMIV_OBJECT",
+        "namespace": null,
+        "provider_artifact_scope": null,
+        "schema": "omiv.signature-payload.v1",
+        "signature_purpose": "REPRESENTATION_OBSERVATION_ISSUANCE",
+        "signed_object_digest": "02dc2e7c3dd1dacb09d4fab7a71937651a06e615a133f8339f88c395a80849f2",
+        "signed_object_id": "representation_observation_1925fb79225ead8924d63b53e54a7604",
+        "signed_object_schema": "omiv.representation-observation.v1",
+        "signed_object_type": "REPRESENTATION_OBSERVATION",
+        "trust_policy_id": "omiv.trust-policy.team_release.v1"
+      },
+      "purpose": "REPRESENTATION_OBSERVATION_ISSUANCE",
+      "schema": "omiv.signature-record.v1",
+      "signature_digest": "2cf09be54777aa9e5f92f953895df7592c109e68a3797f3ef33b49d3202b0d78",
+      "signature_encoding": "RAW_HEX",
+      "signature_id": "sig_8ffaf7334318387683e16b354255b172",
+      "trust_policy_id": "omiv.trust-policy.team_release.v1"
+    }
+  ],
+  "signed_object": {
+    "artifact": {
+      "artifact_name": "source-values",
+      "artifact_set_identity": "39b0d3f25070311f25da3f5b2d3d0cb7e683da5923b8ee62d8e0dea6233c91e4",
+      "availability": "EXACT_LOCAL_PAYLOAD_IDENTITY_AVAILABLE",
+      "coverage": "complete.declared-local-file-scope",
+      "identity_semantics": "phase6a.observed-payload-manifest",
+      "limitations": [
+        "Synthetic fixture identity is not a real model artifact."
+      ],
+      "local_payload_manifest": {
+        "object_digest": "6bc84a8e210fbf181e9450247d4f2c4f2b4059c8d260c64cae97438fed542e3a",
+        "object_id": "observed_payload_76389812ea122dc14f6cec05955f4a20",
+        "schema_id": "omiv.observed-payload-manifest.v1"
+      },
+      "namespace": "quantization-fixtures",
+      "provider": "omiv-synthetic",
+      "remote_snapshot": null,
+      "requested_revision": "fixture-v1",
+      "resolved_revision": "fixture-v1",
+      "role": "SOURCE",
+      "subject_id": "product_subject_15a44f47d7c28c392be4b014eca26bdc"
+    },
+    "available_at": "NOT_RECORDED",
+    "coverage": [
+      {
+        "denominator": 1,
+        "dimension": "SOURCE_ARTIFACT",
+        "incomplete_reason": null,
+        "numerator": 1,
+        "status": "COMPLETE"
+      },
+      {
+        "denominator": 1,
+        "dimension": "CANDIDATE_ARTIFACT",
+        "incomplete_reason": null,
+        "numerator": 1,
+        "status": "COMPLETE"
+      },
+      {
+        "denominator": 1,
+        "dimension": "SOURCE_TENSOR",
+        "incomplete_reason": null,
+        "numerator": 1,
+        "status": "COMPLETE"
+      },
+      {
+        "denominator": 1,
+        "dimension": "CANDIDATE_TENSOR",
+        "incomplete_reason": null,
+        "numerator": 1,
+        "status": "COMPLETE"
+      },
+      {
+        "denominator": 1,
+        "dimension": "MAPPED_TENSOR",
+        "incomplete_reason": null,
+        "numerator": 1,
+        "status": "COMPLETE"
+      },
+      {
+        "denominator": 1,
+        "dimension": "MANDATORY_ROLE",
+        "incomplete_reason": null,
+        "numerator": 1,
+        "status": "COMPLETE"
+      },
+      {
+        "denominator": 1,
+        "dimension": "NUMERICAL_TENSOR",
+        "incomplete_reason": null,
+        "numerator": 1,
+        "status": "COMPLETE"
+      },
+      {
+        "denominator": 4,
+        "dimension": "NUMERICAL_ELEMENT",
+        "incomplete_reason": null,
+        "numerator": 4,
+        "status": "COMPLETE"
+      },
+      {
+        "denominator": 1,
+        "dimension": "QUANTIZATION_PARAMETER",
+        "incomplete_reason": null,
+        "numerator": 1,
+        "status": "COMPLETE"
+      },
+      {
+        "denominator": null,
+        "dimension": "BYTE",
+        "incomplete_reason": "Tensor byte range was not separately measured.",
+        "numerator": 0,
+        "status": "UNAVAILABLE"
+      },
+      {
+        "denominator": 4,
+        "dimension": "SAMPLING",
+        "incomplete_reason": null,
+        "numerator": 4,
+        "status": "COMPLETE"
+      }
+    ],
+    "execution": {
+      "object_digest": "5ffcfad2972a20c6dd71109b7917efe9295e2476bec00fb13c7a0e5425b374f1",
+      "object_id": "quantization_execution_2e0487dcc3019d046fd7dbea9b2becf5",
+      "schema_id": "omiv.quantization-execution-record.v1"
+    },
+    "format_descriptor": {
+      "bit_width": 32,
+      "block_size": null,
+      "byte_order": "NOT_APPLICABLE",
+      "clipping_behavior": "OBSERVED_SATURATION_COUNT_WHEN_AVAILABLE",
+      "codebook_identity": null,
+      "exceptional_value_handling": "REJECT_NON_FINITE",
+      "format_identifier": "omiv.synthetic.normalized-values",
+      "format_version": "v1",
+      "group_size": null,
+      "logical_reconstructed_dtype": "float32",
+      "numerical_codec": "UNQUANTIZED_IDENTITY",
+      "observation_level": "FULL_TENSOR_VALUES",
+      "packing_order": "NOT_APPLICABLE",
+      "parameter_provenance": "OBSERVED_FROM_PAYLOAD",
+      "quantization_axis": null,
+      "rounding_mode": "ROUND_HALF_EVEN",
+      "scale_representation": null,
+      "scheme_family": "UNQUANTIZED",
+      "signed": true,
+      "storage_dtype": "float32",
+      "zero_point_representation": null
+    },
+    "limitations": [],
+    "observation_digest": "0a3914e629e2aa221b828c07538d288171e3491f7fdfe269f80178ee21897c39",
+    "observation_id": "representation_observation_1925fb79225ead8924d63b53e54a7604",
+    "observed_at": "NOT_RECORDED",
+    "representation_role": "SOURCE",
+    "schema": "omiv.representation-observation.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.quantization",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject": {
+      "limitations": [
+        "Logical product subject identity does not prove artifact content."
+      ],
+      "logical_name": "model.quantization-synthetic",
+      "schema": "omiv.product-subject.v1",
+      "scope": {
+        "environment_scope": "environment.offline",
+        "organization_scope": "organization.synthetic",
+        "product_scope": "product.generic-inference",
+        "project_scope": "project.quantization",
+        "target_scope": "target-scope.runtime",
+        "tenant_scope": "tenant.synthetic",
+        "trust_domain": "trust-domain.synthetic"
+      },
+      "subject_class": "MODEL_WEIGHTS",
+      "subject_digest": "eb01a7e4bd6121bfa6e364f1fe9b1b48210b81114339097f547f3e554c66713e",
+      "subject_id": "product_subject_15a44f47d7c28c392be4b014eca26bdc"
+    },
+    "tensors": [
+      {
+        "artifact_identity": "39b0d3f25070311f25da3f5b2d3d0cb7e683da5923b8ee62d8e0dea6233c91e4",
+        "byte_length": null,
+        "byte_offset": null,
+        "content_digest": null,
+        "limitations": [],
+        "logical_dtype": "float32",
+        "logical_element_count": 4,
+        "logical_name": "model/weight",
+        "member_identity": "source-values.json",
+        "observation_level": "FULL_TENSOR_VALUES",
+        "observed_element_count": 4,
+        "provenance": "OBSERVED_FROM_PAYLOAD",
+        "quantization": {
+          "bit_width": 32,
+          "block_size": null,
+          "byte_order": "NOT_APPLICABLE",
+          "clipping_behavior": "OBSERVED_SATURATION_COUNT_WHEN_AVAILABLE",
+          "codebook_identity": null,
+          "exceptional_value_handling": "REJECT_NON_FINITE",
+          "format_identifier": "omiv.synthetic.normalized-values",
+          "format_version": "v1",
+          "group_size": null,
+          "logical_reconstructed_dtype": "float32",
+          "numerical_codec": "UNQUANTIZED_IDENTITY",
+          "observation_level": "FULL_TENSOR_VALUES",
+          "packing_order": "NOT_APPLICABLE",
+          "parameter_provenance": "OBSERVED_FROM_PAYLOAD",
+          "quantization_axis": null,
+          "rounding_mode": "ROUND_HALF_EVEN",
+          "scale_representation": null,
+          "scheme_family": "UNQUANTIZED",
+          "signed": true,
+          "storage_dtype": "float32",
+          "zero_point_representation": null
+        },
+        "rank": 1,
+        "role": "PRIMARY_WEIGHT",
+        "role_detail": null,
+        "schema": "omiv.tensor-representation-record.v1",
+        "shape": [
+          4
+        ],
+        "storage_dtype": "float32",
+        "tensor_digest": "665ac0d1a7cfd54bc8286dca1d4d897c1c42ff151b595574fcee36e5b0c604ca",
+        "tensor_id": "quantization_tensor_849fe5140805a21403d29be274e841ce"
+      }
+    ]
+  },
+  "signed_object_digest": "02dc2e7c3dd1dacb09d4fab7a71937651a06e615a133f8339f88c395a80849f2",
+  "signed_object_id": "representation_observation_1925fb79225ead8924d63b53e54a7604",
+  "signed_object_schema": "omiv.representation-observation.v1",
+  "signed_object_type": "REPRESENTATION_OBSERVATION",
+  "trust_policy_id": "omiv.trust-policy.team_release.v1"
+}

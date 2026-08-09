@@ -1,0 +1,23 @@
+{
+  "case_id": "affine-within-policy",
+  "exercised_invariant": "Explicit affine reconstruction is within policy.",
+  "limitations": [
+    "Synthetic bounded result; invalid inputs are retained as deterministic rejection outcomes."
+  ],
+  "numerical_status": "EXACT_FOR_EVALUATED_SCOPE",
+  "observed_findings": [
+    "AFFINE_WITHIN_POLICY"
+  ],
+  "outcome": "PASS",
+  "result_digest": "f75e391208bede387db1d76459faef1f051277320322d577f937c3e9a5a9f937",
+  "result_id": "quantization_example_result_21950799ee51a5ae56bc89c01187ea86",
+  "schema": "omiv.quantization-example-result.v1",
+  "structural_status": "STRUCTURALLY_CONSISTENT_FOR_SCOPE",
+  "upstream_objects": [
+    {
+      "object_digest": "3d47aa9301116134bf1426918ef843ff3c86ca5922a1892fe832bbacf235cd03",
+      "object_id": "quantization_evidence_72e90a1686f2c695d8fc6d50199a6d4d",
+      "schema_id": "omiv.quantization-fidelity-evidence.v1"
+    }
+  ]
+}

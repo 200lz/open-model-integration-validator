@@ -1,0 +1,252 @@
+{
+  "authority_evaluation": {
+    "object_digest": "0ce227cb4668a4faa8a33fff56079d7e1c8724966cf5fabfd8be8911ca730358",
+    "object_id": "quantization_authority_dfbb36e119061aa4341885c625b812b0",
+    "schema_id": "omiv.quantization-authority-evaluation.v1"
+  },
+  "comparison": {
+    "object_digest": "7f7c8b78cf3a14be889bcb652b434afa3d976efb5d0f2e55d8be1d7000dbabd3",
+    "object_id": "quantization_comparison_55fff28532e091720b3348bf688ac2b8",
+    "schema_id": "omiv.quantization-fidelity-comparison.v1"
+  },
+  "evaluated_at": "NOT_RECORDED",
+  "evaluation_digest": "02a972a9d9d57d4f1daa40e482e2fce5cbbac4ae19c3b58f1212e2cc72300885",
+  "evaluation_id": "quantization_policy_evaluation_4e733c04e440bf9fbe73633dc3c1b677",
+  "limitations": [
+    "A policy result is scope-qualified and is not deployment approval."
+  ],
+  "overall_status": "CONFORMS_FOR_DECLARED_SCOPE",
+  "policy": {
+    "object_digest": "44013fea1bb337ca7bfa412800bddb6cbbda8f5ed06b6e015c68a1a5f1268cbd",
+    "object_id": "quantization_policy_75c91137685ec8afcdad7fcfa6cec014",
+    "schema_id": "omiv.quantization-fidelity-policy.v1"
+  },
+  "policy_satisfied_for_declared_scope": true,
+  "requirements": [
+    {
+      "detail": "scheme.family was evaluated without strengthening evidence scope.",
+      "observed_value": "UNIFORM_AFFINE_INTEGER",
+      "required_value": "UNQUANTIZED,UNIFORM_AFFINE_INTEGER",
+      "requirement": "scheme.family",
+      "status": "POLICY_REQUIREMENT_SATISFIED",
+      "tensor_ids": []
+    },
+    {
+      "detail": "artifact.identity-level was evaluated without strengthening evidence scope.",
+      "observed_value": "EXACT_LOCAL_PAYLOAD_IDENTITY_AVAILABLE",
+      "required_value": "EXACT_LOCAL_PAYLOAD_IDENTITY_AVAILABLE",
+      "requirement": "artifact.identity-level",
+      "status": "POLICY_REQUIREMENT_SATISFIED",
+      "tensor_ids": []
+    },
+    {
+      "detail": "artifact.source.available was evaluated without strengthening evidence scope.",
+      "observed_value": "EXACT_LOCAL_PAYLOAD_IDENTITY_AVAILABLE",
+      "required_value": "INDETERMINATE",
+      "requirement": "artifact.source.available",
+      "status": "POLICY_REQUIREMENT_SATISFIED",
+      "tensor_ids": []
+    },
+    {
+      "detail": "artifact.candidate.available was evaluated without strengthening evidence scope.",
+      "observed_value": "EXACT_LOCAL_PAYLOAD_IDENTITY_AVAILABLE",
+      "required_value": "INDETERMINATE",
+      "requirement": "artifact.candidate.available",
+      "status": "POLICY_REQUIREMENT_SATISFIED",
+      "tensor_ids": []
+    },
+    {
+      "detail": "format.supported was evaluated without strengthening evidence scope.",
+      "observed_value": "SAMPLED_NUMERICALLY_EVALUATED",
+      "required_value": "INDETERMINATE",
+      "requirement": "format.supported",
+      "status": "POLICY_REQUIREMENT_SATISFIED",
+      "tensor_ids": []
+    },
+    {
+      "detail": "scope.non-empty-candidate-tensors was evaluated without strengthening evidence scope.",
+      "observed_value": "1",
+      "required_value": "at-least-one",
+      "requirement": "scope.non-empty-candidate-tensors",
+      "status": "POLICY_REQUIREMENT_SATISFIED",
+      "tensor_ids": []
+    },
+    {
+      "detail": "scope.non-empty-numerical-elements was evaluated without strengthening evidence scope.",
+      "observed_value": "2",
+      "required_value": "at-least-one",
+      "requirement": "scope.non-empty-numerical-elements",
+      "status": "POLICY_REQUIREMENT_SATISFIED",
+      "tensor_ids": []
+    },
+    {
+      "detail": "tensor.required-roles was evaluated without strengthening evidence scope.",
+      "observed_value": "PRIMARY_WEIGHT",
+      "required_value": "PRIMARY_WEIGHT",
+      "requirement": "tensor.required-roles",
+      "status": "POLICY_REQUIREMENT_SATISFIED",
+      "tensor_ids": []
+    },
+    {
+      "detail": "storage.dtype was evaluated without strengthening evidence scope.",
+      "observed_value": "int8",
+      "required_value": "float32,int8,uint8",
+      "requirement": "storage.dtype",
+      "status": "POLICY_REQUIREMENT_SATISFIED",
+      "tensor_ids": []
+    },
+    {
+      "detail": "logical.dtype was evaluated without strengthening evidence scope.",
+      "observed_value": "float32",
+      "required_value": "float32",
+      "requirement": "logical.dtype",
+      "status": "POLICY_REQUIREMENT_SATISFIED",
+      "tensor_ids": []
+    },
+    {
+      "detail": "coverage.tensor was evaluated without strengthening evidence scope.",
+      "observed_value": "1",
+      "required_value": "1",
+      "requirement": "coverage.tensor",
+      "status": "POLICY_REQUIREMENT_SATISFIED",
+      "tensor_ids": []
+    },
+    {
+      "detail": "coverage.element was evaluated without strengthening evidence scope.",
+      "observed_value": "0.5",
+      "required_value": "0.5",
+      "requirement": "coverage.element",
+      "status": "POLICY_REQUIREMENT_SATISFIED",
+      "tensor_ids": []
+    },
+    {
+      "detail": "coverage.byte was evaluated without strengthening evidence scope.",
+      "observed_value": "UNAVAILABLE_NOT_REQUIRED",
+      "required_value": "0",
+      "requirement": "coverage.byte",
+      "status": "POLICY_REQUIREMENT_NOT_APPLICABLE",
+      "tensor_ids": []
+    },
+    {
+      "detail": "coverage.parameter was evaluated without strengthening evidence scope.",
+      "observed_value": "1",
+      "required_value": "1",
+      "requirement": "coverage.parameter",
+      "status": "POLICY_REQUIREMENT_SATISFIED",
+      "tensor_ids": []
+    },
+    {
+      "detail": "sampling.permitted was evaluated without strengthening evidence scope.",
+      "observed_value": "true",
+      "required_value": "true",
+      "requirement": "sampling.permitted",
+      "status": "POLICY_REQUIREMENT_SATISFIED",
+      "tensor_ids": []
+    },
+    {
+      "detail": "sampling.maximum-gap was evaluated without strengthening evidence scope.",
+      "observed_value": "0.5",
+      "required_value": "0.99",
+      "requirement": "sampling.maximum-gap",
+      "status": "POLICY_REQUIREMENT_SATISFIED",
+      "tensor_ids": []
+    },
+    {
+      "detail": "metric.default.maximum_absolute_error was evaluated without strengthening evidence scope.",
+      "observed_value": "0",
+      "required_value": "0.25",
+      "requirement": "metric.default.maximum_absolute_error",
+      "status": "POLICY_REQUIREMENT_SATISFIED",
+      "tensor_ids": [
+        "quantization_tensor_6aa7fcb9d1a7a6d9a850e4b31c3f275a"
+      ]
+    },
+    {
+      "detail": "metric.default.maximum_mean_absolute_error was evaluated without strengthening evidence scope.",
+      "observed_value": "0",
+      "required_value": "0.1",
+      "requirement": "metric.default.maximum_mean_absolute_error",
+      "status": "POLICY_REQUIREMENT_SATISFIED",
+      "tensor_ids": [
+        "quantization_tensor_6aa7fcb9d1a7a6d9a850e4b31c3f275a"
+      ]
+    },
+    {
+      "detail": "metric.default.maximum_rmse was evaluated without strengthening evidence scope.",
+      "observed_value": "0",
+      "required_value": "0.15",
+      "requirement": "metric.default.maximum_rmse",
+      "status": "POLICY_REQUIREMENT_SATISFIED",
+      "tensor_ids": [
+        "quantization_tensor_6aa7fcb9d1a7a6d9a850e4b31c3f275a"
+      ]
+    },
+    {
+      "detail": "metric.default.maximum_relative_l2_error was evaluated without strengthening evidence scope.",
+      "observed_value": "0",
+      "required_value": "0.1",
+      "requirement": "metric.default.maximum_relative_l2_error",
+      "status": "POLICY_REQUIREMENT_SATISFIED",
+      "tensor_ids": [
+        "quantization_tensor_6aa7fcb9d1a7a6d9a850e4b31c3f275a"
+      ]
+    },
+    {
+      "detail": "metric.default.minimum_cosine_similarity was evaluated without strengthening evidence scope.",
+      "observed_value": "1",
+      "required_value": "0.99",
+      "requirement": "metric.default.minimum_cosine_similarity",
+      "status": "POLICY_REQUIREMENT_SATISFIED",
+      "tensor_ids": [
+        "quantization_tensor_6aa7fcb9d1a7a6d9a850e4b31c3f275a"
+      ]
+    },
+    {
+      "detail": "metric.default.maximum_bias was evaluated without strengthening evidence scope.",
+      "observed_value": "0",
+      "required_value": "0.1",
+      "requirement": "metric.default.maximum_bias",
+      "status": "POLICY_REQUIREMENT_SATISFIED",
+      "tensor_ids": [
+        "quantization_tensor_6aa7fcb9d1a7a6d9a850e4b31c3f275a"
+      ]
+    },
+    {
+      "detail": "non-finite.values was evaluated without strengthening evidence scope.",
+      "observed_value": "0",
+      "required_value": "0",
+      "requirement": "non-finite.values",
+      "status": "POLICY_REQUIREMENT_SATISFIED",
+      "tensor_ids": []
+    }
+  ],
+  "schema": "omiv.quantization-policy-evaluation.v1",
+  "scope": {
+    "environment_scope": "environment.offline",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.quantization",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  },
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "model.quantization-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.quantization",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "MODEL_WEIGHTS",
+    "subject_digest": "eb01a7e4bd6121bfa6e364f1fe9b1b48210b81114339097f547f3e554c66713e",
+    "subject_id": "product_subject_15a44f47d7c28c392be4b014eca26bdc"
+  }
+}

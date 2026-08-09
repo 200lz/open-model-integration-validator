@@ -1,0 +1,97 @@
+{
+  "available_at": "NOT_RECORDED",
+  "completion_state": "COMPLETE",
+  "effective_limits": {
+    "maximum_artifact_members": 100000,
+    "maximum_canonical_string_length": 1024,
+    "maximum_correspondence_records": 100000,
+    "maximum_dependency_graph_edges": 1000000,
+    "maximum_dependency_graph_nodes": 200000,
+    "maximum_dimensions_per_tensor": 16,
+    "maximum_findings": 200000,
+    "maximum_fully_compared_elements": 10000000,
+    "maximum_generated_artifact_count": 140,
+    "maximum_generated_metadata_bytes": 67108864,
+    "maximum_json_bytes": 67108864,
+    "maximum_json_nesting": 64,
+    "maximum_logical_elements_per_tensor": 100000000,
+    "maximum_mapping_fan_in": 64,
+    "maximum_mapping_fan_out": 64,
+    "maximum_payload_bytes_per_file": 268435456,
+    "maximum_quantization_parameter_records": 100000,
+    "maximum_report_reconstruction_nodes": 200000,
+    "maximum_sample_elements_per_tensor": 100000,
+    "maximum_streaming_chunk_size": 4194304,
+    "maximum_tensor_rank": 16,
+    "maximum_tensor_records": 100000,
+    "maximum_total_logical_elements": 1000000000,
+    "maximum_total_payload_bytes": 1073741824,
+    "maximum_total_sampled_elements": 1000000,
+    "maximum_traversal_depth": 128
+  },
+  "evaluated_at": "NOT_RECORDED",
+  "execution_digest": "5ffcfad2972a20c6dd71109b7917efe9295e2476bec00fb13c7a0e5425b374f1",
+  "execution_id": "quantization_execution_2e0487dcc3019d046fd7dbea9b2becf5",
+  "failure_class": "NONE",
+  "limitations": [],
+  "model_execution": "NOT_PERFORMED",
+  "network_use": "NONE",
+  "observed_at": "NOT_RECORDED",
+  "payload_bytes_read": 301,
+  "plan": {
+    "object_digest": "c0b47d941c7d2f4a2e283e13f85b6047686a859edcf58c4be39cf230f62b322b",
+    "object_id": "quantization_plan_7771e7b466e6a233342f4c99e5011301",
+    "schema_id": "omiv.quantization-observation-plan.v1"
+  },
+  "result_reference_status": "LINKED_DOWNSTREAM_BY_OBSERVATIONS",
+  "schema": "omiv.quantization-execution-record.v1",
+  "scope": {
+    "environment_scope": "environment.offline",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.quantization",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  },
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "model.quantization-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.quantization",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "MODEL_WEIGHTS",
+    "subject_digest": "eb01a7e4bd6121bfa6e364f1fe9b1b48210b81114339097f547f3e554c66713e",
+    "subject_id": "product_subject_15a44f47d7c28c392be4b014eca26bdc"
+  },
+  "supplied_inputs": [
+    {
+      "object_digest": "6bc84a8e210fbf181e9450247d4f2c4f2b4059c8d260c64cae97438fed542e3a",
+      "object_id": "observed_payload_76389812ea122dc14f6cec05955f4a20",
+      "schema_id": "omiv.observed-payload-manifest.v1"
+    },
+    {
+      "object_digest": "96c1a06384d2f65d7b4e347d5b65c81f382d4c3a1913199cb40aade6abc64b8f",
+      "object_id": "observed_payload_b5abd0fec66ba22e6e2600f003ab12f2",
+      "schema_id": "omiv.observed-payload-manifest.v1"
+    },
+    {
+      "object_digest": "84f3a52466244cb3963afb79bd31b6ea660818faff3b7914d5d6412cdd35f2a7",
+      "object_id": "remote_snapshot_232b98bcf40f8c2a6778de64edec0da3",
+      "schema_id": "omiv.remote-snapshot-manifest.v1"
+    }
+  ],
+  "tensor_records_processed": 2,
+  "tool_id": "omiv.quantization.offline-v1",
+  "tool_version": "phase-6c-v1",
+  "values_processed": 8
+}

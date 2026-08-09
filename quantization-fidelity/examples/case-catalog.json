@@ -1,0 +1,318 @@
+{
+  "cases": [
+    {
+      "case_id": "affine-outside-policy",
+      "description": "All threshold failures remain visible.",
+      "expected_numerical_status": "OUTSIDE_POLICY_FOR_EVALUATED_SCOPE",
+      "expected_structural_status": "STRUCTURALLY_CONSISTENT_FOR_SCOPE",
+      "limitations": [
+        "Synthetic engineering example; not a model quality claim."
+      ],
+      "representative_object": {
+        "object_digest": "48a6833a4a0a2dad5b761e46c2125ead318010437abce666ff6fa5288536206b",
+        "object_id": "quantization_example_result_b61306fd255f3d59772c8b100857490f",
+        "schema_id": "omiv.quantization-example-result.v1"
+      }
+    },
+    {
+      "case_id": "affine-within-policy",
+      "description": "Explicit affine reconstruction is within policy.",
+      "expected_numerical_status": "EXACT_FOR_EVALUATED_SCOPE",
+      "expected_structural_status": "STRUCTURALLY_CONSISTENT_FOR_SCOPE",
+      "limitations": [
+        "Synthetic engineering example; not a model quality claim."
+      ],
+      "representative_object": {
+        "object_digest": "f75e391208bede387db1d76459faef1f051277320322d577f937c3e9a5a9f937",
+        "object_id": "quantization_example_result_21950799ee51a5ae56bc89c01187ea86",
+        "schema_id": "omiv.quantization-example-result.v1"
+      }
+    },
+    {
+      "case_id": "ambiguous-mapping",
+      "description": "Ambiguous correspondence is not numerically evaluated.",
+      "expected_numerical_status": "NOT_EVALUATED",
+      "expected_structural_status": "TENSOR_MAPPING_AMBIGUOUS",
+      "limitations": [
+        "Synthetic engineering example; not a model quality claim."
+      ],
+      "representative_object": {
+        "object_digest": "926dfe6cc7dcb158feac53849e6d236be9c3f0d4e3a0ec21c8d4dcf78831095f",
+        "object_id": "quantization_example_result_eb89bb956fb22d990368d7c80579a2ed",
+        "schema_id": "omiv.quantization-example-result.v1"
+      }
+    },
+    {
+      "case_id": "deterministic-sample",
+      "description": "Identity-bound sampling is reproducible.",
+      "expected_numerical_status": "SAMPLED_WITHIN_POLICY",
+      "expected_structural_status": "STRUCTURALLY_CONSISTENT_FOR_SCOPE",
+      "limitations": [
+        "Synthetic engineering example; not a model quality claim."
+      ],
+      "representative_object": {
+        "object_digest": "c991557cd8d818ab33828f43c37afdf967b617a82392c272e767c30efaeb8316",
+        "object_id": "quantization_example_result_2febacf5974622b4fd6c8e4014829faa",
+        "schema_id": "omiv.quantization-example-result.v1"
+      }
+    },
+    {
+      "case_id": "exact-phase6a-binding",
+      "description": "Local byte identity is supplied by Phase 6A.",
+      "expected_numerical_status": "EXACT_FOR_EVALUATED_SCOPE",
+      "expected_structural_status": "STRUCTURALLY_CONSISTENT_FOR_SCOPE",
+      "limitations": [
+        "Synthetic engineering example; not a model quality claim."
+      ],
+      "representative_object": {
+        "object_digest": "6682b5bdc384dbfd62c3c75886fd4c6f7e80aac4e39283045f1f2505700490ac",
+        "object_id": "quantization_example_result_6c0a62d5894792aaf434a71d1da0747c",
+        "schema_id": "omiv.quantization-example-result.v1"
+      }
+    },
+    {
+      "case_id": "exact-unquantized-identity",
+      "description": "Exact identity semantics are supported and tested.",
+      "expected_numerical_status": "EXACT_FOR_EVALUATED_SCOPE",
+      "expected_structural_status": "STRUCTURALLY_CONSISTENT_FOR_SCOPE",
+      "limitations": [
+        "Synthetic engineering example; not a model quality claim."
+      ],
+      "representative_object": {
+        "object_digest": "d2e7b2e6f8483f4b496a66a8030d8e0e6791e428cac27ea71c560c530cfeab32",
+        "object_id": "quantization_example_result_5c018bc7943c61bd020061245393d152",
+        "schema_id": "omiv.quantization-example-result.v1"
+      }
+    },
+    {
+      "case_id": "invalid-zero-point",
+      "description": "Unrepresentable zero point is invalid.",
+      "expected_numerical_status": "INVALID",
+      "expected_structural_status": "INVALID",
+      "limitations": [
+        "Synthetic engineering example; not a model quality claim."
+      ],
+      "representative_object": {
+        "object_digest": "e3d68f15d247cf4e786d46db427c0571d2ee73773a8ddc07c8fa89fe72387ae9",
+        "object_id": "quantization_example_result_30ec067ca227194440ee3876526bf3b3",
+        "schema_id": "omiv.quantization-example-result.v1"
+      }
+    },
+    {
+      "case_id": "limit-exceeded",
+      "description": "Bound violations return LIMIT_EXCEEDED without truncation.",
+      "expected_numerical_status": "INVALID",
+      "expected_structural_status": "INVALID",
+      "limitations": [
+        "Synthetic engineering example; not a model quality claim."
+      ],
+      "representative_object": {
+        "object_digest": "4d42eb5180f1d5fdc461a6bf7ebb14cfad83e151f996f10838171cf21f4f9b3b",
+        "object_id": "quantization_example_result_8b0a48bc36c2f7f34eab46825e5528fd",
+        "schema_id": "omiv.quantization-example-result.v1"
+      }
+    },
+    {
+      "case_id": "metadata-only",
+      "description": "Metadata does not become numerical evidence.",
+      "expected_numerical_status": "PAYLOAD_VALUES_UNAVAILABLE",
+      "expected_structural_status": "STRUCTURAL_INFORMATION_INCOMPLETE",
+      "limitations": [
+        "Synthetic engineering example; not a model quality claim."
+      ],
+      "representative_object": {
+        "object_digest": "817c0364d9b85348a3d16dfaf471286aa7456ecbc9a11888e4020f79e0cd66c4",
+        "object_id": "quantization_example_result_6644a4ab2a1dab2a8d12ede336d7bad0",
+        "schema_id": "omiv.quantization-example-result.v1"
+      }
+    },
+    {
+      "case_id": "missing-mandatory-tensor",
+      "description": "Mandatory-role gaps remain explicit.",
+      "expected_numerical_status": "INSUFFICIENT_NUMERICAL_COVERAGE",
+      "expected_structural_status": "STRUCTURAL_MISMATCH",
+      "limitations": [
+        "Synthetic engineering example; not a model quality claim."
+      ],
+      "representative_object": {
+        "object_digest": "301647f465f38dd9f1ea0bd5a15c2e35ce68da5739d78a1744230f685e173c9d",
+        "object_id": "quantization_example_result_1aab6bda04d8335c09be8f344c1e0559",
+        "schema_id": "omiv.quantization-example-result.v1"
+      }
+    },
+    {
+      "case_id": "missing-scale",
+      "description": "Missing affine scale fails closed.",
+      "expected_numerical_status": "NOT_EVALUATED",
+      "expected_structural_status": "QUANTIZATION_PARAMETERS_INCOMPLETE",
+      "limitations": [
+        "Synthetic engineering example; not a model quality claim."
+      ],
+      "representative_object": {
+        "object_digest": "be1ff3836da27e3da0d53b85c7a9ac5c5d5068f01d348fdb365d1c3367551217",
+        "object_id": "quantization_example_result_5e3723242d9922800ee1c46590a2733b",
+        "schema_id": "omiv.quantization-example-result.v1"
+      }
+    },
+    {
+      "case_id": "model-a-authority-not-model-b",
+      "description": "Authority is subject and scope bound.",
+      "expected_numerical_status": "NOT_EVALUATED",
+      "expected_structural_status": "STRUCTURALLY_CONSISTENT_FOR_SCOPE",
+      "limitations": [
+        "Synthetic engineering example; not a model quality claim."
+      ],
+      "representative_object": {
+        "object_digest": "cf4094ff422a214ece684fda4a7f0fc44e3d914e2e974d09e5b44a29a1606fa1",
+        "object_id": "quantization_example_result_23e3a3fdc4793af0f37ca9d95d53c602",
+        "schema_id": "omiv.quantization-example-result.v1"
+      }
+    },
+    {
+      "case_id": "non-finite-rejected",
+      "description": "Non-finite inputs are rejected before canonical output.",
+      "expected_numerical_status": "INVALID",
+      "expected_structural_status": "INVALID",
+      "limitations": [
+        "Synthetic engineering example; not a model quality claim."
+      ],
+      "representative_object": {
+        "object_digest": "3eebc3fae4575330b203b24de6c8e9d478f2d34ccac729f0849b29755a185169",
+        "object_id": "quantization_example_result_26b464f0f92935276088f6ef31a493b2",
+        "schema_id": "omiv.quantization-example-result.v1"
+      }
+    },
+    {
+      "case_id": "one-to-many-no-recipe",
+      "description": "Structural mapping needs an explicit reconstruction recipe.",
+      "expected_numerical_status": "NOT_EVALUATED",
+      "expected_structural_status": "STRUCTURAL_INFORMATION_INCOMPLETE",
+      "limitations": [
+        "Synthetic engineering example; not a model quality claim."
+      ],
+      "representative_object": {
+        "object_digest": "1121fce491d94e231d9dab6a0c0c2982ad0214c00ff8b636ca3f0ea4cffc7fd8",
+        "object_id": "quantization_example_result_1319815302818b46d6af9c58bbc927ab",
+        "schema_id": "omiv.quantization-example-result.v1"
+      }
+    },
+    {
+      "case_id": "phase6a-identity-mismatch",
+      "description": "Mismatched payload identity fails closed.",
+      "expected_numerical_status": "NOT_EVALUATED",
+      "expected_structural_status": "STRUCTURAL_MISMATCH",
+      "limitations": [
+        "Synthetic engineering example; not a model quality claim."
+      ],
+      "representative_object": {
+        "object_digest": "a2954dbc7b82758987d14d4b2adee09f723d35bfdc43d8d34a2b0b22ca03603c",
+        "object_id": "quantization_example_result_9a073ce4c2bfe938cee0859f17e64fba",
+        "schema_id": "omiv.quantization-example-result.v1"
+      }
+    },
+    {
+      "case_id": "phase6b-noncomparable-digest",
+      "description": "Provider object identities are not payload digests.",
+      "expected_numerical_status": "PAYLOAD_VALUES_UNAVAILABLE",
+      "expected_structural_status": "STRUCTURAL_INFORMATION_INCOMPLETE",
+      "limitations": [
+        "Synthetic engineering example; not a model quality claim."
+      ],
+      "representative_object": {
+        "object_digest": "0e8f1035862eaabb4647d62296cc07dfde49dee81f3432f768f34ef923643466",
+        "object_id": "quantization_example_result_987919d0a23280bd3d25c807f9b4508f",
+        "schema_id": "omiv.quantization-example-result.v1"
+      }
+    },
+    {
+      "case_id": "sample-not-complete",
+      "description": "A successful sample is not complete coverage.",
+      "expected_numerical_status": "SAMPLED_WITHIN_POLICY",
+      "expected_structural_status": "STRUCTURALLY_CONSISTENT_FOR_SCOPE",
+      "limitations": [
+        "Synthetic engineering example; not a model quality claim."
+      ],
+      "representative_object": {
+        "object_digest": "8765f7b263eb9dd61b8905b9fdfb816632fcca28034ddd8a2f735036e005e143",
+        "object_id": "quantization_example_result_79147e7c93cf5bfeb06fbe0d3793f520",
+        "schema_id": "omiv.quantization-example-result.v1"
+      }
+    },
+    {
+      "case_id": "shape-and-numerical-mismatch",
+      "description": "Shape and numerical findings are simultaneous.",
+      "expected_numerical_status": "OUTSIDE_POLICY_FOR_EVALUATED_SCOPE",
+      "expected_structural_status": "STRUCTURAL_MISMATCH",
+      "limitations": [
+        "Synthetic engineering example; not a model quality claim."
+      ],
+      "representative_object": {
+        "object_digest": "e62d9f4aed5d14f0d67ce60aafcb0cdad5cbade3da9daa13a81ef86e4c3657a4",
+        "object_id": "quantization_example_result_f40d63e3f563d363c59bc555937677e1",
+        "schema_id": "omiv.quantization-example-result.v1"
+      }
+    },
+    {
+      "case_id": "trusted-signer-no-transformer-authority",
+      "description": "Signature trust does not create transformer authority.",
+      "expected_numerical_status": "EXACT_FOR_EVALUATED_SCOPE",
+      "expected_structural_status": "STRUCTURALLY_CONSISTENT_FOR_SCOPE",
+      "limitations": [
+        "Synthetic engineering example; not a model quality claim."
+      ],
+      "representative_object": {
+        "object_digest": "08ea6ed03aea7b06573469e673beabc1987f6f0aa0f8e9e493de92ca63c17cf5",
+        "object_id": "quantization_example_result_0585f8bffd63d1239924487e68f73570",
+        "schema_id": "omiv.quantization-example-result.v1"
+      }
+    },
+    {
+      "case_id": "unsupported-opaque-format",
+      "description": "Opaque codecs never fall back to affine semantics.",
+      "expected_numerical_status": "FORMAT_NOT_NUMERICALLY_SUPPORTED",
+      "expected_structural_status": "FORMAT_UNSUPPORTED",
+      "limitations": [
+        "Synthetic engineering example; not a model quality claim."
+      ],
+      "representative_object": {
+        "object_digest": "80e3b62cb4e0a99f868e45035f0765337b9af7d38d0a8700d0eeabbaca44f5a0",
+        "object_id": "quantization_example_result_2b496504e2e580f5aaba09ac6a71f396",
+        "schema_id": "omiv.quantization-example-result.v1"
+      }
+    },
+    {
+      "case_id": "xai-readiness-no-payload-candidate",
+      "description": "Pinned metadata records readiness without invented quantization facts.",
+      "expected_numerical_status": "NOT_EVALUATED",
+      "expected_structural_status": "NOT_EVALUATED",
+      "limitations": [
+        "Synthetic engineering example; not a model quality claim."
+      ],
+      "representative_object": {
+        "object_digest": "4831190f034ae02e17c240bce6edabc2817699ebb244cd85ee8d9200e9b1b2f6",
+        "object_id": "quantization_example_result_75fe7773d7b7f3e359adf0d1d9545945",
+        "schema_id": "omiv.quantization-example-result.v1"
+      }
+    },
+    {
+      "case_id": "zero-norm-semantics",
+      "description": "Zero denominators have explicit undefined states.",
+      "expected_numerical_status": "WITHIN_POLICY_FOR_EVALUATED_SCOPE",
+      "expected_structural_status": "STRUCTURALLY_CONSISTENT_FOR_SCOPE",
+      "limitations": [
+        "Synthetic engineering example; not a model quality claim."
+      ],
+      "representative_object": {
+        "object_digest": "fb629c614a827473eb22a383cc24b76bd299d542b34f85824b1bef5aeb415984",
+        "object_id": "quantization_example_result_57b05213ceba493736705d3bad12ab67",
+        "schema_id": "omiv.quantization-example-result.v1"
+      }
+    }
+  ],
+  "catalog_digest": "26d6f65353fc0d626cf9ba13d2bc174810a06ea00cc42ebdbf3b977320d9a626",
+  "catalog_id": "quantization_catalog_cc02d92cf219c80939936ab9b4cb108e",
+  "limitations": [
+    "Invalid examples are exercised as deterministic rejection tests rather than serialized invalid objects."
+  ],
+  "schema": "omiv.quantization-example-catalog.v1"
+}

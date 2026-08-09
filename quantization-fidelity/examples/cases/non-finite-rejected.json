@@ -1,0 +1,23 @@
+{
+  "case_id": "non-finite-rejected",
+  "exercised_invariant": "Non-finite inputs are rejected before canonical output.",
+  "limitations": [
+    "Synthetic bounded result; invalid inputs are retained as deterministic rejection outcomes."
+  ],
+  "numerical_status": "INVALID",
+  "observed_findings": [
+    "NON_FINITE_REJECTED"
+  ],
+  "outcome": "FAIL",
+  "result_digest": "3eebc3fae4575330b203b24de6c8e9d478f2d34ccac729f0849b29755a185169",
+  "result_id": "quantization_example_result_26b464f0f92935276088f6ef31a493b2",
+  "schema": "omiv.quantization-example-result.v1",
+  "structural_status": "INVALID",
+  "upstream_objects": [
+    {
+      "object_digest": "e0062a85aecac69ee4004473f185cb3bd53cd05dcf1d8b9ded166928d869baca",
+      "object_id": "quantization_evidence_c3cc2d76e4c7b793627054e49d494697",
+      "schema_id": "omiv.quantization-fidelity-evidence.v1"
+    }
+  ]
+}

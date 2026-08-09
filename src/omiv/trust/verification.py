@@ -33,6 +33,11 @@ from omiv.payload_integrity.models import (
     PayloadExpectation,
     PayloadIntegrityEvidence,
 )
+from omiv.quantization.models import (
+    QuantizationFidelityEvidence,
+    QuantizationRelationshipDeclaration,
+    RepresentationObservation,
+)
 from omiv.reconciliation.models import (
     RemoteLocalReconciliationEvidence,
     RemoteSnapshotExpectation,
@@ -348,6 +353,12 @@ def _validate_source_object(envelope: SignedObjectEnvelope) -> None:
         model = RemoteSnapshotExpectation
     elif envelope.signed_object_type == SignedObjectType.REMOTE_LOCAL_RECONCILIATION_EVIDENCE:
         model = RemoteLocalReconciliationEvidence
+    elif envelope.signed_object_type == SignedObjectType.QUANTIZATION_RELATIONSHIP_DECLARATION:
+        model = QuantizationRelationshipDeclaration
+    elif envelope.signed_object_type == SignedObjectType.REPRESENTATION_OBSERVATION:
+        model = RepresentationObservation
+    elif envelope.signed_object_type == SignedObjectType.QUANTIZATION_FIDELITY_EVIDENCE:
+        model = QuantizationFidelityEvidence
     elif envelope.signed_object_schema == "omiv.model-passport.v1":
         model = ModelPassport
     else:
@@ -389,6 +400,9 @@ def _validate_source_object(envelope: SignedObjectEnvelope) -> None:
         SignedObjectType.REMOTE_SNAPSHOT_MANIFEST: "manifest_digest",
         SignedObjectType.REMOTE_SNAPSHOT_EXPECTATION: "expectation_digest",
         SignedObjectType.REMOTE_LOCAL_RECONCILIATION_EVIDENCE: "evidence_digest",
+        SignedObjectType.QUANTIZATION_RELATIONSHIP_DECLARATION: "declaration_digest",
+        SignedObjectType.REPRESENTATION_OBSERVATION: "observation_digest",
+        SignedObjectType.QUANTIZATION_FIDELITY_EVIDENCE: "evidence_digest",
     }[envelope.signed_object_type]
     digest_body.pop(digest_field)
     if object_digest != canonical_sha256(digest_body):
@@ -728,6 +742,19 @@ def _trust_path(
 
 def _claim_summary(envelope: SignedObjectEnvelope) -> tuple[dict[str, Any], str]:
     value: Any = envelope.signed_object
+    if envelope.signed_object_type in {
+        SignedObjectType.QUANTIZATION_RELATIONSHIP_DECLARATION,
+        SignedObjectType.REPRESENTATION_OBSERVATION,
+        SignedObjectType.QUANTIZATION_FIDELITY_EVIDENCE,
+    }:
+        return {
+            "quantization_relationship": value.get("relationship_mode", "NOT_APPLICABLE"),
+            "structural_status": value.get("structural_status", "NOT_EVALUATED"),
+            "numerical_status": value.get("numerical_status", "NOT_EVALUATED"),
+            "publisher_authority_created_by_signature": False,
+            "transformation_authority_created_by_signature": False,
+            "behavioral_parity_proven": False,
+        }, "INCOMPLETE"
     if envelope.signed_object_type == SignedObjectType.ARTIFACT_ATTESTATION:
         summary = value.get("verification_summary", {})
         return {

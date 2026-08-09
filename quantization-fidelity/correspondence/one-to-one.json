@@ -1,0 +1,61 @@
+{
+  "candidate_observation": {
+    "object_digest": "31f1379da67f4fec057901f5d8ae6d3157a9999591a54aea228503f44ae06d43",
+    "object_id": "representation_observation_bf7495bd42a5d60df60af2bba4d92503",
+    "schema_id": "omiv.representation-observation.v1"
+  },
+  "correspondence_digest": "e80b43452c0b2d22dfda7fa720b445e487d089f352715311f79c5bb6da47ef71",
+  "correspondence_id": "tensor_correspondence_ff5f383353c0c27d8bcf97d60449614c",
+  "limitations": [],
+  "mapping_semantics": "EXPLICIT_ONLY",
+  "mappings": [
+    {
+      "candidate_tensor_ids": [
+        "quantization_tensor_6aa7fcb9d1a7a6d9a850e4b31c3f275a"
+      ],
+      "cardinality": "ONE_TO_ONE",
+      "limitations": [],
+      "mapping_digest": "06272b2cbedc097bd4faebf33f228468b01c04a3560b8d389340fef4252ed06b",
+      "mapping_id": "tensor_mapping_2400b5ea7f5f94776098ab5fea2ba501",
+      "numerical_status": "NUMERICALLY_EVALUABLE",
+      "reconstruction_recipe": null,
+      "source_tensor_ids": [
+        "quantization_tensor_849fe5140805a21403d29be274e841ce"
+      ]
+    }
+  ],
+  "schema": "omiv.tensor-correspondence.v1",
+  "scope": {
+    "environment_scope": "environment.offline",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.quantization",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  },
+  "source_observation": {
+    "object_digest": "0a3914e629e2aa221b828c07538d288171e3491f7fdfe269f80178ee21897c39",
+    "object_id": "representation_observation_1925fb79225ead8924d63b53e54a7604",
+    "schema_id": "omiv.representation-observation.v1"
+  },
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "model.quantization-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.quantization",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "MODEL_WEIGHTS",
+    "subject_digest": "eb01a7e4bd6121bfa6e364f1fe9b1b48210b81114339097f547f3e554c66713e",
+    "subject_id": "product_subject_15a44f47d7c28c392be4b014eca26bdc"
+  }
+}

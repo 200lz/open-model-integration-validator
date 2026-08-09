@@ -1,0 +1,25 @@
+{
+  "available_at": "NOT_RECORDED",
+  "creates_governance_approval": false,
+  "creates_observed_runtime_identity": false,
+  "creates_security_pass": false,
+  "derived_status": "EXPECTED_IDENTITY_ONLY_NOT_OBSERVED",
+  "evaluated_at": "NOT_RECORDED",
+  "evidence": {
+    "object_digest": "3d47aa9301116134bf1426918ef843ff3c86ca5922a1892fe832bbacf235cd03",
+    "object_id": "quantization_evidence_72e90a1686f2c695d8fc6d50199a6d4d",
+    "schema_id": "omiv.quantization-fidelity-evidence.v1"
+  },
+  "integration_digest": "303ed6f0aad01282726ab28f50365720a7ce776a69d66444d07d9135a98e8279",
+  "integration_id": "quantization_integration_5008d3237ffe25ac73bae8011d9e350c",
+  "integration_type": "RUNTIME",
+  "limitations": [
+    "Integration does not mutate or strengthen prior evidence."
+  ],
+  "mutates_prior_artifact": false,
+  "observed_at": "NOT_RECORDED",
+  "payload_identity_match": null,
+  "schema": "omiv.quantization-integration-summary.v1",
+  "source_object": null,
+  "subject_identity_match": null
+}

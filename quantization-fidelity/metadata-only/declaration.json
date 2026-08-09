@@ -1,0 +1,79 @@
+{
+  "authority_status": "NOT_ESTABLISHED",
+  "candidate_artifact": {
+    "artifact_name": "candidate-values",
+    "artifact_set_identity": null,
+    "availability": "METADATA_IDENTITY_ONLY",
+    "coverage": "complete.declared-local-file-scope",
+    "identity_semantics": "phase6a.observed-payload-manifest",
+    "limitations": [
+      "No candidate payload values were supplied."
+    ],
+    "local_payload_manifest": null,
+    "namespace": "quantization-fixtures",
+    "provider": "omiv-synthetic",
+    "remote_snapshot": null,
+    "requested_revision": "fixture-v1",
+    "resolved_revision": "fixture-v1",
+    "role": "CANDIDATE",
+    "subject_id": "product_subject_15a44f47d7c28c392be4b014eca26bdc"
+  },
+  "declaration_digest": "6b943feb1b2479ec466310a7553a6dd7f27779b53eb6d8bc48dc57d389a0e210",
+  "declaration_id": "quantization_declaration_14b103a17e091f1490ae12df034ea964",
+  "declared_at": "NOT_RECORDED",
+  "limitations": [],
+  "provenance": "NOT_AVAILABLE",
+  "relationship_mode": "RELATIONSHIP_UNAVAILABLE",
+  "schema": "omiv.quantization-relationship-declaration.v1",
+  "scope": {
+    "environment_scope": "environment.offline",
+    "organization_scope": "organization.synthetic",
+    "product_scope": "product.generic-inference",
+    "project_scope": "project.quantization",
+    "target_scope": "target-scope.runtime",
+    "tenant_scope": "tenant.synthetic",
+    "trust_domain": "trust-domain.synthetic"
+  },
+  "source_artifact": {
+    "artifact_name": "source-values",
+    "artifact_set_identity": "39b0d3f25070311f25da3f5b2d3d0cb7e683da5923b8ee62d8e0dea6233c91e4",
+    "availability": "EXACT_LOCAL_PAYLOAD_IDENTITY_AVAILABLE",
+    "coverage": "complete.declared-local-file-scope",
+    "identity_semantics": "phase6a.observed-payload-manifest",
+    "limitations": [
+      "Synthetic fixture identity is not a real model artifact."
+    ],
+    "local_payload_manifest": {
+      "object_digest": "6bc84a8e210fbf181e9450247d4f2c4f2b4059c8d260c64cae97438fed542e3a",
+      "object_id": "observed_payload_76389812ea122dc14f6cec05955f4a20",
+      "schema_id": "omiv.observed-payload-manifest.v1"
+    },
+    "namespace": "quantization-fixtures",
+    "provider": "omiv-synthetic",
+    "remote_snapshot": null,
+    "requested_revision": "fixture-v1",
+    "resolved_revision": "fixture-v1",
+    "role": "SOURCE",
+    "subject_id": "product_subject_15a44f47d7c28c392be4b014eca26bdc"
+  },
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "model.quantization-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.quantization",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "MODEL_WEIGHTS",
+    "subject_digest": "eb01a7e4bd6121bfa6e364f1fe9b1b48210b81114339097f547f3e554c66713e",
+    "subject_id": "product_subject_15a44f47d7c28c392be4b014eca26bdc"
+  },
+  "transformation_attestation": null
+}

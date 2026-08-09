@@ -1,0 +1,23 @@
+{
+  "case_id": "model-a-authority-not-model-b",
+  "exercised_invariant": "Authority is subject and scope bound.",
+  "limitations": [
+    "Synthetic bounded result; invalid inputs are retained as deterministic rejection outcomes."
+  ],
+  "numerical_status": "NOT_EVALUATED",
+  "observed_findings": [
+    "MODEL_A_AUTHORITY_NOT_MODEL_B"
+  ],
+  "outcome": "NOT_EVALUATED",
+  "result_digest": "cf4094ff422a214ece684fda4a7f0fc44e3d914e2e974d09e5b44a29a1606fa1",
+  "result_id": "quantization_example_result_23e3a3fdc4793af0f37ca9d95d53c602",
+  "schema": "omiv.quantization-example-result.v1",
+  "structural_status": "STRUCTURALLY_CONSISTENT_FOR_SCOPE",
+  "upstream_objects": [
+    {
+      "object_digest": "e0062a85aecac69ee4004473f185cb3bd53cd05dcf1d8b9ded166928d869baca",
+      "object_id": "quantization_evidence_c3cc2d76e4c7b793627054e49d494697",
+      "schema_id": "omiv.quantization-fidelity-evidence.v1"
+    }
+  ]
+}

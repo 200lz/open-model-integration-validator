@@ -1,0 +1,25 @@
+{
+  "available_at": "NOT_RECORDED",
+  "creates_governance_approval": false,
+  "creates_observed_runtime_identity": false,
+  "creates_security_pass": false,
+  "derived_status": "DERIVED_QUANTIZATION_FIDELITY_SUMMARY",
+  "evaluated_at": "NOT_RECORDED",
+  "evidence": {
+    "object_digest": "3d47aa9301116134bf1426918ef843ff3c86ca5922a1892fe832bbacf235cd03",
+    "object_id": "quantization_evidence_72e90a1686f2c695d8fc6d50199a6d4d",
+    "schema_id": "omiv.quantization-fidelity-evidence.v1"
+  },
+  "integration_digest": "2c6f103f8a03d28c810c2984d64ef6c84b7d223be4081c7eff0272351e4b0ba0",
+  "integration_id": "quantization_integration_11f2593828881fd574ed460bbf85e632",
+  "integration_type": "PASSPORT",
+  "limitations": [
+    "Integration does not mutate or strengthen prior evidence."
+  ],
+  "mutates_prior_artifact": false,
+  "observed_at": "NOT_RECORDED",
+  "payload_identity_match": null,
+  "schema": "omiv.quantization-integration-summary.v1",
+  "source_object": null,
+  "subject_identity_match": null
+}

@@ -1,0 +1,71 @@
+{
+  "affiliation": "NO_XAI_ENDORSEMENT_AFFILIATION_APPROVAL_OR_PRODUCTION_CLAIM",
+  "authenticity": "NOT_ESTABLISHED",
+  "behavioral_parity": "NOT_EVALUATED",
+  "candidate_quantized_artifact": "NOT_SUPPLIED",
+  "classification": "XAI_QUANTIZATION_FIDELITY_READINESS_RECORDED_WITHOUT_PAYLOAD_OR_QUANTIZED_CANDIDATE",
+  "freshness": "NOT_ESTABLISHED",
+  "future_evidence_required": [
+    "Exact locally observed source and candidate Phase 6A payload manifests.",
+    "Explicit source-to-candidate relationship and transformation provenance.",
+    "Observed tensor identities, correspondence, codec semantics, and quantization parameters.",
+    "Exact or deterministic-sample numerical values within bounded evaluation limits."
+  ],
+  "limitations": [
+    "Remote provider metadata identities are not tensor payload values.",
+    "No filename, repository name, extension, or provider field establishes quantization.",
+    "This readiness record is not xAI publisher authority, authenticity, approval, or endorsement."
+  ],
+  "numerical_comparison": "NOT_PERFORMED",
+  "observation_time": "NOT_RECORDED",
+  "payload_comparable_members": 0,
+  "phase6b_remote_metadata_evidence_available": true,
+  "pinned_metadata": [
+    {
+      "declared_total_bytes": 318239889830,
+      "fixture_sha256": "645ea0fbd09c85a1d69d4fd217bae43e580a04fcd484308d1cd71b528658ae78",
+      "fixture_size": 466308,
+      "member_count": 773,
+      "namespace": "xai-org",
+      "observation_time": "NOT_RECORDED",
+      "payload_comparable_members": 0,
+      "provider": "HUGGING_FACE",
+      "remote_snapshot": {
+        "object_digest": "b592d5b801785e970d41aa7980a001b757456c25fd88b533318110ad2b01baf0",
+        "object_id": "remote_snapshot_3b193fda5165268adcdf1fcf7afd3600",
+        "schema_id": "omiv.remote-snapshot-manifest.v1"
+      },
+      "repository": "grok-1",
+      "resolved_revision": "5de83eb225f49624b424f1c8aa74f96983b5885c"
+    },
+    {
+      "declared_total_bytes": 539040431665,
+      "fixture_sha256": "ad495d2fbb3daaed25ddf8d351647254f2d7020d2d4492b89f90aea486c3a60b",
+      "fixture_size": 27473,
+      "member_count": 44,
+      "namespace": "xai-org",
+      "observation_time": "NOT_RECORDED",
+      "payload_comparable_members": 0,
+      "provider": "HUGGING_FACE",
+      "remote_snapshot": {
+        "object_digest": "42e1fa531d9e95da7158a650f7250bab8bea4439f6c26904c92768c51b6a3468",
+        "object_id": "remote_snapshot_21a21d44b977a38900cb5a16161432c9",
+        "schema_id": "omiv.remote-snapshot-manifest.v1"
+      },
+      "repository": "grok-2",
+      "resolved_revision": "daf4395a80ad177386cfe39641b64fc12b1d70ed"
+    }
+  ],
+  "pinned_public_metadata_available": true,
+  "publisher_authority": "NOT_ESTABLISHED",
+  "quantization_codec": "NOT_ESTABLISHED",
+  "quantization_fidelity": "NOT_EVALUATED",
+  "quantization_relationship": "NOT_ESTABLISHED",
+  "readiness_digest": "26923d8467bf08c7849e5f911ae9ca371c3778fdd7cb4faeba91790f25f10f08",
+  "readiness_id": "xai_quantization_readiness_0b315b0f09a5462149f35801bbda5ff2",
+  "runtime_identity": "NOT_OBSERVED",
+  "schema": "omiv.xai-quantization-readiness.v1",
+  "security": "NOT_EVALUATED",
+  "source_numerical_values": "NOT_OBSERVED",
+  "tensor_quantization_parameters": "NOT_OBSERVED"
+}

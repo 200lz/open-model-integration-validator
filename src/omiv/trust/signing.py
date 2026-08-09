@@ -168,6 +168,21 @@ OBJECT_METADATA: dict[SignedObjectType, tuple[set[str], str, str]] = {
         "evidence_id",
         "evidence_digest",
     ),
+    SignedObjectType.QUANTIZATION_RELATIONSHIP_DECLARATION: (
+        {"omiv.quantization-relationship-declaration.v1"},
+        "declaration_id",
+        "declaration_digest",
+    ),
+    SignedObjectType.REPRESENTATION_OBSERVATION: (
+        {"omiv.representation-observation.v1"},
+        "observation_id",
+        "observation_digest",
+    ),
+    SignedObjectType.QUANTIZATION_FIDELITY_EVIDENCE: (
+        {"omiv.quantization-fidelity-evidence.v1"},
+        "evidence_id",
+        "evidence_digest",
+    ),
 }
 EXPECTED_PURPOSE = {
     SignedObjectType.ARTIFACT_ATTESTATION: SignaturePurpose.ATTESTATION_ISSUANCE,
@@ -208,6 +223,15 @@ EXPECTED_PURPOSE = {
     ),
     SignedObjectType.REMOTE_LOCAL_RECONCILIATION_EVIDENCE: (
         SignaturePurpose.REMOTE_LOCAL_RECONCILIATION_EVIDENCE_ISSUANCE
+    ),
+    SignedObjectType.QUANTIZATION_RELATIONSHIP_DECLARATION: (
+        SignaturePurpose.QUANTIZATION_RELATIONSHIP_DECLARATION_ISSUANCE
+    ),
+    SignedObjectType.REPRESENTATION_OBSERVATION: (
+        SignaturePurpose.REPRESENTATION_OBSERVATION_ISSUANCE
+    ),
+    SignedObjectType.QUANTIZATION_FIDELITY_EVIDENCE: (
+        SignaturePurpose.QUANTIZATION_FIDELITY_EVIDENCE_ISSUANCE
     ),
 }
 

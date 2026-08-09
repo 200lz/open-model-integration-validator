@@ -2119,3 +2119,32 @@ evidence offline while preserving zero payload observation, unavailable topology
 publisher authority/freshness/authenticity, and no xAI endorsement claim. See
 `docs/phase-6b-shard-reconciliation.md` for schemas, preservation methodology, CLI commands, limits,
 metadata boundaries, and the Phase 6C deferral.
+
+## Phase 6C: quantization representation and numerical fidelity
+
+Phase 6C provides an offline, bounded, provider-neutral foundation for declaring source/candidate
+representation relationships, binding exact Phase 6A/6B identities, observing tensor metadata,
+reconstructing only explicitly supported values, measuring deterministic numerical error, and
+evaluating scope-qualified policies. Structural consistency, numerical fidelity, coverage,
+authority, signatures, integrations, reports, and the external self-excluding artifact index remain
+separate canonical layers.
+
+V1 numerical calculation supports unquantized identity and normalized uniform affine integers with
+explicit finite positive scale, integral representable zero point, bit width, signedness, and
+unambiguous one-to-one mapping. Native GGUF codecs, NF4, GPTQ, AWQ, FP8, packed layouts, opaque
+provider formats, and implicit split/fused/transposed mappings fail closed. A deterministic sample
+never becomes complete-model evidence, and metadata or a trusted signature never creates numerical
+fidelity or publisher/transformation authority.
+
+The xAI practice profile consumes the unchanged Phase 6B pinned Grok metadata entirely offline and
+records readiness without payload values or a quantized candidate; it makes no quantization,
+publisher-authority, authenticity, freshness, security, behavioral, runtime, affiliation, or
+endorsement claim. Generated records live in `quantization-fidelity/`, reports in
+`reports/quantization-fidelity/`, and the external index in
+`quantization-fidelity/artifact-index.json`. See
+`docs/phase-6c-quantization-fidelity.md` for schemas, limits, CLI commands, integrations, and exact
+limitations.
+
+Offline bounded quantization-representation and numerical reconstruction fidelity
+foundation—complete for the declared exact-identity scope, with explicit format, coverage,
+sampling, authority, filesystem-race, and behavioral limitations.
