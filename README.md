@@ -1,5 +1,59 @@
 # Open Model Integration Validator
 
+OMIV is an evidence-driven AI artifact and runtime trust foundation. It preserves
+exact distinctions between declarations, observations, payload identity, provenance,
+authority, policy, deployment identity, runtime identity, and output-provenance
+evidence.
+
+The project is preparing the **upcoming public-preview version 0.10.0**. It remains
+pre-1.0: interfaces may evolve, and no result is a certification, safety finding,
+provider endorsement, or production-readiness claim. Phase 6F Assurance Bundle
+interoperability is not implemented. No enterprise product or hosted OMIV service is
+provided by this repository.
+
+The owner selected this original repository—with its preservation history—as OMIV's
+unique future public core. This preparation does not create or mirror another core,
+specification, or enterprise repository.
+
+OMIV is offline-first and provider-neutral. Local parsing, canonicalization, evidence
+composition, signature verification, and policy evaluation run without a hosted
+control plane. Explicit remote commands collect only bounded public metadata or byte
+ranges. They never run during the default test suite. Canonical OMIV evidence and
+future Assurance Bundles remain independently verifiable with public offline tooling.
+
+Current capabilities include Model Passports; custody, attestation, trust, governance,
+security, deployment/runtime, and continuous-audit evidence from Phase 5; and payload
+integrity, shard reconciliation, quantization fidelity, tokenizer-configuration parity,
+and runtime-resolution parity from Phase 6A–6E.
+
+Install Python 3.11 or newer and run a local smoke check:
+
+```bash
+python -m pip install -e '.[dev]'
+omiv --version
+omiv model-packs list
+pytest -q tests/test_schema_contract.py tests/test_model_passport.py
+```
+
+The canonical evidence chain is deliberately explicit:
+
+```text
+source declaration -> bounded observation -> canonical inventory -> validation
+-> provenance/custody/attestation -> policy decision -> deployment/runtime evidence
+```
+
+Each arrow is evidence-linked; absence is reported as unavailable or unchecked rather
+than silently upgraded to trust. Model and tokenizer payloads are not included in this
+repository. See the [security policy](SECURITY.md), [contribution guide](CONTRIBUTING.md),
+[support policy](SUPPORT.md), [governance](GOVERNANCE.md),
+[public/commercial boundary](docs/public-commercial-boundary.md), and
+[release process](docs/releasing.md).
+
+Original OMIV source is licensed under [Apache-2.0](LICENSE). Third-party evidence and
+dependencies retain their terms; see [third-party notices](THIRD_PARTY_NOTICES.md) and
+[trademark guidance](TRADEMARKS.md). Provider and model names are descriptive only.
+OMIV is not affiliated with or endorsed by the referenced providers.
+
 Open Model Integration Validator (OMIV) turns local checkpoint-header evidence into
 a compact, deterministic inventory and checks evidence-backed structural assumptions.
 Phase 2 remains intentionally narrow: it supports only the released Kimi K3 JSON
@@ -17,8 +71,9 @@ python -m pip install -e '.[dev]'
 
 Phase 5D uses the maintained `cryptography` library as its single cryptographic
 backend, with Ed25519 as the initial signature algorithm. OMIV does not implement
-cryptographic primitives itself, and private keys must never be committed. This
-dependency baseline does not yet implement Phase 5D signing or trust evaluation.
+cryptographic primitives itself, and private keys must never be committed. Phase 5D
+signing and trust evaluation report only what the supplied keys, trust roots, and
+evidence establish; they do not independently authenticate a real-world actor.
 
 Local inventory, validation, mapping, reporting, and conversion commands remain
 offline. Phase 4F-1 adds explicitly invoked remote commands for public Hugging Face

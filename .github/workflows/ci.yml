@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Python ${{ matrix.python-version }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13", "3.14"]
+
+    steps:
+      # actions/checkout v7.0.1
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      # actions/setup-python v7.0.0
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install project and development tools
+        run: python -m pip install -e '.[dev]'
+
+      - name: Dependency and CLI smoke checks
+        run: |
+          python -m pip check
+          omiv --version
+          omiv model-packs list
+
+      - name: Public-release static audit
+        run: python tools/audit_public_release_readiness.py --json
+
+      - name: Lint and type-check
+        run: |
+          ruff check .
+          mypy
+
+      - name: Check formatting only for readiness Python changes
+        run: |
+          ruff format --check \
+            src/omiv/__init__.py \
+            src/omiv/cli.py \
+            tests/test_conversion_integration.py \
+            tests/test_public_release_readiness.py \
+            tools/audit_public_release_readiness.py
+
+      - name: Compile Python sources
+        run: python -m compileall -q src tests tools
+
+      - name: Focused readiness tests
+        run: |
+          python -m pytest -q \
+            tests/test_public_release_readiness.py \
+            tests/test_conversion_integration.py
+
+      - name: Full offline test suite
+        env:
+          OMIV_RUN_CONVERSION_INTEGRATION: "0"
+          OMIV_RUN_GGUF_INTEGRATION: "0"
+          OMIV_RUN_HF_INTEGRATION: "0"
+          OMIV_RUN_MAPPING_INTEGRATION: "0"
+          OMIV_RUN_REMOTE_INTEGRATION: "0"
+        run: python -m pytest

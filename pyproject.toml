@@ -4,10 +4,28 @@ build-backend = "hatchling.build"
 
 [project]
 name = "open-model-integration-validator"
-version = "0.1.0"
+version = "0.10.0"
 description = "Evidence-driven checkpoint schema validation for open models"
 readme = "README.md"
 requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md"]
+authors = [
+  { name = "Linzhang Chen" },
+]
+keywords = ["ai", "artifacts", "evidence", "provenance", "validation"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Software Development :: Quality Assurance",
+  "Typing :: Typed",
+]
 dependencies = [
   "cryptography>=46.0.1,<50",
   "pydantic>=2.7",
@@ -28,8 +46,31 @@ dev = [
 [project.scripts]
 omiv = "omiv.cli:app"
 
+[project.urls]
+Repository = "https://github.com/200lz/open-model-integration-validator"
+Issues = "https://github.com/200lz/open-model-integration-validator/issues"
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/omiv"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "/src",
+  "/tools/audit_public_release_readiness.py",
+  "/docs",
+  "/README.md",
+  "/CHANGELOG.md",
+  "/CITATION.cff",
+  "/CONTRIBUTING.md",
+  "/GOVERNANCE.md",
+  "/LICENSE",
+  "/NOTICE",
+  "/SECURITY.md",
+  "/SUPPORT.md",
+  "/THIRD_PARTY_NOTICES.md",
+  "/TRADEMARKS.md",
+  "/pyproject.toml",
+]
 
 [tool.pytest.ini_options]
 addopts = "-ra"

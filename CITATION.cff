@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use OMIV, cite this software record."
+title: "Open Model Integration Validator"
+type: software
+version: 0.10.0
+authors:
+  - family-names: Chen
+    given-names: Linzhang
+repository-code: "https://github.com/200lz/open-model-integration-validator"
+license: Apache-2.0

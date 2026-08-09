@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security reporting policy
+    url: https://github.com/200lz/open-model-integration-validator/blob/main/SECURITY.md
+    about: Read the private vulnerability reporting instructions before disclosing a security issue.

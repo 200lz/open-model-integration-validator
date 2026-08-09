@@ -10,39 +10,120 @@ import pytest
 from omiv.hf.reader import pretty_hf_inventory, read_hf_inventory
 from omiv.provenance.capture import run_conversion
 
+REQUIRED_ENVIRONMENT = (
+    "OMIV_QWEN_HF_DIR",
+    "OMIV_LLAMA_CPP_DIR",
+    "OMIV_CONVERSION_WORK_DIR",
+)
+
+
+def _configured_conversion_paths() -> tuple[Path, Path, Path]:
+    if os.environ.get("OMIV_RUN_CONVERSION_INTEGRATION") != "1":
+        pytest.skip("conversion integration disabled")
+    values = [os.environ.get(name) for name in REQUIRED_ENVIRONMENT]
+    if not all(values):
+        pytest.skip("conversion integration paths are not configured")
+    source_dir, repository, work_dir = (Path(value) for value in values if value is not None)
+    if not source_dir.is_dir() or not repository.is_dir() or not work_dir.is_dir():
+        pytest.skip("conversion integration paths are not configured")
+    if not os.access(work_dir, os.W_OK):
+        pytest.skip("conversion integration work directory is unavailable")
+    if not (source_dir / "config.json").is_file() or not any(source_dir.glob("*.safetensors")):
+        pytest.skip("configured source model files are unavailable")
+    if not (repository / "convert_hf_to_gguf.py").is_file():
+        pytest.skip("configured converter entrypoint is absent")
+    return source_dir, repository, work_dir
+
+
+@pytest.mark.parametrize(
+    "configured",
+    [
+        {},
+        {name: "" for name in REQUIRED_ENVIRONMENT},
+        {"OMIV_QWEN_HF_DIR": "configured"},
+        {
+            "OMIV_QWEN_HF_DIR": "configured",
+            "OMIV_LLAMA_CPP_DIR": "configured",
+        },
+    ],
+)
+def test_conversion_integration_requires_explicit_nonempty_paths(
+    monkeypatch: pytest.MonkeyPatch, configured: dict[str, str]
+) -> None:
+    monkeypatch.setenv("OMIV_RUN_CONVERSION_INTEGRATION", "1")
+    for name in REQUIRED_ENVIRONMENT:
+        monkeypatch.delenv(name, raising=False)
+    for name, value in configured.items():
+        monkeypatch.setenv(name, value)
+    with pytest.raises(pytest.skip.Exception):
+        _configured_conversion_paths()
+
+
+def test_conversion_integration_skips_nonexistent_paths(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    monkeypatch.setenv("OMIV_RUN_CONVERSION_INTEGRATION", "1")
+    for name in REQUIRED_ENVIRONMENT:
+        monkeypatch.setenv(name, str(tmp_path / "absent"))
+    with pytest.raises(pytest.skip.Exception):
+        _configured_conversion_paths()
+
+
+def test_conversion_integration_skips_unavailable_required_files(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    source_dir = tmp_path / "source"
+    repository = tmp_path / "converter"
+    work_dir = tmp_path / "work"
+    for path in (source_dir, repository, work_dir):
+        path.mkdir()
+    monkeypatch.setenv("OMIV_RUN_CONVERSION_INTEGRATION", "1")
+    monkeypatch.setenv("OMIV_QWEN_HF_DIR", str(source_dir))
+    monkeypatch.setenv("OMIV_LLAMA_CPP_DIR", str(repository))
+    monkeypatch.setenv("OMIV_CONVERSION_WORK_DIR", str(work_dir))
+    with pytest.raises(pytest.skip.Exception):
+        _configured_conversion_paths()
+
+
+def test_conversion_integration_skips_non_git_converter_checkout(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    source_dir = tmp_path / "source"
+    repository = tmp_path / "converter"
+    work_dir = tmp_path / "work"
+    for path in (source_dir, repository, work_dir):
+        path.mkdir()
+    (source_dir / "config.json").write_text("{}\n", encoding="utf-8")
+    (source_dir / "model.safetensors").write_bytes(b"synthetic")
+    (repository / "convert_hf_to_gguf.py").write_text("# synthetic\n", encoding="utf-8")
+    monkeypatch.setenv("OMIV_RUN_CONVERSION_INTEGRATION", "1")
+    monkeypatch.setenv("OMIV_QWEN_HF_DIR", str(source_dir))
+    monkeypatch.setenv("OMIV_LLAMA_CPP_DIR", str(repository))
+    monkeypatch.setenv("OMIV_CONVERSION_WORK_DIR", str(work_dir))
+    with pytest.raises(pytest.skip.Exception):
+        test_opt_in_real_qwen_conversion_capture()
+
 
 @pytest.mark.integration
 def test_opt_in_real_qwen_conversion_capture() -> None:
-    if os.environ.get("OMIV_RUN_CONVERSION_INTEGRATION") != "1":
-        pytest.skip("conversion integration disabled")
-    source_dir = Path(
-        os.environ.get(
-            "OMIV_QWEN_HF_DIR",
-            "/home/chen1/models/huggingface/Qwen2.5-0.5B-Instruct",
-        )
-    )
-    repository = Path(os.environ.get("OMIV_LLAMA_CPP_DIR", ""))
-    work_dir = Path(os.environ.get("OMIV_CONVERSION_WORK_DIR", ""))
-    if not source_dir.is_dir() or not repository.is_dir() or not work_dir.is_dir():
-        pytest.skip("conversion integration paths are not configured")
-    head = subprocess.run(
-        ["git", "-C", str(repository), "rev-parse", "HEAD"],
-        check=True,
-        capture_output=True,
-        text=True,
-    ).stdout.strip()
-    dirty = subprocess.run(
-        ["git", "-C", str(repository), "status", "--porcelain"],
-        check=True,
-        capture_output=True,
-        text=True,
-    ).stdout.strip()
+    source_dir, repository, work_dir = _configured_conversion_paths()
+    try:
+        head = subprocess.run(
+            ["git", "-C", str(repository), "rev-parse", "HEAD"],
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+        dirty = subprocess.run(
+            ["git", "-C", str(repository), "status", "--porcelain"],
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+    except subprocess.CalledProcessError:
+        pytest.skip("configured converter checkout is unavailable")
     if dirty:
         pytest.skip("configured converter checkout is dirty")
-    entrypoint = repository / "convert_hf_to_gguf.py"
-    if not entrypoint.is_file():
-        pytest.skip("configured converter entrypoint is absent")
-
     inventory_path = work_dir / "qwen-source.inventory.json"
     target_path = work_dir / "qwen-f16.phase4d.gguf"
     target_inventory = work_dir / "qwen-f16.phase4d.inventory.json"

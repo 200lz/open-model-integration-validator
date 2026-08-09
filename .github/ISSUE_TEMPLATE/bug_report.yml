@@ -1,0 +1,53 @@
+name: Bug report
+description: Report a reproducible OMIV defect using privacy-safe synthetic evidence.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include credentials, private model data, signed URLs, customer data,
+        or unpatched vulnerability details. Follow SECURITY.md for vulnerabilities.
+  - type: input
+    id: version
+    attributes:
+      label: OMIV version or commit
+      placeholder: "0.10.0 or commit SHA"
+    validations:
+      required: true
+  - type: dropdown
+    id: python
+    attributes:
+      label: Python version
+      options: ["3.11", "3.12", "3.13", "3.14", "Other"]
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Observed behavior
+      description: Include sanitized output and exact exit status.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Minimal reproduction
+      description: Use synthetic fixtures and remove local absolute paths.
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Disclosure check
+      options:
+        - label: I removed credentials, customer data, private payloads, and signed URLs.
+          required: true
+        - label: This is not an unpatched vulnerability report.
+          required: true

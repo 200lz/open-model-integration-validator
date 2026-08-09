@@ -8,6 +8,7 @@ from typing import Annotated, cast
 import typer
 from pydantic import BaseModel, ValidationError
 
+from omiv import __version__
 from omiv.article.builder import (
     CLAIM_PATH,
     INDEX_PATH,
@@ -501,6 +502,24 @@ reconcile_app = typer.Typer(no_args_is_help=True)
 quantization_app = typer.Typer(no_args_is_help=True)
 tokenizer_configuration_app = typer.Typer(no_args_is_help=True)
 runtime_resolution_app = typer.Typer(no_args_is_help=True)
+
+
+def _version_callback(value: bool) -> None:
+    if value:
+        typer.echo(__version__)
+        raise typer.Exit
+
+
+@app.callback()
+def main(
+    version: Annotated[
+        bool | None,
+        typer.Option("--version", callback=_version_callback, is_eager=True),
+    ] = None,
+) -> None:
+    """Open Model Integration Validator."""
+
+
 app.add_typer(model_packs_app, name="model-packs")
 app.add_typer(passport_app, name="passport")
 app.add_typer(custody_app, name="custody")

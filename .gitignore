@@ -4,9 +4,19 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
 dist/
 build/
 *.egg-info/
+*.log
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
 reports/raw/kimi_k3_tensors.json
 *.gguf
 

@@ -1,0 +1,14 @@
+Open Model Integration Validator (OMIV)
+Copyright 2026 Linzhang Chen
+
+Original OMIV project source is licensed under the Apache License, Version 2.0,
+unless a file or accompanying notice says otherwise.
+
+Third-party dependencies, normalized metadata, and bounded evidence derived from
+public sources retain their own terms. See THIRD_PARTY_NOTICES.md. The Apache
+License does not grant permission to use trade names, trademarks, service marks,
+or product names except as required for reasonable and customary description.
+
+OMIV is not an Apache Software Foundation project. Provider and model names are
+used descriptively. No provider endorsement or affiliation is claimed. No claim
+is made that OMIV is a registered trademark.

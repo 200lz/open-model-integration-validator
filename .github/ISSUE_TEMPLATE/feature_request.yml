@@ -1,0 +1,35 @@
+name: Feature request
+description: Propose a bounded addition that preserves canonical evidence semantics.
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem and evidence gap
+      description: Identify which declaration, observation, identity, authority, or policy distinction is missing.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed public behavior
+      description: Explain the offline verification and provider-neutral boundary.
+    validations:
+      required: true
+  - type: textarea
+    id: compatibility
+    attributes:
+      label: Compatibility and limitations
+      description: Describe schema, CLI, security, privacy, and redistribution effects.
+    validations:
+      required: true
+  - type: checkboxes
+    id: boundary
+    attributes:
+      label: Boundary check
+      options:
+        - label: The proposal does not depend on private credentials or model/tokenizer payloads.
+          required: true
+        - label: The proposal does not claim provider endorsement or redefine canonical semantics privately.
+          required: true
