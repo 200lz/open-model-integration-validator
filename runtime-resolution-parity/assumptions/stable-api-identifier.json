@@ -1,0 +1,65 @@
+{
+  "affected_policies": [
+    {
+      "object_digest": "861260c7f358a3a1571dac9b734e8b15cb557d682d04ca2007ba29a82ae5063c",
+      "object_id": "runtime_resolution_policy_2d8a3b05723d2203e027a87830381472",
+      "schema_id": "omiv.runtime-resolution-policy.v1"
+    }
+  ],
+  "affected_schemas": [
+    "omiv.registry-resolution-receipt.v1",
+    "omiv.requested-model-identifier.v1"
+  ],
+  "affected_trust_boundary": "identifier.resolution",
+  "assumption_digest": "f5ace29ed0536c5d4e03a7fe291ad01ec3ad6d1b92b1996b940e1618950b303d",
+  "assumption_id": "assumption_321028f52865ed4f3aea545ce903b29f",
+  "authority": "NOT_ESTABLISHED",
+  "available_at": "NOT_RECORDED",
+  "basis": "Provider documentation demonstrates mutable aliases and redirects.",
+  "consequence": "Dependent conclusions require explicit reevaluation.",
+  "evaluated_at": "NOT_RECORDED",
+  "evidence_references": [
+    {
+      "object_digest": "0f17012d75f85c5b115960010702ce61a883abd3f7c352e7b35dd2abda22275a",
+      "object_id": "routing_statement_627154f4e1a9354bcf27cc4d11886142",
+      "schema_id": "omiv.provider-routing-statement.v1"
+    },
+    {
+      "object_digest": "5b6bb254b6f1b0dd20cf3d876a1e11f56ac44836acf564290585f21272596f19",
+      "object_id": "routing_statement_9e20735b64183da972224f1db78fa66a",
+      "schema_id": "omiv.provider-routing-statement.v1"
+    }
+  ],
+  "evidence_strength": "PROVIDER_DOCUMENTED_POLICY",
+  "limitations": [
+    "Public documentation is not direct runtime observation."
+  ],
+  "observed_at": "NOT_RECORDED",
+  "prior_status": "ACTIVE",
+  "remediation": "Collect stronger scope-matched evidence in a future phase.",
+  "schema": "omiv.assumption-register-entry.v1",
+  "scope": "phase6e.assumption.register",
+  "statement": "stable API model identifier identifies a stable model release",
+  "status": "INVALIDATED",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "runtime-resolution.phase6e-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime-resolution",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+    "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+  },
+  "supersession": null,
+  "supplied_at": "NOT_RECORDED"
+}

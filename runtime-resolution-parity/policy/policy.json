@@ -1,0 +1,70 @@
+{
+  "accepted_attestation_methods": [
+    "SERVICE_SIGNATURE"
+  ],
+  "accepted_identifier_kinds": [
+    "IMMUTABLE_PINNED_IDENTIFIER",
+    "VERSIONED_IDENTIFIER"
+  ],
+  "accepted_verification_statuses": [
+    "SERVICE_SIGNATURE_VERIFIED"
+  ],
+  "authority_required": true,
+  "continuity_required": true,
+  "evaluation_context": "synthetic.explicit",
+  "exact_artifact_binding_required": true,
+  "freshness_behavior": "require.explicit.or.unavailable",
+  "historical_mode": "KNOWN_AS_OF_CUTOFF",
+  "limitations": [
+    "Policy cannot upgrade provider documentation or service signature semantics."
+  ],
+  "maximum_resolution_age_seconds": null,
+  "minimum_probe_coverage": "1",
+  "minimum_resolution_level": "CONTROL_PLANE_RESPONSE",
+  "minimum_runtime_strength": "FILESYSTEM_ARTIFACT_OBSERVATION",
+  "missing_input_behavior": "not.evaluated",
+  "mutable_alias_behavior": "require.observed.resolution",
+  "numerical_tolerance": "0",
+  "output_provenance_required": false,
+  "pinned_identifier_required": true,
+  "policy_digest": "861260c7f358a3a1571dac9b734e8b15cb557d682d04ca2007ba29a82ae5063c",
+  "policy_id": "runtime_resolution_policy_2d8a3b05723d2203e027a87830381472",
+  "quantization_required": false,
+  "redirect_behavior": "preserve.and.evaluate",
+  "replay_behavior": "require.explicit.or.unavailable",
+  "required_dimensions": [
+    "FINAL_OUTPUT_BYTES"
+  ],
+  "required_output_availability": [
+    "INLINE_SYNTHETIC",
+    "DIGEST_ONLY"
+  ],
+  "required_request_availability": [
+    "INLINE_SYNTHETIC",
+    "DIGEST_ONLY"
+  ],
+  "schema": "omiv.runtime-resolution-policy.v1",
+  "scope": "runtime.resolution.policy",
+  "stochastic_behavior": "not.directly.comparable",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "runtime-resolution.phase6e-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime-resolution",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+    "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+  },
+  "tokenizer_configuration_required": true,
+  "unsupported_method_behavior": "fail.closed"
+}

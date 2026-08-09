@@ -1,0 +1,96 @@
+{
+  "backend_execution": {
+    "object_digest": "301bfbaf8c80a26283b153a38212f4ea3aba5bbcf1c6c47e425cbbabffa083bb",
+    "object_id": "backend_execution_12170c3a54b921222e3fd34fdce6e83e",
+    "schema_id": "omiv.backend-execution-record.v1"
+  },
+  "coverage": [
+    {
+      "denominator": 1,
+      "denominator_availability": "AVAILABLE",
+      "dimension": "inference.identity",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "declared.scope"
+    }
+  ],
+  "decoding_tool_configuration_digest": "f85bc2c4036c859c318809f4d80cb85e352ce683ca141e127718ef44c07a6a25",
+  "inference_digest": "12472dc46ede7fab6a8fff0eaaff976591caef26d04589e9f16863045f5fc3ce",
+  "inference_id": "inference_identity_7f6865336068f1a911b2188b8b4b3f15",
+  "limitations": [
+    "Canonical inference identity is a correlation record, not proof."
+  ],
+  "observed_at": "NOT_RECORDED",
+  "output": {
+    "availability": "DIGEST_ONLY",
+    "canonicalization_mode": "raw.output.bytes",
+    "coverage": "DIGEST_IDENTITY_ONLY",
+    "digest": "8ce2b8e3bd7c23f321afc6b6e279a3607394ef0bc5fc5750ac7e534a4549c42e",
+    "digest_algorithm": "SHA256",
+    "encoding": "utf-8",
+    "inline_synthetic": null,
+    "length": 41,
+    "media_type": "application/octet-stream",
+    "reproducibility": "DIGEST_ONLY_NOT_INDEPENDENTLY_REPRODUCIBLE",
+    "scope": "declared.content",
+    "streaming_aggregate_semantics": "final.aggregate"
+  },
+  "provider_context": "provider.synthetic",
+  "request": {
+    "availability": "DIGEST_ONLY",
+    "canonicalization_mode": "raw.prompt.bytes",
+    "coverage": "DIGEST_IDENTITY_ONLY",
+    "digest": "ef9e9d91376e506da6801e3ad8aec5344170862d34f31304e678384487950c82",
+    "digest_algorithm": "SHA256",
+    "encoding": "utf-8",
+    "inline_synthetic": null,
+    "length": 37,
+    "media_type": "application/octet-stream",
+    "reproducibility": "DIGEST_ONLY_NOT_INDEPENDENTLY_REPRODUCIBLE",
+    "scope": "declared.content",
+    "streaming_aggregate_semantics": "final.aggregate"
+  },
+  "requested_identifier": {
+    "object_digest": "73d75b69dae7f9fdf5254df72c1b9ce1282feb2f52271973090a759076f77008",
+    "object_id": "requested_model_594c47847457e6cfbdfab093db3930f5",
+    "schema_id": "omiv.requested-model-identifier.v1"
+  },
+  "resolution_receipt": {
+    "object_digest": "e7975a40ab50081e629f6029b19c8e78ea58163b3b204bd3b6a7834829783a08",
+    "object_id": "resolution_receipt_3e914a0102d2ae190869843d0a6f3198",
+    "schema_id": "omiv.registry-resolution-receipt.v1"
+  },
+  "resolved_identifier": "synthetic-model-B",
+  "result_observation": {
+    "object_digest": "54aebe556d84c0b8a506b28a7843cb61e073debddc3482bb741fc92ec89fe59f",
+    "object_id": "backend_result_93bcab2d2ca4eedf7ffd1c2501c5ab33",
+    "schema_id": "omiv.backend-result-observation.v1"
+  },
+  "runtime_binding": {
+    "object_digest": "9300729b7a102ea2094df5ad9cb9a830a3444b54d1a01c13c581a285d2c97ce6",
+    "object_id": "model_runtime_binding_8059318966cbd8527ddaacf6bbc62038",
+    "schema_id": "omiv.model-runtime-binding.v1"
+  },
+  "schema": "omiv.inference-identity.v1",
+  "scope": "synthetic.inference.correlation",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "runtime-resolution.phase6e-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime-resolution",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+    "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+  },
+  "tokenizer_configuration_identity": null
+}

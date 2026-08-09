@@ -1,0 +1,65 @@
+{
+  "affected_policies": [
+    {
+      "object_digest": "861260c7f358a3a1571dac9b734e8b15cb557d682d04ca2007ba29a82ae5063c",
+      "object_id": "runtime_resolution_policy_2d8a3b05723d2203e027a87830381472",
+      "schema_id": "omiv.runtime-resolution-policy.v1"
+    }
+  ],
+  "affected_schemas": [
+    "omiv.model-runtime-binding.v1",
+    "omiv.output-provenance-evidence.v1"
+  ],
+  "affected_trust_boundary": "runtime.weight.attribution",
+  "assumption_digest": "6ad5717cb2721445674c2e0737503ce2e5d04cd4e1bd8d0c1ec0c8bb1295ef46",
+  "assumption_id": "assumption_1e12f2294f7c558d832d7b7ac0f95e45",
+  "authority": "NOT_ESTABLISHED",
+  "available_at": "NOT_RECORDED",
+  "basis": "Artifact/deployment verification and weight-attributable inference are separate trust boundaries.",
+  "consequence": "Dependent conclusions require explicit reevaluation.",
+  "evaluated_at": "NOT_RECORDED",
+  "evidence_references": [
+    {
+      "object_digest": "9300729b7a102ea2094df5ad9cb9a830a3444b54d1a01c13c581a285d2c97ce6",
+      "object_id": "model_runtime_binding_8059318966cbd8527ddaacf6bbc62038",
+      "schema_id": "omiv.model-runtime-binding.v1"
+    },
+    {
+      "object_digest": "2ca04915589d0da6ca3915fe139bbd6ea656bb1558bd20da67f7fabd0e500d8e",
+      "object_id": "output_provenance_2ecb913476d7ffcd0bfc6e37c40e4738",
+      "schema_id": "omiv.output-provenance-evidence.v1"
+    }
+  ],
+  "evidence_strength": "CALLER_DECLARED",
+  "limitations": [
+    "Public documentation is not direct runtime observation."
+  ],
+  "observed_at": "NOT_RECORDED",
+  "prior_status": "ACTIVE",
+  "remediation": "Collect stronger scope-matched evidence in a future phase.",
+  "schema": "omiv.assumption-register-entry.v1",
+  "scope": "phase6e.assumption.register",
+  "statement": "verified artifact identity is sufficient to prove runtime model identity",
+  "status": "WEAKENED",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "runtime-resolution.phase6e-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime-resolution",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+    "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+  },
+  "supersession": null,
+  "supplied_at": "NOT_RECORDED"
+}

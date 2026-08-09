@@ -1,0 +1,61 @@
+{
+  "assessment_digest": "d54b0c950025779ffc3fdeb40466845ef8e54c79f50fe2ff5dd66f9ff3c5ae97",
+  "assessment_id": "resolution_continuity_3e1049f561bb76cbaba8fc116acff114",
+  "coverage": [
+    {
+      "denominator": 2,
+      "denominator_availability": "AVAILABLE",
+      "dimension": "resolution.observations",
+      "incomplete_reason": null,
+      "numerator": 2,
+      "selected_scope": "declared.scope"
+    }
+  ],
+  "evaluated_at": "NOT_RECORDED",
+  "findings": [
+    "MUTABLE_ALIAS_REBOUND"
+  ],
+  "limitations": [
+    "Supplied observations do not establish continuous monitoring between observations."
+  ],
+  "observation_count": 2,
+  "outcome": "ALIAS_REBOUND_FOR_SUPPLIED_OBSERVATIONS",
+  "receipts": [
+    {
+      "object_digest": "720d684af734ffeb004503b023198cfbfb9cbf57d56002c26d31ffc037c2db4a",
+      "object_id": "resolution_receipt_fd3bd4ec68b0280c88483c896f8f5ea4",
+      "schema_id": "omiv.registry-resolution-receipt.v1"
+    },
+    {
+      "object_digest": "e7975a40ab50081e629f6029b19c8e78ea58163b3b204bd3b6a7834829783a08",
+      "object_id": "resolution_receipt_3e914a0102d2ae190869843d0a6f3198",
+      "schema_id": "omiv.registry-resolution-receipt.v1"
+    }
+  ],
+  "requested_identifier": {
+    "object_digest": "73d75b69dae7f9fdf5254df72c1b9ce1282feb2f52271973090a759076f77008",
+    "object_id": "requested_model_594c47847457e6cfbdfab093db3930f5",
+    "schema_id": "omiv.requested-model-identifier.v1"
+  },
+  "schema": "omiv.resolution-continuity-assessment.v1",
+  "scope": "supplied.observations",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "runtime-resolution.phase6e-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime-resolution",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+    "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+  }
+}

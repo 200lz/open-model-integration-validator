@@ -1,0 +1,48 @@
+{
+  "authority": "NOT_ESTABLISHED",
+  "backend_digest": "6b712d9b8fad641cf65e24c46504fba268f015528d789265c7636a730fb891b3",
+  "backend_id": "backend_descriptor_916c6f31003c716b6057676fe10df4a8",
+  "build_digest": "cbee91969ae7439efa1192d4d7ce529736b7c5348878b606096dc57e69f088ac",
+  "declarations": [],
+  "device_identity_availability": "UNAVAILABLE",
+  "execution_context": "supplied.synthetic",
+  "hardware_class": "synthetic.cpu",
+  "limitations": [
+    "Backend descriptor is not observation of backend behavior."
+  ],
+  "name": "backend.synthetic.a",
+  "precision": "declared.float32",
+  "quantization_mode": "not.declared",
+  "runtime_binding": {
+    "object_digest": "9300729b7a102ea2094df5ad9cb9a830a3444b54d1a01c13c581a285d2c97ce6",
+    "object_id": "model_runtime_binding_8059318966cbd8527ddaacf6bbc62038",
+    "schema_id": "omiv.model-runtime-binding.v1"
+  },
+  "schema": "omiv.backend-descriptor.v1",
+  "scope": "supplied.backend",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "runtime-resolution.phase6e-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime-resolution",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+    "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+  },
+  "tokenizer_configuration_binding": {
+    "object_digest": "02e0cd746cbfd1be7c313650766d2826e2e94e0a286e849115e1d33e62c8822b",
+    "object_id": "tokenizer_configuration_evidence_0cd0e1e07cb4ac3479fc3bd6cc40bb2a",
+    "schema_id": "omiv.tokenizer-configuration-parity-evidence.v1"
+  },
+  "version": "1.synthetic"
+}

@@ -1,0 +1,75 @@
+{
+  "backend": {
+    "object_digest": "6b712d9b8fad641cf65e24c46504fba268f015528d789265c7636a730fb891b3",
+    "object_id": "backend_descriptor_916c6f31003c716b6057676fe10df4a8",
+    "schema_id": "omiv.backend-descriptor.v1"
+  },
+  "limitations": [
+    "Plan contains no execution or result identity."
+  ],
+  "limits": {
+    "maximum_attestations": 10000,
+    "maximum_backend_descriptors": 256,
+    "maximum_continuity_observations": 1000,
+    "maximum_dependency_depth": 64,
+    "maximum_dependency_edges": 100000,
+    "maximum_dependency_nodes": 10000,
+    "maximum_deployment_observations": 10000,
+    "maximum_executions": 4096,
+    "maximum_findings": 200000,
+    "maximum_generated_bytes": 5242880,
+    "maximum_generated_files": 125,
+    "maximum_identifiers": 10000,
+    "maximum_inference_identities": 10000,
+    "maximum_logit_samples": 100000,
+    "maximum_probes": 4096,
+    "maximum_proof_references": 10000,
+    "maximum_public_document_requests": 6,
+    "maximum_public_response_bytes": 2097152,
+    "maximum_public_total_bytes": 6291456,
+    "maximum_receipts": 10000,
+    "maximum_redirect_depth": 3,
+    "maximum_report_nodes": 10000,
+    "maximum_result_bytes": 8388608,
+    "maximum_runtime_observations": 10000,
+    "maximum_structured_json_bytes": 2097152,
+    "maximum_token_ids": 100000
+  },
+  "plan_digest": "cea551c8b56a393aa09639a66b47761cd41bc7b3c4b0ae5411bafd36cffa3d29",
+  "plan_id": "backend_plan_166424b51ec8873a21ae0f44cad147a9",
+  "planned_at": "NOT_RECORDED",
+  "probe_set": {
+    "object_digest": "cd0b156813d15c399d10f25ae20dbee257ef873f7b588346f0169608c8455827",
+    "object_id": "backend_probe_set_ccc833f727e29005dd1687d88fb8a6b2",
+    "schema_id": "omiv.cross-backend-probe-set.v1"
+  },
+  "runtime_binding": {
+    "object_digest": "9300729b7a102ea2094df5ad9cb9a830a3444b54d1a01c13c581a285d2c97ce6",
+    "object_id": "model_runtime_binding_8059318966cbd8527ddaacf6bbc62038",
+    "schema_id": "omiv.model-runtime-binding.v1"
+  },
+  "schema": "omiv.backend-execution-plan.v1",
+  "scope": "selected.backend.probes",
+  "selected_probe_ids": [
+    "backend_probe_1281e68015342965e07ac7d70b1557b4"
+  ],
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "runtime-resolution.phase6e-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime-resolution",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+    "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+  }
+}

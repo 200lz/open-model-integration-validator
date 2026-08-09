@@ -1,0 +1,66 @@
+{
+  "api_surface": "xai.models.api",
+  "authority": "NOT_ESTABLISHED",
+  "available_at": "NOT_RECORDED",
+  "document_published_at": "NOT_RECORDED",
+  "document_updated_at": "NOT_RECORDED",
+  "evaluated_at": "NOT_RECORDED",
+  "limitations": [
+    "Public documentation is not observation of production request resolution."
+  ],
+  "observed_at": "NOT_RECORDED",
+  "provider": "xai",
+  "rules": [
+    {
+      "api_surface": "xai.models.api",
+      "documented_target": "grok-4.3",
+      "effective_at": "2026-05-15T19:00:00Z",
+      "mechanism": "DEPRECATION_COMPATIBILITY_ROUTING",
+      "reasoning_setting": "none",
+      "requested_identifier": "grok-4-fast-non-reasoning"
+    },
+    {
+      "api_surface": "xai.models.api",
+      "documented_target": "grok-4.3",
+      "effective_at": "2026-05-15T19:00:00Z",
+      "mechanism": "DEPRECATION_COMPATIBILITY_ROUTING",
+      "reasoning_setting": "low",
+      "requested_identifier": "grok-4-fast-reasoning"
+    },
+    {
+      "api_surface": "xai.models.api",
+      "documented_target": "grok-build-0.1",
+      "effective_at": "2026-05-15T19:00:00Z",
+      "mechanism": "DEPRECATION_COMPATIBILITY_ROUTING",
+      "reasoning_setting": null,
+      "requested_identifier": "grok-code-fast-1"
+    }
+  ],
+  "schema": "omiv.provider-routing-statement.v1",
+  "scope": "provider.documented.policy",
+  "source_fixture_digest": "96e21ed2940d8f0b37db220ba3e70e404111e5035a1f51b4e1dc998b3dfcd66b",
+  "source_url": "https://docs.x.ai/developers/migration/may-15-retirement",
+  "statement_digest": "5b6bb254b6f1b0dd20cf3d876a1e11f56ac44836acf564290585f21272596f19",
+  "statement_id": "routing_statement_9e20735b64183da972224f1db78fa66a",
+  "statement_kind": "PROVIDER_DOCUMENTED_ROUTING_POLICY",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "runtime-resolution.phase6e-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime-resolution",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+    "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+  },
+  "supplied_at": "NOT_RECORDED"
+}

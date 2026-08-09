@@ -1,0 +1,69 @@
+{
+  "evaluated_at": "NOT_RECORDED",
+  "evaluation_digest": "e9a3d0f96f5b92aa7f89789e273fd47d750b0f197d7f8982028b6f65d4906f06",
+  "evaluation_id": "runtime_authority_evaluation_736cd3cd9b49d247ca924d661fe370b7",
+  "limitations": [
+    "Signature validity, trust, purpose, and authority remain separate."
+  ],
+  "overall_status": "NOT_ESTABLISHED",
+  "policy": {
+    "object_digest": "861260c7f358a3a1571dac9b734e8b15cb557d682d04ca2007ba29a82ae5063c",
+    "object_id": "runtime_resolution_policy_2d8a3b05723d2203e027a87830381472",
+    "schema_id": "omiv.runtime-resolution-policy.v1"
+  },
+  "purposes": [
+    {
+      "authorized": true,
+      "authorized_subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53",
+      "context": "synthetic.explicit",
+      "evaluated_subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53",
+      "finding": "Service-origin authority does not include weight attribution.",
+      "namespace": "namespace.synthetic",
+      "project": "project.runtime-resolution",
+      "provider": "provider.synthetic",
+      "purpose": "service.output.claim",
+      "signer_trusted": true,
+      "status": "ESTABLISHED",
+      "subject_scope": "declared.phase6e.scope",
+      "tenant": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    {
+      "authorized": false,
+      "authorized_subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53",
+      "context": "synthetic.explicit",
+      "evaluated_subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53",
+      "finding": "The service key is not authorized for weight-attribution claims.",
+      "namespace": "namespace.synthetic",
+      "project": "project.runtime-resolution",
+      "provider": "provider.synthetic",
+      "purpose": "weight.attribution",
+      "signer_trusted": true,
+      "status": "NOT_ESTABLISHED",
+      "subject_scope": "declared.phase6e.scope",
+      "tenant": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    }
+  ],
+  "schema": "omiv.runtime-resolution-authority-evaluation.v1",
+  "scope": "runtime.resolution.policy",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "runtime-resolution.phase6e-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime-resolution",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+    "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+  }
+}

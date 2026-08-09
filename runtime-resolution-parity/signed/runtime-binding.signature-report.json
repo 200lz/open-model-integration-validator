@@ -1,0 +1,137 @@
+{
+  "accepted_signature_count": 1,
+  "approval_status": "NOT_AVAILABLE",
+  "content_independently_proven": false,
+  "envelope_digest": "81048256d7c190cf8434446ec287be33af903cb8a994e2afdc9cf53e30bf2f03",
+  "envelope_id": "soe_54e61ae4b2c6d613dae7e04242d24bc3",
+  "evaluation_context_id": null,
+  "findings": [
+    {
+      "finding_id": "TRUST-001",
+      "limitation": null,
+      "status": "PASS",
+      "summary": "Signed-envelope schema is valid."
+    },
+    {
+      "finding_id": "TRUST-002",
+      "limitation": null,
+      "status": "PASS",
+      "summary": "Canonical object digest is valid."
+    },
+    {
+      "finding_id": "TRUST-003",
+      "limitation": null,
+      "status": "PASS",
+      "summary": "Domain-separated bytes were reconstructed."
+    },
+    {
+      "finding_id": "TRUST-005",
+      "limitation": "Signature validity does not prove claim truth.",
+      "status": "PASS",
+      "summary": "Detached Ed25519 signature verification was reconstructed."
+    },
+    {
+      "finding_id": "TRUST-014",
+      "limitation": null,
+      "status": "PASS",
+      "summary": "Static revocation records were evaluated."
+    },
+    {
+      "finding_id": "TRUST-015",
+      "limitation": null,
+      "status": "WARN",
+      "summary": "Expiration was not evaluated because no explicit time was supplied."
+    },
+    {
+      "finding_id": "TRUST-016",
+      "limitation": "Policy acceptance does not prove safety, approval, deployment, or runtime.",
+      "status": "PASS",
+      "summary": "Selected trust policy was evaluated."
+    },
+    {
+      "finding_id": "TRUST-017",
+      "limitation": null,
+      "status": "PASS",
+      "summary": "Underlying claim strength was preserved."
+    },
+    {
+      "finding_id": "TRUST-018",
+      "limitation": null,
+      "status": "PASS",
+      "summary": "Signing produced no forbidden trust escalation."
+    },
+    {
+      "finding_id": "TRUST-020",
+      "limitation": null,
+      "status": "PASS",
+      "summary": "Trust schemas contain public material only."
+    },
+    {
+      "finding_id": "TRUST-021",
+      "limitation": null,
+      "status": "PASS",
+      "summary": "Object type and purpose domain separation were enforced."
+    },
+    {
+      "finding_id": "TRUST-024",
+      "limitation": null,
+      "status": "PASS",
+      "summary": "Trust and claim limitations are explicit."
+    }
+  ],
+  "lifecycle_completeness": "INCOMPLETE",
+  "limitations": [
+    "A valid signature proves that the corresponding private-key holder signed this canonical object; it does not prove the underlying claim is true.",
+    "No payload, fidelity, security, runtime, approval, deployment, or complete-custody claim is created by signing."
+  ],
+  "missing_evidence": [
+    "Independent evidence proving the real-world claim content."
+  ],
+  "numerical_fidelity_status": "NOT_CHECKED",
+  "overall_status": "TRUSTED_SIGNATURE_WITH_LIMITATIONS",
+  "payload_status": "NOT_CHECKED",
+  "policy_digest": "a05714b376df29b348cca16818994a96c8ddd7f4a9a24386f7526044c85a86da",
+  "policy_id": "omiv.trust-policy.team_release.v1",
+  "report_digest": "73d775b416cf9460fa8c4cf80f799f6cac991c8817d6ed2cdf3f53c646c55785",
+  "report_id": "trust_report_bdc6814dde0fd83960dab7c50bd67fba",
+  "runtime_status": "NOT_CHECKED",
+  "schema": "omiv.signature-report.v1",
+  "security_status": "NOT_CHECKED",
+  "signature_results": [
+    {
+      "delegation_path": [],
+      "delegation_status": "DIRECT_ROOT",
+      "expiration_status": "UNAVAILABLE",
+      "key_id": "key_4c3a97f4aa45448f370e5e8d7eb7dab4",
+      "key_status": "KNOWN",
+      "limitations": [
+        "A valid signature does not independently prove claim content."
+      ],
+      "revocation_records": [],
+      "revocation_status": "NOT_REVOKED",
+      "signature_id": "sig_df788f2e2f1b5fbc1ce4fe40bb051b39",
+      "signature_integrity": "VALID",
+      "signer_binding": "VERIFIED",
+      "signer_binding_status": "VERIFIED_BY_TRUST_BUNDLE",
+      "signer_identity_id": "signer_415191a8605811cb231cde1199c7035a",
+      "signer_identity_status": "EVIDENCE_LINKED",
+      "signer_identity_verification": "VERIFIED_BY_POLICY",
+      "trust_policy_status": "TRUSTED_BY_POLICY",
+      "trust_root_id": "root_4986301f41047567a6ce76b1fde4ae41"
+    }
+  ],
+  "signed_object_digest": "dbe4bef8440eaf3c89eb95a0c99e88f9a380074e0da91889dd5fe9f70e292ff6",
+  "signed_object_id": "model_runtime_binding_8059318966cbd8527ddaacf6bbc62038",
+  "signed_object_schema": "omiv.model-runtime-binding.v1",
+  "signed_object_type": "MODEL_RUNTIME_BINDING",
+  "trust_bundle_digest": "a85a50e29323870321457455ac3762f39726e6ccae078336de521578cb7e039c",
+  "trust_bundle_id": "tb_7d9d3237cd49f34d89d2bcf47b0dec74",
+  "underlying_claim": {
+    "declared_scope": "deployment.synthetic",
+    "provable_inference_verified": false,
+    "publisher_authority_created_by_signature": false,
+    "runtime_identity_created_by_signature": false,
+    "runtime_resolution_status": null,
+    "weight_attribution_proven": false
+  }
+}

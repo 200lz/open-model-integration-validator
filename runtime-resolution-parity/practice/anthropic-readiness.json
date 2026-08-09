@@ -1,0 +1,22 @@
+{
+  "classification": "ANTHROPIC_PROVABLE_INFERENCE_ROADMAP_SIGNAL_RECORDED_WITHOUT_PUBLIC_PROOF_FORMAT_OR_IMPLEMENTATION",
+  "implementation": "PROVABLE_INFERENCE_NOT_IMPLEMENTED",
+  "limitations": [
+    "The roadmap target does not establish prototype completion.",
+    "No public proof format, verifier, cryptographic architecture, or weight attribution is inferred."
+  ],
+  "observation_time": "NOT_RECORDED",
+  "proof_format": "PUBLIC_PROOF_FORMAT_NOT_SUPPLIED",
+  "prototype": "PROTOTYPE_NOT_OBSERVED",
+  "readiness_digest": "9134d681dbe526b5c7d3c6a6327c81dd8e0437a97dbc66db78070c0ead8636a3",
+  "readiness_id": "anthropic_runtime_readiness_0239775a0ef400c160b5e098bc96aea7",
+  "roadmap_statement": {
+    "object_digest": "9d28401f74486620826a85d832394c602a542b2aa9a46645025cf6006d6b4bb1",
+    "object_id": "routing_statement_a2d825aadd637661e042545a3612c017",
+    "schema_id": "omiv.provider-routing-statement.v1"
+  },
+  "schema": "omiv.anthropic-provable-inference-readiness.v1",
+  "signal": "PROVIDER_RESEARCH_ROADMAP_STATEMENT",
+  "verifier": "VERIFIER_NOT_AVAILABLE",
+  "weight_attribution": "WEIGHT_ATTRIBUTION_NOT_ESTABLISHED"
+}

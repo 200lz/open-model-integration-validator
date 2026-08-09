@@ -1,0 +1,41 @@
+{
+  "case_id": "assumption-invalidated",
+  "exercised_invariant": "Mutable routing invalidates stable-slug assumption.",
+  "findings": [
+    "assumption-invalidated:INVALIDATED"
+  ],
+  "limitations": [
+    "Synthetic scenario is not production model or runtime evidence."
+  ],
+  "outcome": "INVALIDATED",
+  "result_digest": "54fb260672d403846f8e741436756a91667536f6d211e1c92fad21093d60e7f1",
+  "result_id": "runtime_scenario_406f9d5f1f660ed1dfd36d13fe4b361a",
+  "schema": "omiv.runtime-resolution-scenario-result.v1",
+  "scope": "scenario.assumption-invalidated",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "runtime-resolution.phase6e-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime-resolution",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+    "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+  },
+  "upstream_objects": [
+    {
+      "object_digest": "e7975a40ab50081e629f6029b19c8e78ea58163b3b204bd3b6a7834829783a08",
+      "object_id": "resolution_receipt_3e914a0102d2ae190869843d0a6f3198",
+      "schema_id": "omiv.registry-resolution-receipt.v1"
+    }
+  ]
+}

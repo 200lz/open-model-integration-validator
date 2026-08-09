@@ -1,0 +1,50 @@
+{
+  "api_surface": "xai.models.api",
+  "authority": "NOT_ESTABLISHED",
+  "available_at": "NOT_RECORDED",
+  "document_published_at": "NOT_RECORDED",
+  "document_updated_at": "NOT_RECORDED",
+  "evaluated_at": "NOT_RECORDED",
+  "limitations": [
+    "Public documentation is not observation of production request resolution."
+  ],
+  "observed_at": "NOT_RECORDED",
+  "provider": "xai",
+  "rules": [
+    {
+      "api_surface": "xai.models.api",
+      "documented_target": "grok-voice-think-fast-2.0",
+      "effective_at": "2026-08-05T00:00:00Z",
+      "mechanism": "MODEL_ALIAS_RESOLUTION",
+      "reasoning_setting": null,
+      "requested_identifier": "grok-voice-latest"
+    }
+  ],
+  "schema": "omiv.provider-routing-statement.v1",
+  "scope": "provider.documented.policy",
+  "source_fixture_digest": "32b69b695cd3f653db1c848a5cd82c3866166c6b3881f20eb949dfe8cb94256d",
+  "source_url": "https://docs.x.ai/developers/release-notes",
+  "statement_digest": "0f17012d75f85c5b115960010702ce61a883abd3f7c352e7b35dd2abda22275a",
+  "statement_id": "routing_statement_627154f4e1a9354bcf27cc4d11886142",
+  "statement_kind": "PROVIDER_DOCUMENTED_ROUTING_POLICY",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "runtime-resolution.phase6e-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime-resolution",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+    "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+  },
+  "supplied_at": "NOT_RECORDED"
+}

@@ -337,6 +337,7 @@ from omiv.remote.split_reporting import (
 )
 from omiv.reporters.console import format_report
 from omiv.runtime.adapters import adapt_governance_runtime, build_custody_runtime_linkage
+from omiv.runtime.building import build_product_subject, synthetic_scope
 from omiv.runtime.continuity import evaluate_continuity
 from omiv.runtime.models import (
     ContinuityEvaluation,
@@ -347,6 +348,7 @@ from omiv.runtime.models import (
     DeploymentRecord,
     DeploymentRuntimeReport,
     ProductSubject,
+    ProductSubjectClass,
     RuntimeObservation,
     RuntimeObservationPlan,
     RuntimeObserverIdentity,
@@ -360,6 +362,20 @@ from omiv.runtime.reporting import (
 from omiv.runtime.reporting import (
     pretty_json as pretty_runtime_json,
 )
+from omiv.runtime_resolution.artifact_index import verify_runtime_resolution_artifact_index
+from omiv.runtime_resolution.models import (
+    EvidenceStatus as RuntimeResolutionEvidenceStatus,
+)
+from omiv.runtime_resolution.models import (
+    RuntimeResolutionArtifactIndex,
+    RuntimeResolutionParityEvidence,
+    RuntimeResolutionReport,
+)
+from omiv.runtime_resolution.reporting import pretty_json as pretty_runtime_resolution_json
+from omiv.runtime_resolution.reporting import render_markdown as render_runtime_resolution_markdown
+from omiv.runtime_resolution.schema import load_runtime_resolution
+from omiv.runtime_resolution_profiles.anthropic import build_anthropic_practice
+from omiv.runtime_resolution_profiles.xai import build_xai_practice
 from omiv.safe_write import atomic_write_text, validate_output_path
 from omiv.schema.loader import load_schema
 from omiv.security.adapters import (
@@ -484,6 +500,7 @@ payload_app = typer.Typer(no_args_is_help=True)
 reconcile_app = typer.Typer(no_args_is_help=True)
 quantization_app = typer.Typer(no_args_is_help=True)
 tokenizer_configuration_app = typer.Typer(no_args_is_help=True)
+runtime_resolution_app = typer.Typer(no_args_is_help=True)
 app.add_typer(model_packs_app, name="model-packs")
 app.add_typer(passport_app, name="passport")
 app.add_typer(custody_app, name="custody")
@@ -497,6 +514,7 @@ app.add_typer(payload_app, name="payload")
 app.add_typer(reconcile_app, name="reconcile")
 app.add_typer(quantization_app, name="quantization")
 app.add_typer(tokenizer_configuration_app, name="tokenizer-config")
+app.add_typer(runtime_resolution_app, name="runtime-resolution")
 MAX_CANONICAL_INVENTORY_BYTES = 64 * 1024 * 1024
 REMOTE_REPORT_SCHEMAS = {
     "omiv.remote-snapshot-report.v1",
@@ -4426,4 +4444,121 @@ def tokenizer_configuration_practice_xai(
         f"{readiness.classification} payload_comparable_members=0 parity=NOT_EVALUATED",
         err=True,
     )
+    raise typer.Exit(code=1)
+
+
+def _runtime_resolution_failure(exc: Exception) -> None:
+    typer.echo(f"ERROR runtime-resolution operation failed: {exc}", err=True)
+    raise typer.Exit(code=2) from exc
+
+
+@runtime_resolution_app.command("inspect")
+def runtime_resolution_inspect(
+    input_path: Annotated[Path, typer.Argument(exists=True, dir_okay=False)],
+    output: Annotated[Path | None, typer.Option("--output", dir_okay=False)] = None,
+) -> None:
+    """Strictly validate and render one offline Phase 6E object."""
+    try:
+        value = load_runtime_resolution(input_path)
+        rendered = pretty_runtime_resolution_json(value)
+        if output is None:
+            typer.echo(rendered, nl=False)
+        else:
+            validate_output_path(output, forbidden_inputs=(input_path,))
+            atomic_write_text(output, rendered, forbidden_inputs=(input_path,))
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _runtime_resolution_failure(exc)
+
+
+@runtime_resolution_app.command("verify")
+def runtime_resolution_verify(
+    input_path: Annotated[Path, typer.Argument(exists=True, dir_okay=False)],
+) -> None:
+    """Verify canonical identity and emit a scope-qualified exit status."""
+    try:
+        value = load_runtime_resolution(input_path)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _runtime_resolution_failure(exc)
+    if isinstance(value, RuntimeResolutionParityEvidence):
+        typer.echo(f"{value.status.value} evidence={value.evidence_id} scope={value.scope}")
+        if value.status != RuntimeResolutionEvidenceStatus.SATISFACTORY_FOR_DECLARED_SCOPE:
+            raise typer.Exit(code=1)
+    else:
+        schema = value.model_dump(by_alias=True)["schema"]
+        typer.echo(f"VALID_CANONICAL_RUNTIME_RESOLUTION_OBJECT schema={schema}")
+
+
+@runtime_resolution_app.command("report")
+def runtime_resolution_report(
+    input_path: Annotated[Path, typer.Argument(exists=True, dir_okay=False)],
+    output: Annotated[Path | None, typer.Option("--output", dir_okay=False)] = None,
+) -> None:
+    """Render a bounded derived report without inference or template execution."""
+    try:
+        report = cast(
+            RuntimeResolutionReport,
+            load_runtime_resolution(input_path, RuntimeResolutionReport),
+        )
+        rendered = render_runtime_resolution_markdown(report)
+        if output is None:
+            typer.echo(rendered, nl=False)
+        else:
+            validate_output_path(output, forbidden_inputs=(input_path,))
+            atomic_write_text(output, rendered, forbidden_inputs=(input_path,))
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _runtime_resolution_failure(exc)
+    if report.status != RuntimeResolutionEvidenceStatus.SATISFACTORY_FOR_DECLARED_SCOPE:
+        raise typer.Exit(code=1)
+
+
+@runtime_resolution_app.command("verify-index")
+def runtime_resolution_verify_index(
+    index_path: Annotated[Path, typer.Option("--index", exists=True, dir_okay=False)],
+    root: Annotated[Path, typer.Option("--root", exists=True, file_okay=False)] = Path("."),
+) -> None:
+    """Verify the external self-excluding Phase 6E artifact index."""
+    try:
+        index = cast(
+            RuntimeResolutionArtifactIndex,
+            load_runtime_resolution(index_path, RuntimeResolutionArtifactIndex),
+        )
+        verify_runtime_resolution_artifact_index(root, index)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _runtime_resolution_failure(exc)
+    typer.echo(f"VALID_EXTERNAL_INDEX indexed_artifacts={len(index.entries)} self_inclusion=0")
+
+
+@runtime_resolution_app.command("practice-xai")
+def runtime_resolution_practice_xai() -> None:
+    """Reconstruct provider-document-scoped xAI practice evidence offline."""
+    try:
+        subject = build_product_subject(
+            ProductSubjectClass.DEPLOYMENT_PACKAGE,
+            "runtime-resolution.phase6e-practice",
+            synthetic_scope(
+                project="project.runtime-resolution", environment="environment.offline"
+            ),
+        )
+        _statements, readiness = build_xai_practice(Path.cwd(), subject)
+        typer.echo(json.dumps(readiness.model_dump(mode="json", by_alias=True), sort_keys=True))
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _runtime_resolution_failure(exc)
+    raise typer.Exit(code=1)
+
+
+@runtime_resolution_app.command("practice-anthropic")
+def runtime_resolution_practice_anthropic() -> None:
+    """Reconstruct Anthropic roadmap-scoped practice evidence offline."""
+    try:
+        subject = build_product_subject(
+            ProductSubjectClass.DEPLOYMENT_PACKAGE,
+            "runtime-resolution.phase6e-practice",
+            synthetic_scope(
+                project="project.runtime-resolution", environment="environment.offline"
+            ),
+        )
+        _statement, readiness = build_anthropic_practice(Path.cwd(), subject)
+        typer.echo(json.dumps(readiness.model_dump(mode="json", by_alias=True), sort_keys=True))
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _runtime_resolution_failure(exc)
     raise typer.Exit(code=1)

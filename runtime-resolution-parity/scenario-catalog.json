@@ -1,0 +1,296 @@
+{
+  "catalog_digest": "c8749e7d8f44f9c12447a056ee7ea93c53d2dff558e97ad271f7a6ea7a8f7832",
+  "catalog_id": "runtime_catalog_6be470cc6a9bab3e55e8b9ba964bd6c8",
+  "classification": "COMPLETE_AS_PROVIDER_NEUTRAL_RUNTIME_RESOLUTION_DEPLOYMENT_BINDING_AND_CROSS_BACKEND_PARITY_EVIDENCE_FOUNDATION_WITH_EXPLICIT_OBSERVATION_AND_PROVABLE_INFERENCE_LIMITATIONS",
+  "limitations": [
+    "Generated scenarios demonstrate bounded semantics, not production inference."
+  ],
+  "scenarios": [
+    {
+      "object_digest": "a6f84beb3e7e4ce14ee3064fa848d9988062aabaa02f8fb6184001b75179cc08",
+      "object_id": "runtime_scenario_a01159a3981e439cdc9f7133a67b8d4b",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "28406c123eee57bcefe040f72d8c1fe9c3d6c9143a6541cb62106a5a35420310",
+      "object_id": "runtime_scenario_6ee0a1c38b6f8fdbed2536346fc54baa",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "264af8b8f3f911ea946487128a9d697940692e5d604d14ecf46ee5b87a5413c9",
+      "object_id": "runtime_scenario_6810490b0825c94310ed5dbd9bdce053",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "54fb260672d403846f8e741436756a91667536f6d211e1c92fad21093d60e7f1",
+      "object_id": "runtime_scenario_406f9d5f1f660ed1dfd36d13fe4b361a",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "db6e462c6209fede613b2dbdf9c8a6ea545728bed564018f734e6bb84652590b",
+      "object_id": "runtime_scenario_05548fe6e1dc8881c5f0ba7237865c3a",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "85e3c2b1653fcc6b8584f89de062cd17dedcf040e80614adb0fd1698a44d7542",
+      "object_id": "runtime_scenario_37a2df847c580ad0dcd62cfac737b636",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "93e241c495e82017566416020ad9f4d2dcbcc3a69563a2261c6cf8297604e867",
+      "object_id": "runtime_scenario_748de5329c63576de49d6ffa79b8d6b7",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "1140a2eefd094db03d795ee97f2a99359e9c24f9a39099bcbe254001e1ce0eee",
+      "object_id": "runtime_scenario_bc62c0da3d52f70a56e588dcd7f7c426",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "cd9c05f7fab9bada9b6e46a70473ca43771c8803d909c9871e1fe190dd3c6973",
+      "object_id": "runtime_scenario_e1b3ff0ee0c941a40bf751c8c46e1bc5",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "e27745c7212962930e63ccef88d19002aec80f3cadc4fa8cab1b9667b5057ae1",
+      "object_id": "runtime_scenario_a7b54fe8218b36947475f4e9f62b085c",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "87fba514205ff83b33d91b5d8610ec39c48744ea40bc3ab69118cbbb42c07a45",
+      "object_id": "runtime_scenario_02ae39bdb81dd71af19312699c846347",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "ded2e562fca76cb960bf1270029975df8f4cba50948dea0d471de0a3245b2e81",
+      "object_id": "runtime_scenario_8488533fc150c2a2209b8987b9baf718",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "17cfa90cd509a596bad907111908608ceb376814d284d1997a13e36b3486b316",
+      "object_id": "runtime_scenario_7d4e86160fb4fef7af870b12ae710b45",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "b369224fd0880a20e3129c6fb5ad4ed3a94f004c6fed9ffa00c8bce1b69bb41a",
+      "object_id": "runtime_scenario_6bcac328033c53e554b6d5cfee5bb306",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "78125989aad1c7e0005bc252823ecbdd64b88845eab26b3df4e2365f3b2773dd",
+      "object_id": "runtime_scenario_494faf6a3f0c814b4c6b30e14d1abfcd",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "cfda4b862899399a47a0056360746db953f553f53d076142f8acb198bcd0a710",
+      "object_id": "runtime_scenario_e3f9233fc220b27e6ddf5fc69821f82c",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "dee340a24ccc96ce4957a88c2d5e1996cea2ea7cd7e181221be8f751b8986b1c",
+      "object_id": "runtime_scenario_c2431828673aa815f96ce6a35cf20db4",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "da248f993b3597c39ed2e780a211c98676cabb76ad4d70a06a6255dd4a6659c2",
+      "object_id": "runtime_scenario_a2efd27f0db465cd4357e63212d42631",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "d02c0120f7be3ba08b2cb37615d9b847dcd1909976751a89a260bfaf06b0f0e3",
+      "object_id": "runtime_scenario_976b7eb8c62001ba8aa9b6d084c45877",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "d736b3fda4cd12b86081d5a997e5c1a33b9981e2e8d1635728ba6c35feaeac90",
+      "object_id": "runtime_scenario_08aa2c0caacef0f232e18f398abb47f9",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "f5a6d533dc59da1107ba1c855bc626a120a37b7baeeaa52142b5e88b2dc005fc",
+      "object_id": "runtime_scenario_c5f1ec2d3505e7d0ab8e6b07ebb25ccc",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "a73d7edf199750f1eac534bfaafc04b5a4193555477d9e678bcad01368506d68",
+      "object_id": "runtime_scenario_215b3b2c724d3f19f8c967e91d9f18c6",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "cebdc9b41f34b5f0c9199adfaa9eed1d11e952ec0756e43c62d906eb254922fa",
+      "object_id": "runtime_scenario_631d836ac23e753cced9f7f94fc72074",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "6b956f1186b206ad158db52c56d4358b02395951e02dc761b4028727237376cb",
+      "object_id": "runtime_scenario_20e8ea7690680acd88c61155184ce9b5",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "27231d81bfd75199ef1711e2509cf6dded275120e7282b1715b1dd0a90fcca46",
+      "object_id": "runtime_scenario_bd3d1c361f165736c5a0202ccbd605c8",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "2babaae1bad82011dcf7a38c9d4b3c94e451b8fb378ab58edeb696faab13ac47",
+      "object_id": "runtime_scenario_fc33c66be070a4f55f1870b28ed72d70",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "3905a4f9c2aea62e1aeec81800c5c2e15ef4e59ea174f50d923f5ba417dc3bbf",
+      "object_id": "runtime_scenario_fdad1ddee08deb3e5a431cc211c7e628",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "738cbfd7baa8b66b5e60e1c1f3eecd4ac7744d0cb74e0c3961e1f52d387da36d",
+      "object_id": "runtime_scenario_abeeacf842a74a6d9ed25a9f08765e90",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "c580c902d6c97dd10e7b2b28ce5ff5cbb0717cf41998ff9ff8f21ef3ccda71aa",
+      "object_id": "runtime_scenario_41b965c08a020ae07e76e0ed95470369",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "6f9644d5c8d20b0d7d48162ae1665f530d6fe5b1c650d3f095a4dac8346d8f7b",
+      "object_id": "runtime_scenario_0d1b1c03b4458913267f44c0b81237e8",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "db34c7578e20e055ece810a9245e0753f0d7bc0275b3f23c403df45897d739e2",
+      "object_id": "runtime_scenario_67c663da929db6a964eac39ea8697aba",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "2aacd82f446c0852f26c374b8969f6503d7cbc2094421b9d2d5779e04697d882",
+      "object_id": "runtime_scenario_4b4ba9651a2893a5ec1b7ad945cfb188",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "17f633d44ab7dd4c3b8e1953e3fb1a4ad0f0f4b90b5d60c04d8527aea5e1003d",
+      "object_id": "runtime_scenario_afa61f18bb61db18fbf874a57e82774d",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "4506db2e681c782530628185524be4b4bb94e009a0ea08ec0179fc71d042d198",
+      "object_id": "runtime_scenario_85ec53ab6ab072f0598c517fc85f95d7",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "5a58a184bcbf092619b44338003f4ce77904c571e2f7ee87958dd4f614d2e7e7",
+      "object_id": "runtime_scenario_1d225df09016cd2f2f691708d4515f49",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "845028f2a61e0578ebb088f259ada174d9b5e01e168e580d34ea03bdcfffc71c",
+      "object_id": "runtime_scenario_c97e5ef96660a889ac2bcb4b98399237",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "84c685f1273debf50dae935287a60546c56219593e555031208b10dc4af4c665",
+      "object_id": "runtime_scenario_02a154ec22e4fb3bb818911a49574f21",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "066a4cd8f102bcf2635418273a9fdb43b828bc5ed1afb1407913fc620cdd9b0d",
+      "object_id": "runtime_scenario_714176b4ee9f84871ab65a261d80fe92",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "a232733c605468ac5d69358be0378f65cdd1c461cc312076b86be127e8b615a0",
+      "object_id": "runtime_scenario_3160ca886123e44a2293e8eff85c1350",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "ab49502e7965ed49c2a75824ea12fb35016f2cf1a2fc16e2c3bba6351fd5be49",
+      "object_id": "runtime_scenario_357d08c3cec428e8812ae7ab83775759",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "db7d4aaa8ecfa5c834ffd0d5aa07b8626efb726f8c148698c96baa90bb25afb3",
+      "object_id": "runtime_scenario_471bc44b16cc3549274bf9901e95070b",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "9297a2fb3aae50646f8886005ce0408d388f05a977162cd88169401e1f4c960d",
+      "object_id": "runtime_scenario_d011613d414a8bbc0a8dea5f2e27638f",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "b270e7cb0255f95f3112afb41252c3b7b198584da5d82b0d29e334a7ca478657",
+      "object_id": "runtime_scenario_213169138f6ac623a61d7978e5426d7c",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "89aa08ebc4b3e9390cde69cb34dfabe93d7093f8dfb63b752eb36fe582133e86",
+      "object_id": "runtime_scenario_5fba95c28606b4653a6d7ccf5d036f86",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "e54643defac26b86b6dea0c2c2bb56bd4edddd5eacc7a2506e9f43841a2d34a9",
+      "object_id": "runtime_scenario_e0e14b5d5f0c0e976ea13db8e7d375b4",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "8ae2b9938dfed00786e8eec1854df49fcdee5050b28f5f9bdfe27e95de0649cf",
+      "object_id": "runtime_scenario_aa47be6d510999553901a43675fbf8f5",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "ec1386c88c8c3cf6f9256ce7bb32b597aac733195287a1caeee84c57224295a3",
+      "object_id": "runtime_scenario_0a2a80d97d4202c913eea47c1ade69b1",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "4601dc4ed56dde27bcce28ef0528577904c501fbe62d0706a049a1af044f9a81",
+      "object_id": "runtime_scenario_79d1b37a8772527313cd1c7bb67c8de9",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "902b808a400f84b7d21514575ed71d472de17b6fa1eed96e9b36f352b64adfdd",
+      "object_id": "runtime_scenario_3599f41ca0d0ea01b4e95b2097f4b31e",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "22f8c34f05f9e1864808f71d9103cd52d5aab731217d77f449e0b708c0e8fc3d",
+      "object_id": "runtime_scenario_2ee9b10a902dd8066396ea4df61e02b1",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "86882f4b01a18247ea86ce4752cf63a3b2ec481251ff5f47d84d757ee07a018b",
+      "object_id": "runtime_scenario_7a0a94ede413a5856435948fadb44177",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "566ed7ac54f0a38df22570ff10380265001a5fef2f5819fda4ac670abbb46413",
+      "object_id": "runtime_scenario_0a65c43a057569d475e90415537d8e6c",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    },
+    {
+      "object_digest": "845de2021c91dd72cf9e033df77e23fcd31bb07a501656a12dda2c860652c9d8",
+      "object_id": "runtime_scenario_1566370e869507758a09773479af8289",
+      "schema_id": "omiv.runtime-resolution-scenario-result.v1"
+    }
+  ],
+  "schema": "omiv.runtime-resolution-scenario-catalog.v1",
+  "scope": "phase6e.synthetic.scenarios",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "runtime-resolution.phase6e-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime-resolution",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+    "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+  }
+}

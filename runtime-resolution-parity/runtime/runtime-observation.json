@@ -1,0 +1,60 @@
+{
+  "authority": "NOT_ESTABLISHED",
+  "coverage": [
+    {
+      "denominator": 1,
+      "denominator_availability": "AVAILABLE",
+      "dimension": "runtime.identity",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "declared.scope"
+    }
+  ],
+  "deployment_observation": {
+    "object_digest": "5a5e09e6d1c139fdac4fdb35146af802ed9afacf2ffbbd775df0a356b905d773",
+    "object_id": "deployment_observation_530da29ca6b1bf1f9ffd9025f4bc7e17",
+    "schema_id": "omiv.deployment-observation.v1"
+  },
+  "expected_identity": {
+    "object_digest": "be6ca53dccc25a5f0f37a6427c1c83d0745b524ecb8d63dd7a23827ab0326bbe",
+    "object_id": "runtime_identity_expectation_f5ee5f28c94c6c9372bab07bdd435f62",
+    "schema_id": "omiv.runtime-identity-expectation.v1"
+  },
+  "findings": [
+    "FILESYSTEM_ARTIFACT_OBSERVATION"
+  ],
+  "limitations": [
+    "Observation strength does not independently establish authority."
+  ],
+  "observation_digest": "8fdd1bf6b2aed36062e487c68f59f293ebdf4e5b9ed6123ebc434445bfc2ad32",
+  "observation_id": "runtime_identity_observation_d9bd115f5a8cc0b39bc7ae597f2cec9d",
+  "observation_source": "supplied.runtime.observation",
+  "observed_at": "NOT_RECORDED",
+  "observed_identity": {
+    "object_digest": "e3217175f79c36225f6a4b4e0715771e12eeb43ef32db321f82810f5a34cab5a",
+    "object_id": "manifest_f9c378301bf25001ac758b4e40924941",
+    "schema_id": "omiv.observed-payload-manifest.v1"
+  },
+  "schema": "omiv.runtime-identity-observation.v1",
+  "scope": "deployment.synthetic",
+  "strength": "FILESYSTEM_ARTIFACT_OBSERVATION",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "runtime-resolution.phase6e-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime-resolution",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+    "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+  }
+}

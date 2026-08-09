@@ -1,0 +1,85 @@
+{
+  "authority_evaluation": {
+    "object_digest": "e9a3d0f96f5b92aa7f89789e273fd47d750b0f197d7f8982028b6f65d4906f06",
+    "object_id": "runtime_authority_evaluation_736cd3cd9b49d247ca924d661fe370b7",
+    "schema_id": "omiv.runtime-resolution-authority-evaluation.v1"
+  },
+  "comparison": {
+    "object_digest": "b9d0169cbee675b4b3ce7e1604f4256923975274086c80aad7656cf3f3f6eb98",
+    "object_id": "backend_comparison_ce4bf495c0a68a29184980011e4dc405",
+    "schema_id": "omiv.cross-backend-comparison.v1"
+  },
+  "continuity": {
+    "object_digest": "d54b0c950025779ffc3fdeb40466845ef8e54c79f50fe2ff5dd66f9ff3c5ae97",
+    "object_id": "resolution_continuity_3e1049f561bb76cbaba8fc116acff114",
+    "schema_id": "omiv.resolution-continuity-assessment.v1"
+  },
+  "coverage": [
+    {
+      "denominator": 1,
+      "denominator_availability": "AVAILABLE",
+      "dimension": "resolution",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "declared.scope"
+    },
+    {
+      "denominator": 1,
+      "denominator_availability": "AVAILABLE",
+      "dimension": "runtime.binding",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "declared.scope"
+    },
+    {
+      "denominator": 1,
+      "denominator_availability": "AVAILABLE",
+      "dimension": "output.provenance",
+      "incomplete_reason": "weight attribution unavailable",
+      "numerator": 0,
+      "selected_scope": "declared.scope"
+    }
+  ],
+  "evidence_digest": "119d812217161d5b1be81a756868b0f5230360a7ed015ee86dabc09a6f69041f",
+  "evidence_id": "runtime_resolution_evidence_1b47f3d0a4c705bf80b6e79bcce019ea",
+  "limitations": [
+    "Phase 6E evidence does not establish safety, authenticity, or production readiness."
+  ],
+  "output_provenance": {
+    "object_digest": "2ca04915589d0da6ca3915fe139bbd6ea656bb1558bd20da67f7fabd0e500d8e",
+    "object_id": "output_provenance_2ecb913476d7ffcd0bfc6e37c40e4738",
+    "schema_id": "omiv.output-provenance-evidence.v1"
+  },
+  "policy_evaluation": {
+    "object_digest": "93c23f29a9ffce11f1d0ba822422f040ecd110c9d74f2157e6cc21437d0485cf",
+    "object_id": "runtime_policy_evaluation_f014487aef945b28efb2bd42897e151b",
+    "schema_id": "omiv.runtime-resolution-policy-evaluation.v1"
+  },
+  "runtime_binding": {
+    "object_digest": "9300729b7a102ea2094df5ad9cb9a830a3444b54d1a01c13c581a285d2c97ce6",
+    "object_id": "model_runtime_binding_8059318966cbd8527ddaacf6bbc62038",
+    "schema_id": "omiv.model-runtime-binding.v1"
+  },
+  "schema": "omiv.runtime-resolution-parity-evidence.v1",
+  "scope": "declared.phase6e.scope",
+  "status": "PARTIAL_FOR_DECLARED_SCOPE",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "runtime-resolution.phase6e-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime-resolution",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+    "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+  }
+}

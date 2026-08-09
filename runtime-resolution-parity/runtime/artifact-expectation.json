@@ -1,0 +1,47 @@
+{
+  "artifact_identity": {
+    "object_digest": "e3217175f79c36225f6a4b4e0715771e12eeb43ef32db321f82810f5a34cab5a",
+    "object_id": "manifest_f9c378301bf25001ac758b4e40924941",
+    "schema_id": "omiv.observed-payload-manifest.v1"
+  },
+  "authority": "NOT_ESTABLISHED",
+  "availability": "exact.reference.available",
+  "available_at": "NOT_RECORDED",
+  "expectation_digest": "be7d70260fad300fa701fcc8396f73dfd66d0900e21d32a2ec98e71dfff63ddd",
+  "expectation_id": "runtime_artifact_expectation_a5ca4b7626432bdecda436872f53385e",
+  "limitations": [
+    "Expected artifact identity is not observed runtime identity."
+  ],
+  "payload_identity": {
+    "object_digest": "e3217175f79c36225f6a4b4e0715771e12eeb43ef32db321f82810f5a34cab5a",
+    "object_id": "manifest_f9c378301bf25001ac758b4e40924941",
+    "schema_id": "omiv.observed-payload-manifest.v1"
+  },
+  "quantization_identity": null,
+  "schema": "omiv.runtime-artifact-expectation.v1",
+  "scope": "deployment.expected.identity",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "runtime-resolution.phase6e-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime-resolution",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+    "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+  },
+  "tokenizer_configuration_identity": {
+    "object_digest": "02e0cd746cbfd1be7c313650766d2826e2e94e0a286e849115e1d33e62c8822b",
+    "object_id": "tokenizer_configuration_evidence_0cd0e1e07cb4ac3479fc3bd6cc40bb2a",
+    "schema_id": "omiv.tokenizer-configuration-parity-evidence.v1"
+  }
+}

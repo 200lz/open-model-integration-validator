@@ -1,0 +1,41 @@
+{
+  "case_id": "alias-same-target",
+  "exercised_invariant": "Comparable supplied receipts retain the same target.",
+  "findings": [
+    "alias-same-target:SAME_TARGET"
+  ],
+  "limitations": [
+    "Synthetic scenario is not production model or runtime evidence."
+  ],
+  "outcome": "SAME_TARGET",
+  "result_digest": "28406c123eee57bcefe040f72d8c1fe9c3d6c9143a6541cb62106a5a35420310",
+  "result_id": "runtime_scenario_6ee0a1c38b6f8fdbed2536346fc54baa",
+  "schema": "omiv.runtime-resolution-scenario-result.v1",
+  "scope": "scenario.alias-same-target",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "runtime-resolution.phase6e-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime-resolution",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+    "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+  },
+  "upstream_objects": [
+    {
+      "object_digest": "9300729b7a102ea2094df5ad9cb9a830a3444b54d1a01c13c581a285d2c97ce6",
+      "object_id": "model_runtime_binding_8059318966cbd8527ddaacf6bbc62038",
+      "schema_id": "omiv.model-runtime-binding.v1"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "authority": "NOT_ESTABLISHED",
+  "evidence": {
+    "object_digest": "119d812217161d5b1be81a756868b0f5230360a7ed015ee86dabc09a6f69041f",
+    "object_id": "runtime_resolution_evidence_1b47f3d0a4c705bf80b6e79bcce019ea",
+    "schema_id": "omiv.runtime-resolution-parity-evidence.v1"
+  },
+  "integration_digest": "b430a8089d6de9cc86ec8219211806d2fc7fd8125d7c8f37064b5ee065db7f6c",
+  "integration_id": "runtime_integration_c6896ece4798dadad2e83c3cb87b5234",
+  "limitations": [
+    "Derived integration summary does not rewrite prior evidence."
+  ],
+  "phase": "phase5g",
+  "schema": "omiv.runtime-resolution-integration-summary.v1",
+  "scope": "declared.phase6e.scope",
+  "state": "runtime.evidence.downstream",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "runtime-resolution.phase6e-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime-resolution",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+    "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+  },
+  "upstream": null
+}

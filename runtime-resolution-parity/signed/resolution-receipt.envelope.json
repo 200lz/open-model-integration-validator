@@ -1,0 +1,150 @@
+{
+  "envelope_digest": "00cb17dc3148732289ccdbb8e07fce46b519c93ee41510ca178f1b4129001197",
+  "envelope_id": "soe_efeaa11b6ddb81521b777a5c34fc0d38",
+  "key_records": [
+    {
+      "algorithm": "ED25519",
+      "allowed_key_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "allowed_object_types": [
+        "MODEL_RUNTIME_BINDING",
+        "REGISTRY_RESOLUTION_RECEIPT",
+        "RUNTIME_RESOLUTION_PARITY_EVIDENCE"
+      ],
+      "allowed_purposes": [
+        "MODEL_RUNTIME_BINDING_ISSUANCE",
+        "REGISTRY_RESOLUTION_RECEIPT_ISSUANCE",
+        "RUNTIME_RESOLUTION_PARITY_EVIDENCE_ISSUANCE"
+      ],
+      "key_digest": "6a233c4490483580240572412e5781e9fa329b9e1e664466619d6cb144bfc37c",
+      "key_id": "key_4c3a97f4aa45448f370e5e8d7eb7dab4",
+      "limitations": [
+        "Public-key identity does not establish signer identity."
+      ],
+      "namespaces": [],
+      "provider_artifact_scopes": [],
+      "public_key": "014e4d922c596a380adfc9eed722e835822f1236761693e4babb61e1afbb04f1",
+      "public_key_digest": "4c3a97f4aa45448f370e5e8d7eb7dab432a19814b5b7762567db99894266a811",
+      "public_key_encoding": "RAW_HEX",
+      "schema": "omiv.key-identity.v1",
+      "status": "ACTIVE",
+      "validity": null
+    }
+  ],
+  "limitations": [
+    "The canonical source object is unchanged; trust is reconstructed externally."
+  ],
+  "schema": "omiv.signed-object-envelope.v1",
+  "signatures": [
+    {
+      "algorithm": "ED25519",
+      "binding_id": "binding_b5d4b1bfc0b4a7ddb988ab1581352c1d",
+      "detached_signature": "3df397e88218e03f8ff59c39dbe243944d18971ca289aeaf4c50538a72f5d0e5d2fd5d83c599fcc981fc8ea7e84940a87c594ffd47806f42d828e87bc46b8f05",
+      "key_id": "key_4c3a97f4aa45448f370e5e8d7eb7dab4",
+      "limitations": [
+        "Signature integrity does not prove the underlying claim is true."
+      ],
+      "payload": {
+        "canonicalization_version": "omiv-json-v1",
+        "digest_algorithm": "SHA-256",
+        "domain": "OMIV-SIGNED-OBJECT-V1",
+        "key_usage": "SIGN_OMIV_OBJECT",
+        "namespace": null,
+        "provider_artifact_scope": null,
+        "schema": "omiv.signature-payload.v1",
+        "signature_purpose": "REGISTRY_RESOLUTION_RECEIPT_ISSUANCE",
+        "signed_object_digest": "b4b21837bbda48582bc67331f3f0a90c8ae786779b78dd3ee56334b29c9f51b5",
+        "signed_object_id": "resolution_receipt_3e914a0102d2ae190869843d0a6f3198",
+        "signed_object_schema": "omiv.registry-resolution-receipt.v1",
+        "signed_object_type": "REGISTRY_RESOLUTION_RECEIPT",
+        "trust_policy_id": "omiv.trust-policy.team_release.v1"
+      },
+      "purpose": "REGISTRY_RESOLUTION_RECEIPT_ISSUANCE",
+      "schema": "omiv.signature-record.v1",
+      "signature_digest": "1929c60a0fe9c168edc6ee54da0a1355e5bb5e18e67f6e861f4b2c15b56912fc",
+      "signature_encoding": "RAW_HEX",
+      "signature_id": "sig_f7908927453a525b91504a350975b349",
+      "trust_policy_id": "omiv.trust-policy.team_release.v1"
+    }
+  ],
+  "signed_object": {
+    "api_surface": "api.synthetic",
+    "authority": "NOT_ESTABLISHED",
+    "available_at": "NOT_RECORDED",
+    "coverage": [
+      {
+        "denominator": 1,
+        "denominator_availability": "AVAILABLE",
+        "dimension": "resolution.receipt",
+        "incomplete_reason": null,
+        "numerator": 1,
+        "selected_scope": "declared.scope"
+      }
+    ],
+    "effective_at": "NOT_RECORDED",
+    "endpoint_context": "not.observed",
+    "evaluated_at": "NOT_RECORDED",
+    "evidence": {
+      "object_digest": "ed1d114e065b1f986a5ba9d18c4b3ec47372814a0926d244daf7297ffdefdd5f",
+      "object_id": "resolution_execution_7bb588372afd0dcbe74bbcef52d35124",
+      "schema_id": "omiv.resolution-execution-record.v1"
+    },
+    "execution": {
+      "object_digest": "ed1d114e065b1f986a5ba9d18c4b3ec47372814a0926d244daf7297ffdefdd5f",
+      "object_id": "resolution_execution_7bb588372afd0dcbe74bbcef52d35124",
+      "schema_id": "omiv.resolution-execution-record.v1"
+    },
+    "limitations": [
+      "Receipt observation level controls its meaning; a slug is not a payload digest."
+    ],
+    "lookup_kind": "supplied.evidence",
+    "namespace": "namespace.synthetic",
+    "observation_level": "CALLER_DECLARED",
+    "observed_at": "NOT_RECORDED",
+    "provider": "provider.synthetic",
+    "provider_response_field": null,
+    "purpose": "inference.request",
+    "receipt_digest": "e7975a40ab50081e629f6029b19c8e78ea58163b3b204bd3b6a7834829783a08",
+    "receipt_id": "resolution_receipt_3e914a0102d2ae190869843d0a6f3198",
+    "redirect_chain": [],
+    "requested_identifier": {
+      "object_digest": "73d75b69dae7f9fdf5254df72c1b9ce1282feb2f52271973090a759076f77008",
+      "object_id": "requested_model_594c47847457e6cfbdfab093db3930f5",
+      "schema_id": "omiv.requested-model-identifier.v1"
+    },
+    "resolution_mechanism": "CALLER_SUPPLIED",
+    "resolution_source": "caller_declared",
+    "resolved_at": "2026-08-06T00:00:00Z",
+    "resolved_identifier": "synthetic-model-B",
+    "resolved_identity_kind": "VERSIONED_IDENTIFIER",
+    "schema": "omiv.registry-resolution-receipt.v1",
+    "scope": "runtime.resolution",
+    "status": "MUTABLE_ALIAS_RESOLUTION",
+    "subject": {
+      "limitations": [
+        "Logical product subject identity does not prove artifact content."
+      ],
+      "logical_name": "runtime-resolution.phase6e-synthetic",
+      "schema": "omiv.product-subject.v1",
+      "scope": {
+        "environment_scope": "environment.offline",
+        "organization_scope": "organization.synthetic",
+        "product_scope": "product.generic-inference",
+        "project_scope": "project.runtime-resolution",
+        "target_scope": "target-scope.runtime",
+        "tenant_scope": "tenant.synthetic",
+        "trust_domain": "trust-domain.synthetic"
+      },
+      "subject_class": "DEPLOYMENT_PACKAGE",
+      "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+      "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+    },
+    "supplied_at": "NOT_RECORDED"
+  },
+  "signed_object_digest": "b4b21837bbda48582bc67331f3f0a90c8ae786779b78dd3ee56334b29c9f51b5",
+  "signed_object_id": "resolution_receipt_3e914a0102d2ae190869843d0a6f3198",
+  "signed_object_schema": "omiv.registry-resolution-receipt.v1",
+  "signed_object_type": "REGISTRY_RESOLUTION_RECEIPT",
+  "trust_policy_id": "omiv.trust-policy.team_release.v1"
+}

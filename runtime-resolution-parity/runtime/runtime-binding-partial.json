@@ -1,0 +1,72 @@
+{
+  "accepted_strength": "CONTROL_PLANE_CONFIGURATION",
+  "artifact_expectation": {
+    "object_digest": "be7d70260fad300fa701fcc8396f73dfd66d0900e21d32a2ec98e71dfff63ddd",
+    "object_id": "runtime_artifact_expectation_a5ca4b7626432bdecda436872f53385e",
+    "schema_id": "omiv.runtime-artifact-expectation.v1"
+  },
+  "authority": "NOT_ESTABLISHED",
+  "binding_digest": "8237def78e75ac3a2e2fc4022190f318d4eb9075893d405b2e14eb7826cec472",
+  "binding_id": "model_runtime_binding_f6edef7fca50ac0eed143bbb0d683b67",
+  "coverage": [
+    {
+      "denominator": 1,
+      "denominator_availability": "AVAILABLE",
+      "dimension": "runtime.binding",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "declared.scope"
+    }
+  ],
+  "deployment_declaration": {
+    "object_digest": "60c192deda9b17f54f9ee1cbfbae53f564d84a8d52b84b02d55395a145c1f014",
+    "object_id": "deployment_declaration_4748018323084485e7b7bfa3cc189fe2",
+    "schema_id": "omiv.deployment-declaration.v1"
+  },
+  "deployment_observation": {
+    "object_digest": "5a5e09e6d1c139fdac4fdb35146af802ed9afacf2ffbbd775df0a356b905d773",
+    "object_id": "deployment_observation_530da29ca6b1bf1f9ffd9025f4bc7e17",
+    "schema_id": "omiv.deployment-observation.v1"
+  },
+  "evaluated_at": "NOT_RECORDED",
+  "limitations": [
+    "Runtime binding is scope-qualified and is not provable weight-attributable inference."
+  ],
+  "outcome": "INSUFFICIENT_OBSERVATION",
+  "runtime_expectation": {
+    "object_digest": "be6ca53dccc25a5f0f37a6427c1c83d0745b524ecb8d63dd7a23827ab0326bbe",
+    "object_id": "runtime_identity_expectation_f5ee5f28c94c6c9372bab07bdd435f62",
+    "schema_id": "omiv.runtime-identity-expectation.v1"
+  },
+  "runtime_observation": {
+    "object_digest": "8fdd1bf6b2aed36062e487c68f59f293ebdf4e5b9ed6123ebc434445bfc2ad32",
+    "object_id": "runtime_identity_observation_d9bd115f5a8cc0b39bc7ae597f2cec9d",
+    "schema_id": "omiv.runtime-identity-observation.v1"
+  },
+  "schema": "omiv.model-runtime-binding.v1",
+  "scope": "deployment.synthetic",
+  "selected_policy": {
+    "object_digest": "861260c7f358a3a1571dac9b734e8b15cb557d682d04ca2007ba29a82ae5063c",
+    "object_id": "runtime_resolution_policy_2d8a3b05723d2203e027a87830381472",
+    "schema_id": "omiv.runtime-resolution-policy.v1"
+  },
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "runtime-resolution.phase6e-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime-resolution",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+    "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+  }
+}

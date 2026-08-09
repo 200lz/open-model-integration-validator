@@ -198,6 +198,21 @@ OBJECT_METADATA: dict[SignedObjectType, tuple[set[str], str, str]] = {
         "evidence_id",
         "evidence_digest",
     ),
+    SignedObjectType.REGISTRY_RESOLUTION_RECEIPT: (
+        {"omiv.registry-resolution-receipt.v1"},
+        "receipt_id",
+        "receipt_digest",
+    ),
+    SignedObjectType.MODEL_RUNTIME_BINDING: (
+        {"omiv.model-runtime-binding.v1"},
+        "binding_id",
+        "binding_digest",
+    ),
+    SignedObjectType.RUNTIME_RESOLUTION_PARITY_EVIDENCE: (
+        {"omiv.runtime-resolution-parity-evidence.v1"},
+        "evidence_id",
+        "evidence_digest",
+    ),
 }
 EXPECTED_PURPOSE = {
     SignedObjectType.ARTIFACT_ATTESTATION: SignaturePurpose.ATTESTATION_ISSUANCE,
@@ -256,6 +271,13 @@ EXPECTED_PURPOSE = {
     ),
     SignedObjectType.TOKENIZER_CONFIGURATION_PARITY_EVIDENCE: (
         SignaturePurpose.TOKENIZER_CONFIGURATION_PARITY_EVIDENCE_ISSUANCE
+    ),
+    SignedObjectType.REGISTRY_RESOLUTION_RECEIPT: (
+        SignaturePurpose.REGISTRY_RESOLUTION_RECEIPT_ISSUANCE
+    ),
+    SignedObjectType.MODEL_RUNTIME_BINDING: SignaturePurpose.MODEL_RUNTIME_BINDING_ISSUANCE,
+    SignedObjectType.RUNTIME_RESOLUTION_PARITY_EVIDENCE: (
+        SignaturePurpose.RUNTIME_RESOLUTION_PARITY_EVIDENCE_ISSUANCE
     ),
 }
 

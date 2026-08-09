@@ -1,0 +1,34 @@
+{
+  "availability": "AVAILABLE",
+  "claims": [
+    {
+      "claim_id": "xai.voice.latest.route.2026-08-05",
+      "body_byte_length": 81,
+      "body_byte_start": 258791,
+      "body_region_sha256": "2e6941c1a67d43e46a111c1f6f1cd3772edd3ca98dcd0fe4005f8b14fe2bcaf7",
+      "evidence_kind": "HUMAN_REVIEWED_SOURCE_BODY_REGION",
+      "fact": "The release note documents grok-voice-latest routing to grok-voice-think-fast-2.0 starting 2026-08-05.",
+      "location": "Release notes entry dated 2026-08-05"
+    }
+  ],
+  "collection_status": "BOUNDED_PUBLIC_DOCUMENT_CAPTURED",
+  "collection_time": "NOT_RECORDED",
+  "content_length": 528275,
+  "content_type": "text/html; charset=utf-8",
+  "document_published_at": "NOT_RECORDED",
+  "document_updated_at": "NOT_RECORDED",
+  "final_url": "https://docs.x.ai/developers/release-notes",
+  "get_request_count": 1,
+  "head_request_count": 1,
+  "human_review_status": "REVIEWED",
+  "limitations": [
+    "Normalized claim metadata is evidence of provider documentation, not production API resolution.",
+    "The raw response is not stored in the repository."
+  ],
+  "observation_state": "PUBLIC_DOCUMENT_BODY_CAPTURED_NOT_RUNTIME_OBSERVATION",
+  "retrieval_method": "GET",
+  "response_body_sha256": "55450f91c5cf5e32197ff5d810170a38858fbdabe48998ebcc2ed604f63b7e7c",
+  "schema": "omiv.public-document-source.v1",
+  "source_kind": "PROVIDER_DOCUMENTATION",
+  "source_url": "https://docs.x.ai/developers/release-notes"
+}

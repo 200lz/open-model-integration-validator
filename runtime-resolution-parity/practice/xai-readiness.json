@@ -1,0 +1,32 @@
+{
+  "api_response": "NOT_OBSERVED",
+  "artifact_identity": "UNAVAILABLE",
+  "authenticity": "NOT_ESTABLISHED",
+  "classification": "XAI_PROVIDER_DOCUMENTED_MUTABLE_ALIAS_AND_REDIRECT_EVIDENCE_RECORDED_WITHOUT_OBSERVED_RUNTIME_WEIGHT_IDENTITY",
+  "evidence_layer": "PROVIDER_DOCUMENTED_POLICY",
+  "freshness": "NOT_ESTABLISHED",
+  "limitations": [
+    "A model name is not a model identity; this is an evidence-model principle.",
+    "No production API request, runtime identity, weight identity, endorsement, or affiliation is claimed."
+  ],
+  "observation_time": "NOT_RECORDED",
+  "production_request": "NOT_PERFORMED",
+  "publisher_authority": "NOT_ESTABLISHED",
+  "readiness_digest": "a676b16f37ff90442f2e779ca51089920ce07bafde92a8ce8407bd6c8739556d",
+  "readiness_id": "xai_runtime_readiness_58f2c017bc672328fc74238f39313ba9",
+  "routing_statements": [
+    {
+      "object_digest": "0f17012d75f85c5b115960010702ce61a883abd3f7c352e7b35dd2abda22275a",
+      "object_id": "routing_statement_627154f4e1a9354bcf27cc4d11886142",
+      "schema_id": "omiv.provider-routing-statement.v1"
+    },
+    {
+      "object_digest": "5b6bb254b6f1b0dd20cf3d876a1e11f56ac44836acf564290585f21272596f19",
+      "object_id": "routing_statement_9e20735b64183da972224f1db78fa66a",
+      "schema_id": "omiv.provider-routing-statement.v1"
+    }
+  ],
+  "runtime_identity": "NOT_OBSERVED",
+  "schema": "omiv.xai-runtime-resolution-readiness.v1",
+  "weight_identity": "NOT_OBSERVED"
+}

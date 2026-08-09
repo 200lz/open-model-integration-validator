@@ -1,0 +1,41 @@
+{
+  "case_id": "xai-mutable",
+  "exercised_invariant": "xAI alias evidence is provider-document scoped.",
+  "findings": [
+    "xai-mutable:DOCUMENTED_ONLY"
+  ],
+  "limitations": [
+    "Synthetic scenario is not production model or runtime evidence."
+  ],
+  "outcome": "DOCUMENTED_ONLY",
+  "result_digest": "566ed7ac54f0a38df22570ff10380265001a5fef2f5819fda4ac670abbb46413",
+  "result_id": "runtime_scenario_0a65c43a057569d475e90415537d8e6c",
+  "schema": "omiv.runtime-resolution-scenario-result.v1",
+  "scope": "scenario.xai-mutable",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "runtime-resolution.phase6e-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime-resolution",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+    "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+  },
+  "upstream_objects": [
+    {
+      "object_digest": "a676b16f37ff90442f2e779ca51089920ce07bafde92a8ce8407bd6c8739556d",
+      "object_id": "xai_runtime_readiness_58f2c017bc672328fc74238f39313ba9",
+      "schema_id": "omiv.xai-runtime-resolution-readiness.v1"
+    }
+  ]
+}

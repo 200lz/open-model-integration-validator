@@ -1,0 +1,41 @@
+{
+  "case_id": "control-plane",
+  "exercised_invariant": "Control-plane evidence retains its strength.",
+  "findings": [
+    "control-plane:CONTROL_PLANE_ONLY"
+  ],
+  "limitations": [
+    "Synthetic scenario is not production model or runtime evidence."
+  ],
+  "outcome": "CONTROL_PLANE_ONLY",
+  "result_digest": "93e241c495e82017566416020ad9f4d2dcbcc3a69563a2261c6cf8297604e867",
+  "result_id": "runtime_scenario_748de5329c63576de49d6ffa79b8d6b7",
+  "schema": "omiv.runtime-resolution-scenario-result.v1",
+  "scope": "scenario.control-plane",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "runtime-resolution.phase6e-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime-resolution",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+    "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+  },
+  "upstream_objects": [
+    {
+      "object_digest": "9134d681dbe526b5c7d3c6a6327c81dd8e0437a97dbc66db78070c0ead8636a3",
+      "object_id": "anthropic_runtime_readiness_0239775a0ef400c160b5e098bc96aea7",
+      "schema_id": "omiv.anthropic-provable-inference-readiness.v1"
+    }
+  ]
+}

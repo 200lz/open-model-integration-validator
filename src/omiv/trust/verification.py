@@ -50,6 +50,11 @@ from omiv.runtime.models import (
     DeploymentRecord,
     RuntimeObservation,
 )
+from omiv.runtime_resolution.models import (
+    ModelRuntimeBinding,
+    RegistryResolutionReceipt,
+    RuntimeResolutionParityEvidence,
+)
 from omiv.security.models import (
     SecurityEvaluationResult,
     SecurityEvidenceBundle,
@@ -370,6 +375,12 @@ def _validate_source_object(envelope: SignedObjectEnvelope) -> None:
         model = TokenizerAssetObservation
     elif envelope.signed_object_type == SignedObjectType.TOKENIZER_CONFIGURATION_PARITY_EVIDENCE:
         model = TokenizerConfigurationParityEvidence
+    elif envelope.signed_object_type == SignedObjectType.REGISTRY_RESOLUTION_RECEIPT:
+        model = RegistryResolutionReceipt
+    elif envelope.signed_object_type == SignedObjectType.MODEL_RUNTIME_BINDING:
+        model = ModelRuntimeBinding
+    elif envelope.signed_object_type == SignedObjectType.RUNTIME_RESOLUTION_PARITY_EVIDENCE:
+        model = RuntimeResolutionParityEvidence
     elif envelope.signed_object_schema == "omiv.model-passport.v1":
         model = ModelPassport
     else:
@@ -417,6 +428,9 @@ def _validate_source_object(envelope: SignedObjectEnvelope) -> None:
         SignedObjectType.TOKENIZER_CONFIGURATION_EXPECTATION: "expectation_digest",
         SignedObjectType.TOKENIZER_ASSET_OBSERVATION: "observation_digest",
         SignedObjectType.TOKENIZER_CONFIGURATION_PARITY_EVIDENCE: "evidence_digest",
+        SignedObjectType.REGISTRY_RESOLUTION_RECEIPT: "receipt_digest",
+        SignedObjectType.MODEL_RUNTIME_BINDING: "binding_digest",
+        SignedObjectType.RUNTIME_RESOLUTION_PARITY_EVIDENCE: "evidence_digest",
     }[envelope.signed_object_type]
     digest_body.pop(digest_field)
     if object_digest != canonical_sha256(digest_body):
@@ -781,6 +795,19 @@ def _claim_summary(envelope: SignedObjectEnvelope) -> tuple[dict[str, Any], str]
             "probe_executor_authority_created_by_signature": False,
             "runtime_identity_created_by_signature": False,
             "behavioral_parity_proven": False,
+        }, "INCOMPLETE"
+    if envelope.signed_object_type in {
+        SignedObjectType.REGISTRY_RESOLUTION_RECEIPT,
+        SignedObjectType.MODEL_RUNTIME_BINDING,
+        SignedObjectType.RUNTIME_RESOLUTION_PARITY_EVIDENCE,
+    }:
+        return {
+            "runtime_resolution_status": value.get("overall_status", value.get("status")),
+            "declared_scope": value.get("scope", "NOT_RECORDED"),
+            "runtime_identity_created_by_signature": False,
+            "weight_attribution_proven": False,
+            "provable_inference_verified": False,
+            "publisher_authority_created_by_signature": False,
         }, "INCOMPLETE"
     if envelope.signed_object_type == SignedObjectType.ARTIFACT_ATTESTATION:
         summary = value.get("verification_summary", {})

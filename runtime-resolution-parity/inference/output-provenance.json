@@ -1,0 +1,86 @@
+{
+  "authority": "NOT_ESTABLISHED",
+  "authority_evaluation": {
+    "object_digest": "e9a3d0f96f5b92aa7f89789e273fd47d750b0f197d7f8982028b6f65d4906f06",
+    "object_id": "runtime_authority_evaluation_736cd3cd9b49d247ca924d661fe370b7",
+    "schema_id": "omiv.runtime-resolution-authority-evaluation.v1"
+  },
+  "claimed_weight_artifact_identity": null,
+  "coverage": [
+    {
+      "denominator": 1,
+      "denominator_availability": "AVAILABLE",
+      "dimension": "weight.attribution",
+      "incomplete_reason": "proof unavailable",
+      "numerator": 0,
+      "selected_scope": "declared.scope"
+    }
+  ],
+  "evaluated_at": "NOT_RECORDED",
+  "inference_attestation": {
+    "object_digest": "a3b047c0a083c842a3e925c2f7bf34e9f3443b5092a19021e620132e2a4180ad",
+    "object_id": "inference_attestation_7d0204ed75f71de09f4c9fdcaff02b2a",
+    "schema_id": "omiv.inference-attestation.v1"
+  },
+  "inference_identity": {
+    "object_digest": "12472dc46ede7fab6a8fff0eaaff976591caef26d04589e9f16863045f5fc3ce",
+    "object_id": "inference_identity_7f6865336068f1a911b2188b8b4b3f15",
+    "schema_id": "omiv.inference-identity.v1"
+  },
+  "limitations": [
+    "OMIV Phase 6E does not implement or simulate provable inference."
+  ],
+  "output": {
+    "availability": "DIGEST_ONLY",
+    "canonicalization_mode": "raw.output.bytes",
+    "coverage": "DIGEST_IDENTITY_ONLY",
+    "digest": "8ce2b8e3bd7c23f321afc6b6e279a3607394ef0bc5fc5750ac7e534a4549c42e",
+    "digest_algorithm": "SHA256",
+    "encoding": "utf-8",
+    "inline_synthetic": null,
+    "length": 41,
+    "media_type": "application/octet-stream",
+    "reproducibility": "DIGEST_ONLY_NOT_INDEPENDENTLY_REPRODUCIBLE",
+    "scope": "declared.content",
+    "streaming_aggregate_semantics": "final.aggregate"
+  },
+  "proof_availability": "PROOF_UNAVAILABLE",
+  "proof_method": "UNSIGNED_CLAIM",
+  "proof_reference": null,
+  "provenance_digest": "2ca04915589d0da6ca3915fe139bbd6ea656bb1558bd20da67f7fabd0e500d8e",
+  "provenance_id": "output_provenance_2ecb913476d7ffcd0bfc6e37c40e4738",
+  "request_digest": "ef9e9d91376e506da6801e3ad8aec5344170862d34f31304e678384487950c82",
+  "runtime_binding": {
+    "object_digest": "9300729b7a102ea2094df5ad9cb9a830a3444b54d1a01c13c581a285d2c97ce6",
+    "object_id": "model_runtime_binding_8059318966cbd8527ddaacf6bbc62038",
+    "schema_id": "omiv.model-runtime-binding.v1"
+  },
+  "schema": "omiv.output-provenance-evidence.v1",
+  "scope": "synthetic.inference.correlation",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "runtime-resolution.phase6e-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime-resolution",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+    "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+  },
+  "verification_policy": {
+    "object_digest": "861260c7f358a3a1571dac9b734e8b15cb557d682d04ca2007ba29a82ae5063c",
+    "object_id": "runtime_resolution_policy_2d8a3b05723d2203e027a87830381472",
+    "schema_id": "omiv.runtime-resolution-policy.v1"
+  },
+  "verification_status": "WEIGHT_ATTRIBUTION_NOT_ESTABLISHED",
+  "verifier_availability": "NOT_AVAILABLE"
+}

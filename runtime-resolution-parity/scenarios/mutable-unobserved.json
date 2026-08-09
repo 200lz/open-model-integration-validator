@@ -1,0 +1,41 @@
+{
+  "case_id": "mutable-unobserved",
+  "exercised_invariant": "Mutable alias without receipt remains unresolved.",
+  "findings": [
+    "mutable-unobserved:NOT_EVALUATED"
+  ],
+  "limitations": [
+    "Synthetic scenario is not production model or runtime evidence."
+  ],
+  "outcome": "NOT_EVALUATED",
+  "result_digest": "738cbfd7baa8b66b5e60e1c1f3eecd4ac7744d0cb74e0c3961e1f52d387da36d",
+  "result_id": "runtime_scenario_abeeacf842a74a6d9ed25a9f08765e90",
+  "schema": "omiv.runtime-resolution-scenario-result.v1",
+  "scope": "scenario.mutable-unobserved",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "runtime-resolution.phase6e-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime-resolution",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+    "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+  },
+  "upstream_objects": [
+    {
+      "object_digest": "e7975a40ab50081e629f6029b19c8e78ea58163b3b204bd3b6a7834829783a08",
+      "object_id": "resolution_receipt_3e914a0102d2ae190869843d0a6f3198",
+      "schema_id": "omiv.registry-resolution-receipt.v1"
+    }
+  ]
+}

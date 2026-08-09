@@ -1,0 +1,52 @@
+{
+  "availability": "AVAILABLE",
+  "claims": [
+    {
+      "claim_id": "xai.retired.slugs.continue.resolve",
+      "body_byte_length": 124,
+      "body_byte_start": 257986,
+      "body_region_sha256": "77d5710962b447bafcdb8e77dad30cad9b9315818cf3d8e7d73c21fca23b2360",
+      "evidence_kind": "HUMAN_REVIEWED_SOURCE_BODY_REGION",
+      "fact": "The migration document states that listed retired slugs continue resolving while redirecting to documented replacements after the stated retirement time.",
+      "location": "Automatic migration section"
+    },
+    {
+      "claim_id": "xai.code.fast.route.build",
+      "body_byte_length": 126,
+      "body_byte_start": 264104,
+      "body_region_sha256": "68de49f401cf8ffe5999fc52bb85b688beaa7925fa682592604104481791f16d",
+      "evidence_kind": "HUMAN_REVIEWED_SOURCE_BODY_REGION",
+      "fact": "The migration table and code-workloads section document grok-code-fast-1 routing to grok-build-0.1.",
+      "location": "Recommended replacements table and code-workloads section"
+    },
+    {
+      "claim_id": "xai.grok.retired.route.4.3",
+      "body_byte_length": 40,
+      "body_byte_start": 258212,
+      "body_region_sha256": "10133d8ee8d7dc5bc92a0b26873ac074d238501b66571887903173d50030649d",
+      "evidence_kind": "HUMAN_REVIEWED_SOURCE_BODY_REGION",
+      "fact": "The migration document lists retired Grok identifiers routing to grok-4.3 with low or none reasoning settings according to the listed category.",
+      "location": "Automatic migration and recommended replacements sections"
+    }
+  ],
+  "collection_status": "BOUNDED_PUBLIC_DOCUMENT_CAPTURED",
+  "collection_time": "NOT_RECORDED",
+  "content_length": 399122,
+  "content_type": "text/html; charset=utf-8",
+  "document_published_at": "NOT_RECORDED",
+  "document_updated_at": "NOT_RECORDED",
+  "final_url": "https://docs.x.ai/developers/migration/may-15-retirement",
+  "get_request_count": 1,
+  "head_request_count": 1,
+  "human_review_status": "REVIEWED",
+  "limitations": [
+    "Normalized claim metadata does not establish current routing or any particular production request.",
+    "The raw response is not stored in the repository."
+  ],
+  "observation_state": "PUBLIC_DOCUMENT_BODY_CAPTURED_NOT_RUNTIME_OBSERVATION",
+  "retrieval_method": "GET",
+  "response_body_sha256": "338855e9c107c79dcb60e4affb107d85c6ec5dbf4cc83152e56e4d445dfbdef5",
+  "schema": "omiv.public-document-source.v1",
+  "source_kind": "PROVIDER_MIGRATION_DOCUMENTATION",
+  "source_url": "https://docs.x.ai/developers/migration/may-15-retirement"
+}

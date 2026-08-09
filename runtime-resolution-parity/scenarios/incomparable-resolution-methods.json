@@ -1,0 +1,41 @@
+{
+  "case_id": "incomparable-resolution-methods",
+  "exercised_invariant": "Different resolution methods cannot establish continuity.",
+  "findings": [
+    "incomparable-resolution-methods:NOT_COMPARABLE"
+  ],
+  "limitations": [
+    "Synthetic scenario is not production model or runtime evidence."
+  ],
+  "outcome": "NOT_COMPARABLE",
+  "result_digest": "d736b3fda4cd12b86081d5a997e5c1a33b9981e2e8d1635728ba6c35feaeac90",
+  "result_id": "runtime_scenario_08aa2c0caacef0f232e18f398abb47f9",
+  "schema": "omiv.runtime-resolution-scenario-result.v1",
+  "scope": "scenario.incomparable-resolution-methods",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "runtime-resolution.phase6e-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime-resolution",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+    "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+  },
+  "upstream_objects": [
+    {
+      "object_digest": "720d684af734ffeb004503b023198cfbfb9cbf57d56002c26d31ffc037c2db4a",
+      "object_id": "resolution_receipt_fd3bd4ec68b0280c88483c896f8f5ea4",
+      "schema_id": "omiv.registry-resolution-receipt.v1"
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "bundle_digest": "a85a50e29323870321457455ac3762f39726e6ccae078336de521578cb7e039c",
+  "bundle_id": "tb_7d9d3237cd49f34d89d2bcf47b0dec74",
+  "delegations": [],
+  "keys": [
+    {
+      "algorithm": "ED25519",
+      "allowed_key_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "allowed_object_types": [
+        "MODEL_RUNTIME_BINDING",
+        "REGISTRY_RESOLUTION_RECEIPT",
+        "RUNTIME_RESOLUTION_PARITY_EVIDENCE"
+      ],
+      "allowed_purposes": [
+        "MODEL_RUNTIME_BINDING_ISSUANCE",
+        "REGISTRY_RESOLUTION_RECEIPT_ISSUANCE",
+        "RUNTIME_RESOLUTION_PARITY_EVIDENCE_ISSUANCE"
+      ],
+      "key_digest": "6a233c4490483580240572412e5781e9fa329b9e1e664466619d6cb144bfc37c",
+      "key_id": "key_4c3a97f4aa45448f370e5e8d7eb7dab4",
+      "limitations": [
+        "Public-key identity does not establish signer identity."
+      ],
+      "namespaces": [],
+      "provider_artifact_scopes": [],
+      "public_key": "014e4d922c596a380adfc9eed722e835822f1236761693e4babb61e1afbb04f1",
+      "public_key_digest": "4c3a97f4aa45448f370e5e8d7eb7dab432a19814b5b7762567db99894266a811",
+      "public_key_encoding": "RAW_HEX",
+      "schema": "omiv.key-identity.v1",
+      "status": "ACTIVE",
+      "validity": null
+    }
+  ],
+  "limitations": [
+    "Static offline bundle; no online discovery or continuous reevaluation."
+  ],
+  "revocations": [],
+  "schema": "omiv.trust-bundle.v1",
+  "signer_identities": [
+    {
+      "display_label": "Synthetic runtime-resolution evidence issuer",
+      "identity_digest": "d561c9967d449f2ceb936b3d97b5062d524b6e30b59dbcf575cba606dd151a4d",
+      "identity_evidence": [
+        "54a9773bc0b35e7b4f55da29efb19231abe8d673196a48403b4af404a0c3a4b0"
+      ],
+      "identity_kind": "SERVICE_DECLARED",
+      "limitations": [
+        "Synthetic declared identity; no external identity proof."
+      ],
+      "namespace": null,
+      "organization_id": null,
+      "role": "RUNTIME_RESOLUTION_EVIDENCE_ISSUER",
+      "schema": "omiv.signer-identity.v1",
+      "signer_identity_id": "signer_415191a8605811cb231cde1199c7035a",
+      "verification_status": "EVIDENCE_LINKED"
+    }
+  ],
+  "signer_key_bindings": [
+    {
+      "allowed_object_types": [
+        "MODEL_RUNTIME_BINDING",
+        "REGISTRY_RESOLUTION_RECEIPT",
+        "RUNTIME_RESOLUTION_PARITY_EVIDENCE"
+      ],
+      "allowed_roles": [
+        "RUNTIME_RESOLUTION_EVIDENCE_ISSUER"
+      ],
+      "allowed_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "binding_digest": "df34c9a1aba0561fc67b54f55c405d6f8f59953dafd6dedc3eec0624ea8c0067",
+      "binding_id": "binding_b5d4b1bfc0b4a7ddb988ab1581352c1d",
+      "binding_origin": "TRUST_BUNDLE_DECLARED",
+      "evidence_references": [],
+      "key_id": "key_4c3a97f4aa45448f370e5e8d7eb7dab4",
+      "limitations": [
+        "Binding validity does not prove the underlying signed claim."
+      ],
+      "namespaces": [],
+      "schema": "omiv.signer-key-binding.v1",
+      "signer_identity_id": "signer_415191a8605811cb231cde1199c7035a",
+      "validity": null,
+      "verification_status": "VERIFIED_BY_TRUST_BUNDLE"
+    }
+  ],
+  "trust_roots": [
+    {
+      "allowed_object_types": [
+        "MODEL_RUNTIME_BINDING",
+        "REGISTRY_RESOLUTION_RECEIPT",
+        "RUNTIME_RESOLUTION_PARITY_EVIDENCE"
+      ],
+      "allowed_purposes": [
+        "MODEL_RUNTIME_BINDING_ISSUANCE",
+        "REGISTRY_RESOLUTION_RECEIPT_ISSUANCE",
+        "RUNTIME_RESOLUTION_PARITY_EVIDENCE_ISSUANCE"
+      ],
+      "delegation_allowed": false,
+      "key_id": "key_4c3a97f4aa45448f370e5e8d7eb7dab4",
+      "limitations": [
+        "Trust applies only under a selected policy and recorded constraints."
+      ],
+      "maximum_delegation_depth": 0,
+      "namespaces": [],
+      "provider_artifact_scopes": [],
+      "root_digest": "9186099e0ddfc693c6e7d85831fdbd939833785edbb8afccaea29146fd125461",
+      "schema": "omiv.trust-root.v1",
+      "status": "ACTIVE",
+      "trust_root_id": "root_4986301f41047567a6ce76b1fde4ae41",
+      "validity": null
+    }
+  ],
+  "validity": null
+}

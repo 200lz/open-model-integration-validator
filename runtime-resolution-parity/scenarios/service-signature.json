@@ -1,0 +1,41 @@
+{
+  "case_id": "service-signature",
+  "exercised_invariant": "Service signature is not weight attribution.",
+  "findings": [
+    "service-signature:CLAIM_ONLY"
+  ],
+  "limitations": [
+    "Synthetic scenario is not production model or runtime evidence."
+  ],
+  "outcome": "CLAIM_ONLY",
+  "result_digest": "89aa08ebc4b3e9390cde69cb34dfabe93d7093f8dfb63b752eb36fe582133e86",
+  "result_id": "runtime_scenario_5fba95c28606b4653a6d7ccf5d036f86",
+  "schema": "omiv.runtime-resolution-scenario-result.v1",
+  "scope": "scenario.service-signature",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "runtime-resolution.phase6e-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime-resolution",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+    "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+  },
+  "upstream_objects": [
+    {
+      "object_digest": "9134d681dbe526b5c7d3c6a6327c81dd8e0437a97dbc66db78070c0ead8636a3",
+      "object_id": "anthropic_runtime_readiness_0239775a0ef400c160b5e098bc96aea7",
+      "schema_id": "omiv.anthropic-provable-inference-readiness.v1"
+    }
+  ]
+}

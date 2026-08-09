@@ -2175,3 +2175,29 @@ boundaries, and exact limitations.
 Offline bounded tokenizer-asset, configuration-field, and supplied-probe parity
 foundation—complete for the declared exact-identity scope, with explicit format, coverage,
 authority, execution, and runtime limitations.
+
+## Phase 6E: runtime resolution, deployment binding, and output provenance
+
+Phase 6E adds an offline-first, bounded, provider-neutral foundation that keeps a requested model
+identifier, supplied resolution receipt, release/artifact expectation, deployment declaration,
+runtime observation, backend result, inference correlation identity, attestation claim, and output
+provenance evidence as distinct canonical layers. It compares only caller-supplied backend results;
+it never calls an inference service or executes a model.
+
+Provider documentation is recorded as documented policy, not as an observed production request.
+The xAI profile records reviewed mutable-alias and retirement-routing statements without claiming
+an API response, exact artifact, runtime identity, weight identity, publisher authority, current
+routing state, endorsement, or affiliation. The Anthropic profile records a public research-roadmap
+target without claiming prototype completion, a public proof format, a verifier, or implemented
+provable inference.
+
+Normal `omiv runtime-resolution` commands are offline. Generated records live in
+`runtime-resolution-parity/`, reports in `reports/runtime-resolution-parity/`, and the external
+self-excluding index in `runtime-resolution-parity/artifact-index.json`. See
+`docs/phase-6e-runtime-resolution-parity.md` for schemas, limits, policy and authority boundaries,
+bounded document-capture rules, and explicit limitations.
+
+Offline-first, bounded runtime-resolution, deployment-binding, supplied-backend-result parity, and
+output-provenance evidence foundation—complete for declared evidence scope, with explicit
+distinction between provider documentation, control-plane state, runtime observation, service
+attestation, and proof of weight-attributable inference.

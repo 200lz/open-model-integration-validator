@@ -1,0 +1,74 @@
+{
+  "api_surface": "api.synthetic",
+  "authority": "NOT_ESTABLISHED",
+  "available_at": "NOT_RECORDED",
+  "coverage": [
+    {
+      "denominator": 1,
+      "denominator_availability": "AVAILABLE",
+      "dimension": "resolution.receipt",
+      "incomplete_reason": null,
+      "numerator": 1,
+      "selected_scope": "declared.scope"
+    }
+  ],
+  "effective_at": "NOT_RECORDED",
+  "endpoint_context": "not.observed",
+  "evaluated_at": "NOT_RECORDED",
+  "evidence": {
+    "object_digest": "ed1d114e065b1f986a5ba9d18c4b3ec47372814a0926d244daf7297ffdefdd5f",
+    "object_id": "resolution_execution_7bb588372afd0dcbe74bbcef52d35124",
+    "schema_id": "omiv.resolution-execution-record.v1"
+  },
+  "execution": {
+    "object_digest": "ed1d114e065b1f986a5ba9d18c4b3ec47372814a0926d244daf7297ffdefdd5f",
+    "object_id": "resolution_execution_7bb588372afd0dcbe74bbcef52d35124",
+    "schema_id": "omiv.resolution-execution-record.v1"
+  },
+  "limitations": [
+    "Receipt observation level controls its meaning; a slug is not a payload digest."
+  ],
+  "lookup_kind": "supplied.evidence",
+  "namespace": "namespace.synthetic",
+  "observation_level": "CALLER_DECLARED",
+  "observed_at": "NOT_RECORDED",
+  "provider": "provider.synthetic",
+  "provider_response_field": null,
+  "purpose": "inference.request",
+  "receipt_digest": "720d684af734ffeb004503b023198cfbfb9cbf57d56002c26d31ffc037c2db4a",
+  "receipt_id": "resolution_receipt_fd3bd4ec68b0280c88483c896f8f5ea4",
+  "redirect_chain": [],
+  "requested_identifier": {
+    "object_digest": "73d75b69dae7f9fdf5254df72c1b9ce1282feb2f52271973090a759076f77008",
+    "object_id": "requested_model_594c47847457e6cfbdfab093db3930f5",
+    "schema_id": "omiv.requested-model-identifier.v1"
+  },
+  "resolution_mechanism": "CALLER_SUPPLIED",
+  "resolution_source": "caller_declared",
+  "resolved_at": "2026-08-05T00:00:00Z",
+  "resolved_identifier": "synthetic-model-A",
+  "resolved_identity_kind": "VERSIONED_IDENTIFIER",
+  "schema": "omiv.registry-resolution-receipt.v1",
+  "scope": "runtime.resolution",
+  "status": "MUTABLE_ALIAS_RESOLUTION",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "runtime-resolution.phase6e-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime-resolution",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+    "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+  },
+  "supplied_at": "NOT_RECORDED"
+}

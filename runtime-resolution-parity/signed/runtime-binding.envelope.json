@@ -1,0 +1,148 @@
+{
+  "envelope_digest": "81048256d7c190cf8434446ec287be33af903cb8a994e2afdc9cf53e30bf2f03",
+  "envelope_id": "soe_54e61ae4b2c6d613dae7e04242d24bc3",
+  "key_records": [
+    {
+      "algorithm": "ED25519",
+      "allowed_key_usages": [
+        "SIGN_OMIV_OBJECT"
+      ],
+      "allowed_object_types": [
+        "MODEL_RUNTIME_BINDING",
+        "REGISTRY_RESOLUTION_RECEIPT",
+        "RUNTIME_RESOLUTION_PARITY_EVIDENCE"
+      ],
+      "allowed_purposes": [
+        "MODEL_RUNTIME_BINDING_ISSUANCE",
+        "REGISTRY_RESOLUTION_RECEIPT_ISSUANCE",
+        "RUNTIME_RESOLUTION_PARITY_EVIDENCE_ISSUANCE"
+      ],
+      "key_digest": "6a233c4490483580240572412e5781e9fa329b9e1e664466619d6cb144bfc37c",
+      "key_id": "key_4c3a97f4aa45448f370e5e8d7eb7dab4",
+      "limitations": [
+        "Public-key identity does not establish signer identity."
+      ],
+      "namespaces": [],
+      "provider_artifact_scopes": [],
+      "public_key": "014e4d922c596a380adfc9eed722e835822f1236761693e4babb61e1afbb04f1",
+      "public_key_digest": "4c3a97f4aa45448f370e5e8d7eb7dab432a19814b5b7762567db99894266a811",
+      "public_key_encoding": "RAW_HEX",
+      "schema": "omiv.key-identity.v1",
+      "status": "ACTIVE",
+      "validity": null
+    }
+  ],
+  "limitations": [
+    "The canonical source object is unchanged; trust is reconstructed externally."
+  ],
+  "schema": "omiv.signed-object-envelope.v1",
+  "signatures": [
+    {
+      "algorithm": "ED25519",
+      "binding_id": "binding_b5d4b1bfc0b4a7ddb988ab1581352c1d",
+      "detached_signature": "baa278af005c74d5e6007d90fa9a48bd3914805b0b73d85f07e5be6b2ce12c15c7c36210fe9fb065d884423b074f21f40e29ef9e4199aed2ddcc6fd185161d06",
+      "key_id": "key_4c3a97f4aa45448f370e5e8d7eb7dab4",
+      "limitations": [
+        "Signature integrity does not prove the underlying claim is true."
+      ],
+      "payload": {
+        "canonicalization_version": "omiv-json-v1",
+        "digest_algorithm": "SHA-256",
+        "domain": "OMIV-SIGNED-OBJECT-V1",
+        "key_usage": "SIGN_OMIV_OBJECT",
+        "namespace": null,
+        "provider_artifact_scope": null,
+        "schema": "omiv.signature-payload.v1",
+        "signature_purpose": "MODEL_RUNTIME_BINDING_ISSUANCE",
+        "signed_object_digest": "dbe4bef8440eaf3c89eb95a0c99e88f9a380074e0da91889dd5fe9f70e292ff6",
+        "signed_object_id": "model_runtime_binding_8059318966cbd8527ddaacf6bbc62038",
+        "signed_object_schema": "omiv.model-runtime-binding.v1",
+        "signed_object_type": "MODEL_RUNTIME_BINDING",
+        "trust_policy_id": "omiv.trust-policy.team_release.v1"
+      },
+      "purpose": "MODEL_RUNTIME_BINDING_ISSUANCE",
+      "schema": "omiv.signature-record.v1",
+      "signature_digest": "5e4b0ac96e42adcdc9e157b78cf5279d71720e2899ddaad8ef2ac38f8c9a85a0",
+      "signature_encoding": "RAW_HEX",
+      "signature_id": "sig_df788f2e2f1b5fbc1ce4fe40bb051b39",
+      "trust_policy_id": "omiv.trust-policy.team_release.v1"
+    }
+  ],
+  "signed_object": {
+    "accepted_strength": "FILESYSTEM_ARTIFACT_OBSERVATION",
+    "artifact_expectation": {
+      "object_digest": "be7d70260fad300fa701fcc8396f73dfd66d0900e21d32a2ec98e71dfff63ddd",
+      "object_id": "runtime_artifact_expectation_a5ca4b7626432bdecda436872f53385e",
+      "schema_id": "omiv.runtime-artifact-expectation.v1"
+    },
+    "authority": "NOT_ESTABLISHED",
+    "binding_digest": "9300729b7a102ea2094df5ad9cb9a830a3444b54d1a01c13c581a285d2c97ce6",
+    "binding_id": "model_runtime_binding_8059318966cbd8527ddaacf6bbc62038",
+    "coverage": [
+      {
+        "denominator": 1,
+        "denominator_availability": "AVAILABLE",
+        "dimension": "runtime.binding",
+        "incomplete_reason": null,
+        "numerator": 1,
+        "selected_scope": "declared.scope"
+      }
+    ],
+    "deployment_declaration": {
+      "object_digest": "60c192deda9b17f54f9ee1cbfbae53f564d84a8d52b84b02d55395a145c1f014",
+      "object_id": "deployment_declaration_4748018323084485e7b7bfa3cc189fe2",
+      "schema_id": "omiv.deployment-declaration.v1"
+    },
+    "deployment_observation": {
+      "object_digest": "5a5e09e6d1c139fdac4fdb35146af802ed9afacf2ffbbd775df0a356b905d773",
+      "object_id": "deployment_observation_530da29ca6b1bf1f9ffd9025f4bc7e17",
+      "schema_id": "omiv.deployment-observation.v1"
+    },
+    "evaluated_at": "NOT_RECORDED",
+    "limitations": [
+      "Runtime binding is scope-qualified and is not provable weight-attributable inference."
+    ],
+    "outcome": "RUNTIME_IDENTITY_BOUND_FOR_DECLARED_SCOPE",
+    "runtime_expectation": {
+      "object_digest": "be6ca53dccc25a5f0f37a6427c1c83d0745b524ecb8d63dd7a23827ab0326bbe",
+      "object_id": "runtime_identity_expectation_f5ee5f28c94c6c9372bab07bdd435f62",
+      "schema_id": "omiv.runtime-identity-expectation.v1"
+    },
+    "runtime_observation": {
+      "object_digest": "8fdd1bf6b2aed36062e487c68f59f293ebdf4e5b9ed6123ebc434445bfc2ad32",
+      "object_id": "runtime_identity_observation_d9bd115f5a8cc0b39bc7ae597f2cec9d",
+      "schema_id": "omiv.runtime-identity-observation.v1"
+    },
+    "schema": "omiv.model-runtime-binding.v1",
+    "scope": "deployment.synthetic",
+    "selected_policy": {
+      "object_digest": "861260c7f358a3a1571dac9b734e8b15cb557d682d04ca2007ba29a82ae5063c",
+      "object_id": "runtime_resolution_policy_2d8a3b05723d2203e027a87830381472",
+      "schema_id": "omiv.runtime-resolution-policy.v1"
+    },
+    "subject": {
+      "limitations": [
+        "Logical product subject identity does not prove artifact content."
+      ],
+      "logical_name": "runtime-resolution.phase6e-synthetic",
+      "schema": "omiv.product-subject.v1",
+      "scope": {
+        "environment_scope": "environment.offline",
+        "organization_scope": "organization.synthetic",
+        "product_scope": "product.generic-inference",
+        "project_scope": "project.runtime-resolution",
+        "target_scope": "target-scope.runtime",
+        "tenant_scope": "tenant.synthetic",
+        "trust_domain": "trust-domain.synthetic"
+      },
+      "subject_class": "DEPLOYMENT_PACKAGE",
+      "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+      "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+    }
+  },
+  "signed_object_digest": "dbe4bef8440eaf3c89eb95a0c99e88f9a380074e0da91889dd5fe9f70e292ff6",
+  "signed_object_id": "model_runtime_binding_8059318966cbd8527ddaacf6bbc62038",
+  "signed_object_schema": "omiv.model-runtime-binding.v1",
+  "signed_object_type": "MODEL_RUNTIME_BINDING",
+  "trust_policy_id": "omiv.trust-policy.team_release.v1"
+}

@@ -1,0 +1,47 @@
+{
+  "evidence": {
+    "object_digest": "119d812217161d5b1be81a756868b0f5230360a7ed015ee86dabc09a6f69041f",
+    "object_id": "runtime_resolution_evidence_1b47f3d0a4c705bf80b6e79bcce019ea",
+    "schema_id": "omiv.runtime-resolution-parity-evidence.v1"
+  },
+  "findings": [
+    "Finite supplied backend results remain probe scoped.",
+    "OMIV Phase 6E does not implement provable inference.",
+    "Provider documentation is not an observed production request.",
+    "Requested identifier differs from resolved release and runtime weight identity.",
+    "Service signature validity is not weight attribution."
+  ],
+  "included_findings": 5,
+  "inclusion_rule": "lexicographic.first.256",
+  "limitations": [
+    "Report is derived and never feeds canonical evidence identity."
+  ],
+  "omitted_findings": 0,
+  "report_digest": "210f85d41fa444a9639a1aaa5470f10d69236437e5ba628d7731c1e9b7069a07",
+  "report_id": "runtime_resolution_report_94bdb1bf2654227009d76059d6f5260e",
+  "schema": "omiv.runtime-resolution-report.v1",
+  "scope": "declared.phase6e.scope",
+  "status": "PARTIAL_FOR_DECLARED_SCOPE",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "runtime-resolution.phase6e-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime-resolution",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+    "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+  },
+  "title": "Synthetic Phase 6E runtime-resolution evidence",
+  "total_findings": 5,
+  "truncation_status": "NOT_TRUNCATED"
+}

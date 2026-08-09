@@ -1,0 +1,52 @@
+{
+  "availability": "AVAILABLE",
+  "claims": [
+    {
+      "claim_id": "anthropic.provable.inference.prototype.target",
+      "body_byte_length": 80,
+      "body_byte_start": 24044,
+      "body_region_sha256": "1828f22e001f2947d922bbd3d959a2ef05cad7231b4bdde825150299017c58a4",
+      "evidence_kind": "HUMAN_REVIEWED_SOURCE_BODY_REGION",
+      "fact": "The roadmap lists 2026-09-30 as the target date for developing a provable-inference prototype.",
+      "location": "Moonshot R&D projects goal"
+    },
+    {
+      "claim_id": "anthropic.provable.inference.weight.attribution.goal",
+      "body_byte_length": 47,
+      "body_byte_start": 24217,
+      "body_region_sha256": "bb09f630bbca3b6e5fd7cce0b35d49e79b56fc3733dd802486bb5e7275988059",
+      "evidence_kind": "HUMAN_REVIEWED_SOURCE_BODY_REGION",
+      "fact": "The roadmap describes the goal as attributing model outputs to a specific set of model weights.",
+      "location": "Provable inference bullet in Moonshot R&D projects"
+    },
+    {
+      "claim_id": "anthropic.production.intended.version.verification",
+      "body_byte_length": 78,
+      "body_byte_start": 30564,
+      "body_region_sha256": "608565833f45cfd460e03af276d95c82395b19c7cd655f49d36969f3eb202e83",
+      "evidence_kind": "HUMAN_REVIEWED_SOURCE_BODY_REGION",
+      "fact": "The roadmap separately lists verification that the model running in production matches the intended version.",
+      "location": "Production inference deployment security objective"
+    }
+  ],
+  "collection_status": "BOUNDED_PUBLIC_DOCUMENT_CAPTURED",
+  "collection_time": "NOT_RECORDED",
+  "content_length": 231215,
+  "content_type": "text/html; charset=utf-8",
+  "document_published_at": "NOT_RECORDED",
+  "document_updated_at": "NOT_RECORDED",
+  "final_url": "https://www.anthropic.com/responsible-scaling-policy/roadmap",
+  "get_request_count": 1,
+  "head_request_count": 1,
+  "human_review_status": "REVIEWED",
+  "limitations": [
+    "A roadmap target is not evidence that a prototype, public proof format, or verifier exists.",
+    "The raw response is not stored in the repository."
+  ],
+  "observation_state": "PUBLIC_DOCUMENT_BODY_CAPTURED_NOT_RUNTIME_OBSERVATION",
+  "retrieval_method": "GET",
+  "response_body_sha256": "cbc20ac3ed7c133228efaf14ad17a6ca64d5746570434ce5a3174e7098ef101d",
+  "schema": "omiv.public-document-source.v1",
+  "source_kind": "PROVIDER_RESEARCH_ROADMAP",
+  "source_url": "https://www.anthropic.com/responsible-scaling-policy/roadmap"
+}

@@ -1,0 +1,41 @@
+{
+  "case_id": "future-effective",
+  "exercised_invariant": "Future effectiveness is distinct from observation.",
+  "findings": [
+    "future-effective:NOT_OBSERVED"
+  ],
+  "limitations": [
+    "Synthetic scenario is not production model or runtime evidence."
+  ],
+  "outcome": "NOT_OBSERVED",
+  "result_digest": "da248f993b3597c39ed2e780a211c98676cabb76ad4d70a06a6255dd4a6659c2",
+  "result_id": "runtime_scenario_a2efd27f0db465cd4357e63212d42631",
+  "schema": "omiv.runtime-resolution-scenario-result.v1",
+  "scope": "scenario.future-effective",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "runtime-resolution.phase6e-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime-resolution",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+    "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+  },
+  "upstream_objects": [
+    {
+      "object_digest": "b9d0169cbee675b4b3ce7e1604f4256923975274086c80aad7656cf3f3f6eb98",
+      "object_id": "backend_comparison_ce4bf495c0a68a29184980011e4dc405",
+      "schema_id": "omiv.cross-backend-comparison.v1"
+    }
+  ]
+}

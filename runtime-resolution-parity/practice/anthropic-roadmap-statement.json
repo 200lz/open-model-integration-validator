@@ -1,0 +1,41 @@
+{
+  "api_surface": "anthropic.public.roadmap",
+  "authority": "NOT_ESTABLISHED",
+  "available_at": "NOT_RECORDED",
+  "document_published_at": "NOT_RECORDED",
+  "document_updated_at": "NOT_RECORDED",
+  "evaluated_at": "NOT_RECORDED",
+  "limitations": [
+    "Public documentation is not observation of production request resolution."
+  ],
+  "observed_at": "NOT_RECORDED",
+  "provider": "anthropic",
+  "rules": [],
+  "schema": "omiv.provider-routing-statement.v1",
+  "scope": "provider.documented.policy",
+  "source_fixture_digest": "1e2b99193bc1376ae5281a9ff8f4836ce4f6f2a71f842bd4389aee2da7ef06d8",
+  "source_url": "https://www.anthropic.com/responsible-scaling-policy/roadmap",
+  "statement_digest": "9d28401f74486620826a85d832394c602a542b2aa9a46645025cf6006d6b4bb1",
+  "statement_id": "routing_statement_a2d825aadd637661e042545a3612c017",
+  "statement_kind": "PROVIDER_RESEARCH_ROADMAP_STATEMENT",
+  "subject": {
+    "limitations": [
+      "Logical product subject identity does not prove artifact content."
+    ],
+    "logical_name": "runtime-resolution.phase6e-synthetic",
+    "schema": "omiv.product-subject.v1",
+    "scope": {
+      "environment_scope": "environment.offline",
+      "organization_scope": "organization.synthetic",
+      "product_scope": "product.generic-inference",
+      "project_scope": "project.runtime-resolution",
+      "target_scope": "target-scope.runtime",
+      "tenant_scope": "tenant.synthetic",
+      "trust_domain": "trust-domain.synthetic"
+    },
+    "subject_class": "DEPLOYMENT_PACKAGE",
+    "subject_digest": "0034ea0cd3999d53a2021a888a99e5fa5ab0a1efc9f866813f3cbc03c2d65031",
+    "subject_id": "product_subject_2ab3b0478febdef5e559bd53a7de9d53"
+  },
+  "supplied_at": "NOT_RECORDED"
+}
