@@ -9,6 +9,7 @@ import pytest
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 from pydantic import ValidationError
+from typer._click._compat import strip_ansi
 from typer.testing import CliRunner
 
 from omiv.attestations.models import ArtifactAttestation
@@ -1792,6 +1793,7 @@ def test_cli_sign_key_inspect_show_and_report_verify(tmp_path: Path) -> None:
 
 def test_cli_sign_requires_explicit_private_key(tmp_path: Path) -> None:
     public_path = tmp_path / "public-key.pem"
+    output_path = tmp_path / "must-not-exist.json"
     public_path.write_bytes(
         _private()
         .public_key()
@@ -1814,14 +1816,16 @@ def test_cli_sign_requires_explicit_private_key(tmp_path: Path) -> None:
             "--public-key",
             str(public_path),
             "--output",
-            str(tmp_path / "must-not-exist.json"),
+            str(output_path),
         ],
         color=False,
         terminal_width=160,
     )
     assert result.exit_code == 2
     assert result.stdout == ""
-    assert "Missing option '--private-key'." in result.stderr
+    normalized_stderr = " ".join(strip_ansi(result.stderr).split())
+    assert "Missing option '--private-key'." in normalized_stderr
+    assert not output_path.exists()
     assert RFC8032_VECTOR_1 not in result.output
 
 
