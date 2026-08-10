@@ -44,6 +44,7 @@ STATE_TAXONOMY = (
     "UNAVAILABLE_FOR_CURRENT_VISIBILITY_OR_PLAN",
     "API_STATE_UNAVAILABLE",
     "DEFERRED_TO_R1F",
+    "DEFERRED_TO_SEPARATE_POST_PUBLIC_CHANGE",
     "INVALID",
 )
 PHASE_TAXONOMY = (
@@ -96,16 +97,20 @@ CONTROL_STATES = {
         "REQUIRED_IMMEDIATELY_AFTER_VISIBILITY_CHANGE",
     ),
     "DEPENDABOT_ALERTS": (
-        "DISABLED",
         "ENABLED_AND_VERIFIED",
-        "REQUIRED_IMMEDIATELY_BEFORE_PUBLIC_VISIBILITY",
+        "ENABLED_AND_VERIFIED",
+        "CONFIGURED_NOW",
     ),
     "DEPENDABOT_SECURITY_UPDATES": (
-        "DISABLED",
         "ENABLED_AND_VERIFIED",
-        "REQUIRED_IMMEDIATELY_BEFORE_PUBLIC_VISIBILITY",
+        "ENABLED_AND_VERIFIED",
+        "CONFIGURED_NOW",
     ),
-    "CODE_SCANNING": ("NOT_CONFIGURED", "DEFERRED_TO_R1F", "MANUALLY_DEFERRED"),
+    "CODE_SCANNING": (
+        "NOT_CONFIGURED",
+        "DEFERRED_TO_SEPARATE_POST_PUBLIC_CHANGE",
+        "MANUALLY_DEFERRED",
+    ),
     "BRANCH_PROTECTION": (
         "UNAVAILABLE_FOR_CURRENT_VISIBILITY_OR_PLAN",
         "ENABLED_AND_VERIFIED",
@@ -113,8 +118,8 @@ CONTROL_STATES = {
     ),
     "REPOSITORY_RULESETS": (
         "UNAVAILABLE_FOR_CURRENT_VISIBILITY_OR_PLAN",
-        "ENABLED_AND_VERIFIED",
-        "REQUIRED_IMMEDIATELY_AFTER_VISIBILITY_CHANGE",
+        "NOT_CONFIGURED",
+        "MANUALLY_DEFERRED",
     ),
     "ACTIONS_DEFAULT_PERMISSIONS": (
         "ENABLED_AND_VERIFIED",
@@ -155,28 +160,44 @@ R1E_PROHIBITED_MUTATIONS = (
     "CODE_SCANNING",
 )
 R1F_PUBLICATION_TRANSACTION = (
-    "FINAL_PRIVATE_STATE_AUDIT_COMPLETE",
-    "EXPLICIT_VISIBILITY_AUTHORIZATION_OBTAINED",
-    "PRE_CHANGE_REMOTE_STATE_RECORDED",
+    "EXACT_GREEN_R1F_PRIVATE_MAIN_VERIFIED",
+    "NO_CONCURRENT_REMOTE_STATE_CHANGE_VERIFIED",
+    "EXPLICIT_VISIBILITY_AUTHORIZATION_VERIFIED",
+    "EXPLICIT_ROLLBACK_AUTHORITY_DECISION_VERIFIED",
+    "NORMALIZED_PRE_CHANGE_REMOTE_STATE_CAPTURED",
     "VISIBILITY_CHANGED_PRIVATE_TO_PUBLIC",
-    "PRIVATE_VULNERABILITY_REPORTING_ENABLED_AND_VERIFIED",
-    "SECRET_SCANNING_ENABLED_AND_VERIFIED",
-    "PUSH_PROTECTION_ENABLED_AND_VERIFIED",
-    "MAIN_BRANCH_ENFORCEMENT_APPLIED_AND_VERIFIED",
-    "ALL_REQUIRED_REMOTE_STATE_READ_BACK",
-    "PUBLIC_LAUNCH_READY_ONLY_AFTER_ALL_CONTROLS_VERIFY",
+    "PUBLIC_VISIBILITY_READ_BACK_VERIFIED",
+    "PRIVATE_VULNERABILITY_REPORTING_ENABLED",
+    "PRIVATE_VULNERABILITY_REPORTING_READ_BACK_VERIFIED",
+    "SECRET_SCANNING_ENABLED",
+    "SECRET_SCANNING_READ_BACK_VERIFIED",
+    "PUSH_PROTECTION_ENABLED",
+    "PUSH_PROTECTION_READ_BACK_VERIFIED",
+    "MAIN_BRANCH_ENFORCEMENT_APPLIED",
+    "MAIN_BRANCH_ENFORCEMENT_FIELDS_AND_CHECKS_READ_BACK_VERIFIED",
+    "PROFILE_TOPICS_ACTIONS_DEPENDABOT_READ_BACK_VERIFIED",
+    "NO_TAG_RELEASE_OR_PACKAGE_CREATED_VERIFIED",
+    "UNAUTHENTICATED_PUBLIC_READ_SMOKE_PASSED",
+    "PUBLICATION_SUCCESS_CLASSIFIED_ONLY_AFTER_ALL_READ_BACKS",
 )
 FAILURE_CLASSIFICATIONS = (
-    "LOCAL_OR_CI_FAILURE_BEFORE_REMOTE_MUTATION",
-    "METADATA_MUTATION_FAILED",
-    "SECURITY_CONTROL_MUTATION_FAILED",
-    "PARTIAL_REMOTE_APPLICATION",
-    "READ_BACK_VERIFICATION_FAILED",
+    "FINAL_PRIVATE_AUDIT_FAILED",
+    "VISIBILITY_AUTHORIZATION_MISSING",
+    "ROLLBACK_AUTHORITY_UNSPECIFIED",
     "CONCURRENT_REMOTE_STATE_CHANGE",
-    "UNEXPECTED_VISIBILITY_CHANGE",
-    "PUBLIC_VISIBILITY_CHANGED_REQUIRED_PUBLIC_CONTROL_FAILED",
-    "PLAN_RESTRICTED_CONTROL",
     "AUTHENTICATION_EXPIRED",
+    "VISIBILITY_MUTATION_FAILED",
+    "PUBLIC_VISIBILITY_READ_BACK_FAILED",
+    "PRIVATE_VULNERABILITY_REPORTING_ENABLE_FAILED",
+    "SECRET_SCANNING_ENABLE_FAILED",
+    "PUSH_PROTECTION_ENABLE_FAILED",
+    "MAIN_ENFORCEMENT_APPLICATION_FAILED",
+    "REQUIRED_CHECK_CONTEXT_MISMATCH",
+    "PUBLIC_READ_BACK_VERIFICATION_FAILED",
+    "UNAUTHENTICATED_PUBLIC_READ_FAILED",
+    "PUBLIC_VISIBILITY_CHANGED_REQUIRED_PUBLIC_CONTROL_FAILED",
+    "VISIBILITY_ROLLBACK_FAILED",
+    "PARTIAL_PUBLICATION_STATE",
 )
 FEATURES = (
     "issues",
@@ -197,6 +218,7 @@ R1E_PATHS = (
     "docs/README.md",
     "docs/github-publication-controls.md",
     "docs/public-release-security-and-privacy.md",
+    "docs/r1f-final-publication-audit.md",
     "docs/releasing.md",
     "docs/roadmap.md",
     "tests/test_github_publication_controls.py",
@@ -327,6 +349,10 @@ def validate_policy(policy: dict[str, Any]) -> None:
             "release_policy",
             "implementation",
             "mutation_scope",
+            "final_public_state",
+            "main_enforcement",
+            "rollback_authority",
+            "codeql_decision",
             "r1f_publication_transaction",
             "failure_classifications",
             "r1f_prerequisites",
@@ -481,7 +507,7 @@ def validate_policy(policy: dict[str, Any]) -> None:
         "auto_merge": False,
         "private_registries": False,
         "review_and_ci_required": True,
-        "application_phase": "PROPOSED_FOR_R1E_RELEASE",
+        "application_phase": "CONFIGURED_NOW",
     }:
         raise AuditError("invalid-dependency-policy")
 
@@ -561,17 +587,19 @@ def validate_policy(policy: dict[str, Any]) -> None:
             "r1e_status",
             "r1f_status",
             "phase6f_status",
-            "repository_visibility_during_r1e",
-            "github_settings_mutated_by_r1e",
+            "repository_visibility_at_r1f_baseline",
+            "r1e_private_controls_applied",
+            "github_settings_mutated_by_r1f",
         ),
         "implementation",
     )
     if implementation != {
-        "r1e_status": "IMPLEMENTED_RELEASE_PENDING",
-        "r1f_status": "PLANNED_NOT_STARTED",
+        "r1e_status": "COMPLETE",
+        "r1f_status": "IMPLEMENTED_PRIVATE_RELEASE_AND_VISIBILITY_AUTHORIZATION_PENDING",
         "phase6f_status": "PLANNED_NOT_IMPLEMENTED",
-        "repository_visibility_during_r1e": "PRIVATE",
-        "github_settings_mutated_by_r1e": False,
+        "repository_visibility_at_r1f_baseline": "PRIVATE",
+        "r1e_private_controls_applied": True,
+        "github_settings_mutated_by_r1f": False,
     }:
         raise AuditError("invalid-implementation-status")
 
@@ -596,9 +624,9 @@ def validate_policy(policy: dict[str, Any]) -> None:
         raise AuditError("invalid-r1f-publication-transaction")
     if tuple(top["failure_classifications"]) != FAILURE_CLASSIFICATIONS:
         raise AuditError("invalid-failure-classifications")
-    if not isinstance(top["r1f_prerequisites"], list) or len(top["r1f_prerequisites"]) != 5:
+    if not isinstance(top["r1f_prerequisites"], list) or len(top["r1f_prerequisites"]) != 6:
         raise AuditError("invalid-r1f-prerequisites")
-    if not isinstance(top["stop_conditions"], list) or len(top["stop_conditions"]) != 8:
+    if not isinstance(top["stop_conditions"], list) or len(top["stop_conditions"]) != 11:
         raise AuditError("invalid-stop-conditions")
 
 
@@ -777,7 +805,7 @@ def run_audit(root: Path) -> list[Check]:
         Check(
             "r1f_public_control_order",
             tuple(policy["r1f_publication_transaction"]) == R1F_PUBLICATION_TRANSACTION,
-            "ordered_steps=10 visibility_before_controls=1",
+            "ordered_steps=19 visibility_before_controls=1",
         )
     )
     checks.append(
@@ -880,12 +908,12 @@ def run_audit(root: Path) -> list[Check]:
             "relative_links=valid",
         )
     )
-    publication_markers = tuple(f"{index}." for index in range(1, 11))
+    publication_markers = tuple(f"{index}." for index in range(1, 20))
     checks.append(
         Check(
             "publication_order",
             all(marker in documentation for marker in publication_markers),
-            "ordered_steps=10",
+            "ordered_steps=19",
         )
     )
     checks.append(
@@ -910,26 +938,26 @@ def run_audit(root: Path) -> list[Check]:
     checks.append(
         Check(
             "documentation_private_state",
-            "repository is still **PRIVATE**" in documentation
+            "R1F baseline is **PRIVATE**" in documentation
             and "does not authorize" in documentation
             and "not currently verified or active" in documentation,
             "visibility_claim=bounded",
         )
     )
-    r1e_plan = documentation.split("## Unexecuted R1E mutation plan", 1)[1].split(
-        "## Deferred R1F and post-public plan", 1
+    r1e_plan = documentation.split("## R1E private controls applied", 1)[1].split(
+        "## Controlled R1F and post-public plan", 1
     )[0]
-    r1f_plan = documentation.split("## Deferred R1F and post-public plan", 1)[1].split(
+    r1f_plan = documentation.split("## Controlled R1F and post-public plan", 1)[1].split(
         "## Partial-application classifications", 1
     )[0]
     checks.append(
         Check(
             "mutation_plan_phase_isolation",
-            "private-vulnerability-reporting" not in r1e_plan
+            "Private Vulnerability Reporting" not in r1e_plan
             and 'visibility":"public' not in r1e_plan
-            and "private-vulnerability-reporting" in r1f_plan
-            and 'visibility":"public' in r1f_plan,
-            "r1e_public_controls=0 r1f_visibility_and_reporting=present",
+            and "Private Vulnerability Reporting" in r1f_plan
+            and "visibility" in r1f_plan,
+            "r1e_public_controls=0 r1f_plan=linked",
         )
     )
     security = texts["SECURITY.md"]
@@ -937,8 +965,9 @@ def run_audit(root: Path) -> list[Check]:
         Check(
             "security_reporting_public_only",
             "not currently verified" in security
-            and "must not attempt to enable it while the repository is private" in security
-            and "publication classification is blocked" in security
+            and "R1F baseline is private" in security
+            and "do not disclose sensitive details" in security
+            and "classification is blocked" in security
             and "PUBLIC_VISIBILITY_CHANGED_REQUIRED_PUBLIC_CONTROL_FAILED" in documentation,
             "active_claim=0 post_public_required=1 failure_blocks=1",
         )
@@ -948,16 +977,19 @@ def run_audit(root: Path) -> list[Check]:
     checks.append(
         Check(
             "roadmap_r1e",
-            "R1E GitHub metadata/security | IMPLEMENTED, RELEASE PENDING" in roadmap,
-            "r1e=release_pending",
+            "R1E GitHub metadata/security | COMPLETE" in roadmap,
+            "r1e=complete",
         )
     )
     checks.append(
         Check(
-            "r1f_not_started",
-            "R1F final publication audit | PLANNED" in roadmap
-            and policy["implementation"]["r1f_status"] == "PLANNED_NOT_STARTED",
-            "r1f=planned",
+            "r1f_implementation_boundary",
+            "R1F final publication audit | IMPLEMENTED, PRIVATE RELEASE AND VISIBILITY "
+            "AUTHORIZATION PENDING"
+            in roadmap
+            and policy["implementation"]["r1f_status"]
+            == "IMPLEMENTED_PRIVATE_RELEASE_AND_VISIBILITY_AUTHORIZATION_PENDING",
+            "r1f=implemented_private_release_pending",
         )
     )
     checks.append(

@@ -56,6 +56,7 @@ contract exists.
 - [Security policy](../SECURITY.md)
 - [Public-release security and privacy](public-release-security-and-privacy.md)
 - [GitHub publication controls](github-publication-controls.md)
+- [R1F final-publication audit and visibility transaction](r1f-final-publication-audit.md)
 - [Support policy](../SUPPORT.md)
 
 ## Contributing and governance
@@ -68,6 +69,7 @@ contract exists.
 
 - [Release process](releasing.md)
 - [GitHub publication controls and ordering](github-publication-controls.md)
+- [R1F final-publication audit](r1f-final-publication-audit.md)
 - [Changelog](../CHANGELOG.md)
 
 ## Roadmap

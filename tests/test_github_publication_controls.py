@@ -73,6 +73,10 @@ def test_policy_strict_parsing_and_exact_top_level_fields() -> None:
         "release_policy",
         "implementation",
         "mutation_scope",
+        "final_public_state",
+        "main_enforcement",
+        "rollback_authority",
+        "codeql_decision",
         "r1f_publication_transaction",
         "failure_classifications",
         "r1f_prerequisites",
@@ -211,11 +215,11 @@ def test_r1f_public_control_transaction_order_is_exact() -> None:
     transaction = tuple(_policy()["r1f_publication_transaction"])
     assert transaction == namespace["R1F_PUBLICATION_TRANSACTION"]
     visibility = transaction.index("VISIBILITY_CHANGED_PRIVATE_TO_PUBLIC")
-    reporting = transaction.index("PRIVATE_VULNERABILITY_REPORTING_ENABLED_AND_VERIFIED")
-    scanning = transaction.index("SECRET_SCANNING_ENABLED_AND_VERIFIED")
-    pushing = transaction.index("PUSH_PROTECTION_ENABLED_AND_VERIFIED")
-    branch = transaction.index("MAIN_BRANCH_ENFORCEMENT_APPLIED_AND_VERIFIED")
-    ready = transaction.index("PUBLIC_LAUNCH_READY_ONLY_AFTER_ALL_CONTROLS_VERIFY")
+    reporting = transaction.index("PRIVATE_VULNERABILITY_REPORTING_ENABLED")
+    scanning = transaction.index("SECRET_SCANNING_ENABLED")
+    pushing = transaction.index("PUSH_PROTECTION_ENABLED")
+    branch = transaction.index("MAIN_BRANCH_ENFORCEMENT_APPLIED")
+    ready = transaction.index("PUBLICATION_SUCCESS_CLASSIFIED_ONLY_AFTER_ALL_READ_BACKS")
     assert visibility < reporting < scanning < pushing < branch < ready
 
 
@@ -239,7 +243,6 @@ def test_private_plan_restrictions_are_deferred_until_public() -> None:
     controls = _policy()["security_controls"]
     for name in (
         "BRANCH_PROTECTION",
-        "REPOSITORY_RULESETS",
         "FORCE_PUSH_PROTECTION",
         "BRANCH_DELETION_PROTECTION",
     ):
@@ -247,12 +250,17 @@ def test_private_plan_restrictions_are_deferred_until_public() -> None:
         assert controls[name]["application_phase"] == (
             "REQUIRED_IMMEDIATELY_AFTER_VISIBILITY_CHANGE"
         )
+    assert controls["REPOSITORY_RULESETS"]["current_state"] == (
+        "UNAVAILABLE_FOR_CURRENT_VISIBILITY_OR_PLAN"
+    )
+    assert controls["REPOSITORY_RULESETS"]["target_state"] == "NOT_CONFIGURED"
+    assert controls["REPOSITORY_RULESETS"]["application_phase"] == "MANUALLY_DEFERRED"
 
 
 def test_code_scanning_manual_deferral_has_reason() -> None:
     control = _policy()["security_controls"]["CODE_SCANNING"]
     assert control["current_state"] == "NOT_CONFIGURED"
-    assert control["target_state"] == "DEFERRED_TO_R1F"
+    assert control["target_state"] == "DEFERRED_TO_SEPARATE_POST_PUBLIC_CHANGE"
     assert control["application_phase"] == "MANUALLY_DEFERRED"
     assert "CodeQL" in control["reason"]
 
@@ -321,7 +329,7 @@ def test_security_issue_routing_has_no_email_or_public_disclosure_request() -> N
     assert "Report a vulnerability" in security
     assert "not currently verified" in security
     assert "claimed active" in security
-    assert "publication classification is blocked" in security
+    assert "classification is blocked" in security
     for prohibited in (
         "credentials",
         "customer data",
@@ -333,16 +341,16 @@ def test_security_issue_routing_has_no_email_or_public_disclosure_request() -> N
 
 def test_r1e_and_r1f_documented_mutation_plans_are_isolated() -> None:
     documentation = (ROOT / "docs/github-publication-controls.md").read_text(encoding="utf-8")
-    r1e = documentation.split("## Unexecuted R1E mutation plan", 1)[1].split(
-        "## Deferred R1F and post-public plan", 1
+    r1e = documentation.split("## R1E private controls applied", 1)[1].split(
+        "## Controlled R1F and post-public plan", 1
     )[0]
-    r1f = documentation.split("## Deferred R1F and post-public plan", 1)[1].split(
+    r1f = documentation.split("## Controlled R1F and post-public plan", 1)[1].split(
         "## Partial-application classifications", 1
     )[0]
-    assert "private-vulnerability-reporting" not in r1e
+    assert "Private Vulnerability Reporting" not in r1e
     assert '{"visibility":"public"}' not in r1e
-    assert "private-vulnerability-reporting" in r1f
-    assert '{"visibility":"public"}' in r1f
+    assert "Private Vulnerability Reporting" in r1f
+    assert "visibility" in r1f
     assert "No tag, GitHub release, or PyPI operation" in documentation
 
 
@@ -350,7 +358,8 @@ def test_publication_failure_class_blocks_announcement_and_publication() -> None
     documentation = (ROOT / "docs/github-publication-controls.md").read_text(encoding="utf-8")
     assert "PUBLIC_VISIBILITY_CHANGED_REQUIRED_PUBLIC_CONTROL_FAILED" in documentation
     assert "do not announce/tag/release/publish" in documentation
-    assert "R1E does not silently authorize a future visibility rollback" in documentation
+    assert "No rollback is pre-authorized" in documentation
+    assert "audit tool cannot choose" in documentation
 
 
 def test_branch_policy_denies_force_push_and_deletion() -> None:
@@ -381,8 +390,11 @@ def test_release_states_make_no_publication_claim() -> None:
 def test_roadmap_truth_preserves_r1f_and_phase6f_boundaries() -> None:
     roadmap = (ROOT / "docs/roadmap.md").read_text(encoding="utf-8")
     assert "R1D offline walkthrough | COMPLETE" in roadmap
-    assert "R1E GitHub metadata/security | IMPLEMENTED, RELEASE PENDING" in roadmap
-    assert "R1F final publication audit | PLANNED" in roadmap
+    assert "R1E GitHub metadata/security | COMPLETE" in roadmap
+    assert (
+        "R1F final publication audit | IMPLEMENTED, PRIVATE RELEASE AND VISIBILITY "
+        "AUTHORIZATION PENDING" in roadmap
+    )
     assert "Phase 6F | PLANNED, NOT IMPLEMENTED" in roadmap
     assert "Phase 7 | FUTURE, SCOPE NOT FROZEN" in roadmap
 
@@ -437,7 +449,7 @@ def test_audit_rejects_absolute_and_traversal_paths(tmp_path: Path) -> None:
         ("repository", "another-repository"),
         ("visibility", "PUBLIC"),
         ("approvals", 1),
-        ("false_enabled", "ENABLED_AND_VERIFIED"),
+        ("false_disabled", "DISABLED"),
     ),
 )
 def test_policy_semantic_mutations_fail_closed(
@@ -489,7 +501,9 @@ def test_public_only_order_mutations_fail_closed(tmp_path: Path, mutation: str) 
         transaction = policy["r1f_publication_transaction"]
         transaction[3], transaction[4] = transaction[4], transaction[3]
     elif mutation == "publication_without_all_controls":
-        policy["r1f_publication_transaction"].remove("ALL_REQUIRED_REMOTE_STATE_READ_BACK")
+        policy["r1f_publication_transaction"].remove(
+            "PROFILE_TOPICS_ACTIONS_DEPENDABOT_READ_BACK_VERIFIED"
+        )
     elif mutation == "implicit_visibility_rollback":
         policy["mutation_scope"]["visibility_rollback_pre_authorized"] = True
     else:
@@ -575,7 +589,11 @@ def test_security_route_to_public_issue_fails_closed(tmp_path: Path) -> None:
 @pytest.mark.parametrize(
     ("old", "new"),
     (
-        ("R1F final publication audit | PLANNED", "R1F final publication audit | COMPLETE"),
+        (
+            "R1F final publication audit | IMPLEMENTED, PRIVATE RELEASE AND VISIBILITY "
+            "AUTHORIZATION PENDING",
+            "R1F final publication audit | COMPLETE",
+        ),
         ("Phase 6F | PLANNED, NOT IMPLEMENTED", "Phase 6F | COMPLETE"),
     ),
 )

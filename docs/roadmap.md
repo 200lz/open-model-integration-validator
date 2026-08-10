@@ -25,14 +25,16 @@ a future public-preview launch.
 | R1B private clean-clone CI | COMPLETE |
 | R1C launch UX | COMPLETE |
 | R1D offline walkthrough | COMPLETE |
-| R1E GitHub metadata/security | IMPLEMENTED, RELEASE PENDING |
-| R1F final publication audit | PLANNED |
+| R1E GitHub metadata/security | COMPLETE |
+| R1F final publication audit | IMPLEMENTED, PRIVATE RELEASE AND VISIBILITY AUTHORIZATION PENDING |
 
-R1E implementation does not mean the repository is public and does not apply GitHub
-settings. The target remains an untagged and unreleased `v0.10.0` public-preview
-candidate, and R1F remains planned. A visibility change requires separate authorization.
-No GitHub release, public-repository state, or PyPI publication is claimed. See the
-[GitHub publication controls](github-publication-controls.md).
+The R1F baseline remains private, and live GitHub visibility is authoritative after
+any separately authorized transaction. R1F implementation
+does not mean the repository is public and does not select rollback authority.
+Any visibility change requires separate authorization.
+The target remains an untagged and unreleased `v0.10.0` public-preview candidate.
+No GitHub release or PyPI publication is claimed. See the
+[R1F final-publication audit](r1f-final-publication-audit.md).
 
 After public launch, Phase 6F development resumes from the latest public `main`
 baseline. Release Track work does not update the existing Phase 6F branch.

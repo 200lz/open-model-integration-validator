@@ -240,16 +240,18 @@ Start with the [documentation index](docs/README.md):
 - [README migration map](docs/reference/readme-migration-map.md)
 - [Security and privacy](docs/public-release-security-and-privacy.md)
 - [GitHub publication controls](docs/github-publication-controls.md)
+- [R1F final-publication audit](docs/r1f-final-publication-audit.md)
 - [Roadmap](docs/roadmap.md)
 
 ## Project status and roadmap
 
 OMIV is an unreleased `0.10.0` public-preview candidate. No `v0.10.0` tag,
 GitHub release, or PyPI publication exists. Engineering Phases 5 and 6A–6E are
-released in repository history; Phase 6F is planned and not implemented. The
-separate Release Track is preparing the repository for a future public launch.
-R1E defines repository metadata and security controls but does not apply GitHub
-settings or authorize public visibility.
+released in repository history; Phase 6F is planned and not implemented. The R1F
+baseline is private, and live GitHub visibility is authoritative after any later
+separately authorized transaction. R1A–R1E are complete; R1F implements the final
+publication audit but does not authorize or perform public visibility. Public
+availability would not by itself tag or release v0.10.0 or publish it to PyPI.
 See the [roadmap](docs/roadmap.md) and [changelog](CHANGELOG.md).
 
 ## Contributing, security, support, and license

@@ -507,8 +507,9 @@ def run_audit(root: Path) -> list[Check]:
     roadmap_terms = (
         "| R1C launch UX | COMPLETE |",
         "| R1D offline walkthrough | COMPLETE |",
-        "| R1E GitHub metadata/security | IMPLEMENTED, RELEASE PENDING |",
-        "| R1F final publication audit | PLANNED |",
+        "| R1E GitHub metadata/security | COMPLETE |",
+        "| R1F final publication audit | IMPLEMENTED, PRIVATE RELEASE AND VISIBILITY "
+        "AUTHORIZATION PENDING |",
         "| Phase 6F | PLANNED, NOT IMPLEMENTED |",
     )
     checks.append(

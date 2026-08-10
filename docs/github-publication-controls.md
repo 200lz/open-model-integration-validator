@@ -5,14 +5,15 @@ become public. It is Release Track configuration, not OMIV evidence and not a
 security certification. The machine-readable companion is
 [`.github/publication-policy.json`](../.github/publication-policy.json).
 
-The repository is still **PRIVATE**. Version 0.10.0 is untagged and unreleased;
-there is no GitHub release or PyPI publication. This document does not authorize a
-visibility or settings change.
+The R1F baseline is **PRIVATE**; live GitHub visibility is authoritative after any
+later transaction. Version 0.10.0 remains an untagged and unreleased public-preview
+candidate, with no GitHub release or PyPI publication. This document does not
+authorize a visibility or settings change.
 
 ## Desired repository profile
 
-The profile to apply immediately before a separately authorized visibility change
-is deterministic:
+The profile applied and verified by R1E, and required to remain unchanged through a
+separately authorized visibility transaction, is deterministic:
 
 - description: `Offline-first evidence and verification framework for AI model artifacts, transformations, runtime identity, and provenance.`
 - topics, in policy order: `ai-supply-chain`, `model-provenance`,
@@ -44,6 +45,7 @@ Remote controls use one of these exact states:
 | `UNAVAILABLE_FOR_CURRENT_VISIBILITY_OR_PLAN` | The endpoint explicitly tied availability to a plan upgrade or public visibility. |
 | `API_STATE_UNAVAILABLE` | The endpoint did not provide enough information to distinguish states. |
 | `DEFERRED_TO_R1F` | A reviewed manual decision is required during the final publication audit. |
+| `DEFERRED_TO_SEPARATE_POST_PUBLIC_CHANGE` | Launch does not depend on this control; it requires a later protected review. |
 | `INVALID` | The observed state conflicts with policy or cannot be safely interpreted. |
 
 A 403, 404, or 422 is interpreted only with its endpoint-specific message and
@@ -59,7 +61,7 @@ Application timing is separate from control state:
 - `MANUALLY_DEFERRED`
 - `R1F_IMMEDIATELY_AFTER_PUBLIC_VISIBILITY`
 
-## Read-only state observed during R1E
+## Read-only R1F baseline after R1E
 
 The following normalized summary was reconstructed with authenticated read-only
 GitHub API calls. No raw response, token, header, actor email, webhook URL, secret
@@ -68,13 +70,13 @@ name, environment name, installation identifier, or signed URL is retained.
 | Surface | Observed state |
 | --- | --- |
 | Repository | `200lz/open-model-integration-validator`, PRIVATE, default `main` |
-| Description, homepage, topics | Empty; desired values are proposed, not applied |
+| Description, homepage, topics | Exact reviewed description and ten-topic set applied; homepage empty |
 | Features | Issues and projects enabled; wiki and discussions disabled; not archived or a template |
 | Actions | Enabled; default workflow permission `read`; workflow approval disabled |
-| Workflows | One active workflow; GitHub-hosted Ubuntu runner; Python 3.11–3.14 |
+| Workflows | One tracked CI workflow on GitHub-hosted Ubuntu for Python 3.11–3.14; GitHub also reports the managed Dependabot Updates and Dependency Graph workflows as active |
 | Private vulnerability reporting | `API_STATE_UNAVAILABLE`; the private-repository status endpoint returned undifferentiated not-found, while reviewed official GitHub documentation limits enablement to public repositories |
-| Dependabot alerts | `DISABLED`; endpoint explicitly reported disabled |
-| Dependabot security updates | `DISABLED`; automated security fixes reported false |
+| Dependabot alerts | `ENABLED_AND_VERIFIED`; status endpoint returned HTTP 204 |
+| Dependabot security updates | `ENABLED_AND_VERIFIED`; automated security fixes reported enabled true and paused false |
 | Secret scanning | `DISABLED`; endpoint explicitly reported disabled |
 | Push protection | `NOT_CONFIGURED`; secret scanning prerequisite is disabled |
 | Code scanning | `NOT_CONFIGURED`; endpoint explicitly reported no configuration |
@@ -84,7 +86,7 @@ name, environment name, installation identifier, or signed URL is retained.
 | Actions secrets, variables, environments | Zero observed; names were not requested or retained |
 | Releases | Zero observed |
 | Packages | Repository-scoped package state was not exposed by the inspected endpoint; `API_STATE_UNAVAILABLE` |
-| Open pull requests, open issues | Zero observed |
+| Open pull requests, open issues | One open pull request and zero open issues observed; no content was retained |
 
 This is an implementation-time observation, not a continuously refreshed claim.
 R1F must re-read every mutable state before and after any authorized visibility
@@ -95,13 +97,13 @@ change.
 | Control | R1E observation | Required timing |
 | --- | --- | --- |
 | Private vulnerability reporting | `API_STATE_UNAVAILABLE` | `DEFERRED_TO_R1F`; enable and verify immediately after separately authorized public visibility |
-| Dependabot alerts | `DISABLED` | Enable and verify immediately before public visibility |
-| Dependabot security updates | `DISABLED` | Enable after alerts and verify immediately before public visibility |
+| Dependabot alerts | `ENABLED_AND_VERIFIED` | Re-read before and after visibility; stop if the state is lost |
+| Dependabot security updates | `ENABLED_AND_VERIFIED` | Re-read before and after visibility; stop if the state is lost |
 | Secret scanning | `DISABLED` | Enable and verify immediately after public visibility makes it available |
 | Push protection | `NOT_CONFIGURED` | Enable with secret scanning and verify immediately after visibility change |
-| Code scanning | `NOT_CONFIGURED` | `DEFERRED_TO_R1F`; explicitly review language, queries, events, and permissions |
-| Rulesets | `UNAVAILABLE_FOR_CURRENT_VISIBILITY_OR_PLAN` | Apply immediately after visibility change |
-| Branch protection | `UNAVAILABLE_FOR_CURRENT_VISIBILITY_OR_PLAN` | Use as the equivalent enforcement path if rulesets cannot express the policy |
+| Code scanning | `NOT_CONFIGURED` | `DEFERRED_TO_SEPARATE_POST_PUBLIC_CHANGE`; no launch-time CodeQL workflow |
+| Rulesets | `UNAVAILABLE_FOR_CURRENT_VISIBILITY_OR_PLAN` | Keep unconfigured; branch protection is the sole selected initial mechanism |
+| Branch protection | `UNAVAILABLE_FOR_CURRENT_VISIBILITY_OR_PLAN` | Apply the exact reviewed payload immediately after visibility change |
 | Actions default permissions | `ENABLED_AND_VERIFIED` | Preserve read-only default and no PR-approval permission |
 | Action pinning | `ENABLED_AND_VERIFIED` | Preserve every official Action at a full commit SHA |
 | Force-push protection | Unavailable with branch enforcement | Deny immediately after visibility change |
@@ -160,9 +162,8 @@ write credentials while evaluating untrusted code.
 ## Public-main enforcement policy
 
 After public visibility, normal changes to `main` require a pull request and the
-successful Python 3.11, 3.12, 3.13, and 3.14 CI matrix. The preferred mechanism is a
-repository ruleset; equivalent branch protection is acceptable if it expresses the
-same policy.
+successful Python 3.11, 3.12, 3.13, and 3.14 CI matrix. R1F selects branch protection
+as the sole initial mechanism. It must not add an overlapping ruleset.
 
 The exact required check names produced by the tracked workflow are `Python 3.11`,
 `Python 3.12`, `Python 3.13`, and `Python 3.14`. R1F must re-read the check names from
@@ -205,19 +206,25 @@ mutations listed below. R1E cannot change visibility or execute any R1F control.
 
 The later R1F visibility transaction has this mandatory order:
 
-1. Complete the final private-state R1F audit.
-2. Obtain explicit owner authorization for the visibility change.
-3. Record the exact pre-change remote state.
-4. Change visibility from PRIVATE to PUBLIC.
-5. Immediately enable and verify Private Vulnerability Reporting.
-6. Immediately enable and verify secret scanning.
-7. Immediately enable and verify push protection.
-8. Immediately apply and verify the reviewed `main` branch rule or protection.
-9. Re-read visibility, default branch, metadata, topics, Actions permissions,
-   vulnerability reporting, dependency controls, secret scanning, push protection,
-   and branch enforcement.
-10. Only after every required control verifies may R1F classify the repository as
-    public-launch ready.
+1. Verify private `main` at the exact green R1F commit.
+2. Verify no concurrent remote-state change.
+3. Verify separate explicit owner visibility authorization.
+4. Verify one explicit owner rollback-authority decision.
+5. Capture normalized pre-change remote state.
+6. Change visibility from PRIVATE to PUBLIC.
+7. Read back PUBLIC visibility immediately.
+8. Enable Private Vulnerability Reporting.
+9. Read back its enabled state.
+10. Enable secret scanning.
+11. Read back its enabled state.
+12. Enable push protection.
+13. Read back its enabled state.
+14. Apply the exact reviewed `main` branch protection.
+15. Read back every enforcement field and required check name.
+16. Re-read repository profile, topics, Actions permissions, and Dependabot controls.
+17. Verify no tag, release, or package was created.
+18. Run an unauthenticated public-read smoke check.
+19. Classify success only after every required read-back passes.
 
 No tag, GitHub release, or PyPI operation may occur in this transaction. Each remains
 a separate later operation requiring explicit authorization.
@@ -225,13 +232,12 @@ a separate later operation requiring explicit authorization.
 R1F must use live read-only API inspection and compare normalized state with the
 policy. It must not rely solely on this document or on a prior successful run.
 
-## Unexecuted R1E mutation plan
+## R1E private controls applied
 
-These commands are a review plan, not executable policy data and not authorization.
-They must be run only by a separately authorized R1E release operation after the
-private-main commit and exact CI run succeed. Each write needs repository
-Administration permission; classic tokens need `repo`. No token value belongs in a
-command, file, log, or report.
+These reviewed operations were applied after the R1E private-main commit and exact CI
+run succeeded, then independently read back. They are retained as a bounded historical
+record, not executable policy data and not authorization to repeat a write. No token
+value belongs in a command, file, log, or report.
 
 | Control | Proposed command and request | Expected/read-back | Side effect, failure, and safe rollback |
 | --- | --- | --- | --- |
@@ -247,79 +253,19 @@ branch protection, rulesets, force-push protection, branch-deletion protection, 
 code scanning. The current private-reporting 404 remains
 `API_STATE_UNAVAILABLE`; it is not reclassified as enabled or disabled.
 
-## Deferred R1F and post-public plan
+## Controlled R1F and post-public plan
 
-This plan is not authorization and R1E cannot execute it. R1F must first complete the
-private-state audit, obtain explicit owner authorization, record the pre-change state,
-and use `PATCH /repos/200lz/open-model-integration-validator` with
-`{"visibility":"public"}`. Expect HTTP 200, then re-read exact `PUBLIC` visibility.
-The write needs repository Administration permission, exposes the repository, and is
-not treated as safely reversible by default. Before issuing it, the R1F instruction
-must explicitly decide whether a later rollback to PRIVATE is authorized.
+The [R1F final-publication audit](r1f-final-publication-audit.md) is the complete
+reviewed operator procedure. It is not authorization and contains no reusable
+mutation program. It requires exact green private `main`, separate visibility
+authorization, and one explicit rollback-authority choice before the visibility
+request. Branch protection is the selected sole initial enforcement mechanism.
 
-Only after visibility reads back as PUBLIC, R1F performs these bounded operations in
-order, before any tag, release, or PyPI action:
-
-1. Enable Private Vulnerability Reporting with
-   `PUT /repos/200lz/open-model-integration-validator/private-vulnerability-reporting`
-   using Administration write permission. Expect HTTP 204, then require GET of the
-   same endpoint to return HTTP 200 with `enabled: true`. Its private-repository 404
-   remains an ambiguous prior observation; reviewed official GitHub documentation is
-   the authority for public-only eligibility. A failed write or read-back is
-   `PUBLIC_VISIBILITY_CHANGED_REQUIRED_PUBLIC_CONTROL_FAILED`.
-
-2. Enable `security_and_analysis.secret_scanning.status=enabled` with
-   `PATCH /repos/200lz/open-model-integration-validator` using Administration write
-   permission. Expect HTTP 200 and re-read secret scanning as enabled before
-   proceeding. This request is idempotent for the same fields; failure is
-   `PUBLIC_VISIBILITY_CHANGED_REQUIRED_PUBLIC_CONTROL_FAILED`.
-
-   ```bash
-   gh api --method PATCH repos/200lz/open-model-integration-validator --input - <<'JSON'
-   {"security_and_analysis":{"secret_scanning":{"status":"enabled"}}}
-   JSON
-   ```
-
-3. Enable push protection with the same official repository PATCH field and require
-   read-back of `secret_scanning_push_protection.status=enabled`. This must follow
-   verified secret scanning.
-   Failure is `PUBLIC_VISIBILITY_CHANGED_REQUIRED_PUBLIC_CONTROL_FAILED`.
-
-   ```bash
-   gh api --method PATCH repos/200lz/open-model-integration-validator --input - <<'JSON'
-   {"security_and_analysis":{"secret_scanning_push_protection":{"status":"enabled"}}}
-   JSON
-   ```
-
-4. Apply `PUT /repos/200lz/open-model-integration-validator/branches/main/protection`
-   with required status checks `Python 3.11` through `Python 3.14`, strict checks,
-   pull requests required, zero approving reviews, code-owner reviews false,
-   conversation resolution true, linear history true, force pushes false, deletion
-   false, and restrictions null. Expect HTTP 200 and verify every returned field.
-   Administrator enforcement remains false solely for the documented emergency
-   bypass. If a repository ruleset can express all fields, a reviewed equivalent
-   active ruleset may be used instead; never configure both ambiguously.
-
-   ```bash
-   gh api --method PUT repos/200lz/open-model-integration-validator/branches/main/protection --input - <<'JSON'
-   {"required_status_checks":{"strict":true,"contexts":["Python 3.11","Python 3.12","Python 3.13","Python 3.14"]},"enforce_admins":false,"required_pull_request_reviews":{"dismiss_stale_reviews":false,"require_code_owner_reviews":false,"required_approving_review_count":0,"require_last_push_approval":false},"restrictions":null,"required_linear_history":true,"allow_force_pushes":false,"allow_deletions":false,"required_conversation_resolution":true}
-   JSON
-   ```
-5. Re-read rulesets, branch protection, visibility, default branch, profile, topics,
-   features, Actions
-   permissions, secret scanning, push protection, private reporting, Dependabot
-   alerts, and security updates. A missing or different field stops publication.
-6. Decide separately whether to add CodeQL. No CodeQL workflow is currently
-   configured. R1F must review languages, queries, events, runner, permissions, and
-   false-positive handling before any implementation.
-
-The required read-back must verify Private Vulnerability Reporting, secret scanning,
-push protection, and branch enforcement before public-launch readiness. Branch
-enforcement is applied immediately after visibility because the current endpoint
-explicitly requires GitHub Pro or public visibility. No plan or visibility workaround
-is permitted. A control failure stops immediately: do not announce, tag, create a
-GitHub release, or publish to PyPI; record applied and unapplied controls and preserve
-the exact normalized read-back.
+Private Vulnerability Reporting, secret scanning, push protection, and branch
+protection occur only after PUBLIC visibility reads back. Each write has its own
+immediate read-back, and every failure preserves the normalized applied/unapplied
+state. CodeQL is `CODEQL_DEFERRED_TO_SEPARATE_POST_PUBLIC_CHANGE`; current CI does not
+replace CodeQL, and no unvalidated workflow is added for launch optics.
 
 ## Partial-application classifications
 
@@ -328,23 +274,32 @@ these fail-closed outcomes when the complete sequence does not verify:
 
 | Classification | Meaning and required behavior |
 | --- | --- |
-| `LOCAL_OR_CI_FAILURE_BEFORE_REMOTE_MUTATION` | No remote writes begin; correct only under separate authorization. |
-| `METADATA_MUTATION_FAILED` | Stop remaining metadata/security writes unless an explicitly reviewed continuation is safer; report exact applied and unapplied fields. |
-| `SECURITY_CONTROL_MUTATION_FAILED` | Stop before visibility, tag, release, or PyPI; do not claim the control enabled. |
-| `PARTIAL_REMOTE_APPLICATION` | Preserve normalized read-back, avoid ambiguous destructive rollback, and request separate correction authorization. |
-| `READ_BACK_VERIFICATION_FAILED` | Treat the write as ambiguous even if its response succeeded; do not infer the resulting state. |
+| `FINAL_PRIVATE_AUDIT_FAILED` | No visibility write begins; correct only under separate authorization. |
+| `VISIBILITY_AUTHORIZATION_MISSING` | Stop before visibility because implementation or audit permission is not publication permission. |
+| `ROLLBACK_AUTHORITY_UNSPECIFIED` | Stop before visibility until exactly one owner choice is explicit. |
 | `CONCURRENT_REMOTE_STATE_CHANGE` | Stop when any field differs from the pre-write snapshot or approved request; do not overwrite another actor's change. |
-| `UNEXPECTED_VISIBILITY_CHANGE` | Stop immediately; do not mutate further controls or attempt an unauthorized visibility rollback. |
-| `PUBLIC_VISIBILITY_CHANGED_REQUIRED_PUBLIC_CONTROL_FAILED` | Visibility is public but one or more required public controls did not verify; stop, do not announce/tag/release/publish, and preserve exact applied/unapplied read-back. |
-| `PLAN_RESTRICTED_CONTROL` | Record the exact endpoint limitation; apply only at its approved post-public phase or stop if still unavailable. |
 | `AUTHENTICATION_EXPIRED` | Stop without retrying writes under another identity; reauthorization is separate. |
+| `VISIBILITY_MUTATION_FAILED` | Preserve private state and stop all later transaction operations. |
+| `PUBLIC_VISIBILITY_READ_BACK_FAILED` | Treat visibility as ambiguous and do not apply public controls without verified PUBLIC state. |
+| `PRIVATE_VULNERABILITY_REPORTING_ENABLE_FAILED` | Stop and record the public control as unapplied. |
+| `SECRET_SCANNING_ENABLE_FAILED` | Stop and record secret scanning and its dependent controls as unapplied. |
+| `PUSH_PROTECTION_ENABLE_FAILED` | Stop and record push protection and branch enforcement as unapplied. |
+| `MAIN_ENFORCEMENT_APPLICATION_FAILED` | Stop without substituting an unreviewed ruleset or weaker payload. |
+| `REQUIRED_CHECK_CONTEXT_MISMATCH` | Stop when any exact Python job context is absent, renamed, or extra in enforcement. |
+| `PUBLIC_READ_BACK_VERIFICATION_FAILED` | Preserve exact normalized read-back and do not infer successful publication. |
+| `UNAUTHENTICATED_PUBLIC_READ_FAILED` | Stop because public accessibility was not independently demonstrated. |
+| `PUBLIC_VISIBILITY_CHANGED_REQUIRED_PUBLIC_CONTROL_FAILED` | Visibility is public but one or more required public controls did not verify; stop, do not announce/tag/release/publish, and preserve exact applied/unapplied read-back. |
+| `VISIBILITY_ROLLBACK_FAILED` | Stop further mutation and preserve the exact externally observable state. |
+| `PARTIAL_PUBLICATION_STATE` | Some writes applied but the final contract did not verify; no publication success may be claimed. |
 
 Every partial outcome keeps tag creation, GitHub release creation, and PyPI
-publication prohibited. A rollback is a new mutation: perform it only when the prior
-and current states are unambiguous, the rollback is safe, and the owner separately
-authorizes it. R1E does not silently authorize a future visibility rollback. The R1F
-instruction must decide rollback authority before changing visibility because a
-second visibility change may itself be externally observable.
+publication and announcement prohibited. No rollback is pre-authorized. Before the
+first visibility write the owner must explicitly choose one of
+`ROLLBACK_TO_PRIVATE_ON_REQUIRED_CONTROL_FAILURE_AUTHORIZED`,
+`LEAVE_PUBLIC_AND_STOP_FOR_MANUAL_REMEDIATION`, or
+`ROLLBACK_AUTHORITY_NOT_GRANTED`. The audit tool cannot choose. A return to private
+cannot erase prior public observation, shared or indexed URLs, or changes to stars,
+watchers, forks, repository networks, and security-control state.
 
 ## Stop and rollback conditions
 

@@ -31,24 +31,26 @@ certify model safety or evidence truth. GitHub release creation and PyPI publica
 each require separate explicit authorization. Publication automation must not hold
 write permission on untrusted pull-request code.
 
-R1E may apply only the reviewed repository profile, topics, Dependabot alerts, and
-Dependabot security updates while the repository remains private. Private
-Vulnerability Reporting is not verified or active while private and is not an R1E
-mutation. The separately authorized R1F transaction must complete its final private
-audit, record pre-change state, obtain explicit visibility authorization, change the
-repository to public, then immediately verify Private Vulnerability Reporting,
-secret scanning, push protection, and the reviewed `main` branch enforcement in that
-order. R1F must read every required control back before classifying public-launch
+R1E applied and verified the reviewed repository profile, topics, Dependabot alerts,
+and Dependabot security updates while the repository remained private. Private
+Vulnerability Reporting is not verified at the private R1F baseline. The separately
+authorized [R1F transaction](r1f-final-publication-audit.md) must complete its exact
+private audit, record pre-change state, obtain explicit visibility authorization and
+an explicit rollback-authority choice, change the repository to public, then verify
+Private Vulnerability Reporting, secret scanning, push protection, and the reviewed
+`main` branch protection in that order. R1F must read every required control back and
+pass an unauthenticated public-read smoke check before classifying public-launch
 readiness.
 
 If a required post-public control fails, classify
 `PUBLIC_VISIBILITY_CHANGED_REQUIRED_PUBLIC_CONTROL_FAILED`; do not announce, tag,
 create a GitHub release, or publish to PyPI. Preserve the exact normalized state and
-report applied and unapplied controls. R1E does not authorize a visibility rollback:
-the future R1F instruction must explicitly decide rollback authority before the
+report applied and unapplied controls. No visibility rollback is pre-authorized: the
+future R1F instruction must explicitly select one reviewed rollback choice before the
 visibility change because another visibility change may have externally observable
-effects. Tag creation, GitHub release creation, and PyPI publication remain separate
-later operations with separate authorization.
+effects and cannot erase prior exposure. Tag creation, GitHub release creation, PyPI
+publication, and announcement remain separate later operations with separate
+authorization.
 
 ## Historical tag inventory
 
