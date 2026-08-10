@@ -20,7 +20,39 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 BASELINE = "ffa57d385ffe465b6418daaa8a2530ff8d76e5fa"
 EXPECTED_VERSION = "0.10.0"
-APPROVED_AUTHOR_IDENTITY_SHA256 = "15bee5fe614b2c133c0b901de5873ba2f0cfa6fc9a5f1d65f0ec6072a59b68eb"
+IDENTITY_FINGERPRINT_DOMAIN = b"omiv.identity.v1\0"
+OWNER_APPROVED_HUMAN_IDENTITY_SHA256 = (
+    "93ee44c41ca32a3d205a425abccb8c7f10f4802185dc02016a8f8da1348ab0d3"
+)
+IDENTITY_CATEGORIES = (
+    "INVALID_IDENTITY_RECORD",
+    "OWNER_APPROVED_HUMAN_IDENTITY",
+    "SYNTHETIC_TEST_IDENTITY",
+    "UNKNOWN_AUTOMATION_IDENTITY",
+    "UNKNOWN_HUMAN_IDENTITY",
+    "VERIFIED_PLATFORM_SERVICE_IDENTITY",
+)
+IDENTITY_ROLES = frozenset({"AUTHOR", "COMMITTER", "TAGGER"})
+REF_CLASSIFICATIONS = frozenset(
+    {
+        "ANNOTATED_TAG",
+        "GIT_NOTE_OR_OTHER_REF",
+        "LOCAL_BRANCH",
+        "MAIN_HISTORY",
+        "PULL_REQUEST_REF",
+        "REMOTE_AUTOMATION_BRANCH",
+        "REMOTE_OTHER_BRANCH",
+        "TAG_HISTORY",
+    }
+)
+NO_PLATFORM_AUTHORITY = "NO_OWNER_PUBLISHER_MAINTAINER_RELEASE_OR_REPOSITORY_AUTHORITY"
+REQUIRED_PLATFORM_PROVENANCE = frozenset(
+    {
+        "GITHUB_OFFICIAL_SERVICE_DOCUMENTATION",
+        "GITHUB_REST_COMMIT_ACTOR_ASSOCIATION",
+        "GITHUB_REST_COMMIT_SIGNATURE_VERIFIED_VALID",
+    }
+)
 APPROVED_PATH_FINGERPRINTS = {
     "5ba5e619bbec7b9f",
     "8c8ba75aa027ee39",
@@ -54,6 +86,46 @@ class Check:
     name: str
     passed: bool
     detail: str
+
+
+@dataclass(frozen=True)
+class IdentityObservation:
+    fingerprint: str
+    roles: tuple[str, ...]
+    reachable_ref_classifications: tuple[str, ...]
+    valid_record: bool = True
+
+
+@dataclass(frozen=True)
+class PlatformIdentityPolicy:
+    fingerprint: str
+    allowed_roles: tuple[str, ...]
+    allowed_ref_classifications: tuple[str, ...]
+    purpose: str
+    evidence_sources: tuple[str, ...]
+    authority_limit: str = NO_PLATFORM_AUTHORITY
+
+
+VERIFIED_PLATFORM_SERVICE_POLICIES = {
+    "5f65310d79860e79e1e7015a5f25bc4e49eebbfaa2a53fb79490481c8010f832": (
+        PlatformIdentityPolicy(
+            fingerprint=("5f65310d79860e79e1e7015a5f25bc4e49eebbfaa2a53fb79490481c8010f832"),
+            allowed_roles=("AUTHOR",),
+            allowed_ref_classifications=("REMOTE_AUTOMATION_BRANCH",),
+            purpose="GITHUB_DEPENDABOT_UPDATE_AUTHOR",
+            evidence_sources=tuple(sorted(REQUIRED_PLATFORM_PROVENANCE)),
+        )
+    ),
+    "5a85c6139ec6780f0c4d38ea5c6a032076101b8871c956a3032bdcfaf480bc9a": (
+        PlatformIdentityPolicy(
+            fingerprint=("5a85c6139ec6780f0c4d38ea5c6a032076101b8871c956a3032bdcfaf480bc9a"),
+            allowed_roles=("COMMITTER",),
+            allowed_ref_classifications=("REMOTE_AUTOMATION_BRANCH",),
+            purpose="GITHUB_WEB_FLOW_SIGNED_DEPENDABOT_COMMITTER",
+            evidence_sources=tuple(sorted(REQUIRED_PLATFORM_PROVENANCE)),
+        )
+    ),
+}
 
 
 class UniqueKeyLoader(yaml.SafeLoader):
@@ -118,18 +190,70 @@ def _candidate_symlink_checks(files: list[Path]) -> list[Check]:
     ]
 
 
-def _history_inventory() -> list[Check]:
-    commits = _git("rev-list", "--all", "--count").decode().strip()
-    tags = _git("tag", "--list").decode().splitlines()
-    identity_fields = [
-        field.strip(b"\n")
-        for field in _git("log", "--all", "--format=%an%x00%ae%x00%cn%x00%ce%x00").split(b"\0")
-        if field.strip(b"\n")
-    ]
-    identities = {
-        identity_fields[index] + b"\0" + identity_fields[index + 1]
-        for index in range(0, len(identity_fields), 2)
-    }
+def _identity_fingerprint(name: bytes, email: bytes) -> str:
+    return hashlib.sha256(IDENTITY_FINGERPRINT_DOMAIN + name + b"\0" + email).hexdigest()
+
+
+def _ref_classification(refname: str) -> str:
+    if refname == "refs/heads/main" or re.fullmatch(r"refs/remotes/[^/]+/main", refname):
+        return "MAIN_HISTORY"
+    if refname.startswith("refs/pull/"):
+        return "PULL_REQUEST_REF"
+    if re.match(r"refs/remotes/[^/]+/dependabot/", refname):
+        return "REMOTE_AUTOMATION_BRANCH"
+    if refname.startswith("refs/remotes/"):
+        return "REMOTE_OTHER_BRANCH"
+    if refname.startswith("refs/heads/"):
+        return "LOCAL_BRANCH"
+    if refname.startswith("refs/tags/"):
+        return "TAG_HISTORY"
+    return "GIT_NOTE_OR_OTHER_REF"
+
+
+def _commit_ref_classifications() -> dict[str, set[str]]:
+    result: dict[str, set[str]] = {}
+    refnames = sorted(
+        row.decode("utf-8", errors="strict")
+        for row in _git("for-each-ref", "--format=%(refname)").splitlines()
+        if row
+    )
+    for refname in refnames:
+        classification = _ref_classification(refname)
+        for commit in _git("rev-list", refname).decode("ascii").splitlines():
+            result.setdefault(commit, set()).add(classification)
+    return result
+
+
+def _history_identity_observations() -> list[IdentityObservation]:
+    commit_classes = _commit_ref_classifications()
+    records: dict[str, dict[str, Any]] = {}
+
+    def add(name: bytes, email: bytes, role: str, refs: set[str]) -> None:
+        fingerprint = _identity_fingerprint(name, email)
+        record = records.setdefault(
+            fingerprint,
+            {"roles": set(), "refs": set(), "valid": True},
+        )
+        record["roles"].add(role)
+        record["refs"].update(refs)
+        record["valid"] = bool(record["valid"] and name and email and role in IDENTITY_ROLES)
+
+    commit_rows = _git(
+        "log",
+        "--all",
+        "--format=%H%x00%an%x00%ae%x00%cn%x00%ce",
+    ).splitlines()
+    for row in commit_rows:
+        fields = row.split(b"\0")
+        if len(fields) != 5:
+            fingerprint = hashlib.sha256(IDENTITY_FINGERPRINT_DOMAIN + row).hexdigest()
+            records[fingerprint] = {"roles": set(), "refs": set(), "valid": False}
+            continue
+        commit = fields[0].decode("ascii")
+        refs = commit_classes.get(commit, {"GIT_NOTE_OR_OTHER_REF"})
+        add(fields[1], fields[2], "AUTHOR", refs)
+        add(fields[3], fields[4], "COMMITTER", refs)
+
     tag_rows = _git(
         "for-each-ref",
         "--format=%(objecttype)%00%(taggername)%00%(taggeremail)",
@@ -137,17 +261,163 @@ def _history_inventory() -> list[Check]:
     ).splitlines()
     for row in tag_rows:
         fields = row.split(b"\0")
-        if fields[0] == b"tag":
-            identities.add(fields[1] + b"\0" + fields[2].strip(b"<>"))
-    identity_hashes = {hashlib.sha256(row).hexdigest() for row in identities}
+        if len(fields) != 3 or fields[0] != b"tag":
+            continue
+        add(fields[1], fields[2].strip(b"<>"), "TAGGER", {"ANNOTATED_TAG"})
+
+    return [
+        IdentityObservation(
+            fingerprint=fingerprint,
+            roles=tuple(sorted(record["roles"])),
+            reachable_ref_classifications=tuple(sorted(record["refs"])),
+            valid_record=bool(record["valid"]),
+        )
+        for fingerprint, record in sorted(records.items())
+    ]
+
+
+def _platform_policy_is_valid(policy: PlatformIdentityPolicy) -> bool:
+    return bool(
+        re.fullmatch(r"[0-9a-f]{64}", policy.fingerprint)
+        and set(policy.allowed_roles).issubset(IDENTITY_ROLES)
+        and policy.allowed_roles
+        and set(policy.allowed_ref_classifications).issubset(REF_CLASSIFICATIONS)
+        and policy.allowed_ref_classifications
+        and REQUIRED_PLATFORM_PROVENANCE.issubset(policy.evidence_sources)
+        and policy.authority_limit == NO_PLATFORM_AUTHORITY
+    )
+
+
+def _classify_identity(
+    observation: IdentityObservation,
+    *,
+    platform_policies: dict[str, PlatformIdentityPolicy] | None = None,
+    synthetic_test_fingerprints: frozenset[str] = frozenset(),
+) -> str:
+    policies = (
+        VERIFIED_PLATFORM_SERVICE_POLICIES if platform_policies is None else platform_policies
+    )
+    if (
+        not observation.valid_record
+        or not re.fullmatch(r"[0-9a-f]{64}", observation.fingerprint)
+        or not observation.roles
+        or not set(observation.roles).issubset(IDENTITY_ROLES)
+        or not observation.reachable_ref_classifications
+        or not set(observation.reachable_ref_classifications).issubset(REF_CLASSIFICATIONS)
+    ):
+        return "INVALID_IDENTITY_RECORD"
+    if observation.fingerprint == OWNER_APPROVED_HUMAN_IDENTITY_SHA256:
+        return "OWNER_APPROVED_HUMAN_IDENTITY"
+    if observation.fingerprint in synthetic_test_fingerprints:
+        return "SYNTHETIC_TEST_IDENTITY"
+    policy = policies.get(observation.fingerprint)
+    if (
+        policy is not None
+        and _platform_policy_is_valid(policy)
+        and set(observation.roles).issubset(policy.allowed_roles)
+        and set(observation.reachable_ref_classifications).issubset(
+            policy.allowed_ref_classifications
+        )
+    ):
+        return "VERIFIED_PLATFORM_SERVICE_IDENTITY"
+    if policy is not None or set(observation.reachable_ref_classifications) == {
+        "REMOTE_AUTOMATION_BRANCH"
+    }:
+        return "UNKNOWN_AUTOMATION_IDENTITY"
+    return "UNKNOWN_HUMAN_IDENTITY"
+
+
+def _identity_report_records(
+    observations: list[IdentityObservation],
+    *,
+    platform_policies: dict[str, PlatformIdentityPolicy] | None = None,
+    synthetic_test_fingerprints: frozenset[str] = frozenset(),
+) -> list[dict[str, Any]]:
+    policies = (
+        VERIFIED_PLATFORM_SERVICE_POLICIES if platform_policies is None else platform_policies
+    )
+    result: list[dict[str, Any]] = []
+    for observation in observations:
+        category = _classify_identity(
+            observation,
+            platform_policies=policies,
+            synthetic_test_fingerprints=synthetic_test_fingerprints,
+        )
+        policy = policies.get(observation.fingerprint)
+        if category == "OWNER_APPROVED_HUMAN_IDENTITY":
+            purpose = "OWNER_APPROVED_PUBLIC_IDENTITY_DISCLOSURE"
+            evidence_sources = ("OWNER_RECORDED_IDENTITY_FINGERPRINT",)
+            authority_limit = "IDENTITY_DISCLOSURE_APPROVAL_ONLY"
+        elif category == "VERIFIED_PLATFORM_SERVICE_IDENTITY" and policy is not None:
+            purpose = policy.purpose
+            evidence_sources = policy.evidence_sources
+            authority_limit = policy.authority_limit
+        elif category == "SYNTHETIC_TEST_IDENTITY":
+            purpose = "EXPLICIT_TEST_FIXTURE_ONLY"
+            evidence_sources = ("TEST_CALLER_EXPLICIT_FINGERPRINT",)
+            authority_limit = "NO_AUTHORITY"
+        else:
+            purpose = "UNCLASSIFIED"
+            evidence_sources = ()
+            authority_limit = "NO_AUTHORITY"
+        result.append(
+            {
+                "authority_limit": authority_limit,
+                "category": category,
+                "evidence_sources": list(evidence_sources),
+                "fingerprint": observation.fingerprint,
+                "purpose": purpose,
+                "reachable_ref_classifications": list(observation.reachable_ref_classifications),
+                "roles": list(observation.roles),
+            }
+        )
+    return sorted(result, key=lambda record: record["fingerprint"])
+
+
+def _identity_classification_check(
+    observations: list[IdentityObservation],
+    *,
+    platform_policies: dict[str, PlatformIdentityPolicy] | None = None,
+    synthetic_test_fingerprints: frozenset[str] = frozenset(),
+) -> Check:
+    records = _identity_report_records(
+        observations,
+        platform_policies=platform_policies,
+        synthetic_test_fingerprints=synthetic_test_fingerprints,
+    )
+    categories = [record["category"] for record in records]
+    human_count = categories.count("OWNER_APPROVED_HUMAN_IDENTITY")
+    service_count = categories.count("VERIFIED_PLATFORM_SERVICE_IDENTITY")
+    unknown_count = categories.count("UNKNOWN_HUMAN_IDENTITY") + categories.count(
+        "UNKNOWN_AUTOMATION_IDENTITY"
+    )
+    invalid_count = categories.count("INVALID_IDENTITY_RECORD")
+    synthetic_count = categories.count("SYNTHETIC_TEST_IDENTITY")
+    passed = bool(
+        human_count == 1 and unknown_count == 0 and invalid_count == 0 and synthetic_count == 0
+    )
+    return Check(
+        "approved_author_identity",
+        passed,
+        " ".join(
+            (
+                f"approved_humans={human_count}",
+                f"verified_platform_services={service_count}",
+                f"unknown={unknown_count}",
+                f"invalid={invalid_count}",
+            )
+        ),
+    )
+
+
+def _history_inventory() -> list[Check]:
+    commits = _git("rev-list", "--all", "--count").decode().strip()
+    tags = _git("tag", "--list").decode().splitlines()
+    observations = _history_identity_observations()
     return [
         Check("reachable_history", int(commits) >= 36, f"commits={commits}"),
         Check("historical_tags", len(tags) == 9, f"tags={len(tags)}"),
-        Check(
-            "approved_author_identity",
-            identity_hashes == {APPROVED_AUTHOR_IDENTITY_SHA256},
-            f"identities={len(identity_hashes)} approval=owner-recorded",
-        ),
+        _identity_classification_check(observations),
     ]
 
 
@@ -405,6 +675,24 @@ def main() -> int:
     args = parser.parse_args()
     checks = audit()
     passed = all(check.passed for check in checks)
+    identity_records = _identity_report_records(_history_identity_observations())
+    identity_counts = {
+        category: sum(record["category"] == category for record in identity_records)
+        for category in IDENTITY_CATEGORIES
+    }
+    reviewed_platform_policies = [
+        {
+            "allowed_ref_classifications": list(policy.allowed_ref_classifications),
+            "allowed_roles": list(policy.allowed_roles),
+            "authority_limit": policy.authority_limit,
+            "evidence_sources": list(policy.evidence_sources),
+            "fingerprint": policy.fingerprint,
+            "purpose": policy.purpose,
+        }
+        for policy in sorted(
+            VERIFIED_PLATFORM_SERVICE_POLICIES.values(), key=lambda item: item.fingerprint
+        )
+    ]
     result = {
         "schema": "omiv.public-release-readiness-audit.v1",
         "baseline": BASELINE,
@@ -414,7 +702,11 @@ def main() -> int:
             "candidate_files": len(_candidate_files()),
             "credential_pattern_classes": 6,
             "history_surfaces": [
+                "all_local_remote_and_tag_refs",
                 "annotated_tag_messages",
+                "annotated_tag_tagger_identities",
+                "commit_author_identities",
+                "commit_committer_identities",
                 "commit_messages",
                 "reachable_blob_sizes",
                 "reachable_commit_patches",
@@ -430,6 +722,11 @@ def main() -> int:
         "privacy": {
             "approved_author_identity": "OWNER_APPROVED",
             "approved_historical_path_fingerprints": len(APPROVED_PATH_FINGERPRINTS),
+            "identity_category_counts": identity_counts,
+            "identity_fingerprint_domain": "omiv.identity.v1",
+            "identity_records": identity_records,
+            "identity_taxonomy": list(IDENTITY_CATEGORIES),
+            "reviewed_platform_service_policies": reviewed_platform_policies,
             "sensitive_values_serialized": 0,
         },
     }

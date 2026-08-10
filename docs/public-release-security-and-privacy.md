@@ -24,6 +24,49 @@ The approval does not extend to another identity or path. The readiness tool com
 only safe digests and counts; it does not print an email or absolute path. Current
 source must not add a machine-specific default.
 
+## Public identity classification
+
+The history audit keeps commit authors, commit committers, and annotated-tag taggers
+independently observable across every local branch, remote-tracking branch, pull ref,
+tag, and other Git ref. It hashes each exact name/address pair with the
+domain-separated `omiv.identity.v1` SHA-256 construction and emits only the digest,
+role, and reachable-ref classification.
+
+The only accepted human record is the existing owner-approved fingerprint. The human
+invariant remains exactly one; a platform identity cannot satisfy it. Two additional
+fingerprints were reviewed after private CI exposed the open Dependabot branch:
+
+- one `AUTHOR` fingerprint is limited to `GITHUB_DEPENDABOT_UPDATE_AUTHOR` on a
+  `REMOTE_AUTOMATION_BRANCH`;
+- one distinct `COMMITTER` fingerprint is limited to
+  `GITHUB_WEB_FLOW_SIGNED_DEPENDABOT_COMMITTER` on that same ref class.
+
+GitHub's REST commit response associated the author with a `Bot` actor and the
+committer with the web commit-signing actor, and reported the commit signature as
+present, valid, and verified. The review also used GitHub's documentation for
+[Dependabot-signed commits](https://docs.github.com/en/code-security/concepts/supply-chain-security/dependabot-security-updates),
+[REST commit actor and verification fields](https://docs.github.com/en/rest/commits/commits),
+and the documented
+[web commit-signing service account](https://docs.github.com/en/enterprise-server@3.21/admin/configuring-settings/configuring-user-applications-for-your-enterprise/configuring-web-commit-signing).
+Those reviewed API and documentation facts are provenance for the exact fingerprints;
+the audit does not infer trust from a `[bot]` suffix, a noreply address, a branch name,
+or a login-like string.
+
+The fail-closed taxonomy is:
+
+- `OWNER_APPROVED_HUMAN_IDENTITY`
+- `VERIFIED_PLATFORM_SERVICE_IDENTITY`
+- `SYNTHETIC_TEST_IDENTITY`
+- `UNKNOWN_HUMAN_IDENTITY`
+- `UNKNOWN_AUTOMATION_IDENTITY`
+- `INVALID_IDENTITY_RECORD`
+
+Unknown or invalid records fail readiness. Platform service identities remain in the
+public-exposure inventory, but confer no owner, publisher, maintainer, release, or
+repository authority and do not establish publisher authenticity. Synthetic test
+identities require an explicit test-only fingerprint and are never inferred from
+their spelling.
+
 ## Audit boundary
 
 The release audit checks reachable history, common credential patterns, repository
