@@ -27,5 +27,7 @@ parsing and canonical identity/digest verification to a scoped result whose inpu
 retains explicit limitations. It does not establish current provider state,
 artifact bytes, runtime identity, output attribution, safety, or authenticity.
 
-Return to the [documentation index](../../docs/README.md) or the
+Continue with the
+[offline evidence walkthrough](../../docs/offline-evidence-walkthrough.md), or
+return to the [documentation index](../../docs/README.md) or the
 [main README](../../README.md).

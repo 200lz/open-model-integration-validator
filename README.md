@@ -163,8 +163,11 @@ result was bounded.
 
 ### Common offline workflows
 
-The root quickstart exercises one safe verification path. The repository also
-contains bounded offline interfaces for:
+The root quickstart exercises one safe verification path. The
+[offline evidence walkthrough](docs/offline-evidence-walkthrough.md) continues
+through tracked Phase 5 and Phase 6A–6E evidence, including expected semantic
+exit-`1` results and a temporary malformed-input exit-`2` demonstration. The
+repository also contains bounded offline interfaces for:
 
 - validating canonical inventory structure;
 - comparing GGUF inventories under explicit policies;
@@ -231,6 +234,7 @@ redefine canonical public OMIV semantics. Read the
 Start with the [documentation index](docs/README.md):
 
 - [Quickstart](docs/quickstart.md)
+- [Offline evidence walkthrough](docs/offline-evidence-walkthrough.md)
 - [Architecture](docs/architecture.md)
 - [Technical reference migrated from the historical README](docs/reference/technical-reference.md)
 - [README migration map](docs/reference/readme-migration-map.md)

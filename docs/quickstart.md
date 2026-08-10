@@ -103,4 +103,6 @@ Deactivate the virtual environment with `deactivate`. If it was created only for
 this checkout, remove `.venv` using the normal safe file-management tools for your
 platform after leaving the environment.
 
-Return to the [documentation index](README.md) or the [main README](../README.md).
+Continue with the [offline evidence walkthrough](offline-evidence-walkthrough.md),
+or return to the [documentation index](README.md) or the
+[main README](../README.md).

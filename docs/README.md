@@ -9,6 +9,8 @@ historical command and evidence guide.
 
 - [Quickstart](quickstart.md)
 - [Offline demonstration](../examples/offline-quickstart/README.md)
+- [Offline evidence walkthrough](offline-evidence-walkthrough.md)
+- [Walkthrough command-runner example](../examples/offline-evidence-walkthrough/README.md)
 - [Technical CLI and evidence reference](reference/technical-reference.md)
 
 ## Architecture

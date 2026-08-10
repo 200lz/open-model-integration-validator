@@ -357,8 +357,8 @@ def run_audit(root: Path = ROOT) -> list[Check]:
         "Phase 7 | FUTURE, SCOPE NOT FROZEN",
         "R1A readiness | COMPLETE",
         "R1B private clean-clone CI | COMPLETE",
-        "R1C launch UX | IMPLEMENTED, RELEASE PENDING",
-        "R1D offline walkthrough | PLANNED",
+        "R1C launch UX | COMPLETE",
+        "R1D offline walkthrough | IMPLEMENTED, RELEASE PENDING",
         "R1E GitHub metadata | PLANNED",
         "R1F final publication audit | PLANNED",
     )

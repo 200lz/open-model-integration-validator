@@ -1,0 +1,181 @@
+{
+  "classification": "NON_CANONICAL_DEMONSTRATION_MANIFEST",
+  "labels": [
+    "SYNTHETIC",
+    "DEMONSTRATION_ONLY",
+    "NOT_PROVIDER_EVIDENCE",
+    "NOT_AN_ASSURANCE_BUNDLE",
+    "NOT_A_SAFETY_OR_AUTHENTICITY_RESULT"
+  ],
+  "title": "OMIV offline evidence walkthrough",
+  "version": 1,
+  "r1d_paths": [
+    "README.md",
+    "docs/README.md",
+    "docs/offline-evidence-walkthrough.md",
+    "docs/quickstart.md",
+    "docs/roadmap.md",
+    "examples/offline-evidence-walkthrough/README.md",
+    "examples/offline-evidence-walkthrough/walkthrough.json",
+    "examples/offline-quickstart/README.md",
+    "tests/test_offline_evidence_walkthrough.py",
+    "tests/test_public_launch_ux.py",
+    "tools/audit_offline_evidence_walkthrough.py",
+    "tools/audit_public_launch_ux.py",
+    "tools/run_offline_evidence_walkthrough.py"
+  ],
+  "steps": [
+    {
+      "id": "version",
+      "phase": "environment",
+      "input": null,
+      "command": [
+        "omiv",
+        "--version"
+      ],
+      "expected_exit": 0,
+      "expected_stdout_contains": "0.10.0",
+      "next_evidence": "runtime-resolution-parity/scenarios/immutable-pinned.json"
+    },
+    {
+      "id": "canonical-runtime-scenario",
+      "phase": "canonical-object",
+      "input": "runtime-resolution-parity/scenarios/immutable-pinned.json",
+      "command": [
+        "omiv",
+        "runtime-resolution",
+        "verify",
+        "runtime-resolution-parity/scenarios/immutable-pinned.json"
+      ],
+      "expected_exit": 0,
+      "expected_stdout_contains": "VALID_CANONICAL_RUNTIME_RESOLUTION_OBJECT schema=omiv.runtime-resolution-scenario-result.v1",
+      "next_evidence": "payload-integrity/observations/local.manifest.json"
+    },
+    {
+      "id": "phase6a-local-payload",
+      "phase": "6A",
+      "input": "payload-integrity/observations/local.manifest.json",
+      "command": [
+        "omiv",
+        "payload",
+        "verify-manifest",
+        "payload-integrity/observations/local.manifest.json"
+      ],
+      "expected_exit": 0,
+      "expected_stdout_contains": "VALID_LOCAL_OBSERVATION",
+      "next_evidence": "reconciliation/snapshots/metadata-only.snapshot.json"
+    },
+    {
+      "id": "phase6b-remote-metadata",
+      "phase": "6B",
+      "input": "reconciliation/snapshots/metadata-only.snapshot.json",
+      "command": [
+        "omiv",
+        "reconcile",
+        "verify",
+        "reconciliation/snapshots/metadata-only.snapshot.json"
+      ],
+      "expected_exit": 0,
+      "expected_stdout_contains": "VALID_CANONICAL_RECONCILIATION_OBJECT schema=omiv.remote-snapshot-manifest.v1",
+      "next_evidence": "reconciliation/comparisons/incomplete.json"
+    },
+    {
+      "id": "phase6b-incomplete-local",
+      "phase": "6B",
+      "input": "reconciliation/comparisons/incomplete.json",
+      "command": [
+        "omiv",
+        "reconcile",
+        "verify",
+        "reconciliation/comparisons/incomplete.json"
+      ],
+      "expected_exit": 1,
+      "expected_stdout_contains": "VALID_CANONICAL_RECONCILIATION_OBJECT schema=omiv.remote-local-reconciliation-comparison.v1",
+      "next_evidence": "quantization-fidelity/evidence/sampled.json"
+    },
+    {
+      "id": "phase6c-sampled-fidelity",
+      "phase": "6C",
+      "input": "quantization-fidelity/evidence/sampled.json",
+      "command": [
+        "omiv",
+        "quantization",
+        "verify",
+        "quantization-fidelity/evidence/sampled.json"
+      ],
+      "expected_exit": 0,
+      "expected_stdout_contains": "CONFORMS_FOR_DECLARED_SCOPE",
+      "next_evidence": "tokenizer-configuration-parity/evidence/synthetic.json"
+    },
+    {
+      "id": "phase6d-tokenizer-scope",
+      "phase": "6D",
+      "input": "tokenizer-configuration-parity/evidence/synthetic.json",
+      "command": [
+        "omiv",
+        "tokenizer-config",
+        "verify",
+        "tokenizer-configuration-parity/evidence/synthetic.json"
+      ],
+      "expected_exit": 0,
+      "expected_stdout_contains": "PARITY_ESTABLISHED_FOR_DECLARED_SCOPE",
+      "next_evidence": "trust/examples/trusted-transformation.signed-envelope.json"
+    },
+    {
+      "id": "phase5-trust-boundary",
+      "phase": "5",
+      "input": "trust/examples/trusted-transformation.signed-envelope.json",
+      "command": [
+        "omiv",
+        "trust",
+        "verify",
+        "--input",
+        "trust/examples/trusted-transformation.signed-envelope.json",
+        "--trust-bundle",
+        "trust/examples/project-trust-bundle.json",
+        "--policy",
+        "trust/examples/project-trust-policy.json",
+        "--evaluation-context",
+        "trust/examples/evaluation-context.json"
+      ],
+      "expected_exit": 0,
+      "expected_stdout_contains": "TRUSTED_SIGNATURE_WITH_LIMITATIONS",
+      "next_evidence": "runtime-resolution-parity/receipts/t0.json"
+    },
+    {
+      "id": "phase6e-resolution-receipt",
+      "phase": "6E",
+      "input": "runtime-resolution-parity/receipts/t0.json",
+      "command": [
+        "omiv",
+        "runtime-resolution",
+        "verify",
+        "runtime-resolution-parity/receipts/t0.json"
+      ],
+      "expected_exit": 0,
+      "expected_stdout_contains": "VALID_CANONICAL_RUNTIME_RESOLUTION_OBJECT schema=omiv.registry-resolution-receipt.v1",
+      "next_evidence": "runtime-resolution-parity/evidence.json"
+    },
+    {
+      "id": "phase6e-partial-runtime",
+      "phase": "6E",
+      "input": "runtime-resolution-parity/evidence.json",
+      "command": [
+        "omiv",
+        "runtime-resolution",
+        "verify",
+        "runtime-resolution-parity/evidence.json"
+      ],
+      "expected_exit": 1,
+      "expected_stdout_contains": "PARTIAL_FOR_DECLARED_SCOPE",
+      "next_evidence": "docs/offline-evidence-walkthrough.md#evidence-boundary-summary"
+    }
+  ],
+  "external_artifact": {
+    "path": "reports/raw/kimi_k3_tensors.json",
+    "clean_checkout_status": "NOT_AVAILABLE",
+    "required_for_walkthrough": false,
+    "expected_size": 115542096,
+    "expected_sha256": "15a6757becb69c56492fdb630d6853696082a9ec6109bcea05f387a5052ea469"
+  }
+}

@@ -174,7 +174,7 @@ def test_quickstart_limitations_and_roadmap_state_are_independent() -> None:
         "Phase 6E | RELEASED",
         "Phase 6F | PLANNED, NOT IMPLEMENTED",
         "Phase 7 | FUTURE, SCOPE NOT FROZEN",
-        "R1C launch UX | IMPLEMENTED, RELEASE PENDING",
+        "R1C launch UX | COMPLETE",
     ):
         assert row in roadmap
     assert "does not mean the repository is public" in roadmap

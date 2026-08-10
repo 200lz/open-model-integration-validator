@@ -23,13 +23,13 @@ a future public-preview launch.
 | --- | --- |
 | R1A readiness | COMPLETE |
 | R1B private clean-clone CI | COMPLETE |
-| R1C launch UX | IMPLEMENTED, RELEASE PENDING |
-| R1D offline walkthrough | PLANNED |
+| R1C launch UX | COMPLETE |
+| R1D offline walkthrough | IMPLEMENTED, RELEASE PENDING |
 | R1E GitHub metadata | PLANNED |
 | R1F final publication audit | PLANNED |
 
-R1C implementation does not mean the repository is public. The target remains an
-untagged and unreleased `v0.10.0` public-preview candidate, R1D–R1F remain, and any
+R1D implementation does not mean the repository is public. The target remains an
+untagged and unreleased `v0.10.0` public-preview candidate, R1E–R1F remain, and any
 visibility change requires separate authorization. No GitHub release,
 public-repository state, or PyPI publication is claimed.
 
