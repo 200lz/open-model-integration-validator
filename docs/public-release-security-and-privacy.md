@@ -37,7 +37,14 @@ outside the public Git object set and must remain untracked. Public fixtures con
 only bounded evidence described in [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md).
 No default CI path enables network integration or downloads model/tokenizer payloads.
 
-Before or immediately with visibility change, the owner must enable GitHub private
-vulnerability reporting. Secret scanning, push protection, branch protection or
-rulesets, repository description/topics, and final visibility authorization are also
-manual GitHub controls; this implementation does not change them.
+While the repository remains private, R1E may apply only the reviewed repository
+profile, topics, and supported private Dependabot controls after a separate release.
+GitHub documents Private Vulnerability Reporting for public repositories, so it is
+not currently verified or attempted by R1E. After a separately authorized public
+visibility change, R1F must immediately enable and re-read private reporting, secret
+scanning, push protection, and branch protection or an equivalent complete ruleset
+in the order defined by the
+[GitHub publication controls](github-publication-controls.md). Failure of any
+required post-public control blocks successful publication classification and keeps
+tag, GitHub release, and PyPI operations prohibited. This implementation does not
+change any GitHub setting.

@@ -358,8 +358,8 @@ def run_audit(root: Path = ROOT) -> list[Check]:
         "R1A readiness | COMPLETE",
         "R1B private clean-clone CI | COMPLETE",
         "R1C launch UX | COMPLETE",
-        "R1D offline walkthrough | IMPLEMENTED, RELEASE PENDING",
-        "R1E GitHub metadata | PLANNED",
+        "R1D offline walkthrough | COMPLETE",
+        "R1E GitHub metadata/security | IMPLEMENTED, RELEASE PENDING",
         "R1F final publication audit | PLANNED",
     )
     return [

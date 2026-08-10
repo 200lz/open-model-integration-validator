@@ -9,15 +9,25 @@ documented release policy.
 
 ## Reporting a vulnerability
 
-Before or immediately with public publication, the repository owner must enable
-GitHub private vulnerability reporting. Once enabled, use the repository's
-**Security → Report a vulnerability** flow.
+The repository is currently private. GitHub documents Private Vulnerability
+Reporting for public repositories, so the channel is not currently verified or
+claimed active and R1E must not attempt to enable it while the repository is private.
+Immediately after a separately authorized change to public visibility, R1F
+must enable and independently re-read the channel. If that fails, successful
+publication classification is blocked. Once verified, use the repository's **Security →
+Report a vulnerability** flow.
 
-`ENABLE_GITHUB_PRIVATE_VULNERABILITY_REPORTING_BEFORE_OR_IMMEDIATELY_WITH_PUBLICATION`
+`ENABLE_AND_VERIFY_GITHUB_PRIVATE_VULNERABILITY_REPORTING_IMMEDIATELY_AFTER_PUBLIC_VISIBILITY`
 
-Do not put exploit details in a public issue. A public issue may ask maintainers to
-enable or confirm the private reporting channel, but it must not contain reproduction
-steps for an unpatched vulnerability.
+The R1E implementation-time status endpoint returned an undifferentiated not-found
+response, so the current state is `API_STATE_UNAVAILABLE`, not enabled. See the
+[GitHub publication controls](docs/github-publication-controls.md). A later live
+read is required; documentation alone does not establish the control state.
+
+Do not put vulnerability or exploit details in a public issue. A public issue may
+ask maintainers to enable or confirm the private reporting channel, but it must not
+contain reproduction steps, credentials, customer data, private payloads, signed
+URLs, or other details of an unpatched vulnerability.
 
 Do not send credentials, access tokens, cookies, private keys, customer data,
 production prompts or outputs, private model metadata, or model/tokenizer payloads.

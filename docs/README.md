@@ -55,6 +55,7 @@ contract exists.
 
 - [Security policy](../SECURITY.md)
 - [Public-release security and privacy](public-release-security-and-privacy.md)
+- [GitHub publication controls](github-publication-controls.md)
 - [Support policy](../SUPPORT.md)
 
 ## Contributing and governance
@@ -66,6 +67,7 @@ contract exists.
 ## Releasing
 
 - [Release process](releasing.md)
+- [GitHub publication controls and ordering](github-publication-controls.md)
 - [Changelog](../CHANGELOG.md)
 
 ## Roadmap

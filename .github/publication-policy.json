@@ -1,0 +1,335 @@
+{
+  "classification": "NON_CANONICAL_REPOSITORY_PUBLICATION_POLICY",
+  "version": 1,
+  "labels": [
+    "RELEASE_TRACK_CONFIGURATION",
+    "NOT_OMIV_EVIDENCE",
+    "NOT_A_SECURITY_CERTIFICATION"
+  ],
+  "state_taxonomy": [
+    "ENABLED_AND_VERIFIED",
+    "DISABLED",
+    "NOT_CONFIGURED",
+    "UNAVAILABLE_FOR_CURRENT_VISIBILITY_OR_PLAN",
+    "API_STATE_UNAVAILABLE",
+    "DEFERRED_TO_R1F",
+    "INVALID"
+  ],
+  "phase_taxonomy": [
+    "CONFIGURED_NOW",
+    "PROPOSED_FOR_R1E_RELEASE",
+    "REQUIRED_IMMEDIATELY_BEFORE_PUBLIC_VISIBILITY",
+    "REQUIRED_IMMEDIATELY_AFTER_VISIBILITY_CHANGE",
+    "UNAVAILABLE_FOR_CURRENT_VISIBILITY_OR_PLAN",
+    "MANUALLY_DEFERRED",
+    "R1F_IMMEDIATELY_AFTER_PUBLIC_VISIBILITY"
+  ],
+  "repository": {
+    "owner": "200lz",
+    "name": "open-model-integration-validator",
+    "required_default_branch": "main",
+    "required_pre_public_visibility": "PRIVATE",
+    "intended_final_visibility": "PUBLIC"
+  },
+  "profile": {
+    "description": "Offline-first evidence and verification framework for AI model artifacts, transformations, runtime identity, and provenance.",
+    "topics": [
+      "ai-supply-chain",
+      "model-provenance",
+      "artifact-verification",
+      "model-integrity",
+      "supply-chain-security",
+      "mlops",
+      "llm",
+      "gguf",
+      "safetensors",
+      "offline-first"
+    ],
+    "homepage": "",
+    "application_phase": "REQUIRED_IMMEDIATELY_BEFORE_PUBLIC_VISIBILITY",
+    "features": {
+      "issues": {
+        "required": true,
+        "current_state": "ENABLED_AND_VERIFIED",
+        "application_phase": "CONFIGURED_NOW"
+      },
+      "wiki": {
+        "required": false,
+        "current_state": "DISABLED",
+        "application_phase": "CONFIGURED_NOW"
+      },
+      "discussions": {
+        "required": false,
+        "current_state": "DISABLED",
+        "application_phase": "CONFIGURED_NOW"
+      },
+      "projects": {
+        "required": true,
+        "current_state": "ENABLED_AND_VERIFIED",
+        "application_phase": "CONFIGURED_NOW"
+      },
+      "archived": {
+        "required": false,
+        "current_state": "DISABLED",
+        "application_phase": "CONFIGURED_NOW"
+      },
+      "template_repository": {
+        "required": false,
+        "current_state": "DISABLED",
+        "application_phase": "CONFIGURED_NOW"
+      }
+    }
+  },
+  "actions": {
+    "enabled": true,
+    "default_workflow_permissions": "read",
+    "can_approve_pull_request_reviews": false,
+    "workflow_permissions": "contents:read",
+    "official_actions_full_sha_pinned": true,
+    "self_hosted_runners_allowed": false,
+    "pull_request_target_allowed": false,
+    "current_state": "ENABLED_AND_VERIFIED",
+    "application_phase": "CONFIGURED_NOW"
+  },
+  "security_controls": {
+    "PRIVATE_VULNERABILITY_REPORTING": {
+      "current_state": "API_STATE_UNAVAILABLE",
+      "target_state": "DEFERRED_TO_R1F",
+      "application_phase": "R1F_IMMEDIATELY_AFTER_PUBLIC_VISIBILITY",
+      "reason": "Reviewed official GitHub documentation limits Private Vulnerability Reporting to public repositories, so R1E must not attempt enablement while the repository remains private.",
+      "observation_source": "GET /repos/200lz/open-model-integration-validator/private-vulnerability-reporting returned HTTP 404.",
+      "observation_limitation": "The HTTP 404 remains API-ambiguous and does not itself prove public-only eligibility; that constraint comes from reviewed official GitHub documentation for public repositories.",
+      "verification_method": "Only after separately authorized PUBLIC visibility, require a 204 PUT response and then a 200 GET whose enabled field is true.",
+      "failure_behavior": "Classify PUBLIC_VISIBILITY_CHANGED_REQUIRED_PUBLIC_CONTROL_FAILED, stop publication, and prohibit announcement, tag, release, and PyPI operations."
+    },
+    "SECRET_SCANNING": {
+      "current_state": "DISABLED",
+      "target_state": "ENABLED_AND_VERIFIED",
+      "application_phase": "REQUIRED_IMMEDIATELY_AFTER_VISIBILITY_CHANGE",
+      "reason": "The endpoint explicitly reports disabled while the repository is private; public availability must be applied and verified immediately after visibility changes.",
+      "observation_source": "GET /repos/200lz/open-model-integration-validator and GET /secret-scanning/alerts reported no enabled setting and HTTP 404 disabled.",
+      "observation_limitation": "The observation applies only to the current private repository and does not predict feature availability after publication.",
+      "verification_method": "After visibility changes, PATCH security_and_analysis.secret_scanning to enabled and re-read the repository security_and_analysis state.",
+      "failure_behavior": "Stop before tag, release, or PyPI operations; report the unapplied control without weakening the policy."
+    },
+    "PUSH_PROTECTION": {
+      "current_state": "NOT_CONFIGURED",
+      "target_state": "ENABLED_AND_VERIFIED",
+      "application_phase": "REQUIRED_IMMEDIATELY_AFTER_VISIBILITY_CHANGE",
+      "reason": "Push protection depends on secret scanning and must be enabled and re-read with it.",
+      "observation_source": "GET /repos/200lz/open-model-integration-validator omitted an enabled secret_scanning_push_protection state while secret scanning was disabled.",
+      "observation_limitation": "No independent enabled state can be established while its secret-scanning prerequisite is disabled.",
+      "verification_method": "After visibility changes, PATCH secret_scanning_push_protection to enabled and re-read the repository security_and_analysis state.",
+      "failure_behavior": "Stop before tag, release, or PyPI operations and retain NOT_CONFIGURED until read-back succeeds."
+    },
+    "DEPENDABOT_ALERTS": {
+      "current_state": "DISABLED",
+      "target_state": "ENABLED_AND_VERIFIED",
+      "application_phase": "REQUIRED_IMMEDIATELY_BEFORE_PUBLIC_VISIBILITY",
+      "reason": "The endpoint explicitly reports that vulnerability alerts are disabled; enable and verify before publication.",
+      "observation_source": "GET /repos/200lz/open-model-integration-validator/vulnerability-alerts returned HTTP 404 with the disabled semantic documented for this endpoint.",
+      "observation_limitation": "This reports only repository vulnerability-alert enablement, not the absence of vulnerabilities.",
+      "verification_method": "Require a 204 response from PUT /vulnerability-alerts and a subsequent 204 status GET.",
+      "failure_behavior": "Stop before visibility change and do not enable dependent security updates."
+    },
+    "DEPENDABOT_SECURITY_UPDATES": {
+      "current_state": "DISABLED",
+      "target_state": "ENABLED_AND_VERIFIED",
+      "application_phase": "REQUIRED_IMMEDIATELY_BEFORE_PUBLIC_VISIBILITY",
+      "reason": "Automated security fixes report disabled and require Dependabot alerts first.",
+      "observation_source": "GET /repos/200lz/open-model-integration-validator/automated-security-fixes returned HTTP 200 with enabled false and paused false.",
+      "observation_limitation": "This reports the automated security-update switch, not whether a future update will be safe to merge.",
+      "verification_method": "After alerts are enabled, require a 204 PUT response and a 200 GET whose enabled field is true.",
+      "failure_behavior": "Stop before visibility change and report alerts and security updates separately."
+    },
+    "CODE_SCANNING": {
+      "current_state": "NOT_CONFIGURED",
+      "target_state": "DEFERRED_TO_R1F",
+      "application_phase": "MANUALLY_DEFERRED",
+      "reason": "No CodeQL workflow exists; R1F must make an explicit reviewed language, query, permission, and event decision rather than enabling an unreviewed workflow.",
+      "observation_source": "GET /repos/200lz/open-model-integration-validator/code-scanning/alerts returned HTTP 403 stating code scanning is not enabled, and no tracked CodeQL workflow exists.",
+      "observation_limitation": "The alert endpoint cannot establish suitability of a future CodeQL configuration.",
+      "verification_method": "R1F must record an explicit language, query, trigger, and permissions decision before adding any separately reviewed workflow.",
+      "failure_behavior": "Keep the control deferred; do not claim enabled coverage or add an unreviewed workflow."
+    },
+    "BRANCH_PROTECTION": {
+      "current_state": "UNAVAILABLE_FOR_CURRENT_VISIBILITY_OR_PLAN",
+      "target_state": "ENABLED_AND_VERIFIED",
+      "application_phase": "REQUIRED_IMMEDIATELY_AFTER_VISIBILITY_CHANGE",
+      "reason": "The authenticated endpoint explicitly requires a plan upgrade or public visibility.",
+      "observation_source": "GET /repos/200lz/open-model-integration-validator/branches/main/protection returned HTTP 403 requiring GitHub Pro or public visibility.",
+      "observation_limitation": "The private-plan response does not establish which protection features will be available after publication.",
+      "verification_method": "Immediately after visibility changes, apply the reviewed main-branch protection payload and re-read every returned protection field.",
+      "failure_behavior": "Stop before tag, release, or PyPI operations; do not substitute an unverified weaker rule."
+    },
+    "REPOSITORY_RULESETS": {
+      "current_state": "UNAVAILABLE_FOR_CURRENT_VISIBILITY_OR_PLAN",
+      "target_state": "ENABLED_AND_VERIFIED",
+      "application_phase": "REQUIRED_IMMEDIATELY_AFTER_VISIBILITY_CHANGE",
+      "reason": "The authenticated endpoint explicitly requires a plan upgrade or public visibility.",
+      "observation_source": "GET /repos/200lz/open-model-integration-validator/rulesets returned HTTP 403 requiring GitHub Pro or public visibility.",
+      "observation_limitation": "The response establishes current unavailability but not post-public ruleset capabilities.",
+      "verification_method": "After visibility changes, re-read ruleset availability; use the reviewed ruleset only if it can express every required main-branch rule.",
+      "failure_behavior": "Use the reviewed equivalent branch-protection path or stop if neither mechanism can be verified."
+    },
+    "ACTIONS_DEFAULT_PERMISSIONS": {
+      "current_state": "ENABLED_AND_VERIFIED",
+      "target_state": "ENABLED_AND_VERIFIED",
+      "application_phase": "CONFIGURED_NOW",
+      "reason": "The repository default token permission is read and workflows cannot approve pull-request reviews.",
+      "observation_source": "GET /actions/permissions/workflow returned read default permissions and can_approve_pull_request_reviews false.",
+      "observation_limitation": "Repository defaults do not replace inspection of explicit permissions in each tracked workflow.",
+      "verification_method": "Re-read the repository setting and statically verify every workflow before and after publication.",
+      "failure_behavior": "Stop if permissions become writable or workflow approval becomes enabled."
+    },
+    "ACTION_PINNING": {
+      "current_state": "ENABLED_AND_VERIFIED",
+      "target_state": "ENABLED_AND_VERIFIED",
+      "application_phase": "CONFIGURED_NOW",
+      "reason": "Every official Action in the tracked workflow is pinned to a full commit SHA.",
+      "observation_source": "Static inspection of .github/workflows/ci.yml found two official Actions pinned to full 40-character commit SHAs.",
+      "observation_limitation": "A SHA pin establishes immutability of the selected revision, not trustworthiness of Action behavior.",
+      "verification_method": "Run the offline workflow audit and review every Dependabot Action update before merge.",
+      "failure_behavior": "Fail CI and prohibit merge while any Action reference is mutable or unexpected."
+    },
+    "FORCE_PUSH_PROTECTION": {
+      "current_state": "UNAVAILABLE_FOR_CURRENT_VISIBILITY_OR_PLAN",
+      "target_state": "ENABLED_AND_VERIFIED",
+      "application_phase": "REQUIRED_IMMEDIATELY_AFTER_VISIBILITY_CHANGE",
+      "reason": "This is enforced through the unavailable branch protection or ruleset control.",
+      "observation_source": "The main branch protection and ruleset endpoints returned the current private-plan HTTP 403 limitation.",
+      "observation_limitation": "No independent force-push rule exists until one enforcement mechanism is available and configured.",
+      "verification_method": "After publication, re-read the selected enforcement mechanism and require allow_force_pushes false or the equivalent rule.",
+      "failure_behavior": "Stop before tag, release, or PyPI operations if force pushes are not denied."
+    },
+    "BRANCH_DELETION_PROTECTION": {
+      "current_state": "UNAVAILABLE_FOR_CURRENT_VISIBILITY_OR_PLAN",
+      "target_state": "ENABLED_AND_VERIFIED",
+      "application_phase": "REQUIRED_IMMEDIATELY_AFTER_VISIBILITY_CHANGE",
+      "reason": "This is enforced through the unavailable branch protection or ruleset control.",
+      "observation_source": "The main branch protection and ruleset endpoints returned the current private-plan HTTP 403 limitation.",
+      "observation_limitation": "No independent deletion rule exists until one enforcement mechanism is available and configured.",
+      "verification_method": "After publication, re-read the selected enforcement mechanism and require allow_deletions false or the equivalent rule.",
+      "failure_behavior": "Stop before tag, release, or PyPI operations if branch deletion is not denied."
+    }
+  },
+  "dependency_updates": {
+    "configuration": ".github/dependabot.yml",
+    "ecosystems": [
+      "pip",
+      "github-actions"
+    ],
+    "schedule": "monthly",
+    "target_branch": "main",
+    "open_pull_request_limits": {
+      "pip": 3,
+      "github-actions": 2
+    },
+    "auto_merge": false,
+    "private_registries": false,
+    "review_and_ci_required": true,
+    "application_phase": "PROPOSED_FOR_R1E_RELEASE"
+  },
+  "branch_policy": {
+    "branch": "main",
+    "normal_changes_require_pull_request": true,
+    "required_ci_python": [
+      "3.11",
+      "3.12",
+      "3.13",
+      "3.14"
+    ],
+    "required_ci_checks": [
+      "Python 3.11",
+      "Python 3.12",
+      "Python 3.13",
+      "Python 3.14"
+    ],
+    "force_push_allowed": false,
+    "deletion_allowed": false,
+    "linear_history_required": true,
+    "required_approving_reviews": 0,
+    "require_code_owner_reviews": false,
+    "required_conversation_resolution": true,
+    "single_maintainer_self_approval_not_claimed": true,
+    "administrator_bypass": "EMERGENCY_ONLY_WITH_PUBLIC_AUDIT_TRAIL",
+    "enforcement": "RULESET_PREFERRED_BRANCH_PROTECTION_EQUIVALENT_ACCEPTABLE",
+    "application_phase": "REQUIRED_IMMEDIATELY_AFTER_VISIBILITY_CHANGE"
+  },
+  "release_policy": {
+    "future_release_tags": "CRYPTOGRAPHICALLY_SIGNED_TAG_REQUIRED",
+    "legacy_tags": "LEGACY_UNSIGNED_TAGS_ACCEPTED_WITH_LIMITATION",
+    "github_release_state": "NOT_PUBLISHED",
+    "pypi_state": "NOT_PUBLISHED",
+    "tag_release_and_pypi_require_separate_authorization": true
+  },
+  "implementation": {
+    "r1e_status": "IMPLEMENTED_RELEASE_PENDING",
+    "r1f_status": "PLANNED_NOT_STARTED",
+    "phase6f_status": "PLANNED_NOT_IMPLEMENTED",
+    "repository_visibility_during_r1e": "PRIVATE",
+    "github_settings_mutated_by_r1e": false
+  },
+  "mutation_scope": {
+    "r1e_private_mutations": [
+      "REPOSITORY_PROFILE",
+      "REPOSITORY_TOPICS",
+      "DEPENDABOT_ALERTS",
+      "DEPENDABOT_SECURITY_UPDATES"
+    ],
+    "r1e_prohibited_mutations": [
+      "VISIBILITY",
+      "PRIVATE_VULNERABILITY_REPORTING",
+      "SECRET_SCANNING",
+      "PUSH_PROTECTION",
+      "BRANCH_PROTECTION",
+      "REPOSITORY_RULESETS",
+      "FORCE_PUSH_PROTECTION",
+      "BRANCH_DELETION_PROTECTION",
+      "CODE_SCANNING"
+    ],
+    "visibility_rollback_pre_authorized": false,
+    "r1f_must_decide_rollback_authority_before_visibility": true
+  },
+  "r1f_publication_transaction": [
+    "FINAL_PRIVATE_STATE_AUDIT_COMPLETE",
+    "EXPLICIT_VISIBILITY_AUTHORIZATION_OBTAINED",
+    "PRE_CHANGE_REMOTE_STATE_RECORDED",
+    "VISIBILITY_CHANGED_PRIVATE_TO_PUBLIC",
+    "PRIVATE_VULNERABILITY_REPORTING_ENABLED_AND_VERIFIED",
+    "SECRET_SCANNING_ENABLED_AND_VERIFIED",
+    "PUSH_PROTECTION_ENABLED_AND_VERIFIED",
+    "MAIN_BRANCH_ENFORCEMENT_APPLIED_AND_VERIFIED",
+    "ALL_REQUIRED_REMOTE_STATE_READ_BACK",
+    "PUBLIC_LAUNCH_READY_ONLY_AFTER_ALL_CONTROLS_VERIFY"
+  ],
+  "failure_classifications": [
+    "LOCAL_OR_CI_FAILURE_BEFORE_REMOTE_MUTATION",
+    "METADATA_MUTATION_FAILED",
+    "SECURITY_CONTROL_MUTATION_FAILED",
+    "PARTIAL_REMOTE_APPLICATION",
+    "READ_BACK_VERIFICATION_FAILED",
+    "CONCURRENT_REMOTE_STATE_CHANGE",
+    "UNEXPECTED_VISIBILITY_CHANGE",
+    "PUBLIC_VISIBILITY_CHANGED_REQUIRED_PUBLIC_CONTROL_FAILED",
+    "PLAN_RESTRICTED_CONTROL",
+    "AUTHENTICATION_EXPIRED"
+  ],
+  "r1f_prerequisites": [
+    "R1E files are reviewed and released to private main.",
+    "The exact R1E private-main CI run succeeds.",
+    "Supported private Dependabot controls are applied and independently re-read; public-only controls are not attempted.",
+    "The final publication audit passes before visibility authorization.",
+    "Visibility change has separate explicit owner authorization."
+  ],
+  "stop_conditions": [
+    "Repository identity, baseline, default branch, or visibility differs from the approved state.",
+    "Required private Dependabot controls cannot be enabled and verified before visibility changes.",
+    "Required public-only controls cannot be enabled and verified immediately after visibility changes.",
+    "A workflow gains write permission, uses an unpinned Action, uses pull_request_target, or selects a self-hosted runner.",
+    "A secret, credential, private payload, local path, or sensitive API response is found.",
+    "Branch or ruleset enforcement fails after public visibility.",
+    "Any post-public verification differs from the approved policy.",
+    "Tag, GitHub release, or PyPI publication lacks separate explicit authorization."
+  ]
+}
