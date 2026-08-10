@@ -15,6 +15,11 @@ import pytest
 from pydantic import ValidationError
 
 from omiv.errors import OmivInputError
+from omiv.external_artifacts import (
+    KIMI_K3_TENSOR_INVENTORY,
+    ExternalArtifactStatus,
+    observe_external_artifact,
+)
 from omiv.tokenizer_parity.artifact_index import (
     verify_tokenizer_configuration_artifact_index,
 )
@@ -876,18 +881,35 @@ def test_preservation_inventory_is_exact() -> None:
         audit["path_set_digest"]
         == "9c09019defc1a4b74f18b27b615b8cd6d6d30f84c9cfb2c59e59eb10b4d5c73a"
     )
-    assert (
-        audit["inventory_digest"]
-        == "3464cc34042078d7959500fbe86b6e317fd688a4badec74e98ca01d609653b19"
-    )
+    external = audit["external_artifacts"][0]
+    assert external["expected_identity_status"] == "EXPECTED_IDENTITY_RECORDED"
+    assert external["availability_status"] in {
+        "PRESENT_AND_VERIFIED",
+        "NOT_AVAILABLE",
+    }
+    if external["availability_status"] == "PRESENT_AND_VERIFIED":
+        assert (
+            audit["inventory_digest"]
+            == "3464cc34042078d7959500fbe86b6e317fd688a4badec74e98ca01d609653b19"
+        )
 
 
 def test_ignored_kimi_artifact_unchanged() -> None:
     path = ROOT / "reports/raw/kimi_k3_tensors.json"
-    assert path.stat().st_size == 115_542_096
-    assert hashlib.sha256(path.read_bytes()).hexdigest() == (
-        "15a6757becb69c56492fdb630d6853696082a9ec6109bcea05f387a5052ea469"
+    observation = observe_external_artifact(ROOT, KIMI_K3_TENSOR_INVENTORY)
+    assert observation.expected.identity_status == (
+        ExternalArtifactStatus.EXPECTED_IDENTITY_RECORDED
     )
+    assert observation.status in {
+        ExternalArtifactStatus.PRESENT_AND_VERIFIED,
+        ExternalArtifactStatus.NOT_AVAILABLE,
+    }
+    if observation.available:
+        assert observation.observed_size_bytes == 115_542_096
+        assert observation.observed_sha256 == KIMI_K3_TENSOR_INVENTORY.sha256
+    else:
+        assert observation.observed_size_bytes is None
+        assert observation.observed_sha256 is None
     result = subprocess.run(
         ["git", "check-ignore", "--quiet", str(path.relative_to(ROOT))], cwd=ROOT
     )

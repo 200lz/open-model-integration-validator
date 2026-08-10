@@ -2,13 +2,18 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 from typing import Any
 
 from omiv.canonical import canonical_sha256
 from omiv.errors import OmivInputError
+from omiv.external_artifacts import (
+    KIMI_K3_TENSOR_INVENTORY,
+    ExternalArtifactObservation,
+    ExternalArtifactStatus,
+    observe_external_artifact,
+)
 from omiv.mapping.grouped_reporting import (
     load_mapping_inventory,
     load_mapping_report,
@@ -79,14 +84,6 @@ def _variant_paths(root: Path, variant: str) -> dict[str, Path]:
         "mapping_report": root / f"reports/remote/{stem}.semantic-mapping.report.json",
         "shard_directory": root / f"inventories/remote/{stem}/shards",
     }
-
-
-def _sha256_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
-    return digest.hexdigest()
 
 
 def _relative(root: Path, path: Path) -> str:
@@ -191,13 +188,15 @@ def _artifact_entry(
     digest: str,
     phase: str,
     command: str,
+    *,
+    size_bytes: int | None = None,
 ) -> ArtifactIndexEntry:
     return ArtifactIndexEntry(
         role=role,
         schema_id=schema,
         relative_path=_relative(root, path),
         canonical_digest=digest,
-        size_bytes=path.stat().st_size,
+        size_bytes=path.stat().st_size if size_bytes is None else size_bytes,
         required=True,
         producer_phase=phase,
         verification_command=command,
@@ -354,10 +353,16 @@ def build_independent_validation(
     ontology_path: Path,
     mapping_path: Path,
     selected_profile: str,
+    external_source_observation: ExternalArtifactObservation | None = None,
 ) -> ValidationInventory:
     """Verify Phase 4F-1 through 4F-5 and compose an offline validation inventory."""
     _require(subject == "kimi-k3", f"unsupported independent-validation subject: {subject}")
     _require(bool(variant) and "/" not in variant, f"invalid artifact variant: {variant}")
+    profiles = profile_policy()
+    _require(
+        selected_profile in {item.name for item in profiles.profiles},
+        f"unknown acceptance profile: {selected_profile}",
+    )
     root = root.resolve()
     companion_paths = _variant_paths(root, variant)
     paths = {
@@ -374,6 +379,8 @@ def build_independent_validation(
         "source": root / SOURCE_INVENTORY,
     }
     for label, path in paths.items():
+        if label == "source":
+            continue
         _require(path.is_file(), f"missing required {label} artifact: {path}")
 
     snapshot = load_snapshot(paths["snapshot"])
@@ -455,18 +462,41 @@ def build_independent_validation(
         "mapping target evidence linkage mismatch",
     )
 
-    source_digest = _sha256_file(paths["source"])
+    source_observation = external_source_observation or observe_external_artifact(
+        root, KIMI_K3_TENSOR_INVENTORY
+    )
+    if source_observation.expected != KIMI_K3_TENSOR_INVENTORY:
+        raise OmivInputError("unexpected external source identity")
+    if source_observation.status == ExternalArtifactStatus.INVALID:
+        raise OmivInputError(
+            f"external artifact identity mismatch: {KIMI_K3_TENSOR_INVENTORY.relative_path}"
+        )
+    if source_observation.status == ExternalArtifactStatus.NOT_AVAILABLE:
+        if external_source_observation is None:
+            from omiv.external_artifacts import ExternalArtifactUnavailable
+
+            raise ExternalArtifactUnavailable(KIMI_K3_TENSOR_INVENTORY)
+        source_digest = source_observation.expected.sha256
+        source_size = source_observation.expected.size_bytes
+    else:
+        observed_digest = source_observation.observed_sha256
+        observed_size = source_observation.observed_size_bytes
+        if observed_digest is None or observed_size is None:
+            raise OmivInputError("verified external source lacks observed identity")
+        source_digest = observed_digest
+        source_size = observed_size
     _require(
         source_digest == mapping.source["inventory_sha256"], "source inventory linkage mismatch"
     )
-    with paths["source"].open(encoding="utf-8") as handle:
-        source_raw = json.load(handle)
-    _require(isinstance(source_raw, list), "source inventory must be a JSON record list")
-    _require(
-        len(source_raw) == mapping.source["physical_count"],
-        "source inventory physical count mismatch",
-    )
-    del source_raw
+    if source_observation.available and external_source_observation is None:
+        with paths["source"].open(encoding="utf-8") as handle:
+            source_raw = json.load(handle)
+        _require(isinstance(source_raw, list), "source inventory must be a JSON record list")
+        _require(
+            len(source_raw) == mapping.source["physical_count"],
+            "source inventory physical count mismatch",
+        )
+        del source_raw
 
     pack = get_model_pack("kimi-k3")
     pack.require(ModelPackCapability.CHECKPOINT_SCHEMA)
@@ -889,12 +919,7 @@ def build_independent_validation(
         "stages": [stage.model_dump(mode="json") for stage in stages],
     }
     graph_digest = canonical_sha256(graph_payload)
-    profiles = profile_policy()
     profile_results = evaluate_profiles(stages, profiles)
-    _require(
-        selected_profile in {item.profile_name for item in profile_results},
-        f"unknown acceptance profile: {selected_profile}",
-    )
 
     artifacts: list[ArtifactIndexEntry] = [
         _artifact_entry(
@@ -904,8 +929,7 @@ def build_independent_validation(
             snapshot.snapshot.snapshot_schema,
             snapshot.integrity.sha256,
             "4F-1",
-            "omiv remote-snapshot-verify --input "
-            + _relative(root, paths["snapshot"]),
+            "omiv remote-snapshot-verify --input " + _relative(root, paths["snapshot"]),
         ),
         _artifact_entry(
             root,
@@ -935,8 +959,7 @@ def build_independent_validation(
                 envelope.inventory.inventory_schema,
                 envelope.integrity.sha256,
                 "4F-2" if index == 1 else "4F-3",
-                "omiv remote-gguf-header-inventory-verify --input "
-                + _relative(root, path),
+                "omiv remote-gguf-header-inventory-verify --input " + _relative(root, path),
             )
         )
     artifacts.extend(
@@ -957,8 +980,7 @@ def build_independent_validation(
                 split.inventory.inventory_schema,
                 split.integrity.sha256,
                 "4F-3",
-                "omiv remote-split-inventory-verify --input "
-                + _relative(root, paths["split"]),
+                "omiv remote-split-inventory-verify --input " + _relative(root, paths["split"]),
             ),
             _artifact_entry(
                 root,
@@ -996,6 +1018,7 @@ def build_independent_validation(
                 source_digest,
                 "source-evidence",
                 "sha256sum " + _relative(root, paths["source"]),
+                size_bytes=source_size,
             ),
             _artifact_entry(
                 root,

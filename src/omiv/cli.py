@@ -98,6 +98,7 @@ from omiv.custody.reporting import (
 )
 from omiv.custody.verification import load_custody_ledger, verify_custody_ledger
 from omiv.errors import OmivInputError
+from omiv.external_artifacts import ExternalArtifactUnavailable
 from omiv.gguf.compare import compare_gguf_inventories, format_gguf_report
 from omiv.gguf.models import GGUFInventory
 from omiv.gguf.policy import load_gguf_policy
@@ -482,6 +483,7 @@ from omiv.validation.models import VALIDATION_REPORT_SCHEMA
 from omiv.validation.reporting import (
     render_validation_markdown,
     verify_validation_inventory,
+    verify_validation_inventory_with_availability,
     verify_validation_report,
     write_validation_bundle,
 )
@@ -1527,6 +1529,9 @@ def independent_validation(
                 Path.cwd() / entry.relative_path for entry in inventory.artifact_index.entries
             ),
         )
+    except ExternalArtifactUnavailable as exc:
+        typer.echo(f"NOT_AVAILABLE independent validation: {exc}", err=True)
+        raise typer.Exit(code=1) from exc
     except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
         typer.echo(f"ERROR independent validation failed: {exc}", err=True)
         raise typer.Exit(code=2) from exc
@@ -1547,11 +1552,19 @@ def independent_validation_inventory_verify(
 ) -> None:
     """Reconstruct a validation inventory from all canonical dependencies offline."""
     try:
-        inventory = verify_validation_inventory(input_path, artifact_root)
+        result = verify_validation_inventory_with_availability(input_path, artifact_root)
     except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
         typer.echo(f"ERROR {exc}", err=True)
         raise typer.Exit(code=2) from exc
-    typer.echo(f"PASS independent validation inventory {inventory.inventory_digest}")
+    if not result.external_artifacts_available:
+        unavailable = next(item for item in result.external_artifacts if not item.available)
+        typer.echo(
+            "NOT_AVAILABLE independent validation inventory "
+            f"external={unavailable.expected.relative_path} "
+            "expected_identity=EXPECTED_IDENTITY_RECORDED bytes_observed=false"
+        )
+        raise typer.Exit(code=1)
+    typer.echo(f"PASS independent validation inventory {result.inventory.inventory_digest}")
 
 
 @passport_app.command("create")
@@ -1570,7 +1583,13 @@ def passport_create(
         root = root.resolve()
         validation_path = validation.resolve()
         reference = validation_path.relative_to(root).as_posix()
-        inventory = verify_validation_inventory(validation_path, root)
+        verification = verify_validation_inventory_with_availability(validation_path, root)
+        if not verification.external_artifacts_available:
+            unavailable = next(
+                item for item in verification.external_artifacts if not item.available
+            )
+            raise ExternalArtifactUnavailable(unavailable.expected)
+        inventory = verification.inventory
         passport = build_passport(inventory, validation_reference=reference)
         if profile is not None:
             selected = selected_profile_result(passport.usage_profiles, profile)
@@ -1598,6 +1617,9 @@ def passport_create(
             )
             passport_id = linked.passport_id
             passport_digest = linked.passport_digest
+    except ExternalArtifactUnavailable as exc:
+        typer.echo(f"NOT_AVAILABLE passport creation failed: {exc}", err=True)
+        raise typer.Exit(code=1) from exc
     except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
         typer.echo(f"ERROR passport creation failed: {exc}", err=True)
         raise typer.Exit(code=2) from exc
@@ -1639,7 +1661,7 @@ def passport_verify_command(
     label = "PASS" if mode != VerificationMode.UNVERIFIABLE_REFERENCE.value else "UNVERIFIABLE"
     typer.echo(f"{label} Model Passport mode={mode} id={passport_id} digest={passport_digest}")
     if mode == VerificationMode.UNVERIFIABLE_REFERENCE.value:
-        raise typer.Exit(code=2)
+        raise typer.Exit(code=1)
     if profile is not None and selected.outcome != UsageOutcome.SUITABLE_WITH_LIMITATIONS:
         raise typer.Exit(code=1)
 
@@ -1676,7 +1698,18 @@ def custody_create(
         root = root.resolve()
         passport_file = passport_path.resolve()
         validation_file = validation.resolve()
-        verify_passport(passport_file, root=root)
+        passport_verification = verify_passport(passport_file, root=root)
+        if passport_verification.mode != VerificationMode.FULL_VERIFICATION:
+            validation_verification = verify_validation_inventory_with_availability(
+                validation_file, root
+            )
+            unavailable = next(
+                (item for item in validation_verification.external_artifacts if not item.available),
+                None,
+            )
+            if unavailable is not None:
+                raise ExternalArtifactUnavailable(unavailable.expected)
+            raise OmivInputError("custody passport dependency was not fully verified")
         passport = load_passport(passport_file)
         inventory = verify_validation_inventory(validation_file, root)
         ledger = build_evidence_custody_ledger(
@@ -1694,6 +1727,9 @@ def custody_create(
             forbidden_inputs=(passport_file, validation_file),
         )
         selected = custody_profile_result(ledger.missing_event_analysis)
+    except ExternalArtifactUnavailable as exc:
+        typer.echo(f"NOT_AVAILABLE custody creation failed: {exc}", err=True)
+        raise typer.Exit(code=1) from exc
     except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
         typer.echo(f"ERROR custody creation failed: {exc}", err=True)
         raise typer.Exit(code=2) from exc
@@ -1726,6 +1762,9 @@ def custody_append(
             forbidden_inputs=(ledger_path.resolve(), event_path.resolve()),
         )
         selected = custody_profile_result(updated.missing_event_analysis)
+    except ExternalArtifactUnavailable as exc:
+        typer.echo(f"NOT_AVAILABLE custody append failed: {exc}", err=True)
+        raise typer.Exit(code=1) from exc
     except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
         typer.echo(f"ERROR custody append failed: {exc}", err=True)
         raise typer.Exit(code=2) from exc
@@ -1743,6 +1782,9 @@ def custody_verify_command(
     try:
         ledger = verify_custody_ledger(input_path, root.resolve())
         selected = custody_profile_result(ledger.missing_event_analysis)
+    except ExternalArtifactUnavailable as exc:
+        typer.echo(f"NOT_AVAILABLE custody verification: {exc}", err=True)
+        raise typer.Exit(code=1) from exc
     except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
         typer.echo(f"ERROR custody verification failed: {exc}", err=True)
         raise typer.Exit(code=2) from exc
@@ -1777,6 +1819,9 @@ def custody_report_verify_command(
     """Reconstruct a custody report from its fully verified ledger."""
     try:
         envelope = verify_custody_report(report, ledger, root.resolve())
+    except ExternalArtifactUnavailable as exc:
+        typer.echo(f"NOT_AVAILABLE custody report verification: {exc}", err=True)
+        raise typer.Exit(code=1) from exc
     except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
         typer.echo(f"ERROR custody report verification failed: {exc}", err=True)
         raise typer.Exit(code=2) from exc

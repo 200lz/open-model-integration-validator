@@ -10,6 +10,11 @@ from pathlib import Path
 from typing import Any
 
 from omiv.canonical import canonical_sha256
+from omiv.external_artifacts import (
+    ExternalArtifactStatus,
+    expected_external_artifact,
+    observe_external_artifact,
+)
 from omiv.reconciliation.preservation import EXHAUSTIVE_ROOTS as PHASE6B_ROOTS
 
 BASELINE_REVISION = "f475096322b8d5336675530a41a9548b08a4dc9b"
@@ -22,8 +27,8 @@ class PreservationEntry:
     git_blob_identity: str
     baseline_size: int
     baseline_sha256: str
-    current_size: int
-    current_sha256: str
+    current_size: int | None
+    current_sha256: str | None
     classification: str
     inclusion_reason: str
 
@@ -76,6 +81,7 @@ def audit_baseline(repository: Path) -> dict[str, Any]:
     inventory: list[PreservationEntry] = []
     changed: list[str] = []
     missing: list[str] = []
+    external_artifacts: list[dict[str, Any]] = []
     for path in included:
         if path in blobs:
             blob, size = blobs[path]
@@ -92,23 +98,45 @@ def audit_baseline(repository: Path) -> dict[str, Any]:
             baseline = None
             reason = "PRIOR_ARTIFACT_INDEX_MEMBER_EXTERNAL_TO_GIT_TREE"
         current_path = repository / path
-        current = current_path.read_bytes() if current_path.is_file() else b""
-        current_digest = hashlib.sha256(current).hexdigest()
-        if not current_path.is_file():
-            missing.append(path)
-        elif (
-            len(current) != size
-            or current_digest != digest
-            or (baseline is not None and current != baseline)
-        ):
-            changed.append(path)
+        expected_external = expected_external_artifact(path)
+        if expected_external is not None:
+            if size != expected_external.size_bytes or digest != expected_external.sha256:
+                raise ValueError(f"external artifact expected identity mismatch: {path}")
+            observation = observe_external_artifact(repository, expected_external)
+            current_size = observation.observed_size_bytes
+            current_digest = observation.observed_sha256
+            external_artifacts.append(
+                {
+                    "relative_path": path,
+                    "expected_identity_status": expected_external.identity_status.value,
+                    "availability_status": observation.status.value,
+                    "expected_size_bytes": expected_external.size_bytes,
+                    "expected_sha256": expected_external.sha256,
+                    "observed_size_bytes": current_size,
+                    "observed_sha256": current_digest,
+                }
+            )
+            if observation.status == ExternalArtifactStatus.INVALID:
+                changed.append(path)
+        else:
+            current = current_path.read_bytes() if current_path.is_file() else b""
+            current_size = len(current)
+            current_digest = hashlib.sha256(current).hexdigest()
+            if not current_path.is_file():
+                missing.append(path)
+            elif (
+                current_size != size
+                or current_digest != digest
+                or (baseline is not None and current != baseline)
+            ):
+                changed.append(path)
         inventory.append(
             PreservationEntry(
                 relative_path=path,
                 git_blob_identity=blob,
                 baseline_size=size,
                 baseline_sha256=digest,
-                current_size=len(current),
+                current_size=current_size,
                 current_sha256=current_digest,
                 classification="PHASE_6B" if path.startswith("reconciliation/") else "PRIOR_PHASE",
                 inclusion_reason=reason,
@@ -143,6 +171,7 @@ def audit_baseline(repository: Path) -> dict[str, Any]:
             {"domain": "omiv.phase6c-prior-artifact-inventory.v1", "entries": inventory_json}
         ),
         "prior_artifact_indexes": indexes,
+        "external_artifacts": external_artifacts,
         "changed_paths": changed,
         "missing_paths": missing,
         "unexpected_omissions": sorted(set(indexed) - set(included)),

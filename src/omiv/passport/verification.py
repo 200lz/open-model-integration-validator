@@ -25,7 +25,7 @@ from omiv.passport.policy import (
     profile_policy_digest,
     reconstruct_trust_summary,
 )
-from omiv.validation.reporting import verify_validation_inventory
+from omiv.validation.reporting import verify_validation_inventory_with_availability
 
 MAX_PASSPORT_BYTES = 4 * 1024 * 1024
 
@@ -49,12 +49,8 @@ def _passport_id(passport: ModelPassport) -> str:
     body = {
         "schema": passport.schema_id,
         "subject": passport.subject.model_dump(mode="json", by_alias=True),
-        "artifact_identity": passport.artifact_identity.model_dump(
-            mode="json", by_alias=True
-        ),
-        "source_evidence_bundle_digest": (
-            passport.evidence_identity.validation_inventory_digest
-        ),
+        "artifact_identity": passport.artifact_identity.model_dump(mode="json", by_alias=True),
+        "source_evidence_bundle_digest": (passport.evidence_identity.validation_inventory_digest),
         "passport_policy_digest": passport.policy_identity.passport_policy_digest,
     }
     return "mp_" + canonical_sha256(body)[:32]
@@ -118,10 +114,7 @@ def _verify_internal(passport: ModelPassport) -> None:
         ):
             raise OmivInputError("verified custody requires a PASS custody stage")
     if passport.security_summary.status == SummaryStatus.NOT_CHECKED:
-        if (
-            stages[PassportStageName.SECURITY_INSPECTION]
-            != PassportStageStatus.NOT_CHECKED
-        ):
+        if stages[PassportStageName.SECURITY_INSPECTION] != PassportStageStatus.NOT_CHECKED:
             raise OmivInputError("unchecked security requires a NOT_CHECKED stage")
     elif "security_inspection" not in references:
         raise OmivInputError("security assessment requires scanner evidence")
@@ -156,9 +149,7 @@ def verify_passport(
             message="Passport schema, identity, digest, policy, trust, and profiles reconstructed.",
         )
     references = [
-        item
-        for item in passport.evidence_references
-        if item.role == "validation_inventory"
+        item for item in passport.evidence_references if item.role == "validation_inventory"
     ]
     if len(references) != 1 or references[0].relative_path is None:
         return PassportVerificationResult(
@@ -174,7 +165,20 @@ def verify_passport(
         raise OmivInputError(
             f"referenced validation inventory is missing: {references[0].relative_path}"
         )
-    inventory = verify_validation_inventory(validation_path, root.resolve())
+    verification = verify_validation_inventory_with_availability(validation_path, root.resolve())
+    if not verification.external_artifacts_available:
+        unavailable = next(item for item in verification.external_artifacts if not item.available)
+        return PassportVerificationResult(
+            mode=VerificationMode.UNVERIFIABLE_REFERENCE,
+            passport_id=passport.passport_id,
+            passport_digest=passport.passport_digest,
+            message=(
+                "Validation external artifact is NOT_AVAILABLE; expected identity is "
+                "recorded but bytes were not observed: "
+                f"{unavailable.expected.relative_path}"
+            ),
+        )
+    inventory = verification.inventory
     rebuilt = build_passport(
         inventory,
         validation_reference=references[0].relative_path,

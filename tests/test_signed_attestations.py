@@ -1816,9 +1816,12 @@ def test_cli_sign_requires_explicit_private_key(tmp_path: Path) -> None:
             "--output",
             str(tmp_path / "must-not-exist.json"),
         ],
+        color=False,
+        terminal_width=160,
     )
     assert result.exit_code == 2
-    assert "private-key" in result.output
+    assert result.stdout == ""
+    assert "Missing option '--private-key'." in result.stderr
     assert RFC8032_VECTOR_1 not in result.output
 
 

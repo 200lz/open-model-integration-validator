@@ -489,7 +489,17 @@ def test_exhaustive_prior_artifact_preservation_discovery() -> None:
         item for item in audit.inventory if item.relative_path == "reports/raw/kimi_k3_tensors.json"
     )
     assert external.git_blob_identity == "NOT_TRACKED_AT_BASELINE"
-    assert external.baseline_sha256 == external.current_sha256
+    external_audit = audit.external_artifacts[0]
+    assert external_audit.expected_identity_status == "EXPECTED_IDENTITY_RECORDED"
+    assert external_audit.availability_status in {
+        "PRESENT_AND_VERIFIED",
+        "NOT_AVAILABLE",
+    }
+    if external_audit.availability_status == "PRESENT_AND_VERIFIED":
+        assert external.baseline_sha256 == external.current_sha256
+    else:
+        assert external.current_size is None
+        assert external.current_sha256 is None
 
 
 def test_prior_count_discrepancy_is_reconstructed_from_rules() -> None:

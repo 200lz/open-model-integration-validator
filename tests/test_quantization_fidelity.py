@@ -16,6 +16,11 @@ from typer.testing import CliRunner
 from omiv.canonical import canonical_json_bytes, canonical_sha256
 from omiv.cli import app
 from omiv.errors import OmivInputError
+from omiv.external_artifacts import (
+    KIMI_K3_TENSOR_INVENTORY,
+    ExternalArtifactStatus,
+    observe_external_artifact,
+)
 from omiv.quantization.artifact_index import verify_quantization_artifact_index
 from omiv.quantization.building import (
     build_authority_evaluation,
@@ -1361,20 +1366,37 @@ def test_preservation_audit_covers_every_prior_artifact() -> None:
     assert audit["path_set_digest"] == (
         "30fe852d53390cc2b3508ac9c0ee94b5be552014bc8c55b04f1436544318dd8f"
     )
-    assert audit["inventory_digest"] == (
-        "b904857eaa150755bc8854ffc8d1238f1f495b8626a26bdc1dad4e92ea98c57c"
-    )
     assert audit["changed_paths"] == []
     assert audit["missing_paths"] == []
     assert audit["unexpected_omissions"] == []
+    external = audit["external_artifacts"]
+    assert len(external) == 1
+    assert external[0]["expected_identity_status"] == "EXPECTED_IDENTITY_RECORDED"
+    assert external[0]["availability_status"] in {
+        "PRESENT_AND_VERIFIED",
+        "NOT_AVAILABLE",
+    }
+    if external[0]["availability_status"] == "PRESENT_AND_VERIFIED":
+        assert audit["inventory_digest"] == (
+            "b904857eaa150755bc8854ffc8d1238f1f495b8626a26bdc1dad4e92ea98c57c"
+        )
 
 
 def test_ignored_kimi_tensor_identity_is_preserved() -> None:
-    path = ROOT / "reports/raw/kimi_k3_tensors.json"
-    assert path.stat().st_size == 115_542_096
-    assert hashlib.sha256(path.read_bytes()).hexdigest() == (
-        "15a6757becb69c56492fdb630d6853696082a9ec6109bcea05f387a5052ea469"
+    observation = observe_external_artifact(ROOT, KIMI_K3_TENSOR_INVENTORY)
+    assert observation.expected.identity_status == (
+        ExternalArtifactStatus.EXPECTED_IDENTITY_RECORDED
     )
+    assert observation.status in {
+        ExternalArtifactStatus.PRESENT_AND_VERIFIED,
+        ExternalArtifactStatus.NOT_AVAILABLE,
+    }
+    if observation.available:
+        assert observation.observed_size_bytes == 115_542_096
+        assert observation.observed_sha256 == KIMI_K3_TENSOR_INVENTORY.sha256
+    else:
+        assert observation.observed_size_bytes is None
+        assert observation.observed_sha256 is None
 
 
 def test_cli_inspect_and_verify(generated: Path) -> None:

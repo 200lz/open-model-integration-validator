@@ -51,6 +51,11 @@ from omiv.custody.verification import (
     verify_custody_ledger,
 )
 from omiv.errors import OmivInputError
+from omiv.external_artifacts import (
+    KIMI_K3_TENSOR_INVENTORY,
+    ExternalArtifactUnavailable,
+    observe_external_artifact,
+)
 from omiv.passport.models import ModelPassport
 from omiv.passport.verification import load_passport, verify_passport
 from omiv.validation.models import ValidationInventory
@@ -155,9 +160,7 @@ def test_event_and_ledger_identity_are_deterministic(ledger: CustodyLedger) -> N
 
 
 @pytest.mark.parametrize("change", ["claim", "evidence", "policy", "parent"])
-def test_event_identity_changes_with_canonical_inputs(
-    ledger: CustodyLedger, change: str
-) -> None:
+def test_event_identity_changes_with_canonical_inputs(ledger: CustodyLedger, change: str) -> None:
     event = ledger.events[1]
     raw = _input(event).model_dump(mode="json", by_alias=True)
     previous = event.previous_event_digest
@@ -196,9 +199,7 @@ def test_event_has_no_timestamp_dependency(ledger: CustodyLedger) -> None:
         "https://example.test/model?Signature=secret",
     ],
 )
-def test_event_rejects_absolute_paths_and_uuids(
-    ledger: CustodyLedger, value: str
-) -> None:
+def test_event_rejects_absolute_paths_and_uuids(ledger: CustodyLedger, value: str) -> None:
     event_input = _input(ledger.events[0], event_claims={"unsafe": value})
     with pytest.raises(ValidationError, match="paths, timestamps, UUIDs, or secrets"):
         build_event(
@@ -230,9 +231,7 @@ def test_valid_genesis_and_linear_chain(ledger: CustodyLedger) -> None:
 
 
 @pytest.mark.parametrize("mutation", ["missing", "reordered", "duplicate", "gap"])
-def test_invalid_event_ordering_is_rejected(
-    ledger: CustodyLedger, mutation: str
-) -> None:
+def test_invalid_event_ordering_is_rejected(ledger: CustodyLedger, mutation: str) -> None:
     raw = ledger.model_dump(mode="json", by_alias=True)
     if mutation == "missing":
         del raw["events"][0]
@@ -269,9 +268,7 @@ def test_two_genesis_and_unknown_parent_rejected(ledger: CustodyLedger) -> None:
         CustodyLedger.model_validate(raw)
 
 
-def test_changed_event_and_ledger_tampering_detected(
-    ledger: CustodyLedger, tmp_path: Path
-) -> None:
+def test_changed_event_and_ledger_tampering_detected(ledger: CustodyLedger, tmp_path: Path) -> None:
     raw = ledger.model_dump(mode="json", by_alias=True)
     raw["events"][2]["action"] = "tampered"
     path = tmp_path / "tampered.json"
@@ -306,15 +303,9 @@ def test_subject_continuity_and_divergence(ledger: CustodyLedger) -> None:
         "variant",
     ],
 )
-def test_subject_identity_mismatches_diverge(
-    ledger: CustodyLedger, field: str
-) -> None:
+def test_subject_identity_mismatches_diverge(ledger: CustodyLedger, field: str) -> None:
     value = (
-        "f" * 40
-        if field == "resolved_revision"
-        else "f" * 64
-        if field.endswith("digest")
-        else "x"
+        "f" * 40 if field == "resolved_revision" else "f" * 64 if field.endswith("digest") else "x"
     )
     changed = _artifact(ledger.subject, **{field: value})
     event = build_event(
@@ -345,6 +336,10 @@ def test_synthetic_transformation_relation(ledger: CustodyLedger) -> None:
 
 
 def test_evidence_linkages_and_real_verification(ledger: CustodyLedger) -> None:
+    if not observe_external_artifact(ROOT, KIMI_K3_TENSOR_INVENTORY).available:
+        with pytest.raises(ExternalArtifactUnavailable, match="not available"):
+            verify_custody_ledger(IQ_LEDGER, ROOT)
+        return
     assert verify_custody_ledger(IQ_LEDGER, ROOT) == ledger
     assert ledger.evidence_linkage == EvidenceLinkageStatus.VERIFIED
     assert all(
@@ -360,8 +355,7 @@ def test_authenticity_is_not_implied_by_hash_integrity(ledger: CustodyLedger) ->
     assert ledger.event_authenticity_summary.unattested_event_count == ledger.event_count
     assert ledger.event_authenticity_summary.signed_event_count == 0
     assert all(
-        event.actor_reference.status == ReferenceStatus.UNAVAILABLE
-        for event in ledger.events
+        event.actor_reference.status == ReferenceStatus.UNAVAILABLE for event in ledger.events
     )
 
 
@@ -373,9 +367,7 @@ def test_signed_origin_is_reserved(ledger: CustodyLedger) -> None:
 
 
 def test_system_observed_and_user_declared_authenticity(ledger: CustodyLedger) -> None:
-    observed = _input(
-        ledger.events[0], assertion_origin=AssertionOrigin.SYSTEM_OBSERVED.value
-    )
+    observed = _input(ledger.events[0], assertion_origin=AssertionOrigin.SYSTEM_OBSERVED.value)
     built = build_event(
         observed,
         chain_id=ledger.chain_id,
@@ -389,9 +381,7 @@ def test_system_observed_and_user_declared_authenticity(ledger: CustodyLedger) -
 
 
 def test_completeness_profiles_and_missing_events(ledger: CustodyLedger) -> None:
-    results = {
-        item.profile: item for item in ledger.missing_event_analysis.profile_results
-    }
+    results = {item.profile: item for item in ledger.missing_event_analysis.profile_results}
     assert results["evidence_segment"].status == LifecycleCompleteness.COMPLETE
     for name in (
         "local_model_intake",
@@ -451,9 +441,7 @@ def test_append_rejects_non_user_and_reserved(ledger: CustodyLedger) -> None:
     )
     with pytest.raises(OmivInputError, match="USER_DECLARED"):
         append_event(ledger, derived)
-    reserved = _user_input(
-        ledger.subject, CustodyEventType.REVOCATION_RECORDED_RESERVED
-    )
+    reserved = _user_input(ledger.subject, CustodyEventType.REVOCATION_RECORDED_RESERVED)
     with pytest.raises(OmivInputError, match="disallows"):
         append_event(ledger, reserved)
 
@@ -472,16 +460,22 @@ def test_report_and_markdown_are_deterministic(ledger: CustodyLedger) -> None:
 
 
 def test_report_and_ledger_verification() -> None:
-    assert load_custody_report(IQ_REPORT) == verify_custody_report(
-        IQ_REPORT, IQ_LEDGER, ROOT
-    )
+    if not observe_external_artifact(ROOT, KIMI_K3_TENSOR_INVENTORY).available:
+        with pytest.raises(ExternalArtifactUnavailable, match="not available"):
+            verify_custody_report(IQ_REPORT, IQ_LEDGER, ROOT)
+        return
+    assert load_custody_report(IQ_REPORT) == verify_custody_report(IQ_REPORT, IQ_LEDGER, ROOT)
 
 
 def test_linked_passport_and_v1_backward_compatibility(
     passport: ModelPassport, ledger: CustodyLedger
 ) -> None:
     original_bytes = IQ_PASSPORT.read_bytes()
-    assert verify_passport(IQ_PASSPORT, root=ROOT).mode.value == "full_verification"
+    verification = verify_passport(IQ_PASSPORT, root=ROOT)
+    if observe_external_artifact(ROOT, KIMI_K3_TENSOR_INVENTORY).available:
+        assert verification.mode.value == "full_verification"
+    else:
+        assert verification.mode.value == "unverifiable_reference"
     assert IQ_PASSPORT.read_bytes() == original_bytes
     linked = build_custody_linked_passport(
         passport,
@@ -498,15 +492,23 @@ def test_linked_passport_and_v1_backward_compatibility(
 
 def test_real_linked_passport_verification() -> None:
     linked = load_custody_linked_passport(IQ_LINKED)
-    assert verify_custody_linked_passport(IQ_LINKED, root=ROOT) == linked
+    if observe_external_artifact(ROOT, KIMI_K3_TENSOR_INVENTORY).available:
+        assert verify_custody_linked_passport(IQ_LINKED, root=ROOT) == linked
+    else:
+        with pytest.raises(ExternalArtifactUnavailable, match="not available"):
+            verify_custody_linked_passport(IQ_LINKED, root=ROOT)
     assert verify_custody_linked_passport(IQ_LINKED, digest_only=True) == linked
 
 
 def test_cli_exit_codes_and_show(tmp_path: Path) -> None:
     runner = CliRunner()
-    assert runner.invoke(
+    verified = runner.invoke(
         app, ["custody", "verify", "--input", str(IQ_LEDGER), "--root", str(ROOT)]
-    ).exit_code == 0
+    )
+    available = observe_external_artifact(ROOT, KIMI_K3_TENSOR_INVENTORY).available
+    assert verified.exit_code == (0 if available else 1)
+    if not available:
+        assert "NOT_AVAILABLE" in verified.output
     show = runner.invoke(app, ["custody", "show", "--input", str(IQ_LEDGER)])
     assert show.exit_code == 0
     assert "Event Timeline" in show.stdout
@@ -536,14 +538,15 @@ def test_cli_exit_codes_and_show(tmp_path: Path) -> None:
     raw = json.loads(IQ_LEDGER.read_text(encoding="utf-8"))
     raw["ledger_digest"] = "f" * 64
     broken.write_text(json.dumps(raw), encoding="utf-8")
-    assert runner.invoke(
-        app, ["custody", "verify", "--input", str(broken), "--root", str(ROOT)]
-    ).exit_code == 2
+    assert (
+        runner.invoke(
+            app, ["custody", "verify", "--input", str(broken), "--root", str(ROOT)]
+        ).exit_code
+        == 2
+    )
 
 
-def test_cli_append_atomic_and_in_place_protection(
-    ledger: CustodyLedger, tmp_path: Path
-) -> None:
+def test_cli_append_atomic_and_in_place_protection(ledger: CustodyLedger, tmp_path: Path) -> None:
     runner = CliRunner()
     event_path = tmp_path / "event.json"
     event_path.write_text(
@@ -566,9 +569,14 @@ def test_cli_append_atomic_and_in_place_protection(
             str(ROOT),
         ],
     )
-    assert result.exit_code == 0
-    assert output.is_file()
-    assert verify_custody_ledger(output, ROOT).event_count == ledger.event_count + 1
+    if not observe_external_artifact(ROOT, KIMI_K3_TENSOR_INVENTORY).available:
+        assert result.exit_code == 1
+        assert "NOT_AVAILABLE" in result.output
+        assert not output.exists()
+    else:
+        assert result.exit_code == 0
+        assert output.is_file()
+        assert verify_custody_ledger(output, ROOT).event_count == ledger.event_count + 1
     assert IQ_LEDGER.read_bytes() == (ROOT / IQ_LEDGER.relative_to(ROOT)).read_bytes()
     in_place = runner.invoke(
         app,

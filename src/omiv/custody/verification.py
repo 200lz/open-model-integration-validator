@@ -31,8 +31,9 @@ from omiv.custody.models import (
 )
 from omiv.custody.policy import custody_policy, evaluate_completeness
 from omiv.errors import OmivInputError
+from omiv.external_artifacts import ExternalArtifactUnavailable
 from omiv.passport.verification import load_passport, verify_passport
-from omiv.validation.reporting import verify_validation_inventory
+from omiv.validation.reporting import verify_validation_inventory_with_availability
 
 MAX_CUSTODY_BYTES = 8 * 1024 * 1024
 
@@ -210,11 +211,15 @@ def verify_custody_ledger(path: Path, root: Path) -> CustodyLedger:
     root = root.resolve()
     passport_path = root / ledger.passport_reference.relative_path
     validation_path = root / ledger.validation_reference.relative_path
+    verification = verify_validation_inventory_with_availability(validation_path, root)
+    if not verification.external_artifacts_available:
+        unavailable = next(item for item in verification.external_artifacts if not item.available)
+        raise ExternalArtifactUnavailable(unavailable.expected)
     passport_result = verify_passport(passport_path, root=root)
     if passport_result.mode.value != "full_verification":
         raise OmivInputError("custody passport dependency was not fully verified")
     passport = load_passport(passport_path)
-    validation = verify_validation_inventory(validation_path, root)
+    validation = verification.inventory
     if ledger.passport_reference.digest != passport.passport_digest:
         raise OmivInputError("custody passport linkage mismatch")
     if ledger.validation_reference.digest != validation.inventory_digest:

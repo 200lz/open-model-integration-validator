@@ -8,6 +8,7 @@ from typer.testing import CliRunner
 from omiv.canonical import canonical_sha256
 from omiv.cli import app
 from omiv.errors import OmivInputError
+from omiv.external_artifacts import KIMI_K3_TENSOR_INVENTORY, observe_external_artifact
 from omiv.passport.builder import build_passport
 from omiv.passport.models import (
     CustodyStatus,
@@ -133,10 +134,7 @@ def test_stage_reconstruction_has_no_trust_escalation(passport: ModelPassport) -
     assert stages[PassportStageName.FORMAT_STRUCTURE] == PassportStageStatus.PASS
     assert stages[PassportStageName.SEMANTIC_MAPPING] == PassportStageStatus.PASS
     assert stages[PassportStageName.CONVERTER_RULE_SUPPORT] == PassportStageStatus.AVAILABLE
-    assert (
-        stages[PassportStageName.ARTIFACT_SPECIFIC_PROVENANCE]
-        == PassportStageStatus.UNAVAILABLE
-    )
+    assert stages[PassportStageName.ARTIFACT_SPECIFIC_PROVENANCE] == PassportStageStatus.UNAVAILABLE
     assert stages[PassportStageName.PAYLOAD_INTEGRITY] == PassportStageStatus.NOT_CHECKED
     assert stages[PassportStageName.SECURITY_INSPECTION] == PassportStageStatus.NOT_CHECKED
     assert stages[PassportStageName.CUSTODY_CHAIN] == PassportStageStatus.UNAVAILABLE
@@ -172,9 +170,10 @@ def test_usage_profile_results(passport: ModelPassport) -> None:
     assert results["team_structural_intake"].outcome == UsageOutcome.SUITABLE_WITH_LIMITATIONS
     assert results["enterprise_structural_review"].outcome == UsageOutcome.REVIEW_REQUIRED
     assert results["regulated_production"].outcome == UsageOutcome.NOT_SUITABLE
-    assert PassportStageName.ARTIFACT_SPECIFIC_PROVENANCE in results[
-        "regulated_production"
-    ].unmet_stages
+    assert (
+        PassportStageName.ARTIFACT_SPECIFIC_PROVENANCE
+        in results["regulated_production"].unmet_stages
+    )
 
 
 def test_missing_identity_blocks_every_profile(passport: ModelPassport) -> None:
@@ -295,20 +294,21 @@ def test_stale_linkage_rejected(
         load_passport(path)
 
 
-def test_digest_only_and_full_offline_verification(
-    passport: ModelPassport, tmp_path: Path
-) -> None:
+def test_digest_only_and_full_offline_verification(passport: ModelPassport, tmp_path: Path) -> None:
     path = tmp_path / "passport.json"
     path.write_text(pretty_passport_json(passport), encoding="utf-8")
     digest = verify_passport(path, digest_only=True)
     assert digest.mode == VerificationMode.DIGEST_ONLY_VERIFICATION
     full = verify_passport(path, root=ROOT)
-    assert full.mode == VerificationMode.FULL_VERIFICATION
+    if observe_external_artifact(ROOT, KIMI_K3_TENSOR_INVENTORY).available:
+        assert full.mode == VerificationMode.FULL_VERIFICATION
+    else:
+        assert full.mode == VerificationMode.UNVERIFIABLE_REFERENCE
+        assert "NOT_AVAILABLE" in full.message
+        assert KIMI_K3_TENSOR_INVENTORY.relative_path in full.message
 
 
-def test_missing_validation_reference_is_rejected(
-    passport: ModelPassport, tmp_path: Path
-) -> None:
+def test_missing_validation_reference_is_rejected(passport: ModelPassport, tmp_path: Path) -> None:
     data = passport.model_dump(mode="json", by_alias=True)
     reference = next(
         item for item in data["evidence_references"] if item["role"] == "validation_inventory"
@@ -372,38 +372,53 @@ def test_cli_create_verify_show_and_exit_codes(tmp_path: Path) -> None:
             str(ROOT),
         ],
     )
+    if not observe_external_artifact(ROOT, KIMI_K3_TENSOR_INVENTORY).available:
+        assert create.exit_code == 1
+        assert "NOT_AVAILABLE" in create.output
+        assert not output.exists()
+        assert not markdown.exists()
+        return
     assert create.exit_code == 0
     assert "PASS Model Passport" in create.stdout
-    assert runner.invoke(
-        app,
-        ["passport", "verify", "--input", str(output), "--root", str(ROOT)],
-    ).exit_code == 0
+    assert (
+        runner.invoke(
+            app,
+            ["passport", "verify", "--input", str(output), "--root", str(ROOT)],
+        ).exit_code
+        == 0
+    )
     show = runner.invoke(app, ["passport", "show", "--input", str(output)])
     assert show.exit_code == 0
     assert "Compact Summary" in show.stdout
-    assert runner.invoke(
-        app,
-        [
-            "passport",
-            "verify",
-            "--input",
-            str(output),
-            "--root",
-            str(ROOT),
-            "--profile",
-            "regulated_production",
-        ],
-    ).exit_code == 1
-    assert runner.invoke(
-        app,
-        [
-            "passport",
-            "verify",
-            "--input",
-            str(output),
-            "--root",
-            str(ROOT),
-            "--profile",
-            "unknown",
-        ],
-    ).exit_code == 2
+    assert (
+        runner.invoke(
+            app,
+            [
+                "passport",
+                "verify",
+                "--input",
+                str(output),
+                "--root",
+                str(ROOT),
+                "--profile",
+                "regulated_production",
+            ],
+        ).exit_code
+        == 1
+    )
+    assert (
+        runner.invoke(
+            app,
+            [
+                "passport",
+                "verify",
+                "--input",
+                str(output),
+                "--root",
+                str(ROOT),
+                "--profile",
+                "unknown",
+            ],
+        ).exit_code
+        == 2
+    )

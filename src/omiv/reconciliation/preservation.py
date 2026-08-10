@@ -10,6 +10,11 @@ from pathlib import Path
 from typing import Any
 
 from omiv.canonical import canonical_sha256
+from omiv.external_artifacts import (
+    ExternalArtifactStatus,
+    expected_external_artifact,
+    observe_external_artifact,
+)
 
 BASELINE_REVISION = "944dafd1d3667e21bbeda6bd7b01e60e651fe7c3"
 PRE_PHASE6A_REVISION = "e2a80e60be70c275dbefd8fda7ded7f65f4e933d"
@@ -49,8 +54,8 @@ class PreservationEntry:
     git_blob_identity: str
     baseline_size: int
     baseline_sha256: str
-    current_size: int
-    current_sha256: str
+    current_size: int | None
+    current_sha256: str | None
     phase_root_classification: str
     inclusion_reason: str
 
@@ -61,6 +66,17 @@ class ExclusionEntry:
     git_blob_identity: str
     baseline_size: int
     reason: str
+
+
+@dataclass(frozen=True)
+class ExternalArtifactAudit:
+    relative_path: str
+    expected_identity_status: str
+    availability_status: str
+    expected_size_bytes: int
+    expected_sha256: str
+    observed_size_bytes: int | None
+    observed_sha256: str | None
 
 
 @dataclass(frozen=True)
@@ -76,6 +92,7 @@ class PreservationAudit:
     missing_prior_index_members: tuple[str, ...]
     missing_phase6a_generated_paths: tuple[str, ...]
     changed_or_missing_paths: tuple[str, ...]
+    external_artifacts: tuple[ExternalArtifactAudit, ...]
 
     def json_value(self) -> dict[str, Any]:
         return {
@@ -102,6 +119,7 @@ class PreservationAudit:
             "missing_prior_index_members": list(self.missing_prior_index_members),
             "missing_phase6a_generated_paths": list(self.missing_phase6a_generated_paths),
             "changed_or_missing_paths": list(self.changed_or_missing_paths),
+            "external_artifacts": [asdict(item) for item in self.external_artifacts],
             "inventory": [asdict(item) for item in self.inventory],
             "exclusions": [asdict(item) for item in self.exclusions],
         }
@@ -146,6 +164,7 @@ def audit_baseline(repository: Path, revision: str = BASELINE_REVISION) -> Prese
     )
     entries = []
     changed = []
+    external_artifacts = []
     for path in included_paths:
         if path in blobs:
             blob, baseline_size = blobs[path]
@@ -162,15 +181,40 @@ def audit_baseline(repository: Path, revision: str = BASELINE_REVISION) -> Prese
             baseline = None
             inclusion_reason = "PRIOR_ARTIFACT_INDEX_MEMBER_EXTERNAL_TO_GIT_TREE"
         current_path = repository / path
-        current = current_path.read_bytes() if current_path.is_file() else b""
-        current_sha256 = hashlib.sha256(current).hexdigest()
-        if (
-            not current_path.is_file()
-            or len(current) != baseline_size
-            or current_sha256 != baseline_sha256
-            or (baseline is not None and baseline != current)
-        ):
-            changed.append(path)
+        expected_external = expected_external_artifact(path)
+        if expected_external is not None:
+            if (
+                baseline_size != expected_external.size_bytes
+                or baseline_sha256 != expected_external.sha256
+            ):
+                raise ValueError(f"external artifact expected identity mismatch: {path}")
+            observation = observe_external_artifact(repository, expected_external)
+            current_size = observation.observed_size_bytes
+            current_sha256 = observation.observed_sha256
+            external_artifacts.append(
+                ExternalArtifactAudit(
+                    relative_path=path,
+                    expected_identity_status=expected_external.identity_status.value,
+                    availability_status=observation.status.value,
+                    expected_size_bytes=expected_external.size_bytes,
+                    expected_sha256=expected_external.sha256,
+                    observed_size_bytes=current_size,
+                    observed_sha256=current_sha256,
+                )
+            )
+            if observation.status == ExternalArtifactStatus.INVALID:
+                changed.append(path)
+        else:
+            current = current_path.read_bytes() if current_path.is_file() else b""
+            current_size = len(current)
+            current_sha256 = hashlib.sha256(current).hexdigest()
+            if (
+                not current_path.is_file()
+                or current_size != baseline_size
+                or current_sha256 != baseline_sha256
+                or (baseline is not None and baseline != current)
+            ):
+                changed.append(path)
         classification = _classification(path)
         entries.append(
             PreservationEntry(
@@ -178,7 +222,7 @@ def audit_baseline(repository: Path, revision: str = BASELINE_REVISION) -> Prese
                 git_blob_identity=blob,
                 baseline_size=baseline_size,
                 baseline_sha256=baseline_sha256,
-                current_size=len(current),
+                current_size=current_size,
                 current_sha256=current_sha256,
                 phase_root_classification=classification,
                 inclusion_reason=inclusion_reason,
@@ -213,6 +257,7 @@ def audit_baseline(repository: Path, revision: str = BASELINE_REVISION) -> Prese
         missing_prior_index_members=tuple(sorted(set(index_members) - set(included_paths))),
         missing_phase6a_generated_paths=tuple(sorted(phase6a_generated - set(included_paths))),
         changed_or_missing_paths=tuple(changed),
+        external_artifacts=tuple(external_artifacts),
     )
 
 

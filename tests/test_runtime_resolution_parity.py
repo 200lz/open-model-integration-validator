@@ -11,6 +11,11 @@ import pytest
 from pydantic import ValidationError
 
 from omiv.errors import OmivInputError
+from omiv.external_artifacts import (
+    KIMI_K3_TENSOR_INVENTORY,
+    ExternalArtifactStatus,
+    observe_external_artifact,
+)
 from omiv.runtime.building import build_product_subject, synthetic_scope
 from omiv.runtime.models import ProductSubjectClass
 from omiv.runtime_resolution.artifact_index import verify_runtime_resolution_artifact_index
@@ -873,8 +878,17 @@ def test_preservation_audit_matches_baseline() -> None:
 
 
 def test_ignored_kimi_artifact_identity() -> None:
-    path = Path("reports/raw/kimi_k3_tensors.json")
-    assert path.stat().st_size == 115_542_096
-    assert hashlib.sha256(path.read_bytes()).hexdigest() == (
-        "15a6757becb69c56492fdb630d6853696082a9ec6109bcea05f387a5052ea469"
+    observation = observe_external_artifact(Path.cwd(), KIMI_K3_TENSOR_INVENTORY)
+    assert observation.expected.identity_status == (
+        ExternalArtifactStatus.EXPECTED_IDENTITY_RECORDED
     )
+    assert observation.status in {
+        ExternalArtifactStatus.PRESENT_AND_VERIFIED,
+        ExternalArtifactStatus.NOT_AVAILABLE,
+    }
+    if observation.available:
+        assert observation.observed_size_bytes == 115_542_096
+        assert observation.observed_sha256 == KIMI_K3_TENSOR_INVENTORY.sha256
+    else:
+        assert observation.observed_size_bytes is None
+        assert observation.observed_sha256 is None

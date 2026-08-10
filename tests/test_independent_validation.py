@@ -7,6 +7,11 @@ from typer.testing import CliRunner
 
 from omiv.cli import app
 from omiv.errors import OmivInputError
+from omiv.external_artifacts import (
+    KIMI_K3_TENSOR_INVENTORY,
+    ExternalArtifactStatus,
+    observe_external_artifact,
+)
 from omiv.validation.builder import build_independent_validation
 from omiv.validation.models import (
     EvidenceStatus,
@@ -21,43 +26,22 @@ from omiv.validation.reporting import (
     pretty_json,
     render_validation_markdown,
     verify_validation_inventory,
+    verify_validation_inventory_with_availability,
     verify_validation_report,
     write_validation_bundle,
 )
 
 ROOT = Path(__file__).parents[1]
-SNAPSHOT = (
-    ROOT
-    / "snapshots/huggingface/unsloth_Kimi-K3-GGUF_UD-IQ1_M.snapshot.json"
-)
-SPLIT = (
-    ROOT
-    / "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.split.inventory.json"
-)
-ONTOLOGY = (
-    ROOT
-    / "inventories/remote/"
-    "unsloth_Kimi-K3-GGUF_UD-IQ1_M.kimi-k3-ontology.inventory.json"
-)
-MAPPING = (
-    ROOT
-    / "inventories/remote/"
-    "unsloth_Kimi-K3-GGUF_UD-IQ1_M.semantic-mapping.inventory.json"
-)
+SNAPSHOT = ROOT / "snapshots/huggingface/unsloth_Kimi-K3-GGUF_UD-IQ1_M.snapshot.json"
+SPLIT = ROOT / "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.split.inventory.json"
+ONTOLOGY = ROOT / "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.kimi-k3-ontology.inventory.json"
+MAPPING = ROOT / "inventories/remote/unsloth_Kimi-K3-GGUF_UD-IQ1_M.semantic-mapping.inventory.json"
+VALIDATION = ROOT / "validations/unsloth_Kimi-K3-GGUF_UD-IQ1_M.validation.inventory.json"
 
 
 @pytest.fixture(scope="module")
 def validation_inventory() -> ValidationInventory:
-    return build_independent_validation(
-        root=ROOT,
-        subject="kimi-k3",
-        variant="UD-IQ1_M",
-        snapshot_path=SNAPSHOT,
-        split_path=SPLIT,
-        ontology_path=ONTOLOGY,
-        mapping_path=MAPPING,
-        selected_profile="community_structural",
-    )
+    return load_validation_inventory(VALIDATION)
 
 
 def test_complete_graph_and_deterministic_order(
@@ -72,8 +56,7 @@ def test_complete_graph_and_deterministic_order(
     assert edge_keys == sorted(edge_keys)
     assert len(node_ids) == 26
     assert all(
-        edge.linkage_status == EvidenceStatus.PASS
-        for edge in validation_inventory.evidence_edges
+        edge.linkage_status == EvidenceStatus.PASS for edge in validation_inventory.evidence_edges
     )
 
 
@@ -148,9 +131,7 @@ def test_unknown_field_is_rejected(
 def test_structural_stages_and_explicit_boundaries(
     validation_inventory: ValidationInventory,
 ) -> None:
-    statuses = {
-        stage.stage.value: stage.status for stage in validation_inventory.evidence_stages
-    }
+    statuses = {stage.stage.value: stage.status for stage in validation_inventory.evidence_stages}
     assert statuses["repository_identity"] == EvidenceStatus.PASS
     assert statuses["structural_semantic_mapping"] == EvidenceStatus.PASS
     assert statuses["converter_rule_support"] == EvidenceStatus.AVAILABLE
@@ -172,23 +153,14 @@ def test_profiles_reconstruct_and_do_not_escalate(
 ) -> None:
     results = {
         item.profile_name: item
-        for item in evaluate_profiles(
-            validation_inventory.evidence_stages, profile_policy()
-        )
+        for item in evaluate_profiles(validation_inventory.evidence_stages, profile_policy())
     }
     assert results["community_structural"].outcome == ProfileOutcome.SATISFIED
+    assert results["vendor_release_structural"].outcome == ProfileOutcome.SATISFIED_WITH_WARNINGS
     assert (
-        results["vendor_release_structural"].outcome
-        == ProfileOutcome.SATISFIED_WITH_WARNINGS
+        results["enterprise_offline_structural"].outcome == ProfileOutcome.SATISFIED_WITH_WARNINGS
     )
-    assert (
-        results["enterprise_offline_structural"].outcome
-        == ProfileOutcome.SATISFIED_WITH_WARNINGS
-    )
-    assert (
-        results["regulated_deployment_full"].outcome
-        == ProfileOutcome.NOT_SATISFIED
-    )
+    assert results["regulated_deployment_full"].outcome == ProfileOutcome.NOT_SATISFIED
     assert results["regulated_deployment_full"].failed_requirement_count == 5
 
 
@@ -239,7 +211,16 @@ def test_artifact_index_is_relative_complete_and_deterministic(
         path = PurePosixPath(entry.relative_path)
         assert not path.is_absolute()
         assert ".." not in path.parts
-        assert (ROOT / entry.relative_path).stat().st_size == entry.size_bytes
+        if entry.relative_path == KIMI_K3_TENSOR_INVENTORY.relative_path:
+            observation = observe_external_artifact(ROOT, KIMI_K3_TENSOR_INVENTORY)
+            assert entry.size_bytes == KIMI_K3_TENSOR_INVENTORY.size_bytes
+            assert entry.canonical_digest == KIMI_K3_TENSOR_INVENTORY.sha256
+            assert observation.status in {
+                ExternalArtifactStatus.PRESENT_AND_VERIFIED,
+                ExternalArtifactStatus.NOT_AVAILABLE,
+            }
+        else:
+            assert (ROOT / entry.relative_path).stat().st_size == entry.size_bytes
     assert {item.role for item in entries} >= {
         "repository_snapshot",
         "split_inventory",
@@ -309,13 +290,21 @@ def test_report_and_inventory_offline_verification(
     report = build_validation_report(validation_inventory)
     report_path.write_text(pretty_json(report), encoding="utf-8")
     assert verify_validation_inventory(inventory_path, ROOT) == validation_inventory
+    verification = verify_validation_inventory_with_availability(inventory_path, ROOT)
+    assert verification.inventory == validation_inventory
+    observation = verification.external_artifacts[0]
+    assert observation.expected.identity_status == (
+        ExternalArtifactStatus.EXPECTED_IDENTITY_RECORDED
+    )
+    assert observation.status in {
+        ExternalArtifactStatus.PRESENT_AND_VERIFIED,
+        ExternalArtifactStatus.NOT_AVAILABLE,
+    }
     assert verify_validation_report(report_path, ROOT) == report
     assert load_validation_report(report_path) == report
 
 
-def test_report_tamper_detection(
-    validation_inventory: ValidationInventory, tmp_path: Path
-) -> None:
+def test_report_tamper_detection(validation_inventory: ValidationInventory, tmp_path: Path) -> None:
     report = build_validation_report(validation_inventory)
     data = report.model_dump(mode="json")
     data["report"]["executive_summary"]["numerical_or_runtime_equivalence"] = True
@@ -338,9 +327,7 @@ def test_bundle_writer_rejects_output_collision(
         )
 
 
-def test_cli_exit_zero_and_one(
-    validation_inventory: ValidationInventory, tmp_path: Path
-) -> None:
+def test_cli_exit_zero_and_one(validation_inventory: ValidationInventory, tmp_path: Path) -> None:
     del validation_inventory
     runner = CliRunner()
     common = [
@@ -365,9 +352,16 @@ def test_cli_exit_zero_and_one(
         str(tmp_path / "report.md"),
     ]
     community = runner.invoke(app, [*common, "--profile", "community_structural"])
-    assert community.exit_code == 0, community.output
     regulated = runner.invoke(app, [*common, "--profile", "regulated_deployment_full"])
-    assert regulated.exit_code == 1, regulated.output
+    observation = observe_external_artifact(ROOT, KIMI_K3_TENSOR_INVENTORY)
+    if observation.available:
+        assert community.exit_code == 0, community.output
+        assert regulated.exit_code == 1, regulated.output
+    else:
+        assert community.exit_code == 1, community.output
+        assert regulated.exit_code == 1, regulated.output
+        assert "NOT_AVAILABLE" in community.output
+        assert KIMI_K3_TENSOR_INVENTORY.relative_path in community.output
 
 
 def test_cli_exit_two_for_unknown_profile(tmp_path: Path) -> None:

@@ -25,6 +25,11 @@ from omiv.article.models import (
     PublicClaimRegistry,
 )
 from omiv.errors import OmivInputError
+from omiv.external_artifacts import (
+    ExternalArtifactStatus,
+    expected_external_artifact,
+    observe_external_artifact,
+)
 
 T = TypeVar("T")
 MAX_ARTICLE_BYTES = 16 * 1024 * 1024
@@ -77,6 +82,19 @@ def verify_evidence_manifest(root: Path) -> ArticleEvidenceManifest:
     if observed != expected_manifest:
         raise OmivInputError("evidence manifest does not reconstruct")
     for item in observed.canonical_artifacts:
+        expected_external = expected_external_artifact(item.relative_path)
+        if expected_external is not None:
+            if (
+                item.size_bytes != expected_external.size_bytes
+                or item.canonical_digest != expected_external.sha256
+            ):
+                raise OmivInputError(
+                    f"external evidence expected identity mismatch: {item.relative_path}"
+                )
+            observation = observe_external_artifact(root, expected_external)
+            if observation.status == ExternalArtifactStatus.INVALID:
+                raise OmivInputError(f"external evidence artifact invalid: {item.relative_path}")
+            continue
         path = root / item.relative_path
         if not path.is_file() or path.stat().st_size != item.size_bytes:
             raise OmivInputError(f"evidence artifact missing or wrong size: {item.relative_path}")

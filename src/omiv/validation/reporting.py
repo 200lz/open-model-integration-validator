@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import html
 import json
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, cast
 
@@ -11,6 +12,12 @@ from pydantic import ValidationError
 
 from omiv.canonical import CANONICALIZATION_ID, canonical_sha256, load_json_value
 from omiv.errors import OmivInputError
+from omiv.external_artifacts import (
+    ExternalArtifactObservation,
+    ExternalArtifactStatus,
+    expected_external_artifact,
+    observe_external_artifact,
+)
 from omiv.safe_write import atomic_write_text
 from omiv.validation.builder import build_independent_validation
 from omiv.validation.models import (
@@ -22,6 +29,16 @@ from omiv.validation.models import (
 from omiv.validation.profiles import evaluate_profiles, profile_policy
 
 MAX_VALIDATION_BYTES = 64 * 1024 * 1024
+
+
+@dataclass(frozen=True)
+class ValidationVerificationResult:
+    inventory: ValidationInventory
+    external_artifacts: tuple[ExternalArtifactObservation, ...]
+
+    @property
+    def external_artifacts_available(self) -> bool:
+        return all(item.available for item in self.external_artifacts)
 
 
 def pretty_json(value: Any) -> str:
@@ -103,11 +120,25 @@ def _entry_path(inventory: ValidationInventory, root: Path, role: str) -> Path:
     return root / matches[0].relative_path
 
 
-def verify_validation_inventory(path: Path, root: Path) -> ValidationInventory:
-    """Rebuild an inventory from verified dependencies and compare it byte-for-byte."""
+def verify_validation_inventory_with_availability(
+    path: Path, root: Path
+) -> ValidationVerificationResult:
+    """Rebuild an inventory while reporting reviewed external-input availability."""
     inventory = load_validation_inventory(path)
     root = root.resolve()
+    external_observations: list[ExternalArtifactObservation] = []
     for entry in inventory.artifact_index.entries:
+        expected = expected_external_artifact(entry.relative_path)
+        if expected is not None:
+            if entry.size_bytes != expected.size_bytes or entry.canonical_digest != expected.sha256:
+                raise OmivInputError(
+                    f"external artifact expected identity mismatch: {entry.relative_path}"
+                )
+            observation = observe_external_artifact(root, expected)
+            if observation.status == ExternalArtifactStatus.INVALID:
+                raise OmivInputError(f"external artifact identity mismatch: {entry.relative_path}")
+            external_observations.append(observation)
+            continue
         artifact = root / entry.relative_path
         if not artifact.is_file():
             raise OmivInputError(f"artifact-index file is missing: {entry.relative_path}")
@@ -122,12 +153,21 @@ def verify_validation_inventory(path: Path, root: Path) -> ValidationInventory:
         ontology_path=_entry_path(inventory, root, "target_ontology_inventory"),
         mapping_path=_entry_path(inventory, root, "semantic_mapping_inventory"),
         selected_profile=inventory.selected_profile,
+        external_source_observation=next(iter(external_observations), None),
     )
     if rebuilt != inventory:
         raise OmivInputError(
             "validation inventory does not reconstruct from canonical dependencies"
         )
-    return inventory
+    return ValidationVerificationResult(
+        inventory=inventory,
+        external_artifacts=tuple(external_observations),
+    )
+
+
+def verify_validation_inventory(path: Path, root: Path) -> ValidationInventory:
+    """Reconstruct an inventory without equating unavailable external bytes to verification."""
+    return verify_validation_inventory_with_availability(path, root).inventory
 
 
 def _stage_matrix(inventory: ValidationInventory) -> list[dict[str, Any]]:
@@ -296,6 +336,27 @@ def verify_validation_report(path: Path, root: Path) -> ValidationReportEnvelope
 def verify_inventory_model(inventory: ValidationInventory, root: Path) -> ValidationInventory:
     """Verify an embedded inventory without requiring a separate inventory file."""
     root = root.resolve()
+    source_entry = next(
+        (
+            entry
+            for entry in inventory.artifact_index.entries
+            if entry.role == "source_checkpoint_inventory"
+        ),
+        None,
+    )
+    expected_source = (
+        expected_external_artifact(source_entry.relative_path) if source_entry is not None else None
+    )
+    if expected_source is None or source_entry is None:
+        raise OmivInputError("validation inventory has no reviewed external source identity")
+    if (
+        source_entry.size_bytes != expected_source.size_bytes
+        or source_entry.canonical_digest != expected_source.sha256
+    ):
+        raise OmivInputError("external artifact expected identity mismatch")
+    source_observation = observe_external_artifact(root, expected_source)
+    if source_observation.status == ExternalArtifactStatus.INVALID:
+        raise OmivInputError(f"external artifact identity mismatch: {source_entry.relative_path}")
     rebuilt = build_independent_validation(
         root=root,
         subject=inventory.subject.model_family,
@@ -305,6 +366,7 @@ def verify_inventory_model(inventory: ValidationInventory, root: Path) -> Valida
         ontology_path=_entry_path(inventory, root, "target_ontology_inventory"),
         mapping_path=_entry_path(inventory, root, "semantic_mapping_inventory"),
         selected_profile=inventory.selected_profile,
+        external_source_observation=source_observation,
     )
     if rebuilt != inventory:
         raise OmivInputError("embedded validation inventory reconstruction mismatch")
