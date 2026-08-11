@@ -117,8 +117,10 @@ def test_overclaim_audit_distinguishes_negative_statements() -> None:
     scan = _audit_namespace()["affirmative_overclaims"]
     assert scan("Phase 6F is implemented") == ("phase6f_complete",)
     assert scan("The repository will become public") == ()
+    assert scan("The repository is public") == ()
     assert scan("OMIV is available on PyPI") == ("pypi_available",)
     assert scan("OMIV is not available on PyPI") == ()
+    assert scan("v0.10.0 is released.") == ("released_v0_10_0",)
     assert scan("Version 0.10.0 is not released; Phase 6F is not implemented") == ()
 
 
@@ -242,7 +244,7 @@ def test_launch_audit_rejects_required_adversarial_mutations(tmp_path: Path) -> 
         ("README.md", "## Why OMIV", "Why OMIV"),
         ("README.md", "## Documentation", "## Documentation\n[broken](docs/missing.md)"),
         ("README.md", "## Documentation", "## Documentation\nOMIV is available on PyPI."),
-        ("README.md", "## Documentation", "## Documentation\nThe repository is public."),
+        ("README.md", "## Documentation", "## Documentation\nv0.10.0 is released."),
         ("README.md", "## Documentation", "## Documentation\nPhase 6F is implemented."),
         (
             "examples/offline-quickstart/README.md",

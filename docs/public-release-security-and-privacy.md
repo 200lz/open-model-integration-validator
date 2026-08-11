@@ -33,39 +33,52 @@ domain-separated `omiv.identity.v1` SHA-256 construction and emits only the dige
 role, and reachable-ref classification.
 
 The only accepted human record is the existing owner-approved fingerprint. The human
-invariant remains exactly one; a platform identity cannot satisfy it. Two additional
-fingerprints were reviewed after private CI exposed the open Dependabot branch:
+invariant remains exactly one; a platform identity cannot satisfy it. Three additional
+fingerprints are reviewed for exact platform-generated occurrences only:
 
 - one `AUTHOR` fingerprint is limited to `GITHUB_DEPENDABOT_UPDATE_AUTHOR` on a
-  `REMOTE_AUTOMATION_BRANCH`;
+  `REMOTE_DEPENDABOT_BRANCH` and its exact PR #1 head/merge ancestry;
 - one distinct `COMMITTER` fingerprint is limited to
-  `GITHUB_WEB_FLOW_SIGNED_DEPENDABOT_COMMITTER` on that same ref class.
+  `GITHUB_WEB_FLOW_SIGNED_DEPENDABOT_COMMITTER` on that exact commit and to a
+  verified PR #2 synthetic merge;
+- one distinct `AUTHOR` fingerprint is limited to the verified PR #2 synthetic merge
+  created for the reviewed release branch.
 
-GitHub's REST commit response associated the author with a `Bot` actor and the
-committer with the web commit-signing actor, and reported the commit signature as
-present, valid, and verified. The review also used GitHub's documentation for
+The reviewed REST records bind repository ID `1316060005`, Dependabot actor ID
+`49699333`, the owner actor ID `145014769`, and web commit-signing actor ID `19864447`
+to the exact commits, roles, and PRs. GitHub reported each reviewed platform-generated
+commit signature as present, valid, and verified. The embedded commit signatures use
+the reviewed GitHub signing key ID `B5690EEEBB952194`. The review also used GitHub's
+documentation for
 [Dependabot-signed commits](https://docs.github.com/en/code-security/concepts/supply-chain-security/dependabot-security-updates),
 [REST commit actor and verification fields](https://docs.github.com/en/rest/commits/commits),
 and the documented
 [web commit-signing service account](https://docs.github.com/en/enterprise-server@3.21/admin/configuring-settings/configuring-user-applications-for-your-enterprise/configuring-web-commit-signing).
-Those reviewed API and documentation facts are provenance for the exact fingerprints;
-the audit does not infer trust from a `[bot]` suffix, a noreply address, a branch name,
-or a login-like string.
+Those reviewed API and documentation facts are provenance for the exact fingerprints.
+For a GitHub Actions PR merge, the audit additionally requires an exact binding among
+repository, PR number, base, head, merge commit, ordered parents, hidden merge ref,
+REST actors, verified-valid signature, signer key ID, role, and purpose. It performs
+bounded unauthenticated read-only REST requests only for that public PR provenance and
+fails closed if the API is unavailable or any field differs. It does not infer trust
+from a `[bot]` suffix, a noreply address, a branch name, a generic verified signature,
+or a login-like string, and it never accepts `REMOTE_OTHER_BRANCH` globally.
 
 The fail-closed taxonomy is:
 
 - `OWNER_APPROVED_HUMAN_IDENTITY`
 - `VERIFIED_PLATFORM_SERVICE_IDENTITY`
 - `SYNTHETIC_TEST_IDENTITY`
+- `UNVERIFIED_PLATFORM_SERVICE_CLAIM`
 - `UNKNOWN_HUMAN_IDENTITY`
 - `UNKNOWN_AUTOMATION_IDENTITY`
-- `INVALID_IDENTITY_RECORD`
+- `INVALID_IDENTITY`
 
 Unknown or invalid records fail readiness. Platform service identities remain in the
 public-exposure inventory, but confer no owner, publisher, maintainer, release, or
 repository authority and do not establish publisher authenticity. Synthetic test
 identities require an explicit test-only fingerprint and are never inferred from
-their spelling.
+their spelling. A platform service has no owner, maintainer, publisher, tagger,
+release-signing, repository, or PyPI authority.
 
 ## Audit boundary
 
@@ -78,7 +91,9 @@ that no undiscoverable sensitive value exists.
 Ignored local raw captures, virtual environments, caches, and downloaded artifacts are
 outside the public Git object set and must remain untracked. Public fixtures contain
 only bounded evidence described in [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md).
-No default CI path enables network integration or downloads model/tokenizer payloads.
+The only default-CI identity network read is the bounded public GitHub REST provenance
+check described above; no default CI path accesses model providers or downloads
+model/tokenizer payloads.
 
 Live GitHub visibility is authoritative. R1E applied and verified the reviewed
 profile, topics, and supported Dependabot controls; the controlled R1F transaction
