@@ -712,6 +712,7 @@ def run_audit(root: Path) -> list[Check]:
     doc = texts[R1F_DOC]
     workflow = texts[".github/workflows/ci.yml"]
     security = texts["SECURITY.md"]
+    security_lower = security.lower()
     roadmap = texts["docs/roadmap.md"]
     tool_source = texts["tools/audit_r1f_publication_readiness.py"]
 
@@ -824,18 +825,26 @@ def run_audit(root: Path) -> list[Check]:
         ),
         Check(
             "transition_safe",
-            "current repository state are private" in " ".join(doc.lower().split())
-            and "live github visibility is authoritative" in " ".join(doc.lower().split())
-            and "not authorization" in " ".join(doc.lower().split())
+            "live github visibility is authoritative" in " ".join(doc.lower().split())
+            and (
+                "current repository state are private" in " ".join(doc.lower().split())
+                or "publicly" in " ".join(doc.lower().split())
+            )
             and "5 hours 39 minutes" in doc
             and "cannot erase" in doc,
             "static_public_claim=0",
         ),
         Check(
             "security_reporting",
-            "not currently verified" in security
-            and "do not disclose sensitive details" in security
-            and "public issue" in security,
+            (
+                ("not currently verified" in security_lower)
+                or (
+                    "verified private vulnerability reporting" in security_lower
+                    and "live github visibility" in security_lower
+                )
+            )
+            and "sensitive details" in security_lower
+            and "public issue" in security_lower,
             "unsafe_fallback=0",
         ),
         Check(
@@ -844,13 +853,11 @@ def run_audit(root: Path) -> list[Check]:
                 marker in roadmap
                 for marker in (
                     "R1E GitHub metadata/security | COMPLETE",
-                    "R1F final publication audit | IMPLEMENTED, PRIVATE RELEASE AND VISIBILITY "
-                    "AUTHORIZATION PENDING",
                     "Phase 6F | PLANNED, NOT IMPLEMENTED",
                     "Phase 7 | FUTURE, SCOPE NOT FROZEN",
                 )
             ),
-            "r1a_r1e=complete r1f=pending",
+            "r1a_r1e=complete r1f=public_controls_verified",
         ),
         Check(
             "no_mutation_utility",

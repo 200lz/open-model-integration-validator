@@ -1,12 +1,13 @@
 # Release process
 
-This document describes a future release procedure. It does not authorize or announce
-a release. The upcoming public-preview version is 0.10.0; version 1.0.0 is reserved for
-a later stability decision, and Phase 6F is not part of 0.10.0.
+This document describes the remaining release procedure. The repository is publicly
+available as a 0.10.0 Alpha preview, but this document does not authorize or announce
+a tag, GitHub Pre-release, or PyPI publication. Version 1.0.0 is reserved for a later
+stability decision, and Phase 6F is not part of 0.10.0.
 
 ## Candidate preparation
 
-1. Start from the reviewed `main` commit and a clean index.
+1. Start from the reviewed public `main` commit and a clean index.
 2. Update `project.version`, `omiv.__version__`, `CITATION.cff`, and the changelog.
 3. Review source ownership, third-party redistribution, dependency licenses, legal
    files, package metadata, and public documentation.
@@ -18,6 +19,13 @@ a later stability decision, and Phase 6F is not part of 0.10.0.
    CLI smoke tests.
 7. Review the final diff and confirm that no credentials, private paths, payloads,
    copied webpages, or overclaims were introduced.
+
+The source-install path remains the active quickstart. The PyPI command is conditional
+until `PYPI_VERSION_NOT_YET_PUBLISHED` is cleared by an independently verified
+publication. The future chain is one release commit → signed annotated `v0.10.0`
+tag → one wheel, one sdist, and deterministic `SHA256SUMS` → GitHub Pre-release →
+the exact same bytes through PyPI Trusted Publishing → post-publication install test.
+The publisher workflow never rebuilds and never uses `skip-existing`.
 
 ## Tag and publication controls
 
@@ -45,24 +53,17 @@ publication, or announcement occurred. Public-only API states are now
 new visibility authorization and new rollback-policy selection are required before
 another attempt.
 
-The newly authorized [R1F transaction](r1f-final-publication-audit.md) must complete its exact
-private audit, record pre-change state, obtain explicit visibility authorization and
-an explicit rollback-authority choice, change the repository to public, then verify
-Private Vulnerability Reporting, secret scanning, push protection, and the reviewed
-checks-only, app-bound `main` branch protection in that order. R1F must read every
-required control back and
-pass an unauthenticated public-read smoke check before classifying public-launch
-readiness.
+The authorized [R1F transaction](r1f-final-publication-audit.md) completed its exact
+private audit, public visibility change, public-only control read-backs, and
+unauthenticated public-read smoke check. The resulting controls remain authoritative
+in live GitHub state; this preparation still does not create a tag, Release, or PyPI
+project.
 
-If a required post-public control fails, classify
-`PUBLIC_VISIBILITY_CHANGED_REQUIRED_PUBLIC_CONTROL_FAILED`; do not announce, tag,
-create a GitHub release, or publish to PyPI. Preserve the exact normalized state and
-report applied and unapplied controls. No visibility rollback is pre-authorized: the
-future R1F instruction must explicitly select one reviewed rollback choice before the
-visibility change because another visibility change may have externally observable
-effects and cannot erase prior exposure. Tag creation, GitHub release creation, PyPI
-publication, and announcement remain separate later operations with separate
-authorization.
+If a future release gate fails, classify the corresponding typed failure in the release
+notes and do not announce, tag, create a GitHub Release, or publish to PyPI. Preserve
+the exact normalized state and require separate remediation authority. Tag creation,
+GitHub Release creation, PyPI publication, and announcement remain separate later
+operations with separate authorization.
 
 ## Historical tag inventory
 

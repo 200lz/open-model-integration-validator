@@ -1,14 +1,16 @@
 # GitHub publication controls
 
-This document defines the reviewable repository state required before OMIV can
-become public. It is Release Track configuration, not OMIV evidence and not a
+This document records the reviewable repository state and transaction controls for
+OMIV's public preview. It is Release Track configuration, not OMIV evidence and not a
 security certification. The machine-readable companion is
 [`.github/publication-policy.json`](../.github/publication-policy.json).
 
-The R1F baseline is **PRIVATE**; live GitHub visibility is authoritative after any
-later transaction. Version 0.10.0 remains an untagged and unreleased public-preview
-candidate, with no GitHub release or PyPI publication. This document does not
-authorize a visibility or settings change.
+The R1F implementation baseline was **PRIVATE**; the separately authorized visibility
+transaction completed and the repository is publicly readable; live GitHub visibility is now **PUBLIC**. Version 0.10.0
+remains an untagged and unreleased public preview, with no GitHub Release or PyPI
+publication. This document records the operation and does not authorize another
+visibility or settings change; live GitHub visibility is authoritative and this
+document does not claim PyPI availability.
 
 ## Controlled public attempt rolled back
 
@@ -27,6 +29,15 @@ control APIs became `API_STATE_UNAVAILABLE` after rollback and are not described
 enabled or disabled while private. The prior visibility authorization was consumed;
 the prior rollback authorization was consumed and executed. A new visibility
 authorization and a new rollback selection are mandatory before another attempt.
+
+## Current live state after the successful transaction
+
+Authenticated and unauthenticated read-backs verified PUBLIC visibility, the exact
+reviewed profile and topics, read-only Actions permissions, enabled Dependabot
+controls, PVR, secret scanning, push protection, and checks-only App-bound main
+branch protection. No ruleset, tag, GitHub Release, or PyPI publication exists.
+The historical private-state table below is retained as the pre-transaction audit
+record; it must not override live GitHub state.
 
 ## Desired repository profile
 

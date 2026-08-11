@@ -1,6 +1,6 @@
 # Public-release security and privacy record
 
-This record describes the upcoming 0.10.0 public-preview candidate. It contains no
+This record describes the 0.10.0 Alpha public preview and its remaining release gates. It contains no
 credentials, complete author email, or approved absolute path.
 
 ## Approved historical disclosures
@@ -80,10 +80,10 @@ outside the public Git object set and must remain untracked. Public fixtures con
 only bounded evidence described in [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md).
 No default CI path enables network integration or downloads model/tokenizer payloads.
 
-The R1F baseline is private; live GitHub visibility is authoritative after any later
-transaction. R1E applied and verified the reviewed profile, topics, and supported
-private Dependabot controls. GitHub documents Private Vulnerability Reporting for
-public repositories, so it is not verified at the private baseline.
+Live GitHub visibility is authoritative. R1E applied and verified the reviewed
+profile, topics, and supported Dependabot controls; the controlled R1F transaction
+verified the public-only controls and exact main enforcement. This record does not
+turn those controls into a safety certification.
 
 One controlled attempt was publicly readable for approximately 5 hours 39 minutes on
 2026-08-10. Its pre-public exposure audit detected no secret or privacy finding. PVR,
@@ -97,10 +97,8 @@ PyPI publication, or announcement occurred. The three public-only controls now h
 state. The prior visibility and rollback authorizations were consumed; another
 attempt requires a new visibility authorization and a new rollback-policy choice.
 
-After a newly authorized public visibility change, R1F must immediately enable and
-re-read private reporting, secret scanning, push protection, and the corrected
-checks-only reviewed branch protection in the order defined by the
-[R1F final-publication audit](r1f-final-publication-audit.md). Failure of any required
-post-public control blocks successful publication classification and keeps
-announcement, tag, GitHub release, and PyPI operations prohibited. This
-implementation does not change any GitHub setting.
+The public controls were verified by the controlled R1F transaction. A future release
+still requires the signed tag, exact artifact chain, GitHub Pre-release, and PyPI
+Trusted Publisher gates described in [release notes](v0.10.0-release-notes.md) and
+[releasing](releasing.md). This documentation does not claim PyPI availability or
+release completion.

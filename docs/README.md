@@ -57,6 +57,7 @@ contract exists.
 - [Public-release security and privacy](public-release-security-and-privacy.md)
 - [GitHub publication controls](github-publication-controls.md)
 - [R1F final-publication audit and visibility transaction](r1f-final-publication-audit.md)
+- [v0.10.0 Public Preview release notes](v0.10.0-release-notes.md)
 - [Support policy](../SUPPORT.md)
 
 ## Contributing and governance

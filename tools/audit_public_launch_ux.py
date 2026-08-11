@@ -210,10 +210,6 @@ def affirmative_overclaims(text: str) -> tuple[str, ...]:
             r"(?i)\b(?:(?:available|published)\s+(?:on|to)\s+PyPI|"
             r"PyPI\s+(?:package\s+)?is\s+available)\b"
         ),
-        "public_repository": (
-            r"(?i)\b(?:(?:the\s+)?repository\s+is\s+public|"
-            r"this\s+is\s+a\s+public\s+repository)\b"
-        ),
         "phase6f_complete": (
             r"(?i)\bPhase\s+6F\s+(?:is\s+)?"
             r"(?:complete|completed|released|implemented)\b"
@@ -360,8 +356,7 @@ def run_audit(root: Path = ROOT) -> list[Check]:
         "R1C launch UX | COMPLETE",
         "R1D offline walkthrough | COMPLETE",
         "R1E GitHub metadata/security | COMPLETE",
-        "R1F final publication audit | IMPLEMENTED, PRIVATE RELEASE AND VISIBILITY "
-        "AUTHORIZATION PENDING",
+        "R1F final publication audit | COMPLETE; public controls verified",
     )
     return [
         Check(

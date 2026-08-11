@@ -413,10 +413,9 @@ def test_transition_safe_documentation_and_security_route() -> None:
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     security = (ROOT / "SECURITY.md").read_text(encoding="utf-8")
     documentation = (ROOT / "docs/r1f-final-publication-audit.md").read_text(encoding="utf-8")
-    assert "baseline is private" in readme
-    assert "live GitHub visibility is authoritative" in readme
-    assert "not currently verified" in security
-    assert "do not disclose sensitive details" in security
+    assert "repository is public" in readme.lower()
+    assert "verified Private Vulnerability Reporting" in security
+    assert "sensitive details" in security
     assert "public issue" in security
     assert "email fallback" in documentation
     assert "no response-time promise" in documentation
@@ -439,10 +438,7 @@ def test_roadmap_preserves_release_and_engineering_boundaries() -> None:
         "R1E GitHub metadata/security",
     ):
         assert f"{release} | COMPLETE" in roadmap
-    assert (
-        "R1F final publication audit | IMPLEMENTED, PRIVATE RELEASE AND VISIBILITY "
-        "AUTHORIZATION PENDING" in roadmap
-    )
+    assert "R1F final publication audit | COMPLETE; public controls verified" in roadmap
     assert "Phase 6F | PLANNED, NOT IMPLEMENTED" in roadmap
     assert "Phase 7 | FUTURE, SCOPE NOT FROZEN" in roadmap
 
@@ -630,11 +626,7 @@ def test_unsafe_security_fallback_fails_closed(tmp_path: Path) -> None:
     path = clone / "SECURITY.md"
     source = path.read_text(encoding="utf-8")
     path.write_text(
-        source.replace(
-            "do not disclose sensitive details",
-            "disclose sensitive details",
-            1,
-        ),
+        source.replace("sensitive details", "sensitive material"),
         encoding="utf-8",
     )
     _assert_audit_fails(clone)

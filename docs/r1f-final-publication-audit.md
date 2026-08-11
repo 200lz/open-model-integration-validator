@@ -4,10 +4,12 @@ This is a deterministic operator contract for a future, separately authorized OM
 visibility transaction. It is Release Track configuration, not OMIV evidence, not a
 security certification, and not authorization to mutate GitHub.
 
-The R1F baseline and current repository state are private. Live GitHub visibility is
-authoritative after any later transaction. Public availability would not tag or
-release version 0.10.0, publish a package to PyPI, implement Phase 6F, or establish
-that every security risk is covered.
+The R1F implementation baseline was private. The separately authorized transaction
+completed successfully; current live GitHub state is PUBLIC and authoritative.
+The repository is publicly readable.
+Live GitHub visibility is authoritative.
+Public availability does not tag or release version 0.10.0, publish a package to
+PyPI, implement Phase 6F, or establish that every security risk is covered.
 
 ## Prior controlled attempt and current authorization state
 
@@ -31,6 +33,15 @@ became `API_STATE_UNAVAILABLE`; they are not represented as enabled or disabled 
 private. The earlier visibility authorization is `CONSUMED`, and the earlier rollback
 authorization is `CONSUMED_AND_EXECUTED`. A future attempt requires a new explicit
 visibility authorization and a new explicit rollback-policy selection.
+
+## Current live transaction result
+
+The second controlled transaction used the corrected checks-only App-bound payload.
+It verified PUBLIC visibility, PVR, secret scanning, push protection, and exact main
+branch protection with Python 3.11–3.14 checks bound to GitHub Actions App ID 15368.
+No ruleset, tag, GitHub Release, PyPI publication, or announcement was created. The
+historical private-baseline material below remains an audit record; live GitHub reads
+are authoritative for the current state.
 
 ## Preconditions and owner decisions
 
