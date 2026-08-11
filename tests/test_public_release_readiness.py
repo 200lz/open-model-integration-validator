@@ -6,6 +6,7 @@ import subprocess
 import tomllib
 from dataclasses import replace
 from pathlib import Path
+from typing import Any
 
 from typer.testing import CliRunner
 
@@ -144,6 +145,498 @@ def _dynamic_observation(namespace: dict[str, object], role: str) -> tuple[objec
         occurrences=(occurrence,),
     )
     return observation, occurrence, evidence
+
+
+def _valid_pull_request_event(namespace: dict[str, object]) -> dict[str, Any]:
+    return {
+        "number": namespace["PR2_NUMBER"],
+        "repository": {
+            "id": namespace["GITHUB_REPOSITORY_ID"],
+            "full_name": namespace["GITHUB_REPOSITORY_FULL_NAME"],
+        },
+        "pull_request": {
+            "user": {"id": namespace["GITHUB_OWNER_ACTOR_ID"]},
+            "base": {"ref": "main", "sha": namespace["PR2_BASE_SHA"]},
+            "head": {"ref": namespace["PR2_HEAD_REF"], "sha": "b" * 40},
+            "merge_commit_sha": "c" * 40,
+        },
+    }
+
+
+def _build_pull_request_evidence(
+    namespace: dict[str, object],
+    tmp_path: Path,
+    monkeypatch: Any,
+    *,
+    event: dict[str, Any] | None = None,
+    raw_event: str | None = None,
+    env: dict[str, str] | None = None,
+    event_path_available: bool = True,
+    event_path_symlink: bool = False,
+    git_object_available: bool = True,
+    local_head: str | None = None,
+    local_parents: tuple[str, ...] | None = None,
+    local_ref_matches: bool = True,
+    local_ref_error: bool = False,
+    signature_key_ids: tuple[str, ...] | None = None,
+    pr_metadata_available: bool = True,
+    actor_evidence_available: bool = True,
+    pr_api_changes: dict[str, Any] | None = None,
+    commit_api_changes: dict[str, Any] | None = None,
+) -> object:
+    selected_event = _valid_pull_request_event(namespace) if event is None else event
+    event_path = tmp_path / f"bounded-event-{len(tuple(tmp_path.iterdir()))}.json"
+    if event_path_available:
+        serialized_event = json.dumps(selected_event) if raw_event is None else raw_event
+        if event_path_symlink:
+            event_target = event_path.with_suffix(".target")
+            event_target.write_text(serialized_event, encoding="utf-8")
+            event_path.symlink_to(event_target)
+        else:
+            event_path.write_text(serialized_event, encoding="utf-8")
+    base_sha = namespace["PR2_BASE_SHA"]
+    head_sha = "b" * 40
+    merge_sha = "c" * 40
+    environment = {
+        "GITHUB_ACTIONS": "true",
+        "GITHUB_EVENT_NAME": "pull_request",
+        "GITHUB_REF": "refs/pull/2/merge",
+        "GITHUB_SHA": merge_sha,
+        "GITHUB_HEAD_REF": namespace["PR2_HEAD_REF"],
+        "GITHUB_BASE_REF": "main",
+        "GITHUB_REPOSITORY": namespace["GITHUB_REPOSITORY_FULL_NAME"],
+        "GITHUB_EVENT_PATH": str(event_path),
+    }
+    environment.update(env or {})
+    for key, value in environment.items():
+        monkeypatch.setenv(key, str(value))
+
+    pr_api = {
+        "base": {
+            "repo": {"id": namespace["GITHUB_REPOSITORY_ID"]},
+            "ref": "main",
+            "sha": base_sha,
+        },
+        "head": {"ref": namespace["PR2_HEAD_REF"], "sha": head_sha},
+        "user": {"id": namespace["GITHUB_OWNER_ACTOR_ID"]},
+        "merge_commit_sha": merge_sha,
+    }
+    commit_api = {
+        "sha": merge_sha,
+        "parents": [{"sha": base_sha}, {"sha": head_sha}],
+        "author": {"id": namespace["GITHUB_OWNER_ACTOR_ID"]},
+        "committer": {"id": namespace["GITHUB_WEB_FLOW_ACTOR_ID"]},
+        "commit": {"verification": {"verified": True, "reason": "valid"}},
+    }
+    pr_api.update(pr_api_changes or {})
+    commit_api.update(commit_api_changes or {})
+    github_result = namespace["GitHubJsonResult"]
+
+    def fake_github_json(url: str) -> object:
+        if url.endswith("/pulls/2"):
+            if not pr_metadata_available:
+                return github_result(False, "HTTP_STATUS_NOT_SUCCESS", 403)
+            return github_result(True, "AVAILABLE", 200, pr_api)
+        if not actor_evidence_available:
+            return github_result(False, "NETWORK_ERROR", 0)
+        return github_result(True, "AVAILABLE", 200, commit_api)
+
+    selected_head = merge_sha if local_head is None else local_head
+    selected_parents = (base_sha, head_sha) if local_parents is None else local_parents
+
+    def fake_git(*args: str, input_bytes: bytes | None = None) -> bytes:
+        del input_bytes
+        if args[:2] == ("cat-file", "-e"):
+            if not git_object_available:
+                raise subprocess.CalledProcessError(1, args)
+            return b""
+        if args == ("rev-parse", "HEAD"):
+            return f"{selected_head}\n".encode()
+        if args[:3] == ("show", "-s", "--format=%P"):
+            return (" ".join(selected_parents) + "\n").encode()
+        raise AssertionError(f"unexpected git call: {args!r}")
+
+    def fake_ref_matches(pr_number: int, candidate_merge_sha: str) -> bool:
+        assert pr_number == 2
+        assert candidate_merge_sha == merge_sha
+        if local_ref_error:
+            raise subprocess.CalledProcessError(1, ("git", "show-ref"))
+        return local_ref_matches
+
+    builder = namespace["_current_pull_request_evidence"]
+    builder_globals = builder.__wrapped__.__globals__
+    builder_globals["_github_json"] = fake_github_json
+    builder_globals["_git"] = fake_git
+    builder_globals["_local_merge_ref_matches"] = fake_ref_matches
+    builder_globals["_commit_signature_key_ids"] = lambda _: (
+        (namespace["GITHUB_WEB_FLOW_SIGNING_KEY_ID"],)
+        if signature_key_ids is None
+        else signature_key_ids
+    )
+    builder.cache_clear()
+    return builder()
+
+
+def test_detached_actions_merge_checkout_builds_available_evidence(
+    tmp_path: Path, monkeypatch: Any
+) -> None:
+    namespace = _audit_namespace()
+    result = _build_pull_request_evidence(namespace, tmp_path, monkeypatch)
+    assert result.status == "AVAILABLE"
+    assert result.reason_code == "AVAILABLE"
+    assert result.evidence is not None
+    assert result.evidence.merge_sha == "c" * 40
+    assert result.evidence.parents == (namespace["PR2_BASE_SHA"], "b" * 40)
+    assert result.safe_facts["detached_head_matches"] is True
+    assert result.safe_facts["local_merge_ref_matches"] is True
+
+
+def test_pull_request_evidence_pre_event_reason_codes(tmp_path: Path, monkeypatch: Any) -> None:
+    cases = (
+        ({"GITHUB_ACTIONS": "false"}, "NOT_AVAILABLE", "NOT_GITHUB_ACTIONS"),
+        ({"GITHUB_EVENT_NAME": "push"}, "NOT_AVAILABLE", "EVENT_NOT_PULL_REQUEST"),
+        ({"GITHUB_REPOSITORY": "example/unrelated"}, "INVALID", "REPOSITORY_MISMATCH"),
+    )
+    for env, status, reason in cases:
+        namespace = _audit_namespace()
+        result = _build_pull_request_evidence(namespace, tmp_path, monkeypatch, env=env)
+        assert (result.status, result.reason_code, result.evidence) == (status, reason, None)
+
+
+def test_pull_request_event_file_failures_are_typed(tmp_path: Path, monkeypatch: Any) -> None:
+    namespace = _audit_namespace()
+    missing = _build_pull_request_evidence(
+        namespace, tmp_path, monkeypatch, event_path_available=False
+    )
+    assert (missing.status, missing.reason_code) == (
+        "NOT_AVAILABLE",
+        "EVENT_PATH_NOT_AVAILABLE",
+    )
+
+    namespace = _audit_namespace()
+    malformed = _build_pull_request_evidence(
+        namespace, tmp_path, monkeypatch, raw_event="{not-json"
+    )
+    assert (malformed.status, malformed.reason_code) == ("INVALID", "EVENT_JSON_INVALID")
+
+    namespace = _audit_namespace()
+    incomplete_event = _valid_pull_request_event(namespace)
+    incomplete_event.pop("number")
+    incomplete = _build_pull_request_evidence(
+        namespace, tmp_path, monkeypatch, event=incomplete_event
+    )
+    assert (incomplete.status, incomplete.reason_code) == (
+        "INVALID",
+        "EVENT_FIELDS_INCOMPLETE",
+    )
+
+    namespace = _audit_namespace()
+    oversized = _build_pull_request_evidence(
+        namespace, tmp_path, monkeypatch, raw_event=" " * 1_048_577
+    )
+    assert (oversized.status, oversized.reason_code) == ("INVALID", "LIMIT_EXCEEDED")
+
+    namespace = _audit_namespace()
+    symlinked = _build_pull_request_evidence(
+        namespace, tmp_path, monkeypatch, event_path_symlink=True
+    )
+    assert (symlinked.status, symlinked.reason_code) == (
+        "INVALID",
+        "EVENT_PATH_NOT_AVAILABLE",
+    )
+
+    namespace = _audit_namespace()
+    invalid_sha = _valid_pull_request_event(namespace)
+    invalid_sha["pull_request"]["head"]["sha"] = "not-a-sha"
+    malformed_field = _build_pull_request_evidence(
+        namespace, tmp_path, monkeypatch, event=invalid_sha
+    )
+    assert (malformed_field.status, malformed_field.reason_code) == (
+        "INVALID",
+        "EVENT_FIELDS_INCOMPLETE",
+    )
+
+
+def test_pull_request_event_identity_mismatches_are_typed(tmp_path: Path, monkeypatch: Any) -> None:
+    mutations = []
+    namespace = _audit_namespace()
+    repository = _valid_pull_request_event(namespace)
+    repository["repository"]["id"] = 1
+    mutations.append((repository, "REPOSITORY_MISMATCH"))
+    pr_number = _valid_pull_request_event(namespace)
+    pr_number["number"] = 99
+    mutations.append((pr_number, "PR_NUMBER_MISMATCH"))
+    base_ref = _valid_pull_request_event(namespace)
+    base_ref["pull_request"]["base"]["ref"] = "other"
+    mutations.append((base_ref, "BASE_REF_MISMATCH"))
+    base_sha = _valid_pull_request_event(namespace)
+    base_sha["pull_request"]["base"]["sha"] = "a" * 40
+    mutations.append((base_sha, "BASE_SHA_MISMATCH"))
+    head_ref = _valid_pull_request_event(namespace)
+    head_ref["pull_request"]["head"]["ref"] = "unrelated"
+    mutations.append((head_ref, "HEAD_REF_MISMATCH"))
+    for event, reason in mutations:
+        selected = _audit_namespace()
+        result = _build_pull_request_evidence(selected, tmp_path, monkeypatch, event=event)
+        assert (result.status, result.reason_code) == ("INVALID", reason)
+
+
+def test_checkout_and_git_topology_failures_are_typed(tmp_path: Path, monkeypatch: Any) -> None:
+    cases = (
+        ({"env": {"GITHUB_BASE_REF": "unrelated"}}, "BASE_REF_MISMATCH"),
+        ({"env": {"GITHUB_HEAD_REF": "unrelated"}}, "HEAD_REF_MISMATCH"),
+        ({"env": {"GITHUB_REF": "refs/heads/unrelated"}}, "REF_SCOPE_MISMATCH"),
+        ({"env": {"GITHUB_SHA": "d" * 40}}, "CHECKOUT_SHA_MISMATCH"),
+        ({"git_object_available": False}, "GIT_OBJECT_NOT_AVAILABLE"),
+        ({"local_head": "d" * 40}, "CHECKOUT_SHA_MISMATCH"),
+        ({"local_parents": ("a" * 40,)}, "PARENT_COUNT_INVALID"),
+        (
+            {"local_parents": ("b" * 40, "a" * 40)},
+            "PARENT_ORDER_MISMATCH",
+        ),
+        ({"local_ref_matches": False}, "REF_SCOPE_MISMATCH"),
+        ({"local_ref_error": True}, "INTERNAL_VALIDATION_ERROR"),
+        ({"signature_key_ids": ("DEADBEEFDEADBEEF",)}, "SIGNER_MISMATCH"),
+    )
+    for options, reason in cases:
+        namespace = _audit_namespace()
+        result = _build_pull_request_evidence(
+            namespace,
+            tmp_path,
+            monkeypatch,
+            **options,  # type: ignore[arg-type]
+        )
+        expected_status = "INDETERMINATE" if reason == "INTERNAL_VALIDATION_ERROR" else "INVALID"
+        assert (result.status, result.reason_code) == (expected_status, reason)
+
+
+def test_remote_metadata_failures_are_typed_without_becoming_authority(
+    tmp_path: Path, monkeypatch: Any
+) -> None:
+    namespace = _audit_namespace()
+    pr_missing = _build_pull_request_evidence(
+        namespace, tmp_path, monkeypatch, pr_metadata_available=False
+    )
+    assert (pr_missing.status, pr_missing.reason_code) == (
+        "INDETERMINATE",
+        "PR_METADATA_NOT_AVAILABLE",
+    )
+    assert pr_missing.safe_facts["pr_metadata_status_code"] == 403
+    assert pr_missing.evidence is None
+
+    namespace = _audit_namespace()
+    actor_missing = _build_pull_request_evidence(
+        namespace, tmp_path, monkeypatch, actor_evidence_available=False
+    )
+    assert (actor_missing.status, actor_missing.reason_code) == (
+        "INDETERMINATE",
+        "ACTOR_EVIDENCE_NOT_AVAILABLE",
+    )
+    assert actor_missing.safe_facts["actor_evidence_status_code"] == 0
+    assert actor_missing.evidence is None
+
+
+def test_remote_pr_and_commit_mismatches_are_typed(tmp_path: Path, monkeypatch: Any) -> None:
+    namespace = _audit_namespace()
+    wrong_repository = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        pr_api_changes={
+            "base": {
+                "repo": {"id": 1},
+                "ref": "main",
+                "sha": namespace["PR2_BASE_SHA"],
+            }
+        },
+    )
+    assert (wrong_repository.status, wrong_repository.reason_code) == (
+        "INVALID",
+        "REPOSITORY_MISMATCH",
+    )
+
+    namespace = _audit_namespace()
+    wrong_base_ref = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        pr_api_changes={
+            "base": {
+                "repo": {"id": namespace["GITHUB_REPOSITORY_ID"]},
+                "ref": "unrelated",
+                "sha": namespace["PR2_BASE_SHA"],
+            }
+        },
+    )
+    assert (wrong_base_ref.status, wrong_base_ref.reason_code) == (
+        "INVALID",
+        "BASE_REF_MISMATCH",
+    )
+
+    namespace = _audit_namespace()
+    wrong_base_sha = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        pr_api_changes={
+            "base": {
+                "repo": {"id": namespace["GITHUB_REPOSITORY_ID"]},
+                "ref": "main",
+                "sha": "d" * 40,
+            }
+        },
+    )
+    assert (wrong_base_sha.status, wrong_base_sha.reason_code) == (
+        "INVALID",
+        "BASE_SHA_MISMATCH",
+    )
+
+    namespace = _audit_namespace()
+    wrong_head_ref = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        pr_api_changes={"head": {"ref": "unrelated", "sha": "b" * 40}},
+    )
+    assert (wrong_head_ref.status, wrong_head_ref.reason_code) == (
+        "INVALID",
+        "HEAD_REF_MISMATCH",
+    )
+
+    namespace = _audit_namespace()
+    wrong_head = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        pr_api_changes={"head": {"ref": namespace["PR2_HEAD_REF"], "sha": "d" * 40}},
+    )
+    assert (wrong_head.status, wrong_head.reason_code) == ("INVALID", "HEAD_SHA_MISMATCH")
+
+    namespace = _audit_namespace()
+    wrong_merge = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        pr_api_changes={"merge_commit_sha": "d" * 40},
+    )
+    assert (wrong_merge.status, wrong_merge.reason_code) == (
+        "INVALID",
+        "MERGE_SHA_MISMATCH",
+    )
+
+    namespace = _audit_namespace()
+    wrong_commit = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        commit_api_changes={"sha": "d" * 40},
+    )
+    assert (wrong_commit.status, wrong_commit.reason_code) == (
+        "INVALID",
+        "MERGE_SHA_MISMATCH",
+    )
+
+    namespace = _audit_namespace()
+    wrong_parent_count = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        commit_api_changes={"parents": [{"sha": namespace["PR2_BASE_SHA"]}]},
+    )
+    assert (wrong_parent_count.status, wrong_parent_count.reason_code) == (
+        "INVALID",
+        "PARENT_COUNT_INVALID",
+    )
+
+    namespace = _audit_namespace()
+    wrong_parents = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        commit_api_changes={"parents": [{"sha": "b" * 40}, {"sha": namespace["PR2_BASE_SHA"]}]},
+    )
+    assert (wrong_parents.status, wrong_parents.reason_code) == (
+        "INVALID",
+        "PARENT_ORDER_MISMATCH",
+    )
+
+
+def test_signature_and_actor_failures_are_typed(tmp_path: Path, monkeypatch: Any) -> None:
+    namespace = _audit_namespace()
+    unverified = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        commit_api_changes={"commit": {"verification": {"verified": False, "reason": "unsigned"}}},
+    )
+    assert (unverified.status, unverified.reason_code) == (
+        "INVALID",
+        "SIGNATURE_NOT_VERIFIED",
+    )
+
+    namespace = _audit_namespace()
+    wrong_actor = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        commit_api_changes={"committer": {"id": 1}},
+    )
+    assert (wrong_actor.status, wrong_actor.reason_code) == ("INVALID", "SIGNER_MISMATCH")
+
+    namespace = _audit_namespace()
+    wrong_author = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        commit_api_changes={"author": {"id": 1}},
+    )
+    assert (wrong_author.status, wrong_author.reason_code) == (
+        "INVALID",
+        "SIGNER_MISMATCH",
+    )
+
+    namespace = _audit_namespace()
+    malformed_actor_evidence = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        commit_api_changes={"commit": {}},
+    )
+    assert (
+        malformed_actor_evidence.status,
+        malformed_actor_evidence.reason_code,
+    ) == ("INDETERMINATE", "ACTOR_EVIDENCE_NOT_AVAILABLE")
+
+
+def test_non_available_evidence_remains_fail_closed_and_privacy_safe(
+    tmp_path: Path, monkeypatch: Any
+) -> None:
+    namespace = _audit_namespace()
+    result = _build_pull_request_evidence(
+        namespace, tmp_path, monkeypatch, pr_metadata_available=False
+    )
+    services, _ = _reviewed_platform_fixture(namespace)
+    observations = [_approved_human(namespace), *services]
+    check = namespace["_identity_classification_check"](
+        observations, pull_request_evidence=result.evidence
+    )
+    assert check.passed is False
+    assert "unverified_platform_claims=2" in check.detail
+    serialized = json.dumps(
+        {
+            "status": result.status,
+            "reason_code": result.reason_code,
+            "safe_facts": result.safe_facts,
+            "evidence": result.evidence,
+        },
+        sort_keys=True,
+        default=str,
+    )
+    assert "@" not in serialized
+    assert "/home/" not in serialized
+    assert "/tmp/" not in serialized
+    assert "token" not in serialized.lower()
+    assert "event.json" not in serialized
 
 
 def test_public_preview_version_is_consistent() -> None:

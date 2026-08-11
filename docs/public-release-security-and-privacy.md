@@ -63,6 +63,14 @@ fails closed if the API is unavailable or any field differs. It does not infer t
 from a `[bot]` suffix, a noreply address, a branch name, a generic verified signature,
 or a login-like string, and it never accepts `REMOTE_OTHER_BRANCH` globally.
 
+PR-evidence construction reports a typed status (`AVAILABLE`, `NOT_AVAILABLE`,
+`INVALID`, or `INDETERMINATE`), a stable reason code, and bounded boolean/count facts.
+It emits the verified evidence record only for `AVAILABLE`; failures do not serialize
+the event payload, identity text, email addresses, environment paths, request headers,
+tokens, or credential-bearing URLs. This diagnostic surface does not grant trust: any
+missing, invalid, or indeterminate provenance needed by a reviewed platform occurrence
+continues to fail the identity gate.
+
 The fail-closed taxonomy is:
 
 - `OWNER_APPROVED_HUMAN_IDENTITY`

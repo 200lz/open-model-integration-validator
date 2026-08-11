@@ -38,6 +38,38 @@ IDENTITY_CATEGORIES = (
     "VERIFIED_PLATFORM_SERVICE_IDENTITY",
 )
 IDENTITY_ROLES = frozenset({"AUTHOR", "COMMITTER", "TAGGER"})
+PULL_REQUEST_EVIDENCE_STATUSES = (
+    "AVAILABLE",
+    "INDETERMINATE",
+    "INVALID",
+    "NOT_AVAILABLE",
+)
+PULL_REQUEST_EVIDENCE_REASON_CODES = (
+    "ACTOR_EVIDENCE_NOT_AVAILABLE",
+    "AVAILABLE",
+    "BASE_REF_MISMATCH",
+    "BASE_SHA_MISMATCH",
+    "CHECKOUT_SHA_MISMATCH",
+    "EVENT_FIELDS_INCOMPLETE",
+    "EVENT_JSON_INVALID",
+    "EVENT_NOT_PULL_REQUEST",
+    "EVENT_PATH_NOT_AVAILABLE",
+    "GIT_OBJECT_NOT_AVAILABLE",
+    "HEAD_REF_MISMATCH",
+    "HEAD_SHA_MISMATCH",
+    "INTERNAL_VALIDATION_ERROR",
+    "LIMIT_EXCEEDED",
+    "MERGE_SHA_MISMATCH",
+    "NOT_GITHUB_ACTIONS",
+    "PARENT_COUNT_INVALID",
+    "PARENT_ORDER_MISMATCH",
+    "PR_METADATA_NOT_AVAILABLE",
+    "PR_NUMBER_MISMATCH",
+    "REF_SCOPE_MISMATCH",
+    "REPOSITORY_MISMATCH",
+    "SIGNATURE_NOT_VERIFIED",
+    "SIGNER_MISMATCH",
+)
 REF_CLASSIFICATIONS = frozenset(
     {
         "ANNOTATED_TAG",
@@ -209,6 +241,22 @@ class PullRequestEvidence:
     signature_reason: str
     signature_key_ids: tuple[str, ...]
     evidence_sources: tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class PullRequestEvidenceResult:
+    status: str
+    reason_code: str
+    safe_facts: dict[str, bool | int]
+    evidence: PullRequestEvidence | None = None
+
+
+@dataclass(frozen=True)
+class GitHubJsonResult:
+    available: bool
+    reason_code: str
+    status_code: int
+    payload: dict[str, Any] | None = None
 
 
 PR1_HEAD_ALLOWED_REFS = (
@@ -546,9 +594,9 @@ def _history_identity_observations() -> list[IdentityObservation]:
     ]
 
 
-def _github_json(url: str) -> dict[str, Any] | None:
+def _github_json(url: str) -> GitHubJsonResult:
     if not url.startswith("https://api.github.com/"):
-        return None
+        return GitHubJsonResult(False, "URL_REJECTED", 0)
     request = urllib.request.Request(
         url,
         headers={
@@ -562,29 +610,100 @@ def _github_json(url: str) -> dict[str, Any] | None:
             request, timeout=10, context=ssl.create_default_context()
         ) as response:
             payload = response.read(1_048_577)
-            if response.status != 200 or len(payload) > 1_048_576:
-                return None
+            if response.status != 200:
+                return GitHubJsonResult(False, "HTTP_STATUS_NOT_SUCCESS", response.status)
+            if len(payload) > 1_048_576:
+                return GitHubJsonResult(False, "RESPONSE_LIMIT_EXCEEDED", response.status)
         parsed = json.loads(payload)
-    except (OSError, UnicodeError, ValueError, urllib.error.URLError):
-        return None
-    return parsed if isinstance(parsed, dict) else None
+    except urllib.error.HTTPError as exc:
+        return GitHubJsonResult(False, "HTTP_STATUS_NOT_SUCCESS", exc.code)
+    except (OSError, urllib.error.URLError):
+        return GitHubJsonResult(False, "NETWORK_ERROR", 0)
+    except (UnicodeError, ValueError, json.JSONDecodeError):
+        return GitHubJsonResult(False, "RESPONSE_JSON_INVALID", 200)
+    if not isinstance(parsed, dict):
+        return GitHubJsonResult(False, "RESPONSE_SHAPE_INVALID", 200)
+    return GitHubJsonResult(True, "AVAILABLE", 200, parsed)
+
+
+def _pull_request_evidence_result(
+    status: str,
+    reason_code: str,
+    safe_facts: dict[str, bool | int],
+    evidence: PullRequestEvidence | None = None,
+) -> PullRequestEvidenceResult:
+    if status not in PULL_REQUEST_EVIDENCE_STATUSES:
+        raise ValueError("invalid pull-request evidence status")
+    if reason_code not in PULL_REQUEST_EVIDENCE_REASON_CODES:
+        raise ValueError("invalid pull-request evidence reason code")
+    if any(not isinstance(value, (bool, int)) for value in safe_facts.values()):
+        raise ValueError("pull-request evidence safe facts must be booleans or integers")
+    if (status == "AVAILABLE") != (evidence is not None):
+        raise ValueError("pull-request evidence availability mismatch")
+    return PullRequestEvidenceResult(
+        status=status,
+        reason_code=reason_code,
+        safe_facts=dict(sorted(safe_facts.items())),
+        evidence=evidence,
+    )
+
+
+def _local_merge_ref_matches(pr_number: int, merge_sha: str) -> bool:
+    local_merge_refs = (
+        f"refs/pull/{pr_number}/merge",
+        f"refs/remotes/pull/{pr_number}/merge",
+    )
+    return any(
+        _git("rev-parse", "--verify", refname).decode("ascii").strip() == merge_sha
+        for refname in local_merge_refs
+        if subprocess.run(
+            ["git", "show-ref", "--verify", "--quiet", refname], cwd=ROOT, check=False
+        ).returncode
+        == 0
+    )
 
 
 @functools.lru_cache(maxsize=1)
-def _current_pull_request_evidence() -> PullRequestEvidence | None:
+def _current_pull_request_evidence() -> PullRequestEvidenceResult:
+    facts: dict[str, bool | int] = {}
     if os.environ.get("GITHUB_ACTIONS") != "true":
-        return None
+        return _pull_request_evidence_result(
+            "NOT_AVAILABLE", "NOT_GITHUB_ACTIONS", {"github_actions": False}
+        )
+    facts["github_actions"] = True
     if os.environ.get("GITHUB_EVENT_NAME") != "pull_request":
-        return None
+        return _pull_request_evidence_result("NOT_AVAILABLE", "EVENT_NOT_PULL_REQUEST", facts)
+    facts["pull_request_event"] = True
     if os.environ.get("GITHUB_REPOSITORY") != GITHUB_REPOSITORY_FULL_NAME:
-        return None
-    event_path = Path(os.environ.get("GITHUB_EVENT_PATH", ""))
-    if event_path.is_symlink() or not event_path.is_file() or event_path.stat().st_size > 1_048_576:
-        return None
+        return _pull_request_evidence_result("INVALID", "REPOSITORY_MISMATCH", facts)
+    facts["environment_repository_matches"] = True
+    event_path_value = os.environ.get("GITHUB_EVENT_PATH", "")
+    if not event_path_value:
+        return _pull_request_evidence_result("NOT_AVAILABLE", "EVENT_PATH_NOT_AVAILABLE", facts)
+    event_path = Path(event_path_value)
+    try:
+        event_stat = event_path.lstat()
+    except OSError:
+        return _pull_request_evidence_result("NOT_AVAILABLE", "EVENT_PATH_NOT_AVAILABLE", facts)
+    if event_path.is_symlink() or not event_path.is_file():
+        return _pull_request_evidence_result("INVALID", "EVENT_PATH_NOT_AVAILABLE", facts)
+    facts["event_path_regular"] = True
+    if event_stat.st_size > 1_048_576:
+        return _pull_request_evidence_result("INVALID", "LIMIT_EXCEEDED", facts)
+    facts["event_size_within_limit"] = True
     try:
         event = json.loads(event_path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, UnicodeError):
+        return _pull_request_evidence_result("INVALID", "EVENT_JSON_INVALID", facts)
+    except OSError:
+        return _pull_request_evidence_result("NOT_AVAILABLE", "EVENT_PATH_NOT_AVAILABLE", facts)
+    try:
+        if not isinstance(event, dict):
+            raise TypeError
         pull = event["pull_request"]
         repository = event["repository"]
+        if not isinstance(pull, dict) or not isinstance(repository, dict):
+            raise TypeError
         pr_number = int(event["number"])
         base_ref = str(pull["base"]["ref"])
         base_sha = str(pull["base"]["sha"])
@@ -594,23 +713,81 @@ def _current_pull_request_evidence() -> PullRequestEvidence | None:
         repository_id = int(repository["id"])
         repository_full_name = str(repository["full_name"])
         event_author_actor_id = int(pull["user"]["id"])
-    except (KeyError, TypeError, ValueError, json.JSONDecodeError, OSError, UnicodeError):
-        return None
+    except (KeyError, TypeError, ValueError):
+        return _pull_request_evidence_result("INVALID", "EVENT_FIELDS_INCOMPLETE", facts)
+    if not all(re.fullmatch(r"[0-9a-f]{40}", item) for item in (base_sha, head_sha, merge_sha)):
+        return _pull_request_evidence_result("INVALID", "EVENT_FIELDS_INCOMPLETE", facts)
+    facts["event_fields_complete"] = True
+    if repository_full_name != GITHUB_REPOSITORY_FULL_NAME or repository_id != GITHUB_REPOSITORY_ID:
+        return _pull_request_evidence_result("INVALID", "REPOSITORY_MISMATCH", facts)
+    facts["event_repository_matches"] = True
+    if pr_number != PR2_NUMBER:
+        return _pull_request_evidence_result("INVALID", "PR_NUMBER_MISMATCH", facts)
+    facts["pr_number_matches"] = True
+    if base_ref != "main" or os.environ.get("GITHUB_BASE_REF") != base_ref:
+        return _pull_request_evidence_result("INVALID", "BASE_REF_MISMATCH", facts)
+    facts["base_ref_matches"] = True
+    if base_sha != PR2_BASE_SHA:
+        return _pull_request_evidence_result("INVALID", "BASE_SHA_MISMATCH", facts)
+    facts["base_sha_matches"] = True
+    if head_ref != PR2_HEAD_REF or os.environ.get("GITHUB_HEAD_REF") != head_ref:
+        return _pull_request_evidence_result("INVALID", "HEAD_REF_MISMATCH", facts)
+    facts["head_ref_matches"] = True
     merge_ref = os.environ.get("GITHUB_REF", "")
     if merge_ref != f"refs/pull/{pr_number}/merge":
-        return None
+        return _pull_request_evidence_result("INVALID", "REF_SCOPE_MISMATCH", facts)
+    facts["environment_ref_matches"] = True
     if os.environ.get("GITHUB_SHA") != merge_sha:
-        return None
-    pr_api = _github_json(
+        return _pull_request_evidence_result("INVALID", "CHECKOUT_SHA_MISMATCH", facts)
+    facts["environment_sha_matches"] = True
+    try:
+        _git("cat-file", "-e", f"{merge_sha}^{{commit}}")
+        local_head = _git("rev-parse", "HEAD").decode("ascii").strip()
+        local_parents = tuple(
+            _git("show", "-s", "--format=%P", merge_sha).decode("ascii").strip().split()
+        )
+    except (OSError, UnicodeError, subprocess.CalledProcessError):
+        return _pull_request_evidence_result("INVALID", "GIT_OBJECT_NOT_AVAILABLE", facts)
+    facts["git_object_available"] = True
+    if local_head != merge_sha:
+        return _pull_request_evidence_result("INVALID", "CHECKOUT_SHA_MISMATCH", facts)
+    facts["detached_head_matches"] = True
+    facts["parent_count"] = len(local_parents)
+    if len(local_parents) != 2:
+        return _pull_request_evidence_result("INVALID", "PARENT_COUNT_INVALID", facts)
+    if local_parents != (base_sha, head_sha):
+        return _pull_request_evidence_result("INVALID", "PARENT_ORDER_MISMATCH", facts)
+    facts["parent_order_matches"] = True
+    try:
+        local_ref_matches = _local_merge_ref_matches(pr_number, merge_sha)
+    except (OSError, UnicodeError, subprocess.CalledProcessError):
+        return _pull_request_evidence_result("INDETERMINATE", "INTERNAL_VALIDATION_ERROR", facts)
+    if not local_ref_matches:
+        return _pull_request_evidence_result("INVALID", "REF_SCOPE_MISMATCH", facts)
+    facts["local_merge_ref_matches"] = True
+    signature_key_ids = _commit_signature_key_ids(merge_sha)
+    if signature_key_ids != (GITHUB_WEB_FLOW_SIGNING_KEY_ID,):
+        return _pull_request_evidence_result("INVALID", "SIGNER_MISMATCH", facts)
+    facts["local_signer_matches"] = True
+
+    pr_api_result = _github_json(
         f"https://api.github.com/repos/{GITHUB_REPOSITORY_FULL_NAME}/pulls/{pr_number}"
     )
-    commit_api = _github_json(
+    facts["pr_metadata_available"] = pr_api_result.available
+    facts["pr_metadata_status_code"] = pr_api_result.status_code
+    if not pr_api_result.available or pr_api_result.payload is None:
+        return _pull_request_evidence_result("INDETERMINATE", "PR_METADATA_NOT_AVAILABLE", facts)
+    commit_api_result = _github_json(
         f"https://api.github.com/repos/{GITHUB_REPOSITORY_FULL_NAME}/commits/{merge_sha}"
     )
-    if pr_api is None or commit_api is None:
-        return None
+    facts["actor_evidence_available"] = commit_api_result.available
+    facts["actor_evidence_status_code"] = commit_api_result.status_code
+    if not commit_api_result.available or commit_api_result.payload is None:
+        return _pull_request_evidence_result("INDETERMINATE", "ACTOR_EVIDENCE_NOT_AVAILABLE", facts)
+    pr_api = pr_api_result.payload
+    commit_api = commit_api_result.payload
     try:
-        parents = tuple(item["sha"] for item in commit_api["parents"])
+        api_parents = tuple(item["sha"] for item in commit_api["parents"])
         author_actor_id = int(commit_api["author"]["id"])
         committer_actor_id = int(commit_api["committer"]["id"])
         signature_verified = bool(commit_api["commit"]["verification"]["verified"])
@@ -624,42 +801,36 @@ def _current_pull_request_evidence() -> PullRequestEvidence | None:
         pr_merge_sha = str(pr_api["merge_commit_sha"])
         api_commit_sha = str(commit_api["sha"])
     except (KeyError, TypeError, ValueError):
-        return None
-    local_merge_refs = (
-        f"refs/pull/{pr_number}/merge",
-        f"refs/remotes/pull/{pr_number}/merge",
-    )
-    local_ref_matches = any(
-        _git("rev-parse", "--verify", refname).decode("ascii").strip() == merge_sha
-        for refname in local_merge_refs
-        if subprocess.run(
-            ["git", "show-ref", "--verify", "--quiet", refname], cwd=ROOT, check=False
-        ).returncode
-        == 0
-    )
-    local_head = _git("rev-parse", "HEAD").decode("ascii").strip()
-    signature_key_ids = _commit_signature_key_ids(merge_sha)
-    valid = bool(
-        repository_full_name == GITHUB_REPOSITORY_FULL_NAME
-        and repository_id == GITHUB_REPOSITORY_ID
-        and pr_repository_id == GITHUB_REPOSITORY_ID
-        and pr_number == PR2_NUMBER
-        and base_ref == pr_base_ref == "main"
-        and base_sha == pr_base_sha == PR2_BASE_SHA
-        and head_ref == pr_head_ref == PR2_HEAD_REF
-        and head_sha == pr_head_sha
-        and merge_sha == pr_merge_sha == api_commit_sha
-        and parents == (base_sha, head_sha)
-        and local_head == merge_sha
-        and local_ref_matches
-        and event_author_actor_id == pr_author_actor_id == author_actor_id
-        and committer_actor_id == GITHUB_WEB_FLOW_ACTOR_ID
-        and signature_verified
-        and signature_reason == "valid"
-        and signature_key_ids == (GITHUB_WEB_FLOW_SIGNING_KEY_ID,)
-    )
-    return PullRequestEvidence(
-        valid=valid,
+        return _pull_request_evidence_result("INDETERMINATE", "ACTOR_EVIDENCE_NOT_AVAILABLE", facts)
+    if pr_repository_id != GITHUB_REPOSITORY_ID:
+        return _pull_request_evidence_result("INVALID", "REPOSITORY_MISMATCH", facts)
+    if pr_base_ref != base_ref:
+        return _pull_request_evidence_result("INVALID", "BASE_REF_MISMATCH", facts)
+    if pr_base_sha != base_sha:
+        return _pull_request_evidence_result("INVALID", "BASE_SHA_MISMATCH", facts)
+    if pr_head_ref != head_ref:
+        return _pull_request_evidence_result("INVALID", "HEAD_REF_MISMATCH", facts)
+    if pr_head_sha != head_sha:
+        return _pull_request_evidence_result("INVALID", "HEAD_SHA_MISMATCH", facts)
+    if pr_merge_sha != merge_sha or api_commit_sha != merge_sha:
+        return _pull_request_evidence_result("INVALID", "MERGE_SHA_MISMATCH", facts)
+    if len(api_parents) != 2:
+        facts["api_parent_count"] = len(api_parents)
+        return _pull_request_evidence_result("INVALID", "PARENT_COUNT_INVALID", facts)
+    if api_parents != local_parents:
+        return _pull_request_evidence_result("INVALID", "PARENT_ORDER_MISMATCH", facts)
+    facts["api_parent_order_matches"] = True
+    if event_author_actor_id != pr_author_actor_id or pr_author_actor_id != author_actor_id:
+        return _pull_request_evidence_result("INVALID", "SIGNER_MISMATCH", facts)
+    facts["author_actor_matches"] = True
+    if committer_actor_id != GITHUB_WEB_FLOW_ACTOR_ID:
+        return _pull_request_evidence_result("INVALID", "SIGNER_MISMATCH", facts)
+    facts["committer_actor_matches"] = True
+    if not signature_verified or signature_reason != "valid":
+        return _pull_request_evidence_result("INVALID", "SIGNATURE_NOT_VERIFIED", facts)
+    facts["signature_verified"] = True
+    evidence = PullRequestEvidence(
+        valid=True,
         repository_full_name=repository_full_name,
         repository_id=repository_id,
         pr_number=pr_number,
@@ -669,14 +840,15 @@ def _current_pull_request_evidence() -> PullRequestEvidence | None:
         head_sha=head_sha,
         merge_sha=merge_sha,
         merge_ref=merge_ref,
-        parents=parents,
+        parents=local_parents,
         author_actor_id=author_actor_id,
         committer_actor_id=committer_actor_id,
         signature_verified=signature_verified,
         signature_reason=signature_reason,
         signature_key_ids=signature_key_ids,
-        evidence_sources=tuple(sorted(REQUIRED_PULL_REQUEST_PROVENANCE)) if valid else (),
+        evidence_sources=tuple(sorted(REQUIRED_PULL_REQUEST_PROVENANCE)),
     )
+    return _pull_request_evidence_result("AVAILABLE", "AVAILABLE", facts, evidence=evidence)
 
 
 def _platform_policy_is_valid(policy: PlatformIdentityPolicy) -> bool:
@@ -949,11 +1121,12 @@ def _history_inventory() -> list[Check]:
     commits = _git("rev-list", "--all", "--count").decode().strip()
     tags = _git("tag", "--list").decode().splitlines()
     observations = _history_identity_observations()
+    pull_request_evidence = _current_pull_request_evidence()
     return [
         Check("reachable_history", int(commits) >= 36, f"commits={commits}"),
         Check("historical_tags", len(tags) == 9, f"tags={len(tags)}"),
         _identity_classification_check(
-            observations, pull_request_evidence=_current_pull_request_evidence()
+            observations, pull_request_evidence=pull_request_evidence.evidence
         ),
     ]
 
@@ -1212,7 +1385,8 @@ def main() -> int:
     args = parser.parse_args()
     checks = audit()
     passed = all(check.passed for check in checks)
-    pull_request_evidence = _current_pull_request_evidence()
+    pull_request_evidence_result = _current_pull_request_evidence()
+    pull_request_evidence = pull_request_evidence_result.evidence
     identity_records = _identity_report_records(
         _history_identity_observations(), pull_request_evidence=pull_request_evidence
     )
@@ -1301,28 +1475,33 @@ def main() -> int:
             "identity_fingerprint_domain": "omiv.identity.v1",
             "identity_records": identity_records,
             "identity_taxonomy": list(IDENTITY_CATEGORIES),
-            "pull_request_evidence": (
-                None
-                if pull_request_evidence is None
-                else {
-                    "author_actor_id": pull_request_evidence.author_actor_id,
-                    "base_ref": pull_request_evidence.base_ref,
-                    "base_sha": pull_request_evidence.base_sha,
-                    "committer_actor_id": pull_request_evidence.committer_actor_id,
-                    "evidence_sources": list(pull_request_evidence.evidence_sources),
-                    "head_ref": pull_request_evidence.head_ref,
-                    "head_sha": pull_request_evidence.head_sha,
-                    "merge_sha": pull_request_evidence.merge_sha,
-                    "parents": list(pull_request_evidence.parents),
-                    "pr_number": pull_request_evidence.pr_number,
-                    "repository_full_name": pull_request_evidence.repository_full_name,
-                    "repository_id": pull_request_evidence.repository_id,
-                    "signature_key_ids": list(pull_request_evidence.signature_key_ids),
-                    "signature_reason": pull_request_evidence.signature_reason,
-                    "signature_verified": pull_request_evidence.signature_verified,
-                    "valid": pull_request_evidence.valid,
-                }
-            ),
+            "pull_request_evidence": {
+                "status": pull_request_evidence_result.status,
+                "reason_code": pull_request_evidence_result.reason_code,
+                "safe_facts": pull_request_evidence_result.safe_facts,
+                "evidence": (
+                    None
+                    if pull_request_evidence is None
+                    else {
+                        "author_actor_id": pull_request_evidence.author_actor_id,
+                        "base_ref": pull_request_evidence.base_ref,
+                        "base_sha": pull_request_evidence.base_sha,
+                        "committer_actor_id": pull_request_evidence.committer_actor_id,
+                        "evidence_sources": list(pull_request_evidence.evidence_sources),
+                        "head_ref": pull_request_evidence.head_ref,
+                        "head_sha": pull_request_evidence.head_sha,
+                        "merge_sha": pull_request_evidence.merge_sha,
+                        "parents": list(pull_request_evidence.parents),
+                        "pr_number": pull_request_evidence.pr_number,
+                        "repository_full_name": pull_request_evidence.repository_full_name,
+                        "repository_id": pull_request_evidence.repository_id,
+                        "signature_key_ids": list(pull_request_evidence.signature_key_ids),
+                        "signature_reason": pull_request_evidence.signature_reason,
+                        "signature_verified": pull_request_evidence.signature_verified,
+                        "valid": pull_request_evidence.valid,
+                    }
+                ),
+            },
             "reviewed_platform_service_policies": reviewed_platform_policies,
             "sensitive_values_serialized": 0,
         },
