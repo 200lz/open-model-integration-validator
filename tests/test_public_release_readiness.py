@@ -51,7 +51,7 @@ def _approved_human(namespace: dict[str, object]) -> object:
 def _reviewed_platform_fixture(namespace: dict[str, object]) -> tuple[list[object], object]:
     occurrence_type = namespace["IdentityOccurrence"]
     evidence_type = namespace["PullRequestEvidence"]
-    policies = namespace["VERIFIED_PLATFORM_SERVICE_POLICIES"]
+    policies = namespace["VERIFIED_PLATFORM_IDENTITY_POLICIES"]
     base_sha = namespace["PR2_BASE_SHA"]
     head_sha = "1" * 40
     merge_sha = "2" * 40
@@ -145,6 +145,61 @@ def _dynamic_observation(namespace: dict[str, object], role: str) -> tuple[objec
         occurrences=(occurrence,),
     )
     return observation, occurrence, evidence
+
+
+def _signed_squash_fixture(
+    namespace: dict[str, object],
+    *,
+    commit_sha: str = "6" * 40,
+    tree_sha: str = "7" * 40,
+    parent_sha: str = "8" * 40,
+    ref_classifications: tuple[str, ...] = ("LOCAL_MAIN", "REMOTE_MAIN"),
+) -> tuple[list[object], tuple[object, ...]]:
+    occurrence_type = namespace["IdentityOccurrence"]
+    evidence_type = namespace["GithubSignedSquashCommitIdentityEvidence"]
+    signer = namespace["GITHUB_WEB_FLOW_SIGNING_KEY_ID"]
+    author_fingerprint = namespace["GITHUB_SQUASH_AUTHOR_FINGERPRINT"]
+    committer_fingerprint = namespace["GITHUB_SQUASH_COMMITTER_FINGERPRINT"]
+    refnames = ("refs/heads/main", "refs/remotes/origin/main")
+    evidence = evidence_type(  # type: ignore[operator]
+        valid=True,
+        repository_full_name=namespace["GITHUB_REPOSITORY_FULL_NAME"],
+        commit_sha=commit_sha,
+        tree_sha=tree_sha,
+        parents=(parent_sha,),
+        pr_number=17,
+        author_fingerprint=author_fingerprint,
+        committer_fingerprint=committer_fingerprint,
+        signature_key_id=signer,
+        signer_fingerprint=namespace["GITHUB_WEB_FLOW_SIGNING_KEY_FINGERPRINT"],
+        authoritative_ref_classifications=ref_classifications,
+        observed_git_identity=True,
+        reviewed_github_actor_association=True,
+        live_actor_observation_supplied=False,
+    )
+    observations = []
+    for fingerprint, role in (
+        (author_fingerprint, "AUTHOR"),
+        (committer_fingerprint, "COMMITTER"),
+    ):
+        occurrence = occurrence_type(  # type: ignore[operator]
+            object_sha=commit_sha,
+            role=role,
+            refnames=refnames,
+            ref_classifications=ref_classifications,
+            parents=(parent_sha,),
+            signature_key_ids=(signer,),
+        )
+        observations.append(
+            _observation(
+                namespace,
+                fingerprint,
+                roles=(role,),
+                refs=ref_classifications,
+                occurrences=(occurrence,),
+            )
+        )
+    return observations, (evidence,)
 
 
 def _valid_pull_request_event(namespace: dict[str, object]) -> dict[str, Any]:
@@ -855,7 +910,7 @@ def test_reviewed_web_flow_committer_requires_full_provenance() -> None:
         namespace["_classify_identity"](observation, pull_request_evidence=evidence)
         == "VERIFIED_PLATFORM_SERVICE_IDENTITY"
     )
-    policies = dict(namespace["VERIFIED_PLATFORM_SERVICE_POLICIES"])
+    policies = dict(namespace["VERIFIED_PLATFORM_IDENTITY_POLICIES"])
     policies[observation.fingerprint] = replace(
         policies[observation.fingerprint], evidence_sources=()
     )
@@ -871,9 +926,13 @@ def test_exact_pr_synthetic_merge_author_and_committer_pass() -> None:
     namespace = _audit_namespace()
     for role in ("AUTHOR", "COMMITTER"):
         observation, _, evidence = _dynamic_observation(namespace, role)
+        expected = (
+            "VERIFIED_PLATFORM_MEDIATED_ACCOUNT_IDENTITY"
+            if role == "AUTHOR"
+            else "VERIFIED_PLATFORM_SERVICE_IDENTITY"
+        )
         assert (
-            namespace["_classify_identity"](observation, pull_request_evidence=evidence)
-            == "VERIFIED_PLATFORM_SERVICE_IDENTITY"
+            namespace["_classify_identity"](observation, pull_request_evidence=evidence) == expected
         )
 
 
@@ -1087,11 +1146,175 @@ def test_platform_service_has_no_release_or_publisher_authority() -> None:
     namespace = _audit_namespace()
     services, evidence = _reviewed_platform_fixture(namespace)
     records = namespace["_identity_report_records"](services, pull_request_evidence=evidence)
-    assert all(record["category"] == "VERIFIED_PLATFORM_SERVICE_IDENTITY" for record in records)
+    assert {record["category"] for record in records} == {
+        "VERIFIED_PLATFORM_MEDIATED_ACCOUNT_IDENTITY",
+        "VERIFIED_PLATFORM_SERVICE_IDENTITY",
+    }
     assert all(
         record["authority_limit"] == "NO_OWNER_PUBLISHER_MAINTAINER_RELEASE_OR_REPOSITORY_AUTHORITY"
         for record in records
     )
+
+
+def test_signed_main_squash_identity_pair_passes_and_is_forward_safe() -> None:
+    namespace = _audit_namespace()
+    for commit_sha, tree_sha in (("6" * 40, "7" * 40), ("9" * 40, "a" * 40)):
+        observations, evidence = _signed_squash_fixture(
+            namespace, commit_sha=commit_sha, tree_sha=tree_sha
+        )
+        categories = [
+            namespace["_classify_identity"](item, signed_squash_evidence=evidence)
+            for item in observations
+        ]
+        assert categories == [
+            "VERIFIED_PLATFORM_MEDIATED_ACCOUNT_IDENTITY",
+            "VERIFIED_PLATFORM_SERVICE_IDENTITY",
+        ]
+        assert namespace["_identity_classification_check"](
+            [_approved_human(namespace), *observations],
+            signed_squash_evidence=evidence,
+        ).passed
+    source = (ROOT / "tools/audit_public_release_readiness.py").read_text(encoding="utf-8")
+    assert "bd53015609b7c3a08e106e0f5600dcd6c4fabc01" not in source
+
+
+def test_signed_squash_roles_categories_and_authority_are_distinct() -> None:
+    namespace = _audit_namespace()
+    observations, evidence = _signed_squash_fixture(namespace)
+    records = namespace["_identity_report_records"](observations, signed_squash_evidence=evidence)
+    by_role = {record["roles"][0]: record for record in records}
+    assert by_role["AUTHOR"]["category"] == "VERIFIED_PLATFORM_MEDIATED_ACCOUNT_IDENTITY"
+    assert by_role["COMMITTER"]["category"] == "VERIFIED_PLATFORM_SERVICE_IDENTITY"
+    assert all(
+        record["authority_limit"] == namespace["NO_PLATFORM_AUTHORITY"] for record in records
+    )
+
+
+def test_signed_squash_evidence_fails_closed_on_evidence_tampering() -> None:
+    namespace = _audit_namespace()
+    observations, evidence = _signed_squash_fixture(namespace)
+    original = evidence[0]
+    mutations = (
+        {"valid": False},
+        {"repository_full_name": "example/unrelated"},
+        {"author_fingerprint": "1" * 64},
+        {"committer_fingerprint": "2" * 64},
+        {"signature_key_id": "DEADBEEFDEADBEEF"},
+        {"signer_fingerprint": "3" * 40},
+        {"authoritative_ref_classifications": ("REMOTE_OTHER_BRANCH",)},
+        {"observed_git_identity": False},
+        {"reviewed_github_actor_association": False},
+        {"live_actor_observation_supplied": True},
+        {"parents": ("8" * 40, "9" * 40)},
+    )
+    for changes in mutations:
+        tampered = (replace(original, **changes),)
+        categories = [
+            namespace["_classify_identity"](item, signed_squash_evidence=tampered)
+            for item in observations
+        ]
+        assert "UNVERIFIED_PLATFORM_SERVICE_CLAIM" in categories
+
+
+def test_signed_squash_occurrence_fails_closed_on_role_scope_and_signature() -> None:
+    namespace = _audit_namespace()
+    observations, evidence = _signed_squash_fixture(namespace)
+    author = observations[0]
+    occurrence = author.occurrences[0]
+    mutations = (
+        replace(occurrence, role="COMMITTER"),
+        replace(occurrence, parents=("8" * 40, "9" * 40)),
+        replace(occurrence, signature_key_ids=("DEADBEEFDEADBEEF",)),
+        replace(
+            occurrence,
+            refnames=("refs/remotes/origin/unrelated",),
+            ref_classifications=("REMOTE_OTHER_BRANCH",),
+        ),
+    )
+    for changed in mutations:
+        tampered = replace(
+            author,
+            roles=(changed.role,),
+            occurrences=(changed,),
+            reachable_ref_classifications=changed.ref_classifications,
+        )
+        assert (
+            namespace["_classify_identity"](tampered, signed_squash_evidence=evidence)
+            == "UNVERIFIED_PLATFORM_SERVICE_CLAIM"
+        )
+
+
+def _valid_protected_squash_observation(namespace: dict[str, object]) -> dict[str, Any]:
+    checks = {
+        f"Python 3.{minor}": {"conclusion": "success", "app_id": 15368} for minor in range(11, 15)
+    }
+    return {
+        "repository_full_name": namespace["GITHUB_REPOSITORY_FULL_NAME"],
+        "pr_number": 17,
+        "pr_state": "MERGED",
+        "merged": True,
+        "base_ref": "main",
+        "base_sha": "1" * 40,
+        "head_sha": "2" * 40,
+        "head_tree": "3" * 40,
+        "result_sha": "4" * 40,
+        "associated_result_sha": "4" * 40,
+        "result_parent": "1" * 40,
+        "result_tree": "3" * 40,
+        "merge_method": "squash",
+        "author_actor_id": namespace["GITHUB_OWNER_ACTOR_ID"],
+        "author_role": "AUTHOR",
+        "committer_actor_id": namespace["GITHUB_WEB_FLOW_ACTOR_ID"],
+        "committer_role": "COMMITTER",
+        "signature_verified": True,
+        "signature_reason": "valid",
+        "signature_key_id": namespace["GITHUB_WEB_FLOW_SIGNING_KEY_ID"],
+        "required_checks": checks,
+        "branch_protection": {"strict": True, "required_checks": sorted(checks)},
+        "observed_at": "2026-08-11T00:00:00Z",
+    }
+
+
+def test_protected_squash_merge_evidence_is_separate_and_fail_closed() -> None:
+    namespace = _audit_namespace()
+    builder = namespace["_protected_pull_request_squash_merge_evidence"]
+    assert builder().status == "NOT_SUPPLIED"
+    valid = _valid_protected_squash_observation(namespace)
+    assert builder(valid).status == "AVAILABLE"
+    mutations = (
+        {"repository_full_name": "example/unrelated"},
+        {"pr_state": "OPEN"},
+        {"associated_result_sha": "5" * 40},
+        {"head_tree": "5" * 40},
+        {"result_parent": "6" * 40},
+        {"merge_method": "merge"},
+        {"author_actor_id": 1},
+        {"author_role": "COMMITTER"},
+        {"committer_actor_id": 2},
+        {"committer_role": "AUTHOR"},
+        {"signature_verified": False},
+        {"signature_key_id": "DEADBEEFDEADBEEF"},
+    )
+    for changes in mutations:
+        assert builder({**valid, **changes}).status == "INVALID"
+    failed_checks = dict(valid["required_checks"])
+    failed_checks["Python 3.11"] = {"conclusion": "failure", "app_id": 15368}
+    assert builder({**valid, "required_checks": failed_checks}).status == "INVALID"
+    changed_protection = dict(valid["branch_protection"])
+    changed_protection["strict"] = False
+    assert builder({**valid, "branch_protection": changed_protection}).status == "INVALID"
+
+
+def test_real_authoritative_main_squash_evidence_is_offline_and_redacted() -> None:
+    namespace = _audit_namespace()
+    result = namespace["_github_signed_squash_commit_identity_evidence"]()
+    assert result.status == "AVAILABLE"
+    assert len(result.evidence) >= 1
+    assert all(item.live_actor_observation_supplied is False for item in result.evidence)
+    serialized = json.dumps(asdict(result), sort_keys=True)
+    assert "@" not in serialized
+    assert "/home/" not in serialized
+    assert "/tmp/" not in serialized
 
 
 def test_existing_main_and_annotated_tag_privacy_behavior_is_unchanged() -> None:
@@ -1164,7 +1387,10 @@ def test_exact_ci_identity_topology_is_valid_and_fully_visible() -> None:
     assert [record["category"] for record in records].count("OWNER_APPROVED_HUMAN_IDENTITY") == 1
     assert [record["category"] for record in records].count(
         "VERIFIED_PLATFORM_SERVICE_IDENTITY"
-    ) == 3
+    ) == 2
+    assert [record["category"] for record in records].count(
+        "VERIFIED_PLATFORM_MEDIATED_ACCOUNT_IDENTITY"
+    ) == 1
 
 
 def test_synthetic_identity_requires_explicit_test_fingerprint() -> None:
@@ -1189,6 +1415,7 @@ def test_identity_taxonomy_is_complete_and_deterministic() -> None:
         "UNVERIFIED_PLATFORM_SERVICE_CLAIM",
         "UNKNOWN_AUTOMATION_IDENTITY",
         "UNKNOWN_HUMAN_IDENTITY",
+        "VERIFIED_PLATFORM_MEDIATED_ACCOUNT_IDENTITY",
         "VERIFIED_PLATFORM_SERVICE_IDENTITY",
     )
     services, evidence = _reviewed_platform_fixture(namespace)
