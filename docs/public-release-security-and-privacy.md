@@ -55,13 +55,23 @@ documentation for
 and the documented
 [web commit-signing service account](https://docs.github.com/en/enterprise-server@3.21/admin/configuring-settings/configuring-user-applications-for-your-enterprise/configuring-web-commit-signing).
 Those reviewed API and documentation facts are provenance for the exact fingerprints.
-For a GitHub Actions PR merge, the audit additionally requires an exact binding among
-repository, PR number, base, head, merge commit, ordered parents, hidden merge ref,
-REST actors, verified-valid signature, signer key ID, role, and purpose. It performs
-bounded unauthenticated read-only REST requests only for that public PR provenance and
-fails closed if the API is unavailable or any field differs. It does not infer trust
-from a `[bot]` suffix, a noreply address, a branch name, a generic verified signature,
-or a login-like string, and it never accepts `REMOTE_OTHER_BRANCH` globally.
+For an ordinary GitHub Actions `pull_request` run, GitHub documents `GITHUB_REF` as
+`refs/pull/<number>/merge` and `GITHUB_SHA` as the last merge commit on that ref in
+[Events that trigger workflows](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows).
+The audit therefore treats `GITHUB_SHA` as the current checkout identity only after
+binding it to the expected hidden merge ref, detached local `HEAD`, an available commit
+object, and exactly two ordered parents matching the event base and head. GitHub's
+[pull-request REST documentation](https://docs.github.com/en/rest/pulls/pulls) separately
+describes `merge_commit_sha` as a test merge that GitHub creates while computing
+mergeability. An event or API test-merge SHA may consequently differ from the current
+Actions checkout. The audit records that exact discrepancy without calling it equality,
+continuity, or historical identity, and accepts it only after every stronger checkout,
+repository, PR, ref, parent, actor, role, signature, signer, and scope invariant verifies.
+All other current-checkout or provenance mismatches remain fail-closed. The bounded REST
+checks still establish public PR association, actors, and verified-valid signature
+provenance; a differing test-merge SHA establishes none of those facts. It does not
+infer trust from a `[bot]` suffix, a noreply address, a branch name, a generic verified
+signature, or a login-like string, and it never accepts `REMOTE_OTHER_BRANCH` globally.
 
 PR-evidence construction reports a typed status (`AVAILABLE`, `NOT_AVAILABLE`,
 `INVALID`, or `INDETERMINATE`), a stable reason code, and bounded boolean/count facts.

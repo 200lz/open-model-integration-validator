@@ -44,6 +44,11 @@ PULL_REQUEST_EVIDENCE_STATUSES = (
     "INVALID",
     "NOT_AVAILABLE",
 )
+PULL_REQUEST_MERGE_DISCREPANCIES = (
+    "EVENT_TEST_MERGE_SHA_DIFFERS_FROM_CURRENT_CHECKOUT",
+    "MATCHES_CURRENT_CHECKOUT",
+    "NOT_EVALUATED",
+)
 PULL_REQUEST_EVIDENCE_REASON_CODES = (
     "ACTOR_EVIDENCE_NOT_AVAILABLE",
     "AVAILABLE",
@@ -247,6 +252,7 @@ class PullRequestEvidence:
 class PullRequestEvidenceResult:
     status: str
     reason_code: str
+    merge_discrepancy: str
     safe_facts: dict[str, bool | int]
     evidence: PullRequestEvidence | None = None
 
@@ -631,18 +637,24 @@ def _pull_request_evidence_result(
     reason_code: str,
     safe_facts: dict[str, bool | int],
     evidence: PullRequestEvidence | None = None,
+    merge_discrepancy: str = "NOT_EVALUATED",
 ) -> PullRequestEvidenceResult:
     if status not in PULL_REQUEST_EVIDENCE_STATUSES:
         raise ValueError("invalid pull-request evidence status")
     if reason_code not in PULL_REQUEST_EVIDENCE_REASON_CODES:
         raise ValueError("invalid pull-request evidence reason code")
+    if merge_discrepancy not in PULL_REQUEST_MERGE_DISCREPANCIES:
+        raise ValueError("invalid pull-request merge discrepancy")
     if any(not isinstance(value, (bool, int)) for value in safe_facts.values()):
         raise ValueError("pull-request evidence safe facts must be booleans or integers")
     if (status == "AVAILABLE") != (evidence is not None):
         raise ValueError("pull-request evidence availability mismatch")
+    if (status == "AVAILABLE") != (merge_discrepancy != "NOT_EVALUATED"):
+        raise ValueError("pull-request merge discrepancy availability mismatch")
     return PullRequestEvidenceResult(
         status=status,
         reason_code=reason_code,
+        merge_discrepancy=merge_discrepancy,
         safe_facts=dict(sorted(safe_facts.items())),
         evidence=evidence,
     )
@@ -709,13 +721,15 @@ def _current_pull_request_evidence() -> PullRequestEvidenceResult:
         base_sha = str(pull["base"]["sha"])
         head_ref = str(pull["head"]["ref"])
         head_sha = str(pull["head"]["sha"])
-        merge_sha = str(pull["merge_commit_sha"])
+        event_merge_sha = str(pull["merge_commit_sha"])
         repository_id = int(repository["id"])
         repository_full_name = str(repository["full_name"])
         event_author_actor_id = int(pull["user"]["id"])
     except (KeyError, TypeError, ValueError):
         return _pull_request_evidence_result("INVALID", "EVENT_FIELDS_INCOMPLETE", facts)
-    if not all(re.fullmatch(r"[0-9a-f]{40}", item) for item in (base_sha, head_sha, merge_sha)):
+    if not all(
+        re.fullmatch(r"[0-9a-f]{40}", item) for item in (base_sha, head_sha, event_merge_sha)
+    ):
         return _pull_request_evidence_result("INVALID", "EVENT_FIELDS_INCOMPLETE", facts)
     facts["event_fields_complete"] = True
     if repository_full_name != GITHUB_REPOSITORY_FULL_NAME or repository_id != GITHUB_REPOSITORY_ID:
@@ -734,38 +748,44 @@ def _current_pull_request_evidence() -> PullRequestEvidenceResult:
         return _pull_request_evidence_result("INVALID", "HEAD_REF_MISMATCH", facts)
     facts["head_ref_matches"] = True
     merge_ref = os.environ.get("GITHUB_REF", "")
-    if merge_ref != f"refs/pull/{pr_number}/merge":
+    merge_ref_match = re.fullmatch(r"refs/pull/([1-9][0-9]*)/merge", merge_ref)
+    if merge_ref_match is None:
         return _pull_request_evidence_result("INVALID", "REF_SCOPE_MISMATCH", facts)
+    if int(merge_ref_match.group(1)) != pr_number:
+        return _pull_request_evidence_result("INVALID", "PR_NUMBER_MISMATCH", facts)
     facts["environment_ref_matches"] = True
-    if os.environ.get("GITHUB_SHA") != merge_sha:
+    checkout_sha = os.environ.get("GITHUB_SHA", "")
+    if re.fullmatch(r"[0-9a-f]{40}", checkout_sha) is None:
         return _pull_request_evidence_result("INVALID", "CHECKOUT_SHA_MISMATCH", facts)
-    facts["environment_sha_matches"] = True
+    facts["environment_sha_valid"] = True
     try:
-        _git("cat-file", "-e", f"{merge_sha}^{{commit}}")
+        _git("cat-file", "-e", f"{checkout_sha}^{{commit}}")
         local_head = _git("rev-parse", "HEAD").decode("ascii").strip()
         local_parents = tuple(
-            _git("show", "-s", "--format=%P", merge_sha).decode("ascii").strip().split()
+            _git("show", "-s", "--format=%P", checkout_sha).decode("ascii").strip().split()
         )
     except (OSError, UnicodeError, subprocess.CalledProcessError):
         return _pull_request_evidence_result("INVALID", "GIT_OBJECT_NOT_AVAILABLE", facts)
     facts["git_object_available"] = True
-    if local_head != merge_sha:
+    if local_head != checkout_sha:
         return _pull_request_evidence_result("INVALID", "CHECKOUT_SHA_MISMATCH", facts)
     facts["detached_head_matches"] = True
     facts["parent_count"] = len(local_parents)
     if len(local_parents) != 2:
         return _pull_request_evidence_result("INVALID", "PARENT_COUNT_INVALID", facts)
-    if local_parents != (base_sha, head_sha):
+    if local_parents == (head_sha, base_sha):
         return _pull_request_evidence_result("INVALID", "PARENT_ORDER_MISMATCH", facts)
+    if local_parents != (base_sha, head_sha):
+        return _pull_request_evidence_result("INVALID", "CHECKOUT_SHA_MISMATCH", facts)
     facts["parent_order_matches"] = True
     try:
-        local_ref_matches = _local_merge_ref_matches(pr_number, merge_sha)
+        local_ref_matches = _local_merge_ref_matches(pr_number, checkout_sha)
     except (OSError, UnicodeError, subprocess.CalledProcessError):
         return _pull_request_evidence_result("INDETERMINATE", "INTERNAL_VALIDATION_ERROR", facts)
     if not local_ref_matches:
         return _pull_request_evidence_result("INVALID", "REF_SCOPE_MISMATCH", facts)
     facts["local_merge_ref_matches"] = True
-    signature_key_ids = _commit_signature_key_ids(merge_sha)
+    signature_key_ids = _commit_signature_key_ids(checkout_sha)
     if signature_key_ids != (GITHUB_WEB_FLOW_SIGNING_KEY_ID,):
         return _pull_request_evidence_result("INVALID", "SIGNER_MISMATCH", facts)
     facts["local_signer_matches"] = True
@@ -778,7 +798,7 @@ def _current_pull_request_evidence() -> PullRequestEvidenceResult:
     if not pr_api_result.available or pr_api_result.payload is None:
         return _pull_request_evidence_result("INDETERMINATE", "PR_METADATA_NOT_AVAILABLE", facts)
     commit_api_result = _github_json(
-        f"https://api.github.com/repos/{GITHUB_REPOSITORY_FULL_NAME}/commits/{merge_sha}"
+        f"https://api.github.com/repos/{GITHUB_REPOSITORY_FULL_NAME}/commits/{checkout_sha}"
     )
     facts["actor_evidence_available"] = commit_api_result.available
     facts["actor_evidence_status_code"] = commit_api_result.status_code
@@ -792,6 +812,7 @@ def _current_pull_request_evidence() -> PullRequestEvidenceResult:
         committer_actor_id = int(commit_api["committer"]["id"])
         signature_verified = bool(commit_api["commit"]["verification"]["verified"])
         signature_reason = str(commit_api["commit"]["verification"]["reason"])
+        pr_api_number = int(pr_api["number"])
         pr_repository_id = int(pr_api["base"]["repo"]["id"])
         pr_author_actor_id = int(pr_api["user"]["id"])
         pr_base_ref = str(pr_api["base"]["ref"])
@@ -804,6 +825,8 @@ def _current_pull_request_evidence() -> PullRequestEvidenceResult:
         return _pull_request_evidence_result("INDETERMINATE", "ACTOR_EVIDENCE_NOT_AVAILABLE", facts)
     if pr_repository_id != GITHUB_REPOSITORY_ID:
         return _pull_request_evidence_result("INVALID", "REPOSITORY_MISMATCH", facts)
+    if pr_api_number != pr_number:
+        return _pull_request_evidence_result("INVALID", "PR_NUMBER_MISMATCH", facts)
     if pr_base_ref != base_ref:
         return _pull_request_evidence_result("INVALID", "BASE_REF_MISMATCH", facts)
     if pr_base_sha != base_sha:
@@ -812,7 +835,9 @@ def _current_pull_request_evidence() -> PullRequestEvidenceResult:
         return _pull_request_evidence_result("INVALID", "HEAD_REF_MISMATCH", facts)
     if pr_head_sha != head_sha:
         return _pull_request_evidence_result("INVALID", "HEAD_SHA_MISMATCH", facts)
-    if pr_merge_sha != merge_sha or api_commit_sha != merge_sha:
+    if re.fullmatch(r"[0-9a-f]{40}", pr_merge_sha) is None:
+        return _pull_request_evidence_result("INVALID", "MERGE_SHA_MISMATCH", facts)
+    if api_commit_sha != checkout_sha:
         return _pull_request_evidence_result("INVALID", "MERGE_SHA_MISMATCH", facts)
     if len(api_parents) != 2:
         facts["api_parent_count"] = len(api_parents)
@@ -829,6 +854,13 @@ def _current_pull_request_evidence() -> PullRequestEvidenceResult:
     if not signature_verified or signature_reason != "valid":
         return _pull_request_evidence_result("INVALID", "SIGNATURE_NOT_VERIFIED", facts)
     facts["signature_verified"] = True
+    facts["event_merge_matches_current_checkout"] = event_merge_sha == checkout_sha
+    facts["api_test_merge_matches_current_checkout"] = pr_merge_sha == checkout_sha
+    merge_discrepancy = (
+        "MATCHES_CURRENT_CHECKOUT"
+        if event_merge_sha == checkout_sha
+        else "EVENT_TEST_MERGE_SHA_DIFFERS_FROM_CURRENT_CHECKOUT"
+    )
     evidence = PullRequestEvidence(
         valid=True,
         repository_full_name=repository_full_name,
@@ -838,7 +870,7 @@ def _current_pull_request_evidence() -> PullRequestEvidenceResult:
         base_sha=base_sha,
         head_ref=head_ref,
         head_sha=head_sha,
-        merge_sha=merge_sha,
+        merge_sha=checkout_sha,
         merge_ref=merge_ref,
         parents=local_parents,
         author_actor_id=author_actor_id,
@@ -848,7 +880,13 @@ def _current_pull_request_evidence() -> PullRequestEvidenceResult:
         signature_key_ids=signature_key_ids,
         evidence_sources=tuple(sorted(REQUIRED_PULL_REQUEST_PROVENANCE)),
     )
-    return _pull_request_evidence_result("AVAILABLE", "AVAILABLE", facts, evidence=evidence)
+    return _pull_request_evidence_result(
+        "AVAILABLE",
+        "AVAILABLE",
+        facts,
+        evidence=evidence,
+        merge_discrepancy=merge_discrepancy,
+    )
 
 
 def _platform_policy_is_valid(policy: PlatformIdentityPolicy) -> bool:
@@ -1478,6 +1516,7 @@ def main() -> int:
             "pull_request_evidence": {
                 "status": pull_request_evidence_result.status,
                 "reason_code": pull_request_evidence_result.reason_code,
+                "merge_discrepancy": pull_request_evidence_result.merge_discrepancy,
                 "safe_facts": pull_request_evidence_result.safe_facts,
                 "evidence": (
                     None

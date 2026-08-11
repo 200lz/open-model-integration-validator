@@ -4,7 +4,7 @@ import json
 import runpy
 import subprocess
 import tomllib
-from dataclasses import replace
+from dataclasses import asdict, replace
 from pathlib import Path
 from typing import Any
 
@@ -212,6 +212,7 @@ def _build_pull_request_evidence(
         monkeypatch.setenv(key, str(value))
 
     pr_api = {
+        "number": namespace["PR2_NUMBER"],
         "base": {
             "repo": {"id": namespace["GITHUB_REPOSITORY_ID"]},
             "ref": "main",
@@ -284,6 +285,7 @@ def test_detached_actions_merge_checkout_builds_available_evidence(
     result = _build_pull_request_evidence(namespace, tmp_path, monkeypatch)
     assert result.status == "AVAILABLE"
     assert result.reason_code == "AVAILABLE"
+    assert result.merge_discrepancy == "MATCHES_CURRENT_CHECKOUT"
     assert result.evidence is not None
     assert result.evidence.merge_sha == "c" * 40
     assert result.evidence.parents == (namespace["PR2_BASE_SHA"], "b" * 40)
@@ -291,16 +293,43 @@ def test_detached_actions_merge_checkout_builds_available_evidence(
     assert result.safe_facts["local_merge_ref_matches"] is True
 
 
+def test_stale_event_test_merge_is_recorded_after_current_checkout_verifies(
+    tmp_path: Path, monkeypatch: Any
+) -> None:
+    namespace = _audit_namespace()
+    event = _valid_pull_request_event(namespace)
+    event["pull_request"]["merge_commit_sha"] = "d" * 40
+    result = _build_pull_request_evidence(namespace, tmp_path, monkeypatch, event=event)
+    assert result.status == "AVAILABLE"
+    assert result.reason_code == "AVAILABLE"
+    assert result.merge_discrepancy == "EVENT_TEST_MERGE_SHA_DIFFERS_FROM_CURRENT_CHECKOUT"
+    assert result.evidence is not None
+    assert result.evidence.merge_sha == "c" * 40
+    assert result.safe_facts["event_merge_matches_current_checkout"] is False
+    serialized = json.dumps(asdict(result), sort_keys=True)
+    assert "d" * 40 not in serialized
+    assert "@" not in serialized
+    assert "/home/" not in serialized
+    assert "/tmp/" not in serialized
+    assert "token" not in serialized.lower()
+
+
 def test_pull_request_evidence_pre_event_reason_codes(tmp_path: Path, monkeypatch: Any) -> None:
     cases = (
         ({"GITHUB_ACTIONS": "false"}, "NOT_AVAILABLE", "NOT_GITHUB_ACTIONS"),
         ({"GITHUB_EVENT_NAME": "push"}, "NOT_AVAILABLE", "EVENT_NOT_PULL_REQUEST"),
+        (
+            {"GITHUB_EVENT_NAME": "pull_request_target"},
+            "NOT_AVAILABLE",
+            "EVENT_NOT_PULL_REQUEST",
+        ),
         ({"GITHUB_REPOSITORY": "example/unrelated"}, "INVALID", "REPOSITORY_MISMATCH"),
     )
     for env, status, reason in cases:
         namespace = _audit_namespace()
         result = _build_pull_request_evidence(namespace, tmp_path, monkeypatch, env=env)
         assert (result.status, result.reason_code, result.evidence) == (status, reason, None)
+        assert result.merge_discrepancy == "NOT_EVALUATED"
 
 
 def test_pull_request_event_file_failures_are_typed(tmp_path: Path, monkeypatch: Any) -> None:
@@ -386,14 +415,11 @@ def test_checkout_and_git_topology_failures_are_typed(tmp_path: Path, monkeypatc
         ({"env": {"GITHUB_BASE_REF": "unrelated"}}, "BASE_REF_MISMATCH"),
         ({"env": {"GITHUB_HEAD_REF": "unrelated"}}, "HEAD_REF_MISMATCH"),
         ({"env": {"GITHUB_REF": "refs/heads/unrelated"}}, "REF_SCOPE_MISMATCH"),
+        ({"env": {"GITHUB_REF": "refs/pull/1/merge"}}, "PR_NUMBER_MISMATCH"),
         ({"env": {"GITHUB_SHA": "d" * 40}}, "CHECKOUT_SHA_MISMATCH"),
         ({"git_object_available": False}, "GIT_OBJECT_NOT_AVAILABLE"),
         ({"local_head": "d" * 40}, "CHECKOUT_SHA_MISMATCH"),
         ({"local_parents": ("a" * 40,)}, "PARENT_COUNT_INVALID"),
-        (
-            {"local_parents": ("b" * 40, "a" * 40)},
-            "PARENT_ORDER_MISMATCH",
-        ),
         ({"local_ref_matches": False}, "REF_SCOPE_MISMATCH"),
         ({"local_ref_error": True}, "INTERNAL_VALIDATION_ERROR"),
         ({"signature_key_ids": ("DEADBEEFDEADBEEF",)}, "SIGNER_MISMATCH"),
@@ -408,6 +434,41 @@ def test_checkout_and_git_topology_failures_are_typed(tmp_path: Path, monkeypatc
         )
         expected_status = "INDETERMINATE" if reason == "INTERNAL_VALIDATION_ERROR" else "INVALID"
         assert (result.status, result.reason_code) == (expected_status, reason)
+
+    namespace = _audit_namespace()
+    reversed_parents = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        local_parents=("b" * 40, namespace["PR2_BASE_SHA"]),
+    )
+    assert (reversed_parents.status, reversed_parents.reason_code) == (
+        "INVALID",
+        "PARENT_ORDER_MISMATCH",
+    )
+
+    namespace = _audit_namespace()
+    extra_parent = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        local_parents=(namespace["PR2_BASE_SHA"], "b" * 40, "e" * 40),
+    )
+    assert (extra_parent.status, extra_parent.reason_code) == (
+        "INVALID",
+        "PARENT_COUNT_INVALID",
+    )
+
+    namespace = _audit_namespace()
+    event_head_mismatch = _valid_pull_request_event(namespace)
+    event_head_mismatch["pull_request"]["head"]["sha"] = "d" * 40
+    mismatched_parent_binding = _build_pull_request_evidence(
+        namespace, tmp_path, monkeypatch, event=event_head_mismatch
+    )
+    assert (
+        mismatched_parent_binding.status,
+        mismatched_parent_binding.reason_code,
+    ) == ("INVALID", "CHECKOUT_SHA_MISMATCH")
 
 
 def test_remote_metadata_failures_are_typed_without_becoming_authority(
@@ -437,6 +498,18 @@ def test_remote_metadata_failures_are_typed_without_becoming_authority(
 
 
 def test_remote_pr_and_commit_mismatches_are_typed(tmp_path: Path, monkeypatch: Any) -> None:
+    namespace = _audit_namespace()
+    wrong_pr_number = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        pr_api_changes={"number": 1},
+    )
+    assert (wrong_pr_number.status, wrong_pr_number.reason_code) == (
+        "INVALID",
+        "PR_NUMBER_MISMATCH",
+    )
+
     namespace = _audit_namespace()
     wrong_repository = _build_pull_request_evidence(
         namespace,
@@ -519,7 +592,18 @@ def test_remote_pr_and_commit_mismatches_are_typed(tmp_path: Path, monkeypatch: 
         monkeypatch,
         pr_api_changes={"merge_commit_sha": "d" * 40},
     )
-    assert (wrong_merge.status, wrong_merge.reason_code) == (
+    assert (wrong_merge.status, wrong_merge.reason_code) == ("AVAILABLE", "AVAILABLE")
+    assert wrong_merge.merge_discrepancy == "MATCHES_CURRENT_CHECKOUT"
+    assert wrong_merge.safe_facts["api_test_merge_matches_current_checkout"] is False
+
+    namespace = _audit_namespace()
+    malformed_test_merge = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        pr_api_changes={"merge_commit_sha": "not-a-sha"},
+    )
+    assert (malformed_test_merge.status, malformed_test_merge.reason_code) == (
         "INVALID",
         "MERGE_SHA_MISMATCH",
     )
@@ -626,6 +710,7 @@ def test_non_available_evidence_remains_fail_closed_and_privacy_safe(
         {
             "status": result.status,
             "reason_code": result.reason_code,
+            "merge_discrepancy": result.merge_discrepancy,
             "safe_facts": result.safe_facts,
             "evidence": result.evidence,
         },
