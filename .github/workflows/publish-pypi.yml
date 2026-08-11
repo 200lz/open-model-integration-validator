@@ -1,0 +1,85 @@
+name: Publish verified release assets to PyPI
+
+on:
+  release:
+    types: [published]
+
+permissions: {}
+
+jobs:
+  verify-release-assets:
+    if: github.event.release.prerelease == true && github.event.release.tag_name == 'v0.10.0'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    env:
+      RELEASE_TAG: ${{ github.event.release.tag_name }}
+      RELEASE_REPOSITORY: ${{ github.repository }}
+    steps:
+      # actions/checkout v7.0.1, MIT, immutable commit.
+      - name: Check out the tagged release
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.event.release.tag_name }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Verify annotated signed tag and release assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$RELEASE_TAG" = "v0.10.0"
+          test "$(git cat-file -t "refs/tags/$RELEASE_TAG")" = tag
+          test "$(git tag -l --format='%(contents:subject)' "$RELEASE_TAG")" = 'OMIV v0.10.0 — Public Preview'
+          git verify-tag "$RELEASE_TAG"
+          mkdir -p release-assets
+          gh release download "$RELEASE_TAG" --repo "$RELEASE_REPOSITORY" --dir release-assets
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+          import json
+          import zipfile
+          root = Path("release-assets")
+          files = sorted(p.name for p in root.iterdir() if p.is_file())
+          wheels = [p for p in root.glob("*.whl")]
+          sdists = [p for p in root.glob("*.tar.gz")]
+          assert len(wheels) == len(sdists) == 1
+          assert files == sorted([wheels[0].name, sdists[0].name, "SHA256SUMS"])
+          manifest = (root / "SHA256SUMS").read_text(encoding="utf-8")
+          rows = [line.split("  ", 1) for line in manifest.splitlines() if line]
+          assert len(rows) == 2 and {row[1] for row in rows} == {wheels[0].name, sdists[0].name}
+          assert all(len(row[0]) == 64 and all(c in "0123456789abcdef" for c in row[0]) for row in rows)
+          assert all(hashlib.sha256((root / name).read_bytes()).hexdigest() == digest for digest, name in rows)
+          with zipfile.ZipFile(wheels[0]) as archive:
+              metadata = next(archive.read(n).decode() for n in archive.namelist() if n.endswith(".dist-info/METADATA"))
+          assert "Name: open-model-integration-validator" in metadata and "Version: 0.10.0" in metadata
+          (root / "release-metadata.json").write_text(json.dumps({"tag": "v0.10.0", "files": files}, sort_keys=True), encoding="utf-8")
+          PY
+
+  publish:
+    needs: verify-release-assets
+    if: github.event.release.prerelease == true && github.event.release.tag_name == 'v0.10.0'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    environment: pypi
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      RELEASE_TAG: ${{ github.event.release.tag_name }}
+      RELEASE_REPOSITORY: ${{ github.repository }}
+    steps:
+      - name: Download exact release assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$RELEASE_TAG" = "v0.10.0"
+          mkdir -p dist
+          gh release download "$RELEASE_TAG" --repo "$RELEASE_REPOSITORY" --dir dist --pattern '*.whl' --pattern '*.tar.gz'
+          test "$(find dist -maxdepth 1 -type f -name '*.whl' | wc -l)" -eq 1
+          test "$(find dist -maxdepth 1 -type f -name '*.tar.gz' | wc -l)" -eq 1
+      # pypa/gh-action-pypi-publish v1.14.2, Apache-2.0, immutable commit.
+      - name: Publish exact release bytes with Trusted Publishing
+        uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33
+        with:
+          packages-dir: dist/

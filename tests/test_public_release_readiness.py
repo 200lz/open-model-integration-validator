@@ -4,8 +4,9 @@ import json
 import runpy
 import subprocess
 import tomllib
-from dataclasses import replace
+from dataclasses import asdict, replace
 from pathlib import Path
+from typing import Any
 
 from typer.testing import CliRunner
 
@@ -24,7 +25,8 @@ def _observation(
     fingerprint: str,
     *,
     roles: tuple[str, ...] = ("AUTHOR",),
-    refs: tuple[str, ...] = ("MAIN_HISTORY",),
+    refs: tuple[str, ...] = ("LOCAL_MAIN",),
+    occurrences: tuple[object, ...] = (),
     valid: bool = True,
 ) -> object:
     observation_type = namespace["IdentityObservation"]
@@ -32,6 +34,7 @@ def _observation(
         fingerprint=fingerprint,
         roles=roles,
         reachable_ref_classifications=refs,
+        occurrences=occurrences,
         valid_record=valid,
     )
 
@@ -41,21 +44,684 @@ def _approved_human(namespace: dict[str, object]) -> object:
         namespace,
         namespace["OWNER_APPROVED_HUMAN_IDENTITY_SHA256"],  # type: ignore[arg-type]
         roles=("AUTHOR", "COMMITTER", "TAGGER"),
-        refs=("ANNOTATED_TAG", "MAIN_HISTORY"),
+        refs=("ANNOTATED_TAG", "LOCAL_MAIN"),
     )
 
 
-def _reviewed_platform_observations(namespace: dict[str, object]) -> list[object]:
+def _reviewed_platform_fixture(namespace: dict[str, object]) -> tuple[list[object], object]:
+    occurrence_type = namespace["IdentityOccurrence"]
+    evidence_type = namespace["PullRequestEvidence"]
     policies = namespace["VERIFIED_PLATFORM_SERVICE_POLICIES"]
-    return [
-        _observation(
-            namespace,
-            policy.fingerprint,
-            roles=policy.allowed_roles,
-            refs=policy.allowed_ref_classifications,
+    base_sha = namespace["PR2_BASE_SHA"]
+    head_sha = "1" * 40
+    merge_sha = "2" * 40
+    signer = namespace["GITHUB_WEB_FLOW_SIGNING_KEY_ID"]
+    evidence_sources = tuple(sorted(namespace["REQUIRED_PULL_REQUEST_PROVENANCE"]))
+    evidence = evidence_type(  # type: ignore[operator]
+        valid=True,
+        repository_full_name=namespace["GITHUB_REPOSITORY_FULL_NAME"],
+        repository_id=namespace["GITHUB_REPOSITORY_ID"],
+        pr_number=namespace["PR2_NUMBER"],
+        base_ref="main",
+        base_sha=base_sha,
+        head_ref=namespace["PR2_HEAD_REF"],
+        head_sha=head_sha,
+        merge_sha=merge_sha,
+        merge_ref="refs/pull/2/merge",
+        parents=(base_sha, head_sha),
+        author_actor_id=namespace["GITHUB_OWNER_ACTOR_ID"],
+        committer_actor_id=namespace["GITHUB_WEB_FLOW_ACTOR_ID"],
+        signature_verified=True,
+        signature_reason="valid",
+        signature_key_ids=(signer,),
+        evidence_sources=evidence_sources,
+    )
+    observations: list[object] = []
+    for policy in sorted(policies.values(), key=lambda item: item.fingerprint):  # type: ignore[union-attr]
+        occurrences: list[object] = []
+        for item in policy.static_occurrences:
+            refname = item.allowed_refnames[0]
+            occurrences.append(
+                occurrence_type(  # type: ignore[operator]
+                    object_sha=item.object_sha,
+                    role=item.role,
+                    refnames=(refname,),
+                    ref_classifications=(namespace["_ref_classification"](refname),),
+                    parents=item.parents,
+                    signature_key_ids=item.signature_key_ids,
+                )
+            )
+        for item in policy.pull_request_roles:
+            occurrences.append(
+                occurrence_type(  # type: ignore[operator]
+                    object_sha=merge_sha,
+                    role=item.role,
+                    refnames=("refs/pull/2/merge",),
+                    ref_classifications=("PULL_REQUEST_MERGE_REF",),
+                    parents=(base_sha, head_sha),
+                    signature_key_ids=(signer,),
+                )
+            )
+        observations.append(
+            _observation(
+                namespace,
+                policy.fingerprint,
+                roles=tuple(sorted({item.role for item in occurrences})),
+                refs=tuple(
+                    sorted(
+                        {
+                            ref_classification
+                            for item in occurrences
+                            for ref_classification in item.ref_classifications
+                        }
+                    )
+                ),
+                occurrences=tuple(occurrences),
+            )
         )
-        for policy in sorted(policies.values(), key=lambda item: item.fingerprint)  # type: ignore[union-attr]
-    ]
+    return observations, evidence
+
+
+def _dynamic_observation(namespace: dict[str, object], role: str) -> tuple[object, object, object]:
+    observations, evidence = _reviewed_platform_fixture(namespace)
+    source = next(
+        item
+        for item in observations
+        if any(
+            occurrence.object_sha == evidence.merge_sha and occurrence.role == role
+            for occurrence in item.occurrences
+        )
+    )
+    occurrence = next(
+        item
+        for item in source.occurrences
+        if item.object_sha == evidence.merge_sha and item.role == role
+    )
+    observation = _observation(
+        namespace,
+        source.fingerprint,
+        roles=(role,),
+        refs=("PULL_REQUEST_MERGE_REF",),
+        occurrences=(occurrence,),
+    )
+    return observation, occurrence, evidence
+
+
+def _valid_pull_request_event(namespace: dict[str, object]) -> dict[str, Any]:
+    return {
+        "number": namespace["PR2_NUMBER"],
+        "repository": {
+            "id": namespace["GITHUB_REPOSITORY_ID"],
+            "full_name": namespace["GITHUB_REPOSITORY_FULL_NAME"],
+        },
+        "pull_request": {
+            "user": {"id": namespace["GITHUB_OWNER_ACTOR_ID"]},
+            "base": {"ref": "main", "sha": namespace["PR2_BASE_SHA"]},
+            "head": {"ref": namespace["PR2_HEAD_REF"], "sha": "b" * 40},
+            "merge_commit_sha": "c" * 40,
+        },
+    }
+
+
+def _build_pull_request_evidence(
+    namespace: dict[str, object],
+    tmp_path: Path,
+    monkeypatch: Any,
+    *,
+    event: dict[str, Any] | None = None,
+    raw_event: str | None = None,
+    env: dict[str, str] | None = None,
+    event_path_available: bool = True,
+    event_path_symlink: bool = False,
+    git_object_available: bool = True,
+    local_head: str | None = None,
+    local_parents: tuple[str, ...] | None = None,
+    local_ref_matches: bool = True,
+    local_ref_error: bool = False,
+    signature_key_ids: tuple[str, ...] | None = None,
+    pr_metadata_available: bool = True,
+    actor_evidence_available: bool = True,
+    pr_api_changes: dict[str, Any] | None = None,
+    commit_api_changes: dict[str, Any] | None = None,
+) -> object:
+    selected_event = _valid_pull_request_event(namespace) if event is None else event
+    event_path = tmp_path / f"bounded-event-{len(tuple(tmp_path.iterdir()))}.json"
+    if event_path_available:
+        serialized_event = json.dumps(selected_event) if raw_event is None else raw_event
+        if event_path_symlink:
+            event_target = event_path.with_suffix(".target")
+            event_target.write_text(serialized_event, encoding="utf-8")
+            event_path.symlink_to(event_target)
+        else:
+            event_path.write_text(serialized_event, encoding="utf-8")
+    base_sha = namespace["PR2_BASE_SHA"]
+    head_sha = "b" * 40
+    merge_sha = "c" * 40
+    environment = {
+        "GITHUB_ACTIONS": "true",
+        "GITHUB_EVENT_NAME": "pull_request",
+        "GITHUB_REF": "refs/pull/2/merge",
+        "GITHUB_SHA": merge_sha,
+        "GITHUB_HEAD_REF": namespace["PR2_HEAD_REF"],
+        "GITHUB_BASE_REF": "main",
+        "GITHUB_REPOSITORY": namespace["GITHUB_REPOSITORY_FULL_NAME"],
+        "GITHUB_EVENT_PATH": str(event_path),
+    }
+    environment.update(env or {})
+    for key, value in environment.items():
+        monkeypatch.setenv(key, str(value))
+
+    pr_api = {
+        "number": namespace["PR2_NUMBER"],
+        "base": {
+            "repo": {"id": namespace["GITHUB_REPOSITORY_ID"]},
+            "ref": "main",
+            "sha": base_sha,
+        },
+        "head": {"ref": namespace["PR2_HEAD_REF"], "sha": head_sha},
+        "user": {"id": namespace["GITHUB_OWNER_ACTOR_ID"]},
+        "merge_commit_sha": merge_sha,
+    }
+    commit_api = {
+        "sha": merge_sha,
+        "parents": [{"sha": base_sha}, {"sha": head_sha}],
+        "author": {"id": namespace["GITHUB_OWNER_ACTOR_ID"]},
+        "committer": {"id": namespace["GITHUB_WEB_FLOW_ACTOR_ID"]},
+        "commit": {"verification": {"verified": True, "reason": "valid"}},
+    }
+    pr_api.update(pr_api_changes or {})
+    commit_api.update(commit_api_changes or {})
+    github_result = namespace["GitHubJsonResult"]
+
+    def fake_github_json(url: str) -> object:
+        if url.endswith("/pulls/2"):
+            if not pr_metadata_available:
+                return github_result(False, "HTTP_STATUS_NOT_SUCCESS", 403)
+            return github_result(True, "AVAILABLE", 200, pr_api)
+        if not actor_evidence_available:
+            return github_result(False, "NETWORK_ERROR", 0)
+        return github_result(True, "AVAILABLE", 200, commit_api)
+
+    selected_head = merge_sha if local_head is None else local_head
+    selected_parents = (base_sha, head_sha) if local_parents is None else local_parents
+
+    def fake_git(*args: str, input_bytes: bytes | None = None) -> bytes:
+        del input_bytes
+        if args[:2] == ("cat-file", "-e"):
+            if not git_object_available:
+                raise subprocess.CalledProcessError(1, args)
+            return b""
+        if args == ("rev-parse", "HEAD"):
+            return f"{selected_head}\n".encode()
+        if args[:3] == ("show", "-s", "--format=%P"):
+            return (" ".join(selected_parents) + "\n").encode()
+        raise AssertionError(f"unexpected git call: {args!r}")
+
+    def fake_ref_matches(pr_number: int, candidate_merge_sha: str) -> bool:
+        assert pr_number == 2
+        assert candidate_merge_sha == merge_sha
+        if local_ref_error:
+            raise subprocess.CalledProcessError(1, ("git", "show-ref"))
+        return local_ref_matches
+
+    builder = namespace["_current_pull_request_evidence"]
+    builder_globals = builder.__wrapped__.__globals__
+    builder_globals["_github_json"] = fake_github_json
+    builder_globals["_git"] = fake_git
+    builder_globals["_local_merge_ref_matches"] = fake_ref_matches
+    builder_globals["_commit_signature_key_ids"] = lambda _: (
+        (namespace["GITHUB_WEB_FLOW_SIGNING_KEY_ID"],)
+        if signature_key_ids is None
+        else signature_key_ids
+    )
+    builder.cache_clear()
+    return builder()
+
+
+def test_detached_actions_merge_checkout_builds_available_evidence(
+    tmp_path: Path, monkeypatch: Any
+) -> None:
+    namespace = _audit_namespace()
+    result = _build_pull_request_evidence(namespace, tmp_path, monkeypatch)
+    assert result.status == "AVAILABLE"
+    assert result.reason_code == "AVAILABLE"
+    assert result.merge_discrepancy == "MATCHES_CURRENT_CHECKOUT"
+    assert result.evidence is not None
+    assert result.evidence.merge_sha == "c" * 40
+    assert result.evidence.parents == (namespace["PR2_BASE_SHA"], "b" * 40)
+    assert result.safe_facts["detached_head_matches"] is True
+    assert result.safe_facts["local_merge_ref_matches"] is True
+
+
+def test_stale_event_test_merge_is_recorded_after_current_checkout_verifies(
+    tmp_path: Path, monkeypatch: Any
+) -> None:
+    namespace = _audit_namespace()
+    event = _valid_pull_request_event(namespace)
+    event["pull_request"]["merge_commit_sha"] = "d" * 40
+    result = _build_pull_request_evidence(namespace, tmp_path, monkeypatch, event=event)
+    assert result.status == "AVAILABLE"
+    assert result.reason_code == "AVAILABLE"
+    assert result.merge_discrepancy == "EVENT_TEST_MERGE_SHA_DIFFERS_FROM_CURRENT_CHECKOUT"
+    assert result.evidence is not None
+    assert result.evidence.merge_sha == "c" * 40
+    assert result.safe_facts["event_merge_matches_current_checkout"] is False
+    serialized = json.dumps(asdict(result), sort_keys=True)
+    assert "d" * 40 not in serialized
+    assert "@" not in serialized
+    assert "/home/" not in serialized
+    assert "/tmp/" not in serialized
+    assert "token" not in serialized.lower()
+
+
+def test_pull_request_evidence_pre_event_reason_codes(tmp_path: Path, monkeypatch: Any) -> None:
+    cases = (
+        ({"GITHUB_ACTIONS": "false"}, "NOT_AVAILABLE", "NOT_GITHUB_ACTIONS"),
+        ({"GITHUB_EVENT_NAME": "push"}, "NOT_AVAILABLE", "EVENT_NOT_PULL_REQUEST"),
+        (
+            {"GITHUB_EVENT_NAME": "pull_request_target"},
+            "NOT_AVAILABLE",
+            "EVENT_NOT_PULL_REQUEST",
+        ),
+        ({"GITHUB_REPOSITORY": "example/unrelated"}, "INVALID", "REPOSITORY_MISMATCH"),
+    )
+    for env, status, reason in cases:
+        namespace = _audit_namespace()
+        result = _build_pull_request_evidence(namespace, tmp_path, monkeypatch, env=env)
+        assert (result.status, result.reason_code, result.evidence) == (status, reason, None)
+        assert result.merge_discrepancy == "NOT_EVALUATED"
+
+
+def test_pull_request_event_file_failures_are_typed(tmp_path: Path, monkeypatch: Any) -> None:
+    namespace = _audit_namespace()
+    missing = _build_pull_request_evidence(
+        namespace, tmp_path, monkeypatch, event_path_available=False
+    )
+    assert (missing.status, missing.reason_code) == (
+        "NOT_AVAILABLE",
+        "EVENT_PATH_NOT_AVAILABLE",
+    )
+
+    namespace = _audit_namespace()
+    malformed = _build_pull_request_evidence(
+        namespace, tmp_path, monkeypatch, raw_event="{not-json"
+    )
+    assert (malformed.status, malformed.reason_code) == ("INVALID", "EVENT_JSON_INVALID")
+
+    namespace = _audit_namespace()
+    incomplete_event = _valid_pull_request_event(namespace)
+    incomplete_event.pop("number")
+    incomplete = _build_pull_request_evidence(
+        namespace, tmp_path, monkeypatch, event=incomplete_event
+    )
+    assert (incomplete.status, incomplete.reason_code) == (
+        "INVALID",
+        "EVENT_FIELDS_INCOMPLETE",
+    )
+
+    namespace = _audit_namespace()
+    oversized = _build_pull_request_evidence(
+        namespace, tmp_path, monkeypatch, raw_event=" " * 1_048_577
+    )
+    assert (oversized.status, oversized.reason_code) == ("INVALID", "LIMIT_EXCEEDED")
+
+    namespace = _audit_namespace()
+    symlinked = _build_pull_request_evidence(
+        namespace, tmp_path, monkeypatch, event_path_symlink=True
+    )
+    assert (symlinked.status, symlinked.reason_code) == (
+        "INVALID",
+        "EVENT_PATH_NOT_AVAILABLE",
+    )
+
+    namespace = _audit_namespace()
+    invalid_sha = _valid_pull_request_event(namespace)
+    invalid_sha["pull_request"]["head"]["sha"] = "not-a-sha"
+    malformed_field = _build_pull_request_evidence(
+        namespace, tmp_path, monkeypatch, event=invalid_sha
+    )
+    assert (malformed_field.status, malformed_field.reason_code) == (
+        "INVALID",
+        "EVENT_FIELDS_INCOMPLETE",
+    )
+
+
+def test_pull_request_event_identity_mismatches_are_typed(tmp_path: Path, monkeypatch: Any) -> None:
+    mutations = []
+    namespace = _audit_namespace()
+    repository = _valid_pull_request_event(namespace)
+    repository["repository"]["id"] = 1
+    mutations.append((repository, "REPOSITORY_MISMATCH"))
+    pr_number = _valid_pull_request_event(namespace)
+    pr_number["number"] = 99
+    mutations.append((pr_number, "PR_NUMBER_MISMATCH"))
+    base_ref = _valid_pull_request_event(namespace)
+    base_ref["pull_request"]["base"]["ref"] = "other"
+    mutations.append((base_ref, "BASE_REF_MISMATCH"))
+    base_sha = _valid_pull_request_event(namespace)
+    base_sha["pull_request"]["base"]["sha"] = "a" * 40
+    mutations.append((base_sha, "BASE_SHA_MISMATCH"))
+    head_ref = _valid_pull_request_event(namespace)
+    head_ref["pull_request"]["head"]["ref"] = "unrelated"
+    mutations.append((head_ref, "HEAD_REF_MISMATCH"))
+    for event, reason in mutations:
+        selected = _audit_namespace()
+        result = _build_pull_request_evidence(selected, tmp_path, monkeypatch, event=event)
+        assert (result.status, result.reason_code) == ("INVALID", reason)
+
+
+def test_checkout_and_git_topology_failures_are_typed(tmp_path: Path, monkeypatch: Any) -> None:
+    cases = (
+        ({"env": {"GITHUB_BASE_REF": "unrelated"}}, "BASE_REF_MISMATCH"),
+        ({"env": {"GITHUB_HEAD_REF": "unrelated"}}, "HEAD_REF_MISMATCH"),
+        ({"env": {"GITHUB_REF": "refs/heads/unrelated"}}, "REF_SCOPE_MISMATCH"),
+        ({"env": {"GITHUB_REF": "refs/pull/1/merge"}}, "PR_NUMBER_MISMATCH"),
+        ({"env": {"GITHUB_SHA": "d" * 40}}, "CHECKOUT_SHA_MISMATCH"),
+        ({"git_object_available": False}, "GIT_OBJECT_NOT_AVAILABLE"),
+        ({"local_head": "d" * 40}, "CHECKOUT_SHA_MISMATCH"),
+        ({"local_parents": ("a" * 40,)}, "PARENT_COUNT_INVALID"),
+        ({"local_ref_matches": False}, "REF_SCOPE_MISMATCH"),
+        ({"local_ref_error": True}, "INTERNAL_VALIDATION_ERROR"),
+        ({"signature_key_ids": ("DEADBEEFDEADBEEF",)}, "SIGNER_MISMATCH"),
+    )
+    for options, reason in cases:
+        namespace = _audit_namespace()
+        result = _build_pull_request_evidence(
+            namespace,
+            tmp_path,
+            monkeypatch,
+            **options,  # type: ignore[arg-type]
+        )
+        expected_status = "INDETERMINATE" if reason == "INTERNAL_VALIDATION_ERROR" else "INVALID"
+        assert (result.status, result.reason_code) == (expected_status, reason)
+
+    namespace = _audit_namespace()
+    reversed_parents = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        local_parents=("b" * 40, namespace["PR2_BASE_SHA"]),
+    )
+    assert (reversed_parents.status, reversed_parents.reason_code) == (
+        "INVALID",
+        "PARENT_ORDER_MISMATCH",
+    )
+
+    namespace = _audit_namespace()
+    extra_parent = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        local_parents=(namespace["PR2_BASE_SHA"], "b" * 40, "e" * 40),
+    )
+    assert (extra_parent.status, extra_parent.reason_code) == (
+        "INVALID",
+        "PARENT_COUNT_INVALID",
+    )
+
+    namespace = _audit_namespace()
+    event_head_mismatch = _valid_pull_request_event(namespace)
+    event_head_mismatch["pull_request"]["head"]["sha"] = "d" * 40
+    mismatched_parent_binding = _build_pull_request_evidence(
+        namespace, tmp_path, monkeypatch, event=event_head_mismatch
+    )
+    assert (
+        mismatched_parent_binding.status,
+        mismatched_parent_binding.reason_code,
+    ) == ("INVALID", "CHECKOUT_SHA_MISMATCH")
+
+
+def test_remote_metadata_failures_are_typed_without_becoming_authority(
+    tmp_path: Path, monkeypatch: Any
+) -> None:
+    namespace = _audit_namespace()
+    pr_missing = _build_pull_request_evidence(
+        namespace, tmp_path, monkeypatch, pr_metadata_available=False
+    )
+    assert (pr_missing.status, pr_missing.reason_code) == (
+        "INDETERMINATE",
+        "PR_METADATA_NOT_AVAILABLE",
+    )
+    assert pr_missing.safe_facts["pr_metadata_status_code"] == 403
+    assert pr_missing.evidence is None
+
+    namespace = _audit_namespace()
+    actor_missing = _build_pull_request_evidence(
+        namespace, tmp_path, monkeypatch, actor_evidence_available=False
+    )
+    assert (actor_missing.status, actor_missing.reason_code) == (
+        "INDETERMINATE",
+        "ACTOR_EVIDENCE_NOT_AVAILABLE",
+    )
+    assert actor_missing.safe_facts["actor_evidence_status_code"] == 0
+    assert actor_missing.evidence is None
+
+
+def test_remote_pr_and_commit_mismatches_are_typed(tmp_path: Path, monkeypatch: Any) -> None:
+    namespace = _audit_namespace()
+    wrong_pr_number = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        pr_api_changes={"number": 1},
+    )
+    assert (wrong_pr_number.status, wrong_pr_number.reason_code) == (
+        "INVALID",
+        "PR_NUMBER_MISMATCH",
+    )
+
+    namespace = _audit_namespace()
+    wrong_repository = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        pr_api_changes={
+            "base": {
+                "repo": {"id": 1},
+                "ref": "main",
+                "sha": namespace["PR2_BASE_SHA"],
+            }
+        },
+    )
+    assert (wrong_repository.status, wrong_repository.reason_code) == (
+        "INVALID",
+        "REPOSITORY_MISMATCH",
+    )
+
+    namespace = _audit_namespace()
+    wrong_base_ref = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        pr_api_changes={
+            "base": {
+                "repo": {"id": namespace["GITHUB_REPOSITORY_ID"]},
+                "ref": "unrelated",
+                "sha": namespace["PR2_BASE_SHA"],
+            }
+        },
+    )
+    assert (wrong_base_ref.status, wrong_base_ref.reason_code) == (
+        "INVALID",
+        "BASE_REF_MISMATCH",
+    )
+
+    namespace = _audit_namespace()
+    wrong_base_sha = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        pr_api_changes={
+            "base": {
+                "repo": {"id": namespace["GITHUB_REPOSITORY_ID"]},
+                "ref": "main",
+                "sha": "d" * 40,
+            }
+        },
+    )
+    assert (wrong_base_sha.status, wrong_base_sha.reason_code) == (
+        "INVALID",
+        "BASE_SHA_MISMATCH",
+    )
+
+    namespace = _audit_namespace()
+    wrong_head_ref = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        pr_api_changes={"head": {"ref": "unrelated", "sha": "b" * 40}},
+    )
+    assert (wrong_head_ref.status, wrong_head_ref.reason_code) == (
+        "INVALID",
+        "HEAD_REF_MISMATCH",
+    )
+
+    namespace = _audit_namespace()
+    wrong_head = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        pr_api_changes={"head": {"ref": namespace["PR2_HEAD_REF"], "sha": "d" * 40}},
+    )
+    assert (wrong_head.status, wrong_head.reason_code) == ("INVALID", "HEAD_SHA_MISMATCH")
+
+    namespace = _audit_namespace()
+    wrong_merge = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        pr_api_changes={"merge_commit_sha": "d" * 40},
+    )
+    assert (wrong_merge.status, wrong_merge.reason_code) == ("AVAILABLE", "AVAILABLE")
+    assert wrong_merge.merge_discrepancy == "MATCHES_CURRENT_CHECKOUT"
+    assert wrong_merge.safe_facts["api_test_merge_matches_current_checkout"] is False
+
+    namespace = _audit_namespace()
+    malformed_test_merge = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        pr_api_changes={"merge_commit_sha": "not-a-sha"},
+    )
+    assert (malformed_test_merge.status, malformed_test_merge.reason_code) == (
+        "INVALID",
+        "MERGE_SHA_MISMATCH",
+    )
+
+    namespace = _audit_namespace()
+    wrong_commit = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        commit_api_changes={"sha": "d" * 40},
+    )
+    assert (wrong_commit.status, wrong_commit.reason_code) == (
+        "INVALID",
+        "MERGE_SHA_MISMATCH",
+    )
+
+    namespace = _audit_namespace()
+    wrong_parent_count = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        commit_api_changes={"parents": [{"sha": namespace["PR2_BASE_SHA"]}]},
+    )
+    assert (wrong_parent_count.status, wrong_parent_count.reason_code) == (
+        "INVALID",
+        "PARENT_COUNT_INVALID",
+    )
+
+    namespace = _audit_namespace()
+    wrong_parents = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        commit_api_changes={"parents": [{"sha": "b" * 40}, {"sha": namespace["PR2_BASE_SHA"]}]},
+    )
+    assert (wrong_parents.status, wrong_parents.reason_code) == (
+        "INVALID",
+        "PARENT_ORDER_MISMATCH",
+    )
+
+
+def test_signature_and_actor_failures_are_typed(tmp_path: Path, monkeypatch: Any) -> None:
+    namespace = _audit_namespace()
+    unverified = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        commit_api_changes={"commit": {"verification": {"verified": False, "reason": "unsigned"}}},
+    )
+    assert (unverified.status, unverified.reason_code) == (
+        "INVALID",
+        "SIGNATURE_NOT_VERIFIED",
+    )
+
+    namespace = _audit_namespace()
+    wrong_actor = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        commit_api_changes={"committer": {"id": 1}},
+    )
+    assert (wrong_actor.status, wrong_actor.reason_code) == ("INVALID", "SIGNER_MISMATCH")
+
+    namespace = _audit_namespace()
+    wrong_author = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        commit_api_changes={"author": {"id": 1}},
+    )
+    assert (wrong_author.status, wrong_author.reason_code) == (
+        "INVALID",
+        "SIGNER_MISMATCH",
+    )
+
+    namespace = _audit_namespace()
+    malformed_actor_evidence = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        commit_api_changes={"commit": {}},
+    )
+    assert (
+        malformed_actor_evidence.status,
+        malformed_actor_evidence.reason_code,
+    ) == ("INDETERMINATE", "ACTOR_EVIDENCE_NOT_AVAILABLE")
+
+
+def test_non_available_evidence_remains_fail_closed_and_privacy_safe(
+    tmp_path: Path, monkeypatch: Any
+) -> None:
+    namespace = _audit_namespace()
+    result = _build_pull_request_evidence(
+        namespace, tmp_path, monkeypatch, pr_metadata_available=False
+    )
+    services, _ = _reviewed_platform_fixture(namespace)
+    observations = [_approved_human(namespace), *services]
+    check = namespace["_identity_classification_check"](
+        observations, pull_request_evidence=result.evidence
+    )
+    assert check.passed is False
+    assert "unverified_platform_claims=2" in check.detail
+    serialized = json.dumps(
+        {
+            "status": result.status,
+            "reason_code": result.reason_code,
+            "merge_discrepancy": result.merge_discrepancy,
+            "safe_facts": result.safe_facts,
+            "evidence": result.evidence,
+        },
+        sort_keys=True,
+        default=str,
+    )
+    assert "@" not in serialized
+    assert "/home/" not in serialized
+    assert "/tmp/" not in serialized
+    assert "token" not in serialized.lower()
+    assert "event.json" not in serialized
 
 
 def test_public_preview_version_is_consistent() -> None:
@@ -159,110 +825,268 @@ def test_exactly_one_approved_human_identity_passes() -> None:
     assert "approved_humans=1" in check.detail
 
 
-def test_approved_human_plus_reviewed_platform_identities_passes() -> None:
+def test_reviewed_dependabot_author_is_limited_to_exact_commit_and_refs() -> None:
     namespace = _audit_namespace()
-    observations = [_approved_human(namespace), *_reviewed_platform_observations(namespace)]
-    check = namespace["_identity_classification_check"](observations)
-    assert check.passed is True
-    assert "verified_platform_services=2" in check.detail
-
-
-def test_second_human_identity_fails() -> None:
-    namespace = _audit_namespace()
-    fingerprint = namespace["_identity_fingerprint"](
-        b"second-human", b"second-human@example.invalid"
+    observations, evidence = _reviewed_platform_fixture(namespace)
+    observation = next(item for item in observations if item.fingerprint.startswith("5f65310d"))
+    assert namespace["_classify_identity"](observation) == "VERIFIED_PLATFORM_SERVICE_IDENTITY"
+    first = observation.occurrences[0]
+    unrelated = replace(
+        first,
+        refnames=("refs/remotes/origin/unrelated",),
+        ref_classifications=("REMOTE_OTHER_BRANCH",),
     )
-    observations = [_approved_human(namespace), _observation(namespace, fingerprint)]
-    check = namespace["_identity_classification_check"](observations)
-    assert check.passed is False
-    assert namespace["_classify_identity"](observations[1]) == "UNKNOWN_HUMAN_IDENTITY"
-
-
-def test_unknown_bot_like_identity_fails() -> None:
-    namespace = _audit_namespace()
-    fingerprint = namespace["_identity_fingerprint"](
-        b"unknown-automation[bot]", b"unknown@example.invalid"
+    tampered = replace(
+        observation,
+        occurrences=(unrelated, *observation.occurrences[1:]),
+        reachable_ref_classifications=("PULL_REQUEST_MERGE_REF", "REMOTE_OTHER_BRANCH"),
     )
-    observation = _observation(namespace, fingerprint, refs=("REMOTE_AUTOMATION_BRANCH",))
-    assert namespace["_classify_identity"](observation) == "UNKNOWN_AUTOMATION_IDENTITY"
     assert (
-        namespace["_identity_classification_check"](
-            [_approved_human(namespace), observation]
-        ).passed
-        is False
+        namespace["_classify_identity"](tampered, pull_request_evidence=evidence)
+        == "UNVERIFIED_PLATFORM_SERVICE_CLAIM"
     )
 
 
-def test_spoofed_bot_display_name_does_not_establish_platform_identity() -> None:
+def test_reviewed_web_flow_committer_requires_full_provenance() -> None:
     namespace = _audit_namespace()
-    fingerprint = namespace["_identity_fingerprint"](b"dependabot[bot]", b"spoof@example.invalid")
-    observation = _observation(namespace, fingerprint, refs=("REMOTE_AUTOMATION_BRANCH",))
+    observations, evidence = _reviewed_platform_fixture(namespace)
+    observation = next(item for item in observations if item.fingerprint.startswith("5a85c613"))
+    assert (
+        namespace["_classify_identity"](observation, pull_request_evidence=evidence)
+        == "VERIFIED_PLATFORM_SERVICE_IDENTITY"
+    )
+    policies = dict(namespace["VERIFIED_PLATFORM_SERVICE_POLICIES"])
+    policies[observation.fingerprint] = replace(
+        policies[observation.fingerprint], evidence_sources=()
+    )
+    assert (
+        namespace["_classify_identity"](
+            observation, platform_policies=policies, pull_request_evidence=evidence
+        )
+        == "UNVERIFIED_PLATFORM_SERVICE_CLAIM"
+    )
+
+
+def test_exact_pr_synthetic_merge_author_and_committer_pass() -> None:
+    namespace = _audit_namespace()
+    for role in ("AUTHOR", "COMMITTER"):
+        observation, _, evidence = _dynamic_observation(namespace, role)
+        assert (
+            namespace["_classify_identity"](observation, pull_request_evidence=evidence)
+            == "VERIFIED_PLATFORM_SERVICE_IDENTITY"
+        )
+
+
+def test_same_platform_fingerprint_on_unrelated_branch_fails() -> None:
+    namespace = _audit_namespace()
+    observation, occurrence, evidence = _dynamic_observation(namespace, "AUTHOR")
+    tampered_occurrence = replace(
+        occurrence,
+        refnames=("refs/remotes/origin/unrelated",),
+        ref_classifications=("REMOTE_OTHER_BRANCH",),
+    )
+    tampered = replace(
+        observation,
+        occurrences=(tampered_occurrence,),
+        reachable_ref_classifications=("REMOTE_OTHER_BRANCH",),
+    )
+    assert (
+        namespace["_classify_identity"](tampered, pull_request_evidence=evidence)
+        == "UNVERIFIED_PLATFORM_SERVICE_CLAIM"
+    )
+
+
+def test_platform_fingerprint_in_unauthorized_role_fails() -> None:
+    namespace = _audit_namespace()
+    observation, occurrence, evidence = _dynamic_observation(namespace, "COMMITTER")
+    tampered = replace(
+        observation,
+        roles=("AUTHOR",),
+        occurrences=(replace(occurrence, role="AUTHOR"),),
+    )
+    assert (
+        namespace["_classify_identity"](tampered, pull_request_evidence=evidence)
+        == "UNVERIFIED_PLATFORM_SERVICE_CLAIM"
+    )
+
+
+def test_same_platform_spelling_with_different_fingerprint_fails() -> None:
+    namespace = _audit_namespace()
+    fingerprint = namespace["_identity_fingerprint"](
+        b"dependabot[bot]", b"different@example.invalid"
+    )
+    observation = _observation(namespace, fingerprint, refs=("REMOTE_DEPENDABOT_BRANCH",))
     assert namespace["_classify_identity"](observation) == "UNKNOWN_AUTOMATION_IDENTITY"
 
 
-def test_spoofed_noreply_address_does_not_establish_platform_identity() -> None:
+def test_noreply_spelling_alone_fails() -> None:
     namespace = _audit_namespace()
     fingerprint = namespace["_identity_fingerprint"](
         b"automation", b"noreply@users.noreply.github.com"
     )
-    observation = _observation(namespace, fingerprint, refs=("REMOTE_AUTOMATION_BRANCH",))
+    observation = _observation(namespace, fingerprint, refs=("REMOTE_DEPENDABOT_BRANCH",))
     assert namespace["_classify_identity"](observation) == "UNKNOWN_AUTOMATION_IDENTITY"
 
 
-def test_dependabot_looking_branch_does_not_establish_platform_identity() -> None:
+def test_bot_like_name_alone_fails() -> None:
     namespace = _audit_namespace()
+    fingerprint = namespace["_identity_fingerprint"](
+        b"unknown-automation[bot]", b"unknown@example.invalid"
+    )
+    observation = _observation(namespace, fingerprint, refs=("REMOTE_DEPENDABOT_BRANCH",))
+    assert namespace["_classify_identity"](observation) == "UNKNOWN_AUTOMATION_IDENTITY"
+
+
+def test_unverified_pr_signature_fails() -> None:
+    namespace = _audit_namespace()
+    observation, _, evidence = _dynamic_observation(namespace, "AUTHOR")
+    evidence = replace(evidence, signature_verified=False)
     assert (
-        namespace["_ref_classification"]("refs/remotes/origin/dependabot/pip/main/example")
-        == "REMOTE_AUTOMATION_BRANCH"
+        namespace["_classify_identity"](observation, pull_request_evidence=evidence)
+        == "UNVERIFIED_PLATFORM_SERVICE_CLAIM"
     )
-    observation = _observation(
-        namespace,
-        "1" * 64,
-        refs=("REMOTE_AUTOMATION_BRANCH",),
-    )
-    assert namespace["_classify_identity"](observation) == "UNKNOWN_AUTOMATION_IDENTITY"
 
 
-def test_wrong_platform_identity_fingerprint_fails() -> None:
+def test_verified_signature_from_wrong_signer_fails() -> None:
     namespace = _audit_namespace()
-    policy = next(iter(namespace["VERIFIED_PLATFORM_SERVICE_POLICIES"].values()))
-    observation = _observation(
-        namespace,
-        "2" * 64,
-        roles=policy.allowed_roles,
-        refs=policy.allowed_ref_classifications,
+    observation, occurrence, evidence = _dynamic_observation(namespace, "AUTHOR")
+    wrong = "DEADBEEFDEADBEEF"
+    observation = replace(
+        observation,
+        occurrences=(replace(occurrence, signature_key_ids=(wrong,)),),
     )
-    assert namespace["_classify_identity"](observation) == "UNKNOWN_AUTOMATION_IDENTITY"
-
-
-def test_platform_identity_without_reviewed_provenance_fails() -> None:
-    namespace = _audit_namespace()
-    policies = dict(namespace["VERIFIED_PLATFORM_SERVICE_POLICIES"])
-    fingerprint, policy = next(iter(policies.items()))
-    policies[fingerprint] = replace(policy, evidence_sources=())
-    observation = _observation(
-        namespace,
-        fingerprint,
-        roles=policy.allowed_roles,
-        refs=policy.allowed_ref_classifications,
+    evidence = replace(evidence, signature_key_ids=(wrong,))
+    assert (
+        namespace["_classify_identity"](observation, pull_request_evidence=evidence)
+        == "UNVERIFIED_PLATFORM_SERVICE_CLAIM"
+    )
+    actor_mismatch = replace(
+        evidence,
+        signature_key_ids=(namespace["GITHUB_WEB_FLOW_SIGNING_KEY_ID"],),
+        committer_actor_id=999999999,
     )
     assert (
-        namespace["_classify_identity"](observation, platform_policies=policies)
-        == "UNKNOWN_AUTOMATION_IDENTITY"
+        namespace["_classify_identity"](
+            replace(
+                observation,
+                occurrences=(
+                    replace(
+                        occurrence,
+                        signature_key_ids=(namespace["GITHUB_WEB_FLOW_SIGNING_KEY_ID"],),
+                    ),
+                ),
+            ),
+            pull_request_evidence=actor_mismatch,
+        )
+        == "UNVERIFIED_PLATFORM_SERVICE_CLAIM"
     )
 
 
-def test_platform_identity_cannot_satisfy_owner_approval() -> None:
+def test_wrong_repository_fails() -> None:
     namespace = _audit_namespace()
-    services = _reviewed_platform_observations(namespace)
-    check = namespace["_identity_classification_check"](services)
-    assert check.passed is False
+    observation, _, evidence = _dynamic_observation(namespace, "AUTHOR")
+    evidence = replace(evidence, repository_full_name="example/unrelated")
+    assert (
+        namespace["_classify_identity"](observation, pull_request_evidence=evidence)
+        == "UNVERIFIED_PLATFORM_SERVICE_CLAIM"
+    )
+
+
+def test_wrong_pr_number_fails() -> None:
+    namespace = _audit_namespace()
+    observation, _, evidence = _dynamic_observation(namespace, "AUTHOR")
+    evidence = replace(evidence, pr_number=99)
+    assert (
+        namespace["_classify_identity"](observation, pull_request_evidence=evidence)
+        == "UNVERIFIED_PLATFORM_SERVICE_CLAIM"
+    )
+
+
+def test_wrong_base_sha_fails() -> None:
+    namespace = _audit_namespace()
+    observation, _, evidence = _dynamic_observation(namespace, "AUTHOR")
+    evidence = replace(evidence, base_sha="3" * 40)
+    assert (
+        namespace["_classify_identity"](observation, pull_request_evidence=evidence)
+        == "UNVERIFIED_PLATFORM_SERVICE_CLAIM"
+    )
+
+
+def test_wrong_head_sha_fails() -> None:
+    namespace = _audit_namespace()
+    observation, _, evidence = _dynamic_observation(namespace, "AUTHOR")
+    evidence = replace(evidence, head_sha="3" * 40)
+    assert (
+        namespace["_classify_identity"](observation, pull_request_evidence=evidence)
+        == "UNVERIFIED_PLATFORM_SERVICE_CLAIM"
+    )
+
+
+def test_wrong_merge_sha_fails() -> None:
+    namespace = _audit_namespace()
+    observation, _, evidence = _dynamic_observation(namespace, "AUTHOR")
+    evidence = replace(evidence, merge_sha="3" * 40)
+    assert (
+        namespace["_classify_identity"](observation, pull_request_evidence=evidence)
+        == "UNVERIFIED_PLATFORM_SERVICE_CLAIM"
+    )
+
+
+def test_reversed_or_mismatched_merge_parents_fail() -> None:
+    namespace = _audit_namespace()
+    observation, occurrence, evidence = _dynamic_observation(namespace, "AUTHOR")
+    tampered = replace(
+        observation, occurrences=(replace(occurrence, parents=tuple(reversed(occurrence.parents))),)
+    )
+    assert (
+        namespace["_classify_identity"](tampered, pull_request_evidence=evidence)
+        == "UNVERIFIED_PLATFORM_SERVICE_CLAIM"
+    )
+
+
+def test_hidden_pr_ref_without_api_correspondence_fails() -> None:
+    namespace = _audit_namespace()
+    observation, _, _ = _dynamic_observation(namespace, "AUTHOR")
+    assert (
+        namespace["_classify_identity"](observation, pull_request_evidence=None)
+        == "UNVERIFIED_PLATFORM_SERVICE_CLAIM"
+    )
+
+
+def test_unknown_human_identity_still_fails() -> None:
+    namespace = _audit_namespace()
+    observation = _observation(namespace, "3" * 64)
+    assert namespace["_classify_identity"](observation) == "UNKNOWN_HUMAN_IDENTITY"
+    assert not namespace["_identity_classification_check"](
+        [_approved_human(namespace), observation]
+    ).passed
+
+
+def test_unknown_automation_identity_still_fails() -> None:
+    namespace = _audit_namespace()
+    observation = _observation(namespace, "4" * 64, refs=("PULL_REQUEST_HEAD_REF",))
+    assert namespace["_classify_identity"](observation) == "UNKNOWN_AUTOMATION_IDENTITY"
+    assert not namespace["_identity_classification_check"](
+        [_approved_human(namespace), observation]
+    ).passed
+
+
+def test_exactly_one_approved_human_invariant_remains_enforced() -> None:
+    namespace = _audit_namespace()
+    second = _observation(namespace, "5" * 64)
+    assert not namespace["_identity_classification_check"](
+        [_approved_human(namespace), second]
+    ).passed
+    services, evidence = _reviewed_platform_fixture(namespace)
+    check = namespace["_identity_classification_check"](services, pull_request_evidence=evidence)
+    assert not check.passed
     assert "approved_humans=0" in check.detail
 
 
-def test_platform_identity_has_no_publisher_or_release_authority() -> None:
+def test_platform_service_has_no_release_or_publisher_authority() -> None:
     namespace = _audit_namespace()
-    records = namespace["_identity_report_records"](_reviewed_platform_observations(namespace))
+    services, evidence = _reviewed_platform_fixture(namespace)
+    records = namespace["_identity_report_records"](services, pull_request_evidence=evidence)
     assert all(record["category"] == "VERIFIED_PLATFORM_SERVICE_IDENTITY" for record in records)
     assert all(
         record["authority_limit"] == "NO_OWNER_PUBLISHER_MAINTAINER_RELEASE_OR_REPOSITORY_AUTHORITY"
@@ -270,65 +1094,57 @@ def test_platform_identity_has_no_publisher_or_release_authority() -> None:
     )
 
 
-def test_reviewed_author_and_committer_identities_remain_distinct() -> None:
+def test_existing_main_and_annotated_tag_privacy_behavior_is_unchanged() -> None:
     namespace = _audit_namespace()
-    observations = _reviewed_platform_observations(namespace)
-    assert len({observation.fingerprint for observation in observations}) == 2
-    assert {observation.roles for observation in observations} == {
-        ("AUTHOR",),
-        ("COMMITTER",),
-    }
+    owner = _approved_human(namespace)
+    assert namespace["_classify_identity"](owner) == "OWNER_APPROVED_HUMAN_IDENTITY"
+    platform, occurrence, evidence = _dynamic_observation(namespace, "AUTHOR")
+    tagged = replace(
+        platform,
+        reachable_ref_classifications=("ANNOTATED_TAG",),
+        occurrences=(
+            replace(
+                occurrence,
+                refnames=("refs/tags/v0.9.0",),
+                ref_classifications=("ANNOTATED_TAG",),
+            ),
+        ),
+    )
+    assert (
+        namespace["_classify_identity"](tagged, pull_request_evidence=evidence)
+        == "UNVERIFIED_PLATFORM_SERVICE_CLAIM"
+    )
 
 
-def test_annotated_tag_taggers_remain_scanned() -> None:
+def test_ref_topology_classifications_are_exact() -> None:
     namespace = _audit_namespace()
-    observations = namespace["_history_identity_observations"]()
-    approved = [
-        observation
-        for observation in observations
-        if observation.fingerprint == namespace["OWNER_APPROVED_HUMAN_IDENTITY_SHA256"]
-    ]
-    assert len(approved) == 1
-    assert "TAGGER" in approved[0].roles
-    assert "ANNOTATED_TAG" in approved[0].reachable_ref_classifications
+    classify = namespace["_ref_classification"]
+    assert classify("refs/heads/main") == "LOCAL_MAIN"
+    assert classify("refs/heads/release/v0.10.0-public-preview") == "LOCAL_RELEASE_BRANCH"
+    assert classify("refs/remotes/origin/main") == "REMOTE_MAIN"
+    assert classify("refs/remotes/origin/release/v0.10.0-public-preview") == "REMOTE_RELEASE_BRANCH"
+    assert classify("refs/remotes/origin/dependabot/pip/main/example") == "REMOTE_DEPENDABOT_BRANCH"
+    assert classify("refs/pull/2/head") == "PULL_REQUEST_HEAD_REF"
+    assert classify("refs/remotes/pull/2/merge") == "PULL_REQUEST_MERGE_REF"
+    assert classify("refs/tags/v0.9.0") == "ANNOTATED_TAG"
+    assert classify("refs/remotes/origin/unrelated") == "REMOTE_OTHER_BRANCH"
+    assert classify("refs/notes/example") == "UNKNOWN_REF_SCOPE"
 
 
-def test_remote_automation_ref_is_part_of_public_identity_inventory() -> None:
+def test_invalid_identity_record_fails_closed() -> None:
     namespace = _audit_namespace()
-    observation = _reviewed_platform_observations(namespace)[0]
-    assert observation.reachable_ref_classifications == ("REMOTE_AUTOMATION_BRANCH",)
-    record = namespace["_identity_report_records"]([observation])[0]
-    assert record["reachable_ref_classifications"] == ["REMOTE_AUTOMATION_BRANCH"]
-
-
-def test_main_only_scanning_cannot_replace_all_ref_scanning() -> None:
-    source = (ROOT / "tools/audit_public_release_readiness.py").read_text(encoding="utf-8")
-    assert '_git("for-each-ref", "--format=%(refname)")' in source
-    assert '"log",\n        "--all"' in source
-    assert '"rev-list", refname' in source
-
-
-def test_unknown_and_invalid_classifications_fail_readiness() -> None:
-    namespace = _audit_namespace()
-    unknown = _observation(namespace, "3" * 64)
     invalid = _observation(namespace, "invalid", valid=False)
-    for observation, expected in (
-        (unknown, "UNKNOWN_HUMAN_IDENTITY"),
-        (invalid, "INVALID_IDENTITY_RECORD"),
-    ):
-        assert namespace["_classify_identity"](observation) == expected
-        assert (
-            namespace["_identity_classification_check"](
-                [_approved_human(namespace), observation]
-            ).passed
-            is False
-        )
+    assert namespace["_classify_identity"](invalid) == "INVALID_IDENTITY"
+    assert not namespace["_identity_classification_check"](
+        [_approved_human(namespace), invalid]
+    ).passed
 
 
-def test_identity_report_contains_no_raw_approved_values() -> None:
+def test_identity_report_contains_no_raw_names_addresses_or_paths() -> None:
     namespace = _audit_namespace()
+    services, evidence = _reviewed_platform_fixture(namespace)
     records = namespace["_identity_report_records"](
-        [_approved_human(namespace), *_reviewed_platform_observations(namespace)]
+        [_approved_human(namespace), *services], pull_request_evidence=evidence
     )
     serialized = json.dumps(records, sort_keys=True)
     assert "@" not in serialized
@@ -339,18 +1155,16 @@ def test_identity_report_contains_no_raw_approved_values() -> None:
 
 def test_exact_ci_identity_topology_is_valid_and_fully_visible() -> None:
     namespace = _audit_namespace()
-    observations = [_approved_human(namespace), *_reviewed_platform_observations(namespace)]
-    records = namespace["_identity_report_records"](observations)
-    assert namespace["_identity_classification_check"](observations).passed is True
+    services, evidence = _reviewed_platform_fixture(namespace)
+    observations = [_approved_human(namespace), *services]
+    records = namespace["_identity_report_records"](observations, pull_request_evidence=evidence)
+    assert namespace["_identity_classification_check"](
+        observations, pull_request_evidence=evidence
+    ).passed
     assert [record["category"] for record in records].count("OWNER_APPROVED_HUMAN_IDENTITY") == 1
     assert [record["category"] for record in records].count(
         "VERIFIED_PLATFORM_SERVICE_IDENTITY"
-    ) == 2
-    assert {role for record in records for role in record["roles"]} == {
-        "AUTHOR",
-        "COMMITTER",
-        "TAGGER",
-    }
+    ) == 3
 
 
 def test_synthetic_identity_requires_explicit_test_fingerprint() -> None:
@@ -360,8 +1174,7 @@ def test_synthetic_identity_requires_explicit_test_fingerprint() -> None:
     assert namespace["_classify_identity"](observation) == "UNKNOWN_HUMAN_IDENTITY"
     assert (
         namespace["_classify_identity"](
-            observation,
-            synthetic_test_fingerprints=frozenset({fingerprint}),
+            observation, synthetic_test_fingerprints=frozenset({fingerprint})
         )
         == "SYNTHETIC_TEST_IDENTITY"
     )
@@ -370,20 +1183,39 @@ def test_synthetic_identity_requires_explicit_test_fingerprint() -> None:
 def test_identity_taxonomy_is_complete_and_deterministic() -> None:
     namespace = _audit_namespace()
     assert namespace["IDENTITY_CATEGORIES"] == (
-        "INVALID_IDENTITY_RECORD",
+        "INVALID_IDENTITY",
         "OWNER_APPROVED_HUMAN_IDENTITY",
         "SYNTHETIC_TEST_IDENTITY",
+        "UNVERIFIED_PLATFORM_SERVICE_CLAIM",
         "UNKNOWN_AUTOMATION_IDENTITY",
         "UNKNOWN_HUMAN_IDENTITY",
         "VERIFIED_PLATFORM_SERVICE_IDENTITY",
     )
+    services, evidence = _reviewed_platform_fixture(namespace)
     first = namespace["_identity_report_records"](
-        [_approved_human(namespace), *_reviewed_platform_observations(namespace)]
+        [_approved_human(namespace), *services], pull_request_evidence=evidence
     )
     second = namespace["_identity_report_records"](
-        [_approved_human(namespace), *_reviewed_platform_observations(namespace)]
+        [_approved_human(namespace), *services], pull_request_evidence=evidence
     )
     assert json.dumps(first, sort_keys=True) == json.dumps(second, sort_keys=True)
+
+
+def test_annotated_tag_taggers_and_all_refs_remain_scanned() -> None:
+    namespace = _audit_namespace()
+    observations = namespace["_history_identity_observations"]()
+    approved = [
+        observation
+        for observation in observations
+        if observation.fingerprint == namespace["OWNER_APPROVED_HUMAN_IDENTITY_SHA256"]
+    ]
+    assert len(approved) == 1
+    assert "TAGGER" in approved[0].roles
+    assert "ANNOTATED_TAG" in approved[0].reachable_ref_classifications
+    source = (ROOT / "tools/audit_public_release_readiness.py").read_text(encoding="utf-8")
+    assert '_git("for-each-ref", "--format=%(refname)")' in source
+    assert '"log",\n        "--all"' in source
+    assert '"rev-list", refname' in source
 
 
 def test_existing_synthetic_path_and_secret_markers_remain_non_authoritative() -> None:
@@ -392,5 +1224,5 @@ def test_existing_synthetic_path_and_secret_markers_remain_non_authoritative() -
     fingerprint = namespace["_identity_fingerprint"](
         b"github-looking[bot]", b"github-looking@users.noreply.github.com"
     )
-    observation = _observation(namespace, fingerprint, refs=("REMOTE_AUTOMATION_BRANCH",))
+    observation = _observation(namespace, fingerprint, refs=("REMOTE_DEPENDABOT_BRANCH",))
     assert namespace["_classify_identity"](observation) == "UNKNOWN_AUTOMATION_IDENTITY"

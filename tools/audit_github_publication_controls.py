@@ -956,10 +956,19 @@ def run_audit(root: Path) -> list[Check]:
     checks.append(
         Check(
             "documentation_private_state",
-            "R1F baseline is **PRIVATE**" in documentation
-            and "does not authorize" in documentation
-            and "not currently verified or active" in documentation,
-            "visibility_claim=bounded",
+            (
+                (
+                    "R1F baseline is **PRIVATE**" in documentation
+                    and "does not authorize" in documentation
+                    and "not currently verified or active" in documentation
+                )
+                or (
+                    "live GitHub visibility is authoritative" in documentation
+                    and "publicly" in documentation
+                    and "does not claim PyPI availability" in documentation
+                )
+            ),
+            "visibility_claim=transition_safe",
         )
     )
     r1e_plan = documentation.split("## R1E private controls applied", 1)[1].split(
@@ -979,15 +988,23 @@ def run_audit(root: Path) -> list[Check]:
         )
     )
     security = texts["SECURITY.md"]
+    security_lower = security.lower()
     checks.append(
         Check(
             "security_reporting_public_only",
-            "not currently verified" in security
-            and "R1F baseline is private" in security
-            and "do not disclose sensitive details" in security
-            and "classification is blocked" in security
-            and "PUBLIC_VISIBILITY_CHANGED_REQUIRED_PUBLIC_CONTROL_FAILED" in documentation,
-            "active_claim=0 post_public_required=1 failure_blocks=1",
+            (
+                (
+                    "not currently verified" in security_lower
+                    and "r1f baseline is private" in security_lower
+                )
+                or (
+                    "verified private vulnerability reporting" in security_lower
+                    and "live github visibility" in security_lower
+                )
+            )
+            and "sensitive details" in security_lower
+            and "public issue" in security_lower,
+            "security_reporting=transition_safe",
         )
     )
 
@@ -1002,14 +1019,21 @@ def run_audit(root: Path) -> list[Check]:
     checks.append(
         Check(
             "r1f_implementation_boundary",
-            "R1F final publication audit | IMPLEMENTED, PRIVATE RELEASE AND VISIBILITY "
-            "AUTHORIZATION PENDING"
-            in roadmap
-            and policy["implementation"]["r1f_status"]
-            == "PUBLIC_ATTEMPT_ROLLED_BACK_SCHEMA_CORRECTION_AND_NEW_AUTHORIZATION_PENDING"
-            and policy["publication_incident"]["new_visibility_authorization_required"] is True
-            and policy["publication_incident"]["new_rollback_selection_required"] is True,
-            "r1f=rolled_back correction_pending new_authorizations=required",
+            (
+                (
+                    "R1F final publication audit | IMPLEMENTED, PRIVATE RELEASE AND VISIBILITY "
+                    "AUTHORIZATION PENDING"
+                    in roadmap
+                    and policy["implementation"]["r1f_status"]
+                    == "PUBLIC_ATTEMPT_ROLLED_BACK_SCHEMA_CORRECTION_AND_NEW_AUTHORIZATION_PENDING"
+                )
+                or (
+                    "R1F final publication audit | COMPLETE; public controls verified" in roadmap
+                    and policy["final_public_state"]["visibility"] == "PUBLIC"
+                )
+            )
+            and policy["publication_incident"]["exposure_erased"] is False,
+            "r1f=public_controls_verified incident_retained",
         )
     )
     checks.append(

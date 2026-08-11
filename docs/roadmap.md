@@ -1,8 +1,8 @@
 # OMIV roadmap
 
 The Engineering Track and Release Track are independent namespaces. Engineering
-status describes repository capabilities; release status describes preparation for
-a future public-preview launch.
+status describes repository capabilities; release status describes the public-preview
+release gates after the repository became publicly readable.
 
 ## Engineering Track
 
@@ -26,17 +26,14 @@ a future public-preview launch.
 | R1C launch UX | COMPLETE |
 | R1D offline walkthrough | COMPLETE |
 | R1E GitHub metadata/security | COMPLETE |
-| R1F final publication audit | IMPLEMENTED, PRIVATE RELEASE AND VISIBILITY AUTHORIZATION PENDING |
+| R1F final publication audit | COMPLETE; public controls verified |
 
-The R1F baseline remains private, and live GitHub visibility is authoritative after
-any separately authorized transaction. R1F implementation
-does not mean the repository is public and does not select rollback authority.
-Any visibility change requires separate authorization.
-The target remains an untagged and unreleased `v0.10.0` public-preview candidate.
-No GitHub release or PyPI publication is claimed. See the
-[R1F final-publication audit](r1f-final-publication-audit.md).
+The repository is publicly readable and live GitHub state is authoritative. The
+current public `main` is the audited `0.10.0` release candidate; the tag, GitHub
+Release, and PyPI project/version remain absent. See the [R1F final-publication
+audit](r1f-final-publication-audit.md) and [release notes](v0.10.0-release-notes.md).
 
-After public launch, Phase 6F development resumes from the latest public `main`
-baseline. Release Track work does not update the existing Phase 6F branch.
+Phase 6F development remains planned and unimplemented; Release Track work does not
+update the existing Phase 6F branch.
 
 Return to the [documentation index](README.md) or the [main README](../README.md).

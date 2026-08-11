@@ -3,7 +3,7 @@
 This project follows pre-1.0 semantic versioning. Dates are omitted where the
 repository does not provide a supported release-date claim.
 
-## Unreleased — upcoming public-preview version 0.10.0
+## Unreleased — v0.10.0 Public Preview preparation
 
 Public-release preparation:
 
@@ -19,6 +19,10 @@ ledgers, attestations, cryptographic trust, governance gates, artifact security,
 deployment/runtime continuity, continuous trust, payload integrity, shard
 reconciliation, quantization fidelity, tokenizer-configuration parity, and
 runtime-resolution parity (Phases 5 and 6A–6E).
+
+The repository is now publicly available as an Alpha preview. This entry remains
+unreleased until a separately authorized signed tag, GitHub Pre-release, and exact
+PyPI publication are independently verified.
 
 Limitations:
 

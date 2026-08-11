@@ -508,8 +508,7 @@ def run_audit(root: Path) -> list[Check]:
         "| R1C launch UX | COMPLETE |",
         "| R1D offline walkthrough | COMPLETE |",
         "| R1E GitHub metadata/security | COMPLETE |",
-        "| R1F final publication audit | IMPLEMENTED, PRIVATE RELEASE AND VISIBILITY "
-        "AUTHORIZATION PENDING |",
+        "| R1F final publication audit | COMPLETE; public controls verified |",
         "| Phase 6F | PLANNED, NOT IMPLEMENTED |",
     )
     checks.append(
@@ -527,7 +526,6 @@ def run_audit(root: Path) -> list[Check]:
     checks.append(Check("phase6f_unimplemented", not phase6f_complete, "completion_claims=0"))
 
     forbidden_claim_patterns = (
-        r"repository is (?:now )?public",
         r"available on PyPI",
         r"released v0\.10\.0",
         r"certified (?:safe|secure|authentic)",

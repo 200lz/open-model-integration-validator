@@ -116,9 +116,11 @@ def test_link_audit_rejects_missing_unsafe_and_unknown_fragments(tmp_path: Path)
 def test_overclaim_audit_distinguishes_negative_statements() -> None:
     scan = _audit_namespace()["affirmative_overclaims"]
     assert scan("Phase 6F is implemented") == ("phase6f_complete",)
-    assert scan("The repository is public") == ("public_repository",)
+    assert scan("The repository will become public") == ()
+    assert scan("The repository is public") == ()
     assert scan("OMIV is available on PyPI") == ("pypi_available",)
     assert scan("OMIV is not available on PyPI") == ()
+    assert scan("v0.10.0 is released.") == ("released_v0_10_0",)
     assert scan("Version 0.10.0 is not released; Phase 6F is not implemented") == ()
 
 
@@ -146,7 +148,7 @@ def test_readme_structure_and_first_screen_are_independent() -> None:
     first_screen = "\n".join(readme.splitlines()[:100])
     for phrase in (
         "offline-first",
-        "public-preview candidate",
+        "public preview",
         "Python 3.11+",
         "Apache-2.0",
         "What OMIV verifies",
@@ -177,9 +179,9 @@ def test_quickstart_limitations_and_roadmap_state_are_independent() -> None:
         "R1C launch UX | COMPLETE",
     ):
         assert row in roadmap
-    assert "does not mean the repository is public" in roadmap
-    assert "untagged and unreleased `v0.10.0`" in roadmap
-    assert "visibility change requires separate authorization" in roadmap
+    assert "repository is publicly readable" in roadmap
+    assert "PyPI project/version remain absent" in roadmap
+    assert "PyPI project/version remain absent" in roadmap
 
 
 def test_documentation_links_resolve_independently() -> None:
@@ -210,7 +212,6 @@ def test_documentation_contains_no_affirmative_release_or_public_claims() -> Non
     )
     for false_claim in (
         "OMIV is available on PyPI",
-        "The repository is public",
         "Phase 6F is implemented",
         "v0.10.0 is released",
     ):
@@ -243,7 +244,7 @@ def test_launch_audit_rejects_required_adversarial_mutations(tmp_path: Path) -> 
         ("README.md", "## Why OMIV", "Why OMIV"),
         ("README.md", "## Documentation", "## Documentation\n[broken](docs/missing.md)"),
         ("README.md", "## Documentation", "## Documentation\nOMIV is available on PyPI."),
-        ("README.md", "## Documentation", "## Documentation\nThe repository is public."),
+        ("README.md", "## Documentation", "## Documentation\nv0.10.0 is released."),
         ("README.md", "## Documentation", "## Documentation\nPhase 6F is implemented."),
         (
             "examples/offline-quickstart/README.md",

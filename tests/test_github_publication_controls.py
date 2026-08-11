@@ -328,9 +328,7 @@ def test_security_issue_routing_has_no_email_or_public_disclosure_request() -> N
     assert "Do not put vulnerability or exploit details in a public issue" in security
     assert "Security →" in security
     assert "Report a vulnerability" in security
-    assert "not currently verified" in security
-    assert "claimed active" in security
-    assert "classification is blocked" in security
+    assert "verified Private Vulnerability Reporting" in security
     for prohibited in (
         "credentials",
         "customer data",
@@ -392,10 +390,7 @@ def test_roadmap_truth_preserves_r1f_and_phase6f_boundaries() -> None:
     roadmap = (ROOT / "docs/roadmap.md").read_text(encoding="utf-8")
     assert "R1D offline walkthrough | COMPLETE" in roadmap
     assert "R1E GitHub metadata/security | COMPLETE" in roadmap
-    assert (
-        "R1F final publication audit | IMPLEMENTED, PRIVATE RELEASE AND VISIBILITY "
-        "AUTHORIZATION PENDING" in roadmap
-    )
+    assert "R1F final publication audit | COMPLETE; public controls verified" in roadmap
     assert "Phase 6F | PLANNED, NOT IMPLEMENTED" in roadmap
     assert "Phase 7 | FUTURE, SCOPE NOT FROZEN" in roadmap
 
@@ -520,7 +515,9 @@ def test_security_active_channel_claim_mutation_fails_closed(tmp_path: Path) -> 
     security = clone / "SECURITY.md"
     source = security.read_text(encoding="utf-8")
     security.write_text(
-        source.replace("not currently verified", "enabled and verified", 1),
+        source.replace(
+            "verified Private Vulnerability Reporting", "not currently verified", 1
+        ).replace("live GitHub visibility", "visibility unavailable", 1),
         encoding="utf-8",
     )
     _assert_audit_fails(clone)
@@ -591,8 +588,7 @@ def test_security_route_to_public_issue_fails_closed(tmp_path: Path) -> None:
     ("old", "new"),
     (
         (
-            "R1F final publication audit | IMPLEMENTED, PRIVATE RELEASE AND VISIBILITY "
-            "AUTHORIZATION PENDING",
+            "R1F final publication audit | COMPLETE; public controls verified",
             "R1F final publication audit | COMPLETE",
         ),
         ("Phase 6F | PLANNED, NOT IMPLEMENTED", "Phase 6F | COMPLETE"),

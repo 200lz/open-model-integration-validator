@@ -6,7 +6,7 @@ transformations, deployments, and runtime identity.
 [![CI](https://github.com/200lz/open-model-integration-validator/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/200lz/open-model-integration-validator/actions/workflows/ci.yml)
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB)](pyproject.toml)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
-[![Status: public-preview candidate](https://img.shields.io/badge/status-public--preview_candidate-orange)](docs/roadmap.md)
+[![Status: public preview](https://img.shields.io/badge/status-public--preview-orange)](docs/roadmap.md)
 
 It preserves the difference between what was declared, what was observed, what
 was cryptographically verified, what policy permits, and what remains
@@ -241,18 +241,20 @@ Start with the [documentation index](docs/README.md):
 - [Security and privacy](docs/public-release-security-and-privacy.md)
 - [GitHub publication controls](docs/github-publication-controls.md)
 - [R1F final-publication audit](docs/r1f-final-publication-audit.md)
+- [v0.10.0 release notes](docs/v0.10.0-release-notes.md)
 - [Roadmap](docs/roadmap.md)
 
 ## Project status and roadmap
 
-OMIV is an unreleased `0.10.0` public-preview candidate. No `v0.10.0` tag,
-GitHub release, or PyPI publication exists. Engineering Phases 5 and 6A–6E are
-released in repository history; Phase 6F is planned and not implemented. The R1F
-baseline is private, and live GitHub visibility is authoritative after any later
-separately authorized transaction. R1A–R1E are complete; R1F implements the final
-publication audit but does not authorize or perform public visibility. Public
-availability would not by itself tag or release v0.10.0 or publish it to PyPI.
-See the [roadmap](docs/roadmap.md) and [changelog](CHANGELOG.md).
+OMIV is public and publicly available as a pre-1.0 Alpha public preview. The repository is public; the current public
+`main` contains the audited `0.10.0` release candidate, but no `v0.10.0` tag,
+GitHub Release, or PyPI publication exists yet. Engineering Phases 5 and 6A–6E are
+released in repository history; Phase 6F is planned and not implemented. Public
+availability is not release completion and does not establish production readiness,
+certification, safety, provider authenticity, or publisher authority. See the
+Live GitHub visibility is authoritative. See the
+[roadmap](docs/roadmap.md), [release notes](docs/v0.10.0-release-notes.md), and
+[changelog](CHANGELOG.md).
 
 ## Contributing, security, support, and license
 
