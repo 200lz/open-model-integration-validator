@@ -238,9 +238,25 @@ def _build_pull_request_evidence(
     actor_evidence_available: bool = True,
     pr_api_changes: dict[str, Any] | None = None,
     commit_api_changes: dict[str, Any] | None = None,
+    pr_number: int | None = None,
+    base_sha: str | None = None,
+    head_ref: str | None = None,
+    head_sha: str | None = None,
 ) -> object:
     selected_event = _valid_pull_request_event(namespace) if event is None else event
     event_path = tmp_path / f"bounded-event-{len(tuple(tmp_path.iterdir()))}.json"
+    selected_pr_number = namespace["PR2_NUMBER"] if pr_number is None else pr_number
+    selected_base_sha = namespace["PR2_BASE_SHA"] if base_sha is None else base_sha
+    selected_head_ref = namespace["PR2_HEAD_REF"] if head_ref is None else head_ref
+    selected_head_sha = "b" * 40 if head_sha is None else head_sha
+    merge_sha = "c" * 40
+    if event is None:
+        selected_event["number"] = selected_pr_number
+        selected_event["pull_request"]["base"]["sha"] = selected_base_sha
+        selected_event["pull_request"]["head"] = {
+            "ref": selected_head_ref,
+            "sha": selected_head_sha,
+        }
     if event_path_available:
         serialized_event = json.dumps(selected_event) if raw_event is None else raw_event
         if event_path_symlink:
@@ -249,15 +265,12 @@ def _build_pull_request_evidence(
             event_path.symlink_to(event_target)
         else:
             event_path.write_text(serialized_event, encoding="utf-8")
-    base_sha = namespace["PR2_BASE_SHA"]
-    head_sha = "b" * 40
-    merge_sha = "c" * 40
     environment = {
         "GITHUB_ACTIONS": "true",
         "GITHUB_EVENT_NAME": "pull_request",
-        "GITHUB_REF": "refs/pull/2/merge",
+        "GITHUB_REF": f"refs/pull/{selected_pr_number}/merge",
         "GITHUB_SHA": merge_sha,
-        "GITHUB_HEAD_REF": namespace["PR2_HEAD_REF"],
+        "GITHUB_HEAD_REF": selected_head_ref,
         "GITHUB_BASE_REF": "main",
         "GITHUB_REPOSITORY": namespace["GITHUB_REPOSITORY_FULL_NAME"],
         "GITHUB_EVENT_PATH": str(event_path),
@@ -267,19 +280,19 @@ def _build_pull_request_evidence(
         monkeypatch.setenv(key, str(value))
 
     pr_api = {
-        "number": namespace["PR2_NUMBER"],
+        "number": selected_pr_number,
         "base": {
             "repo": {"id": namespace["GITHUB_REPOSITORY_ID"]},
             "ref": "main",
-            "sha": base_sha,
+            "sha": selected_base_sha,
         },
-        "head": {"ref": namespace["PR2_HEAD_REF"], "sha": head_sha},
+        "head": {"ref": selected_head_ref, "sha": selected_head_sha},
         "user": {"id": namespace["GITHUB_OWNER_ACTOR_ID"]},
         "merge_commit_sha": merge_sha,
     }
     commit_api = {
         "sha": merge_sha,
-        "parents": [{"sha": base_sha}, {"sha": head_sha}],
+        "parents": [{"sha": selected_base_sha}, {"sha": selected_head_sha}],
         "author": {"id": namespace["GITHUB_OWNER_ACTOR_ID"]},
         "committer": {"id": namespace["GITHUB_WEB_FLOW_ACTOR_ID"]},
         "commit": {"verification": {"verified": True, "reason": "valid"}},
@@ -289,7 +302,7 @@ def _build_pull_request_evidence(
     github_result = namespace["GitHubJsonResult"]
 
     def fake_github_json(url: str) -> object:
-        if url.endswith("/pulls/2"):
+        if url.endswith(f"/pulls/{selected_pr_number}"):
             if not pr_metadata_available:
                 return github_result(False, "HTTP_STATUS_NOT_SUCCESS", 403)
             return github_result(True, "AVAILABLE", 200, pr_api)
@@ -298,7 +311,9 @@ def _build_pull_request_evidence(
         return github_result(True, "AVAILABLE", 200, commit_api)
 
     selected_head = merge_sha if local_head is None else local_head
-    selected_parents = (base_sha, head_sha) if local_parents is None else local_parents
+    selected_parents = (
+        (selected_base_sha, selected_head_sha) if local_parents is None else local_parents
+    )
 
     def fake_git(*args: str, input_bytes: bytes | None = None) -> bytes:
         del input_bytes
@@ -313,7 +328,7 @@ def _build_pull_request_evidence(
         raise AssertionError(f"unexpected git call: {args!r}")
 
     def fake_ref_matches(pr_number: int, candidate_merge_sha: str) -> bool:
-        assert pr_number == 2
+        assert pr_number == selected_pr_number
         assert candidate_merge_sha == merge_sha
         if local_ref_error:
             raise subprocess.CalledProcessError(1, ("git", "show-ref"))
@@ -340,7 +355,7 @@ def test_detached_actions_merge_checkout_builds_available_evidence(
     result = _build_pull_request_evidence(namespace, tmp_path, monkeypatch)
     assert result.status == "AVAILABLE"
     assert result.reason_code == "AVAILABLE"
-    assert result.merge_discrepancy == "MATCHES_CURRENT_CHECKOUT"
+    assert result.merge_discrepancy == "EVENT_TEST_MERGE_SHA_MATCHES_CURRENT_CHECKOUT"
     assert result.evidence is not None
     assert result.evidence.merge_sha == "c" * 40
     assert result.evidence.parents == (namespace["PR2_BASE_SHA"], "b" * 40)
@@ -367,6 +382,142 @@ def test_stale_event_test_merge_is_recorded_after_current_checkout_verifies(
     assert "/home/" not in serialized
     assert "/tmp/" not in serialized
     assert "token" not in serialized.lower()
+
+
+def test_absent_or_null_event_test_merge_is_advisory(tmp_path: Path, monkeypatch: Any) -> None:
+    for mode in ("absent", "null"):
+        namespace = _audit_namespace()
+        event = _valid_pull_request_event(namespace)
+        if mode == "absent":
+            event["pull_request"].pop("merge_commit_sha")
+        else:
+            event["pull_request"]["merge_commit_sha"] = None
+        result = _build_pull_request_evidence(namespace, tmp_path, monkeypatch, event=event)
+        assert (result.status, result.reason_code) == ("AVAILABLE", "AVAILABLE")
+        assert result.merge_discrepancy == "EVENT_TEST_MERGE_SHA_NOT_RECORDED"
+        assert result.evidence is not None
+        expected_missing = ("pull_request.merge_commit_sha",) if mode == "absent" else ()
+        expected_null = ("pull_request.merge_commit_sha",) if mode == "null" else ()
+        assert result.missing_advisory_fields == expected_missing
+        assert result.null_advisory_fields == expected_null
+        assert result.missing_required_fields == ()
+        assert result.null_required_fields == ()
+
+
+def test_malformed_non_null_event_test_merge_fails_closed(tmp_path: Path, monkeypatch: Any) -> None:
+    namespace = _audit_namespace()
+    event = _valid_pull_request_event(namespace)
+    event["pull_request"]["merge_commit_sha"] = "not-a-sha"
+    result = _build_pull_request_evidence(namespace, tmp_path, monkeypatch, event=event)
+    assert (result.status, result.reason_code, result.evidence) == (
+        "INVALID",
+        "EVENT_FIELDS_INCOMPLETE",
+        None,
+    )
+    assert result.safe_facts["advisory_merge_sha_malformed"] is True
+    assert result.missing_advisory_fields == ()
+    assert result.null_advisory_fields == ()
+
+
+def test_required_event_field_diagnostics_are_sorted_and_fail_closed(
+    tmp_path: Path, monkeypatch: Any
+) -> None:
+    required_paths = (
+        "number",
+        "pull_request.base.ref",
+        "pull_request.base.sha",
+        "pull_request.head.ref",
+        "pull_request.head.sha",
+        "pull_request.user.id",
+        "repository.full_name",
+        "repository.id",
+    )
+
+    def mutate(event: dict[str, Any], path: str, *, null: bool) -> None:
+        components = path.split(".")
+        selected: dict[str, Any] = event
+        for component in components[:-1]:
+            selected = selected[component]
+        if null:
+            selected[components[-1]] = None
+        else:
+            selected.pop(components[-1])
+
+    for path in required_paths:
+        for null in (False, True):
+            namespace = _audit_namespace()
+            event = _valid_pull_request_event(namespace)
+            mutate(event, path, null=null)
+            result = _build_pull_request_evidence(namespace, tmp_path, monkeypatch, event=event)
+            assert (result.status, result.reason_code, result.evidence) == (
+                "INVALID",
+                "EVENT_FIELDS_INCOMPLETE",
+                None,
+            )
+            expected = (path,)
+            assert result.null_required_fields == (expected if null else ())
+            assert result.missing_required_fields == (() if null else expected)
+            serialized = json.dumps(asdict(result), sort_keys=True)
+            assert "@" not in serialized
+            assert "/home/" not in serialized
+            assert "/tmp/" not in serialized
+            assert "token" not in serialized.lower()
+
+
+def test_current_corrective_pr_scope_builds_exact_available_evidence(
+    tmp_path: Path, monkeypatch: Any
+) -> None:
+    namespace = _audit_namespace()
+    result = _build_pull_request_evidence(
+        namespace,
+        tmp_path,
+        monkeypatch,
+        pr_number=3,
+        base_sha="d" * 40,
+        head_ref="fix/reviewed-correction",
+    )
+    assert (result.status, result.reason_code) == ("AVAILABLE", "AVAILABLE")
+    assert result.evidence is not None
+    assert result.evidence.pr_number == 3
+    assert result.evidence.base_sha == "d" * 40
+    assert result.evidence.head_ref == "fix/reviewed-correction"
+    policies = namespace["VERIFIED_PLATFORM_IDENTITY_POLICIES"]
+    assert any(
+        role.current_event_scope
+        and role.pr_number is None
+        and role.base_sha is None
+        and role.head_ref is None
+        for policy in policies.values()  # type: ignore[union-attr]
+        for role in policy.pull_request_roles
+    )
+    occurrence_type = namespace["IdentityOccurrence"]
+    categories = []
+    for fingerprint, role in (
+        (namespace["GITHUB_SQUASH_AUTHOR_FINGERPRINT"], "AUTHOR"),
+        (namespace["GITHUB_SQUASH_COMMITTER_FINGERPRINT"], "COMMITTER"),
+    ):
+        occurrence = occurrence_type(  # type: ignore[operator]
+            object_sha="c" * 40,
+            role=role,
+            refnames=("refs/pull/3/merge",),
+            ref_classifications=("PULL_REQUEST_MERGE_REF",),
+            parents=("d" * 40, "b" * 40),
+            signature_key_ids=(namespace["GITHUB_WEB_FLOW_SIGNING_KEY_ID"],),
+        )
+        observation = _observation(
+            namespace,
+            fingerprint,  # type: ignore[arg-type]
+            roles=(role,),
+            refs=("PULL_REQUEST_MERGE_REF",),
+            occurrences=(occurrence,),
+        )
+        categories.append(
+            namespace["_classify_identity"](observation, pull_request_evidence=result.evidence)
+        )
+    assert categories == [
+        "VERIFIED_PLATFORM_MEDIATED_ACCOUNT_IDENTITY",
+        "VERIFIED_PLATFORM_SERVICE_IDENTITY",
+    ]
 
 
 def test_pull_request_evidence_pre_event_reason_codes(tmp_path: Path, monkeypatch: Any) -> None:
@@ -413,6 +564,10 @@ def test_pull_request_event_file_failures_are_typed(tmp_path: Path, monkeypatch:
         "INVALID",
         "EVENT_FIELDS_INCOMPLETE",
     )
+    assert incomplete.missing_required_fields == ("number",)
+    assert incomplete.missing_advisory_fields == ()
+    assert incomplete.null_required_fields == ()
+    assert incomplete.null_advisory_fields == ()
 
     namespace = _audit_namespace()
     oversized = _build_pull_request_evidence(
@@ -455,7 +610,7 @@ def test_pull_request_event_identity_mismatches_are_typed(tmp_path: Path, monkey
     mutations.append((base_ref, "BASE_REF_MISMATCH"))
     base_sha = _valid_pull_request_event(namespace)
     base_sha["pull_request"]["base"]["sha"] = "a" * 40
-    mutations.append((base_sha, "BASE_SHA_MISMATCH"))
+    mutations.append((base_sha, "CHECKOUT_SHA_MISMATCH"))
     head_ref = _valid_pull_request_event(namespace)
     head_ref["pull_request"]["head"]["ref"] = "unrelated"
     mutations.append((head_ref, "HEAD_REF_MISMATCH"))
@@ -648,8 +803,22 @@ def test_remote_pr_and_commit_mismatches_are_typed(tmp_path: Path, monkeypatch: 
         pr_api_changes={"merge_commit_sha": "d" * 40},
     )
     assert (wrong_merge.status, wrong_merge.reason_code) == ("AVAILABLE", "AVAILABLE")
-    assert wrong_merge.merge_discrepancy == "MATCHES_CURRENT_CHECKOUT"
+    assert wrong_merge.merge_discrepancy == "EVENT_TEST_MERGE_SHA_MATCHES_CURRENT_CHECKOUT"
     assert wrong_merge.safe_facts["api_test_merge_matches_current_checkout"] is False
+
+    for advisory_value in (None,):
+        namespace = _audit_namespace()
+        absent_api_merge = _build_pull_request_evidence(
+            namespace,
+            tmp_path,
+            monkeypatch,
+            pr_api_changes={"merge_commit_sha": advisory_value},
+        )
+        assert (absent_api_merge.status, absent_api_merge.reason_code) == (
+            "AVAILABLE",
+            "AVAILABLE",
+        )
+        assert absent_api_merge.safe_facts["api_test_merge_recorded"] is False
 
     namespace = _audit_namespace()
     malformed_test_merge = _build_pull_request_evidence(

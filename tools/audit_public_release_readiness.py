@@ -48,9 +48,21 @@ PULL_REQUEST_EVIDENCE_STATUSES = (
 )
 PULL_REQUEST_MERGE_DISCREPANCIES = (
     "EVENT_TEST_MERGE_SHA_DIFFERS_FROM_CURRENT_CHECKOUT",
-    "MATCHES_CURRENT_CHECKOUT",
+    "EVENT_TEST_MERGE_SHA_MATCHES_CURRENT_CHECKOUT",
+    "EVENT_TEST_MERGE_SHA_NOT_RECORDED",
     "NOT_EVALUATED",
 )
+PULL_REQUEST_REQUIRED_EVENT_FIELDS = (
+    "number",
+    "pull_request.base.ref",
+    "pull_request.base.sha",
+    "pull_request.head.ref",
+    "pull_request.head.sha",
+    "pull_request.user.id",
+    "repository.full_name",
+    "repository.id",
+)
+PULL_REQUEST_ADVISORY_EVENT_FIELDS = ("pull_request.merge_commit_sha",)
 PULL_REQUEST_EVIDENCE_REASON_CODES = (
     "ACTOR_EVIDENCE_NOT_AVAILABLE",
     "AVAILABLE",
@@ -210,14 +222,15 @@ class StaticPlatformOccurrencePolicy:
 class PullRequestRolePolicy:
     repository_full_name: str
     repository_id: int
-    pr_number: int
+    pr_number: int | None
     base_ref: str
-    base_sha: str
-    head_ref: str
+    base_sha: str | None
+    head_ref: str | None
     role: str
     actor_id: int
     signer_actor_id: int
     signature_key_id: str
+    current_event_scope: bool = False
 
 
 @dataclass(frozen=True)
@@ -292,6 +305,10 @@ class PullRequestEvidenceResult:
     reason_code: str
     merge_discrepancy: str
     safe_facts: dict[str, bool | int]
+    missing_required_fields: tuple[str, ...] = ()
+    missing_advisory_fields: tuple[str, ...] = ()
+    null_required_fields: tuple[str, ...] = ()
+    null_advisory_fields: tuple[str, ...] = ()
     evidence: PullRequestEvidence | None = None
 
 
@@ -369,6 +386,32 @@ PR2_AUTHOR_POLICY = PullRequestRolePolicy(
     signer_actor_id=GITHUB_WEB_FLOW_ACTOR_ID,
     signature_key_id=GITHUB_WEB_FLOW_SIGNING_KEY_ID,
 )
+CURRENT_PULL_REQUEST_COMMITTER_POLICY = PullRequestRolePolicy(
+    repository_full_name=GITHUB_REPOSITORY_FULL_NAME,
+    repository_id=GITHUB_REPOSITORY_ID,
+    pr_number=None,
+    base_ref="main",
+    base_sha=None,
+    head_ref=None,
+    role="COMMITTER",
+    actor_id=GITHUB_WEB_FLOW_ACTOR_ID,
+    signer_actor_id=GITHUB_WEB_FLOW_ACTOR_ID,
+    signature_key_id=GITHUB_WEB_FLOW_SIGNING_KEY_ID,
+    current_event_scope=True,
+)
+CURRENT_PULL_REQUEST_AUTHOR_POLICY = PullRequestRolePolicy(
+    repository_full_name=GITHUB_REPOSITORY_FULL_NAME,
+    repository_id=GITHUB_REPOSITORY_ID,
+    pr_number=None,
+    base_ref="main",
+    base_sha=None,
+    head_ref=None,
+    role="AUTHOR",
+    actor_id=GITHUB_OWNER_ACTOR_ID,
+    signer_actor_id=GITHUB_WEB_FLOW_ACTOR_ID,
+    signature_key_id=GITHUB_WEB_FLOW_SIGNING_KEY_ID,
+    current_event_scope=True,
+)
 VERIFIED_PLATFORM_IDENTITY_POLICIES = {
     "5f65310d79860e79e1e7015a5f25bc4e49eebbfaa2a53fb79490481c8010f832": PlatformIdentityPolicy(
         fingerprint="5f65310d79860e79e1e7015a5f25bc4e49eebbfaa2a53fb79490481c8010f832",
@@ -417,7 +460,7 @@ VERIFIED_PLATFORM_IDENTITY_POLICIES = {
                 signature_key_ids=(GITHUB_WEB_FLOW_SIGNING_KEY_ID,),
             ),
         ),
-        pull_request_roles=(PR2_COMMITTER_POLICY,),
+        pull_request_roles=(PR2_COMMITTER_POLICY, CURRENT_PULL_REQUEST_COMMITTER_POLICY),
         signed_squash_roles=(
             SignedSquashRolePolicy(
                 repository_full_name=GITHUB_REPOSITORY_FULL_NAME,
@@ -436,7 +479,7 @@ VERIFIED_PLATFORM_IDENTITY_POLICIES = {
         evidence_sources=tuple(
             sorted(REQUIRED_PULL_REQUEST_PROVENANCE | REQUIRED_SIGNED_SQUASH_PROVENANCE)
         ),
-        pull_request_roles=(PR2_AUTHOR_POLICY,),
+        pull_request_roles=(PR2_AUTHOR_POLICY, CURRENT_PULL_REQUEST_AUTHOR_POLICY),
         signed_squash_roles=(
             SignedSquashRolePolicy(
                 repository_full_name=GITHUB_REPOSITORY_FULL_NAME,
@@ -737,6 +780,11 @@ def _pull_request_evidence_result(
     safe_facts: dict[str, bool | int],
     evidence: PullRequestEvidence | None = None,
     merge_discrepancy: str = "NOT_EVALUATED",
+    *,
+    missing_required_fields: tuple[str, ...] = (),
+    missing_advisory_fields: tuple[str, ...] = (),
+    null_required_fields: tuple[str, ...] = (),
+    null_advisory_fields: tuple[str, ...] = (),
 ) -> PullRequestEvidenceResult:
     if status not in PULL_REQUEST_EVIDENCE_STATUSES:
         raise ValueError("invalid pull-request evidence status")
@@ -750,13 +798,40 @@ def _pull_request_evidence_result(
         raise ValueError("pull-request evidence availability mismatch")
     if (status == "AVAILABLE") != (merge_discrepancy != "NOT_EVALUATED"):
         raise ValueError("pull-request merge discrepancy availability mismatch")
+    diagnostic_sets = (
+        (missing_required_fields, PULL_REQUEST_REQUIRED_EVENT_FIELDS),
+        (missing_advisory_fields, PULL_REQUEST_ADVISORY_EVENT_FIELDS),
+        (null_required_fields, PULL_REQUEST_REQUIRED_EVENT_FIELDS),
+        (null_advisory_fields, PULL_REQUEST_ADVISORY_EVENT_FIELDS),
+    )
+    if any(
+        tuple(sorted(fields)) != fields or not set(fields).issubset(allowed)
+        for fields, allowed in diagnostic_sets
+    ):
+        raise ValueError("invalid pull-request event field diagnostics")
     return PullRequestEvidenceResult(
         status=status,
         reason_code=reason_code,
         merge_discrepancy=merge_discrepancy,
         safe_facts=dict(sorted(safe_facts.items())),
+        missing_required_fields=missing_required_fields,
+        missing_advisory_fields=missing_advisory_fields,
+        null_required_fields=null_required_fields,
+        null_advisory_fields=null_advisory_fields,
         evidence=evidence,
     )
+
+
+_MISSING_EVENT_FIELD = object()
+
+
+def _event_field(payload: object, dotted_path: str) -> object:
+    current = payload
+    for component in dotted_path.split("."):
+        if not isinstance(current, dict) or component not in current:
+            return _MISSING_EVENT_FIELD
+        current = current[component]
+    return current
 
 
 def _local_merge_ref_matches(pr_number: int, merge_sha: str) -> bool:
@@ -808,43 +883,86 @@ def _current_pull_request_evidence() -> PullRequestEvidenceResult:
         return _pull_request_evidence_result("INVALID", "EVENT_JSON_INVALID", facts)
     except OSError:
         return _pull_request_evidence_result("NOT_AVAILABLE", "EVENT_PATH_NOT_AVAILABLE", facts)
+    required_values = {
+        field: _event_field(event, field) for field in PULL_REQUEST_REQUIRED_EVENT_FIELDS
+    }
+    advisory_values = {
+        field: _event_field(event, field) for field in PULL_REQUEST_ADVISORY_EVENT_FIELDS
+    }
+    missing_required_fields = tuple(
+        sorted(field for field, value in required_values.items() if value is _MISSING_EVENT_FIELD)
+    )
+    missing_advisory_fields = tuple(
+        sorted(field for field, value in advisory_values.items() if value is _MISSING_EVENT_FIELD)
+    )
+    null_required_fields = tuple(
+        sorted(field for field, value in required_values.items() if value is None)
+    )
+    null_advisory_fields = tuple(
+        sorted(field for field, value in advisory_values.items() if value is None)
+    )
+    facts["missing_required_field_count"] = len(missing_required_fields)
+    facts["missing_advisory_field_count"] = len(missing_advisory_fields)
+    facts["null_required_field_count"] = len(null_required_fields)
+    facts["null_advisory_field_count"] = len(null_advisory_fields)
+
+    def event_result(
+        status: str,
+        reason_code: str,
+        *,
+        evidence: PullRequestEvidence | None = None,
+        merge_discrepancy: str = "NOT_EVALUATED",
+    ) -> PullRequestEvidenceResult:
+        return _pull_request_evidence_result(
+            status,
+            reason_code,
+            facts,
+            evidence=evidence,
+            merge_discrepancy=merge_discrepancy,
+            missing_required_fields=missing_required_fields,
+            missing_advisory_fields=missing_advisory_fields,
+            null_required_fields=null_required_fields,
+            null_advisory_fields=null_advisory_fields,
+        )
+
+    if missing_required_fields or null_required_fields:
+        return event_result("INVALID", "EVENT_FIELDS_INCOMPLETE")
     try:
-        if not isinstance(event, dict):
-            raise TypeError
-        pull = event["pull_request"]
-        repository = event["repository"]
-        if not isinstance(pull, dict) or not isinstance(repository, dict):
-            raise TypeError
-        pr_number = int(event["number"])
-        base_ref = str(pull["base"]["ref"])
-        base_sha = str(pull["base"]["sha"])
-        head_ref = str(pull["head"]["ref"])
-        head_sha = str(pull["head"]["sha"])
-        event_merge_sha = str(pull["merge_commit_sha"])
-        repository_id = int(repository["id"])
-        repository_full_name = str(repository["full_name"])
-        event_author_actor_id = int(pull["user"]["id"])
-    except (KeyError, TypeError, ValueError):
-        return _pull_request_evidence_result("INVALID", "EVENT_FIELDS_INCOMPLETE", facts)
-    if not all(
-        re.fullmatch(r"[0-9a-f]{40}", item) for item in (base_sha, head_sha, event_merge_sha)
-    ):
-        return _pull_request_evidence_result("INVALID", "EVENT_FIELDS_INCOMPLETE", facts)
+        pr_number = int(str(required_values["number"]))
+        base_ref = str(required_values["pull_request.base.ref"])
+        base_sha = str(required_values["pull_request.base.sha"])
+        head_ref = str(required_values["pull_request.head.ref"])
+        head_sha = str(required_values["pull_request.head.sha"])
+        repository_id = int(str(required_values["repository.id"]))
+        repository_full_name = str(required_values["repository.full_name"])
+        event_author_actor_id = int(str(required_values["pull_request.user.id"]))
+    except (TypeError, ValueError):
+        return event_result("INVALID", "EVENT_FIELDS_INCOMPLETE")
+    if not all(re.fullmatch(r"[0-9a-f]{40}", item) for item in (base_sha, head_sha)):
+        return event_result("INVALID", "EVENT_FIELDS_INCOMPLETE")
+    event_merge_value = advisory_values["pull_request.merge_commit_sha"]
+    event_merge_sha: str | None = None
+    if event_merge_value is not _MISSING_EVENT_FIELD and event_merge_value is not None:
+        if (
+            not isinstance(event_merge_value, str)
+            or re.fullmatch(r"[0-9a-f]{40}", event_merge_value) is None
+        ):
+            facts["advisory_merge_sha_malformed"] = True
+            return event_result("INVALID", "EVENT_FIELDS_INCOMPLETE")
+        event_merge_sha = event_merge_value
+    facts["event_test_merge_recorded"] = event_merge_sha is not None
     facts["event_fields_complete"] = True
     if repository_full_name != GITHUB_REPOSITORY_FULL_NAME or repository_id != GITHUB_REPOSITORY_ID:
         return _pull_request_evidence_result("INVALID", "REPOSITORY_MISMATCH", facts)
     facts["event_repository_matches"] = True
-    if pr_number != PR2_NUMBER:
-        return _pull_request_evidence_result("INVALID", "PR_NUMBER_MISMATCH", facts)
-    facts["pr_number_matches"] = True
+    if pr_number <= 0:
+        return event_result("INVALID", "PR_NUMBER_MISMATCH")
+    facts["pr_number_valid"] = True
     if base_ref != "main" or os.environ.get("GITHUB_BASE_REF") != base_ref:
         return _pull_request_evidence_result("INVALID", "BASE_REF_MISMATCH", facts)
     facts["base_ref_matches"] = True
-    if base_sha != PR2_BASE_SHA:
-        return _pull_request_evidence_result("INVALID", "BASE_SHA_MISMATCH", facts)
-    facts["base_sha_matches"] = True
-    if head_ref != PR2_HEAD_REF or os.environ.get("GITHUB_HEAD_REF") != head_ref:
-        return _pull_request_evidence_result("INVALID", "HEAD_REF_MISMATCH", facts)
+    if os.environ.get("GITHUB_HEAD_REF") != head_ref:
+        return event_result("INVALID", "HEAD_REF_MISMATCH")
     facts["head_ref_matches"] = True
     merge_ref = os.environ.get("GITHUB_REF", "")
     merge_ref_match = re.fullmatch(r"refs/pull/([1-9][0-9]*)/merge", merge_ref)
@@ -918,7 +1036,6 @@ def _current_pull_request_evidence() -> PullRequestEvidenceResult:
         pr_base_sha = str(pr_api["base"]["sha"])
         pr_head_ref = str(pr_api["head"]["ref"])
         pr_head_sha = str(pr_api["head"]["sha"])
-        pr_merge_sha = str(pr_api["merge_commit_sha"])
         api_commit_sha = str(commit_api["sha"])
     except (KeyError, TypeError, ValueError):
         return _pull_request_evidence_result("INDETERMINATE", "ACTOR_EVIDENCE_NOT_AVAILABLE", facts)
@@ -934,8 +1051,16 @@ def _current_pull_request_evidence() -> PullRequestEvidenceResult:
         return _pull_request_evidence_result("INVALID", "HEAD_REF_MISMATCH", facts)
     if pr_head_sha != head_sha:
         return _pull_request_evidence_result("INVALID", "HEAD_SHA_MISMATCH", facts)
-    if re.fullmatch(r"[0-9a-f]{40}", pr_merge_sha) is None:
-        return _pull_request_evidence_result("INVALID", "MERGE_SHA_MISMATCH", facts)
+    pr_merge_value = pr_api.get("merge_commit_sha", _MISSING_EVENT_FIELD)
+    pr_merge_sha: str | None = None
+    if pr_merge_value is not _MISSING_EVENT_FIELD and pr_merge_value is not None:
+        if (
+            not isinstance(pr_merge_value, str)
+            or re.fullmatch(r"[0-9a-f]{40}", pr_merge_value) is None
+        ):
+            return _pull_request_evidence_result("INVALID", "MERGE_SHA_MISMATCH", facts)
+        pr_merge_sha = pr_merge_value
+    facts["api_test_merge_recorded"] = pr_merge_sha is not None
     if api_commit_sha != checkout_sha:
         return _pull_request_evidence_result("INVALID", "MERGE_SHA_MISMATCH", facts)
     if len(api_parents) != 2:
@@ -955,11 +1080,12 @@ def _current_pull_request_evidence() -> PullRequestEvidenceResult:
     facts["signature_verified"] = True
     facts["event_merge_matches_current_checkout"] = event_merge_sha == checkout_sha
     facts["api_test_merge_matches_current_checkout"] = pr_merge_sha == checkout_sha
-    merge_discrepancy = (
-        "MATCHES_CURRENT_CHECKOUT"
-        if event_merge_sha == checkout_sha
-        else "EVENT_TEST_MERGE_SHA_DIFFERS_FROM_CURRENT_CHECKOUT"
-    )
+    if event_merge_sha is None:
+        merge_discrepancy = "EVENT_TEST_MERGE_SHA_NOT_RECORDED"
+    elif event_merge_sha == checkout_sha:
+        merge_discrepancy = "EVENT_TEST_MERGE_SHA_MATCHES_CURRENT_CHECKOUT"
+    else:
+        merge_discrepancy = "EVENT_TEST_MERGE_SHA_DIFFERS_FROM_CURRENT_CHECKOUT"
     evidence = PullRequestEvidence(
         valid=True,
         repository_full_name=repository_full_name,
@@ -979,10 +1105,9 @@ def _current_pull_request_evidence() -> PullRequestEvidenceResult:
         signature_key_ids=signature_key_ids,
         evidence_sources=tuple(sorted(REQUIRED_PULL_REQUEST_PROVENANCE)),
     )
-    return _pull_request_evidence_result(
+    return event_result(
         "AVAILABLE",
         "AVAILABLE",
-        facts,
         evidence=evidence,
         merge_discrepancy=merge_discrepancy,
     )
@@ -1274,10 +1399,24 @@ def _platform_policy_is_valid(policy: PlatformIdentityPolicy) -> bool:
         and all(
             item.repository_full_name == GITHUB_REPOSITORY_FULL_NAME
             and item.repository_id == GITHUB_REPOSITORY_ID
-            and item.pr_number > 0
             and item.base_ref == "main"
-            and re.fullmatch(r"[0-9a-f]{40}", item.base_sha)
-            and item.head_ref
+            and (
+                (
+                    item.current_event_scope
+                    and item.pr_number is None
+                    and item.base_sha is None
+                    and item.head_ref is None
+                )
+                or (
+                    not item.current_event_scope
+                    and item.pr_number is not None
+                    and item.pr_number > 0
+                    and item.base_sha is not None
+                    and re.fullmatch(r"[0-9a-f]{40}", item.base_sha)
+                    and item.head_ref is not None
+                    and bool(item.head_ref)
+                )
+            )
             and item.role in {"AUTHOR", "COMMITTER"}
             and item.actor_id > 0
             and item.signer_actor_id == GITHUB_WEB_FLOW_ACTOR_ID
@@ -1323,8 +1462,8 @@ def _pull_request_occurrence_matches(
     if evidence is None:
         return False
     allowed_merge_refs = {
-        f"refs/pull/{policy.pr_number}/merge",
-        f"refs/remotes/pull/{policy.pr_number}/merge",
+        f"refs/pull/{evidence.pr_number}/merge",
+        f"refs/remotes/pull/{evidence.pr_number}/merge",
     }
     actor_id = (
         evidence.author_actor_id if occurrence.role == "AUTHOR" else evidence.committer_actor_id
@@ -1334,10 +1473,15 @@ def _pull_request_occurrence_matches(
         and REQUIRED_PULL_REQUEST_PROVENANCE.issubset(evidence.evidence_sources)
         and evidence.repository_full_name == policy.repository_full_name
         and evidence.repository_id == policy.repository_id
-        and evidence.pr_number == policy.pr_number
         and evidence.base_ref == policy.base_ref
-        and evidence.base_sha == policy.base_sha
-        and evidence.head_ref == policy.head_ref
+        and (
+            policy.current_event_scope
+            or (
+                evidence.pr_number == policy.pr_number
+                and evidence.base_sha == policy.base_sha
+                and evidence.head_ref == policy.head_ref
+            )
+        )
         and occurrence.object_sha == evidence.merge_sha
         and occurrence.role == policy.role
         and actor_id == policy.actor_id
@@ -1349,7 +1493,7 @@ def _pull_request_occurrence_matches(
         and occurrence.refnames
         and set(occurrence.refnames).issubset(allowed_merge_refs)
         and occurrence.ref_classifications == ("PULL_REQUEST_MERGE_REF",)
-        and evidence.merge_ref == f"refs/pull/{policy.pr_number}/merge"
+        and evidence.merge_ref == f"refs/pull/{evidence.pr_number}/merge"
     )
 
 
@@ -1874,6 +2018,7 @@ def main() -> int:
                     "actor_id": item.actor_id,
                     "base_ref": item.base_ref,
                     "base_sha": item.base_sha,
+                    "current_event_scope": item.current_event_scope,
                     "head_ref": item.head_ref,
                     "pr_number": item.pr_number,
                     "repository_full_name": item.repository_full_name,
@@ -2001,6 +2146,14 @@ def main() -> int:
                 "status": pull_request_evidence_result.status,
                 "reason_code": pull_request_evidence_result.reason_code,
                 "merge_discrepancy": pull_request_evidence_result.merge_discrepancy,
+                "missing_required_fields": list(
+                    pull_request_evidence_result.missing_required_fields
+                ),
+                "missing_advisory_fields": list(
+                    pull_request_evidence_result.missing_advisory_fields
+                ),
+                "null_required_fields": list(pull_request_evidence_result.null_required_fields),
+                "null_advisory_fields": list(pull_request_evidence_result.null_advisory_fields),
                 "safe_facts": pull_request_evidence_result.safe_facts,
                 "evidence": (
                     None

@@ -66,10 +66,15 @@ binding it to the expected hidden merge ref, detached local `HEAD`, an available
 object, and exactly two ordered parents matching the event base and head. GitHub's
 [pull-request REST documentation](https://docs.github.com/en/rest/pulls/pulls) separately
 describes `merge_commit_sha` as a test merge that GitHub creates while computing
-mergeability. An event or API test-merge SHA may consequently differ from the current
-Actions checkout. The audit records that exact discrepancy without calling it equality,
-continuity, or historical identity, and accepts it only after every stronger checkout,
-repository, PR, ref, parent, actor, role, signature, signer, and scope invariant verifies.
+mergeability; mergeability may temporarily be `null` while that computation runs. An
+event or API test-merge SHA may consequently be absent, `null`, or differ from the
+current Actions checkout. The audit records those cases as
+`EVENT_TEST_MERGE_SHA_NOT_RECORDED` or
+`EVENT_TEST_MERGE_SHA_DIFFERS_FROM_CURRENT_CHECKOUT` without calling either equality,
+continuity, or historical identity. It accepts an absent, null, or differing advisory
+test-merge field only after every stronger checkout, repository, PR, ref, parent, actor,
+role, signature, signer, and scope invariant verifies. A present matching advisory field
+is recorded as `EVENT_TEST_MERGE_SHA_MATCHES_CURRENT_CHECKOUT`.
 All other current-checkout or provenance mismatches remain fail-closed. The bounded REST
 checks still establish public PR association, actors, and verified-valid signature
 provenance; a differing test-merge SHA establishes none of those facts. It does not
@@ -99,7 +104,15 @@ process evidence and reports it as `NOT_SUPPLIED`; it is never inferred from a s
 or signature alone.
 
 PR-evidence construction reports a typed status (`AVAILABLE`, `NOT_AVAILABLE`,
-`INVALID`, or `INDETERMINATE`), a stable reason code, and bounded boolean/count facts.
+`INVALID`, or `INDETERMINATE`), a stable reason code, bounded boolean/count facts, and
+sorted field-name-only lists for missing or null required and advisory event fields.
+Repository identity, a positive PR number, base/head refs and SHAs, event actor, Actions
+ref/SHA, local commit object and ordered parents, signer, signature, and reviewed role
+remain mandatory. Current-event role policy is forward-safe but not global: it applies
+only while those event, environment, Git, and authenticated REST bindings all agree for
+the current `pull_request` merge ref. Historical PR #2 policy remains exact. Neither
+internal field agreement nor a similarly spelled identity independently authorizes an
+occurrence.
 It emits the verified evidence record only for `AVAILABLE`; failures do not serialize
 the event payload, identity text, email addresses, environment paths, request headers,
 tokens, or credential-bearing URLs. This diagnostic surface does not grant trust: any
