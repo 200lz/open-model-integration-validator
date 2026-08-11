@@ -104,24 +104,24 @@
       "failure_behavior": "Classify PUBLIC_VISIBILITY_CHANGED_REQUIRED_PUBLIC_CONTROL_FAILED, stop publication, and prohibit announcement, tag, release, and PyPI operations."
     },
     "SECRET_SCANNING": {
-      "current_state": "DISABLED",
+      "current_state": "API_STATE_UNAVAILABLE",
       "target_state": "ENABLED_AND_VERIFIED",
       "application_phase": "REQUIRED_IMMEDIATELY_AFTER_VISIBILITY_CHANGE",
-      "reason": "The endpoint explicitly reports disabled while the repository is private; public availability must be applied and verified immediately after visibility changes.",
-      "observation_source": "GET /repos/200lz/open-model-integration-validator and GET /secret-scanning/alerts reported no enabled setting and HTTP 404 disabled.",
-      "observation_limitation": "The observation applies only to the current private repository and does not predict feature availability after publication.",
+      "reason": "Secret scanning was enabled during the controlled public attempt, but its public-only state became unavailable to the repository API after the authorized rollback to private.",
+      "observation_source": "After the repository returned to PRIVATE, authenticated repository security-and-analysis and secret-scanning reads no longer exposed a classifiable enabled or disabled state.",
+      "observation_limitation": "API_STATE_UNAVAILABLE while private is neither enabled nor disabled and does not establish the state that a future public transaction will read back.",
       "verification_method": "After visibility changes, PATCH security_and_analysis.secret_scanning to enabled and re-read the repository security_and_analysis state.",
       "failure_behavior": "Stop before tag, release, or PyPI operations; report the unapplied control without weakening the policy."
     },
     "PUSH_PROTECTION": {
-      "current_state": "NOT_CONFIGURED",
+      "current_state": "API_STATE_UNAVAILABLE",
       "target_state": "ENABLED_AND_VERIFIED",
       "application_phase": "REQUIRED_IMMEDIATELY_AFTER_VISIBILITY_CHANGE",
-      "reason": "Push protection depends on secret scanning and must be enabled and re-read with it.",
-      "observation_source": "GET /repos/200lz/open-model-integration-validator omitted an enabled secret_scanning_push_protection state while secret scanning was disabled.",
-      "observation_limitation": "No independent enabled state can be established while its secret-scanning prerequisite is disabled.",
+      "reason": "Push protection was enabled during the controlled public attempt, but its public-only state became unavailable to the repository API after the authorized rollback to private.",
+      "observation_source": "After the repository returned to PRIVATE, authenticated repository security-and-analysis reads no longer exposed a classifiable push-protection state.",
+      "observation_limitation": "API_STATE_UNAVAILABLE while private is neither enabled nor disabled and cannot be used as proof of a future public state.",
       "verification_method": "After visibility changes, PATCH secret_scanning_push_protection to enabled and re-read the repository security_and_analysis state.",
-      "failure_behavior": "Stop before tag, release, or PyPI operations and retain NOT_CONFIGURED until read-back succeeds."
+      "failure_behavior": "Stop before tag, release, or PyPI operations and retain API_STATE_UNAVAILABLE until a future public read-back succeeds."
     },
     "DEPENDABOT_ALERTS": {
       "current_state": "ENABLED_AND_VERIFIED",
@@ -266,11 +266,11 @@
   },
   "implementation": {
     "r1e_status": "COMPLETE",
-    "r1f_status": "IMPLEMENTED_PRIVATE_RELEASE_AND_VISIBILITY_AUTHORIZATION_PENDING",
+    "r1f_status": "PUBLIC_ATTEMPT_ROLLED_BACK_SCHEMA_CORRECTION_AND_NEW_AUTHORIZATION_PENDING",
     "phase6f_status": "PLANNED_NOT_IMPLEMENTED",
     "repository_visibility_at_r1f_baseline": "PRIVATE",
     "r1e_private_controls_applied": true,
-    "github_settings_mutated_by_r1f": false
+    "github_settings_mutated_by_r1f": true
   },
   "mutation_scope": {
     "r1e_private_mutations": [
@@ -292,6 +292,34 @@
     ],
     "visibility_rollback_pre_authorized": false,
     "r1f_must_decide_rollback_authority_before_visibility": true
+  },
+  "publication_incident": {
+    "classification": "PUBLIC_VISIBILITY_CHANGED_REQUIRED_PUBLIC_CONTROL_FAILED_ROLLED_BACK_TO_PRIVATE",
+    "failed_control": "MAIN_ENFORCEMENT_APPLICATION_FAILED",
+    "visibility_became_public": "2026-08-10T17:23:08Z",
+    "branch_protection_failed": "2026-08-10T17:27:47Z",
+    "visibility_returned_private": "2026-08-10T23:02:08Z",
+    "approximate_public_interval": "5_HOURS_39_MINUTES",
+    "failed_http_status": 422,
+    "failed_request_schema": "CONTEXTS_AND_APP_BOUND_CHECKS_INCOMPATIBLE_VARIANTS",
+    "failed_request_explicit_accept_header": false,
+    "failed_request_explicit_api_version_header": false,
+    "branch_protection_applied": false,
+    "rollback_succeeded": true,
+    "pre_public_secret_or_privacy_finding": false,
+    "tag_github_release_pypi_or_announcement_occurred": false,
+    "public_only_controls_enabled_before_failure": [
+      "PRIVATE_VULNERABILITY_REPORTING",
+      "SECRET_SCANNING",
+      "PUSH_PROTECTION"
+    ],
+    "private_api_state_after_rollback": "API_STATE_UNAVAILABLE",
+    "prior_visibility_authorization": "CONSUMED",
+    "prior_rollback_authorization": "CONSUMED_AND_EXECUTED",
+    "new_visibility_authorization_required": true,
+    "new_rollback_selection_required": true,
+    "exposure_erased": false,
+    "exposure_limitation": "Returning PRIVATE cannot erase prior observation, indexing, links, caches, copies, stars, watchers, forks, or repository-network effects; no claim is made that no third party observed or copied the repository."
   },
   "final_public_state": {
     "repository": "200lz/open-model-integration-validator",
@@ -347,11 +375,30 @@
   "main_enforcement": {
     "mechanism": "BRANCH_PROTECTION",
     "overlapping_ruleset_allowed": false,
-    "endpoint": "PUT /repos/200lz/open-model-integration-validator/branches/main/protection",
+    "request": {
+      "method": "PUT",
+      "endpoint": "/repos/200lz/open-model-integration-validator/branches/main/protection",
+      "accept": "application/vnd.github+json",
+      "api_version": "2022-11-28",
+      "success_status": 200,
+      "failure_statuses": [
+        403,
+        404,
+        422
+      ],
+      "request_schema_mode": "APP_BOUND_CHECKS_WITH_CONTEXTS_OMITTED"
+    },
+    "read_back": {
+      "method": "GET",
+      "endpoint": "/repos/200lz/open-model-integration-validator/branches/main/protection",
+      "accept": "application/vnd.github+json",
+      "api_version": "2022-11-28",
+      "success_status": 200,
+      "response_contexts_semantics": "DERIVED_CONTEXTS_ALLOWED_CHECKS_APP_ID_AUTHORITATIVE"
+    },
     "payload": {
       "required_status_checks": {
         "strict": true,
-        "contexts": [],
         "checks": [
           {
             "context": "Python 3.11",
@@ -386,7 +433,7 @@
     },
     "single_maintainer_reason": "The sole maintainer cannot supply independent approval for their own change; zero approvals keeps pull requests and required CI enforceable without claiming external review.",
     "administrator_behavior": "enforce_admins false leaves an emergency administrator bypass; it is not routine approval evidence and any use requires a public audit trail.",
-    "read_back_requirement": "Verify every payload field, all four exact status-check contexts, GitHub Actions App ID 15368 on every check, and the absence of an overlapping ruleset. The app identity was observed through the Checks API on R1E run 31388596940 and must be re-verified on the exact green R1F commit before application."
+    "read_back_requirement": "Validate response representation independently: require strict true and all four exact checks with GitHub Actions App ID 15368; if GitHub returns derived contexts, require exactly the same four names but never treat contexts alone as App binding. Verify every other payload field and the absence of an overlapping ruleset. Re-verify the App identity on the exact future green private-main commit before application."
   },
   "rollback_authority": {
     "choices": [
@@ -459,7 +506,7 @@
     "Required public-only controls cannot be enabled and verified immediately after visibility changes.",
     "A workflow gains write permission, uses an unpinned Action, uses pull_request_target, or selects a self-hosted runner.",
     "A secret, credential, private payload, local path, or sensitive API response is found.",
-    "The exact branch-protection payload or one of the four required check contexts cannot be applied and read back.",
+    "The exact checks-only branch-protection payload or one of the four required app-bound checks cannot be applied and read back.",
     "An overlapping main-branch ruleset appears.",
     "Any post-public verification differs from the approved policy.",
     "The unauthenticated public-read smoke check fails.",

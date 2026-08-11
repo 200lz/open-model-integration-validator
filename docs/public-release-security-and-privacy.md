@@ -83,10 +83,23 @@ No default CI path enables network integration or downloads model/tokenizer payl
 The R1F baseline is private; live GitHub visibility is authoritative after any later
 transaction. R1E applied and verified the reviewed profile, topics, and supported
 private Dependabot controls. GitHub documents Private Vulnerability Reporting for
-public repositories, so it is not verified at the private baseline. After a
-separately authorized public visibility change, R1F must immediately enable and
-re-read private reporting, secret scanning, push protection, and the exact reviewed
-branch protection in the order defined by the
+public repositories, so it is not verified at the private baseline.
+
+One controlled attempt was publicly readable for approximately 5 hours 39 minutes on
+2026-08-10. Its pre-public exposure audit detected no secret or privacy finding. PVR,
+secret scanning, and push protection were enabled while public, but branch protection
+was never applied because its request returned HTTP 422. The authorized rollback to
+PRIVATE succeeded. Returning PRIVATE cannot erase prior observation, indexing,
+links, caches, copies, watchers, forks, or repository-network effects, and no claim is
+made that no third party observed or copied the repository. No tag, GitHub Release,
+PyPI publication, or announcement occurred. The three public-only controls now have
+`API_STATE_UNAVAILABLE` private API state rather than a claimed enabled or disabled
+state. The prior visibility and rollback authorizations were consumed; another
+attempt requires a new visibility authorization and a new rollback-policy choice.
+
+After a newly authorized public visibility change, R1F must immediately enable and
+re-read private reporting, secret scanning, push protection, and the corrected
+checks-only reviewed branch protection in the order defined by the
 [R1F final-publication audit](r1f-final-publication-audit.md). Failure of any required
 post-public control blocks successful publication classification and keeps
 announcement, tag, GitHub release, and PyPI operations prohibited. This

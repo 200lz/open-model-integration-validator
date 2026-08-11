@@ -10,6 +10,24 @@ later transaction. Version 0.10.0 remains an untagged and unreleased public-prev
 candidate, with no GitHub release or PyPI publication. This document does not
 authorize a visibility or settings change.
 
+## Controlled public attempt rolled back
+
+A separately authorized attempt made the repository public from
+`2026-08-10T17:23:08Z` until the successful return to PRIVATE at
+`2026-08-10T23:02:08Z`, approximately 5 hours 39 minutes. PVR, secret scanning, and
+push protection verified while public, but the branch-protection PUT failed with
+HTTP 422 because the request mixed incompatible `contexts` and app-bound `checks`
+schema variants. Branch protection was never applied. The pre-public exposure audit
+found no secret or privacy finding, but returning PRIVATE cannot erase observation,
+indexing, links, caches, copies, stars, watchers, forks, or repository-network
+effects, and this record does not claim that no third party observed or copied it.
+
+No tag, GitHub Release, PyPI publication, or announcement occurred. The public-only
+control APIs became `API_STATE_UNAVAILABLE` after rollback and are not described as
+enabled or disabled while private. The prior visibility authorization was consumed;
+the prior rollback authorization was consumed and executed. A new visibility
+authorization and a new rollback selection are mandatory before another attempt.
+
 ## Desired repository profile
 
 The profile applied and verified by R1E, and required to remain unchanged through a
@@ -77,8 +95,8 @@ name, environment name, installation identifier, or signed URL is retained.
 | Private vulnerability reporting | `API_STATE_UNAVAILABLE`; the private-repository status endpoint returned undifferentiated not-found, while reviewed official GitHub documentation limits enablement to public repositories |
 | Dependabot alerts | `ENABLED_AND_VERIFIED`; status endpoint returned HTTP 204 |
 | Dependabot security updates | `ENABLED_AND_VERIFIED`; automated security fixes reported enabled true and paused false |
-| Secret scanning | `DISABLED`; endpoint explicitly reported disabled |
-| Push protection | `NOT_CONFIGURED`; secret scanning prerequisite is disabled |
+| Secret scanning | `API_STATE_UNAVAILABLE` after return to PRIVATE; not classifiable as enabled or disabled |
+| Push protection | `API_STATE_UNAVAILABLE` after return to PRIVATE; not classifiable as enabled or disabled |
 | Code scanning | `NOT_CONFIGURED`; endpoint explicitly reported no configuration |
 | Rulesets | `UNAVAILABLE_FOR_CURRENT_VISIBILITY_OR_PLAN` |
 | Branch protection | `UNAVAILABLE_FOR_CURRENT_VISIBILITY_OR_PLAN` |
@@ -99,8 +117,8 @@ change.
 | Private vulnerability reporting | `API_STATE_UNAVAILABLE` | `DEFERRED_TO_R1F`; enable and verify immediately after separately authorized public visibility |
 | Dependabot alerts | `ENABLED_AND_VERIFIED` | Re-read before and after visibility; stop if the state is lost |
 | Dependabot security updates | `ENABLED_AND_VERIFIED` | Re-read before and after visibility; stop if the state is lost |
-| Secret scanning | `DISABLED` | Enable and verify immediately after public visibility makes it available |
-| Push protection | `NOT_CONFIGURED` | Enable with secret scanning and verify immediately after visibility change |
+| Secret scanning | `API_STATE_UNAVAILABLE` | Enable and verify immediately after public visibility makes it available |
+| Push protection | `API_STATE_UNAVAILABLE` | Enable after secret scanning and verify immediately after visibility change |
 | Code scanning | `NOT_CONFIGURED` | `DEFERRED_TO_SEPARATE_POST_PUBLIC_CHANGE`; no launch-time CodeQL workflow |
 | Rulesets | `UNAVAILABLE_FOR_CURRENT_VISIBILITY_OR_PLAN` | Keep unconfigured; branch protection is the sole selected initial mechanism |
 | Branch protection | `UNAVAILABLE_FOR_CURRENT_VISIBILITY_OR_PLAN` | Apply the exact reviewed payload immediately after visibility change |
@@ -169,6 +187,15 @@ The exact required check names produced by the tracked workflow are `Python 3.11
 `Python 3.12`, `Python 3.13`, and `Python 3.14`. R1F must re-read the check names from
 the exact public-main CI run before applying protection; a renamed or missing check
 is a stop condition.
+
+The corrected write uses `APP_BOUND_CHECKS_WITH_CONTEXTS_OMITTED`: the request
+contains `strict: true` and the four exact `checks` objects bound to GitHub Actions
+App ID `15368`, and omits the `contexts` member entirely. Both PUT and GET explicitly
+send `Accept: application/vnd.github+json` and
+`X-GitHub-Api-Version: 2022-11-28`. GitHub may return a derived `contexts` list, but
+that list must match the four names and cannot prove App binding; only returned
+`checks[].app_id` does. Combining `contexts` and `checks`, falling back to contexts
+alone, changing the version, or substituting a ruleset fails closed.
 
 The enforcement must:
 

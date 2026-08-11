@@ -37,6 +37,12 @@ TOPICS = (
 )
 CHECK_CONTEXTS = ("Python 3.11", "Python 3.12", "Python 3.13", "Python 3.14")
 GITHUB_ACTIONS_APP_ID = 15368
+GITHUB_REST_ACCEPT = "application/vnd.github+json"
+GITHUB_REST_API_VERSION = "2022-11-28"
+BRANCH_PROTECTION_ENDPOINT = (
+    "/repos/200lz/open-model-integration-validator/branches/main/protection"
+)
+BRANCH_PROTECTION_SCHEMA_MODE = "APP_BOUND_CHECKS_WITH_CONTEXTS_OMITTED"
 ROLLBACK_CHOICES = (
     "ROLLBACK_TO_PRIVATE_ON_REQUIRED_CONTROL_FAILURE_AUTHORIZED",
     "LEAVE_PUBLIC_AND_STOP_FOR_MANUAL_REMEDIATION",
@@ -115,6 +121,7 @@ TOP_LEVEL_FIELDS = (
     "release_policy",
     "implementation",
     "mutation_scope",
+    "publication_incident",
     "final_public_state",
     "main_enforcement",
     "rollback_authority",
@@ -218,6 +225,176 @@ def _expect_keys(value: Any, expected: tuple[str, ...], label: str) -> dict[str,
     return value
 
 
+def _check_pairs(value: Any, label: str) -> tuple[tuple[str, int], ...]:
+    if not isinstance(value, list) or len(value) != len(CHECK_CONTEXTS):
+        raise AuditError(f"invalid-{label}-count")
+    pairs: list[tuple[str, int]] = []
+    for item in value:
+        check = _expect_keys(item, ("context", "app_id"), f"{label}-check")
+        context = check["context"]
+        app_id = check["app_id"]
+        if not isinstance(context, str) or not isinstance(app_id, int) or isinstance(app_id, bool):
+            raise AuditError(f"invalid-{label}-check-value")
+        pairs.append((context, app_id))
+    expected = tuple(sorted((context, GITHUB_ACTIONS_APP_ID) for context in CHECK_CONTEXTS))
+    observed = tuple(sorted(pairs))
+    if observed != expected or len(set(pairs)) != len(pairs):
+        raise AuditError(f"invalid-{label}-checks")
+    return observed
+
+
+def validate_branch_protection_request(enforcement: Any) -> None:
+    value = _expect_keys(
+        enforcement,
+        (
+            "mechanism",
+            "overlapping_ruleset_allowed",
+            "request",
+            "read_back",
+            "payload",
+            "single_maintainer_reason",
+            "administrator_behavior",
+            "read_back_requirement",
+        ),
+        "main-enforcement",
+    )
+    request = _expect_keys(
+        value["request"],
+        (
+            "method",
+            "endpoint",
+            "accept",
+            "api_version",
+            "success_status",
+            "failure_statuses",
+            "request_schema_mode",
+        ),
+        "branch-protection-request",
+    )
+    read_back = _expect_keys(
+        value["read_back"],
+        (
+            "method",
+            "endpoint",
+            "accept",
+            "api_version",
+            "success_status",
+            "response_contexts_semantics",
+        ),
+        "branch-protection-read-back-metadata",
+    )
+    if request != {
+        "method": "PUT",
+        "endpoint": BRANCH_PROTECTION_ENDPOINT,
+        "accept": GITHUB_REST_ACCEPT,
+        "api_version": GITHUB_REST_API_VERSION,
+        "success_status": 200,
+        "failure_statuses": [403, 404, 422],
+        "request_schema_mode": BRANCH_PROTECTION_SCHEMA_MODE,
+    }:
+        raise AuditError("invalid-branch-protection-request-metadata")
+    if read_back != {
+        "method": "GET",
+        "endpoint": BRANCH_PROTECTION_ENDPOINT,
+        "accept": GITHUB_REST_ACCEPT,
+        "api_version": GITHUB_REST_API_VERSION,
+        "success_status": 200,
+        "response_contexts_semantics": "DERIVED_CONTEXTS_ALLOWED_CHECKS_APP_ID_AUTHORITATIVE",
+    }:
+        raise AuditError("invalid-branch-protection-read-back-metadata")
+    if request["api_version"] != read_back["api_version"]:
+        raise AuditError("branch-protection-api-version-mismatch")
+    payload = _expect_keys(
+        value["payload"],
+        (
+            "required_status_checks",
+            "enforce_admins",
+            "required_pull_request_reviews",
+            "restrictions",
+            "required_linear_history",
+            "allow_force_pushes",
+            "allow_deletions",
+            "required_conversation_resolution",
+        ),
+        "branch-protection-payload",
+    )
+    status = _expect_keys(
+        payload["required_status_checks"], ("strict", "checks"), "required-status-checks"
+    )
+    if status["strict"] is not True:
+        raise AuditError("invalid-required-status-strictness")
+    _check_pairs(status["checks"], "request")
+    reviews = _expect_keys(
+        payload["required_pull_request_reviews"],
+        (
+            "dismiss_stale_reviews",
+            "require_code_owner_reviews",
+            "required_approving_review_count",
+            "require_last_push_approval",
+        ),
+        "pull-request-reviews",
+    )
+    expected_reviews = {
+        "dismiss_stale_reviews": False,
+        "require_code_owner_reviews": False,
+        "required_approving_review_count": 0,
+        "require_last_push_approval": False,
+    }
+    if reviews != expected_reviews:
+        raise AuditError("invalid-pull-request-review-policy")
+    if any(
+        (
+            value["mechanism"] != "BRANCH_PROTECTION",
+            value["overlapping_ruleset_allowed"] is not False,
+            payload["enforce_admins"] is not False,
+            payload["restrictions"] is not None,
+            payload["required_linear_history"] is not True,
+            payload["allow_force_pushes"] is not False,
+            payload["allow_deletions"] is not False,
+            payload["required_conversation_resolution"] is not True,
+        )
+    ):
+        raise AuditError("invalid-main-enforcement-semantics")
+
+
+def validate_branch_protection_read_back(response: Any, enforcement: Any) -> None:
+    """Validate a normalized GitHub response independently from the write body."""
+    validate_branch_protection_request(enforcement)
+    expected_fields = (
+        "required_status_checks",
+        "enforce_admins",
+        "required_pull_request_reviews",
+        "restrictions",
+        "required_linear_history",
+        "allow_force_pushes",
+        "allow_deletions",
+        "required_conversation_resolution",
+    )
+    normalized = _expect_keys(response, expected_fields, "branch-protection-response")
+    status = normalized["required_status_checks"]
+    if not isinstance(status, dict) or set(status) not in (
+        {"strict", "checks"},
+        {"strict", "contexts", "checks"},
+    ):
+        raise AuditError("invalid-response-status-check-fields")
+    if status["strict"] is not True:
+        raise AuditError("invalid-response-status-strictness")
+    _check_pairs(status["checks"], "response")
+    if "contexts" in status:
+        contexts = status["contexts"]
+        if (
+            not isinstance(contexts, list)
+            or len(contexts) != len(CHECK_CONTEXTS)
+            or set(contexts) != set(CHECK_CONTEXTS)
+            or len(set(contexts)) != len(contexts)
+        ):
+            raise AuditError("invalid-derived-response-contexts")
+    payload = enforcement["payload"]
+    for field in expected_fields[1:]:
+        if normalized[field] != payload[field]:
+            raise AuditError("invalid-response-enforcement-field")
+
+
 def validate_r1f_policy(policy: dict[str, Any]) -> None:
     top = _expect_keys(policy, TOP_LEVEL_FIELDS, "policy")
     if top["classification"] != "NON_CANONICAL_REPOSITORY_PUBLICATION_POLICY":
@@ -256,13 +433,67 @@ def validate_r1f_policy(policy: dict[str, Any]) -> None:
     )
     if implementation != {
         "r1e_status": "COMPLETE",
-        "r1f_status": "IMPLEMENTED_PRIVATE_RELEASE_AND_VISIBILITY_AUTHORIZATION_PENDING",
+        "r1f_status": "PUBLIC_ATTEMPT_ROLLED_BACK_SCHEMA_CORRECTION_AND_NEW_AUTHORIZATION_PENDING",
         "phase6f_status": "PLANNED_NOT_IMPLEMENTED",
         "repository_visibility_at_r1f_baseline": "PRIVATE",
         "r1e_private_controls_applied": True,
-        "github_settings_mutated_by_r1f": False,
+        "github_settings_mutated_by_r1f": True,
     }:
         raise AuditError("invalid-implementation-state")
+
+    incident = _expect_keys(
+        top["publication_incident"],
+        (
+            "classification",
+            "failed_control",
+            "visibility_became_public",
+            "branch_protection_failed",
+            "visibility_returned_private",
+            "approximate_public_interval",
+            "failed_http_status",
+            "failed_request_schema",
+            "failed_request_explicit_accept_header",
+            "failed_request_explicit_api_version_header",
+            "branch_protection_applied",
+            "rollback_succeeded",
+            "pre_public_secret_or_privacy_finding",
+            "tag_github_release_pypi_or_announcement_occurred",
+            "public_only_controls_enabled_before_failure",
+            "private_api_state_after_rollback",
+            "prior_visibility_authorization",
+            "prior_rollback_authorization",
+            "new_visibility_authorization_required",
+            "new_rollback_selection_required",
+            "exposure_erased",
+            "exposure_limitation",
+        ),
+        "publication-incident",
+    )
+    if (
+        incident["classification"]
+        != "PUBLIC_VISIBILITY_CHANGED_REQUIRED_PUBLIC_CONTROL_FAILED_ROLLED_BACK_TO_PRIVATE"
+        or incident["failed_control"] != "MAIN_ENFORCEMENT_APPLICATION_FAILED"
+        or incident["approximate_public_interval"] != "5_HOURS_39_MINUTES"
+        or incident["failed_http_status"] != 422
+        or incident["failed_request_schema"]
+        != "CONTEXTS_AND_APP_BOUND_CHECKS_INCOMPATIBLE_VARIANTS"
+        or incident["failed_request_explicit_accept_header"] is not False
+        or incident["failed_request_explicit_api_version_header"] is not False
+        or incident["branch_protection_applied"] is not False
+        or incident["rollback_succeeded"] is not True
+        or incident["pre_public_secret_or_privacy_finding"] is not False
+        or incident["tag_github_release_pypi_or_announcement_occurred"] is not False
+        or tuple(incident["public_only_controls_enabled_before_failure"])
+        != ("PRIVATE_VULNERABILITY_REPORTING", "SECRET_SCANNING", "PUSH_PROTECTION")
+        or incident["private_api_state_after_rollback"] != "API_STATE_UNAVAILABLE"
+        or incident["prior_visibility_authorization"] != "CONSUMED"
+        or incident["prior_rollback_authorization"] != "CONSUMED_AND_EXECUTED"
+        or incident["new_visibility_authorization_required"] is not True
+        or incident["new_rollback_selection_required"] is not True
+        or incident["exposure_erased"] is not False
+        or "no claim is made" not in incident["exposure_limitation"]
+    ):
+        raise AuditError("invalid-publication-incident")
 
     final = _expect_keys(
         top["final_public_state"],
@@ -334,50 +565,14 @@ def validate_r1f_policy(policy: dict[str, Any]) -> None:
     }:
         raise AuditError("invalid-final-ci")
 
-    enforcement = _expect_keys(
-        top["main_enforcement"],
-        (
-            "mechanism",
-            "overlapping_ruleset_allowed",
-            "endpoint",
-            "payload",
-            "single_maintainer_reason",
-            "administrator_behavior",
-            "read_back_requirement",
-        ),
-        "main-enforcement",
-    )
-    expected_payload = {
-        "required_status_checks": {
-            "strict": True,
-            "contexts": [],
-            "checks": [
-                {"context": context, "app_id": GITHUB_ACTIONS_APP_ID} for context in CHECK_CONTEXTS
-            ],
-        },
-        "enforce_admins": False,
-        "required_pull_request_reviews": {
-            "dismiss_stale_reviews": False,
-            "require_code_owner_reviews": False,
-            "required_approving_review_count": 0,
-            "require_last_push_approval": False,
-        },
-        "restrictions": None,
-        "required_linear_history": True,
-        "allow_force_pushes": False,
-        "allow_deletions": False,
-        "required_conversation_resolution": True,
-    }
+    enforcement = top["main_enforcement"]
+    validate_branch_protection_request(enforcement)
     if (
-        enforcement["mechanism"] != "BRANCH_PROTECTION"
-        or enforcement["overlapping_ruleset_allowed"] is not False
-        or enforcement["endpoint"]
-        != "PUT /repos/200lz/open-model-integration-validator/branches/main/protection"
-        or enforcement["payload"] != expected_payload
-        or "sole maintainer" not in enforcement["single_maintainer_reason"]
+        "sole maintainer" not in enforcement["single_maintainer_reason"]
         or "enforce_admins false" not in enforcement["administrator_behavior"]
+        or "contexts alone" not in enforcement["read_back_requirement"]
     ):
-        raise AuditError("invalid-main-enforcement")
+        raise AuditError("invalid-main-enforcement-documentation")
 
     rollback = _expect_keys(
         top["rollback_authority"],
@@ -560,6 +755,21 @@ def run_audit(root: Path) -> list[Check]:
             "contexts=4 source=github-actions",
         ),
         Check(
+            "checks_only_request_schema",
+            "contexts" not in policy["main_enforcement"]["payload"]["required_status_checks"]
+            and policy["main_enforcement"]["request"]["request_schema_mode"]
+            == BRANCH_PROTECTION_SCHEMA_MODE,
+            "request_contexts=absent checks=4",
+        ),
+        Check(
+            "explicit_rest_contract",
+            policy["main_enforcement"]["request"]["accept"] == GITHUB_REST_ACCEPT
+            and policy["main_enforcement"]["request"]["api_version"] == GITHUB_REST_API_VERSION
+            and policy["main_enforcement"]["read_back"]["accept"] == GITHUB_REST_ACCEPT
+            and policy["main_enforcement"]["read_back"]["api_version"] == GITHUB_REST_API_VERSION,
+            "accept=explicit api_version=2022-11-28",
+        ),
+        Check(
             "single_maintainer",
             policy["main_enforcement"]["payload"]["required_pull_request_reviews"][
                 "required_approving_review_count"
@@ -589,6 +799,15 @@ def run_audit(root: Path) -> list[Check]:
             "private_controls=verified",
         ),
         Check(
+            "rolled_back_incident",
+            policy["publication_incident"]["rollback_succeeded"] is True
+            and policy["publication_incident"]["branch_protection_applied"] is False
+            and policy["publication_incident"]["exposure_erased"] is False
+            and policy["publication_incident"]["new_visibility_authorization_required"] is True
+            and policy["publication_incident"]["new_rollback_selection_required"] is True,
+            "public_attempt=failed rollback=verified authorizations=consumed",
+        ),
+        Check(
             "codeql_decision",
             policy["codeql_decision"]["state"] == "CODEQL_DEFERRED_TO_SEPARATE_POST_PUBLIC_CHANGE",
             "workflow_added=0",
@@ -605,9 +824,11 @@ def run_audit(root: Path) -> list[Check]:
         ),
         Check(
             "transition_safe",
-            "r1f baseline is private" in doc.lower()
-            and "live github visibility is authoritative" in doc.lower()
-            and "not authorization" in doc.lower(),
+            "current repository state are private" in " ".join(doc.lower().split())
+            and "live github visibility is authoritative" in " ".join(doc.lower().split())
+            and "not authorization" in " ".join(doc.lower().split())
+            and "5 hours 39 minutes" in doc
+            and "cannot erase" in doc,
             "static_public_claim=0",
         ),
         Check(

@@ -12,7 +12,11 @@ documented release policy.
 The R1F baseline is private; live GitHub visibility and security-control read-back are
 authoritative after any later transaction. GitHub documents Private Vulnerability
 Reporting for public repositories, so the channel is not currently verified or
-claimed active at the private baseline. Immediately after a separately authorized
+claimed active at the private baseline. A prior controlled public attempt enabled
+PVR, secret scanning, and push protection, then returned to PRIVATE after branch
+protection failed. Their private API states are now `API_STATE_UNAVAILABLE`, not
+claimed enabled or disabled. The prior authorizations were consumed. Immediately
+after a new separately authorized
 change to public visibility, the controlled R1F transaction must enable and
 independently re-read the channel. If that fails, successful publication
 classification is blocked. Once live state verifies it, use the repository's
@@ -26,6 +30,12 @@ so the baseline state is `API_STATE_UNAVAILABLE`, not enabled. See the
 read is required; documentation alone does not establish the control state. If the
 **Report a vulnerability** control is unavailable, do not disclose sensitive details
 through a public issue or another public fallback.
+
+The prior public interval lasted approximately 5 hours 39 minutes. The pre-public
+audit found no secret or privacy finding, but returning PRIVATE cannot erase prior
+observation, indexing, links, caches, copies, watchers, forks, or repository-network
+effects. No claim is made that no third party observed or copied the repository. No
+tag, GitHub Release, PyPI publication, or announcement occurred.
 
 Do not put vulnerability or exploit details in a public issue. A public issue may
 ask maintainers to enable or confirm the private reporting channel, but it must not

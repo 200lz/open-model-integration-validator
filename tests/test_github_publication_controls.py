@@ -73,6 +73,7 @@ def test_policy_strict_parsing_and_exact_top_level_fields() -> None:
         "release_policy",
         "implementation",
         "mutation_scope",
+        "publication_incident",
         "final_public_state",
         "main_enforcement",
         "rollback_authority",

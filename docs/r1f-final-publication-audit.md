@@ -4,9 +4,33 @@ This is a deterministic operator contract for a future, separately authorized OM
 visibility transaction. It is Release Track configuration, not OMIV evidence, not a
 security certification, and not authorization to mutate GitHub.
 
-The R1F baseline is private. Live GitHub visibility is authoritative after any later
-transaction. Public availability would not tag or release version 0.10.0, publish a
-package to PyPI, implement Phase 6F, or establish that every security risk is covered.
+The R1F baseline and current repository state are private. Live GitHub visibility is
+authoritative after any later transaction. Public availability would not tag or
+release version 0.10.0, publish a package to PyPI, implement Phase 6F, or establish
+that every security risk is covered.
+
+## Prior controlled attempt and current authorization state
+
+One controlled attempt changed visibility to PUBLIC at `2026-08-10T17:23:08Z`.
+Private Vulnerability Reporting, secret scanning, and push protection were enabled
+and read back while public. The branch-protection request then returned HTTP 422 at
+`2026-08-10T17:27:47Z` because it combined incompatible `contexts` and app-bound
+`checks` request variants. Branch protection was never applied. The authorized
+rollback returned the repository to PRIVATE at `2026-08-10T23:02:08Z`, after a
+public interval of approximately 5 hours 39 minutes. The outcome was
+`PUBLIC_VISIBILITY_CHANGED_REQUIRED_PUBLIC_CONTROL_FAILED_ROLLED_BACK_TO_PRIVATE`.
+
+The pre-public exposure audit found no secret or privacy defect. That does not prove
+that no third party observed or copied the repository. Returning PRIVATE cannot erase
+prior observations, indexing, shared links, caches, copies, stars, watchers, forks,
+or repository-network effects. No tag, GitHub Release, PyPI publication, or launch
+announcement occurred.
+
+After rollback, the public-only PVR, secret-scanning, and push-protection API states
+became `API_STATE_UNAVAILABLE`; they are not represented as enabled or disabled while
+private. The earlier visibility authorization is `CONSUMED`, and the earlier rollback
+authorization is `CONSUMED_AND_EXECUTED`. A future attempt requires a new explicit
+visibility authorization and a new explicit rollback-policy selection.
 
 ## Preconditions and owner decisions
 
@@ -21,8 +45,9 @@ Before a visibility request, the operator must verify all of the following:
 - the owner separately and explicitly authorized `PRIVATE` to `PUBLIC` visibility;
 - the owner explicitly selected exactly one rollback choice below.
 
-Implementation, audit, private release, or an earlier metadata-control authorization
-does not satisfy the visibility-authorization requirement.
+Implementation, audit, private release, the consumed prior visibility authorization,
+the consumed prior rollback authorization, or an earlier metadata-control
+authorization does not satisfy either future authorization requirement.
 
 The allowed rollback choices are:
 
@@ -111,13 +136,23 @@ authorization. Each write requires repository Administration permission. Stop af
 any non-success response or read-back mismatch; do not broaden token permissions,
 substitute an endpoint, or continue to a dependent control.
 
+Every future write and read-back in this transaction must explicitly send
+`Accept: application/vnd.github+json` and `X-GitHub-Api-Version: 2022-11-28`. The
+failed branch-protection invocation omitted both explicit headers. This correction
+retains the API version that GitHub used by default for that request; it does not
+silently upgrade to another version.
+
 **Visibility.** Change only the visibility field, expect HTTP 200, then require repository GET to
    return exact `PUBLIC` visibility before continuing:
 
    ```bash
    printf '{"visibility":"public"}' | gh api --method PATCH \
+     -H 'Accept: application/vnd.github+json' \
+     -H 'X-GitHub-Api-Version: 2022-11-28' \
      repos/200lz/open-model-integration-validator --input -
-   gh api repos/200lz/open-model-integration-validator --jq .visibility
+   gh api -H 'Accept: application/vnd.github+json' \
+     -H 'X-GitHub-Api-Version: 2022-11-28' \
+     repos/200lz/open-model-integration-validator --jq .visibility
    ```
 
    A write failure is `VISIBILITY_MUTATION_FAILED`; a read-back mismatch is
@@ -128,8 +163,12 @@ substitute an endpoint, or continue to a dependent control.
 
    ```bash
    gh api --method PUT \
+     -H 'Accept: application/vnd.github+json' \
+     -H 'X-GitHub-Api-Version: 2022-11-28' \
      repos/200lz/open-model-integration-validator/private-vulnerability-reporting
-   gh api repos/200lz/open-model-integration-validator/private-vulnerability-reporting \
+   gh api -H 'Accept: application/vnd.github+json' \
+     -H 'X-GitHub-Api-Version: 2022-11-28' \
+     repos/200lz/open-model-integration-validator/private-vulnerability-reporting \
      --jq .enabled
    ```
 
@@ -141,8 +180,12 @@ substitute an endpoint, or continue to a dependent control.
 
    ```bash
    printf '{"security_and_analysis":{"secret_scanning":{"status":"enabled"}}}' | \
-     gh api --method PATCH repos/200lz/open-model-integration-validator --input -
-   gh api repos/200lz/open-model-integration-validator \
+     gh api --method PATCH -H 'Accept: application/vnd.github+json' \
+       -H 'X-GitHub-Api-Version: 2022-11-28' \
+       repos/200lz/open-model-integration-validator --input -
+   gh api -H 'Accept: application/vnd.github+json' \
+     -H 'X-GitHub-Api-Version: 2022-11-28' \
+     repos/200lz/open-model-integration-validator \
      --jq .security_and_analysis.secret_scanning.status
    ```
 
@@ -153,8 +196,12 @@ substitute an endpoint, or continue to a dependent control.
 
    ```bash
    printf '{"security_and_analysis":{"secret_scanning_push_protection":{"status":"enabled"}}}' | \
-     gh api --method PATCH repos/200lz/open-model-integration-validator --input -
-   gh api repos/200lz/open-model-integration-validator \
+     gh api --method PATCH -H 'Accept: application/vnd.github+json' \
+       -H 'X-GitHub-Api-Version: 2022-11-28' \
+       repos/200lz/open-model-integration-validator --input -
+   gh api -H 'Accept: application/vnd.github+json' \
+     -H 'X-GitHub-Api-Version: 2022-11-28' \
+     repos/200lz/open-model-integration-validator \
      --jq .security_and_analysis.secret_scanning_push_protection.status
    ```
 
@@ -176,7 +223,6 @@ request body:
 {
   "required_status_checks": {
     "strict": true,
-    "contexts": [],
     "checks": [
       {"context": "Python 3.11", "app_id": 15368},
       {"context": "Python 3.12", "app_id": 15368},
@@ -199,17 +245,28 @@ request body:
 }
 ```
 
-The exact check names match the matrix job names observed on the green R1E CI run and
+The request schema mode is
+`APP_BOUND_CHECKS_WITH_CONTEXTS_OMITTED`. GitHub documents `contexts` as the legacy
+context-oriented representation and directs fine-grained consumers to `checks`, where
+each check may bind an `app_id`. The write request therefore omits the `contexts`
+member entirely: it is not empty, nonempty, or null. The exact check names match the
+matrix job names observed on the green private CI run and
 the tracked workflow declaration. The Checks API reported every one of those runs as
 originating from the GitHub Actions App with ID `15368`. Binding each required check
 to that observed app prevents another status provider with write access from
-satisfying the same context name. The endpoint schema still requires `contexts`, so
-it is an explicit empty array; the four app-bound requirements live only in `checks`
-and are not duplicated as unbound contexts. The future operator must re-verify both the names
-and app identity against the exact green R1F run before applying this payload; a
+satisfying the same context name. Omitting request `contexts` does not weaken that
+binding. The future operator must re-verify both the names and app identity against
+the exact future green private-main run before applying this payload; a
 renamed or missing check, an app mismatch, or an unbound/extra required context is
 `REQUIRED_CHECK_CONTEXT_MISMATCH`. The numeric ID is repository policy only because
 it was read from the official Checks API; it must not be guessed or silently updated.
+
+Request and response representations are validated independently. GitHub may return
+`contexts` as a derived list in the branch-protection response; when present it must
+contain exactly the same four names and no extra value. Derived response contexts are
+not proof of App binding. The response `checks` array must independently contain the
+four exact context/`app_id: 15368` pairs. Both PUT and GET use the explicit media type
+and API version above, and their versions must match.
 
 Zero approving reviews and disabled required code-owner review are necessary for the
 initial single-maintainer preview: `@200lz` cannot provide independent approval for

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import json
 import runpy
 import shutil
@@ -69,7 +70,9 @@ def test_private_baseline_is_distinct_from_intended_public_state() -> None:
     assert policy["repository"]["required_pre_public_visibility"] == "PRIVATE"
     assert policy["final_public_state"]["visibility"] == "PUBLIC"
     assert policy["implementation"]["repository_visibility_at_r1f_baseline"] == "PRIVATE"
-    assert policy["implementation"]["github_settings_mutated_by_r1f"] is False
+    assert policy["implementation"]["github_settings_mutated_by_r1f"] is True
+    assert policy["publication_incident"]["rollback_succeeded"] is True
+    assert policy["publication_incident"]["exposure_erased"] is False
 
 
 def test_duplicate_json_key_is_rejected(tmp_path: Path) -> None:
@@ -169,7 +172,6 @@ def test_branch_protection_payload_is_exact() -> None:
     payload = _policy()["main_enforcement"]["payload"]
     assert payload["required_status_checks"] == {
         "strict": True,
-        "contexts": [],
         "checks": [
             {"context": context, "app_id": namespace["GITHUB_ACTIONS_APP_ID"]}
             for context in namespace["CHECK_CONTEXTS"]
@@ -187,6 +189,138 @@ def test_branch_protection_payload_is_exact() -> None:
     assert payload["allow_force_pushes"] is False
     assert payload["allow_deletions"] is False
     assert payload["required_conversation_resolution"] is True
+    request = _policy()["main_enforcement"]["request"]
+    read_back = _policy()["main_enforcement"]["read_back"]
+    assert request["request_schema_mode"] == "APP_BOUND_CHECKS_WITH_CONTEXTS_OMITTED"
+    assert request["accept"] == read_back["accept"] == "application/vnd.github+json"
+    assert request["api_version"] == read_back["api_version"] == "2022-11-28"
+
+
+def _normalized_branch_protection_response(*, derived_contexts: bool = True) -> dict[str, Any]:
+    enforcement = _policy()["main_enforcement"]
+    response = copy.deepcopy(enforcement["payload"])
+    if derived_contexts:
+        response["required_status_checks"]["contexts"] = list(_auditor()["CHECK_CONTEXTS"])
+    return response
+
+
+def test_checks_only_app_bound_request_passes_and_contexts_are_absent() -> None:
+    namespace = _auditor()
+    enforcement = _policy()["main_enforcement"]
+    namespace["validate_branch_protection_request"](enforcement)
+    status = enforcement["payload"]["required_status_checks"]
+    assert "contexts" not in status
+    assert len(status["checks"]) == 4
+    assert {item["app_id"] for item in status["checks"]} == {15368}
+
+
+@pytest.mark.parametrize(
+    ("case", "mutate"),
+    (
+        ("empty-contexts-plus-checks", lambda status: status.__setitem__("contexts", [])),
+        (
+            "nonempty-contexts-plus-checks",
+            lambda status: status.__setitem__("contexts", ["Python 3.11"]),
+        ),
+        ("null-contexts", lambda status: status.__setitem__("contexts", None)),
+        ("missing-checks", lambda status: status.pop("checks")),
+        ("empty-checks", lambda status: status.__setitem__("checks", [])),
+        (
+            "contexts-only",
+            lambda status: (status.pop("checks"), status.__setitem__("contexts", ["Python 3.11"])),
+        ),
+        ("missing-app-id", lambda status: status["checks"][0].pop("app_id")),
+        ("null-app-id", lambda status: status["checks"][0].__setitem__("app_id", None)),
+        ("any-app-id", lambda status: status["checks"][0].__setitem__("app_id", -1)),
+        ("wrong-app-id", lambda status: status["checks"][0].__setitem__("app_id", 1)),
+        ("duplicate-check", lambda status: status["checks"].__setitem__(1, status["checks"][0])),
+        ("missing-python", lambda status: status["checks"].pop()),
+        (
+            "extra-check",
+            lambda status: status["checks"].append({"context": "extra", "app_id": 15368}),
+        ),
+        (
+            "wrong-spelling",
+            lambda status: status["checks"][0].__setitem__("context", "Python 3.11 "),
+        ),
+    ),
+)
+def test_malformed_branch_protection_requests_fail_closed(
+    case: str, mutate: Callable[[dict[str, Any]], Any]
+) -> None:
+    del case
+    namespace = _auditor()
+    enforcement = copy.deepcopy(_policy()["main_enforcement"])
+    mutate(enforcement["payload"]["required_status_checks"])
+    with pytest.raises(namespace["AuditError"]):
+        namespace["validate_branch_protection_request"](enforcement)
+
+
+def test_request_check_order_is_canonicalized_without_weakening_binding() -> None:
+    namespace = _auditor()
+    enforcement = copy.deepcopy(_policy()["main_enforcement"])
+    enforcement["payload"]["required_status_checks"]["checks"].reverse()
+    namespace["validate_branch_protection_request"](enforcement)
+
+
+@pytest.mark.parametrize(
+    ("surface", "field"),
+    (
+        ("request", "accept"),
+        ("request", "api_version"),
+        ("read_back", "accept"),
+        ("read_back", "api_version"),
+    ),
+)
+def test_missing_explicit_rest_header_contract_fails(surface: str, field: str) -> None:
+    namespace = _auditor()
+    enforcement = copy.deepcopy(_policy()["main_enforcement"])
+    enforcement[surface].pop(field)
+    with pytest.raises(namespace["AuditError"]):
+        namespace["validate_branch_protection_request"](enforcement)
+
+
+def test_write_and_read_back_api_versions_must_match() -> None:
+    namespace = _auditor()
+    enforcement = copy.deepcopy(_policy()["main_enforcement"])
+    enforcement["read_back"]["api_version"] = "2026-03-10"
+    with pytest.raises(namespace["AuditError"]):
+        namespace["validate_branch_protection_request"](enforcement)
+
+
+def test_response_may_include_exact_derived_contexts() -> None:
+    namespace = _auditor()
+    namespace["validate_branch_protection_read_back"](
+        _normalized_branch_protection_response(), _policy()["main_enforcement"]
+    )
+    namespace["validate_branch_protection_read_back"](
+        _normalized_branch_protection_response(derived_contexts=False),
+        _policy()["main_enforcement"],
+    )
+
+
+def test_response_contexts_must_exactly_match_expected_names() -> None:
+    namespace = _auditor()
+    response = _normalized_branch_protection_response()
+    response["required_status_checks"]["contexts"][0] = "unreviewed"
+    with pytest.raises(namespace["AuditError"], match="derived-response-contexts"):
+        namespace["validate_branch_protection_read_back"](response, _policy()["main_enforcement"])
+
+
+def test_response_checks_retain_exact_app_binding() -> None:
+    namespace = _auditor()
+    response = _normalized_branch_protection_response()
+    response["required_status_checks"]["checks"][0]["app_id"] = -1
+    with pytest.raises(namespace["AuditError"]):
+        namespace["validate_branch_protection_read_back"](response, _policy()["main_enforcement"])
+
+
+def test_response_contexts_alone_cannot_prove_app_binding() -> None:
+    namespace = _auditor()
+    response = _normalized_branch_protection_response()
+    response["required_status_checks"].pop("checks")
+    with pytest.raises(namespace["AuditError"]):
+        namespace["validate_branch_protection_read_back"](response, _policy()["main_enforcement"])
 
 
 def test_ci_contexts_match_workflow_job_names() -> None:
@@ -224,6 +358,55 @@ def test_failure_taxonomy_is_exact_and_fail_closed() -> None:
     assert all(value in documentation for value in namespace["FAILURES"])
     assert "prohibits announcement" in documentation
     assert "requires separate remediation authority" in documentation
+
+
+def test_failed_public_attempt_and_consumed_authorizations_are_explicit() -> None:
+    incident = _policy()["publication_incident"]
+    assert incident["failed_control"] == "MAIN_ENFORCEMENT_APPLICATION_FAILED"
+    assert incident["failed_http_status"] == 422
+    assert incident["branch_protection_applied"] is False
+    assert incident["rollback_succeeded"] is True
+    assert incident["prior_visibility_authorization"] == "CONSUMED"
+    assert incident["prior_rollback_authorization"] == "CONSUMED_AND_EXECUTED"
+    assert incident["new_visibility_authorization_required"] is True
+    assert incident["new_rollback_selection_required"] is True
+
+
+def test_prior_public_exposure_is_not_represented_as_erased() -> None:
+    incident = _policy()["publication_incident"]
+    documentation = "\n".join(
+        (ROOT / relative).read_text(encoding="utf-8")
+        for relative in (
+            "SECURITY.md",
+            "docs/r1f-final-publication-audit.md",
+            "docs/github-publication-controls.md",
+            "docs/public-release-security-and-privacy.md",
+            "docs/releasing.md",
+        )
+    )
+    assert incident["exposure_erased"] is False
+    assert "cannot erase" in incident["exposure_limitation"]
+    assert "cannot erase" in documentation
+    assert "does not claim that no third party observed" in documentation.lower()
+
+
+def test_private_public_only_control_states_are_api_unavailable_not_disabled() -> None:
+    controls = _policy()["security_controls"]
+    for name in ("PRIVATE_VULNERABILITY_REPORTING", "SECRET_SCANNING", "PUSH_PROTECTION"):
+        assert controls[name]["current_state"] == "API_STATE_UNAVAILABLE"
+    assert _policy()["publication_incident"]["private_api_state_after_rollback"] == (
+        "API_STATE_UNAVAILABLE"
+    )
+
+
+def test_schema_correction_alone_cannot_classify_or_continue_publication() -> None:
+    policy = _policy()
+    incident = policy["publication_incident"]
+    assert incident["new_visibility_authorization_required"] is True
+    assert incident["new_rollback_selection_required"] is True
+    assert policy["rollback_authority"]["selected_choice"] is None
+    assert policy["release_policy"]["github_release_state"] == "NOT_PUBLISHED"
+    assert policy["release_policy"]["pypi_state"] == "NOT_PUBLISHED"
 
 
 def test_transition_safe_documentation_and_security_route() -> None:
@@ -286,8 +469,11 @@ def test_roadmap_preserves_release_and_engineering_boundaries() -> None:
         "renamed_context",
         "wrong_check_app",
         "missing_check_app",
-        "unbound_context_added",
+        "empty_contexts_added",
         "context_only_checks",
+        "missing_accept_header",
+        "missing_api_version_header",
+        "mismatched_read_api_version",
         "approval_required",
         "codeowner_review",
         "force_push",
@@ -296,7 +482,11 @@ def test_roadmap_preserves_release_and_engineering_boundaries() -> None:
         "admin_enforcement",
         "failure_removed",
         "codeql_enabled",
-        "r1f_settings_mutated",
+        "r1f_settings_history_erased",
+        "incident_classification_erased",
+        "prior_visibility_reused",
+        "prior_rollback_reused",
+        "exposure_marked_erased",
         "dependabot_disabled",
     ),
 )
@@ -351,12 +541,19 @@ def test_critical_policy_mutations_fail_closed(tmp_path: Path, mutation: str) ->
             "app_id", -1
         ),
         "missing_check_app": lambda: payload["required_status_checks"]["checks"][0].pop("app_id"),
-        "unbound_context_added": lambda: payload["required_status_checks"]["contexts"].append(
-            "Python 3.11"
+        "empty_contexts_added": lambda: payload["required_status_checks"].__setitem__(
+            "contexts", []
         ),
         "context_only_checks": lambda: payload.__setitem__(
             "required_status_checks",
             {"strict": True, "contexts": list(_auditor()["CHECK_CONTEXTS"])},
+        ),
+        "missing_accept_header": lambda: policy["main_enforcement"]["request"].pop("accept"),
+        "missing_api_version_header": lambda: policy["main_enforcement"]["request"].pop(
+            "api_version"
+        ),
+        "mismatched_read_api_version": lambda: policy["main_enforcement"]["read_back"].__setitem__(
+            "api_version", "2026-03-10"
         ),
         "approval_required": lambda: payload["required_pull_request_reviews"].__setitem__(
             "required_approving_review_count", 1
@@ -372,8 +569,20 @@ def test_critical_policy_mutations_fail_closed(tmp_path: Path, mutation: str) ->
             "PARTIAL_PUBLICATION_STATE"
         ),
         "codeql_enabled": lambda: policy["codeql_decision"].__setitem__("state", "ENABLED"),
-        "r1f_settings_mutated": lambda: policy["implementation"].__setitem__(
-            "github_settings_mutated_by_r1f", True
+        "r1f_settings_history_erased": lambda: policy["implementation"].__setitem__(
+            "github_settings_mutated_by_r1f", False
+        ),
+        "incident_classification_erased": lambda: policy["publication_incident"].__setitem__(
+            "classification", "NO_INCIDENT"
+        ),
+        "prior_visibility_reused": lambda: policy["publication_incident"].__setitem__(
+            "new_visibility_authorization_required", False
+        ),
+        "prior_rollback_reused": lambda: policy["publication_incident"].__setitem__(
+            "new_rollback_selection_required", False
+        ),
+        "exposure_marked_erased": lambda: policy["publication_incident"].__setitem__(
+            "exposure_erased", True
         ),
         "dependabot_disabled": lambda: policy["security_controls"]["DEPENDABOT_ALERTS"].__setitem__(
             "current_state", "DISABLED"

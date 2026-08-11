@@ -87,12 +87,12 @@ CONTROL_STATES = {
         "R1F_IMMEDIATELY_AFTER_PUBLIC_VISIBILITY",
     ),
     "SECRET_SCANNING": (
-        "DISABLED",
+        "API_STATE_UNAVAILABLE",
         "ENABLED_AND_VERIFIED",
         "REQUIRED_IMMEDIATELY_AFTER_VISIBILITY_CHANGE",
     ),
     "PUSH_PROTECTION": (
-        "NOT_CONFIGURED",
+        "API_STATE_UNAVAILABLE",
         "ENABLED_AND_VERIFIED",
         "REQUIRED_IMMEDIATELY_AFTER_VISIBILITY_CHANGE",
     ),
@@ -349,6 +349,7 @@ def validate_policy(policy: dict[str, Any]) -> None:
             "release_policy",
             "implementation",
             "mutation_scope",
+            "publication_incident",
             "final_public_state",
             "main_enforcement",
             "rollback_authority",
@@ -595,13 +596,30 @@ def validate_policy(policy: dict[str, Any]) -> None:
     )
     if implementation != {
         "r1e_status": "COMPLETE",
-        "r1f_status": "IMPLEMENTED_PRIVATE_RELEASE_AND_VISIBILITY_AUTHORIZATION_PENDING",
+        "r1f_status": "PUBLIC_ATTEMPT_ROLLED_BACK_SCHEMA_CORRECTION_AND_NEW_AUTHORIZATION_PENDING",
         "phase6f_status": "PLANNED_NOT_IMPLEMENTED",
         "repository_visibility_at_r1f_baseline": "PRIVATE",
         "r1e_private_controls_applied": True,
-        "github_settings_mutated_by_r1f": False,
+        "github_settings_mutated_by_r1f": True,
     }:
         raise AuditError("invalid-implementation-status")
+
+    incident = top["publication_incident"]
+    if (
+        not isinstance(incident, dict)
+        or incident.get("classification")
+        != "PUBLIC_VISIBILITY_CHANGED_REQUIRED_PUBLIC_CONTROL_FAILED_ROLLED_BACK_TO_PRIVATE"
+        or incident.get("failed_control") != "MAIN_ENFORCEMENT_APPLICATION_FAILED"
+        or incident.get("failed_http_status") != 422
+        or incident.get("rollback_succeeded") is not True
+        or incident.get("branch_protection_applied") is not False
+        or incident.get("prior_visibility_authorization") != "CONSUMED"
+        or incident.get("prior_rollback_authorization") != "CONSUMED_AND_EXECUTED"
+        or incident.get("new_visibility_authorization_required") is not True
+        or incident.get("new_rollback_selection_required") is not True
+        or incident.get("exposure_erased") is not False
+    ):
+        raise AuditError("invalid-publication-incident")
 
     mutation_scope = _expect_keys(
         top["mutation_scope"],
@@ -988,8 +1006,10 @@ def run_audit(root: Path) -> list[Check]:
             "AUTHORIZATION PENDING"
             in roadmap
             and policy["implementation"]["r1f_status"]
-            == "IMPLEMENTED_PRIVATE_RELEASE_AND_VISIBILITY_AUTHORIZATION_PENDING",
-            "r1f=implemented_private_release_pending",
+            == "PUBLIC_ATTEMPT_ROLLED_BACK_SCHEMA_CORRECTION_AND_NEW_AUTHORIZATION_PENDING"
+            and policy["publication_incident"]["new_visibility_authorization_required"] is True
+            and policy["publication_incident"]["new_rollback_selection_required"] is True,
+            "r1f=rolled_back correction_pending new_authorizations=required",
         )
     )
     checks.append(

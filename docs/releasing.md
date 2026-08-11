@@ -33,12 +33,24 @@ write permission on untrusted pull-request code.
 
 R1E applied and verified the reviewed repository profile, topics, Dependabot alerts,
 and Dependabot security updates while the repository remained private. Private
-Vulnerability Reporting is not verified at the private R1F baseline. The separately
-authorized [R1F transaction](r1f-final-publication-audit.md) must complete its exact
+Vulnerability Reporting is not verified at the private R1F baseline.
+
+A controlled 2026-08-10 attempt was public for approximately 5 hours 39 minutes. PVR,
+secret scanning, and push protection verified while public, but the branch-protection
+request returned HTTP 422 and was never applied. The authorized rollback to PRIVATE
+succeeded. It cannot erase prior observation, indexing, links, caches, copies,
+watchers, forks, or repository-network effects. No tag, GitHub Release, PyPI
+publication, or announcement occurred. Public-only API states are now
+`API_STATE_UNAVAILABLE` while private. Both prior authorizations were consumed, so a
+new visibility authorization and new rollback-policy selection are required before
+another attempt.
+
+The newly authorized [R1F transaction](r1f-final-publication-audit.md) must complete its exact
 private audit, record pre-change state, obtain explicit visibility authorization and
 an explicit rollback-authority choice, change the repository to public, then verify
 Private Vulnerability Reporting, secret scanning, push protection, and the reviewed
-`main` branch protection in that order. R1F must read every required control back and
+checks-only, app-bound `main` branch protection in that order. R1F must read every
+required control back and
 pass an unauthenticated public-read smoke check before classifying public-launch
 readiness.
 
