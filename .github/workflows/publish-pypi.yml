@@ -35,7 +35,6 @@ jobs:
       EVENT_NAME: ${{ github.event_name }}
       EVENT_REF: ${{ github.ref }}
       EVENT_SHA: ${{ github.sha }}
-      GNUPGHOME: ${{ runner.temp }}/omiv-release-gnupg
     steps:
       # actions/checkout v7.0.1, MIT, immutable commit.
       - name: Check out trust resources from the exact workflow revision
@@ -76,6 +75,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          test -n "${RUNNER_TEMP:-}"
+          GNUPGHOME="$RUNNER_TEMP/omiv-release-gnupg"
           install -d -m 0700 "$GNUPGHOME"
       - name: Download and verify immutable release state
         id: verify
@@ -85,6 +86,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          test -n "${RUNNER_TEMP:-}"
+          GNUPGHOME="$RUNNER_TEMP/omiv-release-gnupg"
+          export GNUPGHOME
           mkdir release-assets release-state
           gh api "repos/$RELEASE_REPOSITORY/releases/tags/$RELEASE_TAG" > release-state/release.json
           gh api "repos/$RELEASE_REPOSITORY/git/ref/tags/$RELEASE_TAG" > release-state/tag-ref.json
@@ -116,7 +120,8 @@ jobs:
         shell: bash
         run: |
           set -u
-          if test -n "${GNUPGHOME:-}" && test "$GNUPGHOME" = "$RUNNER_TEMP/omiv-release-gnupg"; then
+          if test -n "${RUNNER_TEMP:-}"; then
+            GNUPGHOME="$RUNNER_TEMP/omiv-release-gnupg"
             gpgconf --homedir "$GNUPGHOME" --kill all 2>/dev/null || true
             rm -rf -- "$GNUPGHOME"
           fi

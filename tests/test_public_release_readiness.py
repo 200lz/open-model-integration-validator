@@ -16,6 +16,46 @@ from omiv.cli import app
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def _privacy_safe_audit_failure(result: subprocess.CompletedProcess[str]) -> str:
+    def safe_code(value: object) -> str:
+        if not isinstance(value, str) or not value:
+            return "UNAVAILABLE"
+        if not all(
+            character.isascii() and (character.isalnum() or character == "_") for character in value
+        ):
+            return "REDACTED"
+        return value
+
+    try:
+        report = json.loads(result.stdout)
+    except (json.JSONDecodeError, TypeError):
+        report = {}
+    checks = report.get("checks", []) if isinstance(report, dict) else []
+    failed_checks = sorted(
+        safe_code(check.get("name"))
+        for check in checks
+        if isinstance(check, dict) and check.get("passed") is False
+    )
+    privacy = report.get("privacy", {}) if isinstance(report, dict) else {}
+    pull_request = privacy.get("pull_request_evidence", {}) if isinstance(privacy, dict) else {}
+    if not isinstance(pull_request, dict):
+        pull_request = {}
+    classification = (
+        safe_code(report.get("classification")) if isinstance(report, dict) else "UNAVAILABLE"
+    )
+    stderr_state = "EMPTY" if not result.stderr else "PRESENT_REDACTED"
+    return " ".join(
+        (
+            f"audit_returncode={result.returncode}",
+            f"classification={classification}",
+            f"failed_checks={','.join(failed_checks) if failed_checks else 'UNAVAILABLE'}",
+            f"pull_request_status={safe_code(pull_request.get('status'))}",
+            f"pull_request_reason={safe_code(pull_request.get('reason_code'))}",
+            f"stderr={stderr_state}",
+        )
+    )
+
+
 def _audit_namespace() -> dict[str, object]:
     return runpy.run_path(str(ROOT / "tools/audit_public_release_readiness.py"))
 
@@ -1008,10 +1048,11 @@ def test_public_release_audit_is_privacy_safe_and_passes() -> None:
     result = subprocess.run(
         ["python", "tools/audit_public_release_readiness.py", "--json"],
         cwd=ROOT,
-        check=True,
+        check=False,
         capture_output=True,
         text=True,
     )
+    assert result.returncode == 0, _privacy_safe_audit_failure(result)
     report = json.loads(result.stdout)
     assert report["classification"] == "PASS"
     assert report["privacy"]["sensitive_values_serialized"] == 0
@@ -1031,6 +1072,44 @@ def test_public_release_audit_is_privacy_safe_and_passes() -> None:
         text=True,
     )
     assert repeated.stdout == result.stdout
+
+
+def test_public_release_audit_failure_diagnostics_are_privacy_safe() -> None:
+    result = subprocess.CompletedProcess(
+        (),
+        1,
+        json.dumps(
+            {
+                "classification": "FAIL",
+                "checks": [
+                    {
+                        "name": "approved_author_identity",
+                        "passed": False,
+                        "detail": "private@example.invalid local-private-path",
+                    }
+                ],
+                "privacy": {
+                    "pull_request_evidence": {
+                        "status": "INDETERMINATE",
+                        "reason_code": "ACTOR_EVIDENCE_NOT_AVAILABLE",
+                        "unsafe": "github_pat_private-value",
+                    }
+                },
+            }
+        ),
+        "credential=github_pat_private-value local-private-path",
+    )
+    diagnostic = _privacy_safe_audit_failure(result)
+    assert diagnostic == (
+        "audit_returncode=1 classification=FAIL "
+        "failed_checks=approved_author_identity "
+        "pull_request_status=INDETERMINATE "
+        "pull_request_reason=ACTOR_EVIDENCE_NOT_AVAILABLE "
+        "stderr=PRESENT_REDACTED"
+    )
+    assert "@" not in diagnostic
+    assert "local-private-path" not in diagnostic
+    assert "github_pat_" not in diagnostic
 
 
 def test_public_release_audit_never_follows_candidate_symlinks(tmp_path: Path) -> None:

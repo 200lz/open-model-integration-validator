@@ -400,12 +400,28 @@ def test_workflow_is_manual_or_published_release_only_and_fail_closed() -> None:
 
 def test_workflow_source_permissions_environment_and_cleanup() -> None:
     text = (ROOT / ".github/workflows/publish-pypi.yml").read_text(encoding="utf-8")
+    workflow = yaml.safe_load(text)
     verify, publish = text.split("  publish:", 1)
+    verify_job = workflow["jobs"]["verify-release-assets"]
     assert "ref: ${{ github.workflow_sha }}" in verify
     assert "ref: refs/tags/${{ steps.select.outputs.tag }}" in verify
     assert "persist-credentials: false" in verify
     assert "install -d -m 0700" in verify
     assert "if: always()" in verify and 'rm -rf -- "$GNUPGHOME"' in verify
+    assert "runner.temp" not in text
+    assert all("${{ runner." not in str(value) for value in verify_job["env"].values())
+    keyring_steps = {
+        step["name"]: step["run"]
+        for step in verify_job["steps"]
+        if step["name"]
+        in {
+            "Create isolated public-key keyring",
+            "Download and verify immutable release state",
+            "Remove isolated public-key keyring",
+        }
+    }
+    assert len(keyring_steps) == 3
+    assert all("$RUNNER_TEMP/omiv-release-gnupg" in run for run in keyring_steps.values())
     assert "id-token: write" not in verify
     assert publish.count("id-token: write") == 1
     assert "environment: pypi" in publish
