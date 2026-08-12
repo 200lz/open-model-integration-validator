@@ -12,6 +12,7 @@ import re
 import ssl
 import subprocess
 import sys
+import tempfile
 import tomllib
 import urllib.error
 import urllib.request
@@ -35,6 +36,7 @@ IDENTITY_CATEGORIES = (
     "UNVERIFIED_PLATFORM_SERVICE_CLAIM",
     "UNKNOWN_AUTOMATION_IDENTITY",
     "UNKNOWN_HUMAN_IDENTITY",
+    "VERIFIED_PLATFORM_MEDIATED_ACCOUNT_IDENTITY",
     "VERIFIED_PLATFORM_SERVICE_IDENTITY",
 )
 IDENTITY_ROLES = frozenset({"AUTHOR", "COMMITTER", "TAGGER"})
@@ -46,9 +48,21 @@ PULL_REQUEST_EVIDENCE_STATUSES = (
 )
 PULL_REQUEST_MERGE_DISCREPANCIES = (
     "EVENT_TEST_MERGE_SHA_DIFFERS_FROM_CURRENT_CHECKOUT",
-    "MATCHES_CURRENT_CHECKOUT",
+    "EVENT_TEST_MERGE_SHA_MATCHES_CURRENT_CHECKOUT",
+    "EVENT_TEST_MERGE_SHA_NOT_RECORDED",
     "NOT_EVALUATED",
 )
+PULL_REQUEST_REQUIRED_EVENT_FIELDS = (
+    "number",
+    "pull_request.base.ref",
+    "pull_request.base.sha",
+    "pull_request.head.ref",
+    "pull_request.head.sha",
+    "pull_request.user.id",
+    "repository.full_name",
+    "repository.id",
+)
+PULL_REQUEST_ADVISORY_EVENT_FIELDS = ("pull_request.merge_commit_sha",)
 PULL_REQUEST_EVIDENCE_REASON_CODES = (
     "ACTOR_EVIDENCE_NOT_AVAILABLE",
     "AVAILABLE",
@@ -105,12 +119,31 @@ REQUIRED_PULL_REQUEST_PROVENANCE = REQUIRED_PLATFORM_PROVENANCE | frozenset(
         "GITHUB_REST_PULL_REQUEST_ASSOCIATION",
     }
 )
+REQUIRED_SIGNED_SQUASH_PROVENANCE = frozenset(
+    {
+        "AUTHORITATIVE_MAIN_REACHABILITY",
+        "EXACT_AUTHOR_COMMITTER_FINGERPRINT_PAIR",
+        "LOCAL_COMMIT_PARENT_TOPOLOGY",
+        "LOCAL_CRYPTOGRAPHIC_SIGNATURE_VERIFICATION",
+        "NORMALIZED_ORIGIN_REPOSITORY_IDENTITY",
+        "REVIEWED_GITHUB_ACTOR_ASSOCIATION_POLICY",
+        "SQUASH_PR_SUBJECT_ASSOCIATION_SIGNAL",
+    }
+)
 GITHUB_REPOSITORY_FULL_NAME = "200lz/open-model-integration-validator"
 GITHUB_REPOSITORY_ID = 1316060005
 GITHUB_OWNER_ACTOR_ID = 145014769
 GITHUB_DEPENDABOT_ACTOR_ID = 49699333
 GITHUB_WEB_FLOW_ACTOR_ID = 19864447
 GITHUB_WEB_FLOW_SIGNING_KEY_ID = "B5690EEEBB952194"
+GITHUB_WEB_FLOW_SIGNING_KEY_FINGERPRINT = "968479A1AFF927E37D1A566BB5690EEEBB952194"
+GITHUB_WEB_FLOW_SIGNING_KEY_PROFILE = ROOT / "docs/security/github-web-flow-signing-key.asc"
+GITHUB_SQUASH_AUTHOR_FINGERPRINT = (
+    "b71cf77f9b542abf081d730983ff66d44c6e26d949e55f9fb4db43f70779ddec"
+)
+GITHUB_SQUASH_COMMITTER_FINGERPRINT = (
+    "5a85c6139ec6780f0c4d38ea5c6a032076101b8871c956a3032bdcfaf480bc9a"
+)
 PR1_NUMBER = 1
 PR1_HEAD_REF = "dependabot/pip/main/cryptography-gte-46.0.1-and-lt-51"
 PR1_HEAD_SHA = "fe0c7001fa769097357bbd3f003eac650a1b6910"
@@ -189,14 +222,27 @@ class StaticPlatformOccurrencePolicy:
 class PullRequestRolePolicy:
     repository_full_name: str
     repository_id: int
-    pr_number: int
+    pr_number: int | None
     base_ref: str
-    base_sha: str
-    head_ref: str
+    base_sha: str | None
+    head_ref: str | None
     role: str
     actor_id: int
     signer_actor_id: int
     signature_key_id: str
+    current_event_scope: bool = False
+
+
+@dataclass(frozen=True)
+class SignedSquashRolePolicy:
+    repository_full_name: str
+    authoritative_ref_classifications: tuple[str, ...]
+    role: str
+    reviewed_actor_id: int
+    paired_fingerprint: str
+    signer_key_id: str
+    signer_fingerprint: str
+    parent_count: int = 1
 
 
 @dataclass(frozen=True)
@@ -206,6 +252,8 @@ class PlatformIdentityPolicy:
     evidence_sources: tuple[str, ...]
     static_occurrences: tuple[StaticPlatformOccurrencePolicy, ...] = ()
     pull_request_roles: tuple[PullRequestRolePolicy, ...] = ()
+    signed_squash_roles: tuple[SignedSquashRolePolicy, ...] = ()
+    identity_category: str = "VERIFIED_PLATFORM_SERVICE_IDENTITY"
     authority_limit: str = NO_PLATFORM_AUTHORITY
 
     @property
@@ -214,16 +262,19 @@ class PlatformIdentityPolicy:
             sorted(
                 {item.role for item in self.static_occurrences}
                 | {item.role for item in self.pull_request_roles}
+                | {item.role for item in self.signed_squash_roles}
             )
         )
 
     @property
     def allowed_ref_classifications(self) -> tuple[str, ...]:
         result: set[str] = set()
-        for item in self.static_occurrences:
-            result.update(_ref_classification(refname) for refname in item.allowed_refnames)
+        for static_item in self.static_occurrences:
+            result.update(_ref_classification(refname) for refname in static_item.allowed_refnames)
         if self.pull_request_roles:
             result.add("PULL_REQUEST_MERGE_REF")
+        for squash_item in self.signed_squash_roles:
+            result.update(squash_item.authoritative_ref_classifications)
         return tuple(sorted(result))
 
 
@@ -254,7 +305,45 @@ class PullRequestEvidenceResult:
     reason_code: str
     merge_discrepancy: str
     safe_facts: dict[str, bool | int]
+    missing_required_fields: tuple[str, ...] = ()
+    missing_advisory_fields: tuple[str, ...] = ()
+    null_required_fields: tuple[str, ...] = ()
+    null_advisory_fields: tuple[str, ...] = ()
     evidence: PullRequestEvidence | None = None
+
+
+@dataclass(frozen=True)
+class GithubSignedSquashCommitIdentityEvidence:
+    valid: bool
+    repository_full_name: str
+    commit_sha: str
+    tree_sha: str
+    parents: tuple[str, ...]
+    pr_number: int
+    author_fingerprint: str
+    committer_fingerprint: str
+    signature_key_id: str
+    signer_fingerprint: str
+    authoritative_ref_classifications: tuple[str, ...]
+    observed_git_identity: bool
+    reviewed_github_actor_association: bool
+    live_actor_observation_supplied: bool
+    authority_limit: str = NO_PLATFORM_AUTHORITY
+
+
+@dataclass(frozen=True)
+class GithubSignedSquashEvidenceResult:
+    status: str
+    reason_code: str
+    safe_facts: dict[str, bool | int]
+    evidence: tuple[GithubSignedSquashCommitIdentityEvidence, ...] = ()
+
+
+@dataclass(frozen=True)
+class ProtectedPullRequestSquashMergeEvidenceResult:
+    status: str
+    reason_code: str
+    safe_facts: dict[str, bool | int]
 
 
 @dataclass(frozen=True)
@@ -297,7 +386,33 @@ PR2_AUTHOR_POLICY = PullRequestRolePolicy(
     signer_actor_id=GITHUB_WEB_FLOW_ACTOR_ID,
     signature_key_id=GITHUB_WEB_FLOW_SIGNING_KEY_ID,
 )
-VERIFIED_PLATFORM_SERVICE_POLICIES = {
+CURRENT_PULL_REQUEST_COMMITTER_POLICY = PullRequestRolePolicy(
+    repository_full_name=GITHUB_REPOSITORY_FULL_NAME,
+    repository_id=GITHUB_REPOSITORY_ID,
+    pr_number=None,
+    base_ref="main",
+    base_sha=None,
+    head_ref=None,
+    role="COMMITTER",
+    actor_id=GITHUB_WEB_FLOW_ACTOR_ID,
+    signer_actor_id=GITHUB_WEB_FLOW_ACTOR_ID,
+    signature_key_id=GITHUB_WEB_FLOW_SIGNING_KEY_ID,
+    current_event_scope=True,
+)
+CURRENT_PULL_REQUEST_AUTHOR_POLICY = PullRequestRolePolicy(
+    repository_full_name=GITHUB_REPOSITORY_FULL_NAME,
+    repository_id=GITHUB_REPOSITORY_ID,
+    pr_number=None,
+    base_ref="main",
+    base_sha=None,
+    head_ref=None,
+    role="AUTHOR",
+    actor_id=GITHUB_OWNER_ACTOR_ID,
+    signer_actor_id=GITHUB_WEB_FLOW_ACTOR_ID,
+    signature_key_id=GITHUB_WEB_FLOW_SIGNING_KEY_ID,
+    current_event_scope=True,
+)
+VERIFIED_PLATFORM_IDENTITY_POLICIES = {
     "5f65310d79860e79e1e7015a5f25bc4e49eebbfaa2a53fb79490481c8010f832": PlatformIdentityPolicy(
         fingerprint="5f65310d79860e79e1e7015a5f25bc4e49eebbfaa2a53fb79490481c8010f832",
         purpose="GITHUB_DEPENDABOT_UPDATE_AND_PR_MERGE_AUTHOR",
@@ -324,7 +439,9 @@ VERIFIED_PLATFORM_SERVICE_POLICIES = {
     "5a85c6139ec6780f0c4d38ea5c6a032076101b8871c956a3032bdcfaf480bc9a": PlatformIdentityPolicy(
         fingerprint="5a85c6139ec6780f0c4d38ea5c6a032076101b8871c956a3032bdcfaf480bc9a",
         purpose="GITHUB_WEB_FLOW_SIGNED_DEPENDABOT_AND_PR_MERGE_COMMITTER",
-        evidence_sources=tuple(sorted(REQUIRED_PULL_REQUEST_PROVENANCE)),
+        evidence_sources=tuple(
+            sorted(REQUIRED_PULL_REQUEST_PROVENANCE | REQUIRED_SIGNED_SQUASH_PROVENANCE)
+        ),
         static_occurrences=(
             StaticPlatformOccurrencePolicy(
                 object_sha=PR1_HEAD_SHA,
@@ -343,18 +460,43 @@ VERIFIED_PLATFORM_SERVICE_POLICIES = {
                 signature_key_ids=(GITHUB_WEB_FLOW_SIGNING_KEY_ID,),
             ),
         ),
-        pull_request_roles=(PR2_COMMITTER_POLICY,),
+        pull_request_roles=(PR2_COMMITTER_POLICY, CURRENT_PULL_REQUEST_COMMITTER_POLICY),
+        signed_squash_roles=(
+            SignedSquashRolePolicy(
+                repository_full_name=GITHUB_REPOSITORY_FULL_NAME,
+                authoritative_ref_classifications=("LOCAL_MAIN", "REMOTE_MAIN"),
+                role="COMMITTER",
+                reviewed_actor_id=GITHUB_WEB_FLOW_ACTOR_ID,
+                paired_fingerprint=GITHUB_SQUASH_AUTHOR_FINGERPRINT,
+                signer_key_id=GITHUB_WEB_FLOW_SIGNING_KEY_ID,
+                signer_fingerprint=GITHUB_WEB_FLOW_SIGNING_KEY_FINGERPRINT,
+            ),
+        ),
     ),
     "b71cf77f9b542abf081d730983ff66d44c6e26d949e55f9fb4db43f70779ddec": PlatformIdentityPolicy(
         fingerprint="b71cf77f9b542abf081d730983ff66d44c6e26d949e55f9fb4db43f70779ddec",
-        purpose="GITHUB_PR2_SYNTHETIC_MERGE_AUTHOR",
-        evidence_sources=tuple(sorted(REQUIRED_PULL_REQUEST_PROVENANCE)),
-        pull_request_roles=(PR2_AUTHOR_POLICY,),
+        purpose="GITHUB_MEDIATED_ACCOUNT_PR_MERGE_AND_MAIN_SQUASH_AUTHOR",
+        evidence_sources=tuple(
+            sorted(REQUIRED_PULL_REQUEST_PROVENANCE | REQUIRED_SIGNED_SQUASH_PROVENANCE)
+        ),
+        pull_request_roles=(PR2_AUTHOR_POLICY, CURRENT_PULL_REQUEST_AUTHOR_POLICY),
+        signed_squash_roles=(
+            SignedSquashRolePolicy(
+                repository_full_name=GITHUB_REPOSITORY_FULL_NAME,
+                authoritative_ref_classifications=("LOCAL_MAIN", "REMOTE_MAIN"),
+                role="AUTHOR",
+                reviewed_actor_id=GITHUB_OWNER_ACTOR_ID,
+                paired_fingerprint=GITHUB_SQUASH_COMMITTER_FINGERPRINT,
+                signer_key_id=GITHUB_WEB_FLOW_SIGNING_KEY_ID,
+                signer_fingerprint=GITHUB_WEB_FLOW_SIGNING_KEY_FINGERPRINT,
+            ),
+        ),
+        identity_category="VERIFIED_PLATFORM_MEDIATED_ACCOUNT_IDENTITY",
     ),
 }
 
 
-class UniqueKeyLoader(yaml.SafeLoader):
+class UniqueKeyLoader(yaml.SafeLoader):  # type: ignore[misc]
     """Safe YAML loader that rejects duplicate mapping keys."""
 
 
@@ -543,8 +685,8 @@ def _history_identity_observations() -> list[IdentityObservation]:
         author_fingerprint = _identity_fingerprint(fields[2], fields[3])
         committer_fingerprint = _identity_fingerprint(fields[4], fields[5])
         needs_signature = bool(
-            author_fingerprint in VERIFIED_PLATFORM_SERVICE_POLICIES
-            or committer_fingerprint in VERIFIED_PLATFORM_SERVICE_POLICIES
+            author_fingerprint in VERIFIED_PLATFORM_IDENTITY_POLICIES
+            or committer_fingerprint in VERIFIED_PLATFORM_IDENTITY_POLICIES
         )
         signature_key_ids = _commit_signature_key_ids(commit) if needs_signature else ()
         add(
@@ -638,6 +780,11 @@ def _pull_request_evidence_result(
     safe_facts: dict[str, bool | int],
     evidence: PullRequestEvidence | None = None,
     merge_discrepancy: str = "NOT_EVALUATED",
+    *,
+    missing_required_fields: tuple[str, ...] = (),
+    missing_advisory_fields: tuple[str, ...] = (),
+    null_required_fields: tuple[str, ...] = (),
+    null_advisory_fields: tuple[str, ...] = (),
 ) -> PullRequestEvidenceResult:
     if status not in PULL_REQUEST_EVIDENCE_STATUSES:
         raise ValueError("invalid pull-request evidence status")
@@ -651,13 +798,40 @@ def _pull_request_evidence_result(
         raise ValueError("pull-request evidence availability mismatch")
     if (status == "AVAILABLE") != (merge_discrepancy != "NOT_EVALUATED"):
         raise ValueError("pull-request merge discrepancy availability mismatch")
+    diagnostic_sets = (
+        (missing_required_fields, PULL_REQUEST_REQUIRED_EVENT_FIELDS),
+        (missing_advisory_fields, PULL_REQUEST_ADVISORY_EVENT_FIELDS),
+        (null_required_fields, PULL_REQUEST_REQUIRED_EVENT_FIELDS),
+        (null_advisory_fields, PULL_REQUEST_ADVISORY_EVENT_FIELDS),
+    )
+    if any(
+        tuple(sorted(fields)) != fields or not set(fields).issubset(allowed)
+        for fields, allowed in diagnostic_sets
+    ):
+        raise ValueError("invalid pull-request event field diagnostics")
     return PullRequestEvidenceResult(
         status=status,
         reason_code=reason_code,
         merge_discrepancy=merge_discrepancy,
         safe_facts=dict(sorted(safe_facts.items())),
+        missing_required_fields=missing_required_fields,
+        missing_advisory_fields=missing_advisory_fields,
+        null_required_fields=null_required_fields,
+        null_advisory_fields=null_advisory_fields,
         evidence=evidence,
     )
+
+
+_MISSING_EVENT_FIELD = object()
+
+
+def _event_field(payload: object, dotted_path: str) -> object:
+    current = payload
+    for component in dotted_path.split("."):
+        if not isinstance(current, dict) or component not in current:
+            return _MISSING_EVENT_FIELD
+        current = current[component]
+    return current
 
 
 def _local_merge_ref_matches(pr_number: int, merge_sha: str) -> bool:
@@ -709,43 +883,86 @@ def _current_pull_request_evidence() -> PullRequestEvidenceResult:
         return _pull_request_evidence_result("INVALID", "EVENT_JSON_INVALID", facts)
     except OSError:
         return _pull_request_evidence_result("NOT_AVAILABLE", "EVENT_PATH_NOT_AVAILABLE", facts)
+    required_values = {
+        field: _event_field(event, field) for field in PULL_REQUEST_REQUIRED_EVENT_FIELDS
+    }
+    advisory_values = {
+        field: _event_field(event, field) for field in PULL_REQUEST_ADVISORY_EVENT_FIELDS
+    }
+    missing_required_fields = tuple(
+        sorted(field for field, value in required_values.items() if value is _MISSING_EVENT_FIELD)
+    )
+    missing_advisory_fields = tuple(
+        sorted(field for field, value in advisory_values.items() if value is _MISSING_EVENT_FIELD)
+    )
+    null_required_fields = tuple(
+        sorted(field for field, value in required_values.items() if value is None)
+    )
+    null_advisory_fields = tuple(
+        sorted(field for field, value in advisory_values.items() if value is None)
+    )
+    facts["missing_required_field_count"] = len(missing_required_fields)
+    facts["missing_advisory_field_count"] = len(missing_advisory_fields)
+    facts["null_required_field_count"] = len(null_required_fields)
+    facts["null_advisory_field_count"] = len(null_advisory_fields)
+
+    def event_result(
+        status: str,
+        reason_code: str,
+        *,
+        evidence: PullRequestEvidence | None = None,
+        merge_discrepancy: str = "NOT_EVALUATED",
+    ) -> PullRequestEvidenceResult:
+        return _pull_request_evidence_result(
+            status,
+            reason_code,
+            facts,
+            evidence=evidence,
+            merge_discrepancy=merge_discrepancy,
+            missing_required_fields=missing_required_fields,
+            missing_advisory_fields=missing_advisory_fields,
+            null_required_fields=null_required_fields,
+            null_advisory_fields=null_advisory_fields,
+        )
+
+    if missing_required_fields or null_required_fields:
+        return event_result("INVALID", "EVENT_FIELDS_INCOMPLETE")
     try:
-        if not isinstance(event, dict):
-            raise TypeError
-        pull = event["pull_request"]
-        repository = event["repository"]
-        if not isinstance(pull, dict) or not isinstance(repository, dict):
-            raise TypeError
-        pr_number = int(event["number"])
-        base_ref = str(pull["base"]["ref"])
-        base_sha = str(pull["base"]["sha"])
-        head_ref = str(pull["head"]["ref"])
-        head_sha = str(pull["head"]["sha"])
-        event_merge_sha = str(pull["merge_commit_sha"])
-        repository_id = int(repository["id"])
-        repository_full_name = str(repository["full_name"])
-        event_author_actor_id = int(pull["user"]["id"])
-    except (KeyError, TypeError, ValueError):
-        return _pull_request_evidence_result("INVALID", "EVENT_FIELDS_INCOMPLETE", facts)
-    if not all(
-        re.fullmatch(r"[0-9a-f]{40}", item) for item in (base_sha, head_sha, event_merge_sha)
-    ):
-        return _pull_request_evidence_result("INVALID", "EVENT_FIELDS_INCOMPLETE", facts)
+        pr_number = int(str(required_values["number"]))
+        base_ref = str(required_values["pull_request.base.ref"])
+        base_sha = str(required_values["pull_request.base.sha"])
+        head_ref = str(required_values["pull_request.head.ref"])
+        head_sha = str(required_values["pull_request.head.sha"])
+        repository_id = int(str(required_values["repository.id"]))
+        repository_full_name = str(required_values["repository.full_name"])
+        event_author_actor_id = int(str(required_values["pull_request.user.id"]))
+    except (TypeError, ValueError):
+        return event_result("INVALID", "EVENT_FIELDS_INCOMPLETE")
+    if not all(re.fullmatch(r"[0-9a-f]{40}", item) for item in (base_sha, head_sha)):
+        return event_result("INVALID", "EVENT_FIELDS_INCOMPLETE")
+    event_merge_value = advisory_values["pull_request.merge_commit_sha"]
+    event_merge_sha: str | None = None
+    if event_merge_value is not _MISSING_EVENT_FIELD and event_merge_value is not None:
+        if (
+            not isinstance(event_merge_value, str)
+            or re.fullmatch(r"[0-9a-f]{40}", event_merge_value) is None
+        ):
+            facts["advisory_merge_sha_malformed"] = True
+            return event_result("INVALID", "EVENT_FIELDS_INCOMPLETE")
+        event_merge_sha = event_merge_value
+    facts["event_test_merge_recorded"] = event_merge_sha is not None
     facts["event_fields_complete"] = True
     if repository_full_name != GITHUB_REPOSITORY_FULL_NAME or repository_id != GITHUB_REPOSITORY_ID:
         return _pull_request_evidence_result("INVALID", "REPOSITORY_MISMATCH", facts)
     facts["event_repository_matches"] = True
-    if pr_number != PR2_NUMBER:
-        return _pull_request_evidence_result("INVALID", "PR_NUMBER_MISMATCH", facts)
-    facts["pr_number_matches"] = True
+    if pr_number <= 0:
+        return event_result("INVALID", "PR_NUMBER_MISMATCH")
+    facts["pr_number_valid"] = True
     if base_ref != "main" or os.environ.get("GITHUB_BASE_REF") != base_ref:
         return _pull_request_evidence_result("INVALID", "BASE_REF_MISMATCH", facts)
     facts["base_ref_matches"] = True
-    if base_sha != PR2_BASE_SHA:
-        return _pull_request_evidence_result("INVALID", "BASE_SHA_MISMATCH", facts)
-    facts["base_sha_matches"] = True
-    if head_ref != PR2_HEAD_REF or os.environ.get("GITHUB_HEAD_REF") != head_ref:
-        return _pull_request_evidence_result("INVALID", "HEAD_REF_MISMATCH", facts)
+    if os.environ.get("GITHUB_HEAD_REF") != head_ref:
+        return event_result("INVALID", "HEAD_REF_MISMATCH")
     facts["head_ref_matches"] = True
     merge_ref = os.environ.get("GITHUB_REF", "")
     merge_ref_match = re.fullmatch(r"refs/pull/([1-9][0-9]*)/merge", merge_ref)
@@ -819,7 +1036,6 @@ def _current_pull_request_evidence() -> PullRequestEvidenceResult:
         pr_base_sha = str(pr_api["base"]["sha"])
         pr_head_ref = str(pr_api["head"]["ref"])
         pr_head_sha = str(pr_api["head"]["sha"])
-        pr_merge_sha = str(pr_api["merge_commit_sha"])
         api_commit_sha = str(commit_api["sha"])
     except (KeyError, TypeError, ValueError):
         return _pull_request_evidence_result("INDETERMINATE", "ACTOR_EVIDENCE_NOT_AVAILABLE", facts)
@@ -835,8 +1051,16 @@ def _current_pull_request_evidence() -> PullRequestEvidenceResult:
         return _pull_request_evidence_result("INVALID", "HEAD_REF_MISMATCH", facts)
     if pr_head_sha != head_sha:
         return _pull_request_evidence_result("INVALID", "HEAD_SHA_MISMATCH", facts)
-    if re.fullmatch(r"[0-9a-f]{40}", pr_merge_sha) is None:
-        return _pull_request_evidence_result("INVALID", "MERGE_SHA_MISMATCH", facts)
+    pr_merge_value = pr_api.get("merge_commit_sha", _MISSING_EVENT_FIELD)
+    pr_merge_sha: str | None = None
+    if pr_merge_value is not _MISSING_EVENT_FIELD and pr_merge_value is not None:
+        if (
+            not isinstance(pr_merge_value, str)
+            or re.fullmatch(r"[0-9a-f]{40}", pr_merge_value) is None
+        ):
+            return _pull_request_evidence_result("INVALID", "MERGE_SHA_MISMATCH", facts)
+        pr_merge_sha = pr_merge_value
+    facts["api_test_merge_recorded"] = pr_merge_sha is not None
     if api_commit_sha != checkout_sha:
         return _pull_request_evidence_result("INVALID", "MERGE_SHA_MISMATCH", facts)
     if len(api_parents) != 2:
@@ -856,11 +1080,12 @@ def _current_pull_request_evidence() -> PullRequestEvidenceResult:
     facts["signature_verified"] = True
     facts["event_merge_matches_current_checkout"] = event_merge_sha == checkout_sha
     facts["api_test_merge_matches_current_checkout"] = pr_merge_sha == checkout_sha
-    merge_discrepancy = (
-        "MATCHES_CURRENT_CHECKOUT"
-        if event_merge_sha == checkout_sha
-        else "EVENT_TEST_MERGE_SHA_DIFFERS_FROM_CURRENT_CHECKOUT"
-    )
+    if event_merge_sha is None:
+        merge_discrepancy = "EVENT_TEST_MERGE_SHA_NOT_RECORDED"
+    elif event_merge_sha == checkout_sha:
+        merge_discrepancy = "EVENT_TEST_MERGE_SHA_MATCHES_CURRENT_CHECKOUT"
+    else:
+        merge_discrepancy = "EVENT_TEST_MERGE_SHA_DIFFERS_FROM_CURRENT_CHECKOUT"
     evidence = PullRequestEvidence(
         valid=True,
         repository_full_name=repository_full_name,
@@ -880,12 +1105,260 @@ def _current_pull_request_evidence() -> PullRequestEvidenceResult:
         signature_key_ids=signature_key_ids,
         evidence_sources=tuple(sorted(REQUIRED_PULL_REQUEST_PROVENANCE)),
     )
-    return _pull_request_evidence_result(
+    return event_result(
         "AVAILABLE",
         "AVAILABLE",
-        facts,
         evidence=evidence,
         merge_discrepancy=merge_discrepancy,
+    )
+
+
+def _normalized_origin_repository() -> str | None:
+    try:
+        value = _git("remote", "get-url", "origin").decode("utf-8", errors="strict").strip()
+    except (OSError, UnicodeError, subprocess.CalledProcessError):
+        return None
+    match = re.fullmatch(
+        r"(?:https://github\.com/|git@github\.com:)([A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+?)(?:\.git)?",
+        value,
+    )
+    return None if match is None else match.group(1)
+
+
+@functools.cache
+def _cryptographically_verified_signer(commit_sha: str) -> str | None:
+    if re.fullmatch(r"[0-9a-f]{40}", commit_sha) is None:
+        return None
+    if not _is_safe_regular_file(GITHUB_WEB_FLOW_SIGNING_KEY_PROFILE):
+        return None
+    try:
+        raw_commit = _git("cat-file", "commit", commit_sha)
+        payload_lines: list[bytes] = []
+        signature_lines: list[bytes] = []
+        lines = raw_commit.splitlines(keepends=True)
+        index = 0
+        while index < len(lines):
+            line = lines[index]
+            if line.startswith(b"gpgsig "):
+                signature_lines.append(line[len(b"gpgsig ") :])
+                index += 1
+                while index < len(lines) and lines[index].startswith(b" "):
+                    signature_lines.append(lines[index][1:])
+                    index += 1
+                continue
+            payload_lines.append(line)
+            index += 1
+        if not signature_lines:
+            return None
+        inspected = subprocess.run(
+            [
+                "gpg",
+                "--batch",
+                "--with-colons",
+                "--import-options",
+                "show-only",
+                "--import",
+                str(GITHUB_WEB_FLOW_SIGNING_KEY_PROFILE),
+            ],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        profile_fingerprints = {
+            row.split(":")[9]
+            for row in inspected.stdout.splitlines()
+            if row.startswith("fpr:") and len(row.split(":")) > 9
+        }
+        if profile_fingerprints != {GITHUB_WEB_FLOW_SIGNING_KEY_FINGERPRINT}:
+            return None
+        with tempfile.TemporaryDirectory(prefix="omiv-signature-verification-") as directory:
+            temporary = Path(directory)
+            signature_path = temporary / "signature.asc"
+            payload_path = temporary / "signed-commit-payload"
+            keyring_path = temporary / "reviewed-keyring.gpg"
+            signature_path.write_bytes(b"".join(signature_lines))
+            payload_path.write_bytes(b"".join(payload_lines))
+            subprocess.run(
+                [
+                    "gpg",
+                    "--batch",
+                    "--yes",
+                    "--dearmor",
+                    "--output",
+                    str(keyring_path),
+                    str(GITHUB_WEB_FLOW_SIGNING_KEY_PROFILE),
+                ],
+                cwd=ROOT,
+                check=True,
+                capture_output=True,
+            )
+            verification = subprocess.run(
+                [
+                    "gpgv",
+                    "--status-fd",
+                    "1",
+                    "--keyring",
+                    str(keyring_path),
+                    str(signature_path),
+                    str(payload_path),
+                ],
+                cwd=ROOT,
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+    except (OSError, subprocess.CalledProcessError):
+        return None
+    valid = re.findall(r"\[GNUPG:\] VALIDSIG ([0-9A-F]{40}) ", verification.stdout)
+    return (
+        GITHUB_WEB_FLOW_SIGNING_KEY_FINGERPRINT
+        if verification.returncode == 0 and valid == [GITHUB_WEB_FLOW_SIGNING_KEY_FINGERPRINT]
+        else None
+    )
+
+
+def _github_signed_squash_commit_identity_evidence(
+    observations: list[IdentityObservation] | None = None,
+) -> GithubSignedSquashEvidenceResult:
+    facts: dict[str, bool | int] = {}
+    repository = _normalized_origin_repository()
+    facts["repository_matches"] = repository == GITHUB_REPOSITORY_FULL_NAME
+    if repository != GITHUB_REPOSITORY_FULL_NAME:
+        return GithubSignedSquashEvidenceResult(
+            "INVALID", "REPOSITORY_MISMATCH", dict(sorted(facts.items()))
+        )
+    selected = _history_identity_observations() if observations is None else observations
+    by_fingerprint = {item.fingerprint: item for item in selected}
+    author = by_fingerprint.get(GITHUB_SQUASH_AUTHOR_FINGERPRINT)
+    committer = by_fingerprint.get(GITHUB_SQUASH_COMMITTER_FINGERPRINT)
+    if author is None or committer is None:
+        facts["reviewed_pair_observed"] = False
+        return GithubSignedSquashEvidenceResult(
+            "AVAILABLE", "AVAILABLE", dict(sorted(facts.items()))
+        )
+    facts["reviewed_pair_observed"] = True
+    author_occurrences = {
+        item.object_sha: item for item in author.occurrences if item.role == "AUTHOR"
+    }
+    committer_occurrences = {
+        item.object_sha: item for item in committer.occurrences if item.role == "COMMITTER"
+    }
+    result: list[GithubSignedSquashCommitIdentityEvidence] = []
+    for commit_sha in sorted(set(author_occurrences) & set(committer_occurrences)):
+        author_occurrence = author_occurrences[commit_sha]
+        committer_occurrence = committer_occurrences[commit_sha]
+        authoritative = tuple(
+            sorted(
+                set(author_occurrence.ref_classifications)
+                & set(committer_occurrence.ref_classifications)
+                & {"LOCAL_MAIN", "REMOTE_MAIN"}
+            )
+        )
+        if not authoritative:
+            continue
+        if (
+            not author_occurrence.valid_record
+            or not committer_occurrence.valid_record
+            or author_occurrence.parents != committer_occurrence.parents
+            or len(author_occurrence.parents) != 1
+            or author_occurrence.signature_key_ids != (GITHUB_WEB_FLOW_SIGNING_KEY_ID,)
+            or committer_occurrence.signature_key_ids != (GITHUB_WEB_FLOW_SIGNING_KEY_ID,)
+        ):
+            continue
+        try:
+            subject = (
+                _git("show", "-s", "--format=%s", commit_sha)
+                .decode("utf-8", errors="strict")
+                .strip()
+            )
+            tree_sha = _git("show", "-s", "--format=%T", commit_sha).decode("ascii").strip()
+        except (OSError, UnicodeError, subprocess.CalledProcessError):
+            continue
+        association = re.search(r"\(#([1-9][0-9]*)\)$", subject)
+        signer = _cryptographically_verified_signer(commit_sha)
+        if (
+            association is None
+            or re.fullmatch(r"[0-9a-f]{40}", tree_sha) is None
+            or signer != GITHUB_WEB_FLOW_SIGNING_KEY_FINGERPRINT
+        ):
+            continue
+        result.append(
+            GithubSignedSquashCommitIdentityEvidence(
+                valid=True,
+                repository_full_name=repository,
+                commit_sha=commit_sha,
+                tree_sha=tree_sha,
+                parents=author_occurrence.parents,
+                pr_number=int(association.group(1)),
+                author_fingerprint=author.fingerprint,
+                committer_fingerprint=committer.fingerprint,
+                signature_key_id=GITHUB_WEB_FLOW_SIGNING_KEY_ID,
+                signer_fingerprint=signer,
+                authoritative_ref_classifications=authoritative,
+                observed_git_identity=True,
+                reviewed_github_actor_association=True,
+                live_actor_observation_supplied=False,
+            )
+        )
+    facts["verified_squash_commits"] = len(result)
+    return GithubSignedSquashEvidenceResult(
+        "AVAILABLE" if result else "INVALID",
+        "AVAILABLE" if result else "REVIEWED_SQUASH_IDENTITY_NOT_VERIFIED",
+        dict(sorted(facts.items())),
+        tuple(result),
+    )
+
+
+def _protected_pull_request_squash_merge_evidence(
+    observation: dict[str, Any] | None = None,
+) -> ProtectedPullRequestSquashMergeEvidenceResult:
+    if observation is None:
+        return ProtectedPullRequestSquashMergeEvidenceResult(
+            "NOT_SUPPLIED", "REMOTE_OBSERVATION_NOT_SUPPLIED", {"supplied": False}
+        )
+    facts: dict[str, bool | int] = {"supplied": True}
+    try:
+        checks = observation["required_checks"]
+        protection = observation["branch_protection"]
+        valid = bool(
+            observation["repository_full_name"] == GITHUB_REPOSITORY_FULL_NAME
+            and int(observation["pr_number"]) > 0
+            and observation["pr_state"] == "MERGED"
+            and observation["merged"] is True
+            and observation["base_ref"] == "main"
+            and re.fullmatch(r"[0-9a-f]{40}", observation["base_sha"])
+            and re.fullmatch(r"[0-9a-f]{40}", observation["head_sha"])
+            and re.fullmatch(r"[0-9a-f]{40}", observation["head_tree"])
+            and re.fullmatch(r"[0-9a-f]{40}", observation["result_sha"])
+            and observation["associated_result_sha"] == observation["result_sha"]
+            and observation["result_parent"] == observation["base_sha"]
+            and observation["result_tree"] == observation["head_tree"]
+            and observation["merge_method"] == "squash"
+            and observation["author_actor_id"] == GITHUB_OWNER_ACTOR_ID
+            and observation["author_role"] == "AUTHOR"
+            and observation["committer_actor_id"] == GITHUB_WEB_FLOW_ACTOR_ID
+            and observation["committer_role"] == "COMMITTER"
+            and observation["signature_verified"] is True
+            and observation["signature_reason"] == "valid"
+            and observation["signature_key_id"] == GITHUB_WEB_FLOW_SIGNING_KEY_ID
+            and set(checks) == {"Python 3.11", "Python 3.12", "Python 3.13", "Python 3.14"}
+            and all(item["conclusion"] == "success" for item in checks.values())
+            and all(item["app_id"] == 15368 for item in checks.values())
+            and protection["strict"] is True
+            and set(protection["required_checks"]) == set(checks)
+            and isinstance(observation["observed_at"], str)
+            and bool(observation["observed_at"])
+        )
+    except (KeyError, TypeError, ValueError):
+        return ProtectedPullRequestSquashMergeEvidenceResult(
+            "INDETERMINATE", "REMOTE_OBSERVATION_INCOMPLETE", dict(sorted(facts.items()))
+        )
+    facts["all_bindings_match"] = valid
+    return ProtectedPullRequestSquashMergeEvidenceResult(
+        "AVAILABLE" if valid else "INVALID",
+        "AVAILABLE" if valid else "REMOTE_BINDING_MISMATCH",
+        dict(sorted(facts.items())),
     )
 
 
@@ -901,6 +1374,15 @@ def _platform_policy_is_valid(policy: PlatformIdentityPolicy) -> bool:
             not policy.pull_request_roles
             or REQUIRED_PULL_REQUEST_PROVENANCE.issubset(policy.evidence_sources)
         )
+        and (
+            not policy.signed_squash_roles
+            or REQUIRED_SIGNED_SQUASH_PROVENANCE.issubset(policy.evidence_sources)
+        )
+        and policy.identity_category
+        in {
+            "VERIFIED_PLATFORM_MEDIATED_ACCOUNT_IDENTITY",
+            "VERIFIED_PLATFORM_SERVICE_IDENTITY",
+        }
         and all(
             re.fullmatch(r"[0-9a-f]{40}", item.object_sha)
             and item.role in IDENTITY_ROLES
@@ -917,15 +1399,40 @@ def _platform_policy_is_valid(policy: PlatformIdentityPolicy) -> bool:
         and all(
             item.repository_full_name == GITHUB_REPOSITORY_FULL_NAME
             and item.repository_id == GITHUB_REPOSITORY_ID
-            and item.pr_number > 0
             and item.base_ref == "main"
-            and re.fullmatch(r"[0-9a-f]{40}", item.base_sha)
-            and item.head_ref
+            and (
+                (
+                    item.current_event_scope
+                    and item.pr_number is None
+                    and item.base_sha is None
+                    and item.head_ref is None
+                )
+                or (
+                    not item.current_event_scope
+                    and item.pr_number is not None
+                    and item.pr_number > 0
+                    and item.base_sha is not None
+                    and re.fullmatch(r"[0-9a-f]{40}", item.base_sha)
+                    and item.head_ref is not None
+                    and bool(item.head_ref)
+                )
+            )
             and item.role in {"AUTHOR", "COMMITTER"}
             and item.actor_id > 0
             and item.signer_actor_id == GITHUB_WEB_FLOW_ACTOR_ID
             and item.signature_key_id == GITHUB_WEB_FLOW_SIGNING_KEY_ID
             for item in policy.pull_request_roles
+        )
+        and all(
+            item.repository_full_name == GITHUB_REPOSITORY_FULL_NAME
+            and item.authoritative_ref_classifications == ("LOCAL_MAIN", "REMOTE_MAIN")
+            and item.role in {"AUTHOR", "COMMITTER"}
+            and item.reviewed_actor_id > 0
+            and re.fullmatch(r"[0-9a-f]{64}", item.paired_fingerprint)
+            and item.signer_key_id == GITHUB_WEB_FLOW_SIGNING_KEY_ID
+            and item.signer_fingerprint == GITHUB_WEB_FLOW_SIGNING_KEY_FINGERPRINT
+            and item.parent_count == 1
+            for item in policy.signed_squash_roles
         )
         and policy.authority_limit == NO_PLATFORM_AUTHORITY
     )
@@ -955,8 +1462,8 @@ def _pull_request_occurrence_matches(
     if evidence is None:
         return False
     allowed_merge_refs = {
-        f"refs/pull/{policy.pr_number}/merge",
-        f"refs/remotes/pull/{policy.pr_number}/merge",
+        f"refs/pull/{evidence.pr_number}/merge",
+        f"refs/remotes/pull/{evidence.pr_number}/merge",
     }
     actor_id = (
         evidence.author_actor_id if occurrence.role == "AUTHOR" else evidence.committer_actor_id
@@ -966,10 +1473,15 @@ def _pull_request_occurrence_matches(
         and REQUIRED_PULL_REQUEST_PROVENANCE.issubset(evidence.evidence_sources)
         and evidence.repository_full_name == policy.repository_full_name
         and evidence.repository_id == policy.repository_id
-        and evidence.pr_number == policy.pr_number
         and evidence.base_ref == policy.base_ref
-        and evidence.base_sha == policy.base_sha
-        and evidence.head_ref == policy.head_ref
+        and (
+            policy.current_event_scope
+            or (
+                evidence.pr_number == policy.pr_number
+                and evidence.base_sha == policy.base_sha
+                and evidence.head_ref == policy.head_ref
+            )
+        )
         and occurrence.object_sha == evidence.merge_sha
         and occurrence.role == policy.role
         and actor_id == policy.actor_id
@@ -981,7 +1493,7 @@ def _pull_request_occurrence_matches(
         and occurrence.refnames
         and set(occurrence.refnames).issubset(allowed_merge_refs)
         and occurrence.ref_classifications == ("PULL_REQUEST_MERGE_REF",)
-        and evidence.merge_ref == f"refs/pull/{policy.pr_number}/merge"
+        and evidence.merge_ref == f"refs/pull/{evidence.pr_number}/merge"
     )
 
 
@@ -989,12 +1501,45 @@ def _platform_occurrence_matches(
     occurrence: IdentityOccurrence,
     policy: PlatformIdentityPolicy,
     evidence: PullRequestEvidence | None,
+    signed_squash_evidence: tuple[GithubSignedSquashCommitIdentityEvidence, ...] = (),
 ) -> bool:
-    return any(
-        _static_occurrence_matches(occurrence, item) for item in policy.static_occurrences
-    ) or any(
-        _pull_request_occurrence_matches(occurrence, item, evidence)
-        for item in policy.pull_request_roles
+    return (
+        any(_static_occurrence_matches(occurrence, item) for item in policy.static_occurrences)
+        or any(
+            _pull_request_occurrence_matches(occurrence, item, evidence)
+            for item in policy.pull_request_roles
+        )
+        or any(
+            squash.valid
+            and squash.repository_full_name == item.repository_full_name
+            and occurrence.object_sha == squash.commit_sha
+            and occurrence.role == item.role
+            and occurrence.parents == squash.parents
+            and len(occurrence.parents) == item.parent_count
+            and occurrence.signature_key_ids == (item.signer_key_id,)
+            and set(squash.authoritative_ref_classifications).issubset(
+                occurrence.ref_classifications
+            )
+            and set(squash.authoritative_ref_classifications).intersection(
+                item.authoritative_ref_classifications
+            )
+            and squash.signature_key_id == item.signer_key_id
+            and squash.signer_fingerprint == item.signer_fingerprint
+            and (
+                squash.author_fingerprint if item.role == "AUTHOR" else squash.committer_fingerprint
+            )
+            == policy.fingerprint
+            and (
+                squash.committer_fingerprint if item.role == "AUTHOR" else squash.author_fingerprint
+            )
+            == item.paired_fingerprint
+            and squash.observed_git_identity
+            and squash.reviewed_github_actor_association
+            and not squash.live_actor_observation_supplied
+            and squash.authority_limit == NO_PLATFORM_AUTHORITY
+            for item in policy.signed_squash_roles
+            for squash in signed_squash_evidence
+        )
     )
 
 
@@ -1003,10 +1548,11 @@ def _classify_identity(
     *,
     platform_policies: dict[str, PlatformIdentityPolicy] | None = None,
     pull_request_evidence: PullRequestEvidence | None = None,
+    signed_squash_evidence: tuple[GithubSignedSquashCommitIdentityEvidence, ...] = (),
     synthetic_test_fingerprints: frozenset[str] = frozenset(),
 ) -> str:
     policies = (
-        VERIFIED_PLATFORM_SERVICE_POLICIES if platform_policies is None else platform_policies
+        VERIFIED_PLATFORM_IDENTITY_POLICIES if platform_policies is None else platform_policies
     )
     if (
         not observation.valid_record
@@ -1029,10 +1575,14 @@ def _classify_identity(
         and observation.occurrences
         and all(
             _platform_occurrence_matches(item, policy, pull_request_evidence)
+            if not signed_squash_evidence
+            else _platform_occurrence_matches(
+                item, policy, pull_request_evidence, signed_squash_evidence
+            )
             for item in observation.occurrences
         )
     ):
-        return "VERIFIED_PLATFORM_SERVICE_IDENTITY"
+        return policy.identity_category
     if policy is not None:
         return "UNVERIFIED_PLATFORM_SERVICE_CLAIM"
     if set(observation.reachable_ref_classifications).intersection(
@@ -1052,10 +1602,11 @@ def _identity_report_records(
     *,
     platform_policies: dict[str, PlatformIdentityPolicy] | None = None,
     pull_request_evidence: PullRequestEvidence | None = None,
+    signed_squash_evidence: tuple[GithubSignedSquashCommitIdentityEvidence, ...] = (),
     synthetic_test_fingerprints: frozenset[str] = frozenset(),
 ) -> list[dict[str, Any]]:
     policies = (
-        VERIFIED_PLATFORM_SERVICE_POLICIES if platform_policies is None else platform_policies
+        VERIFIED_PLATFORM_IDENTITY_POLICIES if platform_policies is None else platform_policies
     )
     result: list[dict[str, Any]] = []
     for observation in observations:
@@ -1063,14 +1614,25 @@ def _identity_report_records(
             observation,
             platform_policies=policies,
             pull_request_evidence=pull_request_evidence,
+            signed_squash_evidence=signed_squash_evidence,
             synthetic_test_fingerprints=synthetic_test_fingerprints,
         )
         policy = policies.get(observation.fingerprint)
+        purpose: str
+        evidence_sources: tuple[str, ...]
+        authority_limit: str
         if category == "OWNER_APPROVED_HUMAN_IDENTITY":
             purpose = "OWNER_APPROVED_PUBLIC_IDENTITY_DISCLOSURE"
             evidence_sources = ("OWNER_RECORDED_IDENTITY_FINGERPRINT",)
             authority_limit = "IDENTITY_DISCLOSURE_APPROVAL_ONLY"
-        elif category == "VERIFIED_PLATFORM_SERVICE_IDENTITY" and policy is not None:
+        elif (
+            category
+            in {
+                "VERIFIED_PLATFORM_MEDIATED_ACCOUNT_IDENTITY",
+                "VERIFIED_PLATFORM_SERVICE_IDENTITY",
+            }
+            and policy is not None
+        ):
             purpose = policy.purpose
             evidence_sources = policy.evidence_sources
             authority_limit = policy.authority_limit
@@ -1116,16 +1678,19 @@ def _identity_classification_check(
     *,
     platform_policies: dict[str, PlatformIdentityPolicy] | None = None,
     pull_request_evidence: PullRequestEvidence | None = None,
+    signed_squash_evidence: tuple[GithubSignedSquashCommitIdentityEvidence, ...] = (),
     synthetic_test_fingerprints: frozenset[str] = frozenset(),
 ) -> Check:
     records = _identity_report_records(
         observations,
         platform_policies=platform_policies,
         pull_request_evidence=pull_request_evidence,
+        signed_squash_evidence=signed_squash_evidence,
         synthetic_test_fingerprints=synthetic_test_fingerprints,
     )
     categories = [record["category"] for record in records]
     human_count = categories.count("OWNER_APPROVED_HUMAN_IDENTITY")
+    mediated_count = categories.count("VERIFIED_PLATFORM_MEDIATED_ACCOUNT_IDENTITY")
     service_count = categories.count("VERIFIED_PLATFORM_SERVICE_IDENTITY")
     unknown_count = categories.count("UNKNOWN_HUMAN_IDENTITY") + categories.count(
         "UNKNOWN_AUTOMATION_IDENTITY"
@@ -1146,6 +1711,7 @@ def _identity_classification_check(
         " ".join(
             (
                 f"approved_humans={human_count}",
+                f"verified_platform_mediated_accounts={mediated_count}",
                 f"verified_platform_services={service_count}",
                 f"unverified_platform_claims={unverified_count}",
                 f"unknown={unknown_count}",
@@ -1160,11 +1726,14 @@ def _history_inventory() -> list[Check]:
     tags = _git("tag", "--list").decode().splitlines()
     observations = _history_identity_observations()
     pull_request_evidence = _current_pull_request_evidence()
+    squash_evidence = _github_signed_squash_commit_identity_evidence(observations)
     return [
         Check("reachable_history", int(commits) >= 36, f"commits={commits}"),
         Check("historical_tags", len(tags) == 9, f"tags={len(tags)}"),
         _identity_classification_check(
-            observations, pull_request_evidence=pull_request_evidence.evidence
+            observations,
+            pull_request_evidence=pull_request_evidence.evidence,
+            signed_squash_evidence=squash_evidence.evidence,
         ),
     ]
 
@@ -1425,8 +1994,12 @@ def main() -> int:
     passed = all(check.passed for check in checks)
     pull_request_evidence_result = _current_pull_request_evidence()
     pull_request_evidence = pull_request_evidence_result.evidence
+    squash_evidence_result = _github_signed_squash_commit_identity_evidence()
+    protected_merge_evidence_result = _protected_pull_request_squash_merge_evidence()
     identity_records = _identity_report_records(
-        _history_identity_observations(), pull_request_evidence=pull_request_evidence
+        _history_identity_observations(),
+        pull_request_evidence=pull_request_evidence,
+        signed_squash_evidence=squash_evidence_result.evidence,
     )
     identity_counts = {
         category: sum(record["category"] == category for record in identity_records)
@@ -1439,11 +2012,13 @@ def main() -> int:
             "authority_limit": policy.authority_limit,
             "evidence_sources": list(policy.evidence_sources),
             "fingerprint": policy.fingerprint,
+            "identity_category": policy.identity_category,
             "pull_request_roles": [
                 {
                     "actor_id": item.actor_id,
                     "base_ref": item.base_ref,
                     "base_sha": item.base_sha,
+                    "current_event_scope": item.current_event_scope,
                     "head_ref": item.head_ref,
                     "pr_number": item.pr_number,
                     "repository_full_name": item.repository_full_name,
@@ -1455,6 +2030,22 @@ def main() -> int:
                 for item in policy.pull_request_roles
             ],
             "purpose": policy.purpose,
+            "signed_squash_roles": [
+                {
+                    "authoritative_ref_classifications": list(
+                        item.authoritative_ref_classifications
+                    ),
+                    "live_actor_observation_required": False,
+                    "paired_fingerprint": item.paired_fingerprint,
+                    "parent_count": item.parent_count,
+                    "repository_full_name": item.repository_full_name,
+                    "reviewed_actor_id": item.reviewed_actor_id,
+                    "role": item.role,
+                    "signer_fingerprint": item.signer_fingerprint,
+                    "signer_key_id": item.signer_key_id,
+                }
+                for item in policy.signed_squash_roles
+            ],
             "static_occurrences": [
                 {
                     "actor_id": item.actor_id,
@@ -1470,7 +2061,7 @@ def main() -> int:
             ],
         }
         for policy in sorted(
-            VERIFIED_PLATFORM_SERVICE_POLICIES.values(), key=lambda item: item.fingerprint
+            VERIFIED_PLATFORM_IDENTITY_POLICIES.values(), key=lambda item: item.fingerprint
         )
     ]
     result = {
@@ -1491,6 +2082,7 @@ def main() -> int:
                 "exact_local_and_remote_ref_scopes",
                 "github_actions_pull_request_event_binding",
                 "github_rest_actor_and_signature_binding",
+                "github_signed_authoritative_main_squash_identity",
                 "pull_request_base_head_merge_parent_topology",
                 "reachable_blob_sizes",
                 "reachable_commit_patches",
@@ -1505,6 +2097,9 @@ def main() -> int:
             "When a GitHub Actions pull-request merge ref is present, the identity gate "
             "performs bounded read-only GitHub REST checks and fails closed if provenance "
             "cannot be established.",
+            "Offline GitHub-signed squash identity evidence proves only a reviewed Git "
+            "identity occurrence and never proves PR approval, branch protection, checks, "
+            "owner authority, release authority, or publication authority.",
         ],
         "privacy": {
             "approved_author_identity": "OWNER_APPROVED",
@@ -1513,10 +2108,52 @@ def main() -> int:
             "identity_fingerprint_domain": "omiv.identity.v1",
             "identity_records": identity_records,
             "identity_taxonomy": list(IDENTITY_CATEGORIES),
+            "github_signed_squash_commit_identity_evidence": {
+                "status": squash_evidence_result.status,
+                "reason_code": squash_evidence_result.reason_code,
+                "safe_facts": squash_evidence_result.safe_facts,
+                "evidence": [
+                    {
+                        "author_fingerprint": item.author_fingerprint,
+                        "authoritative_ref_classifications": list(
+                            item.authoritative_ref_classifications
+                        ),
+                        "authority_limit": item.authority_limit,
+                        "commit_sha": item.commit_sha,
+                        "committer_fingerprint": item.committer_fingerprint,
+                        "live_actor_observation_supplied": (item.live_actor_observation_supplied),
+                        "observed_git_identity": item.observed_git_identity,
+                        "parents": list(item.parents),
+                        "pr_number": item.pr_number,
+                        "repository_full_name": item.repository_full_name,
+                        "reviewed_github_actor_association": (
+                            item.reviewed_github_actor_association
+                        ),
+                        "signature_key_id": item.signature_key_id,
+                        "signer_fingerprint": item.signer_fingerprint,
+                        "tree_sha": item.tree_sha,
+                        "valid": item.valid,
+                    }
+                    for item in squash_evidence_result.evidence
+                ],
+            },
+            "protected_pull_request_squash_merge_evidence": {
+                "status": protected_merge_evidence_result.status,
+                "reason_code": protected_merge_evidence_result.reason_code,
+                "safe_facts": protected_merge_evidence_result.safe_facts,
+            },
             "pull_request_evidence": {
                 "status": pull_request_evidence_result.status,
                 "reason_code": pull_request_evidence_result.reason_code,
                 "merge_discrepancy": pull_request_evidence_result.merge_discrepancy,
+                "missing_required_fields": list(
+                    pull_request_evidence_result.missing_required_fields
+                ),
+                "missing_advisory_fields": list(
+                    pull_request_evidence_result.missing_advisory_fields
+                ),
+                "null_required_fields": list(pull_request_evidence_result.null_required_fields),
+                "null_advisory_fields": list(pull_request_evidence_result.null_advisory_fields),
                 "safe_facts": pull_request_evidence_result.safe_facts,
                 "evidence": (
                     None
@@ -1541,7 +2178,7 @@ def main() -> int:
                     }
                 ),
             },
-            "reviewed_platform_service_policies": reviewed_platform_policies,
+            "reviewed_platform_identity_policies": reviewed_platform_policies,
             "sensitive_values_serialized": 0,
         },
     }

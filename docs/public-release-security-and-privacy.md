@@ -32,17 +32,20 @@ tag, and other Git ref. It hashes each exact name/address pair with the
 domain-separated `omiv.identity.v1` SHA-256 construction and emits only the digest,
 role, and reachable-ref classification.
 
-The only accepted human record is the existing owner-approved fingerprint. The human
-invariant remains exactly one; a platform identity cannot satisfy it. Three additional
-fingerprints are reviewed for exact platform-generated occurrences only:
+The only accepted historical human record is the existing owner-approved fingerprint.
+The human invariant remains exactly one; a platform-mediated account or service
+identity cannot satisfy it. Three additional fingerprints are reviewed for exact
+platform-mediated occurrences only:
 
 - one `AUTHOR` fingerprint is limited to `GITHUB_DEPENDABOT_UPDATE_AUTHOR` on a
   `REMOTE_DEPENDABOT_BRANCH` and its exact PR #1 head/merge ancestry;
-- one distinct `COMMITTER` fingerprint is limited to
+- one distinct service `COMMITTER` fingerprint is limited to
   `GITHUB_WEB_FLOW_SIGNED_DEPENDABOT_COMMITTER` on that exact commit and to a
-  verified PR #2 synthetic merge;
-- one distinct `AUTHOR` fingerprint is limited to the verified PR #2 synthetic merge
-  created for the reviewed release branch.
+  verified PR #2 synthetic merge, or to its exact reviewed role in an authoritative-main
+  GitHub-signed squash identity pair;
+- one distinct platform-mediated account `AUTHOR` fingerprint is limited to the
+  verified PR #2 synthetic merge or to the corresponding author role in that exact
+  authoritative-main squash identity pair.
 
 The reviewed REST records bind repository ID `1316060005`, Dependabot actor ID
 `49699333`, the owner actor ID `145014769`, and web commit-signing actor ID `19864447`
@@ -63,18 +66,53 @@ binding it to the expected hidden merge ref, detached local `HEAD`, an available
 object, and exactly two ordered parents matching the event base and head. GitHub's
 [pull-request REST documentation](https://docs.github.com/en/rest/pulls/pulls) separately
 describes `merge_commit_sha` as a test merge that GitHub creates while computing
-mergeability. An event or API test-merge SHA may consequently differ from the current
-Actions checkout. The audit records that exact discrepancy without calling it equality,
-continuity, or historical identity, and accepts it only after every stronger checkout,
-repository, PR, ref, parent, actor, role, signature, signer, and scope invariant verifies.
+mergeability; mergeability may temporarily be `null` while that computation runs. An
+event or API test-merge SHA may consequently be absent, `null`, or differ from the
+current Actions checkout. The audit records those cases as
+`EVENT_TEST_MERGE_SHA_NOT_RECORDED` or
+`EVENT_TEST_MERGE_SHA_DIFFERS_FROM_CURRENT_CHECKOUT` without calling either equality,
+continuity, or historical identity. It accepts an absent, null, or differing advisory
+test-merge field only after every stronger checkout, repository, PR, ref, parent, actor,
+role, signature, signer, and scope invariant verifies. A present matching advisory field
+is recorded as `EVENT_TEST_MERGE_SHA_MATCHES_CURRENT_CHECKOUT`.
 All other current-checkout or provenance mismatches remain fail-closed. The bounded REST
 checks still establish public PR association, actors, and verified-valid signature
 provenance; a differing test-merge SHA establishes none of those facts. It does not
 infer trust from a `[bot]` suffix, a noreply address, a branch name, a generic verified
 signature, or a login-like string, and it never accepts `REMOTE_OTHER_BRANCH` globally.
 
+Authoritative-main squash identity evidence is intentionally separate from current
+pull-request event evidence. The offline classifier requires the exact repository,
+`LOCAL_MAIN` or `REMOTE_MAIN` reachability, a one-parent squash-style commit, the
+reviewed author/committer fingerprint pairing in non-interchangeable roles, supporting
+`(#<positive PR number>)` subject syntax, and cryptographic verification against the
+reviewed GitHub signer fingerprint and the bounded public key profile stored in
+`docs/security/github-web-flow-signing-key.asc`. This is a forward-safe role, signer,
+repository, branch-class, and topology policy: it is not an allowlist for one commit
+SHA or tree. The reviewed actor IDs remain provenance metadata because they are not
+cryptographically present in offline Git objects; an offline run reports that live
+actor observation was not supplied.
+
+That offline evidence establishes only that an observed Git identity occurrence fits
+the reviewed GitHub-mediated account or service role. It does not prove pull-request
+approval, required checks, branch protection, merge authorization, real-world human
+identity, or owner, publisher, tag, release, repository, or PyPI authority. A separate
+`PROTECTED_PULL_REQUEST_SQUASH_MERGE_EVIDENCE` model can validate authenticated PR,
+actor, check, tree, result-parent, signature, merge-method, and protection observations
+when they are explicitly supplied. Static CI does not call GitHub for that stronger
+process evidence and reports it as `NOT_SUPPLIED`; it is never inferred from a subject
+or signature alone.
+
 PR-evidence construction reports a typed status (`AVAILABLE`, `NOT_AVAILABLE`,
-`INVALID`, or `INDETERMINATE`), a stable reason code, and bounded boolean/count facts.
+`INVALID`, or `INDETERMINATE`), a stable reason code, bounded boolean/count facts, and
+sorted field-name-only lists for missing or null required and advisory event fields.
+Repository identity, a positive PR number, base/head refs and SHAs, event actor, Actions
+ref/SHA, local commit object and ordered parents, signer, signature, and reviewed role
+remain mandatory. Current-event role policy is forward-safe but not global: it applies
+only while those event, environment, Git, and authenticated REST bindings all agree for
+the current `pull_request` merge ref. Historical PR #2 policy remains exact. Neither
+internal field agreement nor a similarly spelled identity independently authorizes an
+occurrence.
 It emits the verified evidence record only for `AVAILABLE`; failures do not serialize
 the event payload, identity text, email addresses, environment paths, request headers,
 tokens, or credential-bearing URLs. This diagnostic surface does not grant trust: any
@@ -84,6 +122,7 @@ continues to fail the identity gate.
 The fail-closed taxonomy is:
 
 - `OWNER_APPROVED_HUMAN_IDENTITY`
+- `VERIFIED_PLATFORM_MEDIATED_ACCOUNT_IDENTITY`
 - `VERIFIED_PLATFORM_SERVICE_IDENTITY`
 - `SYNTHETIC_TEST_IDENTITY`
 - `UNVERIFIED_PLATFORM_SERVICE_CLAIM`
