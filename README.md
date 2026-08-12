@@ -242,17 +242,18 @@ Start with the [documentation index](docs/README.md):
 - [GitHub publication controls](docs/github-publication-controls.md)
 - [R1F final-publication audit](docs/r1f-final-publication-audit.md)
 - [v0.10.0 release notes](docs/v0.10.0-release-notes.md)
+- [v0.10.0 publication recovery](docs/v0.10.0-publication-recovery.md)
 - [Roadmap](docs/roadmap.md)
 
 ## Project status and roadmap
 
-OMIV is public and publicly available as a pre-1.0 Alpha public preview. The repository is public; the current public
-`main` contains the audited `0.10.0` release candidate, but no `v0.10.0` tag,
-GitHub Release, or PyPI publication exists yet. Engineering Phases 5 and 6A–6E are
-released in repository history; Phase 6F is planned and not implemented. Public
+OMIV is public and publicly available as a pre-1.0 Alpha public preview. The repository is public.
+The signed annotated `v0.10.0` tag and its GitHub pre-release exist, while
+the PyPI project and version remain absent after the first Trusted Publishing workflow
+failed before its publish job. Engineering Phases 5 and 6A–6E are released in repository history;
+Phase 6F is planned and not implemented. Public
 availability is not release completion and does not establish production readiness,
 certification, safety, provider authenticity, or publisher authority. See the
-Live GitHub visibility is authoritative. See the
 [roadmap](docs/roadmap.md), [release notes](docs/v0.10.0-release-notes.md), and
 [changelog](CHANGELOG.md).
 

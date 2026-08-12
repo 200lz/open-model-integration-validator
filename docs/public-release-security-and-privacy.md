@@ -47,7 +47,7 @@ platform-mediated occurrences only:
   verified PR #2 synthetic merge or to the corresponding author role in that exact
   authoritative-main squash identity pair.
 
-The reviewed REST records bind repository ID `1316060005`, Dependabot actor ID
+The reviewed platform records bind repository ID `1316060005`, Dependabot actor ID
 `49699333`, the owner actor ID `145014769`, and web commit-signing actor ID `19864447`
 to the exact commits, roles, and PRs. GitHub reported each reviewed platform-generated
 commit signature as present, valid, and verified. The embedded commit signatures use
@@ -75,11 +75,25 @@ continuity, or historical identity. It accepts an absent, null, or differing adv
 test-merge field only after every stronger checkout, repository, PR, ref, parent, actor,
 role, signature, signer, and scope invariant verifies. A present matching advisory field
 is recorded as `EVENT_TEST_MERGE_SHA_MATCHES_CURRENT_CHECKOUT`.
-All other current-checkout or provenance mismatches remain fail-closed. The bounded REST
-checks still establish public PR association, actors, and verified-valid signature
-provenance; a differing test-merge SHA establishes none of those facts. It does not
-infer trust from a `[bot]` suffix, a noreply address, a branch name, a generic verified
-signature, or a login-like string, and it never accepts `REMOTE_OTHER_BRANCH` globally.
+All other current-checkout or provenance mismatches remain fail-closed. For current
+`pull_request` jobs, the regular, non-symlink GitHub event file is parsed strictly and
+bound to the exact repository/owner IDs, actor IDs, PR number, merge ref, runtime SHA,
+local `HEAD`, ordered base/head parents, available remote-tracking refs, normalized
+origin, and a cryptographically verified signature from the reviewed GitHub web-flow
+key. This deterministic event/local contract is sufficient only for the narrowly
+scoped synthetic-merge identity classification. It grants no owner, maintainer,
+release, repository, publisher, or PyPI authority.
+
+The bounded live REST reads are corroboration only. Consistent responses are reported
+as `LIVE_PR_METADATA_CORROBORATED`; bounded absence, rate limiting, 404, or transient
+failure is `LIVE_PR_METADATA_NOT_AVAILABLE` and cannot invalidate otherwise complete
+event-bound evidence. A response that contradicts the event or local topology is
+`LIVE_PR_METADATA_CONFLICT` and fails closed. Authentication and response-schema
+anomalies are separately typed, are never retried until success, and cannot override
+an event/local contradiction. A differing test-merge SHA establishes none of those
+facts. The classifier does not infer trust from a `[bot]` suffix, a noreply address, a
+branch name, a generic verified signature, or a login-like string, and it never accepts
+`REMOTE_OTHER_BRANCH` globally.
 
 Authoritative-main squash identity evidence is intentionally separate from current
 pull-request event evidence. The offline classifier requires the exact repository,
@@ -103,14 +117,17 @@ when they are explicitly supplied. Static CI does not call GitHub for that stron
 process evidence and reports it as `NOT_SUPPLIED`; it is never inferred from a subject
 or signature alone.
 
-PR-evidence construction reports a typed status (`AVAILABLE`, `NOT_AVAILABLE`,
-`INVALID`, or `INDETERMINATE`), a stable reason code, bounded boolean/count facts, and
-sorted field-name-only lists for missing or null required and advisory event fields.
-Repository identity, a positive PR number, base/head refs and SHAs, event actor, Actions
-ref/SHA, local commit object and ordered parents, signer, signature, and reviewed role
-remain mandatory. Current-event role policy is forward-safe but not global: it applies
-only while those event, environment, Git, and authenticated REST bindings all agree for
-the current `pull_request` merge ref. Historical PR #2 policy remains exact. Neither
+PR-evidence construction reports a typed event-bound state
+(`EVENT_BOUND_PR_EVIDENCE_AVAILABLE`, `EVENT_BOUND_PR_EVIDENCE_INVALID`, or
+`EVENT_BOUND_PR_EVIDENCE_INCOMPLETE`), the independent live-metadata state described
+above, a stable reason code, bounded boolean/count facts, and sorted field-name-only
+lists for missing or null required and advisory event fields. Repository and owner
+identities, a positive and internally consistent PR number, same-repository base/head
+records, base/head refs and SHAs, event actor/sender, Actions ref/SHA, local commit
+object and ordered parents, signer, signature, and reviewed role remain mandatory. Fork
+substitution is unsupported and fails closed. Current-event role policy is forward-safe
+but not global: it applies only while those event, environment, and Git bindings all
+agree for the current `pull_request` merge ref. Historical PR #2 policy remains exact. Neither
 internal field agreement nor a similarly spelled identity independently authorizes an
 occurrence.
 It emits the verified evidence record only for `AVAILABLE`; failures do not serialize
@@ -148,8 +165,8 @@ that no undiscoverable sensitive value exists.
 Ignored local raw captures, virtual environments, caches, and downloaded artifacts are
 outside the public Git object set and must remain untracked. Public fixtures contain
 only bounded evidence described in [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md).
-The only default-CI identity network read is the bounded public GitHub REST provenance
-check described above; no default CI path accesses model providers or downloads
+The only default-CI identity network read is the bounded, non-authoritative GitHub REST
+corroboration described above; no default CI path accesses model providers or downloads
 model/tokenizer payloads.
 
 Live GitHub visibility is authoritative. R1E applied and verified the reviewed
@@ -169,8 +186,10 @@ PyPI publication, or announcement occurred. The three public-only controls now h
 state. The prior visibility and rollback authorizations were consumed; another
 attempt requires a new visibility authorization and a new rollback-policy choice.
 
-The public controls were verified by the controlled R1F transaction. A future release
-still requires the signed tag, exact artifact chain, GitHub Pre-release, and PyPI
-Trusted Publisher gates described in [release notes](v0.10.0-release-notes.md) and
-[releasing](releasing.md). This documentation does not claim PyPI availability or
-release completion.
+The public controls were verified by the controlled R1F transaction. The signed
+`v0.10.0` tag, exact GitHub asset chain, and pre-release now exist, but the first PyPI
+Trusted Publishing run stopped at tag verification because the runner had no public
+signing key. The [publication recovery record](v0.10.0-publication-recovery.md) and
+[release process](releasing.md) define the fail-closed correction. This documentation
+does not claim PyPI availability, software safety, model authenticity, or release
+completion.

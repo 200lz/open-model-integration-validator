@@ -58,6 +58,7 @@ contract exists.
 - [GitHub publication controls](github-publication-controls.md)
 - [R1F final-publication audit and visibility transaction](r1f-final-publication-audit.md)
 - [v0.10.0 Public Preview release notes](v0.10.0-release-notes.md)
+- [v0.10.0 publication recovery](v0.10.0-publication-recovery.md)
 - [Support policy](../SUPPORT.md)
 
 ## Contributing and governance
@@ -71,6 +72,7 @@ contract exists.
 - [Release process](releasing.md)
 - [GitHub publication controls and ordering](github-publication-controls.md)
 - [R1F final-publication audit](r1f-final-publication-audit.md)
+- [v0.10.0 publication recovery](v0.10.0-publication-recovery.md)
 - [Changelog](../CHANGELOG.md)
 
 ## Roadmap

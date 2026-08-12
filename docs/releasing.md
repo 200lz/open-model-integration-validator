@@ -1,9 +1,10 @@
 # Release process
 
-This document describes the remaining release procedure. The repository is publicly
-available as a 0.10.0 Alpha preview, but this document does not authorize or announce
-a tag, GitHub Pre-release, or PyPI publication. Version 1.0.0 is reserved for a later
-stability decision, and Phase 6F is not part of 0.10.0.
+This document describes the release procedure and controlled publication recovery.
+The repository, signed annotated `v0.10.0` tag, and GitHub pre-release are public.
+PyPI publication is incomplete. This document does not authorize a recovery dispatch,
+environment-policy change, publication, or announcement. Version 1.0.0 is reserved
+for a later stability decision, and Phase 6F is not part of 0.10.0.
 
 ## Candidate preparation
 
@@ -22,9 +23,9 @@ stability decision, and Phase 6F is not part of 0.10.0.
 
 The source-install path remains the active quickstart. The PyPI command is conditional
 until `PYPI_VERSION_NOT_YET_PUBLISHED` is cleared by an independently verified
-publication. The future chain is one release commit → signed annotated `v0.10.0`
-tag → one wheel, one sdist, and deterministic `SHA256SUMS` → GitHub Pre-release →
-the exact same bytes through PyPI Trusted Publishing → post-publication install test.
+publication. The chain is one release commit → signed annotated `v0.10.0` tag → one
+wheel, one sdist, and deterministic `SHA256SUMS` → GitHub pre-release → the exact same
+bytes through PyPI Trusted Publishing → post-publication install test.
 The publisher workflow never rebuilds and never uses `skip-existing`.
 
 ## Tag and publication controls
@@ -32,12 +33,27 @@ The publisher workflow never rebuilds and never uses `skip-existing`.
 The nine historical tags v0.1.0 through v0.9.0 are annotated but unsigned. They are
 accepted as `LEGACY_UNSIGNED_TAGS_ACCEPTED_WITH_LIMITATION` and must not be recreated.
 
-If a future release tag is separately authorized, the maintainer must create an
-annotated, cryptographically signed tag only after tests and artifact hashes are
-recorded. A tag signature authenticates the tag under the selected key; it does not
-certify model safety or evidence truth. GitHub release creation and PyPI publication
-each require separate explicit authorization. Publication automation must not hold
-write permission on untrusted pull-request code.
+The `v0.10.0` tag is annotated, cryptographically signed, and immutable. Its reviewed
+public verification key is pinned in `.github/release-keys/`; the publisher imports
+that public material into a mode-0700 temporary `GNUPGHOME` and requires the exact
+primary and signing-subkey fingerprints and `VALIDSIG`. A tag signature authenticates
+the tag under that key; it does not certify model safety or evidence truth.
+
+The initial release-event workflow run failed because `git verify-tag` ran before the
+runner had the public key. Rerunning it would execute the same tagged workflow and
+fail identically. The corrective workflow therefore adds an explicit manual entrypoint
+whose required `tag` input is resolved separately from branch HEAD. It checks the
+remote annotated tag, existing published prerelease, exact three assets and hashes,
+and PyPI absence, and it publishes only the downloaded reviewed wheel and sdist.
+
+For future releases, dispatch the workflow at the signed tag ref containing the
+reviewed workflow and trust resources. The old `v0.10.0` tree predates
+`workflow_dispatch`; its one-time recovery must instead dispatch the reviewed workflow
+from `main`. Because the `pypi` environment remains tag-`v*` only, that operation also
+requires a separate, temporary, explicitly authorized `main` deployment-policy
+exception. This correction does not grant that authorization and does not change the
+environment. Restore and verify tag-only policy after any separately authorized
+recovery. See [v0.10.0 publication recovery](v0.10.0-publication-recovery.md).
 
 R1E applied and verified the reviewed repository profile, topics, Dependabot alerts,
 and Dependabot security updates while the repository remained private. Private
@@ -56,14 +72,13 @@ another attempt.
 The authorized [R1F transaction](r1f-final-publication-audit.md) completed its exact
 private audit, public visibility change, public-only control read-backs, and
 unauthenticated public-read smoke check. The resulting controls remain authoritative
-in live GitHub state; this preparation still does not create a tag, Release, or PyPI
-project.
+in live GitHub state. A later controlled transaction created the immutable signed tag
+and GitHub pre-release; its publication job did not run, and PyPI remains absent.
 
-If a future release gate fails, classify the corresponding typed failure in the release
-notes and do not announce, tag, create a GitHub Release, or publish to PyPI. Preserve
-the exact normalized state and require separate remediation authority. Tag creation,
-GitHub Release creation, PyPI publication, and announcement remain separate later
-operations with separate authorization.
+If a release gate fails, classify the corresponding typed failure, preserve every
+already-published immutable object, and require separate remediation authority. Do not
+announce or publish through an alternative path. Tag creation, GitHub Release creation,
+PyPI publication, and announcement remain separately authorized operations.
 
 ## Historical tag inventory
 

@@ -29,9 +29,11 @@ release gates after the repository became publicly readable.
 | R1F final publication audit | COMPLETE; public controls verified |
 
 The repository is publicly readable and live GitHub state is authoritative. The
-current public `main` is the audited `0.10.0` release candidate; the tag, GitHub
-Release, and PyPI project/version remain absent. See the [R1F final-publication
-audit](r1f-final-publication-audit.md) and [release notes](v0.10.0-release-notes.md).
+signed annotated `v0.10.0` tag and its published GitHub pre-release exist. The first
+Trusted Publishing run failed before publication because its isolated runner lacked
+the signer's public key, so the PyPI project/version remain absent. See the
+[publication recovery record](v0.10.0-publication-recovery.md), [R1F
+audit](r1f-final-publication-audit.md), and [release notes](v0.10.0-release-notes.md).
 
 Phase 6F development remains planned and unimplemented; Release Track work does not
 update the existing Phase 6F branch.

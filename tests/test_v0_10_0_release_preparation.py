@@ -35,16 +35,30 @@ def test_distribution_and_metadata_contract() -> None:
     assert "Development Status :: 3 - Alpha" in project["classifiers"]
 
 
-def test_tag_and_pypi_are_absent_during_preparation() -> None:
-    assert subprocess.run(["git", "show-ref", "--tags", "v0.10.0"], cwd=ROOT).returncode != 0
-    notes = (ROOT / "docs/v0.10.0-release-notes.md").read_text(encoding="utf-8")
-    assert "PYPI_PROJECT_NOT_YET_CREATED" in notes
-    assert "PYPI_VERSION_NOT_YET_PUBLISHED" in notes
+def test_existing_tag_is_immutable_and_pypi_remains_absent() -> None:
+    assert (
+        subprocess.run(["git", "cat-file", "-e", "refs/tags/v0.10.0^{tag}"], cwd=ROOT).returncode
+        == 0
+    )
+    assert (
+        subprocess.run(
+            ["git", "rev-parse", "refs/tags/v0.10.0"],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+        == "d26468e050f4f0aea11e1d1631c92e1e1fbb7bcc"
+    )
+    recovery = (ROOT / "docs/v0.10.0-publication-recovery.md").read_text(encoding="utf-8")
+    assert "PyPI has no project or" in recovery
 
 
-def test_workflow_is_release_only_and_least_privilege() -> None:
+def test_workflow_has_explicit_recovery_and_least_privilege() -> None:
     workflow = (ROOT / ".github/workflows/publish-pypi.yml").read_text(encoding="utf-8")
     assert "types: [published]" in workflow
+    assert "workflow_dispatch:" in workflow
+    assert "required: true" in workflow
     assert "pull_request" not in workflow
     assert "pull_request_target" not in workflow
     assert "push:" not in workflow
@@ -73,22 +87,24 @@ def test_publish_job_does_not_build_or_use_a_mutable_path() -> None:
 
 def test_exact_asset_and_manifest_invariants_are_present() -> None:
     workflow = (ROOT / ".github/workflows/publish-pypi.yml").read_text(encoding="utf-8")
+    verifier = (ROOT / ".github/release-tools/verify_release.py").read_text(encoding="utf-8")
     for marker in (
-        "len(wheels) == len(sdists) == 1",
         "SHA256SUMS",
-        "hashlib.sha256",
-        "Version: 0.10.0",
+        "727953",
+        "713907",
+        "caa4040175105fc65be3206ceff16e5916258c113de28af5b0242361aa3dc277",
+        "a659d14f36dfa61bd2170ac84685312ceefb27f7e60e3f80ef8c84344c7eb640",
     ):
-        assert marker in workflow
+        assert marker in workflow + verifier
 
 
-def test_future_tag_contract_and_legacy_limitation_are_explicit() -> None:
-    notes = (ROOT / "docs/v0.10.0-release-notes.md").read_text(encoding="utf-8")
-    assert "annotated, cryptographically signed, immutable" in notes
-    assert "OMIV v0.10.0 — Public Preview" in notes
-    assert "v0.1.0" in notes and "v0.9.0" in notes
-    assert "unsigned" in notes
-    assert "RELEASE_SIGNING_KEY_NOT_CONFIGURED" in notes
+def test_signed_tag_contract_and_legacy_limitation_are_explicit() -> None:
+    releasing = (ROOT / "docs/releasing.md").read_text(encoding="utf-8")
+    recovery = (ROOT / "docs/v0.10.0-publication-recovery.md").read_text(encoding="utf-8")
+    assert "annotated, cryptographically signed, and immutable" in releasing
+    assert "v0.1.0 through v0.9.0" in releasing
+    assert "LEGACY_UNSIGNED_TAGS_ACCEPTED_WITH_LIMITATION" in releasing
+    assert "TAG_SIGNATURE_PUBLIC_KEY_BOOTSTRAP_MISSING" in recovery
 
 
 def test_trusted_publisher_tuple_and_unconfigured_state() -> None:
@@ -169,7 +185,7 @@ def test_public_state_wording_is_transition_safe() -> None:
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     roadmap = (ROOT / "docs/roadmap.md").read_text(encoding="utf-8")
     assert "repository is public" in readme.lower()
-    assert "no `v0.10.0` tag" in readme
+    assert "signed annotated `v0.10.0` tag" in readme
     assert "PyPI project/version remain absent" in roadmap
 
 
@@ -203,6 +219,9 @@ def test_candidate_files_are_regular_and_bounded() -> None:
     for relative in (
         "docs/v0.10.0-release-notes.md",
         ".github/workflows/publish-pypi.yml",
+        ".github/release-keys/omiv-release-signing-2026.asc",
+        ".github/release-tools/verify_release.py",
+        "docs/v0.10.0-publication-recovery.md",
         "tools/audit_v0_10_0_release_preparation.py",
         "tests/test_v0_10_0_release_preparation.py",
     ):

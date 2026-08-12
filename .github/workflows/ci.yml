@@ -34,9 +34,11 @@ jobs:
           set -eu
           git cat-file -e 'ffa57d385ffe465b6418daaa8a2530ff8d76e5fa^{commit}'
           test "$(git rev-list --count ffa57d385ffe465b6418daaa8a2530ff8d76e5fa)" -eq 36
-          for tag in v0.1.0 v0.2.0 v0.3.0 v0.4.0 v0.5.0 v0.6.0 v0.7.0 v0.8.0 v0.9.0; do
+          for tag in v0.1.0 v0.2.0 v0.3.0 v0.4.0 v0.5.0 v0.6.0 v0.7.0 v0.8.0 v0.9.0 v0.10.0; do
             git cat-file -e "refs/tags/${tag}^{tag}"
           done
+          test "$(git rev-parse refs/tags/v0.10.0)" = d26468e050f4f0aea11e1d1631c92e1e1fbb7bcc
+          test "$(git rev-parse 'refs/tags/v0.10.0^{commit}')" = 09f8265d62f2ea1dfda7da2cd3eb4b3e89639222
 
       # actions/setup-python v7.0.0
       - name: Set up Python
@@ -67,12 +69,15 @@ jobs:
       - name: Check formatting only for readiness Python changes
         run: |
           ruff format --check \
+            .github/release-tools/verify_release.py \
             src/omiv/__init__.py \
             src/omiv/cli.py \
             tests/test_conversion_integration.py \
             tests/test_github_publication_controls.py \
             tests/test_public_release_readiness.py \
             tests/test_r1f_publication_readiness.py \
+            tests/test_release_publication_recovery.py \
+            tests/test_v0_10_0_release_preparation.py \
             tools/audit_github_publication_controls.py \
             tools/audit_public_release_readiness.py \
             tools/audit_r1f_publication_readiness.py
@@ -87,6 +92,9 @@ jobs:
             tests/test_conversion_integration.py \
             tests/test_github_publication_controls.py \
             tests/test_r1f_publication_readiness.py
+          python -m pytest -q \
+            tests/test_release_publication_recovery.py \
+            tests/test_v0_10_0_release_preparation.py
 
       - name: Full offline test suite
         env:
