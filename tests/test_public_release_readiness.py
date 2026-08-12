@@ -1067,10 +1067,11 @@ def test_public_release_audit_is_privacy_safe_and_passes() -> None:
     repeated = subprocess.run(
         ["python", "tools/audit_public_release_readiness.py", "--json"],
         cwd=ROOT,
-        check=True,
+        check=False,
         capture_output=True,
         text=True,
     )
+    assert repeated.returncode == 0, _privacy_safe_audit_failure(repeated)
     assert repeated.stdout == result.stdout
 
 
