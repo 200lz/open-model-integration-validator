@@ -169,8 +169,10 @@ PyPI publication, or announcement occurred. The three public-only controls now h
 state. The prior visibility and rollback authorizations were consumed; another
 attempt requires a new visibility authorization and a new rollback-policy choice.
 
-The public controls were verified by the controlled R1F transaction. A future release
-still requires the signed tag, exact artifact chain, GitHub Pre-release, and PyPI
-Trusted Publisher gates described in [release notes](v0.10.0-release-notes.md) and
-[releasing](releasing.md). This documentation does not claim PyPI availability or
-release completion.
+The public controls were verified by the controlled R1F transaction. The signed
+`v0.10.0` tag, exact GitHub asset chain, and pre-release now exist, but the first PyPI
+Trusted Publishing run stopped at tag verification because the runner had no public
+signing key. The [publication recovery record](v0.10.0-publication-recovery.md) and
+[release process](releasing.md) define the fail-closed correction. This documentation
+does not claim PyPI availability, software safety, model authenticity, or release
+completion.

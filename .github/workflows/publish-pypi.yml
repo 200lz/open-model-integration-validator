@@ -1,64 +1,128 @@
 name: Publish verified release assets to PyPI
 
-on:
+"on":
   release:
     types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing signed prerelease tag to recover
+        required: true
+        type: string
 
 permissions: {}
 
 jobs:
   verify-release-assets:
-    if: github.event.release.prerelease == true && github.event.release.tag_name == 'v0.10.0'
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'release' && github.event.release.prerelease == true)
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     permissions:
       contents: read
+    outputs:
+      tag: ${{ steps.verify.outputs.tag }}
+      wheel: ${{ steps.verify.outputs.wheel }}
+      sdist: ${{ steps.verify.outputs.sdist }}
+      wheel_sha256: ${{ steps.verify.outputs.wheel_sha256 }}
+      sdist_sha256: ${{ steps.verify.outputs.sdist_sha256 }}
     env:
-      RELEASE_TAG: ${{ github.event.release.tag_name }}
       RELEASE_REPOSITORY: ${{ github.repository }}
+      RELEASE_EVENT_TAG: ${{ github.event_name == 'release' && github.event.release.tag_name || '' }}
+      DISPATCH_TAG: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || '' }}
+      WORKFLOW_SHA: ${{ github.workflow_sha }}
+      EVENT_NAME: ${{ github.event_name }}
+      EVENT_REF: ${{ github.ref }}
+      EVENT_SHA: ${{ github.sha }}
+      GNUPGHOME: ${{ runner.temp }}/omiv-release-gnupg
     steps:
       # actions/checkout v7.0.1, MIT, immutable commit.
-      - name: Check out the tagged release
+      - name: Check out trust resources from the exact workflow revision
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
-          ref: ${{ github.event.release.tag_name }}
-          fetch-depth: 0
+          ref: ${{ github.workflow_sha }}
+          path: workflow-trust
+          fetch-depth: 1
           persist-credentials: false
-      - name: Verify annotated signed tag and release assets
+          sparse-checkout: |
+            .github/release-keys
+            .github/release-tools
+          sparse-checkout-cone-mode: false
+      - name: Resolve the selected release tag
+        id: select
         shell: bash
         run: |
           set -euo pipefail
-          test "$RELEASE_TAG" = "v0.10.0"
-          test "$(git cat-file -t "refs/tags/$RELEASE_TAG")" = tag
-          test "$(git tag -l --format='%(contents:subject)' "$RELEASE_TAG")" = 'OMIV v0.10.0 — Public Preview'
-          git verify-tag "$RELEASE_TAG"
-          mkdir -p release-assets
+          python workflow-trust/.github/release-tools/verify_release.py select \
+            --event-name "$EVENT_NAME" \
+            --release-tag "$RELEASE_EVENT_TAG" \
+            --dispatch-tag "$DISPATCH_TAG" \
+            --github-ref "$EVENT_REF" \
+            --github-sha "$EVENT_SHA" \
+            --workflow-sha "$WORKFLOW_SHA" \
+            --workflow-root workflow-trust \
+            --output "$GITHUB_OUTPUT"
+      # The package source is always the selected tag, never workflow_dispatch branch HEAD.
+      - name: Check out the selected signed tag as package source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: refs/tags/${{ steps.select.outputs.tag }}
+          path: release-source
+          fetch-depth: 0
+          fetch-tags: true
+          persist-credentials: false
+      - name: Create isolated public-key keyring
+        shell: bash
+        run: |
+          set -euo pipefail
+          install -d -m 0700 "$GNUPGHOME"
+      - name: Download and verify immutable release state
+        id: verify
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ steps.select.outputs.tag }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir release-assets release-state
+          gh api "repos/$RELEASE_REPOSITORY/releases/tags/$RELEASE_TAG" > release-state/release.json
+          gh api "repos/$RELEASE_REPOSITORY/git/ref/tags/$RELEASE_TAG" > release-state/tag-ref.json
+          TAG_OBJECT_SHA="$(python -c 'import json; print(json.load(open("release-state/tag-ref.json"))["object"]["sha"])')"
+          test "$TAG_OBJECT_SHA" = 'd26468e050f4f0aea11e1d1631c92e1e1fbb7bcc'
+          gh api "repos/$RELEASE_REPOSITORY/git/tags/$TAG_OBJECT_SHA" > release-state/tag-object.json
           gh release download "$RELEASE_TAG" --repo "$RELEASE_REPOSITORY" --dir release-assets
-          python - <<'PY'
-          from pathlib import Path
-          import hashlib
-          import json
-          import zipfile
-          root = Path("release-assets")
-          files = sorted(p.name for p in root.iterdir() if p.is_file())
-          wheels = [p for p in root.glob("*.whl")]
-          sdists = [p for p in root.glob("*.tar.gz")]
-          assert len(wheels) == len(sdists) == 1
-          assert files == sorted([wheels[0].name, sdists[0].name, "SHA256SUMS"])
-          manifest = (root / "SHA256SUMS").read_text(encoding="utf-8")
-          rows = [line.split("  ", 1) for line in manifest.splitlines() if line]
-          assert len(rows) == 2 and {row[1] for row in rows} == {wheels[0].name, sdists[0].name}
-          assert all(len(row[0]) == 64 and all(c in "0123456789abcdef" for c in row[0]) for row in rows)
-          assert all(hashlib.sha256((root / name).read_bytes()).hexdigest() == digest for digest, name in rows)
-          with zipfile.ZipFile(wheels[0]) as archive:
-              metadata = next(archive.read(n).decode() for n in archive.namelist() if n.endswith(".dist-info/METADATA"))
-          assert "Name: open-model-integration-validator" in metadata and "Version: 0.10.0" in metadata
-          (root / "release-metadata.json").write_text(json.dumps({"tag": "v0.10.0", "files": files}, sort_keys=True), encoding="utf-8")
-          PY
+          PYPI_STATUS="$(curl --silent --show-error --output release-state/pypi.json \
+            --write-out '%{http_code}' --proto '=https' --tlsv1.2 \
+            'https://pypi.org/pypi/open-model-integration-validator/0.10.0/json')"
+          python workflow-trust/.github/release-tools/verify_release.py verify \
+            --event-name "$EVENT_NAME" \
+            --release-tag "$RELEASE_EVENT_TAG" \
+            --dispatch-tag "$DISPATCH_TAG" \
+            --github-ref "$EVENT_REF" \
+            --github-sha "$EVENT_SHA" \
+            --workflow-sha "$WORKFLOW_SHA" \
+            --workflow-root workflow-trust \
+            --source-root release-source \
+            --gnupghome "$GNUPGHOME" \
+            --release-json release-state/release.json \
+            --tag-ref-json release-state/tag-ref.json \
+            --tag-object-json release-state/tag-object.json \
+            --assets-dir release-assets \
+            --pypi-status "$PYPI_STATUS" \
+            --output "$GITHUB_OUTPUT"
+      - name: Remove isolated public-key keyring
+        if: always()
+        shell: bash
+        run: |
+          set -u
+          if test -n "${GNUPGHOME:-}" && test "$GNUPGHOME" = "$RUNNER_TEMP/omiv-release-gnupg"; then
+            gpgconf --homedir "$GNUPGHOME" --kill all 2>/dev/null || true
+            rm -rf -- "$GNUPGHOME"
+          fi
 
   publish:
     needs: verify-release-assets
-    if: github.event.release.prerelease == true && github.event.release.tag_name == 'v0.10.0'
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     environment: pypi
@@ -66,20 +130,86 @@ jobs:
       contents: read
       id-token: write
     env:
-      RELEASE_TAG: ${{ github.event.release.tag_name }}
       RELEASE_REPOSITORY: ${{ github.repository }}
+      RELEASE_TAG: ${{ needs.verify-release-assets.outputs.tag }}
+      WHEEL: ${{ needs.verify-release-assets.outputs.wheel }}
+      SDIST: ${{ needs.verify-release-assets.outputs.sdist }}
+      WHEEL_SHA256: ${{ needs.verify-release-assets.outputs.wheel_sha256 }}
+      SDIST_SHA256: ${{ needs.verify-release-assets.outputs.sdist_sha256 }}
     steps:
-      - name: Download exact release assets
+      - name: Re-download only the verified existing release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           set -euo pipefail
-          test "$RELEASE_TAG" = "v0.10.0"
-          mkdir -p dist
-          gh release download "$RELEASE_TAG" --repo "$RELEASE_REPOSITORY" --dir dist --pattern '*.whl' --pattern '*.tar.gz'
-          test "$(find dist -maxdepth 1 -type f -name '*.whl' | wc -l)" -eq 1
-          test "$(find dist -maxdepth 1 -type f -name '*.tar.gz' | wc -l)" -eq 1
+          mkdir release-assets release-state dist
+          gh api "repos/$RELEASE_REPOSITORY/releases/tags/$RELEASE_TAG" > release-state/release.json
+          gh api "repos/$RELEASE_REPOSITORY/git/ref/tags/$RELEASE_TAG" > release-state/tag-ref.json
+          gh api "repos/$RELEASE_REPOSITORY/git/tags/d26468e050f4f0aea11e1d1631c92e1e1fbb7bcc" \
+            > release-state/tag-object.json
+          PYPI_STATUS="$(curl --silent --show-error --output release-state/pypi.json \
+            --write-out '%{http_code}' --proto '=https' --tlsv1.2 \
+            'https://pypi.org/pypi/open-model-integration-validator/0.10.0/json')"
+          test "$PYPI_STATUS" = 404
+          gh release download "$RELEASE_TAG" --repo "$RELEASE_REPOSITORY" --dir release-assets
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          import shutil
+          from pathlib import Path
+
+          root = Path("release-assets")
+          expected = {
+              os.environ["WHEEL"]: os.environ["WHEEL_SHA256"],
+              os.environ["SDIST"]: os.environ["SDIST_SHA256"],
+          }
+          release = json.loads(Path("release-state/release.json").read_text())
+          tag_ref = json.loads(Path("release-state/tag-ref.json").read_text())
+          tag_object = json.loads(Path("release-state/tag-object.json").read_text())
+          assert release["id"] == 368959083
+          assert release["tag_name"] == os.environ["RELEASE_TAG"] == "v0.10.0"
+          assert release["draft"] is False and release["prerelease"] is True
+          assert release["published_at"]
+          assert tag_ref["ref"] == "refs/tags/v0.10.0"
+          assert tag_ref["object"] == {
+              "sha": "d26468e050f4f0aea11e1d1631c92e1e1fbb7bcc",
+              "type": "tag",
+              "url": tag_ref["object"]["url"],
+          }
+          assert tag_object["sha"] == "d26468e050f4f0aea11e1d1631c92e1e1fbb7bcc"
+          assert tag_object["tag"] == "v0.10.0"
+          assert tag_object["object"]["type"] == "commit"
+          assert tag_object["object"]["sha"] == "09f8265d62f2ea1dfda7da2cd3eb4b3e89639222"
+          assert tag_object["message"].splitlines()[0] == "OMIV v0.10.0 — Public Preview"
+          assert tag_object["verification"]["verified"] is True
+          assert tag_object["verification"]["reason"] == "valid"
+          expected_remote = {
+              os.environ["WHEEL"]: (727953, f"sha256:{os.environ['WHEEL_SHA256']}"),
+              os.environ["SDIST"]: (713907, f"sha256:{os.environ['SDIST_SHA256']}"),
+          }
+          expected_remote["SHA256SUMS"] = (
+              236,
+              "sha256:1759937df7696e764aff6ea5ebfe4fcecb4f8c3062390369dd2471301d834bc4",
+          )
+          assert len(release["assets"]) == 3
+          assert all(asset["state"] == "uploaded" for asset in release["assets"])
+          assert {
+              asset["name"]: (asset["size"], asset["digest"])
+              for asset in release["assets"]
+          } == expected_remote
+          assert {path.name for path in root.iterdir() if path.is_file()} == {*expected, "SHA256SUMS"}
+          manifest = b"".join(f"{digest}  {name}\n".encode() for name, digest in expected.items())
+          assert (root / "SHA256SUMS").read_bytes() == manifest
+          for name, digest in expected.items():
+              source = root / name
+              assert hashlib.sha256(source.read_bytes()).hexdigest() == digest
+              shutil.copyfile(source, Path("dist") / name)
+          PY
       # pypa/gh-action-pypi-publish v1.14.2, Apache-2.0, immutable commit.
       - name: Publish exact release bytes with Trusted Publishing
         uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33
         with:
           packages-dir: dist/
+          attestations: true

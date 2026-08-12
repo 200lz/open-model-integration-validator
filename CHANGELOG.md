@@ -3,7 +3,22 @@
 This project follows pre-1.0 semantic versioning. Dates are omitted where the
 repository does not provide a supported release-date claim.
 
-## Unreleased — v0.10.0 Public Preview preparation
+## Unreleased
+
+Release infrastructure correction:
+
+- pin the approved public release-signing key and verify its digest, typed
+  fingerprints, lifetime, capabilities, and public-only packet inventory in an
+  isolated temporary keyring;
+- add an explicit, fail-closed `workflow_dispatch` recovery route that consumes only
+  the existing reviewed GitHub Release assets; and
+- preserve the immutable `v0.10.0` tag and GitHub pre-release after the initial OIDC
+  workflow stopped at signed-tag verification because no public key was bootstrapped.
+
+This correction does not publish to PyPI, alter release assets, implement Phase 6F/7,
+or change runtime package code.
+
+## v0.10.0 — Public Preview
 
 Public-release preparation:
 
@@ -20,9 +35,8 @@ deployment/runtime continuity, continuous trust, payload integrity, shard
 reconciliation, quantization fidelity, tokenizer-configuration parity, and
 runtime-resolution parity (Phases 5 and 6A–6E).
 
-The repository is now publicly available as an Alpha preview. This entry remains
-unreleased until a separately authorized signed tag, GitHub Pre-release, and exact
-PyPI publication are independently verified.
+The repository, signed annotated tag, and GitHub pre-release are publicly available.
+PyPI publication remains incomplete and separately controlled.
 
 Limitations:
 
@@ -31,7 +45,7 @@ Limitations:
   authority;
 - default operation is offline; explicitly invoked remote collectors are bounded;
 - no hosted service, enterprise product, compliance certification, or SLA is included;
-- no v0.10.0 tag, GitHub release, or PyPI publication exists yet.
+- no v0.10.0 PyPI project/version exists yet.
 
 ## Released historical tags
 

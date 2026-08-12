@@ -1724,12 +1724,37 @@ def _identity_classification_check(
 def _history_inventory() -> list[Check]:
     commits = _git("rev-list", "--all", "--count").decode().strip()
     tags = _git("tag", "--list").decode().splitlines()
+    expected_tags = {f"v0.{minor}.0" for minor in range(1, 11)}
+    release_tag_type = _git("cat-file", "-t", "refs/tags/v0.10.0").decode().strip()
+    release_tag_object = _git("rev-parse", "refs/tags/v0.10.0").decode().strip()
+    release_tag_commit = _git("rev-parse", "refs/tags/v0.10.0^{commit}").decode().strip()
+    release_tag_subject = (
+        _git(
+            "for-each-ref",
+            "--format=%(contents:subject)",
+            "refs/tags/v0.10.0",
+        )
+        .decode()
+        .strip()
+    )
     observations = _history_identity_observations()
     pull_request_evidence = _current_pull_request_evidence()
     squash_evidence = _github_signed_squash_commit_identity_evidence(observations)
     return [
         Check("reachable_history", int(commits) >= 36, f"commits={commits}"),
-        Check("historical_tags", len(tags) == 9, f"tags={len(tags)}"),
+        Check(
+            "historical_tags",
+            set(tags) == expected_tags,
+            f"tags={len(tags)} expected={len(expected_tags)}",
+        ),
+        Check(
+            "v0_10_0_tag_identity",
+            release_tag_type == "tag"
+            and release_tag_object == "d26468e050f4f0aea11e1d1631c92e1e1fbb7bcc"
+            and release_tag_commit == "09f8265d62f2ea1dfda7da2cd3eb4b3e89639222"
+            and release_tag_subject == "OMIV v0.10.0 — Public Preview",
+            "exact annotated tag object, target, and subject",
+        ),
         _identity_classification_check(
             observations,
             pull_request_evidence=pull_request_evidence.evidence,

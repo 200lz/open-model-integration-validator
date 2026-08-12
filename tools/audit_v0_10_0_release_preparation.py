@@ -4,10 +4,13 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
+import os
 import re
 import subprocess
 import sys
+import tempfile
 import tomllib
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -19,6 +22,11 @@ ROOT = Path(__file__).resolve().parents[1]
 VERSION = "0.10.0"
 DIST = "open-model-integration-validator"
 TAG = "v0.10.0"
+TAG_OBJECT = "d26468e050f4f0aea11e1d1631c92e1e1fbb7bcc"
+TAG_COMMIT = "09f8265d62f2ea1dfda7da2cd3eb4b3e89639222"
+PRIMARY_FINGERPRINT = "D8AA580BD3A5B619C6F663C1E849B65FA766CEDA"
+SIGNING_FINGERPRINT = "5DFBDC652DE15A90C675185D302F9F71138BD5FA"
+KEY_SHA256 = "36a96661f85b925778c18fbef717f98dcd1b7f18b05d5b4a984ce3239f02fc01"
 ACTION_SHA = "dc37677b2e1c63e2034f94d8a5b11f265b73ba33"
 CHECKOUT_SHA = "3d3c42e5aac5ba805825da76410c181273ba90b1"
 REQUIRED_FAILURES = (
@@ -44,7 +52,10 @@ REQUIRED_FILES = (
     "CITATION.cff",
     "SECURITY.md",
     "docs/v0.10.0-release-notes.md",
+    "docs/v0.10.0-publication-recovery.md",
     "docs/releasing.md",
+    ".github/release-keys/omiv-release-signing-2026.asc",
+    ".github/release-tools/verify_release.py",
     ".github/workflows/publish-pypi.yml",
 )
 PLACEHOLDERS = ("TODO", "TBD", "INSERT_HASH", "REPLACE_ME", "<hash>", "<date>")
@@ -97,6 +108,42 @@ def _check(name: str, passed: bool, detail: str) -> Check:
     return Check(name, bool(passed), detail)
 
 
+def _signed_tag_matches(root: Path) -> bool:
+    key = root / ".github/release-keys/omiv-release-signing-2026.asc"
+    with tempfile.TemporaryDirectory(prefix="omiv-release-audit-") as temporary:
+        home = Path(temporary)
+        home.chmod(0o700)
+        env = {**os.environ, "GNUPGHOME": str(home)}
+        imported = subprocess.run(
+            ["gpg", "--batch", "--no-autostart", "--import", str(key)],
+            cwd=root,
+            env=env,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        verified = subprocess.run(
+            ["git", "verify-tag", "--raw", TAG],
+            cwd=root,
+            env=env,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+    raw = verified.stderr + verified.stdout
+    return (
+        imported.returncode == 0
+        and verified.returncode == 0
+        and bool(
+            re.search(
+                rf"\[GNUPG:\] VALIDSIG {SIGNING_FINGERPRINT} [^\n]* {PRIMARY_FINGERPRINT}\s*$",
+                raw,
+                re.MULTILINE,
+            )
+        )
+    )
+
+
 def validate(root: Path = ROOT) -> list[Check]:
     project = tomllib.loads(_read(root, "pyproject.toml"))["project"]
     citation = _read(root, "CITATION.cff")
@@ -104,7 +151,10 @@ def validate(root: Path = ROOT) -> list[Check]:
     readme = _read(root, "README.md")
     notes = _read(root, "docs/v0.10.0-release-notes.md")
     releasing = _read(root, "docs/releasing.md")
+    recovery = _read(root, "docs/v0.10.0-publication-recovery.md")
     workflow_text = _read(root, ".github/workflows/publish-pypi.yml")
+    verifier_text = _read(root, ".github/release-tools/verify_release.py")
+    key_bytes = (root / ".github/release-keys/omiv-release-signing-2026.asc").read_bytes()
     workflow = yaml.load(workflow_text, Loader=UniqueLoader)
     if not isinstance(workflow, dict):
         raise ValueError("workflow is not a mapping")
@@ -171,9 +221,13 @@ def validate(root: Path = ROOT) -> list[Check]:
     )
     checks.append(
         _check(
-            "tag_release_absent_preparation",
-            not bool(_git_optional(root, "show-ref", "--tags", TAG).strip()),
-            "local v0.10.0 tag absent",
+            "immutable_signed_tag",
+            _git_optional(root, "cat-file", "-t", f"refs/tags/{TAG}").strip() == "tag"
+            and _git_optional(root, "rev-parse", f"refs/tags/{TAG}").strip() == TAG_OBJECT
+            and _git_optional(root, "rev-parse", f"refs/tags/{TAG}^{{commit}}").strip()
+            == TAG_COMMIT
+            and _signed_tag_matches(root),
+            "exact annotated tag object, commit, and VALIDSIG",
         )
     )
     checks.append(
@@ -189,15 +243,17 @@ def validate(root: Path = ROOT) -> list[Check]:
                     "immutable",
                 )
             ),
-            "future signed annotated tag",
+            "signed annotated tag contract",
         )
     )
     checks.append(
         _check(
-            "signing_readiness_boundary",
-            "RELEASE_SIGNING_KEY_NOT_CONFIGURED" in notes + releasing
-            or "signing key" in notes.lower() + releasing.lower(),
-            "signing is a later gate",
+            "public_key_bootstrap",
+            hashlib.sha256(key_bytes).hexdigest() == KEY_SHA256
+            and key_bytes.count(b"BEGIN PGP PUBLIC KEY BLOCK") == 1
+            and b"PRIVATE KEY" not in key_bytes
+            and all(value in verifier_text for value in (PRIMARY_FINGERPRINT, SIGNING_FINGERPRINT)),
+            "one reviewed public key with exact digest and fingerprints",
         )
     )
     checks.append(
@@ -219,9 +275,20 @@ def validate(root: Path = ROOT) -> list[Check]:
     checks.append(
         _check(
             "workflow_release_trigger",
-            workflow.get("on") == {"release": {"types": ["published"]}}
-            or workflow.get(True) == {"release": {"types": ["published"]}},
-            "release published only",
+            (workflow.get("on") or workflow.get(True))
+            == {
+                "release": {"types": ["published"]},
+                "workflow_dispatch": {
+                    "inputs": {
+                        "tag": {
+                            "description": "Existing signed prerelease tag to recover",
+                            "required": True,
+                            "type": "string",
+                        }
+                    }
+                },
+            },
+            "published release plus explicit required-tag recovery",
         )
     )
     workflow_all = workflow_text.lower()
@@ -230,9 +297,16 @@ def validate(root: Path = ROOT) -> list[Check]:
             "workflow_no_untrusted_triggers",
             not any(
                 term in workflow_all
-                for term in ("pull_request_target", "pull_request:", "push:", "workflow_dispatch")
+                for term in (
+                    "pull_request_target",
+                    "pull_request:",
+                    "push:",
+                    "workflow_run",
+                    "repository_dispatch",
+                    "schedule:",
+                )
             ),
-            "no pull request, push, or arbitrary dispatch",
+            "no automatic recovery or untrusted trigger",
         )
     )
     checks.append(
@@ -294,13 +368,8 @@ def validate(root: Path = ROOT) -> list[Check]:
         _check(
             "workflow_exact_artifacts",
             all(
-                term in workflow_text
-                for term in (
-                    "len(wheels) == len(sdists) == 1",
-                    "SHA256SUMS",
-                    "Version: 0.10.0",
-                    "hashlib.sha256",
-                )
+                term in workflow_text + verifier_text
+                for term in ("SHA256SUMS", "Version: 0.10.0", "sha256", "727953", "713907")
             ),
             "one wheel, one sdist, manifest and metadata",
         )
@@ -367,7 +436,7 @@ def validate(root: Path = ROOT) -> list[Check]:
             "future roadmap ordering",
         )
     )
-    combined = "\n".join((notes, workflow_text, readme, releasing))
+    combined = "\n".join((notes, recovery, workflow_text, verifier_text, readme, releasing))
     checks.append(
         _check(
             "no_unresolved_placeholders",
