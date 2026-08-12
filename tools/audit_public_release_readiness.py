@@ -46,6 +46,16 @@ PULL_REQUEST_EVIDENCE_STATUSES = (
     "INVALID",
     "NOT_AVAILABLE",
 )
+EVENT_BOUND_PR_EVIDENCE_STATES = (
+    "EVENT_BOUND_PR_EVIDENCE_AVAILABLE",
+    "EVENT_BOUND_PR_EVIDENCE_INCOMPLETE",
+    "EVENT_BOUND_PR_EVIDENCE_INVALID",
+)
+LIVE_PR_METADATA_STATES = (
+    "LIVE_PR_METADATA_CORROBORATED",
+    "LIVE_PR_METADATA_CONFLICT",
+    "LIVE_PR_METADATA_NOT_AVAILABLE",
+)
 PULL_REQUEST_MERGE_DISCREPANCIES = (
     "EVENT_TEST_MERGE_SHA_DIFFERS_FROM_CURRENT_CHECKOUT",
     "EVENT_TEST_MERGE_SHA_MATCHES_CURRENT_CHECKOUT",
@@ -55,12 +65,26 @@ PULL_REQUEST_MERGE_DISCREPANCIES = (
 PULL_REQUEST_REQUIRED_EVENT_FIELDS = (
     "number",
     "pull_request.base.ref",
+    "pull_request.base.repo.full_name",
+    "pull_request.base.repo.id",
+    "pull_request.base.repo.owner.id",
+    "pull_request.base.repo.owner.login",
     "pull_request.base.sha",
     "pull_request.head.ref",
+    "pull_request.head.repo.full_name",
+    "pull_request.head.repo.id",
+    "pull_request.head.repo.owner.id",
+    "pull_request.head.repo.owner.login",
     "pull_request.head.sha",
+    "pull_request.number",
     "pull_request.user.id",
+    "pull_request.user.login",
     "repository.full_name",
     "repository.id",
+    "repository.owner.id",
+    "repository.owner.login",
+    "sender.id",
+    "sender.login",
 )
 PULL_REQUEST_ADVISORY_EVENT_FIELDS = ("pull_request.merge_commit_sha",)
 PULL_REQUEST_EVIDENCE_REASON_CODES = (
@@ -88,6 +112,8 @@ PULL_REQUEST_EVIDENCE_REASON_CODES = (
     "REPOSITORY_MISMATCH",
     "SIGNATURE_NOT_VERIFIED",
     "SIGNER_MISMATCH",
+    "LIVE_METADATA_AUTHENTICATION_ANOMALY",
+    "LIVE_METADATA_SCHEMA_INVALID",
 )
 REF_CLASSIFICATIONS = frozenset(
     {
@@ -115,8 +141,23 @@ REQUIRED_PLATFORM_PROVENANCE = frozenset(
 )
 REQUIRED_PULL_REQUEST_PROVENANCE = REQUIRED_PLATFORM_PROVENANCE | frozenset(
     {
+        "GITHUB_ACTIONS_EVENT_PAYLOAD",
         "GITHUB_ACTIONS_PULL_REQUEST_EVENT",
-        "GITHUB_REST_PULL_REQUEST_ASSOCIATION",
+        "LOCAL_CRYPTOGRAPHIC_SIGNATURE_VERIFICATION",
+        "NORMALIZED_ORIGIN_REPOSITORY_IDENTITY",
+        "REVIEWED_GITHUB_ACTOR_ASSOCIATION_POLICY",
+    }
+)
+REQUIRED_PULL_REQUEST_PROVENANCE = REQUIRED_PULL_REQUEST_PROVENANCE.difference(
+    {
+        "GITHUB_REST_COMMIT_ACTOR_ASSOCIATION",
+        "GITHUB_REST_COMMIT_SIGNATURE_VERIFIED_VALID",
+    }
+)
+LIVE_PULL_REQUEST_CORROBORATION_PROVENANCE = frozenset(
+    {
+        "GITHUB_REST_COMMIT_CORROBORATION",
+        "GITHUB_REST_PULL_REQUEST_CORROBORATION",
     }
 )
 REQUIRED_SIGNED_SQUASH_PROVENANCE = frozenset(
@@ -303,6 +344,9 @@ class PullRequestEvidence:
 class PullRequestEvidenceResult:
     status: str
     reason_code: str
+    event_bound_state: str
+    live_metadata_state: str
+    live_metadata_reason_code: str
     merge_discrepancy: str
     safe_facts: dict[str, bool | int]
     missing_required_fields: tuple[str, ...] = ()
@@ -440,7 +484,11 @@ VERIFIED_PLATFORM_IDENTITY_POLICIES = {
         fingerprint="5a85c6139ec6780f0c4d38ea5c6a032076101b8871c956a3032bdcfaf480bc9a",
         purpose="GITHUB_WEB_FLOW_SIGNED_DEPENDABOT_AND_PR_MERGE_COMMITTER",
         evidence_sources=tuple(
-            sorted(REQUIRED_PULL_REQUEST_PROVENANCE | REQUIRED_SIGNED_SQUASH_PROVENANCE)
+            sorted(
+                REQUIRED_PLATFORM_PROVENANCE
+                | REQUIRED_PULL_REQUEST_PROVENANCE
+                | REQUIRED_SIGNED_SQUASH_PROVENANCE
+            )
         ),
         static_occurrences=(
             StaticPlatformOccurrencePolicy(
@@ -781,6 +829,9 @@ def _pull_request_evidence_result(
     evidence: PullRequestEvidence | None = None,
     merge_discrepancy: str = "NOT_EVALUATED",
     *,
+    event_bound_state: str | None = None,
+    live_metadata_state: str = "LIVE_PR_METADATA_NOT_AVAILABLE",
+    live_metadata_reason_code: str = "NOT_REQUESTED",
     missing_required_fields: tuple[str, ...] = (),
     missing_advisory_fields: tuple[str, ...] = (),
     null_required_fields: tuple[str, ...] = (),
@@ -790,6 +841,17 @@ def _pull_request_evidence_result(
         raise ValueError("invalid pull-request evidence status")
     if reason_code not in PULL_REQUEST_EVIDENCE_REASON_CODES:
         raise ValueError("invalid pull-request evidence reason code")
+    if event_bound_state is None:
+        event_bound_state = {
+            "AVAILABLE": "EVENT_BOUND_PR_EVIDENCE_AVAILABLE",
+            "INVALID": "EVENT_BOUND_PR_EVIDENCE_INVALID",
+        }.get(status, "EVENT_BOUND_PR_EVIDENCE_INCOMPLETE")
+    if event_bound_state not in EVENT_BOUND_PR_EVIDENCE_STATES:
+        raise ValueError("invalid event-bound pull-request evidence state")
+    if live_metadata_state not in LIVE_PR_METADATA_STATES:
+        raise ValueError("invalid live pull-request metadata state")
+    if re.fullmatch(r"[A-Z][A-Z0-9_]{0,63}", live_metadata_reason_code) is None:
+        raise ValueError("invalid live pull-request metadata reason code")
     if merge_discrepancy not in PULL_REQUEST_MERGE_DISCREPANCIES:
         raise ValueError("invalid pull-request merge discrepancy")
     if any(not isinstance(value, (bool, int)) for value in safe_facts.values()):
@@ -812,6 +874,9 @@ def _pull_request_evidence_result(
     return PullRequestEvidenceResult(
         status=status,
         reason_code=reason_code,
+        event_bound_state=event_bound_state,
+        live_metadata_state=live_metadata_state,
+        live_metadata_reason_code=live_metadata_reason_code,
         merge_discrepancy=merge_discrepancy,
         safe_facts=dict(sorted(safe_facts.items())),
         missing_required_fields=missing_required_fields,
@@ -846,6 +911,33 @@ def _local_merge_ref_matches(pr_number: int, merge_sha: str) -> bool:
             ["git", "show-ref", "--verify", "--quiet", refname], cwd=ROOT, check=False
         ).returncode
         == 0
+    )
+
+
+def _local_ref_sha_if_available(refname: str) -> str | None:
+    result = subprocess.run(
+        ["git", "show-ref", "--verify", "--quiet", refname],
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+    )
+    if result.returncode == 1:
+        return None
+    if result.returncode != 0:
+        raise subprocess.CalledProcessError(result.returncode, result.args)
+    return _git("rev-parse", "--verify", f"{refname}^{{commit}}").decode("ascii").strip()
+
+
+def _bounded_live_metadata_unavailable(result: GitHubJsonResult) -> bool:
+    return bool(
+        not result.available
+        and (
+            result.reason_code == "NETWORK_ERROR"
+            or (
+                result.reason_code == "HTTP_STATUS_NOT_SUCCESS"
+                and result.status_code in {403, 404, 408, 429, 500, 502, 503, 504}
+            )
+        )
     )
 
 
@@ -912,6 +1004,9 @@ def _current_pull_request_evidence() -> PullRequestEvidenceResult:
         *,
         evidence: PullRequestEvidence | None = None,
         merge_discrepancy: str = "NOT_EVALUATED",
+        event_bound_state: str | None = None,
+        live_metadata_state: str = "LIVE_PR_METADATA_NOT_AVAILABLE",
+        live_metadata_reason_code: str = "NOT_REQUESTED",
     ) -> PullRequestEvidenceResult:
         return _pull_request_evidence_result(
             status,
@@ -919,6 +1014,9 @@ def _current_pull_request_evidence() -> PullRequestEvidenceResult:
             facts,
             evidence=evidence,
             merge_discrepancy=merge_discrepancy,
+            event_bound_state=event_bound_state,
+            live_metadata_state=live_metadata_state,
+            live_metadata_reason_code=live_metadata_reason_code,
             missing_required_fields=missing_required_fields,
             missing_advisory_fields=missing_advisory_fields,
             null_required_fields=null_required_fields,
@@ -926,20 +1024,46 @@ def _current_pull_request_evidence() -> PullRequestEvidenceResult:
         )
 
     if missing_required_fields or null_required_fields:
-        return event_result("INVALID", "EVENT_FIELDS_INCOMPLETE")
+        return event_result(
+            "INVALID",
+            "EVENT_FIELDS_INCOMPLETE",
+            event_bound_state="EVENT_BOUND_PR_EVIDENCE_INCOMPLETE",
+        )
     try:
         pr_number = int(str(required_values["number"]))
         base_ref = str(required_values["pull_request.base.ref"])
         base_sha = str(required_values["pull_request.base.sha"])
         head_ref = str(required_values["pull_request.head.ref"])
         head_sha = str(required_values["pull_request.head.sha"])
+        nested_pr_number = int(str(required_values["pull_request.number"]))
         repository_id = int(str(required_values["repository.id"]))
         repository_full_name = str(required_values["repository.full_name"])
+        repository_owner_id = int(str(required_values["repository.owner.id"]))
+        repository_owner_login = str(required_values["repository.owner.login"])
+        base_repository_id = int(str(required_values["pull_request.base.repo.id"]))
+        base_repository_full_name = str(required_values["pull_request.base.repo.full_name"])
+        base_owner_id = int(str(required_values["pull_request.base.repo.owner.id"]))
+        base_owner_login = str(required_values["pull_request.base.repo.owner.login"])
+        head_repository_id = int(str(required_values["pull_request.head.repo.id"]))
+        head_repository_full_name = str(required_values["pull_request.head.repo.full_name"])
+        head_owner_id = int(str(required_values["pull_request.head.repo.owner.id"]))
+        head_owner_login = str(required_values["pull_request.head.repo.owner.login"])
         event_author_actor_id = int(str(required_values["pull_request.user.id"]))
+        event_author_login = str(required_values["pull_request.user.login"])
+        sender_actor_id = int(str(required_values["sender.id"]))
+        sender_login = str(required_values["sender.login"])
     except (TypeError, ValueError):
-        return event_result("INVALID", "EVENT_FIELDS_INCOMPLETE")
+        return event_result(
+            "INVALID",
+            "EVENT_FIELDS_INCOMPLETE",
+            event_bound_state="EVENT_BOUND_PR_EVIDENCE_INCOMPLETE",
+        )
     if not all(re.fullmatch(r"[0-9a-f]{40}", item) for item in (base_sha, head_sha)):
-        return event_result("INVALID", "EVENT_FIELDS_INCOMPLETE")
+        return event_result(
+            "INVALID",
+            "EVENT_FIELDS_INCOMPLETE",
+            event_bound_state="EVENT_BOUND_PR_EVIDENCE_INCOMPLETE",
+        )
     event_merge_value = advisory_values["pull_request.merge_commit_sha"]
     event_merge_sha: str | None = None
     if event_merge_value is not _MISSING_EVENT_FIELD and event_merge_value is not None:
@@ -952,14 +1076,46 @@ def _current_pull_request_evidence() -> PullRequestEvidenceResult:
         event_merge_sha = event_merge_value
     facts["event_test_merge_recorded"] = event_merge_sha is not None
     facts["event_fields_complete"] = True
-    if repository_full_name != GITHUB_REPOSITORY_FULL_NAME or repository_id != GITHUB_REPOSITORY_ID:
-        return _pull_request_evidence_result("INVALID", "REPOSITORY_MISMATCH", facts)
+    repository_identities = (
+        (repository_full_name, repository_id, repository_owner_login, repository_owner_id),
+        (base_repository_full_name, base_repository_id, base_owner_login, base_owner_id),
+        (head_repository_full_name, head_repository_id, head_owner_login, head_owner_id),
+    )
+    if any(
+        identity
+        != (
+            GITHUB_REPOSITORY_FULL_NAME,
+            GITHUB_REPOSITORY_ID,
+            "200lz",
+            GITHUB_OWNER_ACTOR_ID,
+        )
+        for identity in repository_identities
+    ):
+        return event_result("INVALID", "REPOSITORY_MISMATCH")
     facts["event_repository_matches"] = True
-    if pr_number <= 0:
+    if pr_number <= 0 or nested_pr_number != pr_number:
         return event_result("INVALID", "PR_NUMBER_MISMATCH")
     facts["pr_number_valid"] = True
+    expected_runtime = {
+        "GITHUB_ACTOR": "200lz",
+        "GITHUB_ACTOR_ID": str(GITHUB_OWNER_ACTOR_ID),
+        "GITHUB_REPOSITORY_ID": str(GITHUB_REPOSITORY_ID),
+        "GITHUB_REPOSITORY_OWNER": "200lz",
+        "GITHUB_REPOSITORY_OWNER_ID": str(GITHUB_OWNER_ACTOR_ID),
+    }
+    if any(os.environ.get(name) != value for name, value in expected_runtime.items()):
+        return event_result("INVALID", "REPOSITORY_MISMATCH")
+    facts["runtime_identity_matches"] = True
+    if (
+        event_author_actor_id != GITHUB_OWNER_ACTOR_ID
+        or event_author_login != "200lz"
+        or sender_actor_id != GITHUB_OWNER_ACTOR_ID
+        or sender_login != "200lz"
+    ):
+        return event_result("INVALID", "SIGNER_MISMATCH")
+    facts["event_actor_matches"] = True
     if base_ref != "main" or os.environ.get("GITHUB_BASE_REF") != base_ref:
-        return _pull_request_evidence_result("INVALID", "BASE_REF_MISMATCH", facts)
+        return event_result("INVALID", "BASE_REF_MISMATCH")
     facts["base_ref_matches"] = True
     if os.environ.get("GITHUB_HEAD_REF") != head_ref:
         return event_result("INVALID", "HEAD_REF_MISMATCH")
@@ -967,13 +1123,13 @@ def _current_pull_request_evidence() -> PullRequestEvidenceResult:
     merge_ref = os.environ.get("GITHUB_REF", "")
     merge_ref_match = re.fullmatch(r"refs/pull/([1-9][0-9]*)/merge", merge_ref)
     if merge_ref_match is None:
-        return _pull_request_evidence_result("INVALID", "REF_SCOPE_MISMATCH", facts)
+        return event_result("INVALID", "REF_SCOPE_MISMATCH")
     if int(merge_ref_match.group(1)) != pr_number:
-        return _pull_request_evidence_result("INVALID", "PR_NUMBER_MISMATCH", facts)
+        return event_result("INVALID", "PR_NUMBER_MISMATCH")
     facts["environment_ref_matches"] = True
     checkout_sha = os.environ.get("GITHUB_SHA", "")
     if re.fullmatch(r"[0-9a-f]{40}", checkout_sha) is None:
-        return _pull_request_evidence_result("INVALID", "CHECKOUT_SHA_MISMATCH", facts)
+        return event_result("INVALID", "CHECKOUT_SHA_MISMATCH")
     facts["environment_sha_valid"] = True
     try:
         _git("cat-file", "-e", f"{checkout_sha}^{{commit}}")
@@ -982,110 +1138,201 @@ def _current_pull_request_evidence() -> PullRequestEvidenceResult:
             _git("show", "-s", "--format=%P", checkout_sha).decode("ascii").strip().split()
         )
     except (OSError, UnicodeError, subprocess.CalledProcessError):
-        return _pull_request_evidence_result("INVALID", "GIT_OBJECT_NOT_AVAILABLE", facts)
+        return event_result("INVALID", "GIT_OBJECT_NOT_AVAILABLE")
     facts["git_object_available"] = True
     if local_head != checkout_sha:
-        return _pull_request_evidence_result("INVALID", "CHECKOUT_SHA_MISMATCH", facts)
+        return event_result("INVALID", "CHECKOUT_SHA_MISMATCH")
     facts["detached_head_matches"] = True
     facts["parent_count"] = len(local_parents)
     if len(local_parents) != 2:
-        return _pull_request_evidence_result("INVALID", "PARENT_COUNT_INVALID", facts)
+        return event_result("INVALID", "PARENT_COUNT_INVALID")
     if local_parents == (head_sha, base_sha):
-        return _pull_request_evidence_result("INVALID", "PARENT_ORDER_MISMATCH", facts)
+        return event_result("INVALID", "PARENT_ORDER_MISMATCH")
     if local_parents != (base_sha, head_sha):
-        return _pull_request_evidence_result("INVALID", "CHECKOUT_SHA_MISMATCH", facts)
+        return event_result("INVALID", "CHECKOUT_SHA_MISMATCH")
     facts["parent_order_matches"] = True
     try:
         local_ref_matches = _local_merge_ref_matches(pr_number, checkout_sha)
     except (OSError, UnicodeError, subprocess.CalledProcessError):
-        return _pull_request_evidence_result("INDETERMINATE", "INTERNAL_VALIDATION_ERROR", facts)
+        return event_result("INDETERMINATE", "INTERNAL_VALIDATION_ERROR")
     if not local_ref_matches:
-        return _pull_request_evidence_result("INVALID", "REF_SCOPE_MISMATCH", facts)
+        return event_result("INVALID", "REF_SCOPE_MISMATCH")
     facts["local_merge_ref_matches"] = True
+    try:
+        base_tracking_sha = _local_ref_sha_if_available(f"refs/remotes/origin/{base_ref}")
+        head_tracking_sha = _local_ref_sha_if_available(f"refs/remotes/origin/{head_ref}")
+    except (OSError, UnicodeError, subprocess.CalledProcessError):
+        return event_result("INDETERMINATE", "INTERNAL_VALIDATION_ERROR")
+    facts["base_tracking_ref_available"] = base_tracking_sha is not None
+    facts["head_tracking_ref_available"] = head_tracking_sha is not None
+    if base_tracking_sha is not None and base_tracking_sha != base_sha:
+        return event_result("INVALID", "BASE_SHA_MISMATCH")
+    if head_tracking_sha is not None and head_tracking_sha != head_sha:
+        return event_result("INVALID", "HEAD_SHA_MISMATCH")
+    facts["available_tracking_refs_match"] = True
+    if _normalized_origin_repository() != GITHUB_REPOSITORY_FULL_NAME:
+        return event_result("INVALID", "REPOSITORY_MISMATCH")
+    facts["origin_repository_matches"] = True
     signature_key_ids = _commit_signature_key_ids(checkout_sha)
     if signature_key_ids != (GITHUB_WEB_FLOW_SIGNING_KEY_ID,):
-        return _pull_request_evidence_result("INVALID", "SIGNER_MISMATCH", facts)
+        return event_result("INVALID", "SIGNER_MISMATCH")
     facts["local_signer_matches"] = True
+    verified_signer = _cryptographically_verified_signer(checkout_sha)
+    if verified_signer is None:
+        return event_result("INVALID", "SIGNATURE_NOT_VERIFIED")
+    if verified_signer != GITHUB_WEB_FLOW_SIGNING_KEY_FINGERPRINT:
+        return event_result("INVALID", "SIGNER_MISMATCH")
+    facts["local_signature_verified"] = True
 
-    pr_api_result = _github_json(
-        f"https://api.github.com/repos/{GITHUB_REPOSITORY_FULL_NAME}/pulls/{pr_number}"
-    )
-    facts["pr_metadata_available"] = pr_api_result.available
-    facts["pr_metadata_status_code"] = pr_api_result.status_code
-    if not pr_api_result.available or pr_api_result.payload is None:
-        return _pull_request_evidence_result("INDETERMINATE", "PR_METADATA_NOT_AVAILABLE", facts)
-    commit_api_result = _github_json(
-        f"https://api.github.com/repos/{GITHUB_REPOSITORY_FULL_NAME}/commits/{checkout_sha}"
-    )
-    facts["actor_evidence_available"] = commit_api_result.available
-    facts["actor_evidence_status_code"] = commit_api_result.status_code
-    if not commit_api_result.available or commit_api_result.payload is None:
-        return _pull_request_evidence_result("INDETERMINATE", "ACTOR_EVIDENCE_NOT_AVAILABLE", facts)
-    pr_api = pr_api_result.payload
-    commit_api = commit_api_result.payload
-    try:
-        api_parents = tuple(item["sha"] for item in commit_api["parents"])
-        author_actor_id = int(commit_api["author"]["id"])
-        committer_actor_id = int(commit_api["committer"]["id"])
-        signature_verified = bool(commit_api["commit"]["verification"]["verified"])
-        signature_reason = str(commit_api["commit"]["verification"]["reason"])
-        pr_api_number = int(pr_api["number"])
-        pr_repository_id = int(pr_api["base"]["repo"]["id"])
-        pr_author_actor_id = int(pr_api["user"]["id"])
-        pr_base_ref = str(pr_api["base"]["ref"])
-        pr_base_sha = str(pr_api["base"]["sha"])
-        pr_head_ref = str(pr_api["head"]["ref"])
-        pr_head_sha = str(pr_api["head"]["sha"])
-        api_commit_sha = str(commit_api["sha"])
-    except (KeyError, TypeError, ValueError):
-        return _pull_request_evidence_result("INDETERMINATE", "ACTOR_EVIDENCE_NOT_AVAILABLE", facts)
-    if pr_repository_id != GITHUB_REPOSITORY_ID:
-        return _pull_request_evidence_result("INVALID", "REPOSITORY_MISMATCH", facts)
-    if pr_api_number != pr_number:
-        return _pull_request_evidence_result("INVALID", "PR_NUMBER_MISMATCH", facts)
-    if pr_base_ref != base_ref:
-        return _pull_request_evidence_result("INVALID", "BASE_REF_MISMATCH", facts)
-    if pr_base_sha != base_sha:
-        return _pull_request_evidence_result("INVALID", "BASE_SHA_MISMATCH", facts)
-    if pr_head_ref != head_ref:
-        return _pull_request_evidence_result("INVALID", "HEAD_REF_MISMATCH", facts)
-    if pr_head_sha != head_sha:
-        return _pull_request_evidence_result("INVALID", "HEAD_SHA_MISMATCH", facts)
-    pr_merge_value = pr_api.get("merge_commit_sha", _MISSING_EVENT_FIELD)
-    pr_merge_sha: str | None = None
-    if pr_merge_value is not _MISSING_EVENT_FIELD and pr_merge_value is not None:
-        if (
-            not isinstance(pr_merge_value, str)
-            or re.fullmatch(r"[0-9a-f]{40}", pr_merge_value) is None
-        ):
-            return _pull_request_evidence_result("INVALID", "MERGE_SHA_MISMATCH", facts)
-        pr_merge_sha = pr_merge_value
-    facts["api_test_merge_recorded"] = pr_merge_sha is not None
-    if api_commit_sha != checkout_sha:
-        return _pull_request_evidence_result("INVALID", "MERGE_SHA_MISMATCH", facts)
-    if len(api_parents) != 2:
-        facts["api_parent_count"] = len(api_parents)
-        return _pull_request_evidence_result("INVALID", "PARENT_COUNT_INVALID", facts)
-    if api_parents != local_parents:
-        return _pull_request_evidence_result("INVALID", "PARENT_ORDER_MISMATCH", facts)
-    facts["api_parent_order_matches"] = True
-    if event_author_actor_id != pr_author_actor_id or pr_author_actor_id != author_actor_id:
-        return _pull_request_evidence_result("INVALID", "SIGNER_MISMATCH", facts)
-    facts["author_actor_matches"] = True
-    if committer_actor_id != GITHUB_WEB_FLOW_ACTOR_ID:
-        return _pull_request_evidence_result("INVALID", "SIGNER_MISMATCH", facts)
-    facts["committer_actor_matches"] = True
-    if not signature_verified or signature_reason != "valid":
-        return _pull_request_evidence_result("INVALID", "SIGNATURE_NOT_VERIFIED", facts)
-    facts["signature_verified"] = True
-    facts["event_merge_matches_current_checkout"] = event_merge_sha == checkout_sha
-    facts["api_test_merge_matches_current_checkout"] = pr_merge_sha == checkout_sha
     if event_merge_sha is None:
         merge_discrepancy = "EVENT_TEST_MERGE_SHA_NOT_RECORDED"
     elif event_merge_sha == checkout_sha:
         merge_discrepancy = "EVENT_TEST_MERGE_SHA_MATCHES_CURRENT_CHECKOUT"
     else:
         merge_discrepancy = "EVENT_TEST_MERGE_SHA_DIFFERS_FROM_CURRENT_CHECKOUT"
+    facts["event_merge_matches_current_checkout"] = event_merge_sha == checkout_sha
+
+    pr_api_result = _github_json(
+        f"https://api.github.com/repos/{GITHUB_REPOSITORY_FULL_NAME}/pulls/{pr_number}"
+    )
+    facts["pr_metadata_available"] = pr_api_result.available
+    facts["pr_metadata_status_code"] = pr_api_result.status_code
+    commit_api_result = _github_json(
+        f"https://api.github.com/repos/{GITHUB_REPOSITORY_FULL_NAME}/commits/{checkout_sha}"
+    )
+    facts["actor_evidence_available"] = commit_api_result.available
+    facts["actor_evidence_status_code"] = commit_api_result.status_code
+    live_results = (pr_api_result, commit_api_result)
+    for result in live_results:
+        if result.available and result.payload is None:
+            return event_result(
+                "INVALID",
+                "LIVE_METADATA_SCHEMA_INVALID",
+                event_bound_state="EVENT_BOUND_PR_EVIDENCE_AVAILABLE",
+                live_metadata_state="LIVE_PR_METADATA_CONFLICT",
+                live_metadata_reason_code="PAYLOAD_NOT_AVAILABLE",
+            )
+        if not result.available and not _bounded_live_metadata_unavailable(result):
+            reason_code = (
+                "LIVE_METADATA_AUTHENTICATION_ANOMALY"
+                if result.status_code == 401
+                else "LIVE_METADATA_SCHEMA_INVALID"
+            )
+            return event_result(
+                "INVALID",
+                reason_code,
+                event_bound_state="EVENT_BOUND_PR_EVIDENCE_AVAILABLE",
+                live_metadata_state="LIVE_PR_METADATA_CONFLICT",
+                live_metadata_reason_code=result.reason_code,
+            )
+
+    def live_conflict(reason_code: str) -> PullRequestEvidenceResult:
+        return event_result(
+            "INVALID",
+            reason_code,
+            event_bound_state="EVENT_BOUND_PR_EVIDENCE_AVAILABLE",
+            live_metadata_state="LIVE_PR_METADATA_CONFLICT",
+            live_metadata_reason_code="CONTRADICTS_EVENT_OR_LOCAL_GIT",
+        )
+
+    pr_api = pr_api_result.payload
+    if pr_api is not None:
+        try:
+            pr_api_number = int(pr_api["number"])
+            pr_repository_id = int(pr_api["base"]["repo"]["id"])
+            pr_repository_full_name = str(pr_api["base"]["repo"]["full_name"])
+            pr_head_repository_id = int(pr_api["head"]["repo"]["id"])
+            pr_head_repository_full_name = str(pr_api["head"]["repo"]["full_name"])
+            pr_author_actor_id = int(pr_api["user"]["id"])
+            pr_base_ref = str(pr_api["base"]["ref"])
+            pr_base_sha = str(pr_api["base"]["sha"])
+            pr_head_ref = str(pr_api["head"]["ref"])
+            pr_head_sha = str(pr_api["head"]["sha"])
+        except (KeyError, TypeError, ValueError):
+            return event_result(
+                "INVALID",
+                "LIVE_METADATA_SCHEMA_INVALID",
+                event_bound_state="EVENT_BOUND_PR_EVIDENCE_AVAILABLE",
+                live_metadata_state="LIVE_PR_METADATA_CONFLICT",
+                live_metadata_reason_code="PR_RESPONSE_SCHEMA_INVALID",
+            )
+        if (
+            pr_repository_id != GITHUB_REPOSITORY_ID
+            or pr_repository_full_name != GITHUB_REPOSITORY_FULL_NAME
+            or pr_head_repository_id != GITHUB_REPOSITORY_ID
+            or pr_head_repository_full_name != GITHUB_REPOSITORY_FULL_NAME
+        ):
+            return live_conflict("REPOSITORY_MISMATCH")
+        if pr_api_number != pr_number:
+            return live_conflict("PR_NUMBER_MISMATCH")
+        if pr_base_ref != base_ref:
+            return live_conflict("BASE_REF_MISMATCH")
+        if pr_base_sha != base_sha:
+            return live_conflict("BASE_SHA_MISMATCH")
+        if pr_head_ref != head_ref:
+            return live_conflict("HEAD_REF_MISMATCH")
+        if pr_head_sha != head_sha:
+            return live_conflict("HEAD_SHA_MISMATCH")
+        if pr_author_actor_id != event_author_actor_id:
+            return live_conflict("SIGNER_MISMATCH")
+        pr_merge_value = pr_api.get("merge_commit_sha", _MISSING_EVENT_FIELD)
+        pr_merge_sha: str | None = None
+        if pr_merge_value is not _MISSING_EVENT_FIELD and pr_merge_value is not None:
+            if (
+                not isinstance(pr_merge_value, str)
+                or re.fullmatch(r"[0-9a-f]{40}", pr_merge_value) is None
+            ):
+                return live_conflict("MERGE_SHA_MISMATCH")
+            pr_merge_sha = pr_merge_value
+        facts["api_test_merge_recorded"] = pr_merge_sha is not None
+        facts["api_test_merge_matches_current_checkout"] = pr_merge_sha == checkout_sha
+        facts["live_pr_metadata_consistent"] = True
+
+    commit_api = commit_api_result.payload
+    if commit_api is not None:
+        try:
+            api_parents = tuple(item["sha"] for item in commit_api["parents"])
+            author_actor_id = int(commit_api["author"]["id"])
+            committer_actor_id = int(commit_api["committer"]["id"])
+            signature_verified = bool(commit_api["commit"]["verification"]["verified"])
+            signature_reason = str(commit_api["commit"]["verification"]["reason"])
+            api_commit_sha = str(commit_api["sha"])
+        except (KeyError, TypeError, ValueError):
+            return event_result(
+                "INVALID",
+                "LIVE_METADATA_SCHEMA_INVALID",
+                event_bound_state="EVENT_BOUND_PR_EVIDENCE_AVAILABLE",
+                live_metadata_state="LIVE_PR_METADATA_CONFLICT",
+                live_metadata_reason_code="COMMIT_RESPONSE_SCHEMA_INVALID",
+            )
+        if api_commit_sha != checkout_sha:
+            return live_conflict("MERGE_SHA_MISMATCH")
+        if len(api_parents) != 2:
+            facts["api_parent_count"] = len(api_parents)
+            return live_conflict("PARENT_COUNT_INVALID")
+        if api_parents != local_parents:
+            return live_conflict("PARENT_ORDER_MISMATCH")
+        if author_actor_id != event_author_actor_id:
+            return live_conflict("SIGNER_MISMATCH")
+        if committer_actor_id != GITHUB_WEB_FLOW_ACTOR_ID:
+            return live_conflict("SIGNER_MISMATCH")
+        if not signature_verified or signature_reason != "valid":
+            return live_conflict("SIGNATURE_NOT_VERIFIED")
+        facts["live_commit_metadata_consistent"] = True
+
+    live_corroborated = all(result.available for result in live_results)
+    live_metadata_state = (
+        "LIVE_PR_METADATA_CORROBORATED" if live_corroborated else "LIVE_PR_METADATA_NOT_AVAILABLE"
+    )
+    if live_corroborated:
+        live_metadata_reason_code = "AVAILABLE"
+    elif not pr_api_result.available:
+        live_metadata_reason_code = f"PR_{pr_api_result.reason_code}"
+    else:
+        live_metadata_reason_code = f"COMMIT_{commit_api_result.reason_code}"
+    evidence_sources = REQUIRED_PULL_REQUEST_PROVENANCE
+    if live_corroborated:
+        evidence_sources |= LIVE_PULL_REQUEST_CORROBORATION_PROVENANCE
     evidence = PullRequestEvidence(
         valid=True,
         repository_full_name=repository_full_name,
@@ -1098,18 +1345,20 @@ def _current_pull_request_evidence() -> PullRequestEvidenceResult:
         merge_sha=checkout_sha,
         merge_ref=merge_ref,
         parents=local_parents,
-        author_actor_id=author_actor_id,
-        committer_actor_id=committer_actor_id,
-        signature_verified=signature_verified,
-        signature_reason=signature_reason,
+        author_actor_id=event_author_actor_id,
+        committer_actor_id=GITHUB_WEB_FLOW_ACTOR_ID,
+        signature_verified=True,
+        signature_reason="valid",
         signature_key_ids=signature_key_ids,
-        evidence_sources=tuple(sorted(REQUIRED_PULL_REQUEST_PROVENANCE)),
+        evidence_sources=tuple(sorted(evidence_sources)),
     )
     return event_result(
         "AVAILABLE",
         "AVAILABLE",
         evidence=evidence,
         merge_discrepancy=merge_discrepancy,
+        live_metadata_state=live_metadata_state,
+        live_metadata_reason_code=live_metadata_reason_code,
     )
 
 
@@ -1369,7 +1618,10 @@ def _platform_policy_is_valid(policy: PlatformIdentityPolicy) -> bool:
         and set(policy.allowed_roles).issubset(IDENTITY_ROLES)
         and policy.allowed_ref_classifications
         and set(policy.allowed_ref_classifications).issubset(REF_CLASSIFICATIONS)
-        and REQUIRED_PLATFORM_PROVENANCE.issubset(policy.evidence_sources)
+        and (
+            not policy.static_occurrences
+            or REQUIRED_PLATFORM_PROVENANCE.issubset(policy.evidence_sources)
+        )
         and (
             not policy.pull_request_roles
             or REQUIRED_PULL_REQUEST_PROVENANCE.issubset(policy.evidence_sources)
@@ -2106,7 +2358,7 @@ def main() -> int:
                 "commit_messages",
                 "exact_local_and_remote_ref_scopes",
                 "github_actions_pull_request_event_binding",
-                "github_rest_actor_and_signature_binding",
+                "github_rest_actor_and_signature_corroboration",
                 "github_signed_authoritative_main_squash_identity",
                 "pull_request_base_head_merge_parent_topology",
                 "reachable_blob_sizes",
@@ -2120,8 +2372,8 @@ def main() -> int:
             "Binary content is audited by type and size but is not decoded as text.",
             "Files excluded by Git ignore rules are outside the candidate-public file set.",
             "When a GitHub Actions pull-request merge ref is present, the identity gate "
-            "performs bounded read-only GitHub REST checks and fails closed if provenance "
-            "cannot be established.",
+            "binds event and local signed-merge evidence; bounded read-only GitHub REST "
+            "reads only corroborate it, and any live contradiction fails closed.",
             "Offline GitHub-signed squash identity evidence proves only a reviewed Git "
             "identity occurrence and never proves PR approval, branch protection, checks, "
             "owner authority, release authority, or publication authority.",
@@ -2170,6 +2422,11 @@ def main() -> int:
             "pull_request_evidence": {
                 "status": pull_request_evidence_result.status,
                 "reason_code": pull_request_evidence_result.reason_code,
+                "event_bound_state": pull_request_evidence_result.event_bound_state,
+                "live_metadata_state": pull_request_evidence_result.live_metadata_state,
+                "live_metadata_reason_code": (
+                    pull_request_evidence_result.live_metadata_reason_code
+                ),
                 "merge_discrepancy": pull_request_evidence_result.merge_discrepancy,
                 "missing_required_fields": list(
                     pull_request_evidence_result.missing_required_fields
