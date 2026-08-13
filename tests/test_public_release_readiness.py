@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import hashlib
 import json
+import re
 import runpy
 import subprocess
 import tomllib
@@ -250,6 +252,7 @@ def _valid_live_squash_metadata(
     tree_sha: str = "7" * 40,
     parent_sha: str = "8" * 40,
     head_sha: str = "9" * 40,
+    pr_number: int = 17,
 ) -> tuple[list[dict[str, Any]], dict[str, Any], dict[str, Any]]:
     repository = {
         "id": namespace["GITHUB_REPOSITORY_ID"],
@@ -257,7 +260,7 @@ def _valid_live_squash_metadata(
     }
     associated = [
         {
-            "number": 17,
+            "number": pr_number,
             "state": "closed",
             "merged_at": "2026-08-13T00:00:00Z",
             "merge_commit_sha": commit_sha,
@@ -286,16 +289,20 @@ def _install_live_squash_metadata(
     result_commit: object,
     head_commit: object,
     *,
+    expected_commit_sha: str,
+    expected_head_sha: str,
     unavailable_endpoint: str | None = None,
     unavailable_reason: str = "NETWORK_ERROR",
     unavailable_status: int = 0,
 ) -> None:
     github_result = namespace["GitHubJsonResult"]
     builder_globals = namespace["_live_public_squash_commit_identity_evidence"].__globals__
-    try:
-        associated_head_sha = associated[0]["head"]["sha"]
-    except (KeyError, IndexError, TypeError):
-        associated_head_sha = None
+    repository = namespace["GITHUB_REPOSITORY_FULL_NAME"]
+    associated_url = (
+        f"https://api.github.com/repos/{repository}/commits/{expected_commit_sha}/pulls?per_page=2"
+    )
+    result_url = f"https://api.github.com/repos/{repository}/commits/{expected_commit_sha}"
+    head_url = f"https://api.github.com/repos/{repository}/commits/{expected_head_sha}"
 
     def response(payload: object, endpoint: str) -> object:
         if unavailable_endpoint == endpoint:
@@ -303,13 +310,15 @@ def _install_live_squash_metadata(
         return github_result(True, "AVAILABLE", 200, payload)
 
     def fake_array(url: str) -> object:
-        assert url.endswith("/pulls?per_page=2")
+        assert url == associated_url, "UNEXPECTED_ASSOCIATED_PR_FIXTURE_ENDPOINT"
         return response(associated, "associated")
 
     def fake_object(url: str) -> object:
-        if associated_head_sha is not None and url.endswith("/" + associated_head_sha):
+        if url == result_url:
+            return response(result_commit, "result")
+        if url == head_url:
             return response(head_commit, "head")
-        return response(result_commit, "result")
+        raise AssertionError("UNEXPECTED_COMMIT_FIXTURE_ENDPOINT")
 
     builder_globals["_github_json_array"] = fake_array
     builder_globals["_github_json"] = fake_object
@@ -329,6 +338,8 @@ def _run_live_squash_corroboration(
         associated,
         result_commit,
         head_commit,
+        expected_commit_sha="6" * 40,
+        expected_head_sha="9" * 40,
         unavailable_endpoint=unavailable_endpoint,
     )
     return namespace["_live_public_squash_commit_identity_evidence"](
@@ -347,35 +358,142 @@ def _run_live_squash_corroboration(
     )
 
 
-def _install_current_main_live_metadata(namespace: dict[str, object]) -> None:
-    commit_sha = subprocess.run(
-        ["git", "rev-parse", "refs/remotes/origin/main"],
-        cwd=ROOT,
-        check=True,
-        capture_output=True,
-        text=True,
-    ).stdout.strip()
-    parent_sha = subprocess.run(
-        ["git", "show", "-s", "--format=%P", commit_sha],
-        cwd=ROOT,
-        check=True,
-        capture_output=True,
-        text=True,
-    ).stdout.strip()
-    tree_sha = subprocess.run(
-        ["git", "show", "-s", "--format=%T", commit_sha],
-        cwd=ROOT,
-        check=True,
-        capture_output=True,
-        text=True,
-    ).stdout.strip()
+def _missing_subject_live_squash_candidate(namespace: dict[str, object]) -> dict[str, object]:
+    observations = namespace["_history_identity_observations"]()
+    by_fingerprint = {item.fingerprint: item for item in observations}
+    author = by_fingerprint.get(namespace["GITHUB_SQUASH_AUTHOR_FINGERPRINT"])
+    committer = by_fingerprint.get(namespace["GITHUB_SQUASH_COMMITTER_FINGERPRINT"])
+    candidates: list[dict[str, object]] = []
+    unreadable = False
+    if (
+        author is not None
+        and committer is not None
+        and author.valid_record
+        and committer.valid_record
+    ):
+        author_occurrences = {
+            item.object_sha: item for item in author.occurrences if item.role == "AUTHOR"
+        }
+        committer_occurrences = {
+            item.object_sha: item for item in committer.occurrences if item.role == "COMMITTER"
+        }
+        signer = namespace["GITHUB_WEB_FLOW_SIGNING_KEY_ID"]
+        for commit_sha in sorted(set(author_occurrences) & set(committer_occurrences)):
+            author_occurrence = author_occurrences[commit_sha]
+            committer_occurrence = committer_occurrences[commit_sha]
+            authoritative = tuple(
+                sorted(
+                    set(author_occurrence.ref_classifications)
+                    & set(committer_occurrence.ref_classifications)
+                    & {"LOCAL_MAIN", "REMOTE_MAIN"}
+                )
+            )
+            if (
+                not author_occurrence.valid_record
+                or not committer_occurrence.valid_record
+                or author_occurrence.parents != committer_occurrence.parents
+                or len(author_occurrence.parents) != 1
+                or not authoritative
+                or author_occurrence.signature_key_ids != (signer,)
+                or committer_occurrence.signature_key_ids != (signer,)
+            ):
+                continue
+            try:
+                subject = (
+                    namespace["_git"]("show", "-s", "--format=%s", commit_sha)
+                    .decode("utf-8", errors="strict")
+                    .strip()
+                )
+                tree_sha = (
+                    namespace["_git"]("show", "-s", "--format=%T", commit_sha)
+                    .decode("ascii", errors="strict")
+                    .strip()
+                )
+            except (OSError, UnicodeError, subprocess.CalledProcessError):
+                unreadable = True
+                continue
+            if re.fullmatch(r"[0-9a-f]{40}", commit_sha) is None:
+                continue
+            if re.fullmatch(r"[0-9a-f]{40}", tree_sha) is None:
+                unreadable = True
+                continue
+            if re.search(r"\(#([1-9][0-9]*)\)$", subject) is not None:
+                continue
+            candidates.append(
+                {
+                    "commit_sha": commit_sha,
+                    "parent_sha": author_occurrence.parents[0],
+                    "tree_sha": tree_sha,
+                    "authoritative_ref_classifications": authoritative,
+                }
+            )
+    if len(candidates) != 1:
+        cardinality = "ZERO" if not candidates else "MULTIPLE"
+        readability = "UNREADABLE_PRESENT" if unreadable else "READABLE"
+        raise AssertionError(
+            "MISSING_SUBJECT_LIVE_FIXTURE_CANDIDATE_COUNT_INVALID "
+            f"cardinality={cardinality} readability={readability}"
+        )
+    return candidates[0]
+
+
+def _install_missing_subject_live_squash_metadata(
+    namespace: dict[str, object],
+) -> dict[str, object]:
+    candidate = _missing_subject_live_squash_candidate(namespace)
+    commit_sha = candidate["commit_sha"]
+    parent_sha = candidate["parent_sha"]
+    tree_sha = candidate["tree_sha"]
+    assert isinstance(commit_sha, str)
+    assert isinstance(parent_sha, str)
+    assert isinstance(tree_sha, str)
+    fixture_seed = f"omiv.m2.live-squash-head.v1:{commit_sha}:{parent_sha}:{tree_sha}".encode(
+        "ascii"
+    )
+    head_sha = hashlib.sha256(fixture_seed).hexdigest()[:40]
+    pr_number = int(hashlib.sha256(fixture_seed + b":pr").hexdigest()[:8], 16) + 1
     associated, result_commit, head_commit = _valid_live_squash_metadata(
         namespace,
         commit_sha=commit_sha,
         tree_sha=tree_sha,
         parent_sha=parent_sha,
+        head_sha=head_sha,
+        pr_number=pr_number,
     )
-    _install_live_squash_metadata(namespace, associated, result_commit, head_commit)
+    _install_live_squash_metadata(
+        namespace,
+        associated,
+        result_commit,
+        head_commit,
+        expected_commit_sha=commit_sha,
+        expected_head_sha=head_sha,
+    )
+    return candidate
+
+
+def _assert_authoritative_main_squash_association_sources(
+    namespace: dict[str, object],
+    evidence: list[object] | tuple[object, ...],
+    live_candidate: dict[str, object],
+) -> None:
+    main_sha = namespace["_git"]("rev-parse", "refs/remotes/origin/main").decode("ascii").strip()
+
+    def value(item: object, field: str) -> object:
+        return item[field] if isinstance(item, dict) else getattr(item, field)
+
+    offline = [
+        item for item in evidence if value(item, "association_source") == "OFFLINE_SUBJECT_SUFFIX"
+    ]
+    live = [
+        item
+        for item in evidence
+        if value(item, "association_source") == "LIVE_PUBLIC_ASSOCIATED_PULL_REQUEST"
+    ]
+    assert any(value(item, "commit_sha") == main_sha for item in offline)
+    assert any(value(item, "commit_sha") != main_sha for item in offline)
+    assert all(value(item, "commit_sha") != live_candidate["commit_sha"] for item in offline)
+    assert len(live) == 1
+    assert value(live[0], "commit_sha") == live_candidate["commit_sha"]
 
 
 def _valid_pull_request_event(namespace: dict[str, object]) -> dict[str, Any]:
@@ -1417,7 +1535,7 @@ def test_ci_has_read_only_permissions_and_immutable_action_pins() -> None:
 def test_public_release_audit_is_privacy_safe_and_passes(monkeypatch: Any, capsys: Any) -> None:
     namespace = _audit_namespace()
     namespace["_current_pull_request_evidence"]()
-    _install_current_main_live_metadata(namespace)
+    live_candidate = _install_missing_subject_live_squash_metadata(namespace)
     monkeypatch.setattr("sys.argv", ["audit_public_release_readiness.py", "--json"])
     assert namespace["main"]() == 0
     output = capsys.readouterr().out
@@ -1431,6 +1549,19 @@ def test_public_release_audit_is_privacy_safe_and_passes(monkeypatch: Any, capsy
     assert "\x1b" not in output
     assert report["coverage"]["history_surfaces"] == sorted(report["coverage"]["history_surfaces"])
     assert any("heuristic" in limitation for limitation in report["limitations"])
+    squash = report["privacy"]["github_signed_squash_commit_identity_evidence"]
+    assert squash["status"] == "AVAILABLE"
+    _assert_authoritative_main_squash_association_sources(
+        namespace, squash["evidence"], live_candidate
+    )
+    identity_counts = report["privacy"]["identity_category_counts"]
+    assert identity_counts["UNVERIFIED_PLATFORM_SERVICE_CLAIM"] == 0
+    assert identity_counts["UNKNOWN_HUMAN_IDENTITY"] == 0
+    assert identity_counts["UNKNOWN_AUTOMATION_IDENTITY"] == 0
+    assert identity_counts["INVALID_IDENTITY"] == 0
+    pull_request = report["privacy"]["pull_request_evidence"]
+    if pull_request["reason_code"] == "EVENT_NOT_PULL_REQUEST":
+        assert pull_request["status"] == "NOT_AVAILABLE"
 
     assert namespace["main"]() == 0
     assert capsys.readouterr().out == output
@@ -2197,14 +2328,13 @@ def test_protected_squash_merge_evidence_is_separate_and_fail_closed() -> None:
 def test_current_main_squash_evidence_passes_with_mocked_public_corroboration() -> None:
     namespace = _audit_namespace()
     current_pull_request = namespace["_current_pull_request_evidence"]()
-    _install_current_main_live_metadata(namespace)
+    live_candidate = _install_missing_subject_live_squash_metadata(namespace)
     result = namespace["_github_signed_squash_commit_identity_evidence"]()
     assert result.status == "AVAILABLE"
     assert result.safe_facts["live_public_associations"] == 1
-    assert {item.association_source for item in result.evidence} == {
-        "OFFLINE_SUBJECT_SUFFIX",
-        "LIVE_PUBLIC_ASSOCIATED_PULL_REQUEST",
-    }
+    _assert_authoritative_main_squash_association_sources(
+        namespace, result.evidence, live_candidate
+    )
     observations = namespace["_history_identity_observations"]()
     check = namespace["_identity_classification_check"](
         observations,
@@ -2215,6 +2345,8 @@ def test_current_main_squash_evidence_passes_with_mocked_public_corroboration() 
     assert "unverified_platform_claims=0" in check.detail
     assert "unknown=0" in check.detail
     assert "invalid=0" in check.detail
+    if current_pull_request.reason_code == "EVENT_NOT_PULL_REQUEST":
+        assert current_pull_request.status == "NOT_AVAILABLE"
     serialized = json.dumps(asdict(result), sort_keys=True)
     assert "@" not in serialized
     assert "/home/" not in serialized
