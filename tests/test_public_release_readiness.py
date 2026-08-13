@@ -349,7 +349,11 @@ def _run_live_squash_corroboration(
 
 def _install_current_main_live_metadata(namespace: dict[str, object]) -> None:
     commit_sha = subprocess.run(
-        ["git", "rev-parse", "main"], cwd=ROOT, check=True, capture_output=True, text=True
+        ["git", "rev-parse", "refs/remotes/origin/main"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
     ).stdout.strip()
     parent_sha = subprocess.run(
         ["git", "show", "-s", "--format=%P", commit_sha],
