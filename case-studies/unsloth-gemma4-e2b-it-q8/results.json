@@ -1,0 +1,152 @@
+{
+  "schema": "omiv.public-case-study.results.v1",
+  "version": "1.0.0",
+  "study_id": "OMIV-CS-01",
+  "title": "Case Study 01 — Validating an Unsloth Q8_0 GGUF Export with OMIV",
+  "source": {
+    "repository": "google/gemma-4-E2B-it",
+    "revision": "3e22461f65e89153144f8adb70e3b8c2cc9845a7",
+    "file_count": 9,
+    "total_bytes": 10278849571,
+    "manifest_sha256": "b73a8a4dd3aa11c51f5dcc06e13dbdecbbcd1f7eaa55518febe8ffeaf10d8a75",
+    "manifest_unchanged_during_export": true,
+    "claim_ids": [
+      "P1-C002"
+    ],
+    "evidence_ids": [
+      "A1-LINEAGE"
+    ]
+  },
+  "export": {
+    "status": "SUCCESS_RETAINED_HISTORICAL_OBSERVATION",
+    "claim_ids": [
+      "P1-C003"
+    ],
+    "evidence_ids": [
+      "A1-EXPORT-HISTORY"
+    ]
+  },
+  "artifacts": [
+    {
+      "role": "main",
+      "format": "GGUF",
+      "format_version": 3,
+      "size_bytes": 4954594880,
+      "sha256": "fbf3f93d603e92dbcf00742163cc3018b9bf8fbfbcf87158cc836e5ed0bc9455",
+      "metadata_entries": 51,
+      "tensor_count": 601,
+      "tensor_type_counts": {
+        "F32": 283,
+        "Q8_0": 318
+      },
+      "tensor_ranges_within_file": true,
+      "tensor_ranges_non_overlapping": true,
+      "claim_ids": [
+        "P1-C004",
+        "P1-C005",
+        "P1-C008"
+      ],
+      "evidence_ids": [
+        "A1-INPUT-CUSTODY",
+        "A1-MAIN-GGUF"
+      ]
+    },
+    {
+      "role": "mmproj",
+      "format": "GGUF",
+      "format_version": 3,
+      "size_bytes": 986833792,
+      "sha256": "e00089a95d2dc85c71f249bd83760e348f721757318802ddb889c65ec64eae3c",
+      "metadata_entries": 39,
+      "tensor_count": 1411,
+      "tensor_type_counts": {
+        "BF16": 247,
+        "F32": 1164
+      },
+      "tensor_ranges_within_file": true,
+      "tensor_ranges_non_overlapping": true,
+      "claim_ids": [
+        "P1-C006",
+        "P1-C007",
+        "P1-C008"
+      ],
+      "evidence_ids": [
+        "A1-INPUT-CUSTODY",
+        "A1-MMPROJ-GGUF"
+      ]
+    }
+  ],
+  "historical_reproducibility": {
+    "classification": "HISTORICAL_C1_MATCH",
+    "basis": "RETAINED_C1_SIZE_AND_SHA256_OBSERVATIONS_VS_CURRENT_LOCAL_BYTES",
+    "historical_c1_bytes_retained": false,
+    "new_direct_c1_c2_file_comparison": false,
+    "claim_ids": [
+      "P1-C009"
+    ],
+    "evidence_ids": [
+      "A1-REPRODUCIBILITY"
+    ]
+  },
+  "lineage": {
+    "exact_source_revision_present_in_main_metadata": false,
+    "exact_source_revision_present_in_mmproj_metadata": false,
+    "tokenizer_config_json_pointer_changes": 195,
+    "tokenizer_config_additions": 181,
+    "tokenizer_config_removals": 14,
+    "claim_ids": [
+      "P1-C010",
+      "P1-C013",
+      "P1-C017"
+    ],
+    "evidence_ids": [
+      "A1-LINEAGE"
+    ]
+  },
+  "main_mmproj_association": {
+    "strength": "MODERATE_CONTEXTUAL_NOT_CRYPTOGRAPHIC",
+    "cryptographic_binding_observed": false,
+    "format_native_binding_observed": false,
+    "shared_name": "Work Copy",
+    "shared_name_identifying_power": "LOW",
+    "claim_ids": [
+      "P1-C011",
+      "P1-C012",
+      "P1-C018"
+    ],
+    "evidence_ids": [
+      "A1-ASSOCIATION"
+    ]
+  },
+  "attribution_boundary": {
+    "originating_component_determined": false,
+    "candidate_components": [
+      "Unsloth",
+      "llama.cpp tooling",
+      "GGUF conventions",
+      "llm-compressor",
+      "surrounding export workflow"
+    ],
+    "claim_ids": [
+      "P1-C021"
+    ],
+    "evidence_ids": [
+      "A1-LINEAGE",
+      "A1-ASSOCIATION",
+      "A1-LIMITATIONS"
+    ]
+  },
+  "fidelity": {
+    "semantic": "NOT_EVALUATED",
+    "numerical": "NOT_EVALUATED",
+    "runtime_compatibility": "NOT_EVALUATED",
+    "claim_ids": [
+      "P1-C015",
+      "P1-C016"
+    ],
+    "evidence_ids": [
+      "A1-CAPABILITY-COVERAGE",
+      "A1-LIMITATIONS"
+    ]
+  }
+}
