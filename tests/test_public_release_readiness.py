@@ -1416,6 +1416,7 @@ def test_ci_has_read_only_permissions_and_immutable_action_pins() -> None:
 
 def test_public_release_audit_is_privacy_safe_and_passes(monkeypatch: Any, capsys: Any) -> None:
     namespace = _audit_namespace()
+    namespace["_current_pull_request_evidence"]()
     _install_current_main_live_metadata(namespace)
     monkeypatch.setattr("sys.argv", ["audit_public_release_readiness.py", "--json"])
     assert namespace["main"]() == 0
@@ -2195,6 +2196,7 @@ def test_protected_squash_merge_evidence_is_separate_and_fail_closed() -> None:
 
 def test_current_main_squash_evidence_passes_with_mocked_public_corroboration() -> None:
     namespace = _audit_namespace()
+    current_pull_request = namespace["_current_pull_request_evidence"]()
     _install_current_main_live_metadata(namespace)
     result = namespace["_github_signed_squash_commit_identity_evidence"]()
     assert result.status == "AVAILABLE"
@@ -2205,7 +2207,9 @@ def test_current_main_squash_evidence_passes_with_mocked_public_corroboration() 
     }
     observations = namespace["_history_identity_observations"]()
     check = namespace["_identity_classification_check"](
-        observations, signed_squash_evidence=result.evidence
+        observations,
+        pull_request_evidence=current_pull_request.evidence,
+        signed_squash_evidence=result.evidence,
     )
     assert check.passed is True
     assert "unverified_platform_claims=0" in check.detail
