@@ -4,6 +4,7 @@ import json
 import runpy
 import subprocess
 import tomllib
+from copy import deepcopy
 from dataclasses import asdict, replace
 from pathlib import Path
 from typing import Any
@@ -240,6 +241,137 @@ def _signed_squash_fixture(
             )
         )
     return observations, (evidence,)
+
+
+def _valid_live_squash_metadata(
+    namespace: dict[str, object],
+    *,
+    commit_sha: str = "6" * 40,
+    tree_sha: str = "7" * 40,
+    parent_sha: str = "8" * 40,
+    head_sha: str = "9" * 40,
+) -> tuple[list[dict[str, Any]], dict[str, Any], dict[str, Any]]:
+    repository = {
+        "id": namespace["GITHUB_REPOSITORY_ID"],
+        "full_name": namespace["GITHUB_REPOSITORY_FULL_NAME"],
+    }
+    associated = [
+        {
+            "number": 17,
+            "state": "closed",
+            "merged_at": "2026-08-13T00:00:00Z",
+            "merge_commit_sha": commit_sha,
+            "user": {"id": namespace["GITHUB_OWNER_ACTOR_ID"]},
+            "base": {"ref": "main", "sha": parent_sha, "repo": deepcopy(repository)},
+            "head": {"sha": head_sha, "repo": deepcopy(repository)},
+        }
+    ]
+    result_commit = {
+        "sha": commit_sha,
+        "parents": [{"sha": parent_sha}],
+        "author": {"id": namespace["GITHUB_OWNER_ACTOR_ID"]},
+        "committer": {"id": namespace["GITHUB_WEB_FLOW_ACTOR_ID"]},
+        "commit": {
+            "tree": {"sha": tree_sha},
+            "verification": {"verified": True, "reason": "valid"},
+        },
+    }
+    head_commit = {"sha": head_sha, "commit": {"tree": {"sha": tree_sha}}}
+    return associated, result_commit, head_commit
+
+
+def _install_live_squash_metadata(
+    namespace: dict[str, object],
+    associated: object,
+    result_commit: object,
+    head_commit: object,
+    *,
+    unavailable_endpoint: str | None = None,
+    unavailable_reason: str = "NETWORK_ERROR",
+    unavailable_status: int = 0,
+) -> None:
+    github_result = namespace["GitHubJsonResult"]
+    builder_globals = namespace["_live_public_squash_commit_identity_evidence"].__globals__
+    try:
+        associated_head_sha = associated[0]["head"]["sha"]
+    except (KeyError, IndexError, TypeError):
+        associated_head_sha = None
+
+    def response(payload: object, endpoint: str) -> object:
+        if unavailable_endpoint == endpoint:
+            return github_result(False, unavailable_reason, unavailable_status)
+        return github_result(True, "AVAILABLE", 200, payload)
+
+    def fake_array(url: str) -> object:
+        assert url.endswith("/pulls?per_page=2")
+        return response(associated, "associated")
+
+    def fake_object(url: str) -> object:
+        if associated_head_sha is not None and url.endswith("/" + associated_head_sha):
+            return response(head_commit, "head")
+        return response(result_commit, "result")
+
+    builder_globals["_github_json_array"] = fake_array
+    builder_globals["_github_json"] = fake_object
+
+
+def _run_live_squash_corroboration(
+    namespace: dict[str, object],
+    associated: object,
+    result_commit: object,
+    head_commit: object,
+    *,
+    unavailable_endpoint: str | None = None,
+    signer_fingerprint: str | None = None,
+) -> object:
+    _install_live_squash_metadata(
+        namespace,
+        associated,
+        result_commit,
+        head_commit,
+        unavailable_endpoint=unavailable_endpoint,
+    )
+    return namespace["_live_public_squash_commit_identity_evidence"](
+        repository=namespace["GITHUB_REPOSITORY_FULL_NAME"],
+        commit_sha="6" * 40,
+        tree_sha="7" * 40,
+        parents=("8" * 40,),
+        author_fingerprint=namespace["GITHUB_SQUASH_AUTHOR_FINGERPRINT"],
+        committer_fingerprint=namespace["GITHUB_SQUASH_COMMITTER_FINGERPRINT"],
+        signer_fingerprint=(
+            namespace["GITHUB_WEB_FLOW_SIGNING_KEY_FINGERPRINT"]
+            if signer_fingerprint is None
+            else signer_fingerprint
+        ),
+        authoritative_ref_classifications=("LOCAL_MAIN", "REMOTE_MAIN"),
+    )
+
+
+def _install_current_main_live_metadata(namespace: dict[str, object]) -> None:
+    commit_sha = subprocess.run(
+        ["git", "rev-parse", "main"], cwd=ROOT, check=True, capture_output=True, text=True
+    ).stdout.strip()
+    parent_sha = subprocess.run(
+        ["git", "show", "-s", "--format=%P", commit_sha],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    tree_sha = subprocess.run(
+        ["git", "show", "-s", "--format=%T", commit_sha],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    associated, result_commit, head_commit = _valid_live_squash_metadata(
+        namespace,
+        commit_sha=commit_sha,
+        tree_sha=tree_sha,
+        parent_sha=parent_sha,
+    )
+    _install_live_squash_metadata(namespace, associated, result_commit, head_commit)
 
 
 def _valid_pull_request_event(namespace: dict[str, object]) -> dict[str, Any]:
@@ -1278,35 +1410,25 @@ def test_ci_has_read_only_permissions_and_immutable_action_pins() -> None:
     assert "actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97" in workflow
 
 
-def test_public_release_audit_is_privacy_safe_and_passes() -> None:
-    result = subprocess.run(
-        ["python", "tools/audit_public_release_readiness.py", "--json"],
-        cwd=ROOT,
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-    assert result.returncode == 0, _privacy_safe_audit_failure(result)
-    report = json.loads(result.stdout)
+def test_public_release_audit_is_privacy_safe_and_passes(monkeypatch: Any, capsys: Any) -> None:
+    namespace = _audit_namespace()
+    _install_current_main_live_metadata(namespace)
+    monkeypatch.setattr("sys.argv", ["audit_public_release_readiness.py", "--json"])
+    assert namespace["main"]() == 0
+    output = capsys.readouterr().out
+    report = json.loads(output)
     assert report["classification"] == "PASS"
     assert report["privacy"]["sensitive_values_serialized"] == 0
     assert report["privacy"]["approved_historical_path_fingerprints"] == 5
-    assert "@" not in result.stdout
-    assert "/home/" not in result.stdout
-    assert "/tmp/" not in result.stdout
-    assert "\x1b" not in result.stdout
+    assert "@" not in output
+    assert "/home/" not in output
+    assert "/tmp/" not in output
+    assert "\x1b" not in output
     assert report["coverage"]["history_surfaces"] == sorted(report["coverage"]["history_surfaces"])
     assert any("heuristic" in limitation for limitation in report["limitations"])
 
-    repeated = subprocess.run(
-        ["python", "tools/audit_public_release_readiness.py", "--json"],
-        cwd=ROOT,
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-    assert repeated.returncode == 0, _privacy_safe_audit_failure(repeated)
-    assert repeated.stdout == result.stdout
+    assert namespace["main"]() == 0
+    assert capsys.readouterr().out == output
 
 
 def test_public_release_audit_failure_diagnostics_are_privacy_safe() -> None:
@@ -1661,6 +1783,285 @@ def test_signed_main_squash_identity_pair_passes_and_is_forward_safe() -> None:
     assert "bd53015609b7c3a08e106e0f5600dcd6c4fabc01" not in source
 
 
+def test_subject_suffix_squash_recognition_remains_offline() -> None:
+    namespace = _audit_namespace()
+    observations, _ = _signed_squash_fixture(namespace)
+    builder = namespace["_github_signed_squash_commit_identity_evidence"]
+    builder_globals = builder.__globals__
+    builder_globals["_normalized_origin_repository"] = lambda: namespace[
+        "GITHUB_REPOSITORY_FULL_NAME"
+    ]
+    builder_globals["_cryptographically_verified_signer"] = lambda _: namespace[
+        "GITHUB_WEB_FLOW_SIGNING_KEY_FINGERPRINT"
+    ]
+
+    def fake_git(*args: str, input_bytes: bytes | None = None) -> bytes:
+        del input_bytes
+        if args[:3] == ("show", "-s", "--format=%s"):
+            return b"ordinary squash subject (#17)\n"
+        if args[:3] == ("show", "-s", "--format=%T"):
+            return ("7" * 40 + "\n").encode()
+        raise AssertionError(f"unexpected git call: {args!r}")
+
+    def network_forbidden(_: str) -> object:
+        raise AssertionError("offline subject association must not use GitHub REST")
+
+    builder_globals["_git"] = fake_git
+    builder_globals["_github_json_array"] = network_forbidden
+    builder_globals["_github_json"] = network_forbidden
+    result = builder(observations)
+    assert (result.status, result.reason_code) == ("AVAILABLE", "AVAILABLE")
+    assert len(result.evidence) == 1
+    assert result.evidence[0].association_source == "OFFLINE_SUBJECT_SUFFIX"
+    assert result.evidence[0].live_actor_observation_supplied is False
+
+
+def test_missing_subject_association_requires_complete_live_corroboration() -> None:
+    namespace = _audit_namespace()
+    associated, result_commit, head_commit = _valid_live_squash_metadata(namespace)
+    result = _run_live_squash_corroboration(namespace, associated, result_commit, head_commit)
+    assert (result.status, result.reason_code) == ("AVAILABLE", "AVAILABLE")
+    assert len(result.evidence) == 1
+    evidence = result.evidence[0]
+    assert evidence.association_source == "LIVE_PUBLIC_ASSOCIATED_PULL_REQUEST"
+    assert evidence.live_actor_observation_supplied is True
+    assert evidence.repository_id == namespace["GITHUB_REPOSITORY_ID"]
+    assert evidence.base_sha == "8" * 40
+    assert evidence.head_tree_sha == evidence.tree_sha == "7" * 40
+    observations, _ = _signed_squash_fixture(namespace)
+    categories = [
+        namespace["_classify_identity"](item, signed_squash_evidence=result.evidence)
+        for item in observations
+    ]
+    assert categories == [
+        "VERIFIED_PLATFORM_MEDIATED_ACCOUNT_IDENTITY",
+        "VERIFIED_PLATFORM_SERVICE_IDENTITY",
+    ]
+
+
+def test_missing_subject_zero_or_multiple_associations_fail_closed() -> None:
+    for associated_count in (0, 2):
+        namespace = _audit_namespace()
+        associated, result_commit, head_commit = _valid_live_squash_metadata(namespace)
+        selected = associated * associated_count
+        result = _run_live_squash_corroboration(namespace, selected, result_commit, head_commit)
+        assert (result.status, result.reason_code, result.evidence) == (
+            "INVALID",
+            "ASSOCIATED_PR_COUNT_INVALID",
+            (),
+        )
+
+
+def test_missing_subject_open_or_unmerged_association_fails_closed() -> None:
+    for changes in (
+        {"state": "open", "merged_at": None, "merge_commit_sha": None},
+        {"state": "closed", "merged_at": None, "merge_commit_sha": None},
+    ):
+        namespace = _audit_namespace()
+        associated, result_commit, head_commit = _valid_live_squash_metadata(namespace)
+        associated[0].update(changes)
+        result = _run_live_squash_corroboration(namespace, associated, result_commit, head_commit)
+        assert result.status == "INVALID"
+        assert result.evidence == ()
+
+
+def test_missing_subject_repository_id_and_base_branch_fail_closed() -> None:
+    mutations = (
+        ("base", "repo", "full_name", "example/unrelated"),
+        ("head", "repo", "full_name", "example/unrelated"),
+        ("base", "repo", "id", 1),
+        ("head", "repo", "id", 1),
+        ("base", "ref", None, "release"),
+    )
+    for first, second, third, value in mutations:
+        namespace = _audit_namespace()
+        associated, result_commit, head_commit = _valid_live_squash_metadata(namespace)
+        selected = associated[0][first][second]
+        if third is None:
+            associated[0][first][second] = value
+        else:
+            selected[third] = value
+        result = _run_live_squash_corroboration(namespace, associated, result_commit, head_commit)
+        assert result.status == "INVALID"
+        assert result.evidence == ()
+
+
+def test_missing_subject_result_parent_base_head_and_tree_bindings_fail_closed() -> None:
+    cases = (
+        ("associated_result", "a" * 40),
+        ("associated_base", "a" * 40),
+        ("result_sha", "a" * 40),
+        ("result_parent", "a" * 40),
+        ("result_tree", "a" * 40),
+        ("head_sha", "a" * 40),
+        ("head_tree", "a" * 40),
+    )
+    for field, value in cases:
+        namespace = _audit_namespace()
+        associated, result_commit, head_commit = _valid_live_squash_metadata(namespace)
+        if field == "associated_result":
+            associated[0]["merge_commit_sha"] = value
+        elif field == "associated_base":
+            associated[0]["base"]["sha"] = value
+        elif field == "result_sha":
+            result_commit["sha"] = value
+        elif field == "result_parent":
+            result_commit["parents"] = [{"sha": value}]
+        elif field == "result_tree":
+            result_commit["commit"]["tree"]["sha"] = value
+        elif field == "head_sha":
+            head_commit["sha"] = value
+        else:
+            head_commit["commit"]["tree"]["sha"] = value
+        result = _run_live_squash_corroboration(namespace, associated, result_commit, head_commit)
+        assert result.status == "INVALID"
+        assert result.evidence == ()
+
+
+def test_missing_subject_author_committer_signature_key_and_fingerprint_fail_closed() -> None:
+    cases = (
+        ("pr_author", 1),
+        ("result_author", 1),
+        ("result_committer", 1),
+        ("signature_verified", False),
+        ("signature_reason", "unsigned"),
+    )
+    for field, value in cases:
+        namespace = _audit_namespace()
+        associated, result_commit, head_commit = _valid_live_squash_metadata(namespace)
+        if field == "pr_author":
+            associated[0]["user"]["id"] = value
+        elif field == "result_author":
+            result_commit["author"]["id"] = value
+        elif field == "result_committer":
+            result_commit["committer"]["id"] = value
+        elif field == "signature_verified":
+            result_commit["commit"]["verification"]["verified"] = value
+        else:
+            result_commit["commit"]["verification"]["reason"] = value
+        result = _run_live_squash_corroboration(namespace, associated, result_commit, head_commit)
+        assert result.status == "INVALID"
+        assert result.evidence == ()
+
+    namespace = _audit_namespace()
+    associated, result_commit, head_commit = _valid_live_squash_metadata(namespace)
+    wrong_fingerprint = _run_live_squash_corroboration(
+        namespace,
+        associated,
+        result_commit,
+        head_commit,
+        signer_fingerprint="A" * 40,
+    )
+    assert (wrong_fingerprint.status, wrong_fingerprint.reason_code) == (
+        "INVALID",
+        "LOCAL_CANDIDATE_BINDING_INVALID",
+    )
+
+    observations, evidence = _signed_squash_fixture(namespace)
+    live = replace(
+        evidence[0],
+        association_source="LIVE_PUBLIC_ASSOCIATED_PULL_REQUEST",
+        live_actor_observation_supplied=True,
+        repository_id=namespace["GITHUB_REPOSITORY_ID"],
+        base_ref="main",
+        base_sha="8" * 40,
+        head_sha="9" * 40,
+        head_tree_sha="7" * 40,
+        author_actor_id=namespace["GITHUB_OWNER_ACTOR_ID"],
+        committer_actor_id=namespace["GITHUB_WEB_FLOW_ACTOR_ID"],
+        signature_verified=True,
+        signature_reason="valid",
+    )
+    for changed in (
+        replace(live, signature_key_id="DEADBEEFDEADBEEF"),
+        replace(live, signer_fingerprint="A" * 40),
+        replace(live, author_fingerprint="1" * 64),
+        replace(live, committer_fingerprint="2" * 64),
+    ):
+        categories = [
+            namespace["_classify_identity"](item, signed_squash_evidence=(changed,))
+            for item in observations
+        ]
+        assert "UNVERIFIED_PLATFORM_SERVICE_CLAIM" in categories
+
+
+def test_missing_subject_malformed_and_unavailable_responses_fail_closed() -> None:
+    malformed_values = (None, {}, "unexpected", [None])
+    for malformed in malformed_values:
+        namespace = _audit_namespace()
+        _, result_commit, head_commit = _valid_live_squash_metadata(namespace)
+        result = _run_live_squash_corroboration(namespace, malformed, result_commit, head_commit)
+        assert result.status == "INVALID"
+        assert result.evidence == ()
+
+    for endpoint in ("associated", "result", "head"):
+        namespace = _audit_namespace()
+        associated, result_commit, head_commit = _valid_live_squash_metadata(namespace)
+        result = _run_live_squash_corroboration(
+            namespace,
+            associated,
+            result_commit,
+            head_commit,
+            unavailable_endpoint=endpoint,
+        )
+        assert result.status == "NOT_AVAILABLE"
+        assert result.evidence == ()
+
+
+def test_github_json_reads_are_bounded_shape_checked_and_cached(monkeypatch: Any) -> None:
+    namespace = _audit_namespace()
+    document = namespace["_github_json_document"]
+    object_reader = namespace["_github_json"]
+    array_reader = namespace["_github_json_array"]
+    document.cache_clear()
+    object_reader.cache_clear()
+    array_reader.cache_clear()
+    calls: list[str] = []
+    payloads = [b"{}"]
+
+    class Response:
+        status = 200
+
+        def __enter__(self) -> Response:
+            return self
+
+        def __exit__(self, *args: object) -> None:
+            del args
+
+        def read(self, limit: int) -> bytes:
+            del limit
+            return payloads[0]
+
+    def fake_urlopen(*args: object, **kwargs: object) -> Response:
+        del kwargs
+        calls.append(str(args[0]))
+        return Response()
+
+    monkeypatch.setattr(namespace["urllib"].request, "urlopen", fake_urlopen)
+    repository = namespace["GITHUB_REPOSITORY_FULL_NAME"]
+    url = f"https://api.github.com/repos/{repository}/commits/{'1' * 40}"
+    assert object_reader(url).available is True
+    assert object_reader(url).available is True
+    assert len(calls) == 1
+
+    cases = (
+        (b"[]", object_reader, "2" * 40, "RESPONSE_SHAPE_INVALID"),
+        (b"{}", array_reader, "3" * 40, "RESPONSE_SHAPE_INVALID"),
+        (b'{"a":1,"a":2}', object_reader, "4" * 40, "RESPONSE_JSON_INVALID"),
+        (
+            b" " * (namespace["MAX_GITHUB_RESPONSE_BYTES"] + 1),
+            object_reader,
+            "5" * 40,
+            "RESPONSE_LIMIT_EXCEEDED",
+        ),
+    )
+    for payload, reader, sha, reason in cases:
+        payloads[0] = payload
+        selected = f"https://api.github.com/repos/{repository}/commits/{sha}"
+        result = reader(selected)
+        assert (result.available, result.reason_code) == (False, reason)
+
+
 def test_signed_squash_roles_categories_and_authority_are_distinct() -> None:
     namespace = _audit_namespace()
     observations, evidence = _signed_squash_fixture(namespace)
@@ -1788,16 +2189,29 @@ def test_protected_squash_merge_evidence_is_separate_and_fail_closed() -> None:
     assert builder({**valid, "branch_protection": changed_protection}).status == "INVALID"
 
 
-def test_real_authoritative_main_squash_evidence_is_offline_and_redacted() -> None:
+def test_current_main_squash_evidence_passes_with_mocked_public_corroboration() -> None:
     namespace = _audit_namespace()
+    _install_current_main_live_metadata(namespace)
     result = namespace["_github_signed_squash_commit_identity_evidence"]()
     assert result.status == "AVAILABLE"
-    assert len(result.evidence) >= 1
-    assert all(item.live_actor_observation_supplied is False for item in result.evidence)
+    assert result.safe_facts["live_public_associations"] == 1
+    assert {item.association_source for item in result.evidence} == {
+        "OFFLINE_SUBJECT_SUFFIX",
+        "LIVE_PUBLIC_ASSOCIATED_PULL_REQUEST",
+    }
+    observations = namespace["_history_identity_observations"]()
+    check = namespace["_identity_classification_check"](
+        observations, signed_squash_evidence=result.evidence
+    )
+    assert check.passed is True
+    assert "unverified_platform_claims=0" in check.detail
+    assert "unknown=0" in check.detail
+    assert "invalid=0" in check.detail
     serialized = json.dumps(asdict(result), sort_keys=True)
     assert "@" not in serialized
     assert "/home/" not in serialized
     assert "/tmp/" not in serialized
+    assert "token" not in serialized.lower()
 
 
 def test_existing_main_and_annotated_tag_privacy_behavior_is_unchanged() -> None:

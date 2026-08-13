@@ -188,6 +188,19 @@ No workflow may gain write permissions or execute untrusted pull-request code wi
 privileged event. Publication automation, if separately designed later, must not hold
 write credentials while evaluating untrusted code.
 
+The public-release identity audit keeps ordinary authoritative-main GitHub squash
+commits with a terminal `(#N)` subject association fully offline. A reviewed,
+GitHub-signed, single-parent author/committer pair on authoritative `main` whose subject
+lacks that suffix uses a separate bounded public-corroboration path: unauthenticated,
+read-only GitHub REST responses must identify exactly one merged same-repository pull
+request and must match repository name and ID, base `main`, result/base/head/tree
+topology, reviewed actors, signature reason, local signer key, and identity
+fingerprints. Responses are size-bounded and cached within the audit process; absence,
+ambiguity, malformed data, extra associations, or contradiction fails closed. No
+credential is read or serialized. This classification grants no owner, publisher,
+maintainer, release, or repository authority and does not prove review, required
+checks, branch protection, safety, authenticity, or behavioral equivalence.
+
 ## Public-main enforcement policy
 
 After public visibility, normal changes to `main` require a pull request and the

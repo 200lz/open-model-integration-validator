@@ -160,7 +160,7 @@ LIVE_PULL_REQUEST_CORROBORATION_PROVENANCE = frozenset(
         "GITHUB_REST_PULL_REQUEST_CORROBORATION",
     }
 )
-REQUIRED_SIGNED_SQUASH_PROVENANCE = frozenset(
+REQUIRED_SIGNED_SQUASH_COMMON_PROVENANCE = frozenset(
     {
         "AUTHORITATIVE_MAIN_REACHABILITY",
         "EXACT_AUTHOR_COMMITTER_FINGERPRINT_PAIR",
@@ -168,8 +168,25 @@ REQUIRED_SIGNED_SQUASH_PROVENANCE = frozenset(
         "LOCAL_CRYPTOGRAPHIC_SIGNATURE_VERIFICATION",
         "NORMALIZED_ORIGIN_REPOSITORY_IDENTITY",
         "REVIEWED_GITHUB_ACTOR_ASSOCIATION_POLICY",
+    }
+)
+OFFLINE_SIGNED_SQUASH_PROVENANCE = REQUIRED_SIGNED_SQUASH_COMMON_PROVENANCE | frozenset(
+    {
         "SQUASH_PR_SUBJECT_ASSOCIATION_SIGNAL",
     }
+)
+LIVE_SIGNED_SQUASH_PROVENANCE = REQUIRED_SIGNED_SQUASH_COMMON_PROVENANCE | frozenset(
+    {
+        "GITHUB_REST_ASSOCIATED_PULL_REQUEST_CORROBORATION",
+        "GITHUB_REST_COMMIT_ACTOR_AND_SIGNATURE_CORROBORATION",
+        "GITHUB_REST_HEAD_TREE_CORROBORATION",
+        "NORMALIZED_REPOSITORY_ID_CORROBORATION",
+    }
+)
+REQUIRED_SIGNED_SQUASH_PROVENANCE = OFFLINE_SIGNED_SQUASH_PROVENANCE | LIVE_SIGNED_SQUASH_PROVENANCE
+SQUASH_ASSOCIATION_SOURCES = (
+    "LIVE_PUBLIC_ASSOCIATED_PULL_REQUEST",
+    "OFFLINE_SUBJECT_SUFFIX",
 )
 GITHUB_REPOSITORY_FULL_NAME = "200lz/open-model-integration-validator"
 GITHUB_REPOSITORY_ID = 1316060005
@@ -204,6 +221,8 @@ APPROVED_PATH_FINGERPRINTS = {
 SYNTHETIC_HOME_USERS = {"example", "synthetic", "user"}
 MAX_PUBLIC_FILE_BYTES = 5 * 1024 * 1024
 MAX_PAYLOAD_FIXTURE_BYTES = 1024
+MAX_GITHUB_RESPONSE_BYTES = 1024 * 1024
+MAX_LIVE_SQUASH_CANDIDATES = 8
 REQUIRED_PUBLIC_FILES = {
     "CHANGELOG.md",
     "CITATION.cff",
@@ -372,6 +391,16 @@ class GithubSignedSquashCommitIdentityEvidence:
     observed_git_identity: bool
     reviewed_github_actor_association: bool
     live_actor_observation_supplied: bool
+    association_source: str = "OFFLINE_SUBJECT_SUFFIX"
+    repository_id: int | None = None
+    base_ref: str | None = None
+    base_sha: str | None = None
+    head_sha: str | None = None
+    head_tree_sha: str | None = None
+    author_actor_id: int | None = None
+    committer_actor_id: int | None = None
+    signature_verified: bool | None = None
+    signature_reason: str | None = None
     authority_limit: str = NO_PLATFORM_AUTHORITY
 
 
@@ -395,7 +424,7 @@ class GitHubJsonResult:
     available: bool
     reason_code: str
     status_code: int
-    payload: dict[str, Any] | None = None
+    payload: Any = None
 
 
 PR1_HEAD_ALLOWED_REFS = (
@@ -790,8 +819,18 @@ def _history_identity_observations() -> list[IdentityObservation]:
     ]
 
 
-def _github_json(url: str) -> GitHubJsonResult:
-    if not url.startswith("https://api.github.com/"):
+def _reject_duplicate_json_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    result: dict[str, Any] = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError("duplicate JSON key")
+        result[key] = value
+    return result
+
+
+@functools.cache
+def _github_json_document(url: str) -> GitHubJsonResult:
+    if not url.startswith(f"https://api.github.com/repos/{GITHUB_REPOSITORY_FULL_NAME}/"):
         return GitHubJsonResult(False, "URL_REJECTED", 0)
     request = urllib.request.Request(
         url,
@@ -805,21 +844,35 @@ def _github_json(url: str) -> GitHubJsonResult:
         with urllib.request.urlopen(
             request, timeout=10, context=ssl.create_default_context()
         ) as response:
-            payload = response.read(1_048_577)
+            payload = response.read(MAX_GITHUB_RESPONSE_BYTES + 1)
             if response.status != 200:
                 return GitHubJsonResult(False, "HTTP_STATUS_NOT_SUCCESS", response.status)
-            if len(payload) > 1_048_576:
+            if len(payload) > MAX_GITHUB_RESPONSE_BYTES:
                 return GitHubJsonResult(False, "RESPONSE_LIMIT_EXCEEDED", response.status)
-        parsed = json.loads(payload)
+        parsed = json.loads(payload, object_pairs_hook=_reject_duplicate_json_keys)
     except urllib.error.HTTPError as exc:
         return GitHubJsonResult(False, "HTTP_STATUS_NOT_SUCCESS", exc.code)
     except (OSError, urllib.error.URLError):
         return GitHubJsonResult(False, "NETWORK_ERROR", 0)
     except (UnicodeError, ValueError, json.JSONDecodeError):
         return GitHubJsonResult(False, "RESPONSE_JSON_INVALID", 200)
-    if not isinstance(parsed, dict):
-        return GitHubJsonResult(False, "RESPONSE_SHAPE_INVALID", 200)
     return GitHubJsonResult(True, "AVAILABLE", 200, parsed)
+
+
+@functools.cache
+def _github_json(url: str) -> GitHubJsonResult:
+    result = _github_json_document(url)
+    if result.available and not isinstance(result.payload, dict):
+        return GitHubJsonResult(False, "RESPONSE_SHAPE_INVALID", result.status_code)
+    return result
+
+
+@functools.cache
+def _github_json_array(url: str) -> GitHubJsonResult:
+    result = _github_json_document(url)
+    if result.available and not isinstance(result.payload, list):
+        return GitHubJsonResult(False, "RESPONSE_SHAPE_INVALID", result.status_code)
+    return result
 
 
 def _pull_request_evidence_result(
@@ -1467,6 +1520,250 @@ def _cryptographically_verified_signer(commit_sha: str) -> str | None:
     )
 
 
+def _live_public_squash_commit_identity_evidence(
+    *,
+    repository: str,
+    commit_sha: str,
+    tree_sha: str,
+    parents: tuple[str, ...],
+    author_fingerprint: str,
+    committer_fingerprint: str,
+    signer_fingerprint: str,
+    authoritative_ref_classifications: tuple[str, ...],
+) -> GithubSignedSquashEvidenceResult:
+    facts: dict[str, bool | int] = {"live_public_corroboration_attempted": True}
+
+    def result(
+        status: str,
+        reason_code: str,
+        evidence: tuple[GithubSignedSquashCommitIdentityEvidence, ...] = (),
+    ) -> GithubSignedSquashEvidenceResult:
+        return GithubSignedSquashEvidenceResult(
+            status, reason_code, dict(sorted(facts.items())), evidence
+        )
+
+    local_bindings_valid = bool(
+        repository == GITHUB_REPOSITORY_FULL_NAME
+        and re.fullmatch(r"[0-9a-f]{40}", commit_sha)
+        and re.fullmatch(r"[0-9a-f]{40}", tree_sha)
+        and len(parents) == 1
+        and re.fullmatch(r"[0-9a-f]{40}", parents[0])
+        and author_fingerprint == GITHUB_SQUASH_AUTHOR_FINGERPRINT
+        and committer_fingerprint == GITHUB_SQUASH_COMMITTER_FINGERPRINT
+        and signer_fingerprint == GITHUB_WEB_FLOW_SIGNING_KEY_FINGERPRINT
+        and authoritative_ref_classifications
+        and set(authoritative_ref_classifications).issubset({"LOCAL_MAIN", "REMOTE_MAIN"})
+    )
+    facts["local_candidate_bindings_valid"] = local_bindings_valid
+    if not local_bindings_valid:
+        return result("INVALID", "LOCAL_CANDIDATE_BINDING_INVALID")
+
+    associated_result = _github_json_array(
+        f"https://api.github.com/repos/{GITHUB_REPOSITORY_FULL_NAME}/commits/"
+        f"{commit_sha}/pulls?per_page=2"
+    )
+    facts["associated_pr_metadata_available"] = associated_result.available
+    facts["associated_pr_metadata_status_code"] = associated_result.status_code
+    if not associated_result.available:
+        status = (
+            "NOT_AVAILABLE" if _bounded_live_metadata_unavailable(associated_result) else "INVALID"
+        )
+        return result(status, f"ASSOCIATED_PR_{associated_result.reason_code}")
+    associated = associated_result.payload
+    if not isinstance(associated, list):
+        return result("INVALID", "ASSOCIATED_PR_RESPONSE_SHAPE_INVALID")
+    facts["associated_pr_count"] = len(associated)
+    if len(associated) != 1:
+        return result("INVALID", "ASSOCIATED_PR_COUNT_INVALID")
+    pull_request = associated[0]
+    try:
+        if not isinstance(pull_request, dict):
+            raise TypeError
+        pr_number = pull_request["number"]
+        state = pull_request["state"]
+        merged_at = pull_request["merged_at"]
+        merge_commit_sha = pull_request["merge_commit_sha"]
+        pr_author_actor_id = pull_request["user"]["id"]
+        base_ref = pull_request["base"]["ref"]
+        base_sha = pull_request["base"]["sha"]
+        base_repository_id = pull_request["base"]["repo"]["id"]
+        base_repository_full_name = pull_request["base"]["repo"]["full_name"]
+        head_sha = pull_request["head"]["sha"]
+        head_repository_id = pull_request["head"]["repo"]["id"]
+        head_repository_full_name = pull_request["head"]["repo"]["full_name"]
+    except (KeyError, TypeError):
+        return result("INVALID", "ASSOCIATED_PR_RESPONSE_SCHEMA_INVALID")
+    pr_shape_valid = bool(
+        isinstance(pr_number, int)
+        and not isinstance(pr_number, bool)
+        and pr_number > 0
+        and isinstance(state, str)
+        and (merged_at is None or isinstance(merged_at, str))
+        and (merge_commit_sha is None or isinstance(merge_commit_sha, str))
+        and isinstance(pr_author_actor_id, int)
+        and not isinstance(pr_author_actor_id, bool)
+        and isinstance(base_ref, str)
+        and isinstance(base_sha, str)
+        and isinstance(base_repository_id, int)
+        and not isinstance(base_repository_id, bool)
+        and isinstance(base_repository_full_name, str)
+        and isinstance(head_sha, str)
+        and isinstance(head_repository_id, int)
+        and not isinstance(head_repository_id, bool)
+        and isinstance(head_repository_full_name, str)
+        and re.fullmatch(r"[0-9a-f]{40}", base_sha)
+        and re.fullmatch(r"[0-9a-f]{40}", head_sha)
+    )
+    facts["associated_pr_shape_valid"] = pr_shape_valid
+    if not pr_shape_valid:
+        return result("INVALID", "ASSOCIATED_PR_RESPONSE_SCHEMA_INVALID")
+    repository_bindings_match = bool(
+        base_repository_full_name == repository
+        and head_repository_full_name == repository
+        and base_repository_id == GITHUB_REPOSITORY_ID
+        and head_repository_id == GITHUB_REPOSITORY_ID
+    )
+    facts["associated_pr_repository_matches"] = repository_bindings_match
+    if not repository_bindings_match:
+        return result("INVALID", "ASSOCIATED_PR_REPOSITORY_MISMATCH")
+    associated_pr_merged = bool(
+        state == "closed"
+        and isinstance(merged_at, str)
+        and merged_at
+        and isinstance(merge_commit_sha, str)
+    )
+    facts["associated_pr_merged"] = associated_pr_merged
+    if not associated_pr_merged:
+        return result("INVALID", "ASSOCIATED_PR_NOT_MERGED")
+    if re.fullmatch(r"[0-9a-f]{40}", merge_commit_sha) is None:
+        return result("INVALID", "ASSOCIATED_PR_RESPONSE_SCHEMA_INVALID")
+    facts["associated_pr_base_ref_matches"] = base_ref == "main"
+    if base_ref != "main":
+        return result("INVALID", "ASSOCIATED_PR_BASE_REF_MISMATCH")
+    facts["associated_pr_result_matches"] = merge_commit_sha == commit_sha
+    if merge_commit_sha != commit_sha:
+        return result("INVALID", "ASSOCIATED_PR_RESULT_SHA_MISMATCH")
+    facts["associated_pr_base_matches_local_parent"] = base_sha == parents[0]
+    if base_sha != parents[0]:
+        return result("INVALID", "ASSOCIATED_PR_BASE_SHA_MISMATCH")
+    facts["associated_pr_author_actor_matches"] = pr_author_actor_id == GITHUB_OWNER_ACTOR_ID
+    if pr_author_actor_id != GITHUB_OWNER_ACTOR_ID:
+        return result("INVALID", "ASSOCIATED_PR_AUTHOR_ACTOR_MISMATCH")
+
+    commit_result = _github_json(
+        f"https://api.github.com/repos/{GITHUB_REPOSITORY_FULL_NAME}/commits/{commit_sha}"
+    )
+    facts["result_commit_metadata_available"] = commit_result.available
+    facts["result_commit_metadata_status_code"] = commit_result.status_code
+    if not commit_result.available:
+        status = "NOT_AVAILABLE" if _bounded_live_metadata_unavailable(commit_result) else "INVALID"
+        return result(status, f"RESULT_COMMIT_{commit_result.reason_code}")
+    commit = commit_result.payload
+    try:
+        if not isinstance(commit, dict):
+            raise TypeError
+        api_commit_sha = commit["sha"]
+        api_tree_sha = commit["commit"]["tree"]["sha"]
+        api_parents = tuple(item["sha"] for item in commit["parents"])
+        author_actor_id = commit["author"]["id"]
+        committer_actor_id = commit["committer"]["id"]
+        signature_verified = commit["commit"]["verification"]["verified"]
+        signature_reason = commit["commit"]["verification"]["reason"]
+    except (KeyError, TypeError):
+        return result("INVALID", "RESULT_COMMIT_RESPONSE_SCHEMA_INVALID")
+    commit_shape_valid = bool(
+        isinstance(api_commit_sha, str)
+        and isinstance(api_tree_sha, str)
+        and all(isinstance(item, str) for item in api_parents)
+        and isinstance(author_actor_id, int)
+        and not isinstance(author_actor_id, bool)
+        and isinstance(committer_actor_id, int)
+        and not isinstance(committer_actor_id, bool)
+        and isinstance(signature_verified, bool)
+        and isinstance(signature_reason, str)
+        and re.fullmatch(r"[0-9a-f]{40}", api_commit_sha)
+        and re.fullmatch(r"[0-9a-f]{40}", api_tree_sha)
+        and all(re.fullmatch(r"[0-9a-f]{40}", item) for item in api_parents)
+    )
+    facts["result_commit_shape_valid"] = commit_shape_valid
+    if not commit_shape_valid:
+        return result("INVALID", "RESULT_COMMIT_RESPONSE_SCHEMA_INVALID")
+    result_bindings_match = bool(
+        api_commit_sha == commit_sha and api_tree_sha == tree_sha and api_parents == parents
+    )
+    facts["result_commit_git_bindings_match"] = result_bindings_match
+    if not result_bindings_match:
+        return result("INVALID", "RESULT_COMMIT_GIT_BINDING_MISMATCH")
+    actor_bindings_match = bool(
+        author_actor_id == GITHUB_OWNER_ACTOR_ID and committer_actor_id == GITHUB_WEB_FLOW_ACTOR_ID
+    )
+    facts["result_commit_actor_bindings_match"] = actor_bindings_match
+    if not actor_bindings_match:
+        return result("INVALID", "RESULT_COMMIT_ACTOR_MISMATCH")
+    signature_bindings_match = bool(signature_verified is True and signature_reason == "valid")
+    facts["result_commit_signature_bindings_match"] = signature_bindings_match
+    if not signature_bindings_match:
+        return result("INVALID", "RESULT_COMMIT_SIGNATURE_MISMATCH")
+
+    head_result = _github_json(
+        f"https://api.github.com/repos/{GITHUB_REPOSITORY_FULL_NAME}/commits/{head_sha}"
+    )
+    facts["head_commit_metadata_available"] = head_result.available
+    facts["head_commit_metadata_status_code"] = head_result.status_code
+    if not head_result.available:
+        status = "NOT_AVAILABLE" if _bounded_live_metadata_unavailable(head_result) else "INVALID"
+        return result(status, f"HEAD_COMMIT_{head_result.reason_code}")
+    head = head_result.payload
+    try:
+        if not isinstance(head, dict):
+            raise TypeError
+        api_head_sha = head["sha"]
+        head_tree_sha = head["commit"]["tree"]["sha"]
+    except (KeyError, TypeError):
+        return result("INVALID", "HEAD_COMMIT_RESPONSE_SCHEMA_INVALID")
+    head_bindings_match = bool(
+        isinstance(api_head_sha, str)
+        and isinstance(head_tree_sha, str)
+        and re.fullmatch(r"[0-9a-f]{40}", api_head_sha)
+        and re.fullmatch(r"[0-9a-f]{40}", head_tree_sha)
+        and api_head_sha == head_sha
+        and head_tree_sha == tree_sha
+        and head_tree_sha == api_tree_sha
+    )
+    facts["head_tree_matches_result_tree"] = head_bindings_match
+    if not head_bindings_match:
+        return result("INVALID", "HEAD_COMMIT_TREE_BINDING_MISMATCH")
+
+    facts["all_live_public_bindings_match"] = True
+    evidence = GithubSignedSquashCommitIdentityEvidence(
+        valid=True,
+        repository_full_name=repository,
+        commit_sha=commit_sha,
+        tree_sha=tree_sha,
+        parents=parents,
+        pr_number=pr_number,
+        author_fingerprint=author_fingerprint,
+        committer_fingerprint=committer_fingerprint,
+        signature_key_id=GITHUB_WEB_FLOW_SIGNING_KEY_ID,
+        signer_fingerprint=signer_fingerprint,
+        authoritative_ref_classifications=authoritative_ref_classifications,
+        observed_git_identity=True,
+        reviewed_github_actor_association=True,
+        live_actor_observation_supplied=True,
+        association_source="LIVE_PUBLIC_ASSOCIATED_PULL_REQUEST",
+        repository_id=GITHUB_REPOSITORY_ID,
+        base_ref="main",
+        base_sha=base_sha,
+        head_sha=head_sha,
+        head_tree_sha=head_tree_sha,
+        author_actor_id=author_actor_id,
+        committer_actor_id=committer_actor_id,
+        signature_verified=signature_verified,
+        signature_reason=signature_reason,
+    )
+    return result("AVAILABLE", "AVAILABLE", (evidence,))
+
+
 def _github_signed_squash_commit_identity_evidence(
     observations: list[IdentityObservation] | None = None,
 ) -> GithubSignedSquashEvidenceResult:
@@ -1494,6 +1791,8 @@ def _github_signed_squash_commit_identity_evidence(
         item.object_sha: item for item in committer.occurrences if item.role == "COMMITTER"
     }
     result: list[GithubSignedSquashCommitIdentityEvidence] = []
+    live_results: list[GithubSignedSquashEvidenceResult] = []
+    live_candidate_count = 0
     for commit_sha in sorted(set(author_occurrences) & set(committer_occurrences)):
         author_occurrence = author_occurrences[commit_sha]
         committer_occurrence = committer_occurrences[commit_sha]
@@ -1524,13 +1823,36 @@ def _github_signed_squash_commit_identity_evidence(
             tree_sha = _git("show", "-s", "--format=%T", commit_sha).decode("ascii").strip()
         except (OSError, UnicodeError, subprocess.CalledProcessError):
             continue
-        association = re.search(r"\(#([1-9][0-9]*)\)$", subject)
         signer = _cryptographically_verified_signer(commit_sha)
         if (
-            association is None
-            or re.fullmatch(r"[0-9a-f]{40}", tree_sha) is None
+            re.fullmatch(r"[0-9a-f]{40}", tree_sha) is None
             or signer != GITHUB_WEB_FLOW_SIGNING_KEY_FINGERPRINT
         ):
+            continue
+        association = re.search(r"\(#([1-9][0-9]*)\)$", subject)
+        if association is None:
+            live_candidate_count += 1
+            if live_candidate_count > MAX_LIVE_SQUASH_CANDIDATES:
+                live_results.append(
+                    GithubSignedSquashEvidenceResult(
+                        "INVALID",
+                        "LIVE_PUBLIC_CANDIDATE_LIMIT_EXCEEDED",
+                        {"live_public_candidate_limit": MAX_LIVE_SQUASH_CANDIDATES},
+                    )
+                )
+                continue
+            live_result = _live_public_squash_commit_identity_evidence(
+                repository=repository,
+                commit_sha=commit_sha,
+                tree_sha=tree_sha,
+                parents=author_occurrence.parents,
+                author_fingerprint=author.fingerprint,
+                committer_fingerprint=committer.fingerprint,
+                signer_fingerprint=signer,
+                authoritative_ref_classifications=authoritative,
+            )
+            live_results.append(live_result)
+            result.extend(live_result.evidence)
             continue
         result.append(
             GithubSignedSquashCommitIdentityEvidence(
@@ -1548,9 +1870,34 @@ def _github_signed_squash_commit_identity_evidence(
                 observed_git_identity=True,
                 reviewed_github_actor_association=True,
                 live_actor_observation_supplied=False,
+                association_source="OFFLINE_SUBJECT_SUFFIX",
             )
         )
+    facts["offline_subject_associations"] = sum(
+        item.association_source == "OFFLINE_SUBJECT_SUFFIX" for item in result
+    )
+    facts["live_public_association_candidates"] = live_candidate_count
+    facts["live_public_associations"] = sum(
+        item.association_source == "LIVE_PUBLIC_ASSOCIATED_PULL_REQUEST" for item in result
+    )
+    facts["live_public_corroboration_failures"] = sum(
+        item.status != "AVAILABLE" for item in live_results
+    )
     facts["verified_squash_commits"] = len(result)
+    failed_live_results = [item for item in live_results if item.status != "AVAILABLE"]
+    if failed_live_results:
+        failed = failed_live_results[0]
+        status = (
+            "INVALID"
+            if any(item.status == "INVALID" for item in failed_live_results)
+            else failed.status
+        )
+        return GithubSignedSquashEvidenceResult(
+            status,
+            failed.reason_code,
+            dict(sorted(facts.items())),
+            tuple(result),
+        )
     return GithubSignedSquashEvidenceResult(
         "AVAILABLE" if result else "INVALID",
         "AVAILABLE" if result else "REVIEWED_SQUASH_IDENTITY_NOT_VERIFIED",
@@ -1787,7 +2134,34 @@ def _platform_occurrence_matches(
             == item.paired_fingerprint
             and squash.observed_git_identity
             and squash.reviewed_github_actor_association
-            and not squash.live_actor_observation_supplied
+            and (
+                (
+                    squash.association_source == "OFFLINE_SUBJECT_SUFFIX"
+                    and not squash.live_actor_observation_supplied
+                    and squash.repository_id is None
+                    and squash.base_ref is None
+                    and squash.base_sha is None
+                    and squash.head_sha is None
+                    and squash.head_tree_sha is None
+                    and squash.author_actor_id is None
+                    and squash.committer_actor_id is None
+                    and squash.signature_verified is None
+                    and squash.signature_reason is None
+                )
+                or (
+                    squash.association_source == "LIVE_PUBLIC_ASSOCIATED_PULL_REQUEST"
+                    and squash.live_actor_observation_supplied
+                    and squash.repository_id == GITHUB_REPOSITORY_ID
+                    and squash.base_ref == "main"
+                    and squash.base_sha == squash.parents[0]
+                    and re.fullmatch(r"[0-9a-f]{40}", squash.head_sha or "")
+                    and squash.head_tree_sha == squash.tree_sha
+                    and squash.author_actor_id == GITHUB_OWNER_ACTOR_ID
+                    and squash.committer_actor_id == GITHUB_WEB_FLOW_ACTOR_ID
+                    and squash.signature_verified is True
+                    and squash.signature_reason == "valid"
+                )
+            )
             and squash.authority_limit == NO_PLATFORM_AUTHORITY
             for item in policy.signed_squash_roles
             for squash in signed_squash_evidence
@@ -2309,10 +2683,11 @@ def main() -> int:
             "purpose": policy.purpose,
             "signed_squash_roles": [
                 {
+                    "association_sources": list(SQUASH_ASSOCIATION_SOURCES),
                     "authoritative_ref_classifications": list(
                         item.authoritative_ref_classifications
                     ),
-                    "live_actor_observation_required": False,
+                    "live_actor_observation_required_for_missing_subject": True,
                     "paired_fingerprint": item.paired_fingerprint,
                     "parent_count": item.parent_count,
                     "repository_full_name": item.repository_full_name,
@@ -2359,7 +2734,8 @@ def main() -> int:
                 "exact_local_and_remote_ref_scopes",
                 "github_actions_pull_request_event_binding",
                 "github_rest_actor_and_signature_corroboration",
-                "github_signed_authoritative_main_squash_identity",
+                "github_signed_authoritative_main_squash_live_public_association",
+                "github_signed_authoritative_main_squash_offline_subject_association",
                 "pull_request_base_head_merge_parent_topology",
                 "reachable_blob_sizes",
                 "reachable_commit_patches",
@@ -2377,6 +2753,9 @@ def main() -> int:
             "Offline GitHub-signed squash identity evidence proves only a reviewed Git "
             "identity occurrence and never proves PR approval, branch protection, checks, "
             "owner authority, release authority, or publication authority.",
+            "A missing squash-subject association requires bounded live public GitHub commit "
+            "and associated-PR corroboration; absence, ambiguity, or contradiction fails closed "
+            "and grants no owner, publisher, maintainer, release, or repository authority.",
         ],
         "privacy": {
             "approved_author_identity": "OWNER_APPROVED",
@@ -2392,21 +2771,31 @@ def main() -> int:
                 "evidence": [
                     {
                         "author_fingerprint": item.author_fingerprint,
+                        "association_source": item.association_source,
                         "authoritative_ref_classifications": list(
                             item.authoritative_ref_classifications
                         ),
                         "authority_limit": item.authority_limit,
                         "commit_sha": item.commit_sha,
                         "committer_fingerprint": item.committer_fingerprint,
+                        "author_actor_id": item.author_actor_id,
+                        "base_ref": item.base_ref,
+                        "base_sha": item.base_sha,
+                        "committer_actor_id": item.committer_actor_id,
+                        "head_sha": item.head_sha,
+                        "head_tree_sha": item.head_tree_sha,
                         "live_actor_observation_supplied": (item.live_actor_observation_supplied),
                         "observed_git_identity": item.observed_git_identity,
                         "parents": list(item.parents),
                         "pr_number": item.pr_number,
                         "repository_full_name": item.repository_full_name,
+                        "repository_id": item.repository_id,
                         "reviewed_github_actor_association": (
                             item.reviewed_github_actor_association
                         ),
                         "signature_key_id": item.signature_key_id,
+                        "signature_reason": item.signature_reason,
+                        "signature_verified": item.signature_verified,
                         "signer_fingerprint": item.signer_fingerprint,
                         "tree_sha": item.tree_sha,
                         "valid": item.valid,
