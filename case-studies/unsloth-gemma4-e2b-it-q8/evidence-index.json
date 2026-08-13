@@ -1,0 +1,110 @@
+{
+  "schema": "omiv.public-evidence.index.v1",
+  "version": "1.0.0",
+  "study_id": "OMIV-CS-01",
+  "commitment_definition": "SHA-256 of the complete canonical private A1 source record bytes; commitments disclose no source path or JSON pointer.",
+  "evidence": [
+    {
+      "evidence_id": "P1-AUTHORIZED-CONTEXT",
+      "evidence_class": "USER_AUTHORIZED_PUBLIC_CONTEXT",
+      "description": "Public relationship boundary and authorization for describing the technical exchange.",
+      "public_disclosure_level": "PUBLIC_SUMMARY_ONLY",
+      "supporting_public_claim_ids": ["P1-C001"],
+      "public_derivative_files": ["README.md", "claims.json"],
+      "public_source_urls": [
+        "https://x.com/chen_linzh96875/status/2087210507782807856"
+      ],
+      "commitment_sha256": "COMMITMENT_NOT_PUBLICLY_AVAILABLE"
+    },
+    {
+      "evidence_id": "A1-INPUT-CUSTODY",
+      "evidence_class": "DIRECT_ARTIFACT_CUSTODY",
+      "description": "Pre- and post-analysis file identity observations for both retained GGUF artifacts.",
+      "public_disclosure_level": "PUBLIC_SUMMARY_AND_COMMITMENT",
+      "supporting_public_claim_ids": ["P1-C004", "P1-C006"],
+      "public_derivative_files": ["README.md", "methodology.md", "results.json", "claims.json"],
+      "commitment_sha256": "6f80cd55d43c8d4dad8038fb02d45d25986eca7b39d00c20c4a23aed7eaf28b2"
+    },
+    {
+      "evidence_id": "A1-MAIN-GGUF",
+      "evidence_class": "DIRECT_STRUCTURAL_INVENTORY",
+      "description": "Complete private structural inventory and range validation for the main GGUF.",
+      "public_disclosure_level": "PUBLIC_SUMMARY_AND_COMMITMENT",
+      "supporting_public_claim_ids": ["P1-C004", "P1-C005", "P1-C008"],
+      "public_derivative_files": ["README.md", "methodology.md", "results.json", "claims.json", "limitations.md"],
+      "commitment_sha256": "c3d062a991190fefbdbd7fd15f40f3f126ef1e0a444aa206494ee4a400a510b2"
+    },
+    {
+      "evidence_id": "A1-MMPROJ-GGUF",
+      "evidence_class": "DIRECT_STRUCTURAL_INVENTORY",
+      "description": "Complete private structural inventory and range validation for the companion mmproj GGUF.",
+      "public_disclosure_level": "PUBLIC_SUMMARY_AND_COMMITMENT",
+      "supporting_public_claim_ids": ["P1-C006", "P1-C007", "P1-C008"],
+      "public_derivative_files": ["README.md", "methodology.md", "results.json", "claims.json", "limitations.md"],
+      "commitment_sha256": "04fc4e7850abc98252843e469c790ca6008453dde0d6c420d089b72de7d2fd10"
+    },
+    {
+      "evidence_id": "A1-LINEAGE",
+      "evidence_class": "RETAINED_AND_DIRECT_LINEAGE_ANALYSIS",
+      "description": "Source, work-copy, target-metadata, and tokenizer-mutation lineage analysis.",
+      "public_disclosure_level": "PUBLIC_SUMMARY_AND_COMMITMENT",
+      "supporting_public_claim_ids": ["P1-C002", "P1-C010", "P1-C013", "P1-C017", "P1-C021"],
+      "public_derivative_files": ["README.md", "methodology.md", "results.json", "claims.json", "limitations.md"],
+      "commitment_sha256": "da094ac3921bca5a316bd193ce95d0c7187b18fb88b1c7df45467cb05c0aa6cd"
+    },
+    {
+      "evidence_id": "A1-REPRODUCIBILITY",
+      "evidence_class": "RETAINED_HISTORICAL_COMPARISON",
+      "description": "Comparison of current artifact identities with retained historical C1 size and SHA-256 observations.",
+      "public_disclosure_level": "PUBLIC_SUMMARY_AND_COMMITMENT",
+      "supporting_public_claim_ids": ["P1-C009"],
+      "public_derivative_files": ["README.md", "methodology.md", "results.json", "claims.json", "limitations.md"],
+      "commitment_sha256": "eede14c3359ce6417affc25d6dd3ead09226d4e5b6fc94c9284ac99298911fad"
+    },
+    {
+      "evidence_id": "A1-ASSOCIATION",
+      "evidence_class": "DIRECT_AND_INFERRED_COMPANION_ASSOCIATION",
+      "description": "Contextual, metadata, cryptographic, and format-native association analysis for the main GGUF and mmproj.",
+      "public_disclosure_level": "PUBLIC_SUMMARY_AND_COMMITMENT",
+      "supporting_public_claim_ids": ["P1-C011", "P1-C012", "P1-C018", "P1-C021"],
+      "public_derivative_files": ["README.md", "methodology.md", "results.json", "claims.json", "limitations.md"],
+      "commitment_sha256": "68ddd6bd95c070933cf579e0317b21fdc0d42c9d39c830bedc6057ee9b9eebf4"
+    },
+    {
+      "evidence_id": "A1-EXPORT-HISTORY",
+      "evidence_class": "RETAINED_EXECUTION_HISTORY",
+      "description": "Retained observation that artifact production succeeded and custody was verified.",
+      "public_disclosure_level": "PUBLIC_SUMMARY_AND_COMMITMENT",
+      "supporting_public_claim_ids": ["P1-C003"],
+      "public_derivative_files": ["README.md", "methodology.md", "results.json", "claims.json", "limitations.md"],
+      "commitment_sha256": "9f1f3647d90de96b5f5f43a61c0821484bf14e264b75b35307991da4f201d3af"
+    },
+    {
+      "evidence_id": "A1-NATIVE-REPEATABILITY",
+      "evidence_class": "DIRECT_REPORT_REPEATABILITY",
+      "description": "Paired deterministic OMIV-native operations and their byte-identical report comparison.",
+      "public_disclosure_level": "PUBLIC_SUMMARY_AND_COMMITMENT",
+      "supporting_public_claim_ids": ["P1-C014"],
+      "public_derivative_files": ["README.md", "methodology.md", "claims.json"],
+      "commitment_sha256": "eb417040c668549bce8660a0ce58c06e48de36e8c5c83b206dce889c31c098dc"
+    },
+    {
+      "evidence_id": "A1-CAPABILITY-COVERAGE",
+      "evidence_class": "PRODUCT_CAPABILITY_ASSESSMENT",
+      "description": "Coverage classification for native, partial, retained-evidence, glue, and unsupported analysis capabilities.",
+      "public_disclosure_level": "PUBLIC_SUMMARY_AND_COMMITMENT",
+      "supporting_public_claim_ids": ["P1-C015", "P1-C016", "P1-C019", "P1-C020"],
+      "public_derivative_files": ["README.md", "methodology.md", "results.json", "claims.json", "limitations.md"],
+      "commitment_sha256": "f6fa066365e381017d46cbb5bb72632d713c2ef4adcf4f5f531bd71fcba5e57d"
+    },
+    {
+      "evidence_id": "A1-LIMITATIONS",
+      "evidence_class": "EXPLICIT_ANALYSIS_LIMITATIONS",
+      "description": "Canonical limitations for analysis scope, retained evidence, fidelity, runtime, lineage, and companion binding.",
+      "public_disclosure_level": "PUBLIC_SUMMARY_AND_COMMITMENT",
+      "supporting_public_claim_ids": ["P1-C015", "P1-C016", "P1-C017", "P1-C018", "P1-C020", "P1-C021"],
+      "public_derivative_files": ["README.md", "methodology.md", "results.json", "claims.json", "limitations.md"],
+      "commitment_sha256": "ecaffccc730612b65e585db358d3eea49e65fd8863f0e03750e7f1728301f38f"
+    }
+  ]
+}

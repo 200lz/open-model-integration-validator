@@ -1,0 +1,133 @@
+{
+  "schema": "omiv.public-evidence.claims.v1",
+  "version": "1.0.0",
+  "study_id": "OMIV-CS-01",
+  "claims": [
+    {
+      "claim_id": "P1-C001",
+      "claim_class": "AUTHORIZED_CONTEXT",
+      "statement": "This is OMIV's first public ecosystem case study; it followed a public technical exchange in which Daniel Han suggested Gemma 4 E2B IT as the first reproducible case, and OMIV independently executed and analyzed it.",
+      "evidence_ids": ["P1-AUTHORIZED-CONTEXT"]
+    },
+    {
+      "claim_id": "P1-C002",
+      "claim_class": "RETAINED_HISTORICAL_OBSERVATION",
+      "statement": "The fixed source was google/gemma-4-E2B-it at revision 3e22461f65e89153144f8adb70e3b8c2cc9845a7 with 9 files, 10278849571 bytes, and manifest b73a8a4dd3aa11c51f5dcc06e13dbdecbbcd1f7eaa55518febe8ffeaf10d8a75; the canonical source manifest remained unchanged during export.",
+      "evidence_ids": ["A1-LINEAGE"]
+    },
+    {
+      "claim_id": "P1-C003",
+      "claim_class": "RETAINED_HISTORICAL_OBSERVATION",
+      "statement": "Retained execution evidence records one successful Q8_0 export and verified local artifact custody.",
+      "evidence_ids": ["A1-EXPORT-HISTORY"]
+    },
+    {
+      "claim_id": "P1-C004",
+      "claim_class": "DIRECTLY_VERIFIED_FACT",
+      "statement": "The main artifact is a regular 4954594880-byte file with SHA-256 fbf3f93d603e92dbcf00742163cc3018b9bf8fbfbcf87158cc836e5ed0bc9455.",
+      "evidence_ids": ["A1-INPUT-CUSTODY", "A1-MAIN-GGUF"]
+    },
+    {
+      "claim_id": "P1-C005",
+      "claim_class": "DIRECTLY_VERIFIED_FACT",
+      "statement": "The main artifact is GGUF v3 with 51 metadata entries and 601 tensors: 318 Q8_0 and 283 F32.",
+      "evidence_ids": ["A1-MAIN-GGUF"]
+    },
+    {
+      "claim_id": "P1-C006",
+      "claim_class": "DIRECTLY_VERIFIED_FACT",
+      "statement": "The mmproj artifact is a regular 986833792-byte file with SHA-256 e00089a95d2dc85c71f249bd83760e348f721757318802ddb889c65ec64eae3c.",
+      "evidence_ids": ["A1-INPUT-CUSTODY", "A1-MMPROJ-GGUF"]
+    },
+    {
+      "claim_id": "P1-C007",
+      "claim_class": "DIRECTLY_VERIFIED_FACT",
+      "statement": "The mmproj artifact is GGUF v3 with 39 metadata entries and 1411 tensors: 247 BF16 and 1164 F32.",
+      "evidence_ids": ["A1-MMPROJ-GGUF"]
+    },
+    {
+      "claim_id": "P1-C008",
+      "claim_class": "DIRECTLY_VERIFIED_FACT",
+      "statement": "All parsed tensor byte ranges were within their files and non-overlapping.",
+      "evidence_ids": ["A1-MAIN-GGUF", "A1-MMPROJ-GGUF"]
+    },
+    {
+      "claim_id": "P1-C009",
+      "claim_class": "RETAINED_HISTORICAL_OBSERVATION_WITH_LIMITATION",
+      "statement": "Current artifact size and SHA-256 identities match retained historical C1 observations, preserving HISTORICAL_C1_MATCH; historical C1 bytes are unavailable, and no new direct C1/C2 file comparison was performed.",
+      "evidence_ids": ["A1-REPRODUCIBILITY"]
+    },
+    {
+      "claim_id": "P1-C010",
+      "claim_class": "DIRECTLY_VERIFIED_FACT",
+      "statement": "Neither target GGUF metadata inventory contained the exact source revision.",
+      "evidence_ids": ["A1-LINEAGE"]
+    },
+    {
+      "claim_id": "P1-C011",
+      "claim_class": "INFERENCE",
+      "statement": "The main and mmproj artifacts have a moderate contextual association based on shared export context and compatible exporter and model-family/projector-role metadata.",
+      "evidence_ids": ["A1-ASSOCIATION"]
+    },
+    {
+      "claim_id": "P1-C012",
+      "claim_class": "DIRECTLY_VERIFIED_LIMITATION",
+      "statement": "No cryptographic or format-native main/mmproj binding was observed, and the shared name Work Copy has low identifying power.",
+      "evidence_ids": ["A1-ASSOCIATION"]
+    },
+    {
+      "claim_id": "P1-C013",
+      "claim_class": "DIRECTLY_VERIFIED_LINEAGE_EVENT",
+      "statement": "The tokenizer_config work-copy diff contains 195 JSON-pointer changes: 181 additions and 14 removals; this lineage event is not automatically a bug.",
+      "evidence_ids": ["A1-LINEAGE"]
+    },
+    {
+      "claim_id": "P1-C014",
+      "claim_class": "DIRECTLY_VERIFIED_FACT",
+      "statement": "Every repeated deterministic OMIV-native output used in A1 was byte-identical across the paired runs.",
+      "evidence_ids": ["A1-NATIVE-REPEATABILITY"]
+    },
+    {
+      "claim_id": "P1-C015",
+      "claim_class": "EXPLICIT_LIMITATION",
+      "statement": "Semantic fidelity and numerical quantization fidelity were not evaluated, and Q8_0 type classification is not a quality result.",
+      "evidence_ids": ["A1-CAPABILITY-COVERAGE", "A1-LIMITATIONS"]
+    },
+    {
+      "claim_id": "P1-C016",
+      "claim_class": "EXPLICIT_LIMITATION",
+      "statement": "Structural validation and export success do not by themselves establish runtime compatibility.",
+      "evidence_ids": ["A1-CAPABILITY-COVERAGE", "A1-LIMITATIONS"]
+    },
+    {
+      "claim_id": "P1-C017",
+      "claim_class": "EVIDENCE_BOUNDARY_INTERPRETATION",
+      "statement": "Missing source-revision metadata is a provenance-observability gap, not proof of incorrect model weights.",
+      "evidence_ids": ["A1-LINEAGE", "A1-LIMITATIONS"]
+    },
+    {
+      "claim_id": "P1-C018",
+      "claim_class": "EVIDENCE_BOUNDARY_INTERPRETATION",
+      "statement": "Weak main/mmproj binding is an artifact-association gap, not proof of incompatibility.",
+      "evidence_ids": ["A1-ASSOCIATION", "A1-LIMITATIONS"]
+    },
+    {
+      "claim_id": "P1-C019",
+      "claim_class": "PRODUCT_COVERAGE_ASSESSMENT",
+      "statement": "A1 found complete native coverage for custody, core GGUF structure, scalar metadata, tensor inventories, structural comparison, and deterministic reporting, with partial, glue-only, retained-evidence-only, or unsupported coverage for several lineage, binding, and fidelity questions.",
+      "evidence_ids": ["A1-CAPABILITY-COVERAGE"]
+    },
+    {
+      "claim_id": "P1-C020",
+      "claim_class": "DIRECTLY_VERIFIED_METHOD_BOUNDARY",
+      "statement": "A1 was completely offline and did not load a model, run inference, invoke an exporter, use a GPU, or evaluate tensor payload values for semantic or numerical fidelity.",
+      "evidence_ids": ["A1-CAPABILITY-COVERAGE", "A1-LIMITATIONS"]
+    },
+    {
+      "claim_id": "P1-C021",
+      "claim_class": "EXPLICIT_ATTRIBUTION_BOUNDARY",
+      "statement": "This study did not determine whether the observed provenance, association, or tokenizer-lineage behavior originated in Unsloth, llama.cpp tooling, GGUF conventions, llm-compressor, or the surrounding export workflow.",
+      "evidence_ids": ["A1-LINEAGE", "A1-ASSOCIATION", "A1-LIMITATIONS"]
+    }
+  ]
+}

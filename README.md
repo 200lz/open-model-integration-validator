@@ -203,6 +203,15 @@ In particular, the ignored Kimi raw inventory is not a quickstart dependency. Do
 create or download it to run the demonstration. Remote practice collectors are also
 unnecessary for normal offline verification and are never invoked implicitly.
 
+## Real-world case studies
+
+- **Case Study 01 — Unsloth Gemma 4 E2B IT Q8_0 GGUF:** The export succeeded, and
+  both current artifact identities matched retained historical C1 size/SHA-256
+  observations. OMIV also made
+  source-provenance and main/mmproj companion-binding observability gaps explicit.
+  Read the [case study](case-studies/unsloth-gemma4-e2b-it-q8/README.md) with its
+  methodology, claim registry, evidence index, results, and limitations.
+
 ## Practice-profile limitations
 
 Practice profiles illustrate bounded evidence contracts; they are not endorsements,
