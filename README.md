@@ -1,46 +1,69 @@
 # Open Model Integration Validator (OMIV)
 
-OMIV is an offline-first evidence and verification framework for AI artifacts,
-transformations, deployments, and runtime identity.
+OMIV is an offline-first framework
+for verifying AI model artifacts,
+transformations, deployments,
+and runtime identity.
 
 [![CI](https://github.com/200lz/open-model-integration-validator/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/200lz/open-model-integration-validator/actions/workflows/ci.yml)
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB)](pyproject.toml)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 [![Status: public preview](https://img.shields.io/badge/status-public--preview-orange)](docs/roadmap.md)
 
-It preserves the difference between what was declared, what was observed, what
-was cryptographically verified, what policy permits, and what remains
-unavailable. OMIV is a pre-1.0 framework, not a certification authority, safety
-evaluator, authenticity oracle, or production-ready compliance product.
+Know what model artifact you have, what changed, what evidence supports it,
+and what remains unknown.
+
+It is for model release teams,
+inference/runtime maintainers,
+conversion and quantization vendors,
+chip and platform teams,
+and enterprise AI teams.
+
+It verifies bounded evidence for artifacts,
+shards, GGUF comparisons, transformations,
+configuration, trust, policy,
+and runtime records.
+
+Try the offline quickstart below, then see the real
+[Unsloth Gemma 4 case study](case-studies/unsloth-gemma4-e2b-it-q8/README.md).
+
+OMIV is a pre-1.0 Alpha public preview,
+not a certification authority, safety evaluator,
+authenticity oracle,
+or production compliance product.
 
 ## Why OMIV
 
-A model name is not a model identity. A signature does not prove runtime-loaded
-weights. A deployment declaration does not prove which weights produced an output.
-Missing evidence remains unavailable. Canonical validity is not authenticity, and
-structural parity is not behavioral equivalence.
+A model name is not a model identity.
+A signature does not prove which weights
+a runtime loaded or produced an output.
 
-OMIV gives developers strict schemas, canonical identities and digests,
-scope-qualified verification, signatures, policy results, and portable evidence.
-It does not turn those records into claims about model safety, provider authority,
-complete behavioral equivalence, or runtime weight attribution.
+OMIV separates declarations, observations,
+cryptographic verification, policy decisions,
+and unavailable evidence.
+Missing evidence stays unavailable.
+
+Canonical validity is not authenticity.
+Structural parity is not behavioral equivalence.
+OMIV does not diagnose or fix
+every integration problem.
 
 ## What OMIV verifies
 
-| Evidence surface | OMIV can verify | OMIV does not establish |
+| Evidence surface | Verifiable within scope | Not established |
 | --- | --- | --- |
-| Local artifacts | Declared byte identity, manifests, structure, and canonical digests | Safety, authenticity, or publisher authority |
-| Transformations | Supplied lineage, mappings, quantization representation, and bounded numerical evidence | Complete semantic or behavioral equivalence |
-| Trust and policy | Signature validity, stated authority, policy evaluation, custody, and historical linkage | That a signer is the rightful publisher or a policy is appropriate |
-| Deployment and runtime | Supplied declarations, observations, bindings, and output-provenance records | Which weights actively produced an output without adequate evidence |
-| Remote metadata | Bounded supplied snapshots and shard reconciliation | Current provider state or payload identity by default |
+| Artifacts | Bytes, manifests, structure, digests | Safety or publisher authority |
+| Shards/GGUF | Completeness and structural comparison | Universal compatibility |
+| Changes | Lineage, mappings, representation, samples | Complete semantic equivalence |
+| Trust | Signatures, authority, custody, policy | Policy appropriateness |
+| Runtime | Supplied resolution, deployment, output bindings | Active weights without evidence |
 
-An absent, unsupported, or unchecked evidence item never becomes `PASS`.
+An absent, unsupported, or unchecked item never becomes `PASS`.
 
 ## 30-second quickstart
 
-From a clean clone, install OMIV from source. Dependency installation may contact
-a package index; the verification command itself is offline.
+From a clean clone, install from source. Installation may contact a package
+index; the verification command itself is offline.
 
 ```bash
 python -m venv .venv
@@ -50,7 +73,7 @@ omiv --version
 omiv runtime-resolution verify runtime-resolution-parity/scenarios/immutable-pinned.json
 ```
 
-Expected verification output and exit status:
+Expected output and exit status:
 
 ```text
 0.10.0
@@ -58,221 +81,176 @@ VALID_CANONICAL_RUNTIME_RESOLUTION_OBJECT schema=omiv.runtime-resolution-scenari
 exit code: 0
 ```
 
-The tracked input is synthetic demonstration data. This command establishes only
-strict parsing, supported-schema recognition, and canonical identity/digest
-relationships for that supplied object. It makes no provider request, resolves no
-live alias, observes no deployment or runtime-loaded weights, and runs no inference.
-It does not establish provider authenticity, publisher authority, safety, or
-production readiness. See the [complete quickstart](docs/quickstart.md) and [offline
-demonstration](examples/offline-quickstart/README.md), including PowerShell activation
-and exit-code semantics.
+The input is synthetic.
+The command verifies parsing, schema support,
+and identity/digest relationships for that object.
+It makes no provider request,
+resolves no live alias,
+observes no deployment or loaded weights,
+and runs no inference.
+
+See the [complete quickstart](docs/quickstart.md)
+and [offline demonstration](examples/offline-quickstart/README.md).
 
 ## Evidence chain
 
 ```mermaid
 flowchart TD
-    A[Source / registry / publisher] --> B[Resolution and acquisition evidence]
-    B --> C[Exact artifact identity]
-    C --> D[Payload manifest and shard reconciliation]
-    D --> E[Transformation, quantization, tokenizer evidence]
-    E --> F[Signature, authority, and policy]
-    F --> G[Deployment and runtime binding]
-    G --> H[Output provenance and historical audit]
+    A[Source or registry] --> B[Acquisition evidence]
+    B --> C[Artifact identity]
+    C --> D[Manifest and shards]
+    D --> E[Transformation evidence]
+    E --> F[Signature and policy]
+    F --> G[Deployment binding]
+    G --> H[Output provenance]
     A -. declaration is not observation .-> B
-    C -. artifact identity is not runtime identity .-> G
-    F -. signature validity is not publisher authority .-> A
-    E -. finite probes are not behavioral equivalence .-> H
-    B -. absent evidence is not PASS .-> H
+    C -. artifact is not runtime identity .-> G
+    E -. finite evidence is bounded .-> H
+    B -. unavailable is not PASS .-> H
 ```
 
-The arrows describe possible evidence flow, not universal automation. Read the
-[architecture overview](docs/architecture.md) for component boundaries and the
-current Phase 5/6 evidence model.
+This is possible evidence flow, not universal automation. See
+[architecture](docs/architecture.md).
 
 ## Current capabilities
 
-| Area | Available now | Bounded, local, or offline scope | Explicit non-goals |
-| --- | --- | --- | --- |
-| Phase 5 | Passports, custody, attestations, trust, governance, security, runtime continuity, and historical audit | Verification of supplied evidence and policy-scoped results | Safety certification, real-world truth, or automatic approval |
-| Phase 6A | Payload manifests and exact local byte identity | Local files and declared expectation scope | Publisher identity or safety |
-| Phase 6B | Remote metadata and shard reconciliation | Supplied/pinned metadata; collectors are separate and opt-in | Payload download or inferred weight identity |
-| Phase 6C | Quantization representation and bounded numerical-fidelity evidence | Declared samples, limits, and Decimal semantics | Whole-model behavioral equivalence |
-| Phase 6D | Tokenizer/configuration structural parity and supplied probes | Supplied local artifacts and finite probes | Complete tokenizer or behavioral equivalence |
-| Phase 6E | Mutable resolution, deployment binding, supplied backend results, and output-provenance schemas | Offline verification of supplied records | Live resolution, inference, or provable inference |
+OMIV currently covers:
 
-The [documentation index](docs/README.md) links the design and implementation
-documents for every released engineering phase. Phase 6F Assurance Bundle
-interoperability is planned and is not implemented.
+- artifact identity and manifests;
+- shard completeness and reconciliation;
+- GGUF/source-to-target comparison;
+- transformation and quantization evidence;
+- tokenizer/configuration evidence;
+- signatures, trust, and policy;
+- deployment, runtime, and output provenance.
 
-### How to read an OMIV result
+Released boundaries remain narrow:
 
-OMIV results are deliberately narrower than labels such as “verified model.” Read
-each result through five questions:
+| Phase | Released scope | Boundary |
+| --- | --- | --- |
+| Phase 5 | Passports, custody, attestations, trust, governance, security, runtime continuity, historical audit | Supplied evidence; no automatic approval |
+| Phase 6A | Local manifests and byte identity | No publisher or semantic claim |
+| Phase 6B | Pinned metadata and shard reconciliation | Collection stays separate |
+| Phase 6C | Representation and bounded numerical-fidelity evidence | Declared samples and limits only |
+| Phase 6D | Tokenizer/configuration parity and supplied probes | Finite scope only |
+| Phase 6E | Runtime resolution, deployment binding, supplied results, output provenance | No implicit live inference |
 
-1. **What is the subject?** A file, logical model, transformation, deployment,
-   runtime observation, request, and output are different subjects.
-2. **What is the scope?** A selected member set, local directory, finite probe set,
-   policy profile, environment, and historical cutoff limit what was evaluated.
-3. **What evidence was supplied?** A declaration, direct observation, digest-only
-   reference, signature, and provider document carry different authority.
-4. **What was reconstructed?** Schema validity, canonical digest identity, reference
-   linkage, signature validity, and policy evaluation are separate checks.
-5. **What remains unavailable?** Limitations and missing evidence are part of the
-   result, not footnotes to discard.
+Phase 6F Assurance Bundle interoperability is planned, not implemented.
+See the [roadmap](docs/roadmap.md).
 
-For example, an intact signature can show that bytes were signed by a particular
-key. A separate trust record is needed to state what that key is authorized to sign,
-and neither record alone shows that the signed artifact was loaded by a runtime.
-Likewise, an exact finite probe result applies only to the declared probes and does
-not establish identical weights or behavior outside that set.
+### Reading results
 
-### Evidence result vocabulary
+Keep subject, scope, source, policy,
+and limits together. Unavailable stays unavailable.
+Signatures do not prove authority or runtime use.
 
-Different OMIV subsystems use typed, domain-specific outcomes, but the following
-reading rules are consistent:
+### Offline and fail-closed posture
 
-| Result shape | Interpretation |
-| --- | --- |
-| Valid canonical object | Strict parsing and identity reconstruction succeeded for the supplied object |
-| Exact match for declared scope | All requirements inside an explicit finite scope matched |
-| Valid with limitations | Integrity succeeded while named evidence or scope remains incomplete |
-| Not available / not checked | Required evidence was not supplied or was intentionally outside the operation |
-| Policy nonpassing | The supplied evidence did not satisfy the selected policy; this is not necessarily malformed input |
-| Integrity invalid | Schema, digest, reference, signature, or canonical reconstruction failed |
+Verification defaults to offline operation. Collection is explicit and separate;
+verification does not contact providers to fill gaps.
 
-Always keep the subject, scope, evidence source, policy identity, and limitations
-beside the headline outcome. Portable evidence is designed to preserve those
-qualifiers when it moves between tools or organizations.
+Missing evidence, unsupported schemas, integrity errors,
+and policy failures remain distinct.
 
-### Verification posture
+The [offline walkthrough](docs/offline-evidence-walkthrough.md) covers tracked
+Phase 5 and Phase 6A–6E records and exit-code semantics.
 
-OMIV defaults to offline verification. Network-capable collection is a separate,
-explicit operation with its own bounds; verification never fills gaps by contacting
-a provider. Canonical output avoids host-specific paths, clock-dependent identities,
-and accidental mutation of tracked evidence.
+Collectors and conversion runners may execute tools or access networks.
+They are outside the quickstart.
 
-This posture makes results reviewable in a clean checkout and usable in air-gapped
-or controlled environments after installation. It also keeps collection authority
-separate from verification authority: the verifier can check a portable supplied
-record without claiming to have witnessed how it was collected.
+## Real-world case study
 
-When integrating OMIV into automation, treat nonzero scope/policy outcomes,
-integrity errors, missing external artifacts, and unsupported evidence as distinct
-states. Do not flatten them into a generic success or failure that loses why the
-result was bounded.
+**Case Study 01 — Unsloth Gemma 4 E2B IT Q8_0 GGUF**
+is an independent, offline structural
+and provenance-observability analysis.
 
-### Common offline workflows
+The export succeeded.
+Current main-GGUF and mmproj sizes/SHA-256 values
+match retained historical C1 observations.
+Source-revision and format-native companion binding
+remained unavailable.
 
-The root quickstart exercises one safe verification path. The
-[offline evidence walkthrough](docs/offline-evidence-walkthrough.md) continues
-through tracked Phase 5 and Phase 6A–6E evidence, including expected semantic
-exit-`1` results and a temporary malformed-input exit-`2` demonstration. The
-repository also contains bounded offline interfaces for:
+The historical C1 bytes are unavailable,
+so this is `HISTORICAL_C1_MATCH`,
+not a new direct C1/C2 file comparison.
 
-- validating canonical inventory structure;
-- comparing GGUF inventories under explicit policies;
-- validating semantic mappings and transformation lineage;
-- verifying Model Passport and custody integrity;
-- checking signed attestations, trust bundles, and revocation records;
-- evaluating governance, security, and historical trust evidence;
-- verifying local payload manifests and declared expectations;
-- reconstructing remote metadata and shard-reconciliation objects;
-- inspecting quantization and tokenizer/configuration evidence;
-- verifying supplied deployment, runtime, and output-provenance records.
+The study makes no semantic-fidelity,
+numerical-fidelity, or runtime-compatibility claim.
+Structural validation is not behavioral equivalence.
 
-These commands do not all have the same exit-code policy. Consult the linked phase
-document and command help before automating a gate:
+We warmly thank Daniel Han
+for suggesting Gemma 4 E2B IT
+and the opportunity to test a real Unsloth export.
+OMIV worked independently;
+the exchange does not imply partnership, endorsement,
+approval, certification, or joint work.
 
-```bash
-omiv --help
-omiv runtime-resolution verify --help
-```
-
-Collectors and conversion runners are distinct from offline verification. Some are
-explicitly opt-in or can execute external tools; they are not part of the quickstart
-and should be reviewed under their own documented threat and resource boundaries.
-
-### Repository evidence versus external artifacts
-
-Tracked synthetic and canonical examples make verifier behavior reviewable without
-large payloads. They do not pretend to be fresh provider observations. When a
-referenced external artifact is absent, OMIV either reports that absence or offers a
-clearly named reduced-scope verification mode where the schema supports one.
-
-In particular, the ignored Kimi raw inventory is not a quickstart dependency. Do not
-create or download it to run the demonstration. Remote practice collectors are also
-unnecessary for normal offline verification and are never invoked implicitly.
-
-## Real-world case studies
-
-- **Case Study 01 — Unsloth Gemma 4 E2B IT Q8_0 GGUF:** The export succeeded, and
-  both current artifact identities matched retained historical C1 size/SHA-256
-  observations. OMIV also made
-  source-provenance and main/mmproj companion-binding observability gaps explicit.
-  Read the [case study](case-studies/unsloth-gemma4-e2b-it-q8/README.md) with its
-  methodology, claim registry, evidence index, results, and limitations.
+Read the
+[case study](case-studies/unsloth-gemma4-e2b-it-q8/README.md)
+with its claims, evidence, results, and limits.
 
 ## Practice-profile limitations
 
-Practice profiles illustrate bounded evidence contracts; they are not endorsements,
-partnerships, or claims about current provider state.
-
-| Profile | Current scope | Important limitation |
-| --- | --- | --- |
-| Qwen | Existing local model-pack and format examples | Example coverage does not make a universal integration claim |
-| Kimi | Structural and reference evidence | The large raw local inventory is not distributed |
-| xAI | Bounded public metadata and documented mutable-alias/roadmap evidence | No observed runtime weight identity |
-| DeepSeek | Readiness and missing-snapshot contract | Readiness is not a completed integration |
-| Hugging Face | Provider-neutral bounded metadata interface | No default network use and no provider endorsement |
+Practice profiles are bounded examples,
+not partnerships, endorsements,
+or claims about current provider state.
+See the [technical reference](docs/reference/technical-reference.md).
 
 ## Public and future commercial boundary
 
-The open core owns canonical schemas, canonicalization, evidence semantics,
-signatures and verification, the offline CLI, portable evidence, policy-result
-semantics, and future public Assurance Bundle verification.
+The public open core owns schemas,
+canonicalization, evidence semantics,
+signatures, offline verification,
+portable evidence, policy results,
+and public Assurance Bundle verification.
 
-Possible future commercial operation may add managed collection, private
-registries, continuous monitoring, organization-wide policy operation, RBAC/SSO,
-KMS/HSM integration, deployment admission, managed history, connectors, and
-support. No such product or repository is claimed here, and it may not secretly
-redefine canonical public OMIV semantics. Read the
-[full boundary](docs/public-commercial-boundary.md).
+Possible future commercial work may add
+managed collection, private registries,
+monitoring, organization policy,
+RBAC/SSO, KMS/HSM, deployment admission,
+connectors, history, and support.
+
+No commercial product is claimed. Future services may not redefine public OMIV
+semantics. See the [full boundary](docs/public-commercial-boundary.md).
 
 ## Documentation
 
-Start with the [documentation index](docs/README.md):
+Start with the [documentation index](docs/README.md).
 
 - [Quickstart](docs/quickstart.md)
 - [Offline evidence walkthrough](docs/offline-evidence-walkthrough.md)
 - [Architecture](docs/architecture.md)
-- [Technical reference migrated from the historical README](docs/reference/technical-reference.md)
-- [README migration map](docs/reference/readme-migration-map.md)
 - [Security and privacy](docs/public-release-security-and-privacy.md)
 - [GitHub publication controls](docs/github-publication-controls.md)
-- [R1F final-publication audit](docs/r1f-final-publication-audit.md)
-- [v0.10.0 release notes](docs/v0.10.0-release-notes.md)
-- [v0.10.0 publication recovery](docs/v0.10.0-publication-recovery.md)
+- [R1F publication audit](docs/r1f-final-publication-audit.md)
+- [Release notes](docs/v0.10.0-release-notes.md)
 - [Roadmap](docs/roadmap.md)
+
+Detailed command and phase guidance lives in the documentation.
 
 ## Project status and roadmap
 
-OMIV is public and publicly available as a pre-1.0 Alpha public preview. The repository is public.
-The signed annotated `v0.10.0` tag and its GitHub pre-release exist, while
-the PyPI project and version remain absent after the first Trusted Publishing workflow
-failed before its publish job. Engineering Phases 5 and 6A–6E are released in repository history;
-Phase 6F is planned and not implemented. Public
-availability is not release completion and does not establish production readiness,
-certification, safety, provider authenticity, or publisher authority. See the
-[roadmap](docs/roadmap.md), [release notes](docs/v0.10.0-release-notes.md), and
-[changelog](CHANGELOG.md).
+The repository is public. OMIV remains a pre-1.0 Alpha public preview,
+not a production, certification, safety, or authenticity claim.
+
+Phases 5 and 6A–6E are released in history. Phase 6F is planned,
+not implemented. The signed annotated `v0.10.0` tag and GitHub pre-release exist;
+the PyPI project/version remain absent after a pre-publish failure.
+
+Public availability is not release completion. See the [roadmap](docs/roadmap.md)
+and [release notes](docs/v0.10.0-release-notes.md).
 
 ## Contributing, security, support, and license
 
 Contributions follow [CONTRIBUTING.md](CONTRIBUTING.md) and
-[GOVERNANCE.md](GOVERNANCE.md). Report vulnerabilities through
-[SECURITY.md](SECURITY.md), and use [SUPPORT.md](SUPPORT.md) for support scope.
+[GOVERNANCE.md](GOVERNANCE.md).
 
-OMIV is licensed under [Apache-2.0](LICENSE); see [NOTICE](NOTICE) and
-[third-party notices](THIRD_PARTY_NOTICES.md). Project and provider names remain
-subject to [trademark guidance](TRADEMARKS.md). OMIV is independent and is not an
-official, approved, endorsed, or affiliated tool of any model provider.
+Report vulnerabilities through [SECURITY.md](SECURITY.md). Use
+[SUPPORT.md](SUPPORT.md) for the support boundary.
+
+OMIV uses [Apache-2.0](LICENSE). See [NOTICE](NOTICE),
+[third-party notices](THIRD_PARTY_NOTICES.md),
+and [trademarks](TRADEMARKS.md).
+
+OMIV is independent and is not an official, approved, endorsed, affiliated, or
+certified tool of any model provider.
