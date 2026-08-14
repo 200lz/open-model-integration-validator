@@ -1,0 +1,18 @@
+{
+  "planned_operations": [],
+  "request_id": "offline-phase6f-example",
+  "requirements": [
+    {
+      "expected_schema": "omiv.payload-manifest-comparison.v1",
+      "dimension": "STRUCTURE",
+      "media_type": "application/json",
+      "member_path": "evidence/payload-comparison.json",
+      "phase": "PHASE_6A",
+      "required": true,
+      "source_path": "payload-integrity/comparisons/exact.json",
+      "verdict_role": "DIMENSION_VERDICT"
+    }
+  ],
+  "schema": "omiv.assurance-request.v1",
+  "subject": "synthetic offline Assurance Bundle interoperability example"
+}
