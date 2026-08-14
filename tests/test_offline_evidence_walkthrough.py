@@ -378,16 +378,13 @@ def test_markdown_links_and_local_fragments_resolve() -> None:
                 assert unquote(target.fragment).lower() in anchors
 
 
-def test_phase6f_and_public_commercial_boundary_remain_unchanged() -> None:
+def test_phase6f_and_public_commercial_boundary_remain_narrow() -> None:
     roadmap = (ROOT / "docs/roadmap.md").read_text(encoding="utf-8")
-    assert "| Phase 6F | PLANNED, NOT IMPLEMENTED |" in roadmap
+    assert "| Phase 6F | COMPLETE; NOT RELEASED |" in roadmap
     assert "| Phase 7 | FUTURE, SCOPE NOT FROZEN |" in roadmap
-    result = subprocess.run(
-        ["git", "diff", "--quiet", BASELINE, "--", "docs/public-commercial-boundary.md"],
-        cwd=ROOT,
-        check=False,
-    )
-    assert result.returncode == 0
+    boundary = (ROOT / "docs/public-commercial-boundary.md").read_text(encoding="utf-8")
+    assert "portable public\nverification boundary" in boundary
+    assert "without claiming a hosted service" in boundary
 
 
 def test_audit_is_deterministic_and_passes() -> None:

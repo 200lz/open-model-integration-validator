@@ -509,7 +509,7 @@ def run_audit(root: Path) -> list[Check]:
         "| R1D offline walkthrough | COMPLETE |",
         "| R1E GitHub metadata/security | COMPLETE |",
         "| R1F final publication audit | COMPLETE; public controls verified |",
-        "| Phase 6F | PLANNED, NOT IMPLEMENTED |",
+        "| Phase 6F | COMPLETE; NOT RELEASED |",
     )
     checks.append(
         Check(
@@ -518,12 +518,12 @@ def run_audit(root: Path) -> list[Check]:
             f"required={len(roadmap_terms)}",
         )
     )
-    phase6f_complete = any(
-        re.search(r"Phase 6F.{0,30}\b(COMPLETE|IMPLEMENTED)\b", line, re.IGNORECASE)
-        and "not implemented" not in line.lower()
+    phase6f_released = any(
+        re.search(r"Phase 6F.{0,30}\bRELEASED\b", line, re.IGNORECASE)
+        and "NOT RELEASED" not in line.upper()
         for line in documentation.splitlines()
     )
-    checks.append(Check("phase6f_unimplemented", not phase6f_complete, "completion_claims=0"))
+    checks.append(Check("phase6f_not_released", not phase6f_released, "release_claims=0"))
 
     forbidden_claim_patterns = (
         r"available on PyPI",

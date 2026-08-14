@@ -386,12 +386,12 @@ def test_release_states_make_no_publication_claim() -> None:
     assert _policy()["repository"]["required_pre_public_visibility"] == "PRIVATE"
 
 
-def test_roadmap_truth_preserves_r1f_and_phase6f_boundaries() -> None:
+def test_roadmap_truth_preserves_r1f_phase6f_and_phase7_boundaries() -> None:
     roadmap = (ROOT / "docs/roadmap.md").read_text(encoding="utf-8")
     assert "R1D offline walkthrough | COMPLETE" in roadmap
     assert "R1E GitHub metadata/security | COMPLETE" in roadmap
     assert "R1F final publication audit | COMPLETE; public controls verified" in roadmap
-    assert "Phase 6F | PLANNED, NOT IMPLEMENTED" in roadmap
+    assert "Phase 6F | COMPLETE; NOT RELEASED" in roadmap
     assert "Phase 7 | FUTURE, SCOPE NOT FROZEN" in roadmap
 
 
@@ -591,7 +591,10 @@ def test_security_route_to_public_issue_fails_closed(tmp_path: Path) -> None:
             "R1F final publication audit | COMPLETE; public controls verified",
             "R1F final publication audit | COMPLETE",
         ),
-        ("Phase 6F | PLANNED, NOT IMPLEMENTED", "Phase 6F | COMPLETE"),
+        (
+            "Phase 6F | COMPLETE; NOT RELEASED",
+            "Phase 6F | RELEASED",
+        ),
     ),
 )
 def test_roadmap_overclaim_mutations_fail_closed(tmp_path: Path, old: str, new: str) -> None:

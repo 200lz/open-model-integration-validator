@@ -853,7 +853,7 @@ def run_audit(root: Path) -> list[Check]:
                 marker in roadmap
                 for marker in (
                     "R1E GitHub metadata/security | COMPLETE",
-                    "Phase 6F | PLANNED, NOT IMPLEMENTED",
+                    "Phase 6F | COMPLETE; NOT RELEASED",
                     "Phase 7 | FUTURE, SCOPE NOT FROZEN",
                 )
             ),
