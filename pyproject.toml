@@ -58,6 +58,10 @@ include = [
   "/src",
   "/tools/audit_public_release_readiness.py",
   "/docs",
+  "/examples/assurance-bundle",
+  "/examples/runtime-compatibility",
+  "/examples/smart-preflight",
+  "/fixtures/assurance-bundle",
   "/README.md",
   "/CHANGELOG.md",
   "/CITATION.cff",
@@ -74,7 +78,7 @@ include = [
 
 [tool.pytest.ini_options]
 addopts = "-ra"
-pythonpath = ["src"]
+pythonpath = [".", "src"]
 markers = [
   "integration: tests that require the local full checkpoint inventory",
   "remote_integration: opt-in tests that access a pinned remote repository",
