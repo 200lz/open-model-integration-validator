@@ -1,0 +1,28 @@
+{
+  "artifact_path": "examples/runtime-compatibility/synthetic-artifact.gguf.fixture",
+  "artifact_sha256": "90459f23651809aea3118bc1a863e9c2e054d1829f58aa6e9d7cbf3035923e3c",
+  "executable_path": "examples/runtime-compatibility/synthetic-llama-runner.py",
+  "executable_sha256": "cc52537c8b4a3bac2e5e001ecdd0293be596211f49c467d357ce06632e30afde",
+  "expected_runtime_version": "llama.cpp synthetic-runner 1.0",
+  "limits": {
+    "max_artifact_bytes": 1024,
+    "max_executable_bytes": 65536,
+    "max_stderr_bytes": 4096,
+    "max_stdout_bytes": 16384,
+    "max_work_file_bytes": 1024,
+    "max_work_files": 0,
+    "max_work_total_bytes": 1024,
+    "timeout_seconds": 5,
+    "version_timeout_seconds": 2
+  },
+  "profile_id": "omiv.runtime-compatibility-profile.llama-cpp-native-output.v1",
+  "request_id": "phase7b-synthetic-llama-cpp",
+  "schema": "omiv.runtime-compatibility-request.v1",
+  "test_vector": {
+    "expected_output": "Paris",
+    "max_generated_tokens": 8,
+    "prompt": "The capital of France is",
+    "seed": 0,
+    "vector_id": "synthetic-capital-v1"
+  }
+}
