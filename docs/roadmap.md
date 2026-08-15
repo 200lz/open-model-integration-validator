@@ -20,7 +20,9 @@ release gates after the repository became publicly readable.
 Phase 7A Smart Preflight / Auto Planner now has a minimal candidate vertical slice
 under development: bounded local discovery, conservative ambiguity handling, and a
 generated Phase 6F request. It is incubation evidence rather than a frozen Phase 7
-scope or release claim. See the [candidate guide](phase-7a-smart-preflight.md).
+scope or release claim. A metadata-only reference acceptance profile exercises the
+same concise, evidence-qualified boundary without changing the Phase 6F verdict
+registry. See the [candidate guide](phase-7a-smart-preflight.md).
 
 Phase 7B Runtime Compatibility Profiles now has a hardened Phase 7B.1 candidate slice
 under development: explicit local executable and artifact pins, direct bounded

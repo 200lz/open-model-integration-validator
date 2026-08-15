@@ -71,3 +71,37 @@ Exit behavior is:
 
 These limits and selection rules are candidate scope and may change before Phase 7
 is frozen.
+
+## Metadata-only reference acceptance
+
+The provider-neutral `reference-preflight` candidate extends the concise preflight
+experience to reviewed remote-metadata fixtures without changing the local discovery
+planner above. Its first acceptance fixture is Muse Glimmer 30B:
+
+```console
+omiv reference-preflight plan \
+  --profile fixtures/reference-preflight/muse-glimmer-30b.json \
+  --reference meta-models/Muse-Glimmer-30B-GGUF \
+  --root . \
+  --output muse-reference-evidence.json \
+  --assurance-request-output muse-assurance-request.json
+```
+
+The command replays pinned observations offline. Provider and runtime names, artifact
+roles, revisions, declared sizes and provider-exposed identities live in the fixture;
+the operational code only validates, canonicalizes and projects the generic schema.
+It does not refresh metadata, download a payload, inspect GGUF bytes, invoke a runtime,
+or upgrade declarations into compatibility or fidelity claims.
+
+The generated Phase 6F request uses an `EXTERNAL` opaque supporting member and declares
+the future GPU cost. This preserves the evidence bytes in a portable Assurance Bundle
+without adding the Phase 7 candidate schema to the Phase 5/6A–6E verdict registry. The
+Phase 6F verdict therefore remains `UNKNOWN`, while the reference-preflight evidence
+retains the more detailed qualified states such as `NOT_DOWNLOADED`,
+`NOT_ESTABLISHED`, `NOT_RUN`, and `NOT_EVALUATED`.
+
+See the [offline acceptance example](../examples/reference-preflight/README.md) and
+[normalized fixture notes](../fixtures/reference-preflight/README.md).
+The example's future GPU recommendation is bounded to a deterministic PNG probe,
+one 32 GB RTX 5090, USD 5, four hours, explicit disk tiers, and mandatory exact-Pod
+termination; it remains unexecuted metadata rather than a runtime result.

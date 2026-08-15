@@ -47,6 +47,7 @@ historical command and evidence guide.
 ## Phase 7 candidates
 
 - [Phase 7A candidate: Smart Preflight / Auto Planner](phase-7a-smart-preflight.md)
+- [Muse Glimmer metadata-only acceptance example](../examples/reference-preflight/README.md)
 - [Phase 7B candidate: Runtime Compatibility Profiles](phase-7b-runtime-compatibility-profiles.md)
 
 ## Practice profiles

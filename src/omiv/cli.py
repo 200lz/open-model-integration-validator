@@ -323,6 +323,27 @@ from omiv.reconciliation.models import (
 from omiv.reconciliation.reporting import pretty_json as pretty_reconciliation_json
 from omiv.reconciliation.schema import load_any_reconciliation, load_reconciliation
 from omiv.reconciliation_profiles.huggingface import collect_huggingface_metadata
+from omiv.reference_preflight.operations import (
+    build_assurance_request as build_reference_assurance_request,
+)
+from omiv.reference_preflight.operations import (
+    build_reference_preflight,
+)
+from omiv.reference_preflight.operations import (
+    concise_evidence_summary as concise_reference_preflight_evidence,
+)
+from omiv.reference_preflight.operations import (
+    load_evidence as load_reference_preflight_evidence,
+)
+from omiv.reference_preflight.operations import (
+    load_profile as load_reference_preflight_profile,
+)
+from omiv.reference_preflight.operations import (
+    write_assurance_request as write_reference_assurance_request,
+)
+from omiv.reference_preflight.operations import (
+    write_evidence as write_reference_preflight_evidence,
+)
 from omiv.remote.gguf_header import RemoteGGUFHeaderParser
 from omiv.remote.header_models import (
     HEADER_REPORT_SCHEMA,
@@ -597,6 +618,7 @@ runtime_resolution_app = typer.Typer(no_args_is_help=True)
 assurance_app = typer.Typer(no_args_is_help=True)
 smart_preflight_app = typer.Typer(no_args_is_help=True)
 runtime_compatibility_app = typer.Typer(no_args_is_help=True)
+reference_preflight_app = typer.Typer(no_args_is_help=True)
 
 
 def _version_callback(value: bool) -> None:
@@ -632,6 +654,7 @@ app.add_typer(runtime_resolution_app, name="runtime-resolution")
 app.add_typer(assurance_app, name="assurance")
 app.add_typer(smart_preflight_app, name="smart-preflight")
 app.add_typer(runtime_compatibility_app, name="runtime-compat")
+app.add_typer(reference_preflight_app, name="reference-preflight")
 MAX_CANONICAL_INVENTORY_BYTES = 64 * 1024 * 1024
 REMOTE_REPORT_SCHEMAS = {
     "omiv.remote-snapshot-report.v1",
@@ -4732,6 +4755,61 @@ def _assurance_failure(exc: Exception) -> None:
 def _runtime_compatibility_failure(exc: Exception) -> None:
     typer.echo(f"ERROR Runtime compatibility operation failed: {exc}", err=True)
     raise typer.Exit(code=2) from exc
+
+
+def _reference_preflight_failure(exc: Exception) -> None:
+    typer.echo(f"ERROR Reference Preflight failed: {exc}", err=True)
+    raise typer.Exit(code=2) from exc
+
+
+@reference_preflight_app.command("plan")
+def reference_preflight_plan(
+    profile_path: Annotated[Path, typer.Option("--profile", exists=True, dir_okay=False)],
+    reference: Annotated[str, typer.Option("--reference")],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    assurance_request_output: Annotated[
+        Path | None, typer.Option("--assurance-request-output", dir_okay=False)
+    ] = None,
+    root: Annotated[Path, typer.Option("--root", exists=True, file_okay=False)] = Path("."),
+) -> None:
+    """Replay pinned provider metadata and emit no-payload, evidence-qualified preflight."""
+    try:
+        profile = load_reference_preflight_profile(profile_path)
+        evidence = build_reference_preflight(profile, reference)
+        validate_output_path(output, forbidden_inputs=(profile_path,))
+        request = None
+        if assurance_request_output is not None:
+            validate_output_path(
+                assurance_request_output,
+                forbidden_inputs=(profile_path, output),
+            )
+            try:
+                source_path = output.resolve(strict=False).relative_to(root.resolve()).as_posix()
+            except ValueError as exc:
+                raise OmivInputError(
+                    "reference evidence output must be inside --root for Assurance handoff"
+                ) from exc
+            request = build_reference_assurance_request(evidence, source_path)
+        write_reference_preflight_evidence(evidence, output)
+        if request is not None and assurance_request_output is not None:
+            write_reference_assurance_request(request, assurance_request_output)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _reference_preflight_failure(exc)
+    typer.echo(concise_reference_preflight_evidence(evidence))
+
+
+@reference_preflight_app.command("verify")
+def reference_preflight_verify(
+    evidence_path: Annotated[
+        Path, typer.Option("--evidence", exists=True, dir_okay=False)
+    ],
+) -> None:
+    """Verify canonical reference evidence and its complete future plan offline."""
+    try:
+        evidence = load_reference_preflight_evidence(evidence_path)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _reference_preflight_failure(exc)
+    typer.echo(concise_reference_preflight_evidence(evidence))
 
 
 @runtime_compatibility_app.command("plan")

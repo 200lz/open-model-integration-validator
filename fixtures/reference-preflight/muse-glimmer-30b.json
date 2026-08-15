@@ -1,0 +1,472 @@
+{
+  "artifacts": [
+    {
+      "artifact_id": "main-q4-k-m",
+      "authority_source_id": "hf-gguf-api",
+      "declared_size": 16756683904,
+      "path": "Muse-Glimmer-30B-KQuant-17GB-Q4_K_M.gguf",
+      "provider_identity": "4cc57c0f51040a226e5a72cc47b7613f7772950e460a665f7083de89f183f60e",
+      "provider_identity_kind": "HUGGING_FACE_LFS_SHA256",
+      "repository": "meta-models/Muse-Glimmer-30B-GGUF",
+      "required": true,
+      "revision": "43c7eadd41352a299ea8e0a36b3157978dd63596",
+      "role": "MAIN_MODEL"
+    },
+    {
+      "artifact_id": "perception-q4-k-m",
+      "authority_source_id": "hf-gguf-api",
+      "declared_size": 1400328928,
+      "path": "mmproj-Muse-Glimmer-30B-Q4_K_M.gguf",
+      "provider_identity": "f48b452316f9b213758e8659444029b961a24a07f99a1abb2a9f88b06f7c00c6",
+      "provider_identity_kind": "HUGGING_FACE_LFS_SHA256",
+      "repository": "meta-models/Muse-Glimmer-30B-GGUF",
+      "required": false,
+      "revision": "43c7eadd41352a299ea8e0a36b3157978dd63596",
+      "role": "PERCEPTION_ENCODER"
+    },
+    {
+      "artifact_id": "dflash-q4-k-m",
+      "authority_source_id": "hf-gguf-api",
+      "declared_size": 1631208128,
+      "path": "dflash-Muse-Glimmer-30B-Q4_K_M.gguf",
+      "provider_identity": "b2e808bf656086fe86bd0d0bd990f01d33e377537a07c02d45371517c8b264ef",
+      "provider_identity_kind": "HUGGING_FACE_LFS_SHA256",
+      "repository": "meta-models/Muse-Glimmer-30B-GGUF",
+      "required": false,
+      "revision": "43c7eadd41352a299ea8e0a36b3157978dd63596",
+      "role": "DRAFTER"
+    }
+  ],
+  "canonical_reference": "meta-models/Muse-Glimmer-30B-GGUF",
+  "configuration": {
+    "architecture": "muse-glimmer",
+    "architecture_authority_source_id": "hf-gguf-readme",
+    "bos_token_id": 200000,
+    "chat_template_identity": "meta-models/Muse-Glimmer-30B@a4e59da52a7bc87ae7251dd5545c0dd437c44b68:chat_template.jinja:git-blob-sha1:7507f3c9f38809152732c045df3977848f3916a6",
+    "config_identity": "meta-models/Muse-Glimmer-30B@a4e59da52a7bc87ae7251dd5545c0dd437c44b68:config.json:git-blob-sha1:190826dc834c13c86b8dc68e775a888a852d7c34",
+    "context_length": 131072,
+    "eos_token_ids": [
+      200001,
+      200008
+    ],
+    "input_modalities": [
+      "TEXT",
+      "IMAGE"
+    ],
+    "output_modalities": [
+      "TEXT"
+    ],
+    "pad_token_id": 200018,
+    "stop_tokens": [
+      "<|end_of_text|>",
+      "<|eot|>"
+    ],
+    "tokenizer_identity": "meta-models/Muse-Glimmer-30B@a4e59da52a7bc87ae7251dd5545c0dd437c44b68:tokenizer_config.json:git-blob-sha1:fe7f0bb90fb0d0288e3a505974ae0e4baf1d3e61"
+  },
+  "future_runtime_plan": {
+    "artifact_payload_bytes": 19788220960,
+    "artifacts": [
+      {
+        "artifact_id": "main-q4-k-m",
+        "declared_size": 16756683904,
+        "path": "Muse-Glimmer-30B-KQuant-17GB-Q4_K_M.gguf",
+        "provider_identity": "4cc57c0f51040a226e5a72cc47b7613f7772950e460a665f7083de89f183f60e",
+        "provider_identity_kind": "HUGGING_FACE_LFS_SHA256",
+        "repository": "meta-models/Muse-Glimmer-30B-GGUF",
+        "revision": "43c7eadd41352a299ea8e0a36b3157978dd63596",
+        "role": "MAIN_MODEL"
+      },
+      {
+        "artifact_id": "perception-q4-k-m",
+        "declared_size": 1400328928,
+        "path": "mmproj-Muse-Glimmer-30B-Q4_K_M.gguf",
+        "provider_identity": "f48b452316f9b213758e8659444029b961a24a07f99a1abb2a9f88b06f7c00c6",
+        "provider_identity_kind": "HUGGING_FACE_LFS_SHA256",
+        "repository": "meta-models/Muse-Glimmer-30B-GGUF",
+        "revision": "43c7eadd41352a299ea8e0a36b3157978dd63596",
+        "role": "PERCEPTION_ENCODER"
+      },
+      {
+        "artifact_id": "dflash-q4-k-m",
+        "declared_size": 1631208128,
+        "path": "dflash-Muse-Glimmer-30B-Q4_K_M.gguf",
+        "provider_identity": "b2e808bf656086fe86bd0d0bd990f01d33e377537a07c02d45371517c8b264ef",
+        "provider_identity_kind": "HUGGING_FACE_LFS_SHA256",
+        "repository": "meta-models/Muse-Glimmer-30B-GGUF",
+        "revision": "43c7eadd41352a299ea8e0a36b3157978dd63596",
+        "role": "DRAFTER"
+      }
+    ],
+    "dflash_observations": [
+      "DISABLED",
+      "ENABLED"
+    ],
+    "direct_llama_cpp_independent_of_ollama": true,
+    "direct_llama_cpp_workspace_bytes": 50000000000,
+    "evidence_to_retain": [
+      "Downloaded artifact byte sizes and independently computed SHA-256 hashes",
+      "Runtime version, complete --version output and executable identity/digest",
+      "Canonical invocations and the controlled runtime environment",
+      "Bounded stdout and stderr, exit codes, timeout state and work-file observations",
+      "GPU identity and backend observation",
+      "Text, image and DFlash-disabled/enabled probe outputs",
+      "Ollama tag-to-manifest and manifest-to-layer resolution only for the separately authorized secondary observation"
+    ],
+    "image_fixture": "examples/reference-preflight/probes/red-square.png",
+    "image_fixture_sha256": "53bf31df09c932233812a2c7b61c89a0ecbbaee90ab63f36058099e5d008e852",
+    "image_probe": "Describe the number and color of the geometric shapes in this image in one sentence.",
+    "llama_cpp_plus_ollama_workspace_bytes": 80000000000,
+    "maximum_gpu_count": 1,
+    "maximum_pod_count": 1,
+    "maximum_total_authorized_compute_usd": 5,
+    "maximum_working_duration_seconds": 14400,
+    "non_claims": [
+      "No source-to-GGUF cryptographic binding is established by a successful run",
+      "No companion-artifact cryptographic relationship is established by a successful run",
+      "No numerical or semantic fidelity conclusion follows from bounded output",
+      "No performance, fidelity, safety or production-readiness claim follows from any bounded probe",
+      "No result generalizes beyond the exact artifacts, runtime, GPU and probes"
+    ],
+    "ollama_mutable_tags": [
+      "muse-glimmer:30b",
+      "muse-glimmer:latest"
+    ],
+    "ollama_observation": "Secondary runtime observation only. Re-resolve both mutable tags immediately before any future GPU execution and abort on manifest drift unless a new plan is reviewed. Do not require or download an Ollama representation for the independently completable direct llama.cpp test. Do not infer byte identity with Hugging Face artifacts without matching digest evidence.",
+    "ollama_role": "SECONDARY_RUNTIME_OBSERVATION",
+    "pod_termination_requirement": "After evidence transfer, always terminate the exact authorized Pod and verify that exact Pod is terminated.",
+    "preferred_gpu_class": "NVIDIA RTX 5090 (32 GB VRAM)",
+    "question": "Do the three pinned official GGUF artifacts load and produce bounded text, image and DFlash-off/on observations on llama.cpp b10353 at f8def7fe168bab245fbf15d3f18b26dbb1ef73c8?",
+    "runtime_requirements": [
+      {
+        "authority_source_ids": [
+          "hf-gguf-readme",
+          "llama-support",
+          "llama-release"
+        ],
+        "exact_commit": "f8def7fe168bab245fbf15d3f18b26dbb1ef73c8",
+        "exact_release": "b10353",
+        "requirement": "llama.cpp >= b10353; acceptance plan pins b10353 exactly",
+        "runtime": "llama.cpp",
+        "support_commit": "62bf73d25c53b8161f8a22894d4f90c4aebbd7d0"
+      },
+      {
+        "authority_source_ids": [
+          "ollama-manifest"
+        ],
+        "exact_commit": null,
+        "exact_release": null,
+        "requirement": "Secondary observation only: re-resolve mutable tags muse-glimmer:30b and muse-glimmer:latest immediately before execution; abort on manifest drift unless a new plan is reviewed",
+        "runtime": "Ollama",
+        "support_commit": null
+      }
+    ],
+    "stop_conditions": [
+      "Any downloaded byte digest or size differs from its approved artifact pin",
+      "The runtime version or executable digest differs from the canonical plan",
+      "Either mutable Ollama tag drifts from the reviewed manifest plan",
+      "A process times out, exceeds output or file bounds, or creates an unexpected object",
+      "The main artifact, projector or drafter fails to load",
+      "Total authorized compute reaches USD 5",
+      "The four-hour deadline is reached or new work would begin within its final 30 minutes",
+      "Continuing would require an additional GPU or Pod",
+      "Continuing would require changing a dependency, artifact or evidence boundary"
+    ],
+    "stop_new_work_before_deadline_seconds": 1800,
+    "text_probe": "State the result of 2 + 2 in one sentence.",
+    "unknown_stages": [
+      "LOAD",
+      "TOKENIZER",
+      "PREFILL",
+      "DECODE",
+      "OUTPUT"
+    ]
+  },
+  "limitations": [
+    "This result replays pinned provider metadata offline and performs no remote collection.",
+    "Provider-exposed identities and sizes are declarations, not locally verified payload bytes.",
+    "Canonical hashing establishes integrity and self-consistency, not origin authenticity.",
+    "The complete future runtime plan is a recommendation and was not executed.",
+    "Phase 6F stores this candidate as opaque supporting evidence and does not promote it to a dimension verdict.",
+    "Phase 7B.1 runtime stage semantics remain unchanged; no profile or runner may self-certify internal stages."
+  ],
+  "profile_name": "Muse Glimmer 30B official no-payload acceptance",
+  "provenance_gaps": [
+    "The GGUF payload bytes were not downloaded or independently hashed locally.",
+    "GGUF structure, metadata and tensors were not read from local payloads.",
+    "The declared base-model relationship is not a source-to-GGUF cryptographic binding.",
+    "The main model, perception encoder and DFlash drafter are not cryptographically bound to each other by observed format-native evidence.",
+    "The Ollama model layer digest is not assumed to identify either pinned Hugging Face main-model file.",
+    "Runtime compatibility, numerical fidelity, semantic fidelity, performance, safety and production readiness remain unevaluated."
+  ],
+  "reference_aliases": [
+    "meta-models/Muse-Glimmer-30B-GGUF",
+    "https://huggingface.co/meta-models/Muse-Glimmer-30B-GGUF",
+    "hf://meta-models/Muse-Glimmer-30B-GGUF"
+  ],
+  "registry_observations": [
+    {
+      "authority_source_id": "ollama-manifest",
+      "layers": [
+        {
+          "declared_size": 1400328928,
+          "digest": "sha256:f48b452316f9b213758e8659444029b961a24a07f99a1abb2a9f88b06f7c00c6",
+          "role": "projector"
+        },
+        {
+          "declared_size": 16756681056,
+          "digest": "sha256:71b5c9c9abbc2a9e7c13550b6f9fe1f062650117a24490b15a310cbd7de03f8b",
+          "role": "model"
+        },
+        {
+          "declared_size": 42,
+          "digest": "sha256:56380ca2ab89f1f68c283f4d50863c0bcab52ae3f1b9a88e4ab5617b176f71a3",
+          "role": "params"
+        }
+      ],
+      "manifest_digest": "de878ce33ad81d060001db1469a02eebe4d86f0ad58cfe52dc062fdcbe4464c1",
+      "mutable_tag": true,
+      "runtime": "Ollama",
+      "tag": "muse-glimmer:30b"
+    }
+  ],
+  "relationships": [
+    {
+      "authority_source_id": "hf-gguf-api",
+      "object_reference": "meta-models/Muse-Glimmer-30B@a4e59da52a7bc87ae7251dd5545c0dd437c44b68",
+      "relationship": "QUANTIZED_FROM",
+      "subject_artifact_id": "main-q4-k-m"
+    },
+    {
+      "authority_source_id": "hf-gguf-readme",
+      "object_reference": "main-q4-k-m",
+      "relationship": "COMPANION_OF",
+      "subject_artifact_id": "perception-q4-k-m"
+    },
+    {
+      "authority_source_id": "hf-gguf-readme",
+      "object_reference": "main-q4-k-m",
+      "relationship": "COMPANION_OF",
+      "subject_artifact_id": "dflash-q4-k-m"
+    }
+  ],
+  "resolved_revision": "43c7eadd41352a299ea8e0a36b3157978dd63596",
+  "runtime_candidates": [
+    {
+      "authority_source_ids": [
+        "hf-gguf-readme",
+        "llama-support",
+        "llama-release"
+      ],
+      "exact_commit": "f8def7fe168bab245fbf15d3f18b26dbb1ef73c8",
+      "exact_release": "b10353",
+      "requirement": "llama.cpp >= b10353; acceptance plan pins b10353 exactly",
+      "runtime": "llama.cpp",
+      "support_commit": "62bf73d25c53b8161f8a22894d4f90c4aebbd7d0"
+    },
+    {
+      "authority_source_ids": [
+        "ollama-manifest"
+      ],
+      "exact_commit": null,
+      "exact_release": null,
+      "requirement": "Secondary observation only: re-resolve mutable tags muse-glimmer:30b and muse-glimmer:latest immediately before execution; abort on manifest drift unless a new plan is reviewed",
+      "runtime": "Ollama",
+      "support_commit": null
+    }
+  ],
+  "schema": "omiv.reference-preflight-profile.v1",
+  "sources": [
+    {
+      "authority": "PROVIDER_API",
+      "limitations": [
+        "Repository metadata is provider-observed; no listed payload body was retrieved."
+      ],
+      "observed_on": "2026-08-15",
+      "provider": "Hugging Face",
+      "raw_fields": {
+        "config_model_type": "muse_glimmer",
+        "gated": false,
+        "id": "meta-models/Muse-Glimmer-30B",
+        "pipeline_tag": "image-text-to-text",
+        "revision": "a4e59da52a7bc87ae7251dd5545c0dd437c44b68"
+      },
+      "resolved_identity": "a4e59da52a7bc87ae7251dd5545c0dd437c44b68",
+      "source_id": "hf-base-api",
+      "url": "https://huggingface.co/api/models/meta-models/Muse-Glimmer-30B?blobs=true"
+    },
+    {
+      "authority": "PINNED_PROVIDER_DOCUMENT",
+      "limitations": [],
+      "observed_on": "2026-08-15",
+      "provider": "Hugging Face",
+      "raw_fields": {
+        "architecture": "MuseGlimmerForConditionalGeneration",
+        "bos_token_id": 200000,
+        "context_length": 131072,
+        "model_type": "muse_glimmer",
+        "vision_model_type": "muse_glimmer_vision"
+      },
+      "resolved_identity": "git-blob-sha1:190826dc834c13c86b8dc68e775a888a852d7c34",
+      "source_id": "hf-base-config",
+      "url": "https://huggingface.co/meta-models/Muse-Glimmer-30B/resolve/a4e59da52a7bc87ae7251dd5545c0dd437c44b68/config.json"
+    },
+    {
+      "authority": "PINNED_PROVIDER_DOCUMENT",
+      "limitations": [],
+      "observed_on": "2026-08-15",
+      "provider": "Hugging Face",
+      "raw_fields": {
+        "bos_token_id": 200000,
+        "eos_token_ids": [
+          200001,
+          200008
+        ],
+        "max_length": 131072,
+        "pad_token_id": 200018
+      },
+      "resolved_identity": "git-blob-sha1:b69a50a4239f42707d54a479e0143b8ee56c8bcc",
+      "source_id": "hf-base-generation",
+      "url": "https://huggingface.co/meta-models/Muse-Glimmer-30B/resolve/a4e59da52a7bc87ae7251dd5545c0dd437c44b68/generation_config.json"
+    },
+    {
+      "authority": "PINNED_PROVIDER_DOCUMENT",
+      "limitations": [
+        "Only bounded tokenizer declarations were read; tokenizer.json was not retrieved."
+      ],
+      "observed_on": "2026-08-15",
+      "provider": "Hugging Face",
+      "raw_fields": {
+        "bos_token": "<|begin_of_text|>",
+        "eos_token": "<|end_of_text|>",
+        "model_max_length": 131072,
+        "pad_token": "<|finetune_right_pad|>"
+      },
+      "resolved_identity": "git-blob-sha1:fe7f0bb90fb0d0288e3a505974ae0e4baf1d3e61",
+      "source_id": "hf-base-tokenizer",
+      "url": "https://huggingface.co/meta-models/Muse-Glimmer-30B/resolve/a4e59da52a7bc87ae7251dd5545c0dd437c44b68/tokenizer_config.json"
+    },
+    {
+      "authority": "PROVIDER_API",
+      "limitations": [
+        "LFS SHA-256 and sizes are provider-exposed identities, not locally verified bytes."
+      ],
+      "observed_on": "2026-08-15",
+      "provider": "Hugging Face",
+      "raw_fields": {
+        "base_model": "meta-models/Muse-Glimmer-30B",
+        "gated": false,
+        "id": "meta-models/Muse-Glimmer-30B-GGUF",
+        "pipeline_tag": "image-text-to-text",
+        "revision": "43c7eadd41352a299ea8e0a36b3157978dd63596"
+      },
+      "resolved_identity": "43c7eadd41352a299ea8e0a36b3157978dd63596",
+      "source_id": "hf-gguf-api",
+      "url": "https://huggingface.co/api/models/meta-models/Muse-Glimmer-30B-GGUF?blobs=true"
+    },
+    {
+      "authority": "PINNED_PROVIDER_DOCUMENT",
+      "limitations": [
+        "Compatibility and companion relationships are official declarations, not local runtime or cryptographic binding evidence."
+      ],
+      "observed_on": "2026-08-15",
+      "provider": "Meta model repository",
+      "raw_fields": {
+        "architecture": "muse-glimmer",
+        "chat_template_size": 9992,
+        "context_length": 131072,
+        "dflash_role": "optional speculative drafter",
+        "minimum_llama_cpp_build": "b10353",
+        "perception_role": "required for image input"
+      },
+      "resolved_identity": "git-blob-sha1:7aaea3b18cca15a537b06a8dbea40cc7436756a8",
+      "source_id": "hf-gguf-readme",
+      "url": "https://huggingface.co/meta-models/Muse-Glimmer-30B-GGUF/resolve/43c7eadd41352a299ea8e0a36b3157978dd63596/README.md"
+    },
+    {
+      "authority": "PROVIDER_API",
+      "limitations": [
+        "Collection membership is a provider declaration and is not an artifact binding."
+      ],
+      "observed_on": "2026-08-15",
+      "provider": "Hugging Face",
+      "raw_fields": {
+        "description": "Muse Glimmer 30B: multimodal agentic model for local deployment. BF16 weights, GGUF k-quants, ExecuTorch builds, DFlash drafter.",
+        "items": [
+          "meta-models/Muse-Glimmer-30B",
+          "meta-models/Muse-Glimmer-30B-GGUF",
+          "meta-models/Muse-Glimmer-30B-ExecuTorch-PTE",
+          "meta-models/Muse-Glimmer-30B-assistant"
+        ],
+        "last_updated": "2026-08-10T11:28:08.533Z"
+      },
+      "resolved_identity": "meta-models/muse-glimmer-6a79b5c8f66a54c334d51f31",
+      "source_id": "hf-collection",
+      "url": "https://huggingface.co/api/collections/meta-models/muse-glimmer-6a79b5c8f66a54c334d51f31"
+    },
+    {
+      "authority": "UPSTREAM_VCS",
+      "limitations": [
+        "A merged support implementation does not establish compatibility with the selected remote payload bytes."
+      ],
+      "observed_on": "2026-08-15",
+      "provider": "llama.cpp",
+      "raw_fields": {
+        "merged_on": "2026-08-10",
+        "pull_request": 26841,
+        "title": "model: Muse Glimmer Support"
+      },
+      "resolved_identity": "62bf73d25c53b8161f8a22894d4f90c4aebbd7d0",
+      "source_id": "llama-support",
+      "url": "https://github.com/ggml-org/llama.cpp/commit/62bf73d25c53b8161f8a22894d4f90c4aebbd7d0"
+    },
+    {
+      "authority": "UPSTREAM_RELEASE",
+      "limitations": [
+        "Release presence and commit identity do not replace a pinned executable digest and observed version."
+      ],
+      "observed_on": "2026-08-15",
+      "provider": "llama.cpp",
+      "raw_fields": {
+        "release": "b10353",
+        "release_commit": "f8def7fe168bab245fbf15d3f18b26dbb1ef73c8"
+      },
+      "resolved_identity": "f8def7fe168bab245fbf15d3f18b26dbb1ef73c8",
+      "source_id": "llama-release",
+      "url": "https://github.com/ggml-org/llama.cpp/releases/tag/b10353"
+    },
+    {
+      "authority": "REGISTRY_MANIFEST",
+      "limitations": [
+        "The tag is mutable; the exact manifest was observed without downloading any layer blob."
+      ],
+      "observed_on": "2026-08-15",
+      "provider": "Ollama",
+      "raw_fields": {
+        "manifest_digest": "de878ce33ad81d060001db1469a02eebe4d86f0ad58cfe52dc062fdcbe4464c1",
+        "model_digest": "sha256:71b5c9c9abbc2a9e7c13550b6f9fe1f062650117a24490b15a310cbd7de03f8b",
+        "projector_digest": "sha256:f48b452316f9b213758e8659444029b961a24a07f99a1abb2a9f88b06f7c00c6",
+        "tag": "muse-glimmer:30b"
+      },
+      "resolved_identity": "sha256:de878ce33ad81d060001db1469a02eebe4d86f0ad58cfe52dc062fdcbe4464c1",
+      "source_id": "ollama-manifest",
+      "url": "https://ollama.com/v2/library/muse-glimmer/manifests/30b"
+    },
+    {
+      "authority": "LOCAL_DOCUMENT_FETCH",
+      "limitations": [
+        "The 205,671-byte PDF was fetched to temporary storage only; no PDF text extractor was installed, so no unobserved technical field was normalized from it."
+      ],
+      "observed_on": "2026-08-15",
+      "provider": "Meta Research",
+      "raw_fields": {
+        "content_length": 205671,
+        "content_type": "application/pdf",
+        "local_document_sha256": "fb08920ab31c5df3e07e2c3b32856d80d65a48dd14864f42bce8a1ac38026c91",
+        "pages": 7
+      },
+      "resolved_identity": "local-sha256:fb08920ab31c5df3e07e2c3b32856d80d65a48dd14864f42bce8a1ac38026c91",
+      "source_id": "meta-methodology",
+      "url": "https://research.meta.ai/static/muse-glimmer-methodology"
+    }
+  ]
+}
