@@ -172,3 +172,138 @@ The tracked executable and artifact are synthetic native-CLI fixtures, not a rea
 runtime or model. Direct real-runtime adapters, independently observable internal
 stages, additional profiles, and stronger fidelity work require later candidate
 slices and separate review.
+
+## Phase 7B.2 candidate: external observation ingestion
+
+Phase 7B.2 adds an offline external-observation envelope beside the unchanged v1
+native-execution profile. The only parser implemented by this candidate is explicitly
+discriminated as `llama.cpp-cuda-capture.v1`; it is not provider- or runtime-neutral.
+It consumes a reviewed `omiv.external-runtime-observation-control.v2` document with
+that required capture profile and a manifest root, and emits
+`omiv.external-runtime-observation-evidence.v2`:
+
+```console
+omiv runtime-compat import-external \
+  --control reviewed-external-control.json \
+  --manifest-root external-capture \
+  --output external-runtime-evidence.json
+omiv runtime-compat verify-external \
+  --evidence external-runtime-evidence.json
+```
+
+Both commands are offline. `import-external` never executes captured arguments and
+`verify-external` needs no manifest root or runtime. A coherent partial observation
+exits `1`; malformed, unsafe, unsupported, or incoherent input exits `2`. There is no
+external-import path to an all-stage PASS in this schema version.
+
+The control is mapping data, not a verdict. OMIV opens the root directory once and
+traverses every component descriptor-relatively with no-follow semantics. It hashes
+and reads only the opened regular-file descriptor, compares stable descriptor and
+directory-member identity, then rechecks manifest bytes, complete membership, and
+root identity after all reads. Platforms without the required safe primitives fail
+closed. `SHA256SUMS` uses the strict grammar
+`<64 lowercase hex><two spaces><portable relative path><LF>`. Duplicate or malformed
+lines, self-listing, absolute paths, traversal, symlinks, special files, directories
+in place of members, portable case collisions, file/directory-prefix collisions,
+missing or extra files, count/size limits, changed files, and digest mismatches fail
+closed. The manifest text itself has a 4 MiB parser cap. Directory-entry limits are
+enforced while iterating. Every listed member is opened and hashed incrementally in
+64 KiB reads without an aggregate raw-byte map. Unused members are never retained.
+Parser-required roles are reopened one at a time, checked against their manifest
+binding, and bounded independently: reference JSON is at most 2 MiB, argv 128 KiB,
+stdout and stderr 2 MiB each, telemetry 1 MiB, runtime/finding text 512 KiB, and other
+small text grammars 64 KiB. Selected JSON is strict bounded UTF-8 with duplicate keys
+rejected. Telemetry uses incremental UTF-8 decoding directly over the safely opened
+descriptor; it is not copied into a whole-file string buffer. Argument evidence is
+parsed as an exact,
+bounded option/value structure in either `--flag value` or `--flag=value` form and is
+bound to the reviewed executable, main model, projector, DFlash draft, and fixed image
+roles—including the control-bound image byte count and plan-bound image SHA-256—before
+paths are normalized. Process and environment records use documented unique typed
+`key=value` fields; unknown or secret-shaped environment facts are rejected. GPU
+telemetry is streamed under explicit row, column, and field limits.
+No shell command text, `command.txt`, report, event stream, filename, or runner-authored
+PASS receives privilege.
+
+Attempt capture ownership is explicit. Argv, process, environment, input identities,
+stdout, stderr, their digest records, telemetry, predicate-bearing stdout, and DFlash
+activation evidence belong to exactly one attempt and cannot be reused by another,
+even when timestamps overlap. Runtime build/version identity, artifact reports and
+payloads, the embedded reference plan, source identity, and reviewed skip/finding
+sources have explicit global roles; a source cannot be silently reassigned across
+incompatible global roles. A finding may annotate a source already owned by its one
+attempt, but does not transfer or duplicate that attempt ownership.
+
+The two artifact-report formats have closed grammars. `BARE_FILENAME_V1` is exactly a
+filename line followed, in order, by `observed_bytes`, `observed_sha256`,
+`transfer_exit`, and `source_url`. `LABELED_V1` is exactly `artifact_role`, `filename`,
+`source_repository`, `pinned_revision`, `source_url`, `transfer_exit`,
+`observed_bytes`, `expected_bytes`, `observed_sha256`, `expected_sha256`, then `MATCH`.
+Every field is required; duplicates, unknown fields, reordered or trailing content,
+and cross-format mixtures are rejected. No planned filename is substituted for an
+absent reported filename.
+
+Canonical evidence embeds the already self-verifying reference-preflight evidence and
+a bounded typed normalized source record. That record contains the facts needed to
+reconstruct manifest membership, normalized argv, the strict environment projection,
+process times and completeness, stream byte/hash bindings, telemetry samples and
+summary, fixed-predicate occurrences, DFlash digest/count facts, retry links, findings,
+skips, stages, unknowns, and overall classification. Host-absolute paths, endpoints,
+credentials, raw GPU names/UUIDs, provider state, arbitrary environment text, and
+import timestamps are excluded; GPU name and identity are retained only as digests.
+Offline verification rebuilds every emitted projection from this record and the
+embedded plan/control. Rehashing a mutated outer object cannot validate an incoherent
+inner projection. It also re-enforces the embedded file count, every member bound, the
+reconstructed manifest-text bound, total bytes, role-specific parser caps, and all
+count/size totals; therefore it rejects a rehashed object that import could not have
+produced.
+
+For `llama.cpp-cuda-capture.v1`, a superseding attempt is valid only when it is
+`ACCEPTED`, follows and names a `RETAINED_FAILED` attempt, keeps
+`require_single_turn=true`, and contains exact normalized `--single-turn`. Its source
+environment must contain the fixed reviewed correction fact, normalized as typed
+`SINGLE_TURN_RETRY` evidence with the superseded attempt identifier. A non-retry may
+not carry either correction field. These invariants are reconstructed offline and do
+not depend on reviewer prose.
+
+All five Phase 7B.1 stages remain `UNKNOWN`. Process `PASS` additionally requires
+explicit machine-readable complete/overflow facts for both streams, each capture to
+remain below its bound, strict UTC timestamps with end at or after start, and elapsed
+time agreement within 25 milliseconds. Exit zero never supplies missing completeness.
+Legacy A5 records without those facts remain `INCOMPLETE`; every matching text or fixed
+PNG predicate is only `OBSERVED`, including when the separate process status is `PASS`.
+No predicate string, including a literal runner-authored `PASS`, can produce predicate
+`PASS`. A fixed PNG substring predicate is one narrow output observation,
+not general visual understanding. Artifact prose matching a plan is
+`MATCHED_PLAN_OBSERVATION` and explicitly says payload bytes were not verified;
+artifact `VERIFIED` is reserved for actual safely opened manifest-bound payload bytes.
+DFlash activation requires the plan-bound draft, `draft-dflash` argv, and separately
+bound positive activation/token-count evidence; it establishes neither speed nor quality.
+Skipped probes are `NOT_RUN`. Source binding, companion publisher binding,
+numerical/semantic fidelity, performance, safety, production readiness, and origin
+authenticity remain explicitly unestablished or unknown. Phase 6F registry and
+Assurance verdict semantics remain unchanged.
+
+`control_id` is a bounded lowercase ASCII identifier using only letters, digits, dot,
+underscore, and hyphen, with an alphanumeric first and last character. Other serialized
+control labels and prose are bounded and screened against OMIV's canonical unsafe-value
+policy plus the stricter external-observation rules. The bounded policy inventory
+`omiv.external-runtime-privacy.v1` rejects established OMIV credential signatures
+(including the release-audit token families, authorization and signed-URL fields,
+private-key markers, and selected Google/API-key forms), general host-absolute POSIX paths, control
+characters, traversal, URLs/endpoints, user/home and Windows/UNC paths, and private-host
+forms. Token-shaped credential families use the release audit's Unicode-aware word
+boundaries on both sides; punctuation other than underscore, including a preceding
+hyphen, is therefore a delimiter. Header and assignment families use the same leading
+word-boundary rule, while private-key markers are intentionally unbounded. Its POSIX
+rule treats a slash at the start of a value or after any character
+outside the documented portable path-token alphabet as an absolute-path boundary, so it
+does not depend on a punctuation allowlist. Every non-path scalar argv value passes
+through that same policy before normalization and again during offline reconstruction;
+every serialized manifest member path is also screened. Invalid CLI input is rejected
+without reflecting the unsafe value or creating partial output.
+
+This bounded pattern screen is not exhaustive secret detection and is not a general
+DLP guarantee. Callers remain responsible for sanitizing capture inputs and for
+operating the importer from a secret-free evidence directory. A value that does not
+match the versioned signatures is not thereby established to be public or safe.

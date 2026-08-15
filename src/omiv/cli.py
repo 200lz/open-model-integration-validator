@@ -430,6 +430,15 @@ from omiv.runtime.reporting import (
 from omiv.runtime.reporting import (
     pretty_json as pretty_runtime_json,
 )
+from omiv.runtime_compatibility.external_operations import (
+    concise_external_summary as concise_external_runtime_observation,
+)
+from omiv.runtime_compatibility.external_operations import (
+    import_external_observations,
+    load_external_control,
+    load_external_evidence,
+    write_external_evidence,
+)
 from omiv.runtime_compatibility.models import (
     CompatibilityStatus as RuntimeCompatibilityStatus,
 )
@@ -4800,9 +4809,7 @@ def reference_preflight_plan(
 
 @reference_preflight_app.command("verify")
 def reference_preflight_verify(
-    evidence_path: Annotated[
-        Path, typer.Option("--evidence", exists=True, dir_okay=False)
-    ],
+    evidence_path: Annotated[Path, typer.Option("--evidence", exists=True, dir_okay=False)],
 ) -> None:
     """Verify canonical reference evidence and its complete future plan offline."""
     try:
@@ -4866,9 +4873,7 @@ def runtime_compatibility_run(
 
 @runtime_compatibility_app.command("verify")
 def runtime_compatibility_verify(
-    evidence_path: Annotated[
-        Path, typer.Option("--evidence", exists=True, dir_okay=False)
-    ],
+    evidence_path: Annotated[Path, typer.Option("--evidence", exists=True, dir_okay=False)],
 ) -> None:
     """Verify candidate evidence, its embedded plan, and fail-closed status offline."""
     try:
@@ -4878,6 +4883,44 @@ def runtime_compatibility_verify(
     typer.echo(concise_runtime_compatibility_evidence(evidence))
     if evidence.status != RuntimeCompatibilityStatus.VERIFIED_WITHIN_PROFILE:
         raise typer.Exit(code=1)
+
+
+@runtime_compatibility_app.command("import-external")
+def runtime_compatibility_import_external(
+    control_path: Annotated[Path, typer.Option("--control", exists=True, dir_okay=False)],
+    manifest_root: Annotated[Path, typer.Option("--manifest-root", exists=True, file_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+) -> None:
+    """Import reviewed llama.cpp/CUDA capture v1 observations without execution."""
+    try:
+        control = load_external_control(control_path)
+        output_resolved = output.resolve(strict=False)
+        manifest_root_resolved = manifest_root.resolve()
+        if (
+            output_resolved == manifest_root_resolved
+            or manifest_root_resolved in output_resolved.parents
+        ):
+            raise OmivInputError("external evidence output must be outside the manifest root")
+        validate_output_path(output, forbidden_inputs=(control_path, manifest_root))
+        evidence = import_external_observations(control, manifest_root)
+        write_external_evidence(evidence, output)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _runtime_compatibility_failure(exc)
+    typer.echo(concise_external_runtime_observation(evidence))
+    raise typer.Exit(code=1)
+
+
+@runtime_compatibility_app.command("verify-external")
+def runtime_compatibility_verify_external(
+    evidence_path: Annotated[Path, typer.Option("--evidence", exists=True, dir_okay=False)],
+) -> None:
+    """Reconstruct llama.cpp/CUDA external evidence fully offline."""
+    try:
+        evidence = load_external_evidence(evidence_path)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _runtime_compatibility_failure(exc)
+    typer.echo(concise_external_runtime_observation(evidence))
+    raise typer.Exit(code=1)
 
 
 @smart_preflight_app.command("plan")
@@ -4893,9 +4936,7 @@ def smart_preflight_plan(
     try:
         intent = load_smart_preflight_intent(intent_path)
         plan = build_smart_preflight(intent, root)
-        evidence_inputs = [
-            root / Path(*item.source_path.split("/")) for item in plan.candidates
-        ]
+        evidence_inputs = [root / Path(*item.source_path.split("/")) for item in plan.candidates]
         validate_output_path(output, forbidden_inputs=(intent_path, *evidence_inputs))
         if assurance_request_output is not None:
             validate_output_path(

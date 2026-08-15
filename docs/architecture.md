@@ -126,7 +126,16 @@ public results. See the [public/commercial boundary](public-commercial-boundary.
 - `src/omiv/runtime_compatibility/` contains the isolated Phase 7B candidate for
   explicitly supplied, bounded local runtime compatibility profiles and evidence.
   Its Phase 7B.1 native-output profile embeds the reconstructable canonical plan,
-  retains raw process observations, and keeps unobservable runtime internals unknown.
+  retains raw process observations, and keeps unobservable runtime internals unknown,
+  while the Phase 7B.2 candidate imports reviewed, manifest-bound
+  `llama.cpp-cuda-capture.v1` process observations offline without executing their
+  captured argument arrays. Descriptor-relative no-follow reads and a reconstructable,
+  privacy-screened normalized source record form its local trust boundary. Manifest members
+  are hashed in fixed-size chunks; only one parser-required role is reopened under its
+  smaller role cap, and telemetry is decoded incrementally from its descriptor. Its
+  privacy screen is a bounded inventory of established credential and path signatures,
+  not an exhaustive secret detector or DLP system; capture inputs still require caller
+  sanitization and a secret-free evidence directory.
 - `schemas/` and phase-specific directories contain portable evidence and examples.
 - `docs/phase-*.md` describe released engineering phases and their limits.
 - `tools/audit_*.py` perform bounded offline repository and preservation audits.
