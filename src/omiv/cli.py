@@ -4800,9 +4800,7 @@ def reference_preflight_plan(
 
 @reference_preflight_app.command("verify")
 def reference_preflight_verify(
-    evidence_path: Annotated[
-        Path, typer.Option("--evidence", exists=True, dir_okay=False)
-    ],
+    evidence_path: Annotated[Path, typer.Option("--evidence", exists=True, dir_okay=False)],
 ) -> None:
     """Verify canonical reference evidence and its complete future plan offline."""
     try:
@@ -4866,9 +4864,7 @@ def runtime_compatibility_run(
 
 @runtime_compatibility_app.command("verify")
 def runtime_compatibility_verify(
-    evidence_path: Annotated[
-        Path, typer.Option("--evidence", exists=True, dir_okay=False)
-    ],
+    evidence_path: Annotated[Path, typer.Option("--evidence", exists=True, dir_okay=False)],
 ) -> None:
     """Verify candidate evidence, its embedded plan, and fail-closed status offline."""
     try:
@@ -4893,9 +4889,7 @@ def smart_preflight_plan(
     try:
         intent = load_smart_preflight_intent(intent_path)
         plan = build_smart_preflight(intent, root)
-        evidence_inputs = [
-            root / Path(*item.source_path.split("/")) for item in plan.candidates
-        ]
+        evidence_inputs = [root / Path(*item.source_path.split("/")) for item in plan.candidates]
         validate_output_path(output, forbidden_inputs=(intent_path, *evidence_inputs))
         if assurance_request_output is not None:
             validate_output_path(
