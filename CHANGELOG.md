@@ -5,6 +5,62 @@ repository does not provide a supported release-date claim.
 
 ## Unreleased
 
+Phase 6F Assurance Bundle interoperability engineering scope:
+
+- add a local-only preflight plan before download, network, conversion, or GPU work;
+- add fixed portable core documents, explicit missing/unknown evidence, and
+  conservative dimension verdicts reconstructed during verification;
+- add concise CLI summaries while retaining canonical machine-readable plans,
+  manifests, and verification reports; and
+- add Phase 5/6A–6E schema-registry interoperability and offline fail-closed
+  verification for exact file sets, bytes, schemas, and semantic projections;
+- add deterministic bounded `.omiv` archives and streaming binary evidence handling;
+- add detached Ed25519 signatures with external trust-policy thresholds; and
+- add capability negotiation, tracked conformance fixtures, and product-level
+  `omiv verify bundle.omiv`.
+
+The Phase 6F engineering scope is complete but not released, and Phase 7 scope
+remains unfrozen.
+
+Phase 7A candidate incubation:
+
+- add bounded, read-only local discovery of canonical Phase 5/6A–6E evidence;
+- conservatively auto-select only one unique final Phase 6A–6E verdict record per
+  requested dimension, leaving distinct candidates ambiguous;
+- emit a deterministic Smart Preflight plan and a standard Phase 6F Assurance
+  request without changing Phase 6F semantics; and
+- prohibit downloads, conversion, remote collectors, runtimes, and GPU work in the
+  candidate planner.
+
+This vertical slice is not a frozen Phase 7 scope or release claim.
+
+Phase 7B candidate incubation:
+
+- add a provider-neutral local runtime compatibility plan/run/verify workflow with
+  an initial synthetic llama.cpp-compatible runner profile;
+- bind results to explicit executable/artifact digests, runtime version, invocation,
+  limits, CPU-only environment, and a supplied test vector;
+- retain bounded stdout/stderr, five fail-closed stage results, findings, unknowns,
+  limitations, and canonical JSON evidence; and
+- add adversarial orchestration tests and a tracked fully offline example that does
+  not require a real runtime, model, conversion, or GPU.
+
+This candidate does not release or freeze Phase 7 or change Phase 6F/7A semantics.
+
+Phase 7B.1 candidate hardening:
+
+- replace executable-authored OMIV stage reports with direct execution of the bounded
+  native argument array and retain raw native stdout/stderr and process observations;
+- derive exact OUTPUT status in OMIV while keeping LOAD, TOKENIZER, PREFILL, and
+  DECODE `UNKNOWN` when the native surface cannot independently establish them;
+- embed the complete canonical plan in evidence and verify every duplicated request,
+  pin, profile, invocation, environment, limit, and test-vector field offline; and
+- reject outer-rehashed incoherent plan/evidence mutations while stating explicitly
+  that canonical integrity is not origin authenticity.
+
+This hardening remains candidate work. It does not release or freeze Phase 7,
+register Phase 7B evidence in Phase 6F, or change Phase 7A selection.
+
 Release infrastructure correction:
 
 - pin the approved public release-signing key and verify its digest, typed
@@ -15,8 +71,7 @@ Release infrastructure correction:
 - preserve the immutable `v0.10.0` tag and GitHub pre-release after the initial OIDC
   workflow stopped at signed-tag verification because no public key was bootstrapped.
 
-This correction does not publish to PyPI, alter release assets, implement Phase 6F/7,
-or change runtime package code.
+This correction does not publish to PyPI, alter release assets, or implement Phase 7.
 
 ## v0.10.0 — Public Preview
 

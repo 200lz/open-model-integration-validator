@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import runpy
 import subprocess
+import sys
 import tomllib
 from pathlib import Path
 
@@ -17,7 +18,7 @@ def _audit() -> dict[str, object]:
 
 
 def test_release_preparation_audit_passes_and_is_deterministic() -> None:
-    command = ["python", "tools/audit_v0_10_0_release_preparation.py", "--json"]
+    command = [sys.executable, "tools/audit_v0_10_0_release_preparation.py", "--json"]
     first = subprocess.run(command, cwd=ROOT, check=True, capture_output=True, text=True)
     second = subprocess.run(command, cwd=ROOT, check=True, capture_output=True, text=True)
     assert first.stdout == second.stdout

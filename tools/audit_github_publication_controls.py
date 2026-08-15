@@ -1038,10 +1038,13 @@ def run_audit(root: Path) -> list[Check]:
     )
     checks.append(
         Check(
-            "phase6f_unimplemented",
-            "Phase 6F | PLANNED, NOT IMPLEMENTED" in roadmap
-            and policy["implementation"]["phase6f_status"] == "PLANNED_NOT_IMPLEMENTED",
-            "phase6f=planned",
+            "phase6f_boundary",
+            (
+                "Phase 6F | COMPLETE; NOT RELEASED" in roadmap
+                and "Phase 7 | FUTURE, SCOPE NOT FROZEN" in roadmap
+                and policy["implementation"]["phase6f_status"] == "PLANNED_NOT_IMPLEMENTED"
+            ),
+            "r1f_historical=planned current=complete_not_released phase7=unfrozen",
         )
     )
 

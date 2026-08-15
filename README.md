@@ -135,7 +135,20 @@ Released boundaries remain narrow:
 | Phase 6D | Tokenizer/configuration parity and supplied probes | Finite scope only |
 | Phase 6E | Runtime resolution, deployment binding, supplied results, output provenance | No implicit live inference |
 
-Phase 6F Assurance Bundle interoperability is planned, not implemented.
+Phase 6F remains Assurance Bundle interoperability. Its engineering scope now
+provides local preflight, conservative concise verdicts, fixed portable core
+documents, deterministic `.omiv` transport, Phase 5/6A–6E schema interoperability,
+detached signatures with external trust policy, and offline fail-closed verification.
+No Phase 6F release is claimed. Phase 7 scope remains unfrozen.
+An isolated [Phase 7A candidate](docs/phase-7a-smart-preflight.md) can now discover
+bounded local canonical evidence and generate a Phase 6F request; it does not freeze
+Phase 7 scope or bypass the Assurance Bundle preflight.
+An isolated [Phase 7B candidate](docs/phase-7b-runtime-compatibility-profiles.md) adds
+an explicitly supplied, bounded local runtime profile and five-stage evidence path.
+The Phase 7B.1 hardening invokes the native CLI directly, embeds its canonical plan,
+and keeps runtime internals `UNKNOWN` when raw output cannot establish them. Its
+tracked workflow is synthetic, CPU-only, and offline; it does not freeze Phase 7
+scope or claim general runtime compatibility.
 See the [roadmap](docs/roadmap.md).
 
 ### Reading results
@@ -225,6 +238,8 @@ Start with the [documentation index](docs/README.md).
 - [R1F publication audit](docs/r1f-final-publication-audit.md)
 - [Release notes](docs/v0.10.0-release-notes.md)
 - [Roadmap](docs/roadmap.md)
+- [Phase 6F Assurance Bundles](docs/phase-6f-assurance-bundle-interoperability.md)
+- [Phase 7B Runtime Compatibility Profiles](docs/phase-7b-runtime-compatibility-profiles.md)
 
 Detailed command and phase guidance lives in the documentation.
 
@@ -233,8 +248,9 @@ Detailed command and phase guidance lives in the documentation.
 The repository is public. OMIV remains a pre-1.0 Alpha public preview,
 not a production, certification, safety, or authenticity claim.
 
-Phases 5 and 6A–6E are released in history. Phase 6F is planned,
-not implemented. The signed annotated `v0.10.0` tag and GitHub pre-release exist;
+Phases 5 and 6A–6E are released in history. The Phase 6F engineering scope is
+complete on current main but is not released.
+Phase 7 scope is not frozen. The signed annotated `v0.10.0` tag and GitHub pre-release exist;
 the PyPI project/version remain absent after a pre-publish failure.
 
 Public availability is not release completion. See the [roadmap](docs/roadmap.md)

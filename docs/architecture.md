@@ -97,12 +97,15 @@ emits deterministic results and limitations. Verification does not require a hos
 service. The [quickstart](quickstart.md) demonstrates this path with a small tracked
 synthetic object.
 
-## Future Assurance Bundle boundary
+## Phase 6F Assurance Bundle boundary
 
-Phase 6F Assurance Bundle interoperability is planned and is not implemented. A
-future public bundle verifier must compose existing evidence without rewriting its
-canonical meaning, must expose missing components, and must remain independently
-usable offline. R1C adds no Phase 6F schemas, code, fixtures, or branch changes.
+Phase 6F remains Assurance Bundle interoperability. Local preflight precedes costly
+work; fixed core documents retain concise verdicts, findings, and unknowns; and
+offline verification covers portable directory and deterministic `.omiv` transports,
+Phase 5/6A–6E schemas, semantic reconstruction, and optional Ed25519 trust-policy
+binding. It composes existing evidence without rewriting canonical meaning or
+replacing an earlier verifier. It is not released, and Phase 7 scope remains
+unfrozen. See the [Phase 6F guide](phase-6f-assurance-bundle-interoperability.md).
 
 ## Public and future commercial operation
 
@@ -116,6 +119,14 @@ public results. See the [public/commercial boundary](public-commercial-boundary.
 ## Implementation map
 
 - `src/omiv/` contains the provider-neutral core, adapters, profiles, and CLI.
+- `src/omiv/assurance/` contains Phase 6F preflight, registry/projection, portable
+  core documents, deterministic archive, signatures, assembly, and offline verification.
+- `src/omiv/smart_preflight/` contains the isolated Phase 7A candidate for bounded
+  local discovery and conservative generation of a normal Phase 6F request.
+- `src/omiv/runtime_compatibility/` contains the isolated Phase 7B candidate for
+  explicitly supplied, bounded local runtime compatibility profiles and evidence.
+  Its Phase 7B.1 native-output profile embeds the reconstructable canonical plan,
+  retains raw process observations, and keeps unobservable runtime internals unknown.
 - `schemas/` and phase-specific directories contain portable evidence and examples.
 - `docs/phase-*.md` describe released engineering phases and their limits.
 - `tools/audit_*.py` perform bounded offline repository and preservation audits.

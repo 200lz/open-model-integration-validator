@@ -18,7 +18,8 @@ digests, signature verification, trust/evidence semantics, policy-result semanti
 the offline CLI, local verification, Model Passports, bounded public-metadata
 collectors, provider-neutral interfaces, public profiles, examples, synthetic
 fixtures, and a future public GitHub Action. Future Assurance Bundles must remain
-publicly and independently verifiable; Phase 6F is not implemented today.
+publicly and independently verifiable; Phase 6F implements that portable public
+verification boundary on current main without claiming a hosted service.
 
 Possible future commercial services may include a hosted control plane, private
 evidence registry/history, continuous collection and monitoring, private connectors,

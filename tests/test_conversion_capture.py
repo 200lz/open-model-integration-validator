@@ -3,8 +3,10 @@ from __future__ import annotations
 import hashlib
 import importlib.metadata
 import json
+import os
 import platform
 import subprocess
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -19,6 +21,12 @@ from omiv.provenance.capture import (
     run_conversion,
 )
 from omiv.provenance.models import InventoryEvidence, ObservedArtifact
+
+
+@pytest.fixture(autouse=True)
+def _current_python_on_path(monkeypatch: pytest.MonkeyPatch) -> None:
+    python_directory = str(Path(sys.executable).parent)
+    monkeypatch.setenv("PATH", python_directory + os.pathsep + os.environ.get("PATH", ""))
 
 
 def _git(repository: Path, *arguments: str) -> str:
@@ -122,7 +130,7 @@ def _spec(
             "repository_dir": str(repository),
             "expected_revision": revision,
             "require_clean_worktree": True,
-            "executable": "python",
+            "executable": Path(sys.executable).name,
             "entrypoint": "convert.py",
         },
         "invocation": {"arguments": arguments},

@@ -439,7 +439,7 @@ def test_roadmap_preserves_release_and_engineering_boundaries() -> None:
     ):
         assert f"{release} | COMPLETE" in roadmap
     assert "R1F final publication audit | COMPLETE; public controls verified" in roadmap
-    assert "Phase 6F | PLANNED, NOT IMPLEMENTED" in roadmap
+    assert "Phase 6F | COMPLETE; NOT RELEASED" in roadmap
     assert "Phase 7 | FUTURE, SCOPE NOT FROZEN" in roadmap
 
 

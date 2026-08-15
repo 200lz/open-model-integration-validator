@@ -349,7 +349,7 @@ def run_audit(root: Path = ROOT) -> list[Check]:
         "Phase 6C | RELEASED",
         "Phase 6D | RELEASED",
         "Phase 6E | RELEASED",
-        "Phase 6F | PLANNED, NOT IMPLEMENTED",
+        "Phase 6F | COMPLETE; NOT RELEASED",
         "Phase 7 | FUTURE, SCOPE NOT FROZEN",
         "R1A readiness | COMPLETE",
         "R1B private clean-clone CI | COMPLETE",

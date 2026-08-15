@@ -1,0 +1,23 @@
+{
+  "planned_operations": [
+    {
+      "cost_class": "GPU",
+      "reason": "A runtime compatibility probe could resolve the missing claim."
+    }
+  ],
+  "request_id": "conformance-incomplete-v1",
+  "requirements": [
+    {
+      "dimension": "RUNTIME",
+      "expected_schema": "omiv.runtime-resolution-parity-evidence.v1",
+      "media_type": "application/json",
+      "member_path": "runtime/parity.json",
+      "phase": "PHASE_6E",
+      "required": true,
+      "source_path": "fixtures/assurance-bundle/not-present.json",
+      "verdict_role": "DIMENSION_VERDICT"
+    }
+  ],
+  "schema": "omiv.assurance-request.v1",
+  "subject": "OMIV Assurance Bundle v1 incomplete conformance fixture"
+}

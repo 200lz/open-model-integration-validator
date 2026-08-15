@@ -1,6 +1,7 @@
 """Command-line interface."""
 
 import json
+import tempfile
 from collections.abc import Callable
 from pathlib import Path
 from typing import Annotated, cast
@@ -26,6 +27,50 @@ from omiv.article.verification import (
 from omiv.article.verification import (
     pretty_json as pretty_article_json,
 )
+from omiv.assurance.archive import extract_archive
+from omiv.assurance.archive import pack_bundle as pack_assurance_bundle
+from omiv.assurance.models import (
+    AssuranceTrustPolicy,
+    BundleStatus,
+    PreflightStatus,
+)
+from omiv.assurance.models import (
+    VerificationFinding as AssuranceVerificationFinding,
+)
+from omiv.assurance.operations import (
+    build_bundle as build_assurance_bundle,
+)
+from omiv.assurance.operations import (
+    build_preflight as build_assurance_preflight,
+)
+from omiv.assurance.operations import (
+    concise_bundle_summary,
+    concise_plan_summary,
+    concise_verification_summary,
+)
+from omiv.assurance.operations import (
+    load_plan as load_assurance_plan,
+)
+from omiv.assurance.operations import (
+    load_request as load_assurance_request,
+)
+from omiv.assurance.operations import (
+    verify_bundle as verify_assurance_bundle,
+)
+from omiv.assurance.operations import (
+    write_plan as write_assurance_plan,
+)
+from omiv.assurance.operations import (
+    write_verification_report as write_assurance_verification_report,
+)
+from omiv.assurance.signatures import (
+    build_signature as build_assurance_signature,
+)
+from omiv.assurance.signatures import (
+    load_policy as load_assurance_trust_policy,
+)
+from omiv.assurance.signatures import verify_signatures as verify_assurance_signatures
+from omiv.assurance.signatures import write_signature as write_assurance_signature
 from omiv.attestations.builder import build_attestation
 from omiv.attestations.custody import append_attestation_to_ledger
 from omiv.attestations.models import (
@@ -278,6 +323,27 @@ from omiv.reconciliation.models import (
 from omiv.reconciliation.reporting import pretty_json as pretty_reconciliation_json
 from omiv.reconciliation.schema import load_any_reconciliation, load_reconciliation
 from omiv.reconciliation_profiles.huggingface import collect_huggingface_metadata
+from omiv.reference_preflight.operations import (
+    build_assurance_request as build_reference_assurance_request,
+)
+from omiv.reference_preflight.operations import (
+    build_reference_preflight,
+)
+from omiv.reference_preflight.operations import (
+    concise_evidence_summary as concise_reference_preflight_evidence,
+)
+from omiv.reference_preflight.operations import (
+    load_evidence as load_reference_preflight_evidence,
+)
+from omiv.reference_preflight.operations import (
+    load_profile as load_reference_preflight_profile,
+)
+from omiv.reference_preflight.operations import (
+    write_assurance_request as write_reference_assurance_request,
+)
+from omiv.reference_preflight.operations import (
+    write_evidence as write_reference_preflight_evidence,
+)
 from omiv.remote.gguf_header import RemoteGGUFHeaderParser
 from omiv.remote.header_models import (
     HEADER_REPORT_SCHEMA,
@@ -364,6 +430,37 @@ from omiv.runtime.reporting import (
 from omiv.runtime.reporting import (
     pretty_json as pretty_runtime_json,
 )
+from omiv.runtime_compatibility.models import (
+    CompatibilityStatus as RuntimeCompatibilityStatus,
+)
+from omiv.runtime_compatibility.models import PlanStatus as RuntimeCompatibilityPlanStatus
+from omiv.runtime_compatibility.operations import (
+    build_plan as build_runtime_compatibility_plan,
+)
+from omiv.runtime_compatibility.operations import (
+    concise_evidence_summary as concise_runtime_compatibility_evidence,
+)
+from omiv.runtime_compatibility.operations import (
+    concise_plan_summary as concise_runtime_compatibility_plan,
+)
+from omiv.runtime_compatibility.operations import (
+    execute_plan as execute_runtime_compatibility_plan,
+)
+from omiv.runtime_compatibility.operations import (
+    load_evidence as load_runtime_compatibility_evidence,
+)
+from omiv.runtime_compatibility.operations import (
+    load_plan as load_runtime_compatibility_plan,
+)
+from omiv.runtime_compatibility.operations import (
+    load_request as load_runtime_compatibility_request,
+)
+from omiv.runtime_compatibility.operations import (
+    write_evidence as write_runtime_compatibility_evidence,
+)
+from omiv.runtime_compatibility.operations import (
+    write_plan as write_runtime_compatibility_plan,
+)
 from omiv.runtime_resolution.artifact_index import verify_runtime_resolution_artifact_index
 from omiv.runtime_resolution.models import (
     EvidenceStatus as RuntimeResolutionEvidenceStatus,
@@ -417,6 +514,20 @@ from omiv.security.reporting import (
     pretty_json as pretty_security_json,
 )
 from omiv.security.scanning import describe_local_artifact, inspect_local_artifact
+from omiv.smart_preflight.models import SmartPreflightStatus
+from omiv.smart_preflight.operations import build_smart_preflight
+from omiv.smart_preflight.operations import (
+    concise_plan_summary as concise_smart_preflight_summary,
+)
+from omiv.smart_preflight.operations import (
+    load_intent as load_smart_preflight_intent,
+)
+from omiv.smart_preflight.operations import (
+    write_assurance_request as write_smart_assurance_request,
+)
+from omiv.smart_preflight.operations import (
+    write_plan as write_smart_preflight_plan,
+)
 from omiv.tokenizer_parity.artifact_index import (
     verify_tokenizer_configuration_artifact_index,
 )
@@ -504,6 +615,10 @@ reconcile_app = typer.Typer(no_args_is_help=True)
 quantization_app = typer.Typer(no_args_is_help=True)
 tokenizer_configuration_app = typer.Typer(no_args_is_help=True)
 runtime_resolution_app = typer.Typer(no_args_is_help=True)
+assurance_app = typer.Typer(no_args_is_help=True)
+smart_preflight_app = typer.Typer(no_args_is_help=True)
+runtime_compatibility_app = typer.Typer(no_args_is_help=True)
+reference_preflight_app = typer.Typer(no_args_is_help=True)
 
 
 def _version_callback(value: bool) -> None:
@@ -536,6 +651,10 @@ app.add_typer(reconcile_app, name="reconcile")
 app.add_typer(quantization_app, name="quantization")
 app.add_typer(tokenizer_configuration_app, name="tokenizer-config")
 app.add_typer(runtime_resolution_app, name="runtime-resolution")
+app.add_typer(assurance_app, name="assurance")
+app.add_typer(smart_preflight_app, name="smart-preflight")
+app.add_typer(runtime_compatibility_app, name="runtime-compat")
+app.add_typer(reference_preflight_app, name="reference-preflight")
 MAX_CANONICAL_INVENTORY_BYTES = 64 * 1024 * 1024
 REMOTE_REPORT_SCHEMAS = {
     "omiv.remote-snapshot-report.v1",
@@ -4626,3 +4745,307 @@ def runtime_resolution_practice_anthropic() -> None:
     except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
         _runtime_resolution_failure(exc)
     raise typer.Exit(code=1)
+
+
+def _assurance_failure(exc: Exception) -> None:
+    typer.echo(f"ERROR Assurance Bundle operation failed: {exc}", err=True)
+    raise typer.Exit(code=2) from exc
+
+
+def _runtime_compatibility_failure(exc: Exception) -> None:
+    typer.echo(f"ERROR Runtime compatibility operation failed: {exc}", err=True)
+    raise typer.Exit(code=2) from exc
+
+
+def _reference_preflight_failure(exc: Exception) -> None:
+    typer.echo(f"ERROR Reference Preflight failed: {exc}", err=True)
+    raise typer.Exit(code=2) from exc
+
+
+@reference_preflight_app.command("plan")
+def reference_preflight_plan(
+    profile_path: Annotated[Path, typer.Option("--profile", exists=True, dir_okay=False)],
+    reference: Annotated[str, typer.Option("--reference")],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    assurance_request_output: Annotated[
+        Path | None, typer.Option("--assurance-request-output", dir_okay=False)
+    ] = None,
+    root: Annotated[Path, typer.Option("--root", exists=True, file_okay=False)] = Path("."),
+) -> None:
+    """Replay pinned provider metadata and emit no-payload, evidence-qualified preflight."""
+    try:
+        profile = load_reference_preflight_profile(profile_path)
+        evidence = build_reference_preflight(profile, reference)
+        validate_output_path(output, forbidden_inputs=(profile_path,))
+        request = None
+        if assurance_request_output is not None:
+            validate_output_path(
+                assurance_request_output,
+                forbidden_inputs=(profile_path, output),
+            )
+            try:
+                source_path = output.resolve(strict=False).relative_to(root.resolve()).as_posix()
+            except ValueError as exc:
+                raise OmivInputError(
+                    "reference evidence output must be inside --root for Assurance handoff"
+                ) from exc
+            request = build_reference_assurance_request(evidence, source_path)
+        write_reference_preflight_evidence(evidence, output)
+        if request is not None and assurance_request_output is not None:
+            write_reference_assurance_request(request, assurance_request_output)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _reference_preflight_failure(exc)
+    typer.echo(concise_reference_preflight_evidence(evidence))
+
+
+@reference_preflight_app.command("verify")
+def reference_preflight_verify(
+    evidence_path: Annotated[Path, typer.Option("--evidence", exists=True, dir_okay=False)],
+) -> None:
+    """Verify canonical reference evidence and its complete future plan offline."""
+    try:
+        evidence = load_reference_preflight_evidence(evidence_path)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _reference_preflight_failure(exc)
+    typer.echo(concise_reference_preflight_evidence(evidence))
+
+
+@runtime_compatibility_app.command("plan")
+def runtime_compatibility_plan(
+    request_path: Annotated[Path, typer.Option("--request", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    root: Annotated[Path, typer.Option("--root", exists=True, file_okay=False)] = Path("."),
+) -> None:
+    """Preflight one explicit local runtime and artifact without executing either."""
+    try:
+        request = load_runtime_compatibility_request(request_path)
+        plan = build_runtime_compatibility_plan(request, root)
+        validate_output_path(
+            output,
+            forbidden_inputs=(
+                request_path,
+                root / Path(*request.executable_path.split("/")),
+                root / Path(*request.artifact_path.split("/")),
+            ),
+        )
+        write_runtime_compatibility_plan(plan, output)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _runtime_compatibility_failure(exc)
+    typer.echo(concise_runtime_compatibility_plan(plan))
+    if plan.status != RuntimeCompatibilityPlanStatus.READY:
+        raise typer.Exit(code=1)
+
+
+@runtime_compatibility_app.command("run")
+def runtime_compatibility_run(
+    plan_path: Annotated[Path, typer.Option("--plan", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    root: Annotated[Path, typer.Option("--root", exists=True, file_okay=False)] = Path("."),
+) -> None:
+    """Execute one preflighted native profile and write bounded raw-observation evidence."""
+    try:
+        plan = load_runtime_compatibility_plan(plan_path)
+        validate_output_path(
+            output,
+            forbidden_inputs=(
+                plan_path,
+                root / Path(*plan.request.executable_path.split("/")),
+                root / Path(*plan.request.artifact_path.split("/")),
+            ),
+        )
+        evidence = execute_runtime_compatibility_plan(plan, root)
+        write_runtime_compatibility_evidence(evidence, output)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _runtime_compatibility_failure(exc)
+    typer.echo(concise_runtime_compatibility_evidence(evidence))
+    if evidence.status != RuntimeCompatibilityStatus.VERIFIED_WITHIN_PROFILE:
+        raise typer.Exit(code=1)
+
+
+@runtime_compatibility_app.command("verify")
+def runtime_compatibility_verify(
+    evidence_path: Annotated[Path, typer.Option("--evidence", exists=True, dir_okay=False)],
+) -> None:
+    """Verify candidate evidence, its embedded plan, and fail-closed status offline."""
+    try:
+        evidence = load_runtime_compatibility_evidence(evidence_path)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _runtime_compatibility_failure(exc)
+    typer.echo(concise_runtime_compatibility_evidence(evidence))
+    if evidence.status != RuntimeCompatibilityStatus.VERIFIED_WITHIN_PROFILE:
+        raise typer.Exit(code=1)
+
+
+@smart_preflight_app.command("plan")
+def smart_preflight_plan(
+    intent_path: Annotated[Path, typer.Option("--intent", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    assurance_request_output: Annotated[
+        Path | None, typer.Option("--assurance-request-output", dir_okay=False)
+    ] = None,
+    root: Annotated[Path, typer.Option("--root", exists=True, file_okay=False)] = Path("."),
+) -> None:
+    """Discover local canonical evidence and propose a Phase 6F request without costly work."""
+    try:
+        intent = load_smart_preflight_intent(intent_path)
+        plan = build_smart_preflight(intent, root)
+        evidence_inputs = [root / Path(*item.source_path.split("/")) for item in plan.candidates]
+        validate_output_path(output, forbidden_inputs=(intent_path, *evidence_inputs))
+        if assurance_request_output is not None:
+            validate_output_path(
+                assurance_request_output,
+                forbidden_inputs=(intent_path, output, *evidence_inputs),
+            )
+        write_smart_preflight_plan(plan, output)
+        if assurance_request_output is not None and plan.assurance_request is not None:
+            write_smart_assurance_request(plan.assurance_request, assurance_request_output)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        typer.echo(f"ERROR Smart Preflight failed: {exc}", err=True)
+        raise typer.Exit(code=2) from exc
+    typer.echo(concise_smart_preflight_summary(plan))
+    if plan.status != SmartPreflightStatus.READY:
+        raise typer.Exit(code=1)
+
+
+@assurance_app.command("plan")
+def assurance_plan(
+    request_path: Annotated[Path, typer.Option("--request", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+    root: Annotated[Path, typer.Option("--root", exists=True, file_okay=False)] = Path("."),
+) -> None:
+    """Run a local-only preflight before any download, network, conversion, or GPU work."""
+    try:
+        request = load_assurance_request(request_path)
+        plan = build_assurance_preflight(request, root)
+        write_assurance_plan(plan, output)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _assurance_failure(exc)
+    typer.echo(concise_plan_summary(plan))
+    if plan.status not in {PreflightStatus.READY, PreflightStatus.READY_WITH_GAPS}:
+        raise typer.Exit(code=1)
+
+
+@assurance_app.command("build")
+def assurance_build(
+    plan_path: Annotated[Path, typer.Option("--plan", exists=True, dir_okay=False)],
+    output: Annotated[Path, typer.Option("--output", file_okay=False)],
+    root: Annotated[Path, typer.Option("--root", exists=True, file_okay=False)] = Path("."),
+) -> None:
+    """Assemble a portable bundle from preflighted local evidence; never run costly work."""
+    try:
+        plan = load_assurance_plan(plan_path)
+        manifest = build_assurance_bundle(plan, root, output)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _assurance_failure(exc)
+    typer.echo(concise_bundle_summary(manifest))
+    if manifest.status != BundleStatus.COMPLETE:
+        raise typer.Exit(code=1)
+
+
+@assurance_app.command("verify")
+def assurance_verify(
+    bundle: Annotated[Path, typer.Option("--bundle", exists=True)],
+    report_output: Annotated[Path | None, typer.Option("--report-output", dir_okay=False)] = None,
+    trust_policy: Annotated[
+        Path | None, typer.Option("--trust-policy", exists=True, dir_okay=False)
+    ] = None,
+) -> None:
+    """Verify an Assurance Bundle completely offline and fail closed on every gap."""
+    try:
+        policy: AssuranceTrustPolicy | None = (
+            load_assurance_trust_policy(trust_policy) if trust_policy is not None else None
+        )
+        if bundle.is_dir():
+            root = bundle
+            report = verify_assurance_bundle(root)
+            transport = "DIRECTORY"
+            valid, trusted, signature_issues = verify_assurance_signatures(root, policy)
+        else:
+            with tempfile.TemporaryDirectory(prefix="omiv-assurance-verify-") as temporary:
+                root = Path(temporary)
+                extract_archive(bundle, root)
+                report = verify_assurance_bundle(root)
+                transport = "ZIP_STORED"
+                valid, trusted, signature_issues = verify_assurance_signatures(root, policy)
+        signature_status = (
+            "INVALID"
+            if signature_issues
+            else "TRUSTED"
+            if policy is not None and trusted >= policy.minimum_valid_signatures
+            else "VALID_UNTRUSTED"
+            if valid
+            else "NOT_PRESENT"
+        )
+        report = report.model_copy(
+            update={
+                "transport": transport,
+                "valid_signatures": valid,
+                "trusted_signatures": trusted,
+                "signature_status": signature_status,
+                "status": BundleStatus.INVALID if signature_issues else report.status,
+                "invalid": report.invalid + len(signature_issues),
+                "findings": [
+                    *report.findings,
+                    *[
+                        AssuranceVerificationFinding(
+                            code="SIGNATURE_OR_TRUST_FAILURE", detail=issue
+                        )
+                        for issue in signature_issues
+                    ],
+                ],
+            }
+        )
+        if report_output is not None:
+            write_assurance_verification_report(report, report_output)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _assurance_failure(exc)
+    typer.echo(concise_verification_summary(report))
+    if report.status != BundleStatus.COMPLETE:
+        raise typer.Exit(code=1)
+
+
+@assurance_app.command("pack")
+def assurance_pack(
+    bundle: Annotated[Path, typer.Option("--bundle", exists=True, file_okay=False)],
+    output: Annotated[Path, typer.Option("--output", dir_okay=False)],
+) -> None:
+    """Create a deterministic ZIP_STORED .omiv transport from a verified directory."""
+    try:
+        report = verify_assurance_bundle(bundle)
+        if report.status == BundleStatus.INVALID:
+            raise OmivInputError("invalid Assurance Bundle cannot be packed")
+        _valid, _trusted, signature_issues = verify_assurance_signatures(bundle)
+        if signature_issues:
+            raise OmivInputError("invalid Assurance Bundle signatures cannot be packed")
+        pack_assurance_bundle(bundle, output)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _assurance_failure(exc)
+    typer.echo(f"PACKED transport=ZIP_STORED output={output.name}")
+
+
+@assurance_app.command("sign")
+def assurance_sign(
+    bundle: Annotated[Path, typer.Option("--bundle", exists=True, file_okay=False)],
+    private_key: Annotated[Path, typer.Option("--private-key", exists=True, dir_okay=False)],
+    key_id: Annotated[str, typer.Option("--key-id")],
+) -> None:
+    """Attach an Ed25519 manifest signature; authority still requires a trust policy."""
+    try:
+        key = load_private_key(private_key)
+        signature = build_assurance_signature(bundle, key, key_id)
+        destination = write_assurance_signature(bundle, signature)
+    except (OSError, UnicodeError, ValidationError, ValueError, OmivInputError) as exc:
+        _assurance_failure(exc)
+    typer.echo(f"SIGNED key={key_id} signature={destination.name}")
+
+
+@app.command("verify")
+def verify_portable_assurance_bundle(
+    bundle: Annotated[Path, typer.Argument(exists=True)],
+    report_output: Annotated[Path | None, typer.Option("--report-output", dir_okay=False)] = None,
+    trust_policy: Annotated[
+        Path | None, typer.Option("--trust-policy", exists=True, dir_okay=False)
+    ] = None,
+) -> None:
+    """Verify a portable Assurance Bundle offline using the product-level command."""
+    assurance_verify(bundle=bundle, report_output=report_output, trust_policy=trust_policy)

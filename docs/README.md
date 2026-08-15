@@ -40,6 +40,16 @@ historical command and evidence guide.
 - [Phase 6D: tokenizer/configuration parity](phase-6d-tokenizer-configuration-parity.md)
 - [Phase 6E: runtime resolution parity](phase-6e-runtime-resolution-parity.md)
 
+## Phase 6F
+
+- [Phase 6F: Assurance Bundle interoperability](phase-6f-assurance-bundle-interoperability.md)
+
+## Phase 7 candidates
+
+- [Phase 7A candidate: Smart Preflight / Auto Planner](phase-7a-smart-preflight.md)
+- [Muse Glimmer metadata-only acceptance example](../examples/reference-preflight/README.md)
+- [Phase 7B candidate: Runtime Compatibility Profiles](phase-7b-runtime-compatibility-profiles.md)
+
 ## Practice profiles
 
 - [Qwen model-pack and format examples](reference/technical-reference.md#core-format-adapters-and-model-packs)

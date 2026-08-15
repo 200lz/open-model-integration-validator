@@ -1,0 +1,11 @@
+{
+  "intent_id": "offline-local-evidence",
+  "required_dimensions": [
+    "STRUCTURE"
+  ],
+  "schema": "omiv.smart-preflight-intent.v1",
+  "search_paths": [
+    "payload-integrity/evidence/authorized-complete.json"
+  ],
+  "subject": "synthetic local Smart Preflight example"
+}
