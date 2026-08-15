@@ -148,7 +148,15 @@ an explicitly supplied, bounded local runtime profile and five-stage evidence pa
 The Phase 7B.1 hardening invokes the native CLI directly, embeds its canonical plan,
 and keeps runtime internals `UNKNOWN` when raw output cannot establish them. Its
 tracked workflow is synthetic, CPU-only, and offline; it does not freeze Phase 7
-scope or claim general runtime compatibility.
+scope or claim general runtime compatibility. The Phase 7B.2 candidate adds a
+manifest-bound offline import/verify path for the explicit
+`llama.cpp-cuda-capture.v1` collector grammar; captured runner claims remain
+untrusted, artifact reports do not verify payload bytes, and incomplete captures
+cannot establish process PASS. Process completion and output predicates are reported
+separately: a matched text or fixed PNG predicate is `OBSERVED`, never `PASS`. Its
+privacy screen covers a bounded set of established path and credential signatures; it
+is not exhaustive secret detection or DLP, so callers must sanitize capture inputs and
+use a secret-free evidence directory.
 See the [roadmap](docs/roadmap.md).
 
 ### Reading results
