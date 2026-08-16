@@ -42,7 +42,7 @@
   },
   "executable_path": "bin/llama-server",
   "executable_sha256": null,
-  "expected_runtime_version": null,
+  "expected_runtime_version": "version: 10353 (f8def7fe1)\nbuilt with GNU 11.4.0 for Linux x86_64",
   "limits": {
     "max_artifact_bytes": 20000000000
   },

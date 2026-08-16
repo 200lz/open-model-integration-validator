@@ -203,11 +203,32 @@ implementation, exact pinned draft digest, request-bound offload fact, a typed a
 fact, positive generated draft tokens, and accepted tokens no greater than generated
 draft tokens. Comparisons use extracted
 content, never banners, logs, timings, or whole stdout, and make no speed or quality
-claim. The template deliberately has `null` executable digest and version. It cannot
-be ready until an operator supplies the locally built executable's observed SHA-256
-and exact version output tied to the commit. Placeholder expected contents must also
-be replaced with reviewed deterministic predicates. OMIV performs none of those
-future operational actions here.
+claim. The template deliberately has a `null` executable digest. It cannot be ready
+until an operator supplies the locally built executable's observed SHA-256. The
+`expected_runtime_version` pin carries the exact bytes a real llama.cpp b10353
+build reports (captured under bounded observation on the pinned RTX 5090 profile):
+`version: 10353 (f8def7fe1)` and its build line. Placeholder expected contents must
+also be replaced with reviewed deterministic predicates. OMIV performs none of
+those future operational actions here.
+
+The runtime version is projected from exactly one non-empty version stream. Real
+runtimes disagree about which stream carries `--version` text — llama.cpp reports
+on stderr while the synthetic fixture reports on stdout — so the controller accepts
+non-empty stdout with empty stderr, or empty stdout with non-empty stderr, and
+fails closed when both streams are non-empty, both are empty, a capture overflows,
+decoding fails, or the process is incomplete. The selected stripped text must
+exactly equal the pin, and offline verification re-derives the same projection from
+the retained captures. The pin must report exactly one lowercase hexadecimal run of
+at least seven characters, and that run must be an exact prefix of the full pinned
+`runtime_commit`; mismatched, too-short, and ambiguous reports fail closed. A
+self-reported commit abbreviation binds the version text to the requested commit
+identity — it is NOT proof that the executable was built from that source revision.
+The executable SHA-256 remains the exact binary identity, and no source-to-binary
+provenance claim is made. Because the version process completes before any server
+port is selected, version text and the version pin are exempt from the generic
+possible-port heuristic (a build number such as `10353` is version data there);
+every credential, path, endpoint, and control-character check still applies to
+each version line, and server, HTTP, and probe sources keep full port protection.
 
 Even success means only, for example, “Muse Glimmer runtime verified by OMIV within
 the pinned llama.cpp/CUDA profile.” It never establishes source-to-GGUF binding;

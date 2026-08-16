@@ -31,6 +31,8 @@ from omiv.runtime_compatibility.controlled_models import (
     ControlledRequest,
     build_controlled_invocation,
     controlled_image_completion_request_bytes,
+    derive_controlled_runtime_version,
+    require_version_commit_binding,
 )
 from omiv.runtime_compatibility.controlled_operations import _http_exchange
 from omiv.runtime_compatibility.operations import (
@@ -1135,7 +1137,13 @@ def test_muse_future_closure_is_exact_and_intentionally_blocked() -> None:
     plan = build_plan(request, ROOT)
     assert plan.status.value == "BLOCKED"
     assert request.executable_sha256 is None
-    assert request.expected_runtime_version is None
+    # R10: the version pin carries the exact 65-byte stderr text a real
+    # llama.cpp b10353 build reports; the template stays BLOCKED on the
+    # deliberately absent locally observed executable SHA-256.
+    assert request.expected_runtime_version == (
+        "version: 10353 (f8def7fe1)\nbuilt with GNU 11.4.0 for Linux x86_64"
+    )
+    assert len(request.expected_runtime_version.encode("utf-8")) == 65
     assert request.runtime_commit == "f8def7fe168bab245fbf15d3f18b26dbb1ef73c8"
     assert [(item.role.value, item.size, item.sha256) for item in request.artifacts[:3]] == [
         (
@@ -2341,4 +2349,215 @@ def test_binding_issues_are_canonical_private_safe_and_rehashed_injections_rejec
     )
     assert result.exit_code == 2
     assert unsafe_issue not in result.output
+    assert not output.exists()
+
+
+# --- R10: truthful real-runtime version identity ---
+
+A6_LLAMA_VERSION_TEXT = "version: 10353 (f8def7fe1)\nbuilt with GNU 11.4.0 for Linux x86_64"
+A6_FULL_COMMIT = "f8def7fe168bab245fbf15d3f18b26dbb1ef73c8"
+_SYNTHETIC_VERSION_PRINT = "        print(VERSION)"
+
+
+def test_version_derivation_selects_exactly_one_nonempty_stream() -> None:
+    assert derive_controlled_runtime_version(b"stdout version\n", b"") == "stdout version"
+    assert derive_controlled_runtime_version(b"", b"stderr version\n") == "stderr version"
+    with pytest.raises(ValueError, match="exactly one stream"):
+        derive_controlled_runtime_version(b"", b"")
+    with pytest.raises(ValueError, match="exactly one stream"):
+        derive_controlled_runtime_version(b"one\n", b"two\n")
+    with pytest.raises(ValueError, match="not valid UTF-8"):
+        derive_controlled_runtime_version(b"\xff\xfe", b"")
+    with pytest.raises(ValueError, match="not valid UTF-8"):
+        derive_controlled_runtime_version(b"", b"\xff\xfe")
+
+
+def test_a6_llama_server_version_capture_binds_exactly() -> None:
+    raw = A6_LLAMA_VERSION_TEXT.encode("utf-8")
+    assert len(raw) == 65
+    derived = derive_controlled_runtime_version(b"", raw)
+    assert derived == A6_LLAMA_VERSION_TEXT
+    require_version_commit_binding(derived, A6_FULL_COMMIT)
+    request = load_request(REQUEST)
+    value = request.model_dump(mode="json", by_alias=True)
+    value["runtime_commit"] = A6_FULL_COMMIT
+    value["expected_runtime_version"] = A6_LLAMA_VERSION_TEXT
+    validated = ControlledRequest.model_validate(value)
+    assert validated.expected_runtime_version == A6_LLAMA_VERSION_TEXT
+
+
+@pytest.mark.parametrize(
+    ("version_text", "message"),
+    [
+        ("version: 10353 (a1b2c3d)", "prefix of the requested commit"),
+        ("version: 10353 (f8def7)", "must report the requested commit identity"),
+        ("version: 10353", "must report the requested commit identity"),
+        ("f8def7fe1 and f8def7fe168b", "ambiguous commit identity"),
+        (f"{A6_FULL_COMMIT} plus deadbeef1", "ambiguous commit identity"),
+    ],
+)
+def test_version_commit_binding_rejects_untruthful_reports(version_text: str, message: str) -> None:
+    with pytest.raises(ValueError, match=message):
+        require_version_commit_binding(version_text, A6_FULL_COMMIT)
+    request = load_request(REQUEST)
+    value = request.model_dump(mode="json", by_alias=True)
+    value["runtime_commit"] = A6_FULL_COMMIT
+    value["expected_runtime_version"] = version_text
+    with pytest.raises(ValueError, match=message):
+        ControlledRequest.model_validate(value)
+
+
+@pytest.mark.parametrize(
+    "version_text",
+    [
+        "version: 10353 (f8def7fe1)\nsee http://example.com",
+        "version: 10353 (f8def7fe1)\nloaded /opt/private/build",
+        "version: 10353 (f8def7fe1)\x1b[0m",
+    ],
+)
+def test_version_pin_keeps_line_level_privacy_checks(version_text: str) -> None:
+    request = load_request(REQUEST)
+    value = request.model_dump(mode="json", by_alias=True)
+    value["runtime_commit"] = A6_FULL_COMMIT
+    value["expected_runtime_version"] = version_text
+    with pytest.raises(ValueError, match="forbidden private or path-like content"):
+        ControlledRequest.model_validate(value)
+
+
+def _stderr_version_request(tmp_path: Path, llama_style: bool) -> object:
+    request = _isolated_request(
+        tmp_path,
+        (_SYNTHETIC_VERSION_PRINT, "        print(VERSION, file=sys.stderr)"),
+    )
+    if not llama_style:
+        return request
+    executable = tmp_path / "server.py"
+    source = executable.read_text(encoding="utf-8")
+    marker = 'VERSION = "llama.cpp synthetic-controlled-server b10353 ' + A6_FULL_COMMIT + '"'
+    assert marker in source
+    replacement = "VERSION = " + json.dumps(A6_LLAMA_VERSION_TEXT)
+    executable.write_text(source.replace(marker, replacement), encoding="utf-8")
+    value = request.model_dump(mode="json", by_alias=True)
+    value["executable_sha256"] = hashlib.sha256(executable.read_bytes()).hexdigest()
+    value["expected_runtime_version"] = A6_LLAMA_VERSION_TEXT
+    value["runtime_commit"] = A6_FULL_COMMIT
+    return ControlledRequest.model_validate(value)
+
+
+@pytest.mark.parametrize("llama_style", [False, True])
+def test_stderr_version_fixture_completes_plan_run_and_offline_verify(
+    tmp_path: Path, llama_style: bool
+) -> None:
+    request = _stderr_version_request(tmp_path, llama_style)
+    plan = build_plan(request, tmp_path)
+    assert plan.status.value == "READY"
+    result = execute_plan(plan, tmp_path)
+    assert result.status.value == "VERIFIED_WITHIN_PROFILE"
+    assert result.observed_runtime_version == request.expected_runtime_version
+    assert result.version_execution.stdout.captured_bytes == 0
+    assert result.version_execution.stderr.captured_bytes > 0
+    output = tmp_path / "stderr-version-evidence.json"
+    write_evidence(result, output)
+    loaded = load_evidence(output)
+    assert loaded.status.value == "VERIFIED_WITHIN_PROFILE"
+    assert loaded.observed_runtime_version == request.expected_runtime_version
+    if llama_style:
+        # llama.cpp's build number 10353 is version data, not a retained port.
+        assert "10353" in loaded.observed_runtime_version
+
+
+@pytest.mark.parametrize(
+    ("replacement", "message"),
+    [
+        (
+            (
+                _SYNTHETIC_VERSION_PRINT,
+                "        print(VERSION)\n        print(VERSION, file=sys.stderr)",
+            ),
+            "exactly one stream",
+        ),
+        ((_SYNTHETIC_VERSION_PRINT, "        pass"), "exactly one stream"),
+    ],
+)
+def test_version_on_both_or_neither_stream_fails_closed(
+    tmp_path: Path, replacement: tuple[str, str], message: str
+) -> None:
+    request = _isolated_request(tmp_path, replacement)
+    plan = build_plan(request, tmp_path)
+    assert plan.status.value == "READY"
+    with pytest.raises(OmivInputError, match=message):
+        execute_plan(plan, tmp_path)
+
+
+def test_version_pin_mismatch_fails_closed_before_any_server(tmp_path: Path) -> None:
+    request = _isolated_request(tmp_path, ("b10353", "b10354"))
+    plan = build_plan(request, tmp_path)
+    assert plan.status.value == "READY"
+    with pytest.raises(OmivInputError, match="does not match its exact pin"):
+        execute_plan(plan, tmp_path)
+
+
+def test_offline_rejects_rehashed_version_stream_mutations(
+    evidence: ControlledEvidence, tmp_path: Path
+) -> None:
+    base = json.loads(json.dumps(evidence.model_dump(mode="json", by_alias=True)))
+
+    mutated = json.loads(json.dumps(base))
+    mutated["observed_runtime_version"] = mutated["observed_runtime_version"] + "-tampered"
+    _rehash(mutated)
+    path = tmp_path / "tampered-observed-version.json"
+    path.write_text(json.dumps(mutated), encoding="utf-8")
+    with pytest.raises(OmivInputError, match="invalid controlled runtime evidence"):
+        load_evidence(path)
+
+    mutated = json.loads(json.dumps(base))
+    stdout_capture = mutated["version_execution"]["stdout"]
+    _replace_capture(
+        mutated["version_execution"]["stderr"], base64.b64decode(stdout_capture["captured_base64"])
+    )
+    _rehash(mutated)
+    path = tmp_path / "tampered-version-both-streams.json"
+    path.write_text(json.dumps(mutated), encoding="utf-8")
+    with pytest.raises(OmivInputError, match="invalid controlled runtime evidence"):
+        load_evidence(path)
+
+
+def test_cli_version_mismatch_returns_two_without_partial_output(tmp_path: Path) -> None:
+    request = _isolated_request(tmp_path, ("b10353", "b10354"))
+    request_path = tmp_path / "request.json"
+    request_path.write_text(
+        json.dumps(request.model_dump(mode="json", by_alias=True)), encoding="utf-8"
+    )
+    plan_path = tmp_path / "plan.json"
+    result = RUNNER.invoke(
+        app,
+        [
+            "runtime-compat",
+            "plan",
+            "--request",
+            str(request_path),
+            "--root",
+            str(tmp_path),
+            "--output",
+            str(plan_path),
+        ],
+    )
+    assert result.exit_code == 0
+    output = tmp_path / "must-not-exist.json"
+    result = RUNNER.invoke(
+        app,
+        [
+            "runtime-compat",
+            "run",
+            "--plan",
+            str(plan_path),
+            "--root",
+            str(tmp_path),
+            "--output",
+            str(output),
+        ],
+    )
+    assert result.exit_code == 2
+    assert result.output.strip() == "ERROR Runtime compatibility operation failed"
+    assert "Traceback" not in result.output
     assert not output.exists()

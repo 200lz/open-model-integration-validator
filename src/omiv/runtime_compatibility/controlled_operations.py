@@ -52,6 +52,7 @@ from omiv.runtime_compatibility.controlled_models import (
     build_controlled_invocation,
     controlled_decode_complete,
     controlled_image_completion_request_bytes,
+    derive_controlled_runtime_version,
     validate_observation,
 )
 from omiv.runtime_compatibility.external_operations import _reject_sensitive_text
@@ -1258,7 +1259,10 @@ def execute_controlled_plan(plan: ControlledPlan, root: Path) -> ControlledEvide
         version_stdout = base64.b64decode(native_version.stdout.captured_base64, validate=True)
         version_stderr = base64.b64decode(native_version.stderr.captured_base64, validate=True)
         _portable_sources([version_stdout, version_stderr], root=resolved, work=work, ports=[])
-        observed_version = version_stdout.decode("utf-8").strip()
+        try:
+            observed_version = derive_controlled_runtime_version(version_stdout, version_stderr)
+        except ValueError as exc:
+            raise OmivInputError(str(exc)) from exc
         if observed_version != plan.request.expected_runtime_version:
             raise OmivInputError("controlled runtime version does not match its exact pin")
 

@@ -37,6 +37,11 @@ not models.
 
 `muse-glimmer-controlled-request.json` contains no model payload or executable. It
 is intentionally blocked until an operator supplies the exact locally observed
-llama-server digest/version and reviewed exact expected contents. It references the
-existing canonical Muse reference fixture and must not be described as executed
-evidence.
+llama-server SHA-256 and reviewed exact expected contents. Its
+`expected_runtime_version` pin is the exact two-line text a real llama.cpp b10353
+build reports on stderr; the version may arrive on exactly one of stdout or
+stderr, the reported short commit `f8def7fe1` binds only as an exact prefix of the
+full pinned commit, and that self-reported abbreviation is not proof the binary
+was built from that source revision — the executable SHA-256 remains the binary
+identity. It references the existing canonical Muse reference fixture and must not
+be described as executed evidence.

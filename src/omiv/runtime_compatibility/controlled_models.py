@@ -77,11 +77,52 @@ CONTROLLED_BINDING_ISSUES = frozenset(
     }
 )
 _PORT_TOKEN_RE = re.compile(r"(?<![A-Za-z0-9])([1-9][0-9]{3,4})(?![A-Za-z0-9])")
+_HEX_RUN_RE = re.compile(r"[0-9a-f]+")
 
 
 def reject_possible_selected_port(value: str) -> None:
     if any(1024 <= int(match.group(1)) <= 65535 for match in _PORT_TOKEN_RE.finditer(value)):
         raise ValueError("controlled retained source contains a possible selected port")
+
+
+def derive_controlled_runtime_version(stdout_raw: bytes, stderr_raw: bytes) -> str:
+    """Project the runtime version from exactly one non-empty version stream.
+
+    Real runtimes disagree about the stream that carries ``--version`` text:
+    llama.cpp reports on stderr while the synthetic fixture reports on stdout.
+    Exactly one stream must be non-empty; both-empty and both-non-empty
+    observations fail closed, as does any non-UTF-8 capture.  The version
+    process runs before any server port is selected, so its captured text is
+    exempt from the generic possible-port heuristic while remaining subject to
+    every credential, path, endpoint, and control-character check.
+    """
+    try:
+        stdout_text = stdout_raw.decode("utf-8")
+        stderr_text = stderr_raw.decode("utf-8")
+    except UnicodeDecodeError as exc:
+        raise ValueError("controlled version stream is not valid UTF-8") from exc
+    if (len(stdout_raw) > 0) == (len(stderr_raw) > 0):
+        raise ValueError("controlled version output must arrive on exactly one stream")
+    return (stdout_text if stdout_raw else stderr_text).strip()
+
+
+def require_version_commit_binding(version_text: str, runtime_commit: str) -> None:
+    """Require exactly one reported hex token binding to the pinned commit.
+
+    The version text must contain exactly one lowercase hexadecimal run of at
+    least seven characters, and that run must be an exact prefix of the full
+    pinned ``runtime_commit``.  A self-reported abbreviation binds the version
+    text to the requested commit identity; it is NOT proof that the executable
+    was built from that source revision.  The executable SHA-256 remains the
+    exact binary identity.
+    """
+    runs = [item for item in _HEX_RUN_RE.findall(version_text) if len(item) >= 7]
+    if not runs:
+        raise ValueError("exact runtime version must report the requested commit identity")
+    if len(runs) > 1:
+        raise ValueError("exact runtime version reports an ambiguous commit identity")
+    if not runtime_commit.startswith(runs[0]):
+        raise ValueError("exact runtime version must report a prefix of the requested commit")
 
 
 class ArtifactRole(StrEnum):
@@ -222,11 +263,8 @@ class ControlledRequest(StrictModel):
             raise ValueError("controlled executable and artifacts must differ")
         if any(item.size > self.limits.max_artifact_bytes for item in self.artifacts):
             raise ValueError("artifact declared size exceeds the profile limit")
-        if (
-            self.expected_runtime_version is not None
-            and self.runtime_commit not in self.expected_runtime_version
-        ):
-            raise ValueError("exact runtime version must contain the requested commit identity")
+        if self.expected_runtime_version is not None:
+            require_version_commit_binding(self.expected_runtime_version, self.runtime_commit)
         probe_ids = [item.probe_id for item in self.probes]
         if len(set(probe_ids)) != len(probe_ids):
             raise ValueError("controlled probe identifiers must be unique")
@@ -249,7 +287,6 @@ class ControlledRequest(StrictModel):
             raise ValueError("DFlash probes require a pinned DFLASH artifact")
         for value, label in (
             (self.request_id, "controlled request identifier"),
-            (self.expected_runtime_version, "controlled runtime version"),
             *((item.prompt, "controlled probe prompt") for item in self.probes),
             *((item.expected_content, "controlled expected content") for item in self.probes),
             *((item.probe_id, "controlled probe identifier") for item in self.probes),
@@ -257,6 +294,14 @@ class ControlledRequest(StrictModel):
             if value is not None:
                 _reject_sensitive_text(value, label)
                 reject_possible_selected_port(value)
+        if self.expected_runtime_version is not None:
+            # The version pin may span lines (runtimes report multi-line
+            # version text); every line keeps the full credential, path,
+            # endpoint, and control-character checks.  The version process
+            # runs before any server port exists, so the generic possible-port
+            # heuristic does not apply to this field.
+            for line in self.expected_runtime_version.splitlines() or [""]:
+                _reject_sensitive_text(line, "controlled runtime version")
         return self
 
 
@@ -976,13 +1021,12 @@ class ControlledEvidence(StrictModel):
             and not version_state.stderr.overflow
         ):
             raise ValueError("version process state could not be emitted by the controller")
-        version_raw = base64.b64decode(version_state.stdout.captured_base64, validate=True)
-        try:
-            projected_version = version_raw.decode("utf-8").strip()
-        except UnicodeDecodeError as exc:
-            raise ValueError("version process stdout is not UTF-8") from exc
+        projected_version = derive_controlled_runtime_version(
+            base64.b64decode(version_state.stdout.captured_base64, validate=True),
+            base64.b64decode(version_state.stderr.captured_base64, validate=True),
+        )
         if projected_version != self.observed_runtime_version:
-            raise ValueError("observed runtime version differs from captured stdout")
+            raise ValueError("observed runtime version differs from its captured version stream")
         for server in self.servers:
             process = server.process
             _require_capture_limit(process.stdout, limits.max_stdout_bytes, "server stdout")
@@ -1078,13 +1122,15 @@ class ControlledEvidence(StrictModel):
             )
         if self.findings != expected_findings:
             raise ValueError("controlled findings do not match bounded process observations")
-        stream_texts = [
+        version_stream_texts = [
             base64.b64decode(self.version_execution.stdout.captured_base64, validate=True).decode(
                 "utf-8"
             ),
             base64.b64decode(self.version_execution.stderr.captured_base64, validate=True).decode(
                 "utf-8"
             ),
+        ]
+        server_stream_texts = [
             *[
                 base64.b64decode(item.process.stdout.captured_base64, validate=True).decode("utf-8")
                 for item in self.servers
@@ -1094,11 +1140,17 @@ class ControlledEvidence(StrictModel):
                 for item in self.servers
             ],
         ]
-        for item in stream_texts:
+        # Server-derived streams keep the possible-port heuristic.  Version
+        # streams are exempt: the version process completes before any server
+        # port is selected, so a numeric build identifier there cannot be a
+        # retained port disclosure.  Both stream families remain in the
+        # retained sensitive-text scan below.
+        for item in server_stream_texts:
             reject_possible_selected_port(item)
         retained = [
             self.observed_runtime_version or "",
-            *stream_texts,
+            *version_stream_texts,
+            *server_stream_texts,
         ]
         for server in self.servers:
             retained.extend(
