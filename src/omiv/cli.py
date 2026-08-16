@@ -4762,7 +4762,7 @@ def _assurance_failure(exc: Exception) -> None:
 
 
 def _runtime_compatibility_failure(exc: Exception) -> None:
-    typer.echo(f"ERROR Runtime compatibility operation failed: {exc}", err=True)
+    typer.echo("ERROR Runtime compatibility operation failed", err=True)
     raise typer.Exit(code=2) from exc
 
 
@@ -4829,12 +4829,17 @@ def runtime_compatibility_plan(
     try:
         request = load_runtime_compatibility_request(request_path)
         plan = build_runtime_compatibility_plan(request, root)
+        artifact_paths = (
+            [request.artifact_path]
+            if hasattr(request, "artifact_path")
+            else [item.path for item in request.artifacts]
+        )
         validate_output_path(
             output,
             forbidden_inputs=(
                 request_path,
                 root / Path(*request.executable_path.split("/")),
-                root / Path(*request.artifact_path.split("/")),
+                *(root / Path(*item.split("/")) for item in artifact_paths),
             ),
         )
         write_runtime_compatibility_plan(plan, output)
@@ -4854,12 +4859,17 @@ def runtime_compatibility_run(
     """Execute one preflighted native profile and write bounded raw-observation evidence."""
     try:
         plan = load_runtime_compatibility_plan(plan_path)
+        artifact_paths = (
+            [plan.request.artifact_path]
+            if hasattr(plan.request, "artifact_path")
+            else [item.path for item in plan.request.artifacts]
+        )
         validate_output_path(
             output,
             forbidden_inputs=(
                 plan_path,
                 root / Path(*plan.request.executable_path.split("/")),
-                root / Path(*plan.request.artifact_path.split("/")),
+                *(root / Path(*item.split("/")) for item in artifact_paths),
             ),
         )
         evidence = execute_runtime_compatibility_plan(plan, root)
