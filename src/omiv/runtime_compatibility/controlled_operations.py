@@ -8,6 +8,7 @@ import fcntl
 import hashlib
 import json
 import os
+import re
 import select
 import shutil
 import socket
@@ -68,6 +69,7 @@ from omiv.runtime_compatibility.models import (
     StageStatus,
 )
 from omiv.runtime_compatibility.operations import (
+    _CONTAINMENT_MECHANISM,
     MAX_RUNTIME_COMPAT_EVIDENCE_BYTES,
     MAX_RUNTIME_COMPAT_PLAN_BYTES,
     MAX_RUNTIME_COMPAT_REQUEST_BYTES,
@@ -1367,3 +1369,174 @@ def concise_controlled_evidence(evidence: ControlledEvidence) -> str:
     rows.append(f"Runtime compatibility         {evidence.status.value}")
     rows.append("Scope                         WITHIN_PROFILE; Phase 7 remains unfrozen")
     return "\n".join(rows)
+
+
+# --- R11 item 2: CUDA containment preflight ---------------------------------
+
+# The version step already runs the pinned executable inside the exact final
+# containment, so it exercises CUDA initialisation there.  For A6 this probe
+# lets a real GPU host verify CUDA init inside that identical containment
+# BEFORE downloading model bytes, failing fast if the containment/driver stack
+# cannot initialise the GPU.  CI has no GPU, so it must use a deterministic
+# synthetic substitute that verifies the containment mechanics only and makes
+# no CUDA-compatibility claim.
+CONTROLLED_CUDA_PREFLIGHT_REAL = "REAL_GPU_CUDA_INIT_WITHIN_CONTAINMENT"
+CONTROLLED_CUDA_PREFLIGHT_SYNTHETIC = "SYNTHETIC_CONTAINMENT_MECHANICS_ONLY_NOT_A_CUDA_CLAIM"
+CONTROLLED_CUDA_PREFLIGHT_FAILED = "CUDA_PREFLIGHT_FAILED"
+
+# llama.cpp logs `ggml_cuda_init:` lines on SUCCESS too (e.g. "found 1 CUDA
+# devices"), so the gate must match failure-specific text only.  A healthy
+# CUDA initialization inside the containment must pass; these markers fail it.
+_CUDA_FAILURE_MARKERS = (
+    "ggml_cuda_init: failed",
+    "no CUDA devices found",
+    "CUDA error",
+    "CUDA_ERROR_",
+    "cudaErrorInitializationError",
+    "failed to initialize CUDA",
+)
+
+
+@dataclass(frozen=True)
+class ControlledProbeResult:
+    return_code: int | None
+    timed_out: bool
+    termination: str
+    stdout: bytes
+    stderr: bytes
+    stdout_overflow: bool
+    stderr_overflow: bool
+    mechanism: str
+
+
+def run_controlled_probe(
+    arguments: list[str],
+    *,
+    cwd: Path,
+    environment: dict[str, str],
+    max_stdout_bytes: int = 1 << 20,
+    max_stderr_bytes: int = 1 << 20,
+    max_work_file_bytes: int = 1 << 20,
+    timeout_seconds: float = 30.0,
+) -> ControlledProbeResult:
+    """Run one command inside the exact final containment and bound its output.
+
+    Reuses the identical containment path (user+PID+mount namespaces, private
+    fresh /proc, atomic pre-exec gate, kernel whole-tree cleanup) as the version
+    and server steps, so a CUDA probe run through it observes exactly what the
+    real runtime will.  Never establishes a controlled verdict on its own.
+    """
+    process = _ContainedProcess.start(
+        arguments,
+        cwd=cwd,
+        environment=environment,
+        max_stdout_bytes=max_stdout_bytes,
+        max_stderr_bytes=max_stderr_bytes,
+        max_work_file_bytes=max_work_file_bytes,
+        pass_fds=(),
+    )
+    report = process.finish(mode="WAIT", timeout_seconds=timeout_seconds, grace_seconds=1.0)
+    return ControlledProbeResult(
+        return_code=report.return_code,
+        timed_out=report.timed_out,
+        termination=report.termination,
+        stdout=report.stdout,
+        stderr=report.stderr,
+        stdout_overflow=report.stdout_overflow,
+        stderr_overflow=report.stderr_overflow,
+        mechanism=str(report.observation.get("mechanism", "")),
+    )
+
+
+def evaluate_cuda_preflight(result: ControlledProbeResult, *, expected_gpu_marker: str) -> str:
+    """Classify a CUDA preflight result. Real success requires a real GPU marker.
+
+    A clean exit alone is never sufficient: the probe stdout/stderr must contain
+    the caller-supplied GPU identity marker (e.g. the observed RTX 5090 name),
+    which a synthetic, GPU-less substitute cannot produce.  This guarantees a
+    synthetic run can never be upgraded into the real GPU gate.
+    """
+    if not expected_gpu_marker:
+        raise ValueError("a real GPU marker is required to satisfy the CUDA preflight gate")
+    combined = result.stdout.decode("utf-8", "replace") + result.stderr.decode("utf-8", "replace")
+    healthy = (
+        result.return_code == 0
+        and not result.timed_out
+        and not result.stdout_overflow
+        and not result.stderr_overflow
+        and result.mechanism == _CONTAINMENT_MECHANISM
+        and not any(marker in combined for marker in _CUDA_FAILURE_MARKERS)
+        and expected_gpu_marker in combined
+    )
+    return CONTROLLED_CUDA_PREFLIGHT_REAL if healthy else CONTROLLED_CUDA_PREFLIGHT_FAILED
+
+
+# --- R11 item 3: runtime code identity --------------------------------------
+
+# Project-owned runtime components. A thin launcher that dynamically loads these
+# does not have its server/CUDA logic covered by the launcher's own SHA-256.
+PROJECT_PRIVATE_RUNTIME_SONAME_PREFIXES = (
+    "libllama",
+    "libggml",
+    "libmtmd",
+)
+
+
+def classify_project_runtime_linkage(needed_sonames: list[str]) -> list[str]:
+    """Flag project-private shared objects a launcher dynamically depends on."""
+    issues: list[str] = []
+    for soname in needed_sonames:
+        base = soname.split("/")[-1]
+        if any(base.startswith(prefix) for prefix in PROJECT_PRIVATE_RUNTIME_SONAME_PREFIXES):
+            issues.append(
+                f"Runtime launcher dynamically depends on project-private component: {base}"
+            )
+    return issues
+
+
+def require_static_project_runtime(needed_sonames: list[str]) -> None:
+    """Preferred R11 identity: reject a launcher with project-private .so deps.
+
+    When this passes, the executable SHA-256 covers the project runtime logic.
+    It never covers the system CUDA/driver toolkit, whose identity is recorded
+    separately (driver + toolkit facts) and is an explicit trust boundary.
+    """
+    issues = classify_project_runtime_linkage(needed_sonames)
+    if issues:
+        raise OmivInputError("; ".join(issues))
+
+
+# --- R11 item 4: raw capture retention hygiene ------------------------------
+
+_PRESIGNED_QUERY_RE = re.compile(
+    r"([?&])"
+    r"(?:X-Amz-[^=&\s]+|Policy|Signature|Key-Pair-Id|Expires|[A-Za-z0-9_-]*token|user_id)"
+    r"=[^&\s]*",
+    re.IGNORECASE,
+)
+_HOME_PATH_RE = re.compile(r"(?:/home/[^/\s:]+|/root(?=/|\s|$))")
+
+
+def redact_portable_capture_text(text: str) -> str:
+    """Strip presigned-URL secrets, host home paths from retained capture text."""
+    redacted = _PRESIGNED_QUERY_RE.sub(r"\1[REDACTED]", text)
+    return _HOME_PATH_RE.sub("/home/[REDACTED]", redacted)
+
+
+def bounded_capture_manifest(
+    name: str, argv: list[str], result: ControlledProbeResult
+) -> dict[str, Any]:
+    """Bind argv, exit, timeout/overflow and byte/SHA-256 identity for a capture."""
+    return {
+        "name": name,
+        "argv": list(argv),
+        "return_code": result.return_code,
+        "timed_out": result.timed_out,
+        "termination": result.termination,
+        "stdout_bytes": len(result.stdout),
+        "stdout_sha256": hashlib.sha256(result.stdout).hexdigest(),
+        "stdout_overflow": result.stdout_overflow,
+        "stderr_bytes": len(result.stderr),
+        "stderr_sha256": hashlib.sha256(result.stderr).hexdigest(),
+        "stderr_overflow": result.stderr_overflow,
+    }

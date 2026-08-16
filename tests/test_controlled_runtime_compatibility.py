@@ -1216,16 +1216,67 @@ def _isolated_request(tmp_path: Path, replacement: tuple[str, str]) -> object:
     )
 
 
-def _pid_is_running(pid: int) -> bool:
-    try:
-        os.kill(pid, 0)
-    except ProcessLookupError:
-        return False
-    status = Path(f"/proc/{pid}/stat")
-    if status.exists():
-        with suppress(OSError, IndexError):
-            return status.read_text(encoding="utf-8").split()[2] != "Z"
-    return True
+# R11: the contained tree now has a private fresh /proc, so a contained process
+# can no longer read its own outer (host-visible) PID.  Liveness is therefore
+# asserted from the supervisor's (host) namespace by the contained PID
+# namespace's globally-valid inode, which a contained process CAN still read
+# from /proc/self/ns/pid.  This is the correct authority: the supervisor stays
+# outside every contained namespace.
+#
+# PID-namespace inodes are recycled by the kernel once the namespace loses its
+# last member, so the inode alone must never count an arbitrary process as a
+# member: every scanned candidate must ALSO be a descendant of this test
+# process (real contained members always are, through leader -> bootstrap ->
+# supervisor -> pytest, including setsid/double-fork escapees, which reparent
+# to the supervisor subreaper or the namespace init).  A namespace's inode
+# cannot be recycled while any member is alive, so a False result remains a
+# sound whole-tree-death proof; the descendant filter makes the True side
+# deterministic under unrelated namespace churn and confines cleanup SIGKILLs
+# to this test's own process tree.
+_NS_INODE_EXPR = "__import__('os').stat('/proc/self/ns/pid').st_ino"
+
+
+def _is_test_descendant(pid: int) -> bool:
+    current = pid
+    for _ in range(128):
+        if current == os.getpid():
+            return True
+        if current <= 1:
+            return False
+        try:
+            with open(f"/proc/{current}/status", encoding="utf-8") as handle:
+                fields = dict(
+                    line.split(":\t", 1) for line in handle.read().splitlines() if ":\t" in line
+                )
+            current = int(fields["PPid"].strip())
+        except (OSError, KeyError, ValueError):
+            return False
+    return False
+
+
+def _pidns_member_pids(inode: int) -> list[int]:
+    members: list[int] = []
+    for entry in os.listdir("/proc"):
+        if not entry.isdigit():
+            continue
+        try:
+            if os.stat(f"/proc/{entry}/ns/pid").st_ino != inode:
+                continue
+        except OSError:
+            continue
+        if _is_test_descendant(int(entry)):
+            members.append(int(entry))
+    return members
+
+
+def _pidns_has_live_member(inode: int) -> bool:
+    for pid in _pidns_member_pids(inode):
+        try:
+            if Path(f"/proc/{pid}/stat").read_text(encoding="utf-8").split()[2] != "Z":
+                return True
+        except (OSError, IndexError):
+            continue
+    return False
 
 
 def _fault_process(
@@ -1236,8 +1287,7 @@ def _fault_process(
     code = (
         "import os,pathlib,time; "
         f"root=pathlib.Path({str(pid_directory)!r}); "
-        "host=lambda:next(x for x in open('/proc/self/status') "
-        "if x.startswith('NSpid:')).split()[1]; "
+        f"host=lambda:str({_NS_INODE_EXPR}); "
         "root.joinpath('leader').write_text(host()); "
     )
     if spawn_tree:
@@ -1267,7 +1317,7 @@ def _fault_process(
 
 def _assert_fault_tree_empty(pid_directory: Path) -> None:
     for path in pid_directory.iterdir():
-        assert not _pid_is_running(int(path.read_text(encoding="utf-8")))
+        assert not _pidns_has_live_member(int(path.read_text(encoding="utf-8")))
 
 
 def _wait_for_fault_pids(pid_directory: Path, minimum: int) -> None:
@@ -1348,8 +1398,7 @@ def _persistent_enumeration_process(
     code = (
         "import os,pathlib,signal,sys,time; "
         f"root=pathlib.Path({str(pid_directory)!r}); "
-        "host=lambda:next(x for x in open('/proc/self/status') "
-        "if x.startswith('NSpid:')).split()[1]; "
+        f"host=lambda:str({_NS_INODE_EXPR}); "
         "root.joinpath('leader').write_text(host()); "
         "pid=os.fork(); "
         "(os.setsid(),os.fork() and os._exit(0),"
@@ -1403,7 +1452,7 @@ def test_pid_namespace_kill_survives_persistent_enumeration_failure(
     try:
         report = process.finish(mode=mode, timeout_seconds=timeout, grace_seconds=1.0)
         assert report.termination == expected_termination
-        assert report.observation["mechanism"] == "LINUX_PID_NAMESPACE_INIT_PIDFD_V1"
+        assert report.observation["mechanism"] == "LINUX_USER_PID_MOUNT_NAMESPACE_INIT_PIDFD_V2"
         assert report.observation["descendants_remaining"] == 0
         assert report.observation["streams_eof"] is True
     finally:
@@ -1590,8 +1639,7 @@ def test_rehashes_match_aggregate_server_lifecycle(
             "server = ThreadingHTTPServer((arguments.host, arguments.port), Handler)",
             "server = ThreadingHTTPServer((arguments.host, arguments.port), Handler)\n    "
             "Path(f\"server-{'on' if active_dflash else 'off'}.pid\").write_text(\n        "
-            "next(x for x in open('/proc/self/status') if "
-            "x.startswith('NSpid:')).split()[1], encoding='utf-8'\n    )",
+            f"str({_NS_INODE_EXPR}), encoding='utf-8'\n    )",
         ),
     )
     request = request.model_copy(
@@ -1605,7 +1653,7 @@ def test_rehashes_match_aggregate_server_lifecycle(
     def observe(plan: object, root: Path, boundary: str) -> object:
         active = 0
         for path in root.glob(".omiv-controlled-runtime-*/server-*.pid"):
-            if _pid_is_running(int(path.read_text(encoding="utf-8"))):
+            if _pidns_has_live_member(int(path.read_text(encoding="utf-8"))):
                 active += 1
         observed.append((boundary, active))
         return original(plan, root, boundary)  # type: ignore[arg-type]
@@ -1624,8 +1672,7 @@ def test_cleanup_kills_descendants_and_requires_collector_eof(tmp_path: Path) ->
     pid_path = tmp_path / "descendant.pid"
     child_code = (
         "import os,pathlib,signal,time; signal.signal(signal.SIGTERM, signal.SIG_IGN); "
-        f"pathlib.Path({str(pid_path)!r}).write_text(next(x for x in "
-        "open('/proc/self/status') if x.startswith('NSpid:')).split()[1], "
+        f"pathlib.Path({str(pid_path)!r}).write_text(str({_NS_INODE_EXPR}), "
         "encoding='utf-8'); "
         "time.sleep(30)"
     )
@@ -1639,23 +1686,24 @@ def test_cleanup_kills_descendants_and_requires_collector_eof(tmp_path: Path) ->
             "while not ready.exists():\n        __import__('time').sleep(0.01)",
         ),
     )
-    child_pid: int | None = None
+    child_pidns: int | None = None
     try:
         result = execute_plan(build_plan(request, tmp_path), tmp_path)
-        child_pid = int(pid_path.read_text(encoding="utf-8"))
+        child_pidns = int(pid_path.read_text(encoding="utf-8"))
         deadline = time.monotonic() + 2
-        while _pid_is_running(child_pid) and time.monotonic() < deadline:
+        while _pidns_has_live_member(child_pidns) and time.monotonic() < deadline:
             time.sleep(0.02)
-        assert not _pid_is_running(child_pid)
+        assert not _pidns_has_live_member(child_pidns)
         assert result.status.value == "NOT_VERIFIED"
         assert all(item.process.termination == "SIGKILL" for item in result.servers)
         assert result.stages[3].status.value == "FAIL"
     finally:
-        if child_pid is None and pid_path.exists():
-            child_pid = int(pid_path.read_text(encoding="utf-8"))
-        if child_pid is not None and _pid_is_running(child_pid):
-            with suppress(ProcessLookupError):
-                os.kill(child_pid, signal.SIGKILL)
+        if child_pidns is None and pid_path.exists():
+            child_pidns = int(pid_path.read_text(encoding="utf-8"))
+        if child_pidns is not None:
+            for pid in _pidns_member_pids(child_pidns):
+                with suppress(ProcessLookupError):
+                    os.kill(pid, signal.SIGKILL)
 
 
 @pytest.mark.parametrize(
@@ -1991,8 +2039,7 @@ def test_version_setsid_descendant_closing_streams_is_killed_and_never_recorded(
     pid_path = tmp_path / "version-descendant.pid"
     child_code = (
         "import os,pathlib,time; "
-        f"pathlib.Path({str(pid_path)!r}).write_text(next(x for x in "
-        "open('/proc/self/status') if x.startswith('NSpid:')).split()[1], "
+        f"pathlib.Path({str(pid_path)!r}).write_text(str({_NS_INODE_EXPR}), "
         "encoding='utf-8'); "
         "time.sleep(30)"
     )
@@ -2015,20 +2062,21 @@ def test_version_setsid_descendant_closing_streams_is_killed_and_never_recorded(
             ).hexdigest()
         }
     )
-    child_pid: int | None = None
+    child_pidns: int | None = None
     try:
         plan = build_plan(request, tmp_path)
         with pytest.raises(OmivInputError, match="descendants remained.*were contained"):
             execute_plan(plan, tmp_path)
-        child_pid = int(pid_path.read_text(encoding="utf-8"))
-        assert not _pid_is_running(child_pid)
+        child_pidns = int(pid_path.read_text(encoding="utf-8"))
+        assert not _pidns_has_live_member(child_pidns)
         assert not list(tmp_path.glob(".omiv-controlled-runtime-*"))
     finally:
-        if child_pid is None and pid_path.exists():
-            child_pid = int(pid_path.read_text(encoding="utf-8"))
-        if child_pid is not None and _pid_is_running(child_pid):
-            with suppress(ProcessLookupError):
-                os.kill(child_pid, signal.SIGKILL)
+        if child_pidns is None and pid_path.exists():
+            child_pidns = int(pid_path.read_text(encoding="utf-8"))
+        if child_pidns is not None:
+            for pid in _pidns_member_pids(child_pidns):
+                with suppress(ProcessLookupError):
+                    os.kill(pid, signal.SIGKILL)
 
 
 def test_server_setsid_descendants_closing_streams_are_bounded_and_reaped(
@@ -2039,8 +2087,7 @@ def test_server_setsid_descendants_closing_streams_are_bounded_and_reaped(
     child_code = (
         "import os,pathlib,signal,time; "
         "signal.signal(signal.SIGTERM, signal.SIG_IGN); "
-        f"pathlib.Path({str(pid_directory)!r}, next(x for x in "
-        "open('/proc/self/status') if x.startswith('NSpid:')).split()[1]).write_text('live'); "
+        f"pathlib.Path({str(pid_directory)!r}, str({_NS_INODE_EXPR})).write_text('live'); "
         "time.sleep(30)"
     )
     request = _isolated_request(
@@ -2054,12 +2101,12 @@ def test_server_setsid_descendants_closing_streams_are_bounded_and_reaped(
             "stderr=__import__('subprocess').DEVNULL, start_new_session=True)\n",
         ),
     )
-    observed_pids: list[int] = []
+    observed_pidns: list[int] = []
     try:
         result = execute_plan(build_plan(request, tmp_path), tmp_path)
-        observed_pids = [int(item.name) for item in pid_directory.iterdir()]
-        assert len(observed_pids) == 2
-        assert all(not _pid_is_running(pid) for pid in observed_pids)
+        observed_pidns = [int(item.name) for item in pid_directory.iterdir()]
+        assert len(observed_pidns) == 2
+        assert all(not _pidns_has_live_member(inode) for inode in observed_pidns)
         assert result.status.value == "NOT_VERIFIED"
         assert all(item.process.termination == "SIGKILL" for item in result.servers)
         assert all(
@@ -2071,13 +2118,13 @@ def test_server_setsid_descendants_closing_streams_are_bounded_and_reaped(
             for item in result.servers
         )
     finally:
-        observed_pids.extend(
+        observed_pidns.extend(
             int(item.name)
             for item in pid_directory.iterdir()
-            if int(item.name) not in observed_pids
+            if int(item.name) not in observed_pidns
         )
-        for pid in observed_pids:
-            if _pid_is_running(pid):
+        for inode in observed_pidns:
+            for pid in _pidns_member_pids(inode):
                 with suppress(ProcessLookupError):
                     os.kill(pid, signal.SIGKILL)
 
@@ -2091,8 +2138,7 @@ def test_version_double_fork_session_escape_is_adopted_and_reaped(tmp_path: Path
         "os.setsid(); "
         "pid=os.fork(); "
         "os._exit(0) if pid else None; "
-        f"pathlib.Path({str(pid_path)!r}).write_text(next(x for x in "
-        "open('/proc/self/status') if x.startswith('NSpid:')).split()[1]); "
+        f"pathlib.Path({str(pid_path)!r}).write_text(str({_NS_INODE_EXPR})); "
         "time.sleep(30)"
     )
     request = _isolated_request(
@@ -2108,18 +2154,19 @@ def test_version_double_fork_session_escape_is_adopted_and_reaped(tmp_path: Path
             "print(VERSION)\n        return 0",
         ),
     )
-    daemon_pid: int | None = None
+    daemon_pidns: int | None = None
     try:
         with pytest.raises(OmivInputError, match="descendants remained.*were contained"):
             execute_plan(build_plan(request, tmp_path), tmp_path)
-        daemon_pid = int(pid_path.read_text(encoding="utf-8"))
-        assert not _pid_is_running(daemon_pid)
+        daemon_pidns = int(pid_path.read_text(encoding="utf-8"))
+        assert not _pidns_has_live_member(daemon_pidns)
     finally:
-        if daemon_pid is None and pid_path.exists():
-            daemon_pid = int(pid_path.read_text(encoding="utf-8"))
-        if daemon_pid is not None and _pid_is_running(daemon_pid):
-            with suppress(ProcessLookupError):
-                os.kill(daemon_pid, signal.SIGKILL)
+        if daemon_pidns is None and pid_path.exists():
+            daemon_pidns = int(pid_path.read_text(encoding="utf-8"))
+        if daemon_pidns is not None:
+            for pid in _pidns_member_pids(daemon_pidns):
+                with suppress(ProcessLookupError):
+                    os.kill(pid, signal.SIGKILL)
 
 
 def test_containment_setup_unavailable_fails_before_controlled_launch(
@@ -2561,3 +2608,243 @@ def test_cli_version_mismatch_returns_two_without_partial_output(tmp_path: Path)
     assert result.output.strip() == "ERROR Runtime compatibility operation failed"
     assert "Traceback" not in result.output
     assert not output.exists()
+
+
+# --- R11: mount-namespace correctness, CUDA preflight, runtime identity ---
+
+
+def _run_contained(tmp_path: Path, code: str) -> object:
+    process = _ContainedProcess.start(
+        [sys.executable, "-c", code],
+        cwd=tmp_path,
+        environment={"PATH": "/usr/bin:/bin", "PYTHONUNBUFFERED": "1"},
+        max_stdout_bytes=4096,
+        max_stderr_bytes=4096,
+        max_work_file_bytes=1024,
+        pass_fds=(),
+    )
+    return process.finish(mode="WAIT", timeout_seconds=5, grace_seconds=1.0)
+
+
+def test_contained_tree_sees_private_fresh_proc_as_pid_one(tmp_path: Path) -> None:
+    # The contained runtime must observe a fresh /proc that represents its own
+    # PID namespace: /proc/self resolves to PID 1 and only contained PIDs are
+    # visible. A stale outer /proc would report a large host PID here.
+    code = (
+        "import os; "
+        "pid=open('/proc/self/stat').read().split()[0]; "
+        "nums=sorted(e for e in os.listdir('/proc') if e.isdigit()); "
+        "print('self_pid=' + pid); "
+        "print('numeric=' + ','.join(nums))"
+    )
+    report = _run_contained(tmp_path, code)
+    text = report.stdout.decode("utf-8")
+    assert "self_pid=1" in text
+    numeric = text.split("numeric=", 1)[1].strip().split(",")
+    # Only the contained init (and possibly a transient helper) — never a large
+    # host PID such as this test process.
+    assert all(int(value) < 1000 for value in numeric if value)
+    assert str(os.getpid()) not in numeric
+
+
+def test_contained_proc_mount_does_not_propagate_to_host(tmp_path: Path) -> None:
+    # Recursive-private propagation before mounting proc means the contained
+    # fresh /proc cannot appear in the supervisor/host mount namespace.
+    before = Path("/proc/self/mountinfo").read_text(encoding="utf-8")
+    host_proc_mounts_before = sum(1 for line in before.splitlines() if " /proc " in line)
+    report = _run_contained(tmp_path, "print('ok')")
+    assert report.stdout.decode("utf-8").strip() == "ok"
+    after = Path("/proc/self/mountinfo").read_text(encoding="utf-8")
+    host_proc_mounts_after = sum(1 for line in after.splitlines() if " /proc " in line)
+    # The contained proc mount left the host mount namespace untouched.
+    assert host_proc_mounts_after == host_proc_mounts_before
+    assert Path("/proc/self/stat").read_text(encoding="utf-8").split()[0] == str(os.getpid())
+
+
+def test_synthetic_run_reports_mount_namespace_mechanism(evidence: ControlledEvidence) -> None:
+    for server in evidence.servers:
+        assert server.process.containment is not None
+        assert (
+            server.process.containment.mechanism == "LINUX_USER_PID_MOUNT_NAMESPACE_INIT_PIDFD_V2"
+        )
+    assert evidence.version_execution.containment is not None
+    assert (
+        evidence.version_execution.containment.mechanism
+        == "LINUX_USER_PID_MOUNT_NAMESPACE_INIT_PIDFD_V2"
+    )
+
+
+def test_offline_rejects_prior_containment_mechanism(
+    evidence: ControlledEvidence, tmp_path: Path
+) -> None:
+    value = json.loads(json.dumps(evidence.model_dump(mode="json", by_alias=True)))
+    value["servers"][0]["process"]["containment"]["mechanism"] = "LINUX_PID_NAMESPACE_INIT_PIDFD_V1"
+    _rehash(value)
+    path = tmp_path / "prior-mechanism.json"
+    path.write_text(json.dumps(value), encoding="utf-8")
+    with pytest.raises(OmivInputError, match="invalid controlled runtime evidence"):
+        load_evidence(path)
+
+
+def test_run_controlled_probe_captures_command_through_containment(tmp_path: Path) -> None:
+    from omiv.runtime_compatibility.controlled_operations import run_controlled_probe
+
+    result = run_controlled_probe(
+        [sys.executable, "-c", "import sys; print('probe-ok'); sys.exit(0)"],
+        cwd=tmp_path,
+        environment={"PATH": "/usr/bin:/bin", "PYTHONUNBUFFERED": "1"},
+    )
+    assert result.return_code == 0
+    assert not result.timed_out
+    assert result.stdout.decode("utf-8").strip() == "probe-ok"
+    assert result.mechanism == "LINUX_USER_PID_MOUNT_NAMESPACE_INIT_PIDFD_V2"
+
+
+def test_cuda_preflight_requires_real_gpu_marker_and_rejects_synthetic(tmp_path: Path) -> None:
+    from omiv.runtime_compatibility.controlled_operations import (
+        CONTROLLED_CUDA_PREFLIGHT_FAILED,
+        CONTROLLED_CUDA_PREFLIGHT_REAL,
+        CONTROLLED_CUDA_PREFLIGHT_SYNTHETIC,
+        evaluate_cuda_preflight,
+        run_controlled_probe,
+    )
+
+    # A clean synthetic run through the real containment must NOT satisfy the
+    # GPU gate: it cannot emit the real GPU identity marker.  CI records such
+    # runs under the synthetic label, which is explicitly not a CUDA claim.
+    assert "NOT_A_CUDA_CLAIM" in CONTROLLED_CUDA_PREFLIGHT_SYNTHETIC
+    synthetic = run_controlled_probe(
+        [sys.executable, "-c", "print('no gpu here')"],
+        cwd=tmp_path,
+        environment={"PATH": "/usr/bin:/bin", "PYTHONUNBUFFERED": "1"},
+    )
+    assert synthetic.return_code == 0
+    verdict = evaluate_cuda_preflight(synthetic, expected_gpu_marker="NVIDIA GeForce RTX 5090")
+    assert verdict == CONTROLLED_CUDA_PREFLIGHT_FAILED
+
+    # llama.cpp logs ggml_cuda_init lines on SUCCESS too; a healthy CUDA
+    # initialization inside the containment must satisfy the gate.
+    real = run_controlled_probe(
+        [
+            sys.executable,
+            "-c",
+            "import sys; "
+            "print('ggml_cuda_init: found 1 CUDA devices:', file=sys.stderr); "
+            "print('  Device 0: NVIDIA GeForce RTX 5090, compute capability 12.0', "
+            "file=sys.stderr); "
+            "print('NVIDIA GeForce RTX 5090')",
+        ],
+        cwd=tmp_path,
+        environment={"PATH": "/usr/bin:/bin", "PYTHONUNBUFFERED": "1"},
+    )
+    assert (
+        evaluate_cuda_preflight(real, expected_gpu_marker="NVIDIA GeForce RTX 5090")
+        == CONTROLLED_CUDA_PREFLIGHT_REAL
+    )
+    # Failure-specific CUDA text fails the gate even with the marker present —
+    # this is exactly the A6 attempt-3 abort signature.
+    broken = run_controlled_probe(
+        [
+            sys.executable,
+            "-c",
+            "print('ggml_cuda_init: failed to initialize CUDA: OS call failed'); "
+            "print('NVIDIA GeForce RTX 5090')",
+        ],
+        cwd=tmp_path,
+        environment={"PATH": "/usr/bin:/bin", "PYTHONUNBUFFERED": "1"},
+    )
+    assert evaluate_cuda_preflight(broken, expected_gpu_marker="NVIDIA GeForce RTX 5090") == (
+        CONTROLLED_CUDA_PREFLIGHT_FAILED
+    )
+    with pytest.raises(ValueError, match="real GPU marker is required"):
+        evaluate_cuda_preflight(real, expected_gpu_marker="")
+
+
+@pytest.mark.parametrize(
+    ("needed", "rejected"),
+    [
+        (["libc.so.6", "libm.so.6", "libcudart.so.12", "libcuda.so.1"], False),
+        (["libc.so.6", "libllama.so.0"], True),
+        (["libggml-cuda.so", "libc.so.6"], True),
+        (["/opt/x/libmtmd.so.0"], True),
+        (["libstdc++.so.6", "libgcc_s.so.1"], False),
+    ],
+)
+def test_runtime_linkage_rejects_project_private_shared_objects(
+    needed: list[str], rejected: bool
+) -> None:
+    from omiv.runtime_compatibility.controlled_operations import (
+        classify_project_runtime_linkage,
+        require_static_project_runtime,
+    )
+
+    issues = classify_project_runtime_linkage(needed)
+    if rejected:
+        assert issues
+        with pytest.raises(OmivInputError, match="project-private component"):
+            require_static_project_runtime(needed)
+    else:
+        assert issues == []
+        require_static_project_runtime(needed)  # does not raise
+        # System CUDA/driver libraries are NOT project-private and are the
+        # documented separate trust boundary, not covered by the executable hash.
+
+
+def test_capture_manifest_and_redaction_bind_identity_and_strip_secrets(tmp_path: Path) -> None:
+    from omiv.runtime_compatibility.controlled_operations import (
+        bounded_capture_manifest,
+        redact_portable_capture_text,
+        run_controlled_probe,
+    )
+
+    result = run_controlled_probe(
+        [sys.executable, "-c", "print('manifest-line')"],
+        cwd=tmp_path,
+        environment={"PATH": "/usr/bin:/bin", "PYTHONUNBUFFERED": "1"},
+    )
+    manifest = bounded_capture_manifest("cuda-preflight", ["nvidia-smi", "-L"], result)
+    assert manifest["argv"] == ["nvidia-smi", "-L"]
+    assert manifest["return_code"] == 0
+    assert manifest["stdout_bytes"] == len(result.stdout)
+    assert manifest["stdout_sha256"] == hashlib.sha256(result.stdout).hexdigest()
+    assert manifest["stderr_sha256"] == hashlib.sha256(result.stderr).hexdigest()
+    assert manifest["stdout_overflow"] is False
+
+    host_home = "/home/" + "operator"  # built at runtime; keeps source public-safe
+    dirty = (
+        "GET https://hf.co/x.gguf?X-Amz-Signature=deadbeef&Policy=abc&Expires=1786889064 200\n"
+        "auth https://p/x?access_token=SEC1&hf_token=SEC2\n"
+        f"loaded from {host_home}/private/build\n"
+        "root build dir /root/build/llama.cpp\n"
+    )
+    clean = redact_portable_capture_text(dirty)
+    assert "deadbeef" not in clean
+    assert "X-Amz-Signature" not in clean
+    assert "Policy=abc" not in clean
+    # token-suffixed query names are redacted (access_token, hf_token)
+    assert "SEC1" not in clean
+    assert "SEC2" not in clean
+    assert host_home not in clean
+    assert "/root/build" not in clean  # container root home also redacted
+    assert "[REDACTED]" in clean
+    assert "200" in clean  # non-secret content preserved
+
+
+def test_pidns_liveness_filter_excludes_unrelated_same_inode_processes() -> None:
+    # Guards P2-A: pid-namespace inodes are recycled, so a member is counted
+    # only when it is also a descendant of this test process. A False result
+    # stays a sound whole-tree-death proof; the filter makes True deterministic
+    # under unrelated namespace churn and confines cleanup kills to our tree.
+    assert _is_test_descendant(os.getpid()) is True
+    assert _is_test_descendant(1) is False
+    assert _is_test_descendant(os.getppid()) is False
+    child = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(5)"])
+    try:
+        assert _is_test_descendant(child.pid) is True
+        inode = os.stat("/proc/self/ns/pid").st_ino
+        members = _pidns_member_pids(inode)
+        assert all(_is_test_descendant(pid) for pid in members)
+        assert os.getppid() not in members
+    finally:
+        child.terminate()
+        child.wait(timeout=5)

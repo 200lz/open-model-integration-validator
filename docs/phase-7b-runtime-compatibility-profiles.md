@@ -47,9 +47,20 @@ remain lifecycle mutation detectors. Its canonical invocation uses an argument a
 `shell=False`, closed stdin, a fresh empty work directory, a new session, an enforced
 child file-size limit, absolute monotonic HTTP deadlines, bounded streams, and a minimal
 environment. Before each version or server leader starts, OMIV creates a dedicated Linux
-subreaper supervisor and a unique PID namespace. A trusted bootstrap creates the namespace,
-becomes its outer reaper, and forks the gate-held namespace init. The supervisor retains two
-duplicate pidfds for that init before release. Linux guarantees that death of namespace PID 1
+subreaper supervisor and a unique user (when available), PID, and mount namespace. A trusted
+bootstrap creates the namespaces, becomes its outer reaper, and forks the gate-held namespace
+init. Inside that init, before the runtime is released, OMIV recursively makes mount
+propagation private (`MS_REC | MS_PRIVATE`) and then mounts a fresh procfs representing the new
+PID namespace; the order is load-bearing so nothing can propagate back to the host/supervisor
+mount namespace (this also covers the privileged no-userns fallback, whose unshared mount
+namespace would otherwise inherit shared propagation). The init verifies the fresh procfs is
+its own by requiring `/proc/self/stat` to report PID 1 — a stale outer procfs would report the
+outer PID — and any namespace, propagation, mount, or verification failure raises before the
+gate is read, so the runtime is never released with a stale `/proc` view. A stale outer
+`/proc` both leaks outer process identities into the contained runtime and, on GPU stacks,
+breaks CUDA/UVM initialization. The supervisor stays outside every contained namespace and
+retains two duplicate pidfds for that init before release; its own `/proc`-based descendant
+enumeration is unaffected because it never enters the child mount namespace. Linux guarantees that death of namespace PID 1
 SIGKILLs every remaining namespace member, so pidfd readability is the kernel-owned whole-tree
 empty proof and requires no post-launch `/proc` lookup. Before announcing readiness, the
 supervisor behaviorally exercises this exact path with a `setsid` and double-fork tree while
@@ -229,6 +240,29 @@ port is selected, version text and the version pin are exempt from the generic
 possible-port heuristic (a build number such as `10353` is version data there);
 every credential, path, endpoint, and control-character check still applies to
 each version line, and server, HTTP, and probe sources keep full port protection.
+
+The executable SHA-256 covers project runtime logic only when the launcher does not
+dynamically load project-owned shared objects. A `b10353` build splits the server and
+CUDA backend into `libllama*`, `libggml*`, and `libmtmd*` shared libraries, so a thin
+launcher's hash would not cover them. The Muse profile therefore requires a
+project-static llama.cpp build, and OMIV rejects any launcher whose dynamic
+dependencies include a project-private component (`require_static_project_runtime`),
+retaining bounded linkage evidence. Even then the executable hash never covers the
+system CUDA runtime, driver, or toolkit: those are recorded separately as driver and
+toolkit facts and remain an explicit, stated trust boundary, not part of the canonical
+binary identity.
+
+Because the containment isolates `/proc` (see above), CUDA/UVM initialization must be
+verified inside the exact final containment. A real GPU host runs a CUDA-init probe
+through that identical containment (`run_controlled_probe`) before downloading model
+bytes and requires a real GPU identity marker in the probe output
+(`evaluate_cuda_preflight`); a clean exit alone never satisfies the gate, so a
+GPU-less, synthetic substitute — which CI uses to verify only the containment
+mechanics — can never be upgraded into a CUDA-compatibility claim. Every A6 raw
+capture (containment/CUDA preflight, build, linkage inspection, downloads, version
+execution, and diagnostics) is retained alongside a manifest binding argv, exit,
+timeout/overflow state, byte count, and SHA-256, and passes through capture redaction
+so presigned-URL secrets and host home paths never enter portable canonical evidence.
 
 Even success means only, for example, “Muse Glimmer runtime verified by OMIV within
 the pinned llama.cpp/CUDA profile.” It never establishes source-to-GGUF binding;

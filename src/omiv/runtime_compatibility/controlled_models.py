@@ -606,7 +606,7 @@ class ControlledFinding(StrictModel):
 
 
 class ContainmentObservation(StrictModel):
-    mechanism: Literal["LINUX_PID_NAMESPACE_INIT_PIDFD_V1"]
+    mechanism: Literal["LINUX_USER_PID_MOUNT_NAMESPACE_INIT_PIDFD_V2"]
     established_before_launch: Literal[True] = True
     stable_identity: Literal["PID_NAMESPACE_INIT_PIDFD"] = "PID_NAMESPACE_INIT_PIDFD"
     atomic_launch_tested: Literal[True] = True

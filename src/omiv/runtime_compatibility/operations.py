@@ -122,7 +122,7 @@ _CONTAINMENT_MAX_STDERR_BYTES = 4 * 1024 * 1024
 _CONTAINMENT_CAPTURE_MAGIC = b"OMIVCAP2"
 _CONTAINMENT_SELFTEST_STDOUT = b"OMIV containment stdout self-test\n"
 _CONTAINMENT_SELFTEST_STDERR = b"OMIV containment stderr self-test\n"
-_CONTAINMENT_MECHANISM = "LINUX_PID_NAMESPACE_INIT_PIDFD_V1"
+_CONTAINMENT_MECHANISM = "LINUX_USER_PID_MOUNT_NAMESPACE_INIT_PIDFD_V2"
 _CONTAINMENT_CONTROL_PROTOCOL = "LENGTH_DELIMITED_JSON_V2"
 _CONTAINMENT_CAPTURE_PROTOCOL = "INDEPENDENT_LENGTH_DELIMITED_BINARY_V1"
 _PR_SET_CHILD_SUBREAPER = 36
@@ -130,6 +130,9 @@ _PR_GET_CHILD_SUBREAPER = 37
 _PR_SET_PDEATHSIG = 1
 _CLONE_NEWUSER = 0x10000000
 _CLONE_NEWPID = 0x20000000
+_CLONE_NEWNS = 0x00020000
+_MS_REC = 0x4000
+_MS_PRIVATE = 0x40000
 _MAX_CONTAINED_IDENTITIES = 4096
 _PERSISTENT_ENUMERATION_FAILURE = False
 
@@ -408,8 +411,61 @@ def _unshare(flags: int) -> None:
         raise OSError(error, os.strerror(error))
 
 
+def _mount(source: str | None, target: str, fstype: str | None, flags: int) -> None:
+    libc = ctypes.CDLL(None, use_errno=True)
+    result = int(
+        libc.mount(
+            source.encode() if source is not None else None,
+            target.encode(),
+            fstype.encode() if fstype is not None else None,
+            ctypes.c_ulong(flags),
+            None,
+        )
+    )
+    if result != 0:
+        error = ctypes.get_errno()
+        raise OSError(error, os.strerror(error))
+
+
+def _isolate_mount_namespace_and_proc() -> None:
+    """Give the PID-namespace init its own mount namespace and a fresh /proc.
+
+    Runs only in the child that is init (PID 1) of the freshly created PID
+    namespace.  Without this, the contained tree keeps the outer mount
+    namespace's ``/proc``, which still reflects the outer PID namespace; on GPU
+    stacks that stale view breaks CUDA/UVM initialization, and it also leaks
+    outer process identities into the contained runtime.
+
+    Order is load-bearing: create the mount namespace, make propagation
+    recursively private BEFORE any mount so nothing can propagate back to the
+    host/supervisor mount namespace (this covers the privileged no-userns
+    fallback, where an unshared mount namespace otherwise inherits shared
+    propagation), then mount a fresh procfs that represents the new PID
+    namespace.  The verification is decisive: ``/proc/self`` resolves to the
+    reader's PID *in the namespace the procfs is tied to*, so the init sees
+    ``/proc/self/stat`` report PID 1 only when the mount is the fresh one; a
+    stale outer procfs would report the outer PID.  Any failure raises, and the
+    caller fails closed before the runtime is released.
+    """
+    _unshare(_CLONE_NEWNS)
+    _mount(None, "/", None, _MS_REC | _MS_PRIVATE)
+    _mount("proc", "/proc", "proc", 0)
+    try:
+        with open("/proc/self/stat", encoding="utf-8") as handle:
+            reported_pid = handle.read().split(maxsplit=1)[0]
+    except OSError as exc:
+        raise OSError(exc.errno or 0, "fresh /proc could not be read after mounting") from exc
+    if reported_pid != "1":
+        raise RuntimeError("fresh /proc does not represent the contained PID namespace")
+
+
 def _establish_pid_namespace() -> int:
-    """Create an owned PID namespace and return 0 in its init, or its host PID."""
+    """Create an owned PID+mount namespace and return 0 in its init, or its host PID.
+
+    In the init child, user (when available), PID, and mount namespaces plus a
+    private fresh /proc are all established before returning 0; any failure
+    raises so the trusted bootstrap fails closed before releasing the runtime.
+    """
     outer_uid = os.getuid()
     outer_gid = os.getgid()
     try:
@@ -425,7 +481,12 @@ def _establish_pid_namespace() -> int:
         Path("/proc/self/uid_map").write_text(f"0 {outer_uid} 1\n", encoding="ascii")
         Path("/proc/self/gid_map").write_text(f"0 {outer_gid} 1\n", encoding="ascii")
         _unshare(_CLONE_NEWPID)
-    return os.fork()
+    pid = os.fork()
+    if pid == 0:
+        # Init of the new PID namespace: isolate the mount namespace and mount a
+        # private fresh /proc before any runtime bytes are reached.
+        _isolate_mount_namespace_and_proc()
+    return pid
 
 
 class _KernelContainment:
