@@ -103,4 +103,35 @@ jobs:
           OMIV_RUN_HF_INTEGRATION: "0"
           OMIV_RUN_MAPPING_INTEGRATION: "0"
           OMIV_RUN_REMOTE_INTEGRATION: "0"
-        run: python -m pytest
+        run: |
+          set -euo pipefail
+
+          # Ubuntu 24.04 denies unprivileged user-namespace creation by default,
+          # which the controlled-runtime containment tests require.  Relax the
+          # restriction only for the duration of this step and restore the exact
+          # original value on exit; restoration failure fails the job.
+          CONTROL=/proc/sys/kernel/apparmor_restrict_unprivileged_userns
+          test -r "$CONTROL"
+          ORIGINAL="$(cat "$CONTROL")"
+          case "$ORIGINAL" in
+            0|1) ;;
+            *) echo "Unexpected AppArmor userns control value" >&2; exit 1 ;;
+          esac
+
+          restore_userns_control() {
+            STATUS=$?
+            trap - EXIT
+            if ! sudo sysctl -q -w \
+              "kernel.apparmor_restrict_unprivileged_userns=$ORIGINAL"; then
+              STATUS=1
+            elif [ "$(cat "$CONTROL")" != "$ORIGINAL" ]; then
+              STATUS=1
+            fi
+            exit "$STATUS"
+          }
+          trap restore_userns_control EXIT
+
+          sudo sysctl -q -w kernel.apparmor_restrict_unprivileged_userns=0
+          test "$(cat "$CONTROL")" = "0"
+
+          python -m pytest
