@@ -32,6 +32,7 @@ from omiv.runtime_compatibility.controlled_models import (
     build_controlled_invocation,
     controlled_image_completion_request_bytes,
     derive_controlled_runtime_version,
+    is_json_media_type,
     require_version_commit_binding,
 )
 from omiv.runtime_compatibility.controlled_operations import _http_exchange
@@ -2848,3 +2849,114 @@ def test_pidns_liveness_filter_excludes_unrelated_same_inode_processes() -> None
     finally:
         child.terminate()
         child.wait(timeout=5)
+
+
+# --- R12: parameterized JSON media types -------------------------------------
+#
+# Real llama.cpp answers every controlled endpoint with
+# "Content-Type: application/json; charset=utf-8".  A6 Attempt 4 proved that a
+# raw equality comparison against "application/json" refuses such a response:
+# /health returned HTTP 200 {"status":"ok"} repeatedly and readiness was still
+# denied.  RFC 9110 permits media-type parameters, so only the type/subtype is
+# compared.  The synthetic fixture emits a BARE media type, which is exactly
+# why the pre-R12 suite could not observe this class.
+
+
+@pytest.mark.parametrize(
+    "value",
+    [
+        "application/json",
+        "application/json; charset=utf-8",
+        "application/json;charset=utf-8",
+        "application/json ; charset=utf-8",
+        "Application/JSON; charset=UTF-8",
+        'application/json; charset="utf-8"',
+        "  application/json  ",
+        "application/json; charset=utf-8; boundary=x",
+    ],
+)
+def test_json_media_type_accepts_parameterized_and_cased_forms(value: str) -> None:
+    assert is_json_media_type(value) is True
+
+
+@pytest.mark.parametrize(
+    "value",
+    [
+        None,
+        "",
+        "   ",
+        "text/plain",
+        "text/html",
+        "text/json",
+        "application/xml",
+        "application/octet-stream",
+        "application/javascript",
+        "application/jsonp",
+        "application/json-seq",
+        "application/vnd.api+json",
+        "application/jsonrequest",
+        "json",
+        "application / json",
+        "application/json extra",
+        "xapplication/json",
+        "application/json, text/plain",
+    ],
+)
+def test_json_media_type_rejects_non_json_and_lookalikes(value: str | None) -> None:
+    # Guards against a permissive startswith()-style rule: "application/jsonp"
+    # and "application/json-seq" share the accepted prefix but are other media
+    # types, and a missing or malformed header must stay fail-closed.
+    assert is_json_media_type(value) is False
+
+
+def test_llama_cpp_style_charset_header_passes_the_whole_controlled_runtime(
+    tmp_path: Path,
+) -> None:
+    # End-to-end regression through the ACTUAL decision path: readiness,
+    # tokenize and completion all flow through the one header site in the
+    # synthetic server, so emitting the llama.cpp form exercises every stage.
+    # Pre-R12 this run failed with "controlled server readiness deadline
+    # expired" because readiness never accepted the parameterized type.
+    request = _isolated_request(
+        tmp_path,
+        (
+            'self.send_header("Content-Type", "application/json")',
+            'self.send_header("Content-Type", "application/json; charset=utf-8")',
+        ),
+    )
+    evidence = execute_plan(build_plan(request, tmp_path), tmp_path)
+
+    assert evidence.status.value == "VERIFIED_WITHIN_PROFILE"
+    assert [stage.status.value for stage in evidence.stages] == ["PASS"] * len(evidence.stages)
+    assert evidence.probes and all(item.predicate_matched for item in evidence.probes)
+    # The parameterized value is retained verbatim as evidence, not normalized
+    # away, so the forensic record still shows what the runtime actually sent.
+    for server in evidence.servers:
+        assert server.readiness is not None
+        assert server.readiness.response_content_type == "application/json; charset=utf-8"
+    for observation in evidence.probes:
+        assert observation.tokenize.response_content_type == "application/json; charset=utf-8"
+        assert observation.completion.response_content_type == "application/json; charset=utf-8"
+
+    # The offline verifier must accept the same bytes; before R12 the online
+    # and offline paths would have disagreed about the identical evidence.
+    path = tmp_path / "charset-evidence.json"
+    write_evidence(evidence, path)
+    assert load_evidence(path).status.value == "VERIFIED_WITHIN_PROFILE"
+
+
+def test_non_json_media_type_still_fails_the_controlled_runtime(tmp_path: Path) -> None:
+    # Negative control: R12 widened the accepted media-type spelling, not the
+    # set of accepted media types.
+    request = _isolated_request(
+        tmp_path,
+        (
+            'self.send_header("Content-Type", "application/json")',
+            'self.send_header("Content-Type", "text/plain; charset=utf-8")',
+        ),
+    )
+    # Matched precisely: a bare OmivInputError would also be raised by an
+    # unrelated environment fault, which would let this control pass while
+    # proving nothing about media-type handling.
+    with pytest.raises(OmivInputError, match="controlled server readiness deadline expired"):
+        execute_plan(build_plan(request, tmp_path), tmp_path)

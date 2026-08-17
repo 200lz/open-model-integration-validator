@@ -54,6 +54,7 @@ from omiv.runtime_compatibility.controlled_models import (
     controlled_decode_complete,
     controlled_image_completion_request_bytes,
     derive_controlled_runtime_version,
+    is_json_media_type,
     validate_observation,
 )
 from omiv.runtime_compatibility.external_operations import _reject_sensitive_text
@@ -709,7 +710,7 @@ def _parse_observation(
     completion_value: dict[str, Any],
 ) -> ProbeObservation:
     maximum = request.limits.max_response_bytes
-    if tokenize.status_code != 200 or tokenize.response_content_type != "application/json":
+    if tokenize.status_code != 200 or not is_json_media_type(tokenize.response_content_type):
         raise OmivInputError("tokenize response status or content type is unsupported")
     if set(token_value) != {"tokens"} or not isinstance(token_value["tokens"], list):
         raise OmivInputError("tokenize response has an unknown or malformed schema")
@@ -720,7 +721,7 @@ def _parse_observation(
         or any(type(item) is not int or item < 0 or item > 2**31 - 1 for item in tokens)
     ):
         raise OmivInputError("tokenize response contains an empty, invalid, or oversized array")
-    if completion.status_code != 200 or completion.response_content_type != "application/json":
+    if completion.status_code != 200 or not is_json_media_type(completion.response_content_type):
         raise OmivInputError("completion response status or content type is unsupported")
     required = {
         "content",
@@ -1049,7 +1050,7 @@ def _start_server_configuration(
                 )
                 if (
                     candidate.status_code == 200
-                    and candidate.response_content_type == "application/json"
+                    and is_json_media_type(candidate.response_content_type)
                     and value == {"status": "ok"}
                 ):
                     return_code, _stdout_overflow, _stderr_overflow = process.status()

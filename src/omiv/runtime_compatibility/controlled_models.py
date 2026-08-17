@@ -78,6 +78,26 @@ CONTROLLED_BINDING_ISSUES = frozenset(
 )
 _PORT_TOKEN_RE = re.compile(r"(?<![A-Za-z0-9])([1-9][0-9]{3,4})(?![A-Za-z0-9])")
 _HEX_RUN_RE = re.compile(r"[0-9a-f]+")
+_JSON_MEDIA_TYPE = "application/json"
+
+
+def is_json_media_type(value: str | None) -> bool:
+    """Report whether a response ``Content-Type`` names the JSON media type.
+
+    RFC 9110 allows a media type to carry parameters, and real llama.cpp
+    servers answer with ``application/json; charset=utf-8``.  Only the
+    type/subtype is therefore compared, case-insensitively and ignoring
+    surrounding whitespace.  Everything else stays rejected, including a
+    missing or empty header, a different media type, and lookalikes such as
+    ``application/jsonp`` or ``text/json``; structured suffixes like
+    ``application/vnd.x+json`` are deliberately not accepted because this
+    profile pins one exact media type.  Any value whose type/subtype does not
+    compare equal is refused, so the profile remains fail-closed.
+    """
+    if not value:
+        return False
+    base, _separator, _parameters = value.partition(";")
+    return base.strip().lower() == _JSON_MEDIA_TYPE
 
 
 def reject_possible_selected_port(value: str) -> None:
@@ -794,11 +814,11 @@ def validate_observation(
         observation.tokenize.method != "POST"
         or observation.tokenize.endpoint != "/tokenize"
         or observation.tokenize.status_code != 200
-        or observation.tokenize.response_content_type != "application/json"
+        or not is_json_media_type(observation.tokenize.response_content_type)
         or observation.completion.method != "POST"
         or observation.completion.endpoint != "/completion"
         or observation.completion.status_code != 200
-        or observation.completion.response_content_type != "application/json"
+        or not is_json_media_type(observation.completion.response_content_type)
     ):
         raise ValueError("probe loopback method, endpoint, status, or content type is invalid")
     tokenize_request = _request_json(observation.tokenize, request_limit, node_limit)
@@ -1090,7 +1110,7 @@ class ControlledEvidence(StrictModel):
                 server.readiness.method == "GET"
                 and server.readiness.endpoint == "/health"
                 and server.readiness.status_code == 200
-                and server.readiness.response_content_type == "application/json"
+                and is_json_media_type(server.readiness.response_content_type)
                 and ready_value == {"status": "ok"}
                 and server.process.alive_at_ready
             )
