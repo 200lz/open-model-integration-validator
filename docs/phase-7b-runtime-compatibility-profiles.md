@@ -6,6 +6,274 @@ Phase 7 scope is not frozen. This document describes a minimal Phase 7B.1 harden
 slice under active development; it is not a Phase 7, Phase 7B, or Phase 7B.1 release,
 finalized scope, certification, or general runtime-compatibility claim.
 
+## Phase 7B.3 candidate: controlled llama.cpp server profile
+
+Phase 7B.3 adds the separately versioned profile
+`omiv.runtime-compatibility-profile.llama-cpp-controlled-server.v1`. It does not
+change the v1 native-output request, plan, or evidence schemas, and it cannot be
+constructed through the Phase 7B.2 external importer. Phase 7 remains unfrozen.
+
+The synthetic, standard-library-only walkthrough is:
+
+```console
+omiv runtime-compat plan \
+  --request examples/runtime-compatibility/controlled-request.json \
+  --root . --output controlled-plan.json
+omiv runtime-compat run \
+  --plan controlled-plan.json \
+  --root . --output controlled-evidence.json
+omiv runtime-compat verify --evidence controlled-evidence.json
+```
+
+All three commands exit `0` for that fixture. `verify` parses only the saved object:
+it starts no process, opens no payload, and makes no connection. A coherent result
+that does not reach `VERIFIED_WITHIN_PROFILE` exits `1`; malformed, unsupported, or
+internally incoherent control/evidence exits `2`, with atomic output preventing a
+partial final object.
+
+### Controlled process and protocol boundary
+
+The request names every local payload, its role, exact byte size, and SHA-256, plus
+one caller-supplied executable path, digest, exact version output, and commit. OMIV
+does not search `PATH`, discover or download models, choose a runtime, build,
+convert, quantize, or select hardware. A ready plan requires every byte and the
+executable mode to match. Before execution, every input is opened component-by-component
+without following links, copied under its declared byte limit into a private sealed
+read-only descriptor, re-verified, and passed to the child through `/proc/self/fd`.
+The executable and all MAIN, PROJECTOR, DFLASH, and IMAGE opens therefore consume the
+sealed pinned snapshots even if a pathname is replaced and restored between re-hashes.
+Platforms without sealed descriptor-backed execution fail closed. Pathname re-hashes
+remain lifecycle mutation detectors. Its canonical invocation uses an argument array,
+`shell=False`, closed stdin, a fresh empty work directory, a new session, an enforced
+child file-size limit, absolute monotonic HTTP deadlines, bounded streams, and a minimal
+environment. Before each version or server leader starts, OMIV creates a dedicated Linux
+subreaper supervisor and a unique user (when available), PID, and mount namespace. A trusted
+bootstrap creates the namespaces, becomes its outer reaper, and forks the gate-held namespace
+init. Inside that init, before the runtime is released, OMIV recursively makes mount
+propagation private (`MS_REC | MS_PRIVATE`) and then mounts a fresh procfs representing the new
+PID namespace; the order is load-bearing so nothing can propagate back to the host/supervisor
+mount namespace (this also covers the privileged no-userns fallback, whose unshared mount
+namespace would otherwise inherit shared propagation). The init verifies the fresh procfs is
+its own by requiring `/proc/self/stat` to report PID 1 — a stale outer procfs would report the
+outer PID — and any namespace, propagation, mount, or verification failure raises before the
+gate is read, so the runtime is never released with a stale `/proc` view. A stale outer
+`/proc` both leaks outer process identities into the contained runtime and, on GPU stacks,
+breaks CUDA/UVM initialization. The supervisor stays outside every contained namespace and
+retains two duplicate pidfds for that init before release; its own `/proc`-based descendant
+enumeration is unaffected because it never enters the child mount namespace. Linux guarantees that death of namespace PID 1
+SIGKILLs every remaining namespace member, so pidfd readability is the kernel-owned whole-tree
+empty proof and requires no post-launch `/proc` lookup. Before announcing readiness, the
+supervisor behaviorally exercises this exact path with a `setsid` and double-fork tree while
+descendant enumeration is forced to fail, verifies whole-tree termination, reaps every child
+waitable by the supervisor, and reaches bounded collector EOF. Only then may the same gated
+construction release version or server bytes. Diagnostic `/proc` discovery and direct pidfds
+already acquired for owned children may enrich observations, but neither is a prerequisite for
+normal or emergency whole-tree signaling. Failures close an unreleased gate or use the retained
+emergency pidfd, prove namespace-init death, reap the outer bootstrap, and drain both streams.
+Linux systems that cannot create and behaviorally prove a mapped or privileged PID namespace,
+or that lack pidfd signaling, fail closed before runtime release; there is no `/proc`, process
+group, pathname, process-name, or user-wide fallback. Namespace paths, PIDs, and descriptors are
+never serialized.
+
+Containment control metadata uses strict duplicate-rejecting length-delimited JSON under
+an independent 528 KiB bound (512 KiB launch payload plus 16 KiB fixed metadata). Stdout
+and stderr never enter that control frame: typed binary channels independently carry at
+most the request schema's 16 MiB stdout and 4 MiB stderr maxima. Each channel frame has a
+fixed magic, phase, stream kind, and 64-bit declared length validated before allocation;
+the receiver requires the exact declared bytes and final EOF and rejects truncation,
+extra data, duplicate phases, reordering, or metadata/digest/count disagreement. Portable
+process evidence retains captured bounds and digests together with exact observed byte
+counts, overflow/completeness, collector EOF, atomic-gate/protocol identity, exit,
+timeout, termination, reaping, and empty-tree cleanup semantics. Temporary channel and
+descriptor identities are never serialized.
+
+Request, plan, and evidence files have separate derived loader ceilings. Request text charges
+all sixteen 1 MiB expected contents, sixteen 32 KiB prompts, paths and identifiers at a six-byte
+JSON escape worst case plus 8 MiB of canonical-format overhead. A plan adds 24 MiB for bindings,
+argv, environment, digests, and formatting. Evidence then adds exact base64 expansion for three
+process capture pairs (version plus two servers), two readiness responses, sixteen pairs of
+tokenize/completion request and response captures, and sixteen projected-content captures;
+rehash paths, findings, cleanup/work records, and a 32 MiB canonical-format margin are charged
+separately. The resulting finite ceilings are 112,272,128 request bytes, 137,437,952 plan bytes,
+and 716,989,504 evidence bytes. Every loader checks length before allocation, and request or plan
+paths never inherit the larger evidence allowance.
+
+Every untrusted JSON pathname is opened once, atomically, with `O_NOFOLLOW`. A platform
+that lacks that flag, or a kernel that rejects it, fails closed before any open or read;
+the loader never retries with a weaker open. There is no non-following `stat` fallback,
+because a following open after such a check can be raced by replacing the pathname with a
+symlink to the same inode, which a device/inode comparison would still accept. All bounded
+reading is descriptor-based from that single open, in fixed 64 KiB requests, retaining at
+most `limit + 1` bytes, and rejecting size, identity, growth, truncation, or in-place
+mutation observed across the read.
+`HOME` and `TMPDIR`
+are recorded as `{WORK_DIRECTORY}`; proxy variables are absent and `NO_PROXY` is
+fixed to loopback. Temporary host paths and the selected numeric port never enter
+portable evidence.
+
+The request owns an exact backend/device/offload policy. The synthetic fixture binds
+its explicit `SYNTHETIC` device and no offload; the Muse template instead requires
+`CUDA`, device index zero, exact `NVIDIA GeForce RTX 5090` identity, all main and
+DFlash layers offloaded, and projector offload. Those response facts must equal the
+request during execution and offline reconstruction. A CPU, Metal, other-device, or
+synthetic response therefore cannot satisfy the Muse request.
+
+Each server argument array fixes `--host 127.0.0.1`, an OMIV-selected ephemeral port,
+one slot, seed zero, request-bound context, and backend/offload arguments. DFlash-off
+probes run in a server invocation with no speculative arguments. DFlash-on probes run
+in a separately started and reaped invocation containing `--spec-type draft-dflash`
+and `--spec-draft-model` for the pinned DFlash artifact; CUDA additionally pins
+`--spec-draft-ngl all` and `--spec-draft-device CUDA0`. There is no invented
+per-request activation switch. Each invocation has its own `GET /health`, followed by
+`POST /tokenize` and `POST /completion` for its probes. Only direct connections to
+`127.0.0.1` are made. Methods, endpoints, headers, bodies, response content type, and
+strict JSON fields are profile-owned. The request has no URL, port, bind, header,
+credential, proxy, or environment extension point. Duplicate keys, malformed
+UTF-8/JSON, excessive JSON depth/value count, response overflow, unknown fields
+(including `PASS`), unsupported finish conditions, and incoherent counters fail closed.
+
+For an image probe, `/tokenize` receives the exact `[img-0]` prompt form and
+`/completion` uses llama-server's `image_data` array with id zero and canonical
+base64 of the pinned PNG. Request validation proves that the declared IMAGE size,
+canonical base64 expansion, and exact JSON envelope fit `max_request_bytes` before
+execution. Execution incrementally reads only the sealed IMAGE descriptor under the
+declared cumulative bound and checks size/SHA-256 before encoding;
+offline reconstruction decodes the retained request and repeats both checks. A marker,
+path, different image, or response-only claim cannot establish the image probe.
+
+Evidence embeds the complete canonical request through its plan and binds request,
+plan, invocation, exchanges, process records, and extracted projections by canonical
+identities. It records complete bounded request/response and process bytes, portable
+backend/device facts, every probe parameter and predicate result, and re-hashes the
+executable and payloads at `PRE_START`, `POST_READY`, `POST_PROBES`, and
+`POST_SHUTDOWN`. For a two-configuration request, both servers remain live: the
+aggregate `POST_READY` boundary follows readiness from both, `POST_PROBES` follows all
+mandatory probes while both are still live, and `POST_SHUTDOWN` follows complete
+shutdown of both contained descendant trees. Offline validation re-parses each raw request and
+response under the execution byte and JSON-node caps, binds every capture limit,
+recreates each typed projection and stage, and checks every boundary and process state
+against the plan. Every controller-owned descendant tree is confirmed empty, waitable
+children are reaped, and both stream collectors must reach bounded EOF before the definitive bounded
+work-directory inspection; only then is the directory removed and cleanup recorded.
+Files created by shutdown handlers therefore remain visible to the verdict. Recomputing an
+outer digest cannot legitimize an incoherent mutation. Any unexpected work object,
+overflow, timeout, premature exit, failed cleanup, blocking finding, unknown stage,
+or incomplete probe prevents verification.
+
+The stage meanings are deliberately narrower and stronger than the black-box Phase
+7B.1 and reviewed-capture Phase 7B.2 meanings:
+
+| Stage | Controlled derivation |
+| --- | --- |
+| LOAD | Pinned executable and payload bytes are sealed into the exact descriptor-backed bytes used by the child; the exact argv starts; the process stays alive; strict private-loopback health succeeds; and pathname pins match after readiness. |
+| TOKENIZER | Every exact text prompt or image-marker prompt tokenize request returns a non-empty bounded array of valid integer tokens. Runtime or caller `PASS` fields are never consulted. |
+| PREFILL | Every exact probe completes with a positive prompt-token count equal to its tokenize-array length. |
+| DECODE | Every exact probe completes with positive bounded predicted tokens, `stop` or `length`, complete bytes, and no blocking execution/work condition. |
+| OUTPUT | OMIV's closed `EXACT_UTF8` predicate compares extracted response content with request-bound expected content. It makes no semantic or numerical claim. |
+
+`VERIFIED_WITHIN_PROFILE` requires every binding and re-hash boundary, all five
+stages, every mandatory probe, bounded complete process/protocol observations,
+nonblocking findings only, process termination, an empty work boundary, and verified
+cleanup. Concise output prominently prints `WITHIN_PROFILE`. The recognized
+tokenizer EOT/EOG warning is retained as typed `TOKENIZER_EOT_EOG_WARNING`; it is
+nonfatal because this probe neither establishes nor refutes tokenizer/config parity.
+
+Every retained version stream, server stream, and HTTP body is screened during
+execution and again offline under `omiv.external-runtime-privacy.v1`. The execution
+screen additionally rejects the actual root, work path, and selected port; offline
+validation rejects general absolute paths and credentials plus any plausible
+standalone ephemeral-port token in process streams. Request executable/artifact paths,
+probe identifiers, retained work paths, and every other serialized free-text/path
+surface are subject to the same policy or a stricter profile-owned literal. The exact
+limitation list and trust statement are canonical, so a rehashed evidence document
+cannot remove nonclaims or assert performance or production readiness. The privacy
+boundary is canonical evidence. Plan binding issues use only a finite profile-owned
+safe vocabulary that is checked during creation and offline reconstruction; raw
+exceptions and host paths are never serialized. Unsafe CLI failures use a fixed
+diagnostic and never reflect `OSError` text. This remains a bounded pattern policy,
+not exhaustive secret detection or DLP.
+
+### Muse Glimmer future closure fixture
+
+`examples/runtime-compatibility/muse-glimmer-controlled-request.json` is a no-payload,
+intentionally blocked RTX 5090 closure template. It deterministically binds the
+existing `fixtures/reference-preflight/muse-glimmer-30b.json` instead of copying its
+provider revision and support ancestry. The request binds the three runtime payload
+filenames, exact sizes and SHA-256 values; the fixed 4,246-byte PNG and SHA-256;
+llama.cpp `b10353` commit `f8def7fe168bab245fbf15d3f18b26dbb1ef73c8`; the exact
+CUDA/RTX 5090/offload requirements above; one device/slot; seed and temperature zero;
+bounded context/output; and this order:
+
+1. text without DFlash;
+2. fixed PNG/projector without DFlash;
+3. text with DFlash; and
+4. fixed PNG/projector with DFlash.
+
+DFlash probes require the separate canonical invocation, `draft-dflash`
+implementation, exact pinned draft digest, request-bound offload fact, a typed active
+fact, positive generated draft tokens, and accepted tokens no greater than generated
+draft tokens. Comparisons use extracted
+content, never banners, logs, timings, or whole stdout, and make no speed or quality
+claim. The template deliberately has a `null` executable digest. It cannot be ready
+until an operator supplies the locally built executable's observed SHA-256. The
+`expected_runtime_version` pin carries the exact bytes a real llama.cpp b10353
+build reports (captured under bounded observation on the pinned RTX 5090 profile):
+`version: 10353 (f8def7fe1)` and its build line. Placeholder expected contents must
+also be replaced with reviewed deterministic predicates. OMIV performs none of
+those future operational actions here.
+
+The runtime version is projected from exactly one non-empty version stream. Real
+runtimes disagree about which stream carries `--version` text — llama.cpp reports
+on stderr while the synthetic fixture reports on stdout — so the controller accepts
+non-empty stdout with empty stderr, or empty stdout with non-empty stderr, and
+fails closed when both streams are non-empty, both are empty, a capture overflows,
+decoding fails, or the process is incomplete. The selected stripped text must
+exactly equal the pin, and offline verification re-derives the same projection from
+the retained captures. The pin must report exactly one lowercase hexadecimal run of
+at least seven characters, and that run must be an exact prefix of the full pinned
+`runtime_commit`; mismatched, too-short, and ambiguous reports fail closed. A
+self-reported commit abbreviation binds the version text to the requested commit
+identity — it is NOT proof that the executable was built from that source revision.
+The executable SHA-256 remains the exact binary identity, and no source-to-binary
+provenance claim is made. Because the version process completes before any server
+port is selected, version text and the version pin are exempt from the generic
+possible-port heuristic (a build number such as `10353` is version data there);
+every credential, path, endpoint, and control-character check still applies to
+each version line, and server, HTTP, and probe sources keep full port protection.
+
+The executable SHA-256 covers project runtime logic only when the launcher does not
+dynamically load project-owned shared objects. A `b10353` build splits the server and
+CUDA backend into `libllama*`, `libggml*`, and `libmtmd*` shared libraries, so a thin
+launcher's hash would not cover them. The Muse profile therefore requires a
+project-static llama.cpp build, and OMIV rejects any launcher whose dynamic
+dependencies include a project-private component (`require_static_project_runtime`),
+retaining bounded linkage evidence. Even then the executable hash never covers the
+system CUDA runtime, driver, or toolkit: those are recorded separately as driver and
+toolkit facts and remain an explicit, stated trust boundary, not part of the canonical
+binary identity.
+
+Because the containment isolates `/proc` (see above), CUDA/UVM initialization must be
+verified inside the exact final containment. A real GPU host runs a CUDA-init probe
+through that identical containment (`run_controlled_probe`) before downloading model
+bytes and requires a real GPU identity marker in the probe output
+(`evaluate_cuda_preflight`); a clean exit alone never satisfies the gate, so a
+GPU-less, synthetic substitute — which CI uses to verify only the containment
+mechanics — can never be upgraded into a CUDA-compatibility claim. Every A6 raw
+capture (containment/CUDA preflight, build, linkage inspection, downloads, version
+execution, and diagnostics) is retained alongside a manifest binding argv, exit,
+timeout/overflow state, byte count, and SHA-256, and passes through capture redaction
+so presigned-URL secrets and host home paths never enter portable canonical evidence.
+
+Even success means only, for example, “Muse Glimmer runtime verified by OMIV within
+the pinned llama.cpp/CUDA profile.” It never establishes source-to-GGUF binding;
+publisher, signer, or origin authenticity; binding among main/projector/drafter;
+numerical quantization or semantic fidelity; safety, performance, production
+readiness, or cross-hardware generalization; Ollama compatibility; source
+tokenizer/config parity; or protection against a malicious pinned executable. The
+profile explicitly trusts the pinned executable's documented API and cannot prove
+particular weights mathematically caused an output. The unqualified phrase is not a
+canonical verdict.
+
 The first profile is a local llama.cpp-compatible runner workflow. The core command
 and evidence names are provider-neutral. A result applies only to one pinned artifact,
 one explicitly supplied executable digest and version, one profile and command, one

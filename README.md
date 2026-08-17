@@ -157,6 +157,15 @@ separately: a matched text or fixed PNG predicate is `OBSERVED`, never `PASS`. I
 privacy screen covers a bounded set of established path and credential signatures; it
 is not exhaustive secret detection or DLP, so callers must sanitize capture inputs and
 use a secret-free evidence directory.
+The Phase 7B.3 candidate adds a separately versioned, OMIV-controlled llama.cpp
+loopback-server profile. It pins every local payload and executable, owns the exact
+backend/device/offload policy and strict protocol sequence, separates DFlash-off/on
+server invocations, transports the pinned image bytes, re-hashes at four boundaries,
+and can emit only
+the scoped `VERIFIED_WITHIN_PROFILE` verdict when all five typed stages and mandatory
+probes pass. Its tracked execution is synthetic and offline except for private
+loopback; the Muse fixture is a no-payload blocked future closure plan, not a runtime
+claim. Phase 7 remains unfrozen.
 See the [roadmap](docs/roadmap.md).
 
 ### Reading results

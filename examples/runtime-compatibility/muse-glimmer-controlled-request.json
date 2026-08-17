@@ -1,0 +1,93 @@
+{
+  "artifacts": [
+    {
+      "path": "payloads/Muse-Glimmer-30B-KQuant-17GB-Q4_K_M.gguf",
+      "role": "MAIN",
+      "sha256": "4cc57c0f51040a226e5a72cc47b7613f7772950e460a665f7083de89f183f60e",
+      "size": 16756683904
+    },
+    {
+      "path": "payloads/mmproj-Muse-Glimmer-30B-Q4_K_M.gguf",
+      "role": "PROJECTOR",
+      "sha256": "f48b452316f9b213758e8659444029b961a24a07f99a1abb2a9f88b06f7c00c6",
+      "size": 1400328928
+    },
+    {
+      "path": "payloads/dflash-Muse-Glimmer-30B-Q4_K_M.gguf",
+      "role": "DFLASH",
+      "sha256": "b2e808bf656086fe86bd0d0bd990f01d33e377537a07c02d45371517c8b264ef",
+      "size": 1631208128
+    },
+    {
+      "path": "examples/reference-preflight/probes/red-square.png",
+      "role": "IMAGE",
+      "sha256": "53bf31df09c932233812a2c7b61c89a0ecbbaee90ab63f36058099e5d008e852",
+      "size": 4246
+    },
+    {
+      "path": "fixtures/reference-preflight/muse-glimmer-30b.json",
+      "role": "REFERENCE",
+      "sha256": "ddd819129fe2fb03a00928f6ac4b7caf077d3d89b97762ab6952dd24b56e32d2",
+      "size": 20451
+    }
+  ],
+  "backend_requirement": {
+    "backend": "CUDA",
+    "device_count": 1,
+    "device_index": 0,
+    "device_name": "NVIDIA GeForce RTX 5090",
+    "dflash_gpu_layers": "ALL",
+    "main_model_gpu_layers": "ALL",
+    "projector_offloaded": true
+  },
+  "executable_path": "bin/llama-server",
+  "executable_sha256": null,
+  "expected_runtime_version": "version: 10353 (f8def7fe1)\nbuilt with GNU 11.4.0 for Linux x86_64",
+  "limits": {
+    "max_artifact_bytes": 20000000000
+  },
+  "probes": [
+    {
+      "context_size": 4096,
+      "expected_content": "OPERATOR_REVIEWED_TEXT_WITHOUT_DFLASH_CONTENT_REQUIRED",
+      "max_generated_tokens": 32,
+      "modality": "TEXT",
+      "probe_id": "muse-text-without-dflash",
+      "prompt": "Respond with exactly: glimmer",
+      "use_dflash": false
+    },
+    {
+      "context_size": 4096,
+      "expected_content": "OPERATOR_REVIEWED_IMAGE_WITHOUT_DFLASH_CONTENT_REQUIRED",
+      "image_role": "IMAGE",
+      "max_generated_tokens": 32,
+      "modality": "IMAGE",
+      "probe_id": "muse-image-without-dflash",
+      "prompt": "Describe the dominant shape and color briefly.",
+      "use_dflash": false
+    },
+    {
+      "context_size": 4096,
+      "expected_content": "OPERATOR_REVIEWED_TEXT_WITH_DFLASH_CONTENT_REQUIRED",
+      "max_generated_tokens": 32,
+      "modality": "TEXT",
+      "probe_id": "muse-text-with-dflash",
+      "prompt": "Respond with exactly: glimmer",
+      "use_dflash": true
+    },
+    {
+      "context_size": 4096,
+      "expected_content": "OPERATOR_REVIEWED_IMAGE_WITH_DFLASH_CONTENT_REQUIRED",
+      "image_role": "IMAGE",
+      "max_generated_tokens": 32,
+      "modality": "IMAGE",
+      "probe_id": "muse-image-with-dflash",
+      "prompt": "Describe the dominant shape and color briefly.",
+      "use_dflash": true
+    }
+  ],
+  "profile_id": "omiv.runtime-compatibility-profile.llama-cpp-controlled-server.v1",
+  "request_id": "muse-glimmer-rtx5090-future-controlled-closure",
+  "runtime_commit": "f8def7fe168bab245fbf15d3f18b26dbb1ef73c8",
+  "schema": "omiv.controlled-runtime-compatibility-request.v1"
+}

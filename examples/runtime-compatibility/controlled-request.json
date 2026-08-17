@@ -1,0 +1,108 @@
+{
+    "artifacts": [
+        {
+            "path": "examples/runtime-compatibility/synthetic-main.gguf.fixture",
+            "role": "MAIN",
+            "sha256": "138be1506f65515aeb8e741c14dacf6bf968da4b4b73b4808e662915a980ce78",
+            "size": 44
+        },
+        {
+            "path": "examples/runtime-compatibility/synthetic-projector.gguf.fixture",
+            "role": "PROJECTOR",
+            "sha256": "42ca3d50bb810ab52884eaa7e35ccc5fc387db64e00d3d8a53b8f91d982cc4c2",
+            "size": 49
+        },
+        {
+            "path": "examples/runtime-compatibility/synthetic-dflash.gguf.fixture",
+            "role": "DFLASH",
+            "sha256": "71206bddcfb1317c60ded431975c8c913f03bb1561f127ab8652576211c4cf8a",
+            "size": 46
+        },
+        {
+            "path": "examples/reference-preflight/probes/red-square.png",
+            "role": "IMAGE",
+            "sha256": "53bf31df09c932233812a2c7b61c89a0ecbbaee90ab63f36058099e5d008e852",
+            "size": 4246
+        }
+    ],
+    "backend_requirement": {
+        "backend": "SYNTHETIC",
+        "device_count": 1,
+        "device_index": 0,
+        "device_name": "OMIV synthetic controlled device",
+        "dflash_gpu_layers": "NONE",
+        "main_model_gpu_layers": "NONE",
+        "projector_offloaded": false
+    },
+    "executable_path": "examples/runtime-compatibility/synthetic-controlled-server.py",
+    "executable_sha256": "adb694670243fdc7d9d5fbd868f6ebc5340829e3416dd859a06d72b4edb4bcf7",
+    "expected_runtime_version": "llama.cpp synthetic-controlled-server b10353 f8def7fe168bab245fbf15d3f18b26dbb1ef73c8",
+    "limits": {
+        "max_artifact_bytes": 8192,
+        "max_executable_bytes": 65536,
+        "max_json_tokens": 1024,
+        "max_request_bytes": 16384,
+        "max_response_bytes": 16384,
+        "max_stderr_bytes": 4096,
+        "max_stdout_bytes": 4096,
+        "max_work_entries": 0,
+        "max_work_file_bytes": 1024,
+        "max_work_total_bytes": 1024,
+        "probe_timeout_seconds": 2,
+        "shutdown_timeout_seconds": 2,
+        "startup_timeout_seconds": 3,
+        "version_timeout_seconds": 2
+    },
+    "probes": [
+        {
+            "context_size": 2048,
+            "expected_content": "alpha",
+            "max_generated_tokens": 8,
+            "modality": "TEXT",
+            "probe_id": "text-without-dflash",
+            "prompt": "Return exactly alpha.",
+            "seed": 0,
+            "temperature": 0,
+            "use_dflash": false
+        },
+        {
+            "context_size": 2048,
+            "expected_content": "red-square",
+            "image_role": "IMAGE",
+            "max_generated_tokens": 8,
+            "modality": "IMAGE",
+            "probe_id": "image-without-dflash",
+            "prompt": "Describe the fixed image using one word.",
+            "seed": 0,
+            "temperature": 0,
+            "use_dflash": false
+        },
+        {
+            "context_size": 2048,
+            "expected_content": "alpha",
+            "max_generated_tokens": 8,
+            "modality": "TEXT",
+            "probe_id": "text-with-dflash",
+            "prompt": "Return exactly alpha.",
+            "seed": 0,
+            "temperature": 0,
+            "use_dflash": true
+        },
+        {
+            "context_size": 2048,
+            "expected_content": "red-square",
+            "image_role": "IMAGE",
+            "max_generated_tokens": 8,
+            "modality": "IMAGE",
+            "probe_id": "image-with-dflash",
+            "prompt": "Describe the fixed image using one word.",
+            "seed": 0,
+            "temperature": 0,
+            "use_dflash": true
+        }
+    ],
+    "profile_id": "omiv.runtime-compatibility-profile.llama-cpp-controlled-server.v1",
+    "request_id": "phase7b3-synthetic-controlled-four-probe",
+    "runtime_commit": "f8def7fe168bab245fbf15d3f18b26dbb1ef73c8",
+    "schema": "omiv.controlled-runtime-compatibility-request.v1"
+}

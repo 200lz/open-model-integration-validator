@@ -136,6 +136,12 @@ public results. See the [public/commercial boundary](public-commercial-boundary.
   privacy screen is a bounded inventory of established credential and path signatures,
   not an exhaustive secret detector or DLP system; capture inputs still require caller
   sanitization and a secret-free evidence directory.
+  Phase 7B.3 adds separate controlled request, plan, and evidence schemas. Its
+  controller owns separate DFlash-off/on invocations of one pinned llama.cpp
+  executable and a fixed `127.0.0.1` protocol, retains bounded raw exchanges, and
+  reconstructs typed stages fully offline. This is the only Phase 7B path that can derive
+  `VERIFIED_WITHIN_PROFILE`; imported external observations can never be upgraded to
+  that verdict.
 - `schemas/` and phase-specific directories contain portable evidence and examples.
 - `docs/phase-*.md` describe released engineering phases and their limits.
 - `tools/audit_*.py` perform bounded offline repository and preservation audits.

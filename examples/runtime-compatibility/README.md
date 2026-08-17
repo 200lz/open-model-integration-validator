@@ -26,3 +26,22 @@ internals. Consequently `run` and `verify` write/validate coherent evidence but 
 `1` with `NOT_VERIFIED`; this is the expected conservative result. Operators must
 explicitly supply and trust any real executable. No binary is discovered from
 `PATH`, and an unmodified real llama.cpp binary is not exercised by this example.
+
+`controlled-request.json` exercises the Phase 7B.3 controlled loopback-server
+profile with four deterministic text/image and DFlash-off/on probes. The executable
+uses only Python's standard library and binds only the controller-selected
+`127.0.0.1` port. It uses separate DFlash-off/on processes, embeds and digest-checks
+the pinned PNG in llama-server `image_data`, and reports an explicitly request-bound
+synthetic backend with no GPU offload. The three `.gguf.fixture` files are tiny text,
+not models.
+
+`muse-glimmer-controlled-request.json` contains no model payload or executable. It
+is intentionally blocked until an operator supplies the exact locally observed
+llama-server SHA-256 and reviewed exact expected contents. Its
+`expected_runtime_version` pin is the exact two-line text a real llama.cpp b10353
+build reports on stderr; the version may arrive on exactly one of stdout or
+stderr, the reported short commit `f8def7fe1` binds only as an exact prefix of the
+full pinned commit, and that self-reported abbreviation is not proof the binary
+was built from that source revision — the executable SHA-256 remains the binary
+identity. It references the existing canonical Muse reference fixture and must not
+be described as executed evidence.

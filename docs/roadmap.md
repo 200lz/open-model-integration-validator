@@ -31,6 +31,12 @@ CPU-only native invocation, raw observations with unobservable internal stages k
 incubation evidence rather than a frozen scope, release, or general compatibility
 claim. See the [candidate guide](phase-7b-runtime-compatibility-profiles.md).
 
+Phase 7B.3 adds an unfrozen controlled-server candidate beside those unchanged
+paths: exact executable/payload pins, an OMIV-owned loopback protocol, typed stage
+derivation, and the narrowly scoped `VERIFIED_WITHIN_PROFILE` result. Its Muse
+template remains blocked until a local executable digest/version and reviewed exact
+content predicates are supplied; no release or general certification is claimed.
+
 ## Release Track
 
 | Milestone | Status |
